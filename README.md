@@ -19,6 +19,8 @@ El proyecto busca ayudar al finquero a comparar secuencias de cultivos en una mi
 
 | Documento | Contenido |
 |---|---|
+| [Brief](proyecto/Brief.md) · [Brief 2](proyecto/Brief2.md) | Problemática, evidencia y propuesta de valor. |
+| [Diseño de la app v2](docs/superpowers/specs/2026-11-14-field-shift-web-design.md) | Enfoque, datos, modelo y app. |
 | [Tareas](proyecto/tasks.md) | Tablero de tareas para la entrega, con estatus y responsable. |
 | [Decisiones](proyecto/decisions.md) | Decisiones pendientes, opciones y recomendación. |
 | [Datasets](proyecto/datasets.md) | Datos que usa el proyecto, propósito, estado y enlace de acceso. |
@@ -29,7 +31,8 @@ El proyecto busca ayudar al finquero a comparar secuencias de cultivos en una mi
 | Carpeta | Contenido |
 |---|---|
 | `conocimiento/`, `investigacion/` | Documentación agronómica, de datos NASA y de productores. |
-| `proyecto/` | Tareas, decisiones y catálogo de datasets. |
+| `proyecto/` | Brief, tareas, decisiones y catálogo de datasets. |
+| `docs/` | Documentos de diseño de la app. |
 | `diccionarios/` | Idiomas mayas para la interfaz. |
 | `scripts/` | Descarga de datos: NASA POWER, CHIRPS/IMERG (ClimateSERV), JAXA (GSMaP, AW3D30), SoilGrids, ESA WorldCover y MAGA. |
 | `datos/` | Datos descargados para la parcela piloto provisional, cada uno con su `.meta.json` de procedencia. |

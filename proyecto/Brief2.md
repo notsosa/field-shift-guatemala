@@ -2,7 +2,7 @@
 
 Versión combinada de dos documentos del equipo:
 - El [Brief](Brief.md): problemática, evidencia y propuesta de valor.
-- El [documento de diseño v2](docs/superpowers/specs/2026-11-14-field-shift-web-design.md): enfoque, datos verificados, modelo y app.
+- El [documento de diseño v2](../docs/superpowers/specs/2026-11-14-field-shift-web-design.md): enfoque, datos verificados, modelo y app.
 
 Reto: **Field Shift: Adapting Farms with NASA Data** (NASA Space Apps Challenge 2026 · sede Guatemala). Actualizado el 14 de noviembre de 2026.
 
@@ -19,33 +19,33 @@ El finquero ya sabe producir. Lo que le falta es responder **dos preguntas a la 
 
 Para cada opción hay que separar lo que conviene **aprovechar** de lo que hay que **mitigar**.
 
-> **Caso documentado (octubre de 2026):** en La Plazuela, Chimaltenango, el agricultor Santos Zet perdió su maíz por sequía. Cuando la lluvia regresó tarde, apostó por sembrar frijol y vender una parte ([productores-guatemala.md](investigacion/productores-guatemala.md)). Es el tipo de decisión tardía y riesgosa que la herramienta quiere anticipar.
+> **Caso documentado (octubre de 2026):** en La Plazuela, Chimaltenango, el agricultor Santos Zet perdió su maíz por sequía. Cuando la lluvia regresó tarde, apostó por sembrar frijol y vender una parte ([productores-guatemala.md](../investigacion/productores-guatemala.md)). Es el tipo de decisión tardía y riesgosa que la herramienta quiere anticipar.
 
 ## 2. Dimensiones del problema en Guatemala
 
 ### A. Riesgo hídrico por etapa del cultivo (el promedio de lluvia engaña)
-- El **70 %** de 1,008 productores de maíz y frijol encuestados en oriente y occidente sufrió eventos climáticos adversos en 2023 ([productores-guatemala.md](investigacion/productores-guatemala.md)).
-- En Chiquimula, el **85 %** de los productores que percibían cambios en la lluvia dijo que llovía menos (encuesta de 2014 sobre 2004–2014) ([productores-guatemala.md](investigacion/productores-guatemala.md)).
+- El **70 %** de 1,008 productores de maíz y frijol encuestados en oriente y occidente sufrió eventos climáticos adversos en 2023 ([productores-guatemala.md](../investigacion/productores-guatemala.md)).
+- En Chiquimula, el **85 %** de los productores que percibían cambios en la lluvia dijo que llovía menos (encuesta de 2014 sobre 2004–2014) ([productores-guatemala.md](../investigacion/productores-guatemala.md)).
 - Un acumulado "normal" puede esconder:
   - una **canícula en plena floración o llenado de grano**;
   - aguaceros que **escurren por la ladera** sin llegar a las raíces;
-  - **lluvia en la cosecha** que pudre el frijol ([manual-agroclimatico.md](conocimiento/manual-agroclimatico.md)).
+  - **lluvia en la cosecha** que pudre el frijol ([manual-agroclimatico.md](../conocimiento/manual-agroclimatico.md)).
 
 ### B. Brecha entre datos y decisión
-- En el Corredor Seco (Chiquimula, El Progreso y Zacapa), solo **165 de 330** hogares agrícolas accede a información climática, casi toda de corto plazo y por radio. Apenas **8 de 330** reciben perspectivas estacionales ([productores-guatemala.md](investigacion/productores-guatemala.md)).
+- En el Corredor Seco (Chiquimula, El Progreso y Zacapa), solo **165 de 330** hogares agrícolas accede a información climática, casi toda de corto plazo y por radio. Apenas **8 de 330** reciben perspectivas estacionales ([productores-guatemala.md](../investigacion/productores-guatemala.md)).
 - Existen datos de NASA y canales locales (*Nubis Bot* del INSIVUMEH, *ZARC* del MAGA). Pero una probabilidad de lluvia o un mapa de 9 km no dicen **cuánta agua queda en la zona de raíces** ni **cuánto cambian el riesgo y la ganancia** si se atrasa la siembra, se cambia de variedad o se agrega un cultivo.
 
 ### C. Restricciones económicas, de insumos, de mercado y de tenencia
-- **Inversión y liquidez:** el ICTA encuestó a 351 productores de frijol en 14 departamentos y encontró insumos caros y poca capacidad de inversión ([productores-guatemala.md](investigacion/productores-guatemala.md)).
-- **Costo de oportunidad de las coberturas:** en el ensayo CRIA–ICTA, la mucuna antes del maíz subió el rendimiento de 2,578 a 3,617 kg/ha. A cambio, exigió más jornales y ocupó la tierra 120 días sin vender grano ([manual-agroclimatico.md](conocimiento/manual-agroclimatico.md)).
+- **Inversión y liquidez:** el ICTA encuestó a 351 productores de frijol en 14 departamentos y encontró insumos caros y poca capacidad de inversión ([productores-guatemala.md](../investigacion/productores-guatemala.md)).
+- **Costo de oportunidad de las coberturas:** en el ensayo CRIA–ICTA, la mucuna antes del maíz subió el rendimiento de 2,578 a 3,617 kg/ha. A cambio, exigió más jornales y ocupó la tierra 120 días sin vender grano ([manual-agroclimatico.md](../conocimiento/manual-agroclimatico.md)).
 - **Semilla y mercado:**
   - Las variedades mejoradas (p. ej. *ICTA Grano de Oro*) enfrentan escasez local de semilla.
   - Hay intermediarios.
-  - Las empacadoras hortícolas rechazan entre 30 y 45 % del producto ([productores-guatemala.md](investigacion/productores-guatemala.md)).
-- **Tierra alquilada:** algunas familias evitan mejorar el suelo por temor a que suba la renta ([productores-guatemala.md](investigacion/productores-guatemala.md)).
+  - Las empacadoras hortícolas rechazan entre 30 y 45 % del producto ([productores-guatemala.md](../investigacion/productores-guatemala.md)).
+- **Tierra alquilada:** algunas familias evitan mejorar el suelo por temor a que suba la renta ([productores-guatemala.md](../investigacion/productores-guatemala.md)).
 
 ### D. Café: agua en laderas y floración (fuera del alcance de esta entrega)
-Los cafetaleros entrevistados priorizan el "poder hídrico" y la humedad para la floración ([testimonios-2026-11-11.md](investigacion/testimonios-2026-11-11.md)). Queda como **siguiente módulo** y se menciona en el pitch.
+Los cafetaleros entrevistados priorizan el "poder hídrico" y la humedad para la floración ([testimonios-2026-11-11.md](../investigacion/testimonios-2026-11-11.md)). Queda como **siguiente módulo** y se menciona en el pitch.
 
 ## 3. Qué resuelve Field Shift Guatemala
 
