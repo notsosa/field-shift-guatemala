@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Field Shift Guatemala · AI emulator</title>
+  <meta name="description" content="Two small neural networks (backpropagation MLP and backprop-free ELM) learn the Field Shift FAO-56 crop-water simulator for Guatemala's Dry Corridor.">
+  <meta name="color-scheme" content="light">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+        integrity="sha384-c6Rcwz4e4CITMbu/NBmnNS8yN2sC3cUElMEMfP3vqqKFp7GOYaaBBCqmaWBjmkjb" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/emulator.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
+          integrity="sha384-NElt3Op+9NBMCYaef5HxeJmU4Xeard/Lku8ek6hoPTvYkQPh3zLIrJP7KiRocsxO" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+  <script type="module" src="js/emulatorPage.js"></script>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="topbar">
+        <span class="brand"><svg class="brand-mark" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 21c-4-3-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-3 8-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 17V9m0 3 3-3m-3 5-3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-i18n="brand">Field Shift Guatemala</span></span>
+        <button type="button" id="lang-toggle" class="lang-toggle" aria-label="Cambiar a español" data-i18n="langToggle">Español</button>
+      </div>
+      <div class="hero-grid">
+        <div class="hero-text">
+          <h1 data-i18n="title">An AI that learns our crop-water simulator</h1>
+          <p class="lede" data-i18n="intro"></p>
+          <p class="honesty" role="note">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+            <strong data-i18n="honesty">AI learns our physical model; it does not predict real harvests</strong>
+          </p>
+          <nav class="jump" aria-label="Sections">
+            <a href="#compare" data-i18n="navCompare">MLP vs ELM</a>
+            <a href="#map-section" data-i18n="navMap">Dry Corridor map</a>
+            <a href="#sowing" data-i18n="navSowing">Best sowing date</a>
+          </nav>
+        </div>
+        <div class="hero-stats" id="hero-stats"></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <p id="boot-status" class="boot" role="status">Loading data…</p>
+
+    <section id="compare" class="card" aria-labelledby="compare-title">
+      <h2 id="compare-title" data-i18n="cmpTitle">Two ways to learn the simulator</h2>
+      <p class="section-intro" id="compare-intro"></p>
+      <div class="table-scroll"><table class="cmp-table" id="cmp-table"></table></div>
+      <div class="cmp-notes" id="cmp-notes"></div>
+      <p class="takeaway" data-i18n="cmpTakeaway"></p>
+    </section>
+
+    <section id="map-section" class="card" aria-labelledby="map-title">
+      <h2 id="map-title" data-i18n="mapTitle">Where does each alternative pay off?</h2>
+      <p class="section-intro" id="map-intro"></p>
+      <form class="controls" id="map-controls" onsubmit="return false">
+        <label><span data-i18n="ctlAlternative">Alternative</span><select id="map-alternative"></select></label>
+        <label><span data-i18n="ctlTarget">Show</span>
+          <select id="map-target">
+            <option value="waterIndex" data-i18n="target_waterIndex">Water index</option>
+            <option value="ksFlowerMain" data-i18n="target_ksFlowerMain">Water at maize flowering</option>
+            <option value="bareFrac" data-i18n="target_bareFrac">Bare soil in the rainy season</option>
+          </select></label>
+        <label><span data-i18n="ctlModel">Model</span>
+          <select id="map-model">
+            <option value="mlp" data-i18n="modelMlp">Funnel network (MLP)</option>
+            <option value="elm" data-i18n="modelElm">ELM (trained in your browser)</option>
+          </select></label>
+        <label><span data-i18n="ctlIrrigation">Irrigation</span>
+          <select id="map-irrigation">
+            <option value="none" data-i18n="irr_none">None (rainfed)</option>
+            <option value="limited" data-i18n="irr_limited">Limited</option>
+            <option value="full" data-i18n="irr_full">Full</option>
+          </select></label>
+        <label><span data-i18n="ctlTexture">Soil texture</span>
+          <select id="map-texture">
+            <option value="sand" data-i18n="tex_sand">Sandy</option>
+            <option value="loam" data-i18n="tex_loam" selected>Loam</option>
+            <option value="clay" data-i18n="tex_clay">Clay</option>
+          </select></label>
+        <label><span data-i18n="ctlSlope">Slope</span>
+          <select id="map-slope">
+            <option value="flat" data-i18n="slope_flat">Flat</option>
+            <option value="moderate" data-i18n="slope_moderate" selected>Moderate</option>
+            <option value="steep" data-i18n="slope_steep">Steep</option>
+          </select></label>
+      </form>
+      <div class="map-layout">
+        <div class="map-box">
+          <div id="map" class="map" role="region" aria-label="Dry Corridor map"></div>
+          <p class="map-status" id="map-status" role="status" aria-live="polite"></p>
+        </div>
+        <div class="map-side">
+          <div class="legend" id="map-legend"></div>
+          <p class="map-summary" id="map-summary" aria-live="polite"></p>
+          <p class="map-timing" id="map-timing"></p>
+        </div>
+      </div>
+      <details class="map-details">
+        <summary data-i18n="mapTableToggle">Show as a table</summary>
+        <div class="table-scroll" id="map-table"></div>
+      </details>
+    </section>
+
+    <section id="sowing" class="card" aria-labelledby="sowing-title">
+      <h2 id="sowing-title" data-i18n="sowTitle">Best sowing date</h2>
+      <p class="section-intro" id="sow-intro"></p>
+      <form class="controls" id="sow-controls" onsubmit="return false">
+        <label><span data-i18n="ctlPilot">Pilot site</span><select id="sow-pilot"></select></label>
+        <label><span data-i18n="ctlSequence">Rotation</span><select id="sow-sequence"></select></label>
+        <label><span data-i18n="ctlModel">Model</span>
+          <select id="sow-model">
+            <option value="mlp" data-i18n="modelMlp">Funnel network (MLP)</option>
+            <option value="elm" data-i18n="modelElm">ELM (trained in your browser)</option>
+          </select></label>
+        <label><span data-i18n="ctlIrrigation">Irrigation</span>
+          <select id="sow-irrigation">
+            <option value="none" data-i18n="irr_none">None (rainfed)</option>
+            <option value="limited" data-i18n="irr_limited">Limited</option>
+            <option value="full" data-i18n="irr_full">Full</option>
+          </select></label>
+        <label><span data-i18n="ctlTexture">Soil texture</span>
+          <select id="sow-texture">
+            <option value="sand" data-i18n="tex_sand">Sandy</option>
+            <option value="loam" data-i18n="tex_loam" selected>Loam</option>
+            <option value="clay" data-i18n="tex_clay">Clay</option>
+          </select></label>
+        <label><span data-i18n="ctlSlope">Slope</span>
+          <select id="sow-slope">
+            <option value="flat" data-i18n="slope_flat">Flat</option>
+            <option value="moderate" data-i18n="slope_moderate" selected>Moderate</option>
+            <option value="steep" data-i18n="slope_steep">Steep</option>
+          </select></label>
+      </form>
+      <p class="sow-status" id="sow-status" role="status" aria-live="polite"></p>
+      <div class="sow-grid">
+        <div class="sow-result" id="sow-result" aria-live="polite"></div>
+        <figure class="sow-chart" id="sow-chart"></figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <h2 data-i18n="footTitle">How it works &amp; data</h2>
+      <ul class="foot-list">
+        <li id="foot-simulator"></li>
+        <li data-i18n="footWeather"></li>
+        <li data-i18n="footRain"></li>
+        <li id="foot-training"></li>
+        <li data-i18n="footMap"></li>
+      </ul>
+      <p class="foot-ai" data-i18n="footAi"></p>
+      <p class="foot-judgment" data-i18n="footJudgment"></p>
+    </div>
+  </footer>
+  <noscript><p class="wrap">This page needs JavaScript to run the emulator.</p></noscript>
+</body>
+</html>
