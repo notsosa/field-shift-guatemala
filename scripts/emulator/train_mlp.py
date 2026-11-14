@@ -82,16 +82,19 @@ for i in (0, 2, 4, 6):
     layers.append({"W": sd[f"{i}.weight"].numpy().astype(np.float64).tolist(), "b": sd[f"{i}.bias"].numpy().astype(np.float64).tolist()})
 
 with torch.no_grad():
-    xin = torch.from_numpy(((Xte[:100] - mean) / std).astype(np.float32))
+    stride = len(Xte) // 100
+    sel = np.arange(100) * stride
+    xin = torch.from_numpy(((Xte[sel] - mean) / std).astype(np.float32))
     pred = net(xin).numpy().astype(np.float64) * ystd + ymean
-check = [{"index": int(test_idx[i]), "pred": pred[i].tolist()} for i in range(100)]
+check = [{"index": int(test_idx[sel[i]]), "pred": pred[i].tolist()} for i in range(100)]
+check_inputs = Xte[sel].tolist()
 
 out = {
     "layers": layers, "mean": mean.tolist(), "std": std.tolist(), "yMean": ymean.tolist(), "yStd": ystd.tolist(),
     "architecture": [25, 64, 32, 16, 3], "params": params, "trainSeconds": round(train_seconds, 2),
-    "trainMemoryMB": round(rss_mb, 1), "measuredRssDeltaMB": round(rss_mb, 1), "analyticMemoryMB": round(analytic, 3),
-    "memoryMethod": "trainMemoryMB = measured peak process RSS delta during training (psutil, includes framework/allocator noise). analyticMemoryMB = analytical estimate: params x 4 B x (weights + grad + 2 Adam states) + 2 x batch(256) x activations(140) x 4 B.",
-    "epochs": epochs, "bestValLoss": best, "checkPredictions": check,
+    "trainMemoryAnalyticMB": round(analytic, 3), "trainMemoryMeasuredMB": round(rss_mb, 1),
+    "memoryMethod": "trainMemoryMeasuredMB = peak process RSS minus RSS before the training loop (psutil; includes framework/allocator noise). trainMemoryAnalyticMB = analytical estimate: params x 4 B x (weights + grad + 2 Adam states) + 2 x batch(256) x activations(140) x 4 B.",
+    "epochs": epochs, "bestValLoss": best, "checkPredictions": check, "checkInputs": check_inputs,
 }
 OUT.write_text(json.dumps(out), encoding="utf8")
 print(f"params {params}; memoria analitica {analytic:.3f} MB; delta RSS pico {rss_mb:.1f} MB; escrito {OUT}")

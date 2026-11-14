@@ -15,14 +15,14 @@
    0.4835436829790195,
    0.594057664969647
   ],
-  "trainSeconds": 15.38,
+  "trainSeconds": 15.08,
   "params": 4323,
-  "trainMemoryMB": 5.7,
-  "analyticMemoryMB": 0.339,
-  "memoryMethod": "trainMemoryMB = measured peak process RSS delta during training (psutil, includes framework/allocator noise). analyticMemoryMB = analytical estimate: params x 4 B x (weights + grad + 2 Adam states) + 2 x batch(256) x activations(140) x 4 B.",
+  "trainMemoryAnalyticMB": 0.339,
+  "trainMemoryMeasuredMB": 5.7,
+  "memoryMethod": "trainMemoryMeasuredMB = peak process RSS minus RSS before the training loop (psutil; includes framework/allocator noise). trainMemoryAnalyticMB = analytical estimate: params x 4 B x (weights + grad + 2 Adam states) + 2 x batch(256) x activations(140) x 4 B.",
   "epochs": 143,
-  "predictMicros": 8.929881154499157,
-  "speedupVsSimulator": 36.058243974624
+  "predictMicros": 8.884152268717326,
+  "speedupVsSimulator": 28.993199599579317
  },
  "elm": {
   "rmse": [
@@ -35,14 +35,14 @@
    0.3893973598127656,
    0.7105468498786983
   ],
-  "trainSeconds": 1.7957453,
+  "trainSeconds": 1.9064022999999997,
   "params": 8700,
-  "trainMemoryMB": 0.7598876953125,
-  "heapUsedDeltaMB": -23.854568481445312,
+  "trainMemoryAnalyticMB": 0.7598876953125,
+  "trainMemoryMeasuredMB": 4.3515625,
   "note": "Targets are standardized with train mean/std before trainELM (no output bias); predictions are de-standardized.",
-  "memoryMethod": "trainMemoryMB = bytes of A (hidden^2) + B (hidden x 3) + W + b + beta as Float64; heapUsedDeltaMB = process.memoryUsage().heapUsed delta around trainELM (includes GC noise).",
-  "predictMicros": 14.74990678784246,
-  "speedupVsSimulator": 21.830363944993273
+  "memoryMethod": "trainMemoryAnalyticMB = bytes of A (hidden^2) + B (hidden x 3) + W + b + beta as Float64. trainMemoryMeasuredMB = process.memoryUsage().rss after trainELM minus rss before (after global.gc(), run with node --expose-gc); an RSS delta, not a peak, and noisy at this size.",
+  "predictMicros": 15.005023469489652,
+  "speedupVsSimulator": 17.166251057435876
  },
  "elmConfig": {
   "hidden": 300,
@@ -83,7 +83,8 @@
   "groupFallbacks": 0,
   "nGroups": 1089
  },
- "simulatorMicrosPerYear": 321.9958333333276,
+ "simulatorMicrosPerYear": 257.57999999997685,
+ "speedupNote": "speedupVsSimulator compares the model forward pass against the simulator core (runSequence, 24 years averaged per year) with features and ET0 already precomputed.",
  "nTrain": 29974,
  "nTest": 20026,
  "split": "test = year 2019-2024 OR pointId heldOut (asuncionmita, gualan, rabinal, sanarate); train = rest",

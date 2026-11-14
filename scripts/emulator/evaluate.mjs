@@ -31,12 +31,13 @@ const metrics = (rows, preds) => ({
 // --- Red embudo: forward JS ---
 const mlpPred = Xte.map((x) => mlpPredict(net, x));
 let maxDiff = 0;
-for (const { index, pred } of net.checkPredictions) {
-  const js = mlpPredict(net, X[index]);
+net.checkPredictions.forEach(({ index, pred }, k) => {
+  if (net.checkInputs[k].some((v, j) => v !== X[index][j])) throw new Error(`checkInputs[${k}] no coincide con samples[${index}]`);
+  const js = mlpPredict(net, net.checkInputs[k]);
   for (let o = 0; o < T; o++) maxDiff = Math.max(maxDiff, Math.abs(js[o] - pred[o]));
-}
+});
 if (!(maxDiff < 1e-4)) throw new Error(`JS y PyTorch discrepan: ${maxDiff}`);
-console.log(`JS vs PyTorch (100 filas): max |dif| = ${maxDiff.toExponential(2)}`);
+console.log(`JS vs PyTorch (100 filas espaciadas): max |dif| = ${maxDiff.toExponential(2)}`);
 
 // --- ELM ---
 // trainELM no centra Y (sin sesgo de salida): sin estandarizar Y la ELM queda con R2 muy negativo
@@ -49,11 +50,12 @@ function fitELM(X_, Y_, cfg) {
 }
 const predictELM = (m, x) => elmPredict(m.model, x).map((v, o) => v * m.ys[o] + m.ym[o]);
 const ELM_CFG = { hidden: 300, lambda: 1e-2, seed: 42 };
-const heap0 = process.memoryUsage().heapUsed;
+if (global.gc) global.gc();
+const rss0 = process.memoryUsage().rss;
 const e0 = performance.now();
 const elm = fitELM(Xtr, Ytr, ELM_CFG);
 const elmSeconds = (performance.now() - e0) / 1000;
-const heapDelta = process.memoryUsage().heapUsed - heap0;
+const rssDelta = process.memoryUsage().rss - rss0; // delta de RSS tras entrenar (no es un pico)
 const h = ELM_CFG.hidden;
 const nIn = Xtr[0].length;
 const elmBytes = 8 * (h * h + h * T + h * nIn + h + h * T); // A + B + W + b + beta (Float64)
@@ -145,13 +147,12 @@ const caveat = `The spatial hold-out is not fully independent: NASA POWER cells 
 const overall = { mlp: metrics(teIdx, mlpPred), elm: metrics(teIdx, elmPred), baseline: metrics(teIdx, basePred) };
 const evalOut = {
   targets: targetNames,
-  mlp: { rmse: overall.mlp.rmse, r2: overall.mlp.r2, trainSeconds: net.trainSeconds, params: net.params, trainMemoryMB: net.trainMemoryMB,
-    analyticMemoryMB: net.analyticMemoryMB, memoryMethod: net.memoryMethod, epochs: net.epochs, predictMicros: mlpMicros,
+  mlp: { rmse: overall.mlp.rmse, r2: overall.mlp.r2, trainSeconds: net.trainSeconds, params: net.params, trainMemoryAnalyticMB: net.trainMemoryAnalyticMB, trainMemoryMeasuredMB: net.trainMemoryMeasuredMB, memoryMethod: net.memoryMethod, epochs: net.epochs, predictMicros: mlpMicros,
     speedupVsSimulator: simMicros / mlpMicros },
   elm: { rmse: overall.elm.rmse, r2: overall.elm.r2, trainSeconds: elmSeconds, params: h * nIn + h + h * T,
-    trainMemoryMB: elmBytes / 1048576, heapUsedDeltaMB: heapDelta / 1048576,
+    trainMemoryAnalyticMB: elmBytes / 1048576, trainMemoryMeasuredMB: rssDelta / 1048576,
     note: 'Targets are standardized with train mean/std before trainELM (no output bias); predictions are de-standardized.',
-    memoryMethod: 'trainMemoryMB = bytes of A (hidden^2) + B (hidden x 3) + W + b + beta as Float64; heapUsedDeltaMB = process.memoryUsage().heapUsed delta around trainELM (includes GC noise).',
+    memoryMethod: 'trainMemoryAnalyticMB = bytes of A (hidden^2) + B (hidden x 3) + W + b + beta as Float64. trainMemoryMeasuredMB = process.memoryUsage().rss after trainELM minus rss before (after global.gc(), run with node --expose-gc); an RSS delta, not a peak, and noisy at this size.',
     predictMicros: elmMicros, speedupVsSimulator: simMicros / elmMicros },
   elmConfig: ELM_CFG,
   elmSeeds: { seeds: SEEDS, r2Mean, r2Std },
@@ -159,6 +160,7 @@ const evalOut = {
     description: 'Predicts each target as the TRAIN mean within the same (sequenceId, irrigation, texture, slopeClass, sowOffsetDays) group, ignoring climate; falls back to the global train mean when a group is empty.',
     groupFallbacks: fallbacks, nGroups: gSum.size },
   simulatorMicrosPerYear: simMicros,
+  speedupNote: 'speedupVsSimulator compares the model forward pass against the simulator core (runSequence, 24 years averaged per year) with features and ET0 already precomputed.',
   nTrain: trIdx.length, nTest: teIdx.length,
   split: `test = year 2019-2024 OR pointId heldOut (${[...held].sort().join(', ')}); train = rest`,
   bySplit, caveat,
@@ -180,8 +182,8 @@ for (const [s, v] of Object.entries(bySplit)) {
   console.log(`bySplit.${s} (n=${v.n})`);
   for (const m of ['mlp', 'elm', 'baseline']) console.log(`  ${m.padEnd(8)} r2 [${f(v[m].r2)}]`);
 }
-console.log(`MLP train ${net.trainSeconds}s, ${net.epochs} epochs, RSS delta ${net.trainMemoryMB} MB (analytic ${net.analyticMemoryMB} MB)`);
-console.log(`ELM train ${elmSeconds.toFixed(2)}s, A+B+W+b+beta ${(elmBytes / 1048576).toFixed(3)} MB, heap delta ${(heapDelta / 1048576).toFixed(1)} MB`);
+console.log(`MLP train ${net.trainSeconds}s, ${net.epochs} epochs, RSS delta ${net.trainMemoryMeasuredMB} MB (analytic ${net.trainMemoryAnalyticMB} MB)`);
+console.log(`ELM train ${elmSeconds.toFixed(2)}s, analytic ${(elmBytes / 1048576).toFixed(3)} MB, RSS delta ${(rssDelta / 1048576).toFixed(1)} MB`);
 console.log(`predict us: mlp ${mlpMicros.toFixed(2)}, elm ${elmMicros.toFixed(2)}; simulator ${simMicros.toFixed(1)} us/year (${nYears} years); speedup mlp x${(simMicros / mlpMicros).toFixed(0)}, elm x${(simMicros / elmMicros).toFixed(0)}`);
 console.log(`baseline groups ${gSum.size}, fallbacks ${fallbacks}`);
 console.log(`Shared POWER cells: ${sharedTxt}`);

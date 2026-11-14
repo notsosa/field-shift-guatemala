@@ -30,13 +30,13 @@ test('bySplit trae testYears, testPoints y testBoth para ambos modelos', () => {
   assert.ok(typeof ev.caveat === 'string' && ev.caveat.length > 50);
 });
 
-test('el forward JS coincide con PyTorch en las primeras 100 filas de prueba (1e-4)', async () => {
+test('el forward JS coincide con PyTorch en las 100 filas de prueba (1e-4)', async () => {
   const { mlpPredict } = await import('../web/js/model/emulator.js');
   const net = load('emulator_mlp.json');
-  const samples = JSON.parse(readFileSync(new URL('../scripts/emulator/samples.json', import.meta.url), 'utf8'));
   assert.equal(net.checkPredictions.length, 100);
-  for (const { index, pred } of net.checkPredictions) {
-    const js = mlpPredict(net, samples.X[index]);
+  assert.equal(net.checkInputs.length, 100);
+  for (const [k, { index, pred }] of net.checkPredictions.entries()) {
+    const js = mlpPredict(net, net.checkInputs[k]);
     for (let o = 0; o < 3; o++) assert.ok(Math.abs(js[o] - pred[o]) < 1e-4, `fila ${index} salida ${o}: ${js[o]} vs ${pred[o]}`);
   }
 });
