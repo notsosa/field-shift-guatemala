@@ -236,6 +236,7 @@
   },
   {
     "id": "mucuna",
+    "residueCover": true,
     "name": {
       "en": "Velvet bean (cover)",
       "es": "Mucuna (abono verde)"

@@ -31,12 +31,13 @@ function rootDepth(crop, phase, idx) {
 /**
  * Simula el balance diario. Fases activas el día i: sowIdx ≤ i ≤ harvestIdx.
  * Kc y Zr = máximo de las activas; p = el del cultivo activo con mayor Kc ese día.
+ * residueMask (opcional): día sin fase activa con residuo de abono verde → cobertura 'residue' (CN menor; Kc sigue 0.15).
  * El riego se aplica al final del día, después de calcular Dr.
  * Supuesto: drInit por defecto = TAW del primer día (suelo seco al inicio del año
  * agrícola, fin de la estación seca). Con riego 'full' el predio arranca a capacidad
  * de campo (drInit = 0), porque un predio regado no empieza el ciclo en marchitez.
  */
-export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, irrigation, drInit }) {
+export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, irrigation, drInit, residueMask }) {
   if (!IRRIGATION_MODES.includes(irrigation)) throw new Error(`Riego desconocido: ${irrigation}`);
   const soil = SOILS[texture];
   if (!soil) throw new Error(`Textura desconocida: ${texture}`);
@@ -67,7 +68,7 @@ export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, ir
     const ks = stressCoefficient(dr, taw, p);
     const etc = kc * et0[i];
     const eta = ks * etc;
-    const cover = active.length ? 'crop' : 'bare';
+    const cover = active.length ? 'crop' : (residueMask?.[i] ? 'residue' : 'bare');
     const runoff = scsRunoff(rain[i], curveNumber(texture, cover, slopeClass));
     dr = stepDepletion({ drPrev: dr, rain: rain[i], runoff, irr: 0, etcAdj: eta, taw }).dr;
 

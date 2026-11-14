@@ -78,3 +78,15 @@ test('fases traslapadas: Kc, Zr (TAW) y p siguen al cultivo activo de mayor Kc',
   assert.equal(d2.kc[60], kcOnDay(maiz, ph, 60));
   assert.ok(kcOnDay(maiz, ph, 60) > kcOnDay(frijol, phF2, 60));
 });
+
+test('residueMask: día sin fase con residuo usa cobertura residue y menos escorrentía que bare', () => {
+  const rain = Array(5).fill(40);
+  const base = { rain, et0: Array(5).fill(4), phases: [], crops, texture: 'loam', slopeClass: 'moderate', irrigation: 'none' };
+  const bare = simulateDays(base);
+  const res = simulateDays({ ...base, residueMask: [false, true, true, true, true] });
+  assert.equal(bare.cover[1], 'bare');
+  assert.equal(res.cover[0], 'bare');
+  assert.equal(res.cover[1], 'residue');
+  assert.equal(res.kc[1], 0.15);
+  assert.ok(res.runoff[1] < bare.runoff[1]);
+});
