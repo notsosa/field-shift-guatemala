@@ -19,7 +19,7 @@ Al tomar una tarea, escribir tu nombre en **Responsable** y cambiar el estatus.
 
 | ID | Tarea | Descripción | Estatus | Responsable |
 |---|---|---|---|---|
-| T04 | Descargar NASA POWER diario | Serie diaria 2001–2025 (9 131 días, 0 faltantes) para la parcela piloto: temperatura, punto de rocío, humedad, viento, radiación, lluvia y presión. Script `scripts/descargar_power.py`; salida en `datos/power/` (JSON original, CSV limpio y metadatos). | Finalizada | mariobet23440 con Claude (IA) |
+| T04 | Descargar NASA POWER diario | Serie diaria 2001–2025 (9 131 días, 0 faltantes) para la parcela piloto: temperatura, punto de rocío, humedad, viento, radiación, lluvia, presión y humedad del suelo de MERRA-2 (GWETTOP, GWETROOT, GWETPROF, EVLAND). Script `scripts/descargar_power.py`; salida en `datos/power/` (JSON original, CSV limpio y metadatos). | Finalizada | mariobet23440 con Claude (IA) |
 | T05 | Procesar SMAP L4 y SRTM | Convertir la salida de AppEEARS en series de humedad superficial y radicular y en pendiente de la parcela. Depende de T03. | No comenzada | — |
 | T06 | Propiedades de suelo | Obtener de SoilGrids (WCS) la textura y la retención de agua (capacidad de campo y punto de marchitez), o fijar un suelo de referencia con su supuesto explícito. | No comenzada | — |
 | T07 | Contrastar lluvia de POWER | La lluvia anual de la celda de POWER (≈ 900–2 900 mm; 2022 = 2 931 mm) parece alta para el valle de Chiquimula, y la celda está a 762 m de elevación. Comparar con una estación de INSIVUMEH o con GPM IMERG antes de usarla en el balance. | No comenzada | — |
