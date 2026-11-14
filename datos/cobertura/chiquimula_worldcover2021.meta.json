@@ -1,0 +1,25 @@
+{
+  "fuente": "ESA WorldCover 10 m 2021 v200",
+  "documentacion": "https://esa-worldcover.org/en",
+  "licencia": "CC BY 4.0 · © ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021) processed by ESA WorldCover consortium",
+  "url_origen": "https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N12W090_Map.tif",
+  "archivo": "chiquimula_worldcover2021.tif",
+  "recorte_grados": [
+    -89.64,
+    14.700000000000001,
+    -89.44000000000001,
+    14.9
+  ],
+  "clase_en_el_punto": "Construido",
+  "proporcion_clases_recorte_pct": {
+    "Arbustos": 35.7,
+    "Árboles": 31.9,
+    "Pastizal": 27.9,
+    "Construido": 2.6,
+    "Cultivos": 1.4,
+    "Suelo desnudo o poca vegetación": 0.5,
+    "Agua permanente": 0.0,
+    "Humedal herbáceo": 0.0
+  },
+  "descargado_utc": "2026-11-14T21:09:57+00:00"
+}

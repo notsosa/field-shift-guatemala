@@ -11,7 +11,7 @@ Al tomar una tarea, escribir tu nombre en **Responsable** y cambiar el estatus.
 
 | ID | Tarea | Descripción | Estatus | Responsable |
 |---|---|---|---|---|
-| T01 | Fijar parcela piloto y secuencias | Elegir la coordenada de la parcela piloto y las 3 secuencias a comparar: práctica actual, maíz → frijol y frijol → maíz. Hoy se usa una coordenada **provisional**: cabecera de Chiquimula (14.80, −89.54). | Pendiente | — |
+| T01 | Fijar parcela piloto y secuencias | Elegir la coordenada de la parcela piloto y las 3 secuencias a comparar: práctica actual, maíz → frijol y frijol → maíz. Hoy se usa una coordenada **provisional**: cabecera de Chiquimula (14.80, −89.54), que cae en zona urbana. Propuesta de cambio en [decisions.md](decisions.md) D01: polígono de granos básicos del MAGA en 14.8250, −89.5312. | Pendiente | — |
 | T02 | Definir stack técnico | Propuesta: web estática adaptable a celular en GitHub Pages, con datos pre-descargados en JSON y sin backend. Confirmar con el equipo. | No comenzada | — |
 | T03 | Cuenta Earthdata y solicitud AppEEARS | Crear cuenta en Earthdata Login y enviar solicitud de extracción por punto en AppEEARS: SMAP L4 `SPL4SMGP.008` (2015–2025) y SRTM `SRTMGL1_NC.003`. La solicitud puede tardar horas: enviarla pronto. | No comenzada | — |
 
@@ -21,14 +21,14 @@ Al tomar una tarea, escribir tu nombre en **Responsable** y cambiar el estatus.
 |---|---|---|---|---|
 | T04 | Descargar NASA POWER diario | Serie diaria 2001–2025 (9 131 días, 0 faltantes) para la parcela piloto: temperatura, punto de rocío, humedad, viento, radiación, lluvia, presión y humedad del suelo de MERRA-2 (GWETTOP, GWETROOT, GWETPROF, EVLAND). Script `scripts/descargar_power.py`; salida en `datos/power/` (JSON original, CSV limpio y metadatos). | Finalizada | mariobet23440 con Claude (IA) |
 | T05 | Procesar SMAP L4 y SRTM | Convertir la salida de AppEEARS en series de humedad superficial y radicular y en pendiente de la parcela. Depende de T03. | No comenzada | — |
-| T06 | Propiedades de suelo | Obtener de SoilGrids (WCS) la textura y la retención de agua (capacidad de campo y punto de marchitez), o fijar un suelo de referencia con su supuesto explícito. | No comenzada | — |
-| T07 | Contrastar lluvia de POWER | La lluvia anual de la celda de POWER (≈ 900–2 900 mm; 2022 = 2 931 mm) parece alta para el valle de Chiquimula, y la celda está a 762 m de elevación. Comparar con una estación de INSIVUMEH o con GPM IMERG antes de usarla en el balance. | No comenzada | — |
+| T06 | Propiedades de suelo | SoilGrids 2.0 (WCS) en 6 profundidades: textura, densidad, carbono, pH, fragmentos y agua a 33 y 1500 kPa. Agua disponible total 0–100 cm ≈ 150 mm. Script `scripts/descargar_suelo_cobertura.py`; salida en `datos/suelo/`. Contexto adicional del MAGA (capacidad de uso, taxonomía) en `datos/maga/`. Falta repetirlo si se mueve el punto. | Finalizada | mariobet23440 con Claude (IA) |
+| T07 | Contrastar lluvia de POWER | Comparada con JAXA GSMaP v6 calibrado con pluviómetros (`datos/lluvia/`), 2001–2025: POWER promedia **1 519 mm/año** y GSMaP **1 216 mm/año** (POWER ≈ 25 % más). Correlación interanual 0.74. La diferencia crece en 2021–2024 (POWER 1.5–1.85 veces GSMaP; 2022: 2 931 frente a 1 678 mm). Falta CHIRPS e IMERG diario (script `scripts/descargar_lluvia_climateserv.py` listo, la descarga de ClimateSERV no terminó) y una estación de INSIVUMEH. | Pendiente | mariobet23440 con Claude (IA) |
 
 ## C. Catálogo de cultivos
 
 | ID | Tarea | Descripción | Estatus | Responsable |
 |---|---|---|---|---|
-| T08 | Fichas de maíz y frijol | Fichas JSON con variedades ICTA (días a floración y cosecha), Kc por etapa y profundidad radicular de FAO-56. Cada valor lleva fuente, página y unidad. | No comenzada | — |
+| T08 | Fichas de maíz y frijol | `datos/cultivos/maiz_frijol.json`: 11 variedades de frijol del ICTA (cuadro 1, p. 8, verificado contra la imagen), 5 variedades de maíz de la guía ICTA del oriente (2015), Kc, etapas, raíz y p de FAO-56. Falta: días a floración de las variedades de maíz. | Pendiente | mariobet23440 con Claude (IA) |
 
 ## D. Motor de comparación
 

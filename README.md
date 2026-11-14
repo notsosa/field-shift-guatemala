@@ -15,6 +15,27 @@ El proyecto busca ayudar al finquero a comparar secuencias de cultivos en una mi
 | [Investigación de productores](investigacion/productores-guatemala.md) | Dificultades documentadas en Guatemala, población estudiada, metodología y alcance. |
 | [Conversaciones con cafetaleros](investigacion/testimonios-2026-11-11.md) | Apuntes anónimos compartidos por el equipo y preguntas por aclarar. |
 
+## Gestión del proyecto
+
+| Documento | Contenido |
+|---|---|
+| [Tareas](proyecto/tasks.md) | Tablero de tareas para la entrega, con estatus y responsable. |
+| [Decisiones](proyecto/decisions.md) | Decisiones pendientes, opciones y recomendación. |
+| [Datasets](proyecto/datasets.md) | Datos que usa el proyecto, propósito, estado y enlace de acceso. |
+| [Diccionarios](diccionarios/README.md) | Vocabulario agrícola y gramática básica de k'iche', q'eqchi', kaqchikel y mam para traducir la app. |
+
+## Estructura del repositorio
+
+| Carpeta | Contenido |
+|---|---|
+| `conocimiento/`, `investigacion/` | Documentación agronómica, de datos NASA y de productores. |
+| `proyecto/` | Tareas, decisiones y catálogo de datasets. |
+| `diccionarios/` | Idiomas mayas para la interfaz. |
+| `scripts/` | Descarga de datos: NASA POWER, CHIRPS/IMERG (ClimateSERV), JAXA (GSMaP, AW3D30), SoilGrids, ESA WorldCover y MAGA. |
+| `datos/` | Datos descargados para la parcela piloto provisional, cada uno con su `.meta.json` de procedencia. |
+
+Para correr los scripts: `py -3.12 -m venv .venv`, `.venv/Scripts/python -m pip install -r requirements.txt` y luego `.venv/Scripts/python scripts/<script>.py --lat <lat> --lon <lon> --nombre <parcela>`. `descargar_power.py` funciona sin instalar nada.
+
 ## Estado del trabajo
 
 La documentación define una propuesta de comparación de rotaciones y un catálogo de candidatos. Queda pendiente seleccionar la finca piloto, precisar variedades y calendarios, reunir los datos de la parcela, implementar el prototipo y validar sus resultados. El equipo también quiere explorar decisiones de agua y manejo con cafetaleros.

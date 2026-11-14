@@ -1,0 +1,28 @@
+{
+  "fuente": "ISRIC SoilGrids 2.0, WCS (media de la predicción, celda de 250 m)",
+  "documentacion": "https://docs.isric.org/globaldata/soilgrids/",
+  "licencia": "CC BY 4.0",
+  "punto": {
+    "lat": 14.8,
+    "lon": -89.54,
+    "nombre": "chiquimula"
+  },
+  "descargado_utc": "2026-11-14T21:09:15+00:00",
+  "unidades": {
+    "clay": "%",
+    "sand": "%",
+    "silt": "%",
+    "bdod": "g/cm³",
+    "soc": "g/kg",
+    "phh2o": "pH",
+    "cfvo": "% vol",
+    "wv0033": "m³/m³",
+    "wv1500": "m³/m³"
+  },
+  "agua_disponible_total_0_100cm_mm": 150.1,
+  "notas": [
+    "Valor de la celda del punto; si no hay dato (por ejemplo, zona urbana) se usa la media de las celdas válidas en ±0.01°.",
+    "wv0033 ≈ capacidad de campo y wv1500 ≈ punto de marchitez permanente. Son estimaciones de modelo con incertidumbre; contrastar con análisis de suelo.",
+    "El ADT supone raíces hasta 100 cm; para cada cultivo usar su profundidad radicular efectiva (FAO-56)."
+  ]
+}

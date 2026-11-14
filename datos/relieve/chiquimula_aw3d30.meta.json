@@ -1,0 +1,28 @@
+{
+  "fuente": "JAXA Earth API (STAC + COG, sin registro)",
+  "terminos": "https://earth.jaxa.jp/en/data/policy/",
+  "punto": {
+    "lat": 14.8,
+    "lon": -89.54,
+    "nombre": "chiquimula"
+  },
+  "descargado_utc": "2026-11-14T21:07:12+00:00",
+  "aw3d30": {
+    "archivo": "chiquimula_aw3d30_dsm.tif",
+    "url_origen": "https://s3.ap-northeast-1.wasabisys.com/je-pds/cog/v1/JAXA.EORC_ALOS.PRISM_AW3D30.v4.1_global/2024-04/3/W090.00-W089.00/W090.00-N14.00-W089.00-N15.00-DSM.tiff",
+    "recorte_grados": [
+      -89.59,
+      14.75,
+      -89.49000000000001,
+      14.850000000000001
+    ],
+    "elevacion_punto_m": 407.0,
+    "pendiente_punto_pct_3x3": 5.9,
+    "pendiente_recorte_pct": {
+      "p25": 5.9,
+      "mediana": 15.4,
+      "p75": 35.9
+    },
+    "nota": "AW3D30 es un modelo de superficie (DSM): incluye árboles y edificios. En la cabecera urbana la pendiente refleja techos y calles."
+  }
+}

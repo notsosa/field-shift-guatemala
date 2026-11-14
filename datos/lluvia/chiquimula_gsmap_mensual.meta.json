@@ -1,0 +1,44 @@
+{
+  "fuente": "JAXA Earth API (STAC + COG, sin registro)",
+  "terminos": "https://earth.jaxa.jp/en/data/policy/",
+  "punto": {
+    "lat": 14.8,
+    "lon": -89.54,
+    "nombre": "chiquimula"
+  },
+  "descargado_utc": "2026-11-14T21:07:12+00:00",
+  "gsmap": {
+    "archivo": "chiquimula_gsmap_mensual_2001_2025.csv",
+    "producto": "JAXA.EORC_GSMaP_standard.Gauge.00Z-23Z.v6_monthly",
+    "unidad_original": "mm/h (tasa media del mes); convertida a mm/mes × 24 × días",
+    "meses": 300,
+    "meses_faltantes": 0,
+    "lluvia_anual_mm": {
+      "2001": 899.1,
+      "2002": 944.9,
+      "2003": 865.5,
+      "2004": 913.3,
+      "2005": 1015.0,
+      "2006": 1116.6,
+      "2007": 1356.3,
+      "2008": 1595.4,
+      "2009": 1156.1,
+      "2010": 1319.4,
+      "2011": 1494.8,
+      "2012": 1195.2,
+      "2013": 1113.3,
+      "2014": 1379.9,
+      "2015": 1247.5,
+      "2016": 1018.5,
+      "2017": 1457.0,
+      "2018": 1342.1,
+      "2019": 1411.2,
+      "2020": 1702.1,
+      "2021": 1353.8,
+      "2022": 1678.2,
+      "2023": 1076.9,
+      "2024": 821.1,
+      "2025": 928.7
+    }
+  }
+}

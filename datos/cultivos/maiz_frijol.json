@@ -1,0 +1,106 @@
+{
+  "descripcion": "Parámetros de referencia para maíz y frijol en Guatemala. Cada valor conserva su fuente. Son referencias publicadas que deben contrastarse con la finca (ver handoff, sección 'Calidad y acceso').",
+  "actualizado": "2026-11-14",
+  "fuentes": {
+    "icta_frijol_2022": {
+      "cita": "ICTA. Manual para producción de frijol. Cuadro 1, p. 8: Características de las variedades liberadas por el ICTA para las diferentes regiones de Guatemala.",
+      "url": "https://www.icta.gob.gt/publicaciones/Frijol/Manual%20de%20producci%C3%B3n%20de%20frijol%20ICTA.pdf"
+    },
+    "icta_maiz_oriente_2015": {
+      "cita": "ICTA, CIOR Jutiapa. Recomendaciones técnicas para el cultivo de maíz en el oriente de Guatemala. Diciembre de 2015. Chiquimula, El Progreso, Jalapa, Jutiapa, Santa Rosa y Zacapa, 100–1400 m s. n. m.",
+      "url": "https://www.icta.gob.gt/publicaciones/Maiz/Recomendaciones%20tecnicas%20para%20el%20cultivo%20de%20maiz%20en%20el%20oriente%20de%20Guatemala%202015.pdf"
+    },
+    "fao56_tabla11": {
+      "cita": "Allen et al. 1998, FAO Irrigation and Drainage Paper 56, Tabla 11 (duración de etapas).",
+      "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+    },
+    "fao56_tabla12": {
+      "cita": "Allen et al. 1998, FAO-56, Tabla 12 (Kc único y altura máxima).",
+      "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+    },
+    "fao56_tabla22": {
+      "cita": "Allen et al. 1998, FAO-56, Tabla 22 (profundidad radicular máxima y fracción de agotamiento p).",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm"
+    }
+  },
+  "cultivos": {
+    "maiz": {
+      "nombre": "Maíz para grano",
+      "especie": "Zea mays",
+      "familia": "Poaceae",
+      "fao56": {
+        "kc_ini": 0.3,
+        "kc_ini_nota": "Valor del grupo Cereales en la Tabla 12; la fila de maíz no lo especifica.",
+        "kc_mid": 1.20,
+        "kc_end": [0.60, 0.35],
+        "kc_end_nota": "0.60 si se cosecha con grano húmedo; 0.35 si se deja secar en campo (dobla).",
+        "altura_max_m": 2.0,
+        "raiz_max_m": [1.0, 1.7],
+        "p_agotamiento": 0.55,
+        "etapas_referencia_dias": [
+          {"ini": 20, "des": 35, "med": 40, "fin": 30, "total": 125, "region": "Nigeria (húmedo), siembra en junio"},
+          {"ini": 25, "des": 40, "med": 45, "fin": 30, "total": 140, "region": "Clima árido, siembra dic/ene"}
+        ],
+        "fuentes": ["fao56_tabla11", "fao56_tabla12", "fao56_tabla22"]
+      },
+      "fases_sensibles": "Floración (espigamiento y emisión de estigmas) y llenado de grano.",
+      "manejo_oriente": {
+        "epoca_siembra": "Finales de mayo o inicios de junio, cuando ya se estableció el invierno. Siembras muy tempranas arriesgan falta de agua en la canícula.",
+        "cosecha": "Recomendado cosechar en noviembre, con el grano seco; doblar antes para proteger la mazorca.",
+        "distancia": "75–80 cm entre surcos; 2–3 granos cada 40–45 cm.",
+        "altitud_m": [100, 1400],
+        "fuente": "icta_maiz_oriente_2015"
+      },
+      "variedades": [
+        {"nombre": "ICTA B-1", "tipo": "variedad", "ciclo_meses": 4, "grano": "blanco, dentado", "rendimiento_max_qq_mz": 60, "fuente": "icta_maiz_oriente_2015"},
+        {"nombre": "ICTA HB-83", "tipo": "híbrido", "ciclo_meses": 4, "grano": "blanco, dentado", "rendimiento_max_qq_mz": 70, "fuente": "icta_maiz_oriente_2015"},
+        {"nombre": "ICTA Maya QPM", "tipo": "híbrido", "ciclo_meses": 4, "grano": "blanco, semidentado, alta calidad nutritiva", "rendimiento_max_qq_mz": 70, "fuente": "icta_maiz_oriente_2015"},
+        {"nombre": "ICTA B-5", "tipo": "variedad", "ciclo_meses": 3, "grano": "blanco, semicristalino", "rendimiento_max_qq_mz": 40, "uso": "lugares con escasez de lluvias", "fuente": "icta_maiz_oriente_2015"},
+        {"nombre": "ICTA B-7", "tipo": "variedad", "ciclo_meses": 4, "grano": "blanco, dentado", "rendimiento_max_qq_mz": 60, "uso": "lugares con escasez de lluvias", "fuente": "icta_maiz_oriente_2015"}
+      ],
+      "pendiente": "La guía de oriente no publica días a floración. Buscarlos en las fichas de cada variedad o consultar al ICTA."
+    },
+    "frijol": {
+      "nombre": "Frijol común para grano (negro)",
+      "especie": "Phaseolus vulgaris",
+      "familia": "Fabaceae",
+      "fao56": {
+        "kc_ini": 0.4,
+        "kc_mid": 1.15,
+        "kc_mid_nota": "1.20 para frijol voluble en tutores altos.",
+        "kc_end": 0.35,
+        "altura_max_m": 0.4,
+        "raiz_max_m": [0.6, 0.9],
+        "p_agotamiento": 0.45,
+        "etapas_referencia_dias": [
+          {"ini": 20, "des": 30, "med": 40, "fin": 20, "total": 110, "region": "Climas continentales, siembra may/jun"},
+          {"ini": 15, "des": 25, "med": 35, "fin": 20, "total": 95, "region": "Pakistán, California, siembra en junio"}
+        ],
+        "fuentes": ["fao56_tabla11", "fao56_tabla12", "fao56_tabla22"]
+      },
+      "fases_sensibles": "Floración y llenado de vainas.",
+      "epocas_siembra": {
+        "primera": "15 de mayo a 15 de junio; la madurez fisiológica suele coincidir con la canícula (julio–agosto).",
+        "postrera": "Septiembre y octubre; 60 % del área sembrada. Se cosecha en tiempo seco y da mejor calidad de grano.",
+        "verano": "Diciembre y enero, en el sur y norte del país, con humedad residual.",
+        "fuente": "icta_frijol_2022"
+      },
+      "variedades": [
+        {"nombre": "ICTA Petén", "zona": "baja", "dias_flor": "33-35", "color_flor": "Morado", "color_vaina": "Beige", "dias_cosecha": "78-80", "caracteristica": "Tolerante a roya, biofortificada con hierro", "rendimiento_qq_mz": 40, "adaptacion_msnm": [500, 1500]},
+        {"nombre": "ICTA Sayaxché", "zona": "baja", "dias_flor": "35-42", "color_flor": "Morado", "color_vaina": "Beige", "dias_cosecha": "88-90", "caracteristica": "Tolerante a roya", "rendimiento_qq_mz": 60, "adaptacion_msnm": [500, 1500]},
+        {"nombre": "ICTA Ligero", "zona": "baja", "dias_flor": "29-30", "color_flor": "Morado", "color_vaina": "Beige", "dias_cosecha": "64-70", "caracteristica": "Resistente a virus del mosaico dorado amarillo", "rendimiento_qq_mz": 25, "adaptacion_msnm": [50, 1200]},
+        {"nombre": "ICTA Chortí", "zona": "baja", "dias_flor": "32-35", "color_flor": "Morado", "color_vaina": "Beige", "dias_cosecha": "68-70", "caracteristica": "Tolerante a roya, biofortificada con hierro", "rendimiento_qq_mz": 35, "adaptacion_msnm": [500, 1600]},
+        {"nombre": "ICTA Patriarca", "zona": "baja", "dias_flor": "32-35", "color_flor": "Morado", "color_vaina": "Beige", "dias_cosecha": "68-70", "caracteristica": "Resistente a virus del mosaico dorado amarillo", "rendimiento_qq_mz": 35, "adaptacion_msnm": [50, 1500]},
+        {"nombre": "ICTA Texel", "zona": "alta", "dias_flor": "49-50", "color_flor": "Morado", "color_vaina": "Beige", "dias_cosecha": "90", "caracteristica": "Ascochyta", "rendimiento_qq_mz": 35, "adaptacion_msnm": [1500, 2300]},
+        {"nombre": "ICTA Altense", "zona": "alta", "dias_flor": "55-60", "color_flor": "Morado", "color_vaina": "Crema", "dias_cosecha": "115", "caracteristica": "Ascochyta, antracnosis y roya", "rendimiento_qq_mz": 38, "adaptacion_msnm": [1500, 2300]},
+        {"nombre": "ICTA Hunapú", "zona": "alta", "dias_flor": "55-53", "dias_flor_nota": "Así aparece impreso; probablemente 50-53 o 53-55. El boletín ICTA de julio de 2024 da 120 días a cosecha frente a 95 aquí.", "color_flor": "Morado", "color_vaina": "Morada", "dias_cosecha": "95", "caracteristica": "Ascochyta, antracnosis y roya", "rendimiento_qq_mz": 38, "adaptacion_msnm": [1500, 2300]},
+        {"nombre": "ICTA Superchiva", "zona": "alta", "dias_flor": "45-48", "color_flor": "Morado", "color_vaina": "Beige", "dias_cosecha": "90", "caracteristica": "Roya y ascochyta", "rendimiento_qq_mz": 30, "adaptacion_msnm": [1800, 2400]},
+        {"nombre": "ICTA Utatlán", "zona": "alta", "dias_flor": "63-65", "color_flor": "Morado", "color_vaina": "Crema", "dias_cosecha": "130", "caracteristica": "Voluble", "rendimiento_qq_mz": 44, "adaptacion_msnm": [1800, 2300]},
+        {"nombre": "ICTA Labor Ovalle", "zona": "alta", "dias_flor": "72-75", "color_flor": "Morado", "color_vaina": "Morada", "dias_cosecha": "135-140", "caracteristica": "Voluble", "rendimiento_qq_mz": 42, "adaptacion_msnm": [1800, 2300]}
+      ],
+      "variedades_fuente": "icta_frijol_2022",
+      "variedades_aptas_parcela_provisional": "A 407 m (AW3D30) solo ICTA Ligero (50–1200 m) y Patriarca (50–1500 m) incluyen esa altitud en su rango publicado; Petén, Sayaxché y Chortí empiezan en 500 m."
+    }
+  },
+  "unidades": {"qq_mz": "quintales por manzana (1 qq ≈ 45.4 kg; 1 mz ≈ 0.70 ha)"}
+}

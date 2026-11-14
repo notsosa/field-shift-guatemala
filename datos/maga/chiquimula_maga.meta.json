@@ -1,0 +1,243 @@
+{
+  "fuente": "MAGA Guatemala, geoportal institucional (GeoServer WFS)",
+  "servicio": "https://geoportal.maga.gob.gt/geoserver/ows",
+  "visor": "https://geoportal.maga.gob.gt/",
+  "descargado_utc": "2026-11-14T21:14:03+00:00",
+  "crs": "EPSG:4326",
+  "notas": [
+    "Las capas se recortan por caja envolvente: los polígonos que tocan la caja se descargan completos.",
+    "La cobertura 2025 se limita a ±radio alrededor del punto por su tamaño.",
+    "Consultar al MAGA (DIGEGR) la licencia de uso y redistribución antes de publicar derivados."
+  ],
+  "capas": {
+    "cobertura_uso_tierra_2025": {
+      "capa_wfs": "COBERTURA_VEGETAL_USO_DE_LA_TIERRA:cobertura_vegetal_y_uso_de_la_tierra_2025",
+      "bbox": [
+        -89.64,
+        14.700000000000001,
+        -89.44000000000001,
+        14.9
+      ],
+      "elementos": 803,
+      "atributos": [
+        "C_USO",
+        "area_ha",
+        "area_ha_aj",
+        "codigo",
+        "conteo",
+        "depto",
+        "gid",
+        "ha_final",
+        "municipio",
+        "nivel_1",
+        "nivel_2",
+        "nivel_3",
+        "nivel_4",
+        "usot",
+        "valp1"
+      ]
+    },
+    "capacidad_uso_tierra_usda": {
+      "capa_wfs": "SUELOS:capacidad_de_uso_de_la_tierra_usda",
+      "bbox": [
+        -90.0,
+        14.3,
+        -89.15,
+        15.1
+      ],
+      "elementos": 102,
+      "atributos": [
+        "CAPACIDAD",
+        "VOCACION"
+      ]
+    },
+    "taxonomia_suelos": {
+      "capa_wfs": "SUELOS:taxonomia_de_suelos",
+      "bbox": [
+        -90.0,
+        14.3,
+        -89.15,
+        15.1
+      ],
+      "elementos": 8,
+      "atributos": [
+        "ORDEN"
+      ]
+    },
+    "fisiografia": {
+      "capa_wfs": "SUELOS:fisiografia",
+      "bbox": [
+        -90.0,
+        14.3,
+        -89.15,
+        15.1
+      ],
+      "elementos": 40,
+      "atributos": [
+        "CODGP",
+        "CODR",
+        "CODSR",
+        "CODSR_1",
+        "DRENGP",
+        "DRENSR",
+        "EDADGEOGP",
+        "EDADGEOSR",
+        "ELEVGP1",
+        "ELEVGP2",
+        "ELEVSR1",
+        "ELEVSR2",
+        "G_PAISAJE",
+        "MORFOGEGP",
+        "NOMGP",
+        "NOMR",
+        "NOMSR",
+        "OBSERGP",
+        "OBSERSR",
+        "PENGP",
+        "ROCAGP",
+        "ROCASR",
+        "UBICGP",
+        "UBICSR"
+      ]
+    },
+    "zonas_de_vida": {
+      "capa_wfs": "CAPAS_TEMÁTICAS:zonas_de_vida",
+      "bbox": [
+        -90.0,
+        14.3,
+        -89.15,
+        15.1
+      ],
+      "elementos": 12,
+      "atributos": [
+        "AREA_CALC",
+        "CCLIMA",
+        "EMAX",
+        "EMIN",
+        "PMAX",
+        "PMIN",
+        "PPROM",
+        "RELIEVE",
+        "TBMAX",
+        "TBMIN",
+        "VEGETACION",
+        "ZONAS",
+        "ZVIDA"
+      ]
+    },
+    "amenaza_sequia": {
+      "capa_wfs": "AGROCLIMA:amenaza_a_sequia",
+      "bbox": [
+        -90.0,
+        14.3,
+        -89.15,
+        15.1
+      ],
+      "elementos": 13,
+      "atributos": [
+        "AMENAZA2",
+        "AREA_KM2",
+        "COUNT",
+        "OBJECTID",
+        "PORCEN",
+        "cat",
+        "cat_",
+        "fid_1"
+      ]
+    },
+    "vulnerabilidad_agropecuaria_2026_muy_alta": {
+      "capa_wfs": "AGROCLIMA:MUY_ALTA_VULN_AGROP",
+      "bbox": [
+        -90.0,
+        14.3,
+        -89.15,
+        15.1
+      ],
+      "elementos": 28,
+      "atributos": [
+        "CAT_VUL",
+        "CODIGO",
+        "DEPTO",
+        "MUNICIPIO"
+      ]
+    },
+    "vulnerabilidad_agropecuaria_2026_alta": {
+      "capa_wfs": "AGROCLIMA:ALTA_VULN_AGROP",
+      "bbox": [
+        -90.0,
+        14.3,
+        -89.15,
+        15.1
+      ],
+      "elementos": 7,
+      "atributos": [
+        "CAT_VUL",
+        "CODIGO",
+        "DEPTO",
+        "MUNICIPIO"
+      ]
+    },
+    "vulnerabilidad_agropecuaria_2026_media": {
+      "capa_wfs": "AGROCLIMA:MEDIA_VULN_AGROP",
+      "bbox": [
+        -90.0,
+        14.3,
+        -89.15,
+        15.1
+      ],
+      "elementos": 2,
+      "atributos": [
+        "CAT_VUL",
+        "CODIGO",
+        "DEPTO",
+        "MUNICIPIO"
+      ]
+    },
+    "afectaciones_cultivos_2024": {
+      "capa_wfs": "AGROCLIMA:afectaciones_a_cultivos_2024",
+      "bbox": [
+        -90.0,
+        14.3,
+        -89.15,
+        15.1
+      ],
+      "elementos": 25,
+      "atributos": [
+        "Area_afec",
+        "CODIGO",
+        "DEPTO",
+        "Evento_Mun",
+        "Fam_afec",
+        "MUNICIPIO",
+        "Perd_eco"
+      ]
+    },
+    "afectaciones_cultivos_2025": {
+      "capa_wfs": "AGROCLIMA:afectaciones_a_cultivos_2025",
+      "bbox": [
+        -90.0,
+        14.3,
+        -89.15,
+        15.1
+      ],
+      "elementos": 0,
+      "atributos": []
+    },
+    "limites_municipales": {
+      "capa_wfs": "CAPAS_TEMÁTICAS:limites_municipales",
+      "bbox": [
+        -90.0,
+        14.3,
+        -89.15,
+        15.1
+      ],
+      "elementos": 37,
+      "atributos": [
+        "CODIGO",
+        "DEPTO",
+        "Ha",
+        "MUNICIPIO"
+      ]
+    }
+  }
+}
