@@ -156,6 +156,31 @@ La rotación actual se puntúa igual y se muestra como línea base ("+12 frente 
 
 **Pruebas:** ET₀ contra el ejemplo resuelto de FAO-56 (ej. 18); balance contra el ejemplo didáctico del manual del equipo (18 − (12 − 4) + 3 = 13 mm); margen contra un cálculo a mano con una ficha MAGA.
 
+## 6b. Validación y componente de SI (decidido el 14 de noviembre)
+
+Base: [informe "Usen la red para emular, no para predecir"](../../../../reports/Redes%20sin%20backpropagation%20para%20Field%20Shift.md), fuera del repo.
+
+**1. Validación del modelo (prioridad, antes de la SI)**
+- **Años secos:** el balance debe marcar estrés alto en los años de sequía documentados por FEWS NET y GEOGLAM (2013, 2014, 2018, 2019, 2025).
+- **Rendimientos de referencia:** calibrar contra MAGA 2020:
+  - Chiquimula 35.05 qq/ha;
+  - Jutiapa 43.96 qq/ha;
+  - Chimaltenango 43.73 qq/ha.
+- **Ky:** ajustar 1–3 parámetros con validación dejando un año fuera, comparado contra una línea base de tendencia o climatología.
+
+**2. Emulador del simulador FAO-56 (después de tener la app desplegada)**
+- **Datos de entrenamiento:** el propio simulador genera miles de casos variando lluvia (años y celdas), ET₀, suelo (TAW), pendiente, cultivo, fecha de siembra y riego.
+- **Salidas:** índice de agua, días de estrés en floración y margen por secuencia.
+- **Dos modelos lado a lado:**
+  - **red embudo** entrenada con backpropagation offline en Python, con pesos en JSON;
+  - **Extreme Learning Machine:** capa oculta aleatoria fija y salida resuelta en un solo cálculo (regresión ridge), **sin backpropagation**, entrenable en el navegador.
+- **Evaluación:** error medido contra el simulador en años y sitios no vistos; se muestran error, tiempo y memoria de cada uno.
+- **Uso en la app:** mapa instantáneo del Corredor Seco ("¿dónde conviene cada alternativa?") y búsqueda de la mejor fecha de siembra probando miles de combinaciones.
+- **Lo que no se hace:**
+  - **No** se usa para predecir rendimientos reales: no hay etiquetas suficientes (~75 departamento-año en el mejor caso).
+  - **No** se incluye circuito cuántico ni métodos por perturbación.
+- **Mensaje para el pitch:** "la IA aprende nuestro modelo físico y lo vuelve instantáneo", con su error medido. Se declara en la sección de uso de SI.
+
 ## 7. Cultivos y secuencias del demo
 
 Se eligen cultivos con **ficha agroeconómica MAGA** (costos, rendimiento y precio) y parámetros FAO-56:

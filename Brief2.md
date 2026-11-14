@@ -93,7 +93,15 @@ Verificados el 14 de noviembre de 2026.
 
 Por eso la lluvia del balance **no** sale de POWER: viene de IMERG en los pilotos y de ERA5 en el resto, y la app muestra la comparación entre fuentes. Falta confirmar con datos de estación.
 
-## 5. Componente de SI (en evaluación)
+## 5. Componente de SI
+
+**Decidido (14 de noviembre): emulador del simulador FAO-56 con dos modelos lado a lado.**
+- Una red embudo entrenada con backpropagation.
+- Una Extreme Learning Machine entrenada **sin backpropagation**, en un solo cálculo y dentro del navegador.
+
+Sirve para el mapa instantáneo del Corredor Seco y para buscar la mejor fecha de siembra entre miles de combinaciones. Antes va la validación del modelo: años secos de FEWS NET y rendimientos MAGA 2020. Detalle en §6b del [documento de diseño](docs/superpowers/specs/2026-11-14-field-shift-web-design.md).
+
+Antecedentes de la investigación:
 
 El equipo quiere una red neuronal densa y profunda tipo embudo, y explorar una arquitectura sin *backpropagation* que "cambia los ángulos de los perceptrones". Hay una investigación en curso (informe en `reports/` fuera del repo). Conclusiones preliminares:
 
