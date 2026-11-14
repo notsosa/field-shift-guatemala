@@ -18,7 +18,7 @@ const isTest = (m) => inYears(m) || held.has(m.pointId);
 const trIdx = [], teIdx = [];
 meta.forEach((m, i) => (isTest(m) ? teIdx : trIdx).push(i));
 const pick = (idx, A) => idx.map((i) => A[i]);
-const Xtr = pick(trIdx, X), Ytr = pick(trIdx, Y), Xte = pick(teIdx, X);
+const Xte = pick(teIdx, X);
 console.log(`nTrain ${trIdx.length}, nTest ${teIdx.length}`);
 
 const T = targetNames.length;
@@ -41,16 +41,42 @@ console.log(`JS vs PyTorch (100 filas espaciadas): max |dif| = ${maxDiff.toExpon
 
 // --- ELM ---
 // trainELM estandariza Y por dentro y elmPredict devuelve la escala original.
-const ELM_CFG = { hidden: 300, lambda: 1e-2, seed: 42 };
+// Barrido de capacidad: mismas filas que la red (train_mlp.py): val = filas de entrenamiento de 2017-2018,
+// fit = resto de entrenamiento. Las filas de prueba no se usan para elegir nada.
+const VAL_YEARS = [2017, 2018];
+const fitIdx = trIdx.filter((i) => !VAL_YEARS.includes(meta[i].year));
+const valIdx = trIdx.filter((i) => VAL_YEARS.includes(meta[i].year));
+const Xfit = pick(fitIdx, X), Yfit = pick(fitIdx, Y), Xval = pick(valIdx, X);
+const nIn = X[0].length;
+const elmBytesOf = (hid) => 8 * (hid * hid + hid * T + hid * nIn + hid + hid * T); // A + B + W + b + beta (Float64)
+const elmSweep = [];
+for (const hidden of [300, 600, 1000, 1500]) {
+  for (const lambda of [1e-3, 1e-2, 1e-1]) {
+    const t0 = performance.now();
+    const mdl = trainELM(Xfit, Yfit, { hidden, lambda, seed: 42 });
+    const trainSeconds = (performance.now() - t0) / 1000;
+    const valR2 = metrics(valIdx, Xval.map((x) => elmPredict(mdl, x))).r2;
+    elmSweep.push({ hidden, lambda, valR2, valR2Mean: meanOf(valR2), trainSeconds, memoryAnalyticMB: elmBytesOf(hidden) / 1048576 });
+    console.log(`sweep hidden ${hidden} lambda ${lambda}: val R2 [${valR2.map((v) => v.toFixed(4))}] mean ${meanOf(valR2).toFixed(4)} (${trainSeconds.toFixed(1)} s)`);
+  }
+}
+const argmax = (arr) => arr.reduce((b, e) => (e.valR2Mean > b.valR2Mean || (e.valR2Mean === b.valR2Mean && e.hidden < b.hidden) ? e : b));
+const bestCfg = argmax(elmSweep);
+const ELM_CFG = { hidden: bestCfg.hidden, lambda: bestCfg.lambda, seed: 42 };
+const bestBrowser = argmax(elmSweep.filter((e) => e.hidden <= 600));
+const fmt = (e) => `hidden ${e.hidden}, lambda ${e.lambda}: val R2 mean ${e.valR2Mean.toFixed(3)}, ${e.trainSeconds.toFixed(1)} s in Node`;
+const browserElmRecommendation = {
+  hidden: bestBrowser.hidden, lambda: bestBrowser.lambda,
+  note: `Best validation R2 among hidden <= 600 (${fmt(bestBrowser)}) versus the overall best (${fmt(bestCfg)}). In-browser training on the 5,000-row subset is O(rows x hidden^2), so the cap trades some accuracy for a short wait; training times are measured in Node on the full fit set, the browser subset is about ${Math.round(fitIdx.length / 5000)}x smaller.`,
+};
 if (global.gc) global.gc();
 const rss0 = process.memoryUsage().rss;
 const e0 = performance.now();
-const elm = trainELM(Xtr, Ytr, ELM_CFG);
+const elm = trainELM(Xfit, Yfit, ELM_CFG);
 const elmSeconds = (performance.now() - e0) / 1000;
 const rssDelta = process.memoryUsage().rss - rss0; // delta de RSS tras entrenar (no es un pico)
 const h = ELM_CFG.hidden;
-const nIn = Xtr[0].length;
-const elmBytes = 8 * (h * h + h * T + h * nIn + h + h * T); // A + B + W + b + beta (Float64)
+const elmBytes = elmBytesOf(h);
 const elmPred = Xte.map((x) => elmPredict(elm, x));
 
 // --- Linea base ingenua: media de entrenamiento por grupo de manejo ---
@@ -88,7 +114,7 @@ const bySplit = {
 // --- Estabilidad de semillas de la ELM ---
 const SEEDS = [42, 1, 2, 3, 4];
 const seedR2 = SEEDS.map((s) => {
-  const mdl = s === 42 ? elm : trainELM(Xtr, Ytr, { ...ELM_CFG, seed: s });
+  const mdl = s === 42 ? elm : trainELM(Xfit, Yfit, { ...ELM_CFG, seed: s });
   return metrics(teIdx, Xte.map((x) => elmPredict(mdl, x))).r2;
 });
 const r2Mean = Array.from({ length: T }, (_, o) => meanOf(seedR2.map((r) => r[o])));
@@ -146,7 +172,9 @@ const evalOut = {
     note: 'trainELM standardizes the targets internally (yMean/yStd stored in the model); elmPredict de-standardizes.',
     memoryMethod: 'trainMemoryAnalyticMB = bytes of A (hidden^2) + B (hidden x 3) + W + b + beta as Float64. trainMemoryMeasuredMB = process.memoryUsage().rss after trainELM minus rss before (after global.gc(), run with node --expose-gc); an RSS delta, not a peak, and noisy at this size.',
     predictMicros: elmMicros, speedupVsSimulator: simMicros / elmMicros },
-  elmConfig: ELM_CFG,
+  elmSweep,
+  elmConfig: { ...ELM_CFG, fitRows: 'fit (train minus val years 2017–2018)', nFit: fitIdx.length, nVal: valIdx.length },
+  browserElmRecommendation,
   elmSeeds: { seeds: SEEDS, r2Mean, r2Std },
   baseline: { rmse: overall.baseline.rmse, r2: overall.baseline.r2,
     description: 'Predicts each target as the TRAIN mean within the same (sequenceId, irrigation, texture, slopeClass, sowOffsetDays) group, ignoring climate; falls back to the global train mean when a group is empty.',
@@ -175,6 +203,7 @@ for (const [s, v] of Object.entries(bySplit)) {
   for (const m of ['mlp', 'elm', 'baseline']) console.log(`  ${m.padEnd(8)} r2 [${f(v[m].r2)}]`);
 }
 console.log(`MLP train ${net.trainSeconds}s, ${net.epochs} epochs, RSS delta ${net.trainMemoryMeasuredMB} MB (analytic ${net.trainMemoryAnalyticMB} MB)`);
+console.log(`ELM chosen ${JSON.stringify(ELM_CFG)}; browser rec ${JSON.stringify({ hidden: bestBrowser.hidden, lambda: bestBrowser.lambda })}`);
 console.log(`ELM train ${elmSeconds.toFixed(2)}s, analytic ${(elmBytes / 1048576).toFixed(3)} MB, RSS delta ${(rssDelta / 1048576).toFixed(1)} MB`);
 console.log(`predict us: mlp ${mlpMicros.toFixed(2)}, elm ${elmMicros.toFixed(2)}; simulator ${simMicros.toFixed(1)} us/year (${nYears} years); speedup mlp x${(simMicros / mlpMicros).toFixed(0)}, elm x${(simMicros / elmMicros).toFixed(0)}`);
 console.log(`baseline groups ${gSum.size}, fallbacks ${fallbacks}`);

@@ -49,3 +49,30 @@ test('emulator_train_subset.json trae 5,000 filas de entrenamiento', () => {
   assert.equal(s.targetNames.length, 3);
   assert.ok(existsSync(new URL('../web/data/emulator_mlp.json', import.meta.url)));
 });
+
+test('elmSweep: 12 configuraciones hidden x lambda con metricas de validacion', () => {
+  const ev = load('emulator_eval.json');
+  assert.equal(ev.elmSweep.length, 12);
+  const combos = new Set(ev.elmSweep.map((e) => `${e.hidden}|${e.lambda}`));
+  assert.equal(combos.size, 12);
+  for (const e of ev.elmSweep) {
+    assert.equal(e.valR2.length, 3);
+    assert.ok(Number.isFinite(e.valR2Mean) && e.trainSeconds > 0 && e.memoryAnalyticMB > 0);
+  }
+});
+
+test('elmConfig es el argmax de valR2Mean (empates: menor hidden) y la recomendacion de navegador tiene hidden <= 600', () => {
+  const ev = load('emulator_eval.json');
+  const best = [...ev.elmSweep].sort((a, b) => b.valR2Mean - a.valR2Mean || a.hidden - b.hidden || a.lambda - b.lambda)[0];
+  assert.equal(ev.elmConfig.hidden, best.hidden);
+  assert.equal(ev.elmConfig.lambda, best.lambda);
+  assert.equal(ev.elmConfig.seed, 42);
+  assert.match(ev.elmConfig.fitRows, /^fit \(train minus val years 2017/);
+  const rec = ev.browserElmRecommendation;
+  assert.ok(rec.hidden <= 600);
+  const cand = ev.elmSweep.filter((e) => e.hidden <= 600);
+  const bestB = [...cand].sort((a, b) => b.valR2Mean - a.valR2Mean || a.hidden - b.hidden || a.lambda - b.lambda)[0];
+  assert.equal(rec.hidden, bestB.hidden);
+  assert.equal(rec.lambda, bestB.lambda);
+  assert.ok(typeof rec.note === 'string' && rec.note.length > 20);
+});

@@ -26,33 +26,187 @@
    2017,
    2018
   ],
-  "predictMicros": 9.116303805053432,
-  "speedupVsSimulator": 36.49505403885094
+  "predictMicros": 9.526785179266724,
+  "speedupVsSimulator": 33.2089115807261
  },
  "elm": {
   "rmse": [
-   0.0794441489715678,
-   0.06590392048875279,
-   0.02370942311301413
+   0.06515182471181968,
+   0.055071263936088063,
+   0.01849492971375922
   ],
   "r2": [
-   0.6314113760313402,
-   0.4047574429595827,
-   0.9317079397154316
+   0.7521030063257916,
+   0.5843559571122976,
+   0.9584440120809042
   ],
-  "trainSeconds": 1.9358375,
-  "params": 8700,
-  "trainMemoryAnalyticMB": 0.7598876953125,
-  "trainMemoryMeasuredMB": 1.51171875,
+  "trainSeconds": 48.07358300000001,
+  "params": 43500,
+  "trainMemoryAnalyticMB": 17.5323486328125,
+  "trainMemoryMeasuredMB": 11.9453125,
   "note": "trainELM standardizes the targets internally (yMean/yStd stored in the model); elmPredict de-standardizes.",
   "memoryMethod": "trainMemoryAnalyticMB = bytes of A (hidden^2) + B (hidden x 3) + W + b + beta as Float64. trainMemoryMeasuredMB = process.memoryUsage().rss after trainELM minus rss before (after global.gc(), run with node --expose-gc); an RSS delta, not a peak, and noisy at this size.",
-  "predictMicros": 12.010544625320412,
-  "speedupVsSimulator": 27.70065891088863
+  "predictMicros": 58.492890908485535,
+  "speedupVsSimulator": 5.408762701809705
  },
+ "elmSweep": [
+  {
+   "hidden": 300,
+   "lambda": 0.001,
+   "valR2": [
+    0.7607798459396388,
+    0.38094413178670283,
+    0.9326001351589189
+   ],
+   "valR2Mean": 0.6914413709617535,
+   "trainSeconds": 1.8649674,
+   "memoryAnalyticMB": 0.7598876953125
+  },
+  {
+   "hidden": 300,
+   "lambda": 0.01,
+   "valR2": [
+    0.7607798571880409,
+    0.3809440979761878,
+    0.9326001572014605
+   ],
+   "valR2Mean": 0.691441370788563,
+   "trainSeconds": 1.8036965,
+   "memoryAnalyticMB": 0.7598876953125
+  },
+  {
+   "hidden": 300,
+   "lambda": 0.1,
+   "valR2": [
+    0.7607799695656414,
+    0.3809437597424542,
+    0.9326003776099375
+   ],
+   "valR2Mean": 0.6914413689726776,
+   "trainSeconds": 1.8569786999999998,
+   "memoryAnalyticMB": 0.7598876953125
+  },
+  {
+   "hidden": 600,
+   "lambda": 0.001,
+   "valR2": [
+    0.8150430386368333,
+    0.4213793467362119,
+    0.9437491206121175
+   ],
+   "valR2Mean": 0.7267238353283876,
+   "trainSeconds": 9.095457099999999,
+   "memoryAnalyticMB": 2.89306640625
+  },
+  {
+   "hidden": 600,
+   "lambda": 0.01,
+   "valR2": [
+    0.8150430922205921,
+    0.4213794085260467,
+    0.9437491510206523
+   ],
+   "valR2Mean": 0.7267238839224305,
+   "trainSeconds": 6.130429299999999,
+   "memoryAnalyticMB": 2.89306640625
+  },
+  {
+   "hidden": 600,
+   "lambda": 0.1,
+   "valR2": [
+    0.8150436278698635,
+    0.4213800261591978,
+    0.9437494550626648
+   ],
+   "valR2Mean": 0.7267243696972421,
+   "trainSeconds": 6.135441500000001,
+   "memoryAnalyticMB": 2.89306640625
+  },
+  {
+   "hidden": 1000,
+   "lambda": 0.001,
+   "valR2": [
+    0.8460119698980497,
+    0.5010475362910534,
+    0.9461668127811446
+   ],
+   "valR2Mean": 0.7644087729900826,
+   "trainSeconds": 17.171167,
+   "memoryAnalyticMB": 7.87353515625
+  },
+  {
+   "hidden": 1000,
+   "lambda": 0.01,
+   "valR2": [
+    0.8460121186357478,
+    0.5010475896674229,
+    0.9461668537536726
+   ],
+   "valR2Mean": 0.7644088540189476,
+   "trainSeconds": 16.348107300000002,
+   "memoryAnalyticMB": 7.87353515625
+  },
+  {
+   "hidden": 1000,
+   "lambda": 0.1,
+   "valR2": [
+    0.8460136057169416,
+    0.5010481231178325,
+    0.9461672634107524
+   ],
+   "valR2Mean": 0.7644096640818422,
+   "trainSeconds": 16.534760599999995,
+   "memoryAnalyticMB": 7.87353515625
+  },
+  {
+   "hidden": 1500,
+   "lambda": 0.001,
+   "valR2": [
+    0.8604234529968064,
+    0.544529879270113,
+    0.9544286906579675
+   ],
+   "valR2Mean": 0.7864606743082957,
+   "trainSeconds": 47.53606020000001,
+   "memoryAnalyticMB": 17.5323486328125
+  },
+  {
+   "hidden": 1500,
+   "lambda": 0.01,
+   "valR2": [
+    0.8604237208167319,
+    0.5445300054689497,
+    0.9544287161694468
+   ],
+   "valR2Mean": 0.7864608141517095,
+   "trainSeconds": 48.36748659999999,
+   "memoryAnalyticMB": 17.5323486328125
+  },
+  {
+   "hidden": 1500,
+   "lambda": 0.1,
+   "valR2": [
+    0.8604263984335404,
+    0.5445312669035326,
+    0.9544289712016452
+   ],
+   "valR2Mean": 0.7864622121795728,
+   "trainSeconds": 46.68255009999999,
+   "memoryAnalyticMB": 17.5323486328125
+  }
+ ],
  "elmConfig": {
-  "hidden": 300,
-  "lambda": 0.01,
-  "seed": 42
+  "hidden": 1500,
+  "lambda": 0.1,
+  "seed": 42,
+  "fitRows": "fit (train minus val years 2017–2018)",
+  "nFit": 26618,
+  "nVal": 3356
+ },
+ "browserElmRecommendation": {
+  "hidden": 600,
+  "lambda": 0.1,
+  "note": "Best validation R2 among hidden <= 600 (hidden 600, lambda 0.1: val R2 mean 0.727, 6.1 s in Node) versus the overall best (hidden 1500, lambda 0.1: val R2 mean 0.786, 46.7 s in Node). In-browser training on the 5,000-row subset is O(rows x hidden^2), so the cap trades some accuracy for a short wait; training times are measured in Node on the full fit set, the browser subset is about 5x smaller."
  },
  "elmSeeds": {
   "seeds": [
@@ -63,14 +217,14 @@
    4
   ],
   "r2Mean": [
-   0.6291848919037862,
-   0.4318239249992388,
-   0.9321494315863719
+   0.7558809314025137,
+   0.5865319773403362,
+   0.9582638218585255
   ],
   "r2Std": [
-   0.006545699104581696,
-   0.014941122538242627,
-   0.0024824495288708294
+   0.0033383116227728815,
+   0.005285288497278341,
+   0.0003952453132621933
   ]
  },
  "baseline": {
@@ -88,7 +242,7 @@
   "groupFallbacks": 0,
   "nGroups": 1089
  },
- "simulatorMicrosPerYear": 332.70000000000744,
+ "simulatorMicrosPerYear": 316.37416666684055,
  "speedupNote": "speedupVsSimulator compares the model forward pass against the simulator core (runSequence, 24 years averaged per year) with features and ET0 already precomputed.",
  "nTrain": 29974,
  "nTest": 20026,
@@ -110,14 +264,14 @@
    },
    "elm": {
     "r2": [
-     0.5831531907297567,
-     0.1970203001270019,
-     0.923093873993625
+     0.652640111764905,
+     0.37784363914777896,
+     0.9517501972038792
     ],
     "rmse": [
-     0.05840461153416361,
-     0.043672474201043754,
-     0.024924615587186394
+     0.05331491634019381,
+     0.03844193913550267,
+     0.019742210245859957
     ]
    },
    "baseline": {
@@ -149,14 +303,14 @@
    },
    "elm": {
     "r2": [
-     0.6307379482619428,
-     0.43795455331134747,
-     0.9411860393975431
+     0.7833432055862999,
+     0.6312075303333203,
+     0.9655400386702491
     ],
     "rmse": [
-     0.09956042679259561,
-     0.08564009651238097,
-     0.021063733354611078
+     0.07626153929821727,
+     0.06937171855681942,
+     0.016123247777023154
     ]
    },
    "baseline": {
@@ -188,14 +342,14 @@
    },
    "elm": {
     "r2": [
-     0.6082895200838874,
-     0.39378852424823463,
-     0.9309282301262014
+     0.7186940203271355,
+     0.5378697310804448,
+     0.9597512614060071
     ],
     "rmse": [
-     0.08521925092222084,
-     0.07240948011688782,
-     0.02604324777926092
+     0.07221785732899871,
+     0.06322161128845051,
+     0.019880210918507682
     ]
    },
    "baseline": {

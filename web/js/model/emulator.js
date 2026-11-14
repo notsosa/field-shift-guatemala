@@ -43,7 +43,7 @@ function maxDry(rain, [lo, hi]) {
 }
 
 export function climateFeatures(bundle, year, et0) {
-  const { dates, rain, tmax, tmin, rs } = bundle;
+  const { dates, rain, tmax, tmin } = bundle;
   const y = year, y1 = year + 1;
   const ag = windowIdx(dates, `${y}-04-01`, `${y1}-03-31`);
   if (!ag || dates[ag[0]] !== `${y}-04-01` || dates[ag[1]] !== `${y1}-03-31` || ag[1] - ag[0] + 1 < 365) {
