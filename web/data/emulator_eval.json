@@ -1,0 +1,210 @@
+{
+ "targets": [
+  "waterIndex",
+  "ksFlowerMain",
+  "bareFrac"
+ ],
+ "mlp": {
+  "rmse": [
+   0.051892462088093436,
+   0.06138765740838632,
+   0.05780535228809645
+  ],
+  "r2": [
+   0.8427369673516343,
+   0.4835436829790195,
+   0.594057664969647
+  ],
+  "trainSeconds": 15.38,
+  "params": 4323,
+  "trainMemoryMB": 5.7,
+  "analyticMemoryMB": 0.339,
+  "memoryMethod": "trainMemoryMB = measured peak process RSS delta during training (psutil, includes framework/allocator noise). analyticMemoryMB = analytical estimate: params x 4 B x (weights + grad + 2 Adam states) + 2 x batch(256) x activations(140) x 4 B.",
+  "epochs": 143,
+  "predictMicros": 8.929881154499157,
+  "speedupVsSimulator": 36.058243974624
+ },
+ "elm": {
+  "rmse": [
+   0.08176008670320971,
+   0.06674882156355684,
+   0.048811822093947264
+  ],
+  "r2": [
+   0.6096081167151474,
+   0.3893973598127656,
+   0.7105468498786983
+  ],
+  "trainSeconds": 1.7957453,
+  "params": 8700,
+  "trainMemoryMB": 0.7598876953125,
+  "heapUsedDeltaMB": -23.854568481445312,
+  "note": "Targets are standardized with train mean/std before trainELM (no output bias); predictions are de-standardized.",
+  "memoryMethod": "trainMemoryMB = bytes of A (hidden^2) + B (hidden x 3) + W + b + beta as Float64; heapUsedDeltaMB = process.memoryUsage().heapUsed delta around trainELM (includes GC noise).",
+  "predictMicros": 14.74990678784246,
+  "speedupVsSimulator": 21.830363944993273
+ },
+ "elmConfig": {
+  "hidden": 300,
+  "lambda": 0.01,
+  "seed": 42
+ },
+ "elmSeeds": {
+  "seeds": [
+   42,
+   1,
+   2,
+   3,
+   4
+  ],
+  "r2Mean": [
+   0.6283391689507954,
+   0.38791086147604037,
+   0.7029916223628396
+  ],
+  "r2Std": [
+   0.01650888883124126,
+   0.004240094543989711,
+   0.00762592605963593
+  ]
+ },
+ "baseline": {
+  "rmse": [
+   0.09934974412463318,
+   0.07858301887403883,
+   0.06478778952807429
+  ],
+  "r2": [
+   0.4235633325300959,
+   0.15369113520202027,
+   0.4900652994955549
+  ],
+  "description": "Predicts each target as the TRAIN mean within the same (sequenceId, irrigation, texture, slopeClass, sowOffsetDays) group, ignoring climate; falls back to the global train mean when a group is empty.",
+  "groupFallbacks": 0,
+  "nGroups": 1089
+ },
+ "simulatorMicrosPerYear": 321.9958333333276,
+ "nTrain": 29974,
+ "nTest": 20026,
+ "split": "test = year 2019-2024 OR pointId heldOut (asuncionmita, gualan, rabinal, sanarate); train = rest",
+ "bySplit": {
+  "testYears": {
+   "n": 10080,
+   "mlp": {
+    "r2": [
+     0.6478287197533168,
+     0.1852729334396006,
+     0.5146910417166322
+    ],
+    "rmse": [
+     0.053682887411466235,
+     0.043990772269415473,
+     0.06261193926745524
+    ]
+   },
+   "elm": {
+    "r2": [
+     0.5134190494027697,
+     0.14792559966439933,
+     0.7287149381071173
+    ],
+    "rmse": [
+     0.06310103026606463,
+     0.04498774996461981,
+     0.04681240368237196
+    ]
+   },
+   "baseline": {
+    "r2": [
+     0.406103864998973,
+     0.023547124002794573,
+     0.4923165939803288
+    ],
+    "rmse": [
+     0.06971306035073586,
+     0.04815941007092863,
+     0.0640389917340178
+    ]
+   }
+  },
+  "testPoints": {
+   "n": 7463,
+   "mlp": {
+    "r2": [
+     0.9197501267095207,
+     0.6226169865753022,
+     0.6830420090042677
+    ],
+    "rmse": [
+     0.04641320810515341,
+     0.07017502970804776,
+     0.0488985507787189
+    ]
+   },
+   "elm": {
+    "r2": [
+     0.6187888457985724,
+     0.4331754200882205,
+     0.6816388336429486
+    ],
+    "rmse": [
+     0.1011584602432638,
+     0.0860034292845173,
+     0.049006668373790474
+    ]
+   },
+   "baseline": {
+    "r2": [
+     0.39175151571419564,
+     0.14963795216087405,
+     0.5187385447950243
+    ],
+    "rmse": [
+     0.1277791303731043,
+     0.10534001253832667,
+     0.06025397115571747
+    ]
+   }
+  },
+  "testBoth": {
+   "n": 2483,
+   "mlp": {
+    "r2": [
+     0.8088230982265602,
+     0.10556847078279974,
+     0.6080959454483255
+    ],
+    "rmse": [
+     0.059535064233153696,
+     0.08795426477519293,
+     0.06203470609939885
+    ]
+   },
+   "elm": {
+    "r2": [
+     0.6228301714313311,
+     0.36568175835973815,
+     0.6841516441843268
+    ],
+    "rmse": [
+     0.08362258510013797,
+     0.07406908046781846,
+     0.055690890321985334
+    ]
+   },
+   "baseline": {
+    "r2": [
+     0.41731166718636403,
+     0.1863183963164875,
+     0.35913132268172965
+    ],
+    "rmse": [
+     0.10393774208893948,
+     0.08389007859411943,
+     0.07932852396570685
+    ]
+   }
+  }
+ },
+ "caveat": "The spatial hold-out is not fully independent: NASA POWER cells are 0.5 degrees, so some held-out points fall in the same cell as a training point (identical elevation and tmax series). Held-out points sharing a POWER cell with a training point: gualan (with chiquimula, jocotan, zacapa); sanarate (with guastatoya); asuncionmita (with jutiapa, santacatarinamita, jalapa, monjas, cuilapa); rabinal (with sanmartin, salama, cubulco). Rainfall (IMERG/ERA5) and some other climate features may still differ, but temperature and radiation are shared. Use bySplit.testYears (temporal hold-out at non-held-out points) as the cleanest generalization estimate; testPoints and testBoth mix both effects."
+}
