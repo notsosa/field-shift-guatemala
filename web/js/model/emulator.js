@@ -1,10 +1,11 @@
 // Núcleo del emulador: features, ELM (sin backprop), forward de la red embudo y métricas.
-// Sin dependencias; corre en Node y en el navegador.
+// Sin dependencias externas (solo el propio modelo); corre en Node y en el navegador.
+import { buildPhase } from './phenology.js';
+import { resolveMainSowIdx, agriculturalYears, dayOfYear } from './simulate.js';
 
-export const CLIMATE_FEATURE_NAMES = [
-  'rainMJJ', 'rainASO', 'rainYear', 'rainMay', 'rainyDaysMO', 'maxDrySpellMO',
-  'caniculaDays', 'et0MeanMO', 'tmeanMO', 'rsMeanMO', 'elevation',
-];
+export const CLIMATE_FEATURE_NAMES = ['rainMJJ', 'rainASO', 'rainYear', 'caniculaDays', 'et0MeanMO', 'tmeanMO', 'elevation'];
+// Fenología del cultivo principal (maíz, fase 0 de toda secuencia) sembrado con la regla de inicio + desfase.
+export const PHENO_FEATURE_NAMES = ['sowDoy', 'rainFlower', 'drySpellFlower', 'deficitFlower'];
 
 const TEXTURES = ['sand', 'loam', 'clay'];
 const SLOPES = ['flat', 'moderate', 'steep'];
@@ -13,6 +14,7 @@ const SEQUENCES = ['actual', 'proteger', 'extra_secano', 'extra_riego'];
 
 export const FEATURE_NAMES = [
   ...CLIMATE_FEATURE_NAMES,
+  ...PHENO_FEATURE_NAMES,
   ...TEXTURES.map((t) => `texture_${t}`),
   ...SLOPES.map((s) => `slope_${s}`),
   ...IRRIGATIONS.map((i) => `irrigation_${i}`),
@@ -54,15 +56,29 @@ export function climateFeatures(bundle, year, et0) {
     sum(rain, w(`${y}-05-01`, `${y}-07-31`)),
     sum(rain, w(`${y}-08-01`, `${y}-10-31`)),
     sum(rain, ag),
-    sum(rain, w(`${y}-05-01`, `${y}-05-31`)),
-    rain.slice(mo[0], mo[1] + 1).filter((r) => r >= 1).length,
-    maxDry(rain, mo),
     maxDry(rain, w(`${y}-07-01`, `${y}-08-31`)),
     mean(et0, mo),
     mean(tmean, mo),
-    mean(rs, mo),
     bundle.elevation,
   ];
+}
+
+/** [sowDoy, rainFlower, drySpellFlower, deficitFlower] del maíz (fase 0) con la misma siembra y ventana que runSequence. */
+export function phenoFeatures(bundle, year, et0, crops, sowOffsetDays) {
+  const ag = agriculturalYears(bundle.dates).find((a) => a.year === year);
+  if (!ag) throw new Error(`phenoFeatures: agricultural year ${year} is not complete in bundle.dates`);
+  const { startIdx, endIdx } = ag;
+  const maize = crops.get('maiz');
+  const tmean = [];
+  for (let i = startIdx; i <= endIdx; i++) tmean.push((bundle.tmax[i] + bundle.tmin[i]) / 2);
+  const { idx: sowIdx } = resolveMainSowIdx(bundle, year, sowOffsetDays);
+  const phase = buildPhase(maize, sowIdx, tmean);
+  const last = tmean.length - 1;
+  const lo = startIdx + Math.min(phase.floweringIdx[0], last);
+  const hi = startIdx + Math.min(phase.floweringIdx[1], last);
+  let deficit = 0;
+  for (let i = lo; i <= hi; i++) deficit += Math.max(0, maize.kc.mid * et0[i] - bundle.rain[i]);
+  return [dayOfYear(bundle.dates[startIdx + sowIdx]), sum(bundle.rain, [lo, hi]), maxDry(bundle.rain, [lo, hi]), deficit];
 }
 
 function oneHot(list, value, what) {
@@ -71,9 +87,10 @@ function oneHot(list, value, what) {
   return list.map((_, j) => (j === i ? 1 : 0));
 }
 
-export function encodeFeatures(climFeats, { texture, slopeClass, irrigation, sequenceId, sowOffsetDays }) {
+export function encodeFeatures(climFeats, phenoFeats, { texture, slopeClass, irrigation, sequenceId, sowOffsetDays }) {
   return [
     ...climFeats,
+    ...phenoFeats,
     ...oneHot(TEXTURES, texture, 'texture'),
     ...oneHot(SLOPES, slopeClass, 'slopeClass'),
     ...oneHot(IRRIGATIONS, irrigation, 'irrigation'),
@@ -140,6 +157,17 @@ export function trainELM(X, Y, { hidden = 300, lambda = 1e-2, seed = 42 } = {}) 
     const sdj = Math.sqrt(v / N);
     sd[j] = sdj === 0 ? 1 : sdj;
   }
+  // Y se estandariza por columna (sin sesgo de salida, β sobre Y sin centrar fallaría); elmPredict deshace la transformación.
+  const yMean = new Float64Array(nOut), yStd = new Float64Array(nOut);
+  for (let o = 0; o < nOut; o++) {
+    let s = 0;
+    for (let i = 0; i < N; i++) s += Y[i][o];
+    yMean[o] = s / N;
+    let v = 0;
+    for (let i = 0; i < N; i++) v += (Y[i][o] - yMean[o]) ** 2;
+    const sdo = Math.sqrt(v / N);
+    yStd[o] = sdo === 0 ? 1 : sdo;
+  }
   const rnd = mulberry32(seed);
   const W = new Float64Array(hidden * nIn);
   for (let i = 0; i < W.length; i++) W[i] = rnd() * 2 - 1;
@@ -160,16 +188,16 @@ export function trainELM(X, Y, { hidden = 300, lambda = 1e-2, seed = 42 } = {}) 
     for (let p = 0; p < hidden; p++) {
       const hp = h[p];
       for (let q = 0; q <= p; q++) A[p * hidden + q] += hp * h[q];
-      for (let o = 0; o < nOut; o++) B[p * nOut + o] += hp * Y[r][o];
+      for (let o = 0; o < nOut; o++) B[p * nOut + o] += hp * ((Y[r][o] - yMean[o]) / yStd[o]);
     }
   }
   for (let p = 0; p < hidden; p++) A[p * hidden + p] += lambda;
   const beta = choleskySolve(A, B, hidden, nOut);
-  return { nIn, nOut, hidden, lambda, seed, mean: mu, std: sd, W, b, beta };
+  return { nIn, nOut, hidden, lambda, seed, mean: mu, std: sd, yMean, yStd, W, b, beta };
 }
 
 export function elmPredict(model, x) {
-  const { nIn, nOut, hidden, mean: mu, std: sd, W, b, beta } = model;
+  const { nIn, nOut, hidden, mean: mu, std: sd, yMean, yStd, W, b, beta } = model;
   const z = new Float64Array(nIn);
   for (let j = 0; j < nIn; j++) z[j] = (x[j] - mu[j]) / sd[j];
   const y = new Array(nOut).fill(0);
@@ -179,6 +207,7 @@ export function elmPredict(model, x) {
     const hk = Math.tanh(s);
     for (let o = 0; o < nOut; o++) y[o] += beta[k * nOut + o] * hk;
   }
+  for (let o = 0; o < nOut; o++) y[o] = y[o] * yStd[o] + yMean[o];
   return y;
 }
 

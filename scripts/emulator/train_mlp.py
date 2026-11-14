@@ -1,6 +1,7 @@
 """Entrena la red embudo 25->64->32->16->3 (PyTorch, CPU) y exporta web/data/emulator_mlp.json.
 Uso: python scripts/emulator/train_mlp.py
-Division identica a evaluate.mjs: prueba = year 2019-2024 O pointId heldOut."""
+Division identica a evaluate.mjs: prueba = year 2019-2024 O pointId heldOut.
+Validacion para parada temprana: filas de entrenamiento de los years 2017-2018 (fuera de los pasos de gradiente)."""
 import json, time, os
 from pathlib import Path
 import numpy as np
@@ -36,11 +37,13 @@ params = sum(p.numel() for p in net.parameters())
 assert params == 4323, params
 
 g = torch.Generator().manual_seed(42)
-perm = torch.randperm(len(Xs), generator=g)
-nval = int(round(0.1 * len(Xs)))
-vi, ti = perm[:nval], perm[nval:]
+VAL_YEARS = [2017, 2018]
+tr_years = np.array([m["year"] for m, t in zip(meta, is_test) if not t])
+is_val = np.isin(tr_years, VAL_YEARS)
+vi, ti = torch.from_numpy(np.where(is_val)[0]), torch.from_numpy(np.where(~is_val)[0])
 Xt, Yt = torch.from_numpy(Xs)[ti], torch.from_numpy(Ys)[ti]
 Xv, Yv = torch.from_numpy(Xs)[vi], torch.from_numpy(Ys)[vi]
+print(f"fit {len(ti)}  val {len(vi)} (years {VAL_YEARS}, grouped by year)")
 
 opt = torch.optim.Adam(net.parameters(), lr=1e-3)
 lossf = nn.MSELoss()
@@ -94,7 +97,7 @@ out = {
     "architecture": [25, 64, 32, 16, 3], "params": params, "trainSeconds": round(train_seconds, 2),
     "trainMemoryAnalyticMB": round(analytic, 3), "trainMemoryMeasuredMB": round(rss_mb, 1),
     "memoryMethod": "trainMemoryMeasuredMB = peak process RSS minus RSS before the training loop (psutil; includes framework/allocator noise). trainMemoryAnalyticMB = analytical estimate: params x 4 B x (weights + grad + 2 Adam states) + 2 x batch(256) x activations(140) x 4 B.",
-    "epochs": epochs, "bestValLoss": best, "checkPredictions": check, "checkInputs": check_inputs,
+    "epochs": epochs, "bestValLoss": best, "valYears": VAL_YEARS, "nFit": int(len(ti)), "nVal": int(len(vi)), "checkPredictions": check, "checkInputs": check_inputs,
 }
 OUT.write_text(json.dumps(out), encoding="utf8")
 print(f"params {params}; memoria analitica {analytic:.3f} MB; delta RSS pico {rss_mb:.1f} MB; escrito {OUT}")

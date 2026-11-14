@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { loadCrops } from '../../web/js/model/crops.js';
 import { computeEt0Series, agriculturalYears, runSequence } from '../../web/js/model/simulate.js';
-import { climateFeatures, encodeFeatures, targetsOf, mulberry32, FEATURE_NAMES, TARGET_NAMES } from '../../web/js/model/emulator.js';
+import { climateFeatures, phenoFeatures, encodeFeatures, targetsOf, mulberry32, FEATURE_NAMES, CLIMATE_FEATURE_NAMES, PHENO_FEATURE_NAMES, TARGET_NAMES } from '../../web/js/model/emulator.js';
 
 const here = (p) => new URL(p, import.meta.url);
 const readJson = (u) => JSON.parse(readFileSync(u, 'utf8'));
@@ -28,7 +28,7 @@ const t0 = Date.now();
 const rng = mulberry32(42);
 const X = []; const Y = []; const meta = [];
 let seen = 0;
-const gridPoints = []; const climate = {}; const yearSet = new Set();
+const gridPoints = []; const climate = {}; const pheno = {}; const yearSet = new Set();
 
 for (const p of points) {
   const file = here(`./cache/${p.id}.json`);
@@ -37,9 +37,15 @@ for (const p of points) {
   const invalid = new Set(bundle.invalidYears ?? []);
   const years = agriculturalYears(bundle.dates).filter((y) => !invalid.has(y.year)).map((y) => y.year);
   const et0 = computeEt0Series(bundle);
-  const climFeats = {};
-  for (const y of years) { climFeats[y] = climateFeatures(bundle, y, et0).map(r4); yearSet.add(y); }
+  const climFeats = {}; const phenoFeats = {};
+  for (const y of years) {
+    climFeats[y] = climateFeatures(bundle, y, et0).map(r4);
+    phenoFeats[y] = {};
+    for (const o of OFFSETS) phenoFeats[y][o] = phenoFeatures(bundle, y, et0, crops, o).map(r4);
+    yearSet.add(y);
+  }
   climate[p.id] = climFeats;
+  pheno[p.id] = phenoFeats;
   gridPoints.push({ id: p.id, name: p.name, department: p.department, lat: p.lat, lon: p.lon, elevation: bundle.elevation, heldOut: p.heldOut });
 
   for (const [seqId, irrigation] of COMBOS) for (const texture of TEXTURES) for (const slopeClass of SLOPES) for (const sowOffsetDays of OFFSETS) {
@@ -52,7 +58,7 @@ for (const p of points) {
       const slot = seen < K ? seen : Math.floor(rng() * (seen + 1));
       seen++;
       if (slot >= K) continue;
-      const x = encodeFeatures(climFeats[yr.year], { texture, slopeClass, irrigation, sequenceId: seqId, sowOffsetDays }).map(r4);
+      const x = encodeFeatures(climFeats[yr.year], phenoFeats[yr.year][sowOffsetDays], { texture, slopeClass, irrigation, sequenceId: seqId, sowOffsetDays }).map(r4);
       const y = t.map(r5);
       finite(x, `features ${p.id} ${yr.year}`); finite(y, `targets ${p.id} ${yr.year}`);
       const m = { pointId: p.id, year: yr.year, sequenceId: seqId, texture, slopeClass, irrigation, sowOffsetDays };
@@ -66,7 +72,7 @@ const heldOut = new Set(points.filter((p) => p.heldOut).map((p) => p.id));
 const isTest = (m) => (m.year >= 2019 && m.year <= 2024) || heldOut.has(m.pointId);
 const nTest = meta.filter(isTest).length;
 writeFileSync(here('./samples.json'), JSON.stringify({ featureNames: FEATURE_NAMES, targetNames: TARGET_NAMES, X, Y, meta }));
-writeFileSync(here('../../web/data/grid_features.json'), JSON.stringify({ points: gridPoints, years: [...yearSet].sort((a, b) => a - b), climate }));
+writeFileSync(here('../../web/data/grid_features.json'), JSON.stringify({ points: gridPoints, years: [...yearSet].sort((a, b) => a - b), climateNames: CLIMATE_FEATURE_NAMES, phenoNames: PHENO_FEATURE_NAMES, offsets: OFFSETS, climate, pheno }));
 
 console.log(`\nPuntos usados: ${gridPoints.length}; candidatos totales: ${seen}; conservados: ${X.length}; tiempo: ${((Date.now() - t0) / 1000).toFixed(1)} s`);
 console.log(`Forma: ${X.length} filas x ${X[0].length} features, ${Y[0].length} objetivos; sin NaN/Infinity (verificado)`);

@@ -1,9 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
-  CLIMATE_FEATURE_NAMES, FEATURE_NAMES, TARGET_NAMES, climateFeatures, encodeFeatures,
+  CLIMATE_FEATURE_NAMES, PHENO_FEATURE_NAMES, FEATURE_NAMES, TARGET_NAMES, climateFeatures, phenoFeatures, encodeFeatures,
   targetsOf, mulberry32, trainELM, elmPredict, mlpPredict, r2, rmse,
 } from '../web/js/model/emulator.js';
+import { loadCrops } from '../web/js/model/crops.js';
+import { buildPhase } from '../web/js/model/phenology.js';
+import { resolveMainSowIdx } from '../web/js/model/simulate.js';
+
+const crops = loadCrops(JSON.parse(readFileSync(new URL('../web/data/crops.json', import.meta.url), 'utf8')));
 
 function makeBundle() {
   const dates = [];
@@ -24,41 +30,97 @@ function makeBundle() {
   };
 }
 
-test('nombres: 11 de clima, 25 totales, 3 objetivos', () => {
-  assert.equal(CLIMATE_FEATURE_NAMES.length, 11);
+test('nombres: 7 de clima, 4 de fenología, 25 totales, 3 objetivos', () => {
+  assert.deepEqual(CLIMATE_FEATURE_NAMES, ['rainMJJ', 'rainASO', 'rainYear', 'caniculaDays', 'et0MeanMO', 'tmeanMO', 'elevation']);
+  assert.deepEqual(PHENO_FEATURE_NAMES, ['sowDoy', 'rainFlower', 'drySpellFlower', 'deficitFlower']);
   assert.equal(FEATURE_NAMES.length, 25);
+  assert.equal(FEATURE_NAMES[7], 'sowDoy');
+  assert.equal(FEATURE_NAMES[24], 'sowOffset30');
   assert.deepEqual(TARGET_NAMES, ['waterIndex', 'ksFlowerMain', 'bareFrac']);
 });
 
-test('climateFeatures: canícula de 46 días y lluvia de mayo 155', () => {
+test('climateFeatures: 7 valores (canícula de 46 días, lluvias estacionales)', () => {
   const b = makeBundle();
   const f = climateFeatures(b, 2001, Array(b.dates.length).fill(4));
+  assert.equal(f.length, 7);
   const get = (k) => f[CLIMATE_FEATURE_NAMES.indexOf(k)];
   assert.equal(get('caniculaDays'), 46);
-  assert.equal(get('rainMay'), 155);
   assert.equal(get('rainMJJ'), 31 * 5 + 30 * 5);
   assert.equal(get('rainASO'), 16 * 5 + 30 * 5 + 31 * 5);
   assert.equal(get('rainYear'), 5 * (184 - 46));
-  assert.equal(get('rainyDaysMO'), 184 - 46);
-  assert.equal(get('maxDrySpellMO'), 46);
   assert.equal(get('et0MeanMO'), 4);
   assert.equal(get('tmeanMO'), 25);
-  assert.equal(get('rsMeanMO'), 18);
   assert.equal(get('elevation'), 400);
   assert.throws(() => climateFeatures(b, 2005, []), /2005/);
 });
 
+// Lluvia de 10 mm/día en mayo-octubre: el inicio de lluvias cae el 3 de mayo (10+10+10 >= 20); tmean constante 26 °C.
+function phenoBundle() {
+  const b = makeBundle();
+  b.tmax = Array(b.dates.length).fill(32);
+  b.tmin = Array(b.dates.length).fill(20);
+  b.rain = b.dates.map((s) => { const m = Number(s.slice(5, 7)); return m >= 5 && m <= 10 ? 10 : 0; });
+  return b;
+}
+const doy = (s) => Math.round((Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10)) - Date.UTC(+s.slice(0, 4), 0, 0)) / 864e5);
+function floweringWindow(b, offset) {
+  const sowIdx = resolveMainSowIdx(b, 2001, offset).idx;
+  const tmean = b.tmax.map((t, i) => (t + b.tmin[i]) / 2);
+  const [lo, hi] = buildPhase(crops.get('maiz'), sowIdx, tmean).floweringIdx;
+  return { sowIdx, lo, hi };
+}
+
+test('phenoFeatures: sowDoy = día del inicio de lluvias + desfase', () => {
+  const b = phenoBundle();
+  const et0 = Array(b.dates.length).fill(4);
+  assert.equal(resolveMainSowIdx(b, 2001, 0).onsetFallback, false);
+  assert.equal(b.dates[resolveMainSowIdx(b, 2001, 0).idx], '2001-05-03');
+  const f0 = phenoFeatures(b, 2001, et0, crops, 0);
+  const f5 = phenoFeatures(b, 2001, et0, crops, 5);
+  assert.equal(f0.length, 4);
+  assert.equal(f0[PHENO_FEATURE_NAMES.indexOf('sowDoy')], doy('2001-05-03'));
+  assert.equal(f5[0], doy('2001-05-03') + 5);
+  assert.equal(phenoFeatures(b, 2001, et0, crops, -20)[0], doy('2001-05-03') - 20);
+});
+
+test('phenoFeatures: ventana de floración húmeda y seca', () => {
+  const b = phenoBundle();
+  const et0 = Array(b.dates.length).fill(4);
+  const { lo, hi } = floweringWindow(b, 0);
+  const len = hi - lo + 1;
+  const wet = phenoFeatures(b, 2001, et0, crops, 0);
+  assert.equal(wet[1], 10 * len); // rainFlower
+  assert.equal(wet[2], 0);        // drySpellFlower
+  assert.equal(wet[3], 0);        // deficitFlower: 1.2 * 4 - 10 < 0
+  for (let i = lo; i <= hi; i++) b.rain[i] = 0;
+  const dry = phenoFeatures(b, 2001, et0, crops, 0);
+  assert.equal(dry[1], 0);
+  assert.equal(dry[2], len);
+  assert.ok(Math.abs(dry[3] - len * crops.get('maiz').kc.mid * 4) < 1e-9);
+});
+
+test('phenoFeatures: sin inicio de lluvias siembra el 15 de junio y el desfase se acota al año', () => {
+  const b = makeBundle(); // 5 mm/día: nunca 20 mm en 3 días
+  const r = resolveMainSowIdx(b, 2001, 0);
+  assert.equal(r.onsetFallback, true);
+  assert.equal(b.dates[r.idx], '2001-06-15');
+  assert.equal(resolveMainSowIdx(b, 2001, 5000).idx, b.dates.length - 1);
+  assert.equal(resolveMainSowIdx(b, 2001, -5000).idx, 0);
+});
+
 test('encodeFeatures: 25 valores con one-hot en su lugar', () => {
-  const clim = Array.from({ length: 11 }, (_, i) => i + 1);
-  const v = encodeFeatures(clim, { texture: 'clay', slopeClass: 'flat', irrigation: 'full', sequenceId: 'extra_riego', sowOffsetDays: 15 });
+  const clim = Array.from({ length: 7 }, (_, i) => i + 1);
+  const pheno = [100, 50, 3, 20];
+  const v = encodeFeatures(clim, pheno, { texture: 'clay', slopeClass: 'flat', irrigation: 'full', sequenceId: 'extra_riego', sowOffsetDays: 15 });
   assert.equal(v.length, 25);
-  assert.deepEqual(v.slice(0, 11), clim);
+  assert.deepEqual(v.slice(0, 7), clim);
+  assert.deepEqual(v.slice(7, 11), pheno);
   assert.deepEqual(v.slice(11, 14), [0, 0, 1]);
   assert.deepEqual(v.slice(14, 17), [1, 0, 0]);
   assert.deepEqual(v.slice(17, 20), [0, 0, 1]);
   assert.deepEqual(v.slice(20, 24), [0, 0, 0, 1]);
   assert.equal(v[24], 0.5);
-  assert.throws(() => encodeFeatures(clim, { texture: 'rock', slopeClass: 'flat', irrigation: 'none', sequenceId: 'actual', sowOffsetDays: 0 }), /rock/);
+  assert.throws(() => encodeFeatures(clim, pheno, { texture: 'rock', slopeClass: 'flat', irrigation: 'none', sequenceId: 'actual', sowOffsetDays: 0 }), /rock/);
 });
 
 test('targetsOf: media de relYield, ks del primer cultivo, bareFrac', () => {
@@ -89,6 +151,19 @@ test('ELM aprende y = 2x1 - x2 (R2 > 0.99) y un punto de entrenamiento queda cer
   assert.ok(r2(Y.map((y) => y[0]), pred) > 0.99);
   assert.ok(Math.abs(pred[0] - Y[0][0]) < 0.1);
   assert.equal(m.nIn, 2); assert.equal(m.nOut, 1); assert.equal(m.hidden, 50);
+});
+
+test('ELM estandariza Y por dentro: y = 1000 + 2*x1 con R2 > 0.99 y yMean/yStd guardados', () => {
+  const r = mulberry32(11);
+  const X = [], Y = [];
+  for (let i = 0; i < 300; i++) { const x1 = r() * 4 - 2, x2 = r() * 4 - 2; X.push([x1, x2]); Y.push([1000 + 2 * x1, 5]); }
+  const m = trainELM(X, Y, { hidden: 50, lambda: 1e-6, seed: 3 });
+  const pred = X.map((x) => elmPredict(m, x));
+  assert.ok(r2(Y.map((y) => y[0]), pred.map((p) => p[0])) > 0.99);
+  assert.ok(Math.abs(m.yMean[0] - 1000) < 1);
+  assert.ok(m.yStd[0] > 0.5);
+  assert.equal(m.yStd[1], 1); // columna constante: std 0 -> 1
+  assert.ok(Math.abs(pred[0][1] - 5) < 1e-6);
 });
 
 test('ELM: misma semilla, misma predicción', () => {

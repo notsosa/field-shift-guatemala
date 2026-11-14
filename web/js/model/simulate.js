@@ -8,7 +8,7 @@ export const KS_STRESS = 0.7;
 const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
 const sum = (a) => a.reduce((s, x) => s + x, 0);
 
-function dayOfYear(date) {
+export function dayOfYear(date) {
   const [y, m, d] = date.split('-').map(Number);
   return Math.round((Date.UTC(y, m - 1, d) - Date.UTC(y, 0, 0)) / 864e5);
 }
@@ -32,6 +32,18 @@ export function agriculturalYears(dates) {
     if (startIdx >= 0 && endIdx >= 0) out.push({ year, startIdx, endIdx });
   }
   return out;
+}
+
+/**
+ * Siembra del cultivo principal (fase 0, 'onset'): inicio de lluvias + desfase, acotada al año agrícola.
+ * idx es local al año (0 = 1 de abril). Lo usan runSequence y phenoFeatures del emulador.
+ */
+export function resolveMainSowIdx(bundle, year, sowOffsetDays = 0) {
+  const startIdx = bundle.dates.indexOf(`${year}-04-01`);
+  const endIdx = bundle.dates.indexOf(`${year + 1}-03-31`);
+  if (startIdx < 0 || endIdx < 0) throw new Error(`Año agrícola ${year} incompleto`);
+  const o = onsetSowIdx(bundle.rain, bundle.dates, year);
+  return { idx: clamp(o.idx - startIdx + sowOffsetDays, 0, endIdx - startIdx), onsetFallback: o.onsetFallback };
 }
 
 /** Métricas de un cultivo en sus propios días; Ks compartido, Kc propio (útil cuando las fases se traslapan). */
@@ -93,8 +105,8 @@ export function runSequence({ sequence, bundle, et0, crops, texture, slopeClass,
     for (const [k, spec] of sequence.phases.entries()) {
       let sowIdx;
       if (spec.sow === 'onset') {
-        const o = onsetSowIdx(bundle.rain, bundle.dates, year);
-        sowIdx = o.idx - startIdx;
+        const o = resolveMainSowIdx(bundle, year, k === 0 ? sowOffsetDays : 0);
+        sowIdx = o.idx;
         if (o.onsetFallback) onsetFallback = true;
       } else if (typeof spec.sow === 'string') {
         const mm = Number(spec.sow.slice(0, 2));
@@ -102,8 +114,8 @@ export function runSequence({ sequence, bundle, et0, crops, texture, slopeClass,
       } else {
         sowIdx = phases[spec.sow.relayOf].sowIdx + spec.sow.daysAfterSow;
       }
-      // El desfase solo mueve la fase 0; los relevos la siguen. Acotado al año agrícola.
-      if (k === 0) sowIdx = clamp(sowIdx + sowOffsetDays, 0, sl.dates.length - 1);
+      // El desfase solo mueve la fase 0 (los relevos la siguen); para 'onset' ya lo aplicó resolveMainSowIdx.
+      if (k === 0 && spec.sow !== 'onset') sowIdx = clamp(sowIdx + sowOffsetDays, 0, sl.dates.length - 1);
       phases.push(buildPhase(crops.get(spec.cropId), sowIdx, tmean));
     }
 

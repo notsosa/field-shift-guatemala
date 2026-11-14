@@ -1,5 +1,5 @@
 // Evalua la red embudo (forward JS), entrena la ELM en Node, mide tiempos/memoria y escribe web/data/emulator_*.json.
-// Uso: node scripts/emulator/evaluate.mjs  (requiere samples.json y web/data/emulator_mlp.json)
+// Uso: node --expose-gc scripts/emulator/evaluate.mjs  (requiere samples.json y web/data/emulator_mlp.json)
 import { readFileSync, writeFileSync } from 'node:fs';
 import { performance } from 'node:perf_hooks';
 import { loadCrops } from '../../web/js/model/crops.js';
@@ -40,26 +40,18 @@ if (!(maxDiff < 1e-4)) throw new Error(`JS y PyTorch discrepan: ${maxDiff}`);
 console.log(`JS vs PyTorch (100 filas espaciadas): max |dif| = ${maxDiff.toExponential(2)}`);
 
 // --- ELM ---
-// trainELM no centra Y (sin sesgo de salida): sin estandarizar Y la ELM queda con R2 muy negativo
-// (probado: R2 waterIndex -0.72 sin centrar). Se estandarizan los objetivos con estadisticas de entrenamiento.
-function fitELM(X_, Y_, cfg) {
-  const ym = Array.from({ length: T }, (_, o) => meanOf(Y_.map((y) => y[o])));
-  const ys = Array.from({ length: T }, (_, o) => Math.sqrt(meanOf(Y_.map((y) => (y[o] - ym[o]) ** 2))) || 1);
-  const model = trainELM(X_, Y_.map((y) => y.map((v, o) => (v - ym[o]) / ys[o])), cfg);
-  return { model, ym, ys };
-}
-const predictELM = (m, x) => elmPredict(m.model, x).map((v, o) => v * m.ys[o] + m.ym[o]);
+// trainELM estandariza Y por dentro y elmPredict devuelve la escala original.
 const ELM_CFG = { hidden: 300, lambda: 1e-2, seed: 42 };
 if (global.gc) global.gc();
 const rss0 = process.memoryUsage().rss;
 const e0 = performance.now();
-const elm = fitELM(Xtr, Ytr, ELM_CFG);
+const elm = trainELM(Xtr, Ytr, ELM_CFG);
 const elmSeconds = (performance.now() - e0) / 1000;
 const rssDelta = process.memoryUsage().rss - rss0; // delta de RSS tras entrenar (no es un pico)
 const h = ELM_CFG.hidden;
 const nIn = Xtr[0].length;
 const elmBytes = 8 * (h * h + h * T + h * nIn + h + h * T); // A + B + W + b + beta (Float64)
-const elmPred = Xte.map((x) => predictELM(elm, x));
+const elmPred = Xte.map((x) => elmPredict(elm, x));
 
 // --- Linea base ingenua: media de entrenamiento por grupo de manejo ---
 const key = (m) => [m.sequenceId, m.irrigation, m.texture, m.slopeClass, m.sowOffsetDays].join('|');
@@ -96,8 +88,8 @@ const bySplit = {
 // --- Estabilidad de semillas de la ELM ---
 const SEEDS = [42, 1, 2, 3, 4];
 const seedR2 = SEEDS.map((s) => {
-  const mdl = s === 42 ? elm : fitELM(Xtr, Ytr, { ...ELM_CFG, seed: s });
-  return metrics(teIdx, Xte.map((x) => predictELM(mdl, x))).r2;
+  const mdl = s === 42 ? elm : trainELM(Xtr, Ytr, { ...ELM_CFG, seed: s });
+  return metrics(teIdx, Xte.map((x) => elmPredict(mdl, x))).r2;
 });
 const r2Mean = Array.from({ length: T }, (_, o) => meanOf(seedR2.map((r) => r[o])));
 const r2Std = Array.from({ length: T }, (_, o) => Math.sqrt(meanOf(seedR2.map((r) => (r[o] - r2Mean[o]) ** 2))));
@@ -112,7 +104,7 @@ const timePredict = (fn, reps) => {
   return us;
 };
 const mlpMicros = timePredict((x) => mlpPredict(net, x), 3);
-const elmMicros = timePredict((x) => predictELM(elm, x), 3);
+const elmMicros = timePredict((x) => elmPredict(elm, x), 3);
 
 // --- Simulador: un punto x una combinacion x 24 anios ---
 const crops = loadCrops(readJson(here('../../web/data/crops.json')));
@@ -147,11 +139,11 @@ const caveat = `The spatial hold-out is not fully independent: NASA POWER cells 
 const overall = { mlp: metrics(teIdx, mlpPred), elm: metrics(teIdx, elmPred), baseline: metrics(teIdx, basePred) };
 const evalOut = {
   targets: targetNames,
-  mlp: { rmse: overall.mlp.rmse, r2: overall.mlp.r2, trainSeconds: net.trainSeconds, params: net.params, trainMemoryAnalyticMB: net.trainMemoryAnalyticMB, trainMemoryMeasuredMB: net.trainMemoryMeasuredMB, memoryMethod: net.memoryMethod, epochs: net.epochs, predictMicros: mlpMicros,
+  mlp: { rmse: overall.mlp.rmse, r2: overall.mlp.r2, trainSeconds: net.trainSeconds, params: net.params, trainMemoryAnalyticMB: net.trainMemoryAnalyticMB, trainMemoryMeasuredMB: net.trainMemoryMeasuredMB, memoryMethod: net.memoryMethod, epochs: net.epochs, bestValLoss: net.bestValLoss, valYears: net.valYears, predictMicros: mlpMicros,
     speedupVsSimulator: simMicros / mlpMicros },
   elm: { rmse: overall.elm.rmse, r2: overall.elm.r2, trainSeconds: elmSeconds, params: h * nIn + h + h * T,
     trainMemoryAnalyticMB: elmBytes / 1048576, trainMemoryMeasuredMB: rssDelta / 1048576,
-    note: 'Targets are standardized with train mean/std before trainELM (no output bias); predictions are de-standardized.',
+    note: 'trainELM standardizes the targets internally (yMean/yStd stored in the model); elmPredict de-standardizes.',
     memoryMethod: 'trainMemoryAnalyticMB = bytes of A (hidden^2) + B (hidden x 3) + W + b + beta as Float64. trainMemoryMeasuredMB = process.memoryUsage().rss after trainELM minus rss before (after global.gc(), run with node --expose-gc); an RSS delta, not a peak, and noisy at this size.',
     predictMicros: elmMicros, speedupVsSimulator: simMicros / elmMicros },
   elmConfig: ELM_CFG,
