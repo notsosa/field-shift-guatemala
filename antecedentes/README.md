@@ -1,0 +1,8 @@
+# Antecedentes para Field Shift
+
+| Proyecto | Qué demuestra para Field Shift |
+| --- | --- |
+| **Iowa State, Delayed Planting and Replanting Evaluator** | Es el antecedente más cercano al rescate. Compara sembrar tarde, resembrar, cambiar entre maíz y soya o dejar de sembrar. Su estructura de decisión es aprovechable. Sus parámetros y seguros corresponden a EE. UU. [Herramienta de Iowa State](https://www.extension.iastate.edu/AGDm/crops/html/a1-57.html) |
+| **RotationARM, Australia** | Combina rotaciones, riesgo y economía con **22.9 millones de simulaciones APSIM precalculadas**. Demuestra que se puede servir una comparación rápida tras resolver el cálculo pesado por adelantado. [Artículo y resultados](https://era.dpi.qld.gov.au/id/eprint/15651/) |
+| **Fenz et al. y Goldenits et al.** | Fenz entrenó un DQN para generar rotaciones usando compatibilidad, margen y nitrógeno. Goldenits obtuvo recompensa media igual o superior con métodos tabulares en 100 planes simulados del entorno estudiado. Hay precedente directo para DRL y una razón para medirlo contra métodos simples. [Fenz 2023](https://doi.org/10.1016/j.compag.2023.108160) · [Goldenits 2025](https://doi.org/10.1016/j.compag.2025.110571) |
+| **ZARC y DSSAT en Guatemala** | MAGA reporta evaluación de ventanas agroclimáticas en 45 parcelas. CIAT calibró DSSAT con ensayos de dos variedades ICTA de maíz en Baja Verapaz. Son referencias locales para validar fechas y respuesta del cultivo. [ZARC](https://guatemala.gob.gt/presentan-resultados-y-aporte-a-la-agricultura-familiar-de-la-herramienta-zarc/) · [Calibración CIAT](https://alliancebioversityciat.org/publications-data/calibracion-de-modelo-de-cultivo-para-maiz-en-guatemala-y-plataforma-de) |
