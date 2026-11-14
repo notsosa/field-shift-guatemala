@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { loadCrops } from '../web/js/model/crops.js';
-import { buildPhase } from '../web/js/model/phenology.js';
+import { buildPhase, kcOnDay } from '../web/js/model/phenology.js';
 import { totalAvailableWater, SOILS } from '../web/js/model/soil.js';
 import { stepDepletion, stressCoefficient, simulateDays } from '../web/js/model/waterBalance.js';
 
@@ -26,9 +26,12 @@ test('riego full mantiene Ks = 1 en sequía', () => {
   assert.ok(Math.min(...d.ks.slice(0, ph.harvestIdx + 1)) >= 0.99);
   assert.ok(d.irr.reduce((a, b) => a + b) > 0);
 });
-test('sin riego en sequía Ks cae por debajo de 0.7', () => {
-  const d = simulateDays({ ...same, irrigation: 'none' });
-  assert.ok(Math.min(...d.ks) < 0.7);
+test('sin riego en sequía Ks cae por debajo de 0.7 durante el ciclo (arranca húmedo)', () => {
+  const d = simulateDays({ ...same, irrigation: 'none', drInit: 0 });
+  assert.equal(d.ks[0], 1);
+  const mid = ph.endIdx.dev + 10;
+  assert.ok(mid < ph.endIdx.mid);
+  assert.ok(d.ks[mid] < 0.7, `Ks en mid = ${d.ks[mid]}`);
 });
 test('suelo desnudo: Kc 0.15, cover bare, sin fases', () => {
   const d = simulateDays({ ...same, phases: [], irrigation: 'full' });
@@ -51,9 +54,27 @@ test('Zr crece: TAW sube del día de siembra al fin de dev y se queda', () => {
 test('irrigation desconocido lanza error con su nombre', () => {
   assert.throws(() => simulateDays({ ...same, irrigation: 'xyz' }), /xyz/);
 });
-test('fases traslapadas: Kc es el máximo de las activas', () => {
-  const ph2 = buildPhase(maiz, 30, Array(N).fill(26));
-  const d = simulateDays({ ...same, phases: [ph, ph2], irrigation: 'none' });
-  assert.ok(d.kc[ph2.sowIdx] >= maiz.kc.ini);
-  assert.ok(d.kc.every((k) => k >= 0.15));
+test('fases traslapadas: Kc, Zr (TAW) y p siguen al cultivo activo de mayor Kc', () => {
+  const frijol = crops.get('frijol');
+  const t = Array(N).fill(26);
+  const phF = buildPhase(frijol, 0, t); // frijol en mid el día 40
+  const phM = buildPhase(maiz, 30, t); // maíz en ini el día 40
+  const i = 40;
+  assert.ok(i > phF.endIdx.dev && i <= phF.endIdx.mid && i <= phM.endIdx.ini);
+  const base = { ...same, et0: Array(N).fill(1.5), phases: [phF, phM], irrigation: 'none', drInit: 0 };
+  const d = simulateDays(base);
+  assert.equal(d.kc[i], Math.max(kcOnDay(frijol, phF, i), kcOnDay(maiz, phM, i)));
+  assert.equal(d.kc[i], kcOnDay(frijol, phF, i));
+  // Zr máxima de las activas: frijol ya está en zrMax (0.7), maíz aún crece.
+  assert.equal(d.taw[i], totalAvailableWater(SOILS.loam.thetaFC, SOILS.loam.thetaWP, frijol.zrMax));
+  // p del frijol (0.45), no el del maíz (0.55): con este Dr los dos darían Ks distintos.
+  const dr = d.dr[i - 1];
+  assert.ok(dr > 0.45 * d.taw[i] && dr < 0.55 * d.taw[i]);
+  assert.equal(d.ks[i], stressCoefficient(dr, d.taw[i], frijol.p));
+  assert.notEqual(d.ks[i], stressCoefficient(dr, d.taw[i], maiz.p));
+  // Día con maíz en mid y frijol en ini (frijol sembrado tarde): Kc del maíz.
+  const phF2 = buildPhase(frijol, 60, t);
+  const d2 = simulateDays({ ...base, phases: [ph, phF2] });
+  assert.equal(d2.kc[60], kcOnDay(maiz, ph, 60));
+  assert.ok(kcOnDay(maiz, ph, 60) > kcOnDay(frijol, phF2, 60));
 });
