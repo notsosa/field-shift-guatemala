@@ -1,0 +1,274 @@
+[
+  {
+    "id": "maiz",
+    "name": {
+      "en": "Maize",
+      "es": "Maíz"
+    },
+    "family": "Poaceae",
+    "legume": false,
+    "needsIrrigation": false,
+    "harvestRainSensitive": false,
+    "tbase": 10,
+    "days": {
+      "ini": 20,
+      "dev": 35,
+      "mid": 40,
+      "late": 25
+    },
+    "kc": {
+      "ini": 0.3,
+      "mid": 1.2,
+      "end": 0.35
+    },
+    "zrMax": 1.2,
+    "p": 0.55,
+    "ky": 1.25,
+    "econ": null,
+    "proxy": [],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
+      "days": "ICTA, publicaciones de maíz (ciclo ~120 d en tierras bajas) https://www.icta.gob.gt/publicacionesdemaiz",
+      "econ": null
+    }
+  },
+  {
+    "id": "frijol",
+    "name": {
+      "en": "Beans (ICTA Ligero)",
+      "es": "Frijol (ICTA Ligero)"
+    },
+    "family": "Fabaceae",
+    "legume": true,
+    "needsIrrigation": false,
+    "harvestRainSensitive": true,
+    "tbase": 10,
+    "days": {
+      "ini": 12,
+      "dev": 18,
+      "mid": 22,
+      "late": 15
+    },
+    "kc": {
+      "ini": 0.4,
+      "mid": 1.15,
+      "end": 0.35
+    },
+    "zrMax": 0.7,
+    "p": 0.45,
+    "ky": 1.15,
+    "econ": null,
+    "proxy": [],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
+      "days": "ICTA, Manual de producción de frijol 2022, cuadro 1 p. 8 (Ligero: 29–30 d a floración, 64–70 d a cosecha) https://www.icta.gob.gt/publicaciones/Frijol/Manual%20de%20producci%C3%B3n%20de%20frijol%20ICTA.pdf",
+      "econ": null
+    }
+  },
+  {
+    "id": "sorgo",
+    "name": {
+      "en": "Sorghum",
+      "es": "Sorgo (maicillo)"
+    },
+    "family": "Poaceae",
+    "legume": false,
+    "needsIrrigation": false,
+    "harvestRainSensitive": false,
+    "tbase": 10,
+    "days": {
+      "ini": 20,
+      "dev": 35,
+      "mid": 40,
+      "late": 30
+    },
+    "kc": {
+      "ini": 0.3,
+      "mid": 1.05,
+      "end": 0.55
+    },
+    "zrMax": 1.2,
+    "p": 0.55,
+    "ky": 0.9,
+    "econ": null,
+    "proxy": [],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
+      "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
+      "econ": null
+    }
+  },
+  {
+    "id": "ajonjoli",
+    "name": {
+      "en": "Sesame",
+      "es": "Ajonjolí"
+    },
+    "family": "Pedaliaceae",
+    "legume": false,
+    "needsIrrigation": false,
+    "harvestRainSensitive": true,
+    "tbase": 12,
+    "days": {
+      "ini": 20,
+      "dev": 30,
+      "mid": 40,
+      "late": 20
+    },
+    "kc": {
+      "ini": 0.35,
+      "mid": 1.1,
+      "end": 0.25
+    },
+    "zrMax": 1,
+    "p": 0.6,
+    "ky": 1,
+    "econ": null,
+    "proxy": [
+      "ky"
+    ],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
+      "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
+      "econ": null
+    }
+  },
+  {
+    "id": "sandia",
+    "name": {
+      "en": "Watermelon",
+      "es": "Sandía"
+    },
+    "family": "Cucurbitaceae",
+    "legume": false,
+    "needsIrrigation": true,
+    "harvestRainSensitive": false,
+    "tbase": 12,
+    "days": {
+      "ini": 10,
+      "dev": 20,
+      "mid": 20,
+      "late": 30
+    },
+    "kc": {
+      "ini": 0.4,
+      "mid": 1,
+      "end": 0.75
+    },
+    "zrMax": 1,
+    "p": 0.4,
+    "ky": 1.1,
+    "econ": null,
+    "proxy": [],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
+      "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
+      "econ": null
+    }
+  },
+  {
+    "id": "melon",
+    "name": {
+      "en": "Melon",
+      "es": "Melón"
+    },
+    "family": "Cucurbitaceae",
+    "legume": false,
+    "needsIrrigation": true,
+    "harvestRainSensitive": false,
+    "tbase": 12,
+    "days": {
+      "ini": 10,
+      "dev": 20,
+      "mid": 25,
+      "late": 20
+    },
+    "kc": {
+      "ini": 0.5,
+      "mid": 0.85,
+      "end": 0.6
+    },
+    "zrMax": 1,
+    "p": 0.45,
+    "ky": 1.1,
+    "econ": null,
+    "proxy": [
+      "ky"
+    ],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
+      "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
+      "econ": null
+    }
+  },
+  {
+    "id": "tomate",
+    "name": {
+      "en": "Tomato",
+      "es": "Tomate"
+    },
+    "family": "Solanaceae",
+    "legume": false,
+    "needsIrrigation": true,
+    "harvestRainSensitive": false,
+    "tbase": 10,
+    "days": {
+      "ini": 30,
+      "dev": 40,
+      "mid": 40,
+      "late": 25
+    },
+    "kc": {
+      "ini": 0.6,
+      "mid": 1.15,
+      "end": 0.8
+    },
+    "zrMax": 1,
+    "p": 0.4,
+    "ky": 1.05,
+    "econ": null,
+    "proxy": [],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
+      "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
+      "econ": null
+    }
+  },
+  {
+    "id": "mucuna",
+    "name": {
+      "en": "Velvet bean (cover)",
+      "es": "Mucuna (abono verde)"
+    },
+    "family": "Fabaceae",
+    "legume": true,
+    "needsIrrigation": false,
+    "harvestRainSensitive": false,
+    "tbase": 10,
+    "days": {
+      "ini": 15,
+      "dev": 30,
+      "mid": 60,
+      "late": 15
+    },
+    "kc": {
+      "ini": 0.4,
+      "mid": 1.15,
+      "end": 0.5
+    },
+    "zrMax": 1,
+    "p": 0.5,
+    "ky": null,
+    "econ": null,
+    "proxy": [
+      "kc",
+      "zrMax",
+      "p"
+    ],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional; valores de soya como proxy",
+      "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
+      "econ": null
+    }
+  }
+]

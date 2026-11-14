@@ -1,0 +1,81 @@
+{
+  "actual": {
+    "id": "actual",
+    "name": {
+      "en": "Current rotation",
+      "es": "Rotación actual"
+    },
+    "phases": [
+      {
+        "cropId": "maiz",
+        "sow": "onset"
+      },
+      {
+        "cropId": "frijol",
+        "sow": "09-01"
+      }
+    ],
+    "requiresIrrigation": false
+  },
+  "proteger": {
+    "id": "proteger",
+    "name": {
+      "en": "Protect: maize + velvet bean cover",
+      "es": "Proteger: maíz + mucuna en relevo"
+    },
+    "phases": [
+      {
+        "cropId": "maiz",
+        "sow": "onset"
+      },
+      {
+        "cropId": "mucuna",
+        "sow": {
+          "relayOf": 0,
+          "daysAfterSow": 60
+        }
+      }
+    ],
+    "requiresIrrigation": false
+  },
+  "extra_secano": {
+    "id": "extra_secano",
+    "name": {
+      "en": "Extra (rainfed): maize → sesame",
+      "es": "Ganar extra (secano): maíz → ajonjolí"
+    },
+    "phases": [
+      {
+        "cropId": "maiz",
+        "sow": "onset"
+      },
+      {
+        "cropId": "ajonjoli",
+        "sow": "09-01"
+      }
+    ],
+    "requiresIrrigation": false
+  },
+  "extra_riego": {
+    "id": "extra_riego",
+    "name": {
+      "en": "Extra (irrigated): maize → beans → watermelon",
+      "es": "Ganar extra (con riego): maíz → frijol → sandía"
+    },
+    "phases": [
+      {
+        "cropId": "maiz",
+        "sow": "onset"
+      },
+      {
+        "cropId": "frijol",
+        "sow": "09-01"
+      },
+      {
+        "cropId": "sandia",
+        "sow": "11-20"
+      }
+    ],
+    "requiresIrrigation": true
+  }
+}
