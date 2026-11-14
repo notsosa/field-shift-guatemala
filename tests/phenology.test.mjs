@@ -57,3 +57,14 @@ test('año sin inicio: 15 de junio con respaldo', () => {
 test('año ausente en las fechas: error que nombra el año', () => {
   assert.throws(() => onsetSowIdx(zeros, dates, 1999), /1999/);
 });
+test('Kc sigue la fracción de grados-día: una racha fría dentro de dev frena el avance', () => {
+  const t = Array(400).fill(26).fill(12, 20, 30); // 10 días a 12 °C al inicio de dev (2 GDD/día)
+  const ph = buildPhase(crop, 0, t);
+  assert.equal(ph.endIdx.ini, 19);
+  assert.ok(kcOnDay(crop, ph, 29) < 0.36, 'casi plano durante los días fríos');
+  let first = 0; while (kcOnDay(crop, ph, first) < 0.75) first++;
+  assert.ok(first >= 46 && first <= 47, `0.75 se alcanza hacia el día 46, no el 37 (fue ${first})`);
+  assert.ok(Math.abs(kcOnDay(crop, ph, ph.endIdx.dev) - 1.2) < 1e-9);
+  assert.equal(ph.gddCum.length, ph.harvestIdx + 1);
+  assert.equal(ph.stageGddCum.late, 1920);
+});

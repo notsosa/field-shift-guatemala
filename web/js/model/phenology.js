@@ -29,9 +29,15 @@ export function buildPhase(crop, sowIdx, tmean) {
   }
   const cycleIncomplete = stage < STAGES.length;
   for (; stage < STAGES.length; stage++) endIdx[STAGES[stage]] = last;
+  const stageGddCum = {};
+  let acc = 0;
+  for (const s of STAGES) { acc += gdd[s]; stageGddCum[s] = acc; }
+  const gddCum = [];
+  let run = 0;
+  for (let i = sowIdx; i <= endIdx.late; i++) { run += Math.max(0, tmean[i] - crop.tbase); gddCum.push(run); }
   const a = endIdx.dev + 1;
   const b = a + Math.max(0, Math.round(0.4 * (endIdx.mid - endIdx.dev)) - 1);
-  return { cropId: crop.id, sowIdx, endIdx, harvestIdx: endIdx.late, floweringIdx: [a, b], cycleIncomplete };
+  return { cropId: crop.id, sowIdx, endIdx, harvestIdx: endIdx.late, floweringIdx: [a, b], cycleIncomplete, gddCum, stageGddCum };
 }
 
 /** Kc del día idx: constante en ini y mid, lineal en dev y late; 0 fuera del ciclo. */
@@ -39,14 +45,18 @@ export function kcOnDay(crop, phase, idx) {
   const { endIdx, sowIdx, harvestIdx } = phase;
   const { kc } = crop;
   if (idx < sowIdx || idx > harvestIdx) return 0;
-  const lerp = (from, to, prevEnd, end) => {
-    const len = end - prevEnd;
-    return len > 0 ? from + (to - from) * ((idx - prevEnd) / len) : to;
+  // Interpolación por fracción de GDD acumulada de la etapa hasta el día idx.
+  const lerp = (from, to, prevStage, stage) => {
+    const lo = phase.stageGddCum[prevStage];
+    const span = phase.stageGddCum[stage] - lo;
+    if (!(span > 0)) return to;
+    const f = (phase.gddCum[idx - sowIdx] - lo) / span;
+    return from + (to - from) * Math.min(1, Math.max(0, f));
   };
   if (idx <= endIdx.ini) return kc.ini;
-  if (idx <= endIdx.dev) return lerp(kc.ini, kc.mid, endIdx.ini, endIdx.dev);
+  if (idx <= endIdx.dev) return lerp(kc.ini, kc.mid, 'ini', 'dev');
   if (idx <= endIdx.mid) return kc.mid;
-  return lerp(kc.mid, kc.end, endIdx.mid, endIdx.late);
+  return lerp(kc.mid, kc.end, 'mid', 'late');
 }
 
 /** Inicio de lluvias: primer día desde el 1 de mayo con ≥ 20 mm en 3 días; si no, 15 de junio (respaldo). */
