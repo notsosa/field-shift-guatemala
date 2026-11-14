@@ -6,8 +6,8 @@ Actualizado el 14 de noviembre de 2026.
 
 | Archivo | Idioma | Fuente principal | Estado |
 |---|---|---|---|
-| [kiche.md](kiche.md) | K'iche' | Vásquez García 2017, *Guía del Idioma K'iche'* (USAC, EPS) | Vocabulario y gramática verificados en la fuente |
-| [qeqchi.md](qeqchi.md) | Q'eqchi' | Diccionario *Q'eqchi' – Español* (escaneado) | Vocabulario verificado en las páginas escaneadas; gramática parcial |
+| [kiche.md](kiche.md) | K'iche' | Vásquez García 2017, *Guía del Idioma K'iche'* (USAC, EPS) | Vocabulario y gramática verificados en la fuente. Incluye propuestas externas de Copilot separadas por confianza |
+| [qeqchi.md](qeqchi.md) | Q'eqchi' | Cu Cab y Cu Cab 1998, *Ch'ina tusleb' aatin* (URL), escaneado | Unas 75 entradas verificadas en la imagen escaneada; gramática deducida de las entradas |
 | [kaqchikel.md](kaqchikel.md) | Kaqchikel | Chacach Cutzal 1990, *Retamaxik ri ch'ab'äl kaqchikel* (URL) | Gramática verificada; poco vocabulario agrícola en la fuente |
 | [mam.md](mam.md) | Mam | Sin fuente todavía | Plantilla por llenar |
 | [palabras-por-buscar.md](palabras-por-buscar.md) | Todos | — | Palabras que faltan, para buscarlas con hablantes o diccionarios |
@@ -40,7 +40,8 @@ Los cuatro pertenecen a la familia maya. Las fuentes de k'iche' y kaqchikel mues
 ## Fuentes
 
 - Vásquez García, Diana Raquel (2017). *Guía del Idioma K'iche' dirigida a estudiantes y docentes de la EORM Cantón Chitay Las Rosas, Quetzaltenango*. Universidad de San Carlos de Guatemala, Facultad de Humanidades. PDF compartido por el equipo (`07_7642.pdf`).
-- *Q'eqchi' – Kaxlan Aatin* (diccionario Q'eqchi'–Español), PDF escaneado compartido por el equipo (`qeqchi-espanol.pdf`). Faltan autor, editorial y año: completar desde la portada.
+- Cu Cab, Carlos Humberto y Cu Cab, Mario Rolando (1998). *Ch'ina tusleb' aatin. Q'eqchi'–Kaxlan aatin ut Kaxlan aatin–Q'eqchi'*. Universidad Rafael Landívar, Instituto de Lingüística. PDF escaneado compartido por el equipo (`qeqchi-espanol.pdf`).
+- GitHub Copilot, búsqueda web del 14 de noviembre de 2026 ([chat compartido](https://github.com/copilot/share/0a234390-4860-8463-a950-4241409d2958)). Solo para k'iche'; sus propuestas **no cuentan como fuente** y están separadas en [kiche.md](kiche.md), sección 4.
 - Chacach Cutzal, Martín (1990). *Retamaxik ri ch'ab'äl kaqchikel. Ruka'n wuj*. Universidad Rafael Landívar, Instituto de Lingüística. [Ficha y PDF](https://www.url.edu.gt/publicacionesurl/pPublicacion.aspx?pb=651).
 - IGER. *Kaqchikel 1. Básico*. ISBN 9789929766174. [Google Books](https://books.google.com.gt/books?id=-eSIDwAAQBAJ). Sin vista previa del texto; no se usó.
 

@@ -266,8 +266,89 @@ Algunas palabras toman sufijo: *tata'* → *tata'ib'* (señores), *ak'al* → *a
   - Niño o niña: *ak'al*.
 - Para la app conviene **usar siempre la forma de respeto** con adultos: *¿La utz wach la?* (¿cómo está usted?).
 
-## 4. Pendiente para este idioma
+## 4. Propuestas externas sin verificar
 
-- Verbos agrícolas: sembrar, cosechar, limpiar (deshierbar), regar, doblar la milpa, vender y comprar. La guía no los incluye.
-- Términos de clima: sequía, canícula, helada, humedad y viento.
+**Origen:** respuesta de GitHub Copilot con búsqueda en Bing, compartida por el equipo el 14 de noviembre de 2026 ([chat](https://github.com/copilot/share/0a234390-4860-8463-a950-4241409d2958)).
+
+- Copilot citó páginas generales en lugar de entradas concretas:
+  - [idiomasmayas.com](https://www.idiomasmayas.com/idiomas-de-guatemala/idioma-kiche/diccionario-kiche-espanol/)
+  - [K'iche' Talking Dictionary](https://talkingdictionary.swarthmore.edu/kiche/?lang=es)
+  - [Glosbe](https://es.glosbe.com/quc/es)
+  - Vocabulario de la ALMG
+- Por eso **ninguna de estas palabras cuenta como verificada**.
+- Úsalas solo como pista para preguntar a un hablante o buscar en el diccionario citado. **No las pongas en la app sin confirmarlas.**
+
+### 4.1 Coinciden con la guía (confirmadas por dos fuentes)
+
+| K'iche' | Español | Guía USAC |
+|---|---|---|
+| ixim | maíz | p. 93 |
+| ab'ix | milpa | p. 123 |
+| ulew | tierra, suelo | p. 81 (antes solo derivada; ahora con dos fuentes) |
+| q'ij | sol, día | p. 105 |
+| saqarik | buenos días | p. 132 |
+
+### 4.2 Sin conflicto con la guía: confianza "Por verificar"
+
+| K'iche' (propuesta) | Español | Observación |
+|---|---|---|
+| ija' | semilla | |
+| tikonik | sembrar | Cuadra con la forma de verbo intransitivo en *-ik* (como *kamik*, p. 150) |
+| k'ob'anik · sik'ixik | cosechar | Copilot da dos formas; confirmar cuál se usa para maíz y cuál para frijol |
+| k'ayik | vender | |
+| loq' | comprar | La forma verbal completa puede ser *loq'oj*; confirmar |
+| ik' | mes, luna | Copilot también da *ik'* para "viento": ver 4.3 |
+| ab' | año | |
+| sib'alaj | mucho, muy | |
+| je' | sí | |
+| man … taj | no (negación) | Coincide con *man utz taj* (no está bien), p. 134 |
+| ch'aqalik | mojado | |
+| sej | frío | |
+| ch'awät | malo | |
+| juch' | poco | |
+| tz'aqik | trabajo | |
+| ab'ixb'al | parcela de milpa | Parece *ab'ix* + sufijo de lugar *-b'al*, como *tijob'al* (escuela); confirmar |
+
+### 4.3 Rechazadas o en conflicto: no usar
+
+| Propuesta de Copilot | Español | Motivo |
+|---|---|---|
+| k'axik' | frijol | La guía da *kinaq'* (p. 93), igual que el kaqchikel |
+| ya' | agua | La guía da *ja'* (p. 105). *ya'* es la forma kaqchikel |
+| q'aq'al · jaq'el | lluvia · llover | La guía da *jab'* (p. 105). *q'aq'* es "fiebre" en la guía (p. 116) |
+| q'aq' | calor | En la guía, *q'aq'* es "fiebre" (p. 116) |
+| ja | río | La guía da *nimaja'* (p. 105). *ja* es "casa" (p. 103) |
+| k'axk'ox | chile | La guía da *ik* (p. 92) |
+| ch'am | seco | En la guía, *ch'am* es "ácido" (p. 93) |
+| utz' | bueno | La guía escribe *utz*, sin glotal (p. 134) |
+| matyöx | gracias | La guía da *maltyox* o *tyox* (p. 134). *matyox* es la forma kaqchikel |
+| tz'i' | gusano | En la guía, *tz'i'* es "perro" (p. 82). Gusano es *ixjut* (p. 101) |
+| tz'ikin | plaga (ave) | Es "pájaro" (p. 106), no "plaga" |
+| ku' | ayote | La guía da *k'um* (p. 92) |
+| kape' | café (planta) | La guía distingue *qakoj* (planta o grano, p. 93) y *kape* (bebida, p. 114) |
+| elot | elote | La guía da *aj* (p. 92) |
+| raqän | hoja | En la guía, *raqan* aparece en "largo" y "corto" (p. 113). Copilot también lo usa en "nube" |
+| raqän q'ij · k'ulb'al q'ij | nube | Construcción dudosa, marcada como literal por Copilot |
+| ik' | viento | Choca con *ik'* = mes en la misma respuesta |
+| k'astaj · tx'umil | campo, cerro | *tx'* no existe en el alfabeto k'iche' (p. 130); parece mam |
+| k'atun ralq'aq'al · k'atun raj k'iaq'äl | época lluviosa · época seca | Usa *q'aq'*, que es fiebre o fuego; la guía da *q'alaj* y *saq'ij* (p. 95) |
+| ch'amiq'aq'al | sequía | Compuesto inventado ("no verificado" según Copilot) |
+| ya'b'anik | regar | Basado en *ya'*, que no es k'iche' |
+| rach'och' | raíz | Sin respaldo; confirmar con diccionario |
+| kan | grano | Sin respaldo; confirmar con diccionario |
+| tomat · patata · ship | tomate · papa | La guía da *pix* (p. 92) y *saqwach* (p. 92) |
+| b'anuk'laj · loq'ok' | deshierbar | Copilot no lo verificó; *loq'* además es "comprar" |
+| utch'uk' · poch'ik' | abono | Copilot no lo verificó |
+| tz'otz'ik · k'uxirik | mazorca · florecer | Copilot no lo verificó |
+
+## 5. Pendiente para este idioma
+
+- **Confirmar con un hablante o con el diccionario** las palabras de la sección 4.2.
+- **Fuentes para buscar por entrada:**
+  - [K'iche' Talking Dictionary](https://talkingdictionary.swarthmore.edu/kiche/?lang=es) (Swarthmore College), con audio de hablantes.
+  - *Diccionario Quiché–Español* de la URL ([ficha](https://www.url.edu.gt/publicacionesurl/pPublicacion.aspx?pb=423)).
+- **Sigue faltando:**
+  - Verbos agrícolas: deshierbar, regar, doblar la milpa.
+  - Clima: sequía, canícula, helada, viento, nube, calor.
+  - Partes de la planta: hoja, raíz, mazorca, grano.
 - Ver la lista completa en [palabras-por-buscar.md](palabras-por-buscar.md).

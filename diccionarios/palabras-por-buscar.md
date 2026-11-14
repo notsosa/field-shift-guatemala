@@ -4,6 +4,7 @@ Lista de palabras que necesita la app, con lo que ya se encontró en cada idioma
 
 - `✓ palabra`: encontrada en la fuente.
 - `≈ palabra`: derivada, cognado o por verificar (ver el archivo del idioma).
+- `? palabra`: propuesta externa sin verificar (por ejemplo, la búsqueda de Copilot del 14 de noviembre). No usar en la app sin confirmarla.
 
 Actualizado el 14 de noviembre de 2026.
 
@@ -11,83 +12,83 @@ Actualizado el 14 de noviembre de 2026.
 
 | Español | K'iche' | Q'eqchi' | Kaqchikel | Mam |
 |---|---|---|---|---|
-| maíz (grano) | ✓ ixim | QEQ_MAIZ | | |
+| maíz (grano) | ✓ ixim | ✓ ixim | | |
 | elote | ✓ aj | ✓ aj | | |
-| mazorca | | QEQ_MAZORCA | | |
-| milpa | ✓ ab'ix | QEQ_MILPA | | |
-| frijol | ✓ kinaq' | QEQ_FRIJOL | ≈ kinaq' | |
-| semilla | | QEQ_SEMILLA | | |
-| café (planta) | ✓ qakoj | QEQ_CAFE | | |
+| mazorca | | ✓ hal | | |
+| milpa | ✓ ab'ix | ✓ k'al | | |
+| frijol | ✓ kinaq' | ✓ kenq' | ≈ kinaq' | |
+| semilla | ? ija' | ✓ iyaj |  |  |
+| café (planta) | ✓ qakoj | ✓ kape | | |
 | papa | ✓ saqwach | | | |
 | tomate | ✓ pix | | ≈ xkoya' | |
-| chile | ✓ ik | | ≈ ik | |
+| chile | ✓ ik | ✓ ik | ≈ ik |  |
 | ayote | ✓ k'um | | | |
 | flor | ✓ kotz'i'j | ✓ atz'um | | |
 | florecer | | ✓ atz'umak | | |
-| hoja | | QEQ_HOJA | | |
-| raíz | | QEQ_RAIZ | | |
-| grano | | | | |
+| hoja | | ✓ xaq / q'een | | |
+| raíz | | ✓ xe' | | |
+| grano |  | ✓ u |  |  |
 
 ## Trabajo en la parcela
 
 | Español | K'iche' | Q'eqchi' | Kaqchikel | Mam |
 |---|---|---|---|---|
-| sembrar | | ✓ awk | | |
+| sembrar | ? tikonik | ✓ awk |  |  |
 | época de siembra | | ✓ awleb'aal | | |
 | sembrador, agricultor | | ✓ aj awinel | ≈ ajtiko'n | |
-| cosechar | | QEQ_COSECHAR | | |
-| limpiar, deshierbar | | QEQ_LIMPIAR | | |
-| regar | | QEQ_REGAR | | |
+| cosechar | ? k'ob'anik / sik'ixik | ✓ q'olok (milpa), mich'ok (frijol) |  |  |
+| limpiar, deshierbar | | ✓ aq'ink | | |
+| regar | | ✓ hirok | | |
 | doblar la milpa | | | | |
 | surco | ✓ b'olaj | | | |
-| parcela, terreno | | QEQ_TERRENO | | |
-| campo, cerro | | | ≈ juyu' | |
-| trabajo | | QEQ_TRABAJO | ≈ samaj | |
+| parcela, terreno | ? ab'ixb'al | ✓ ch'och' |  |  |
+| campo, cerro |  | ✓ k'aleb'aal / tzuul | ≈ juyu' |  |
+| trabajo | ? tz'aqik | ✓ k'anjelak (trabajar) | ≈ samaj |  |
 | machete | ✓ choyib'al | | | |
 | azadón | ✓ asarun | | | |
-| abono | | QEQ_ABONO | | |
-| plaga, gusano | ✓ ixjut | QEQ_GUSANO | | |
+| abono | | ✓ q'em | | |
+| plaga, gusano | ✓ ixjut |  | | |
 | maleza, monte | ✓ q'ayes | | | |
-| vender | | QEQ_VENDER | ≈ k'ayij | |
-| comprar | | QEQ_COMPRAR | ≈ loq' | |
+| vender | ? k'ayik | ✓ k'ayink | ≈ k'ayij |  |
+| comprar | ? loq' | ✓ loq'ok | ≈ loq' |  |
 | quintal | ✓ ok'apajb'al | | | |
 
 ## Agua, suelo y clima
 
 | Español | K'iche' | Q'eqchi' | Kaqchikel | Mam |
 |---|---|---|---|---|
-| agua | ✓ ja' | QEQ_AGUA | ≈ ya' | |
-| lluvia | ✓ jab' | QEQ_LLUVIA | | |
-| tierra, suelo | ≈ ulew | QEQ_TIERRA | | |
-| río | ✓ nimaja' | QEQ_RIO | | |
-| sol, día | ✓ q'ij | QEQ_SOL | | |
-| época de lluvias (invierno) | ✓ q'alaj | QEQ_INVIERNO | | |
-| época seca (verano) | ✓ saq'ij | QEQ_VERANO | | |
-| sequía | | QEQ_SEQUIA | | |
-| seco | | QEQ_SECO | | |
-| mojado, húmedo | | QEQ_HUMEDO | | |
-| calor | | QEQ_CALOR | | |
-| frío | | QEQ_FRIO | | |
-| viento | | QEQ_VIENTO | | |
-| nube | | QEQ_NUBE | | |
+| agua | ✓ ja' | ✓ ha' | ≈ ya' | |
+| lluvia | ✓ jab' | ✓ hab' | | |
+| tierra, suelo | ✓ ulew | ✓ ch'och' |  |  |
+| río | ✓ nimaja' | ✓ nima' | | |
+| sol, día | ✓ q'ij | ✓ saq'e | | |
+| época de lluvias (invierno) | ✓ q'alaj | ✓ hab'al q'e | | |
+| época seca (verano) | ✓ saq'ij | ✓ saq'e'il | | |
+| sequía | | ≈ chaqihal (sequedad) | | |
+| seco | | ≈ chaqik (secarse) | | |
+| mojado, húmedo | ? ch'aqalik | ✓ rax / lanlan |  |  |
+| calor | | ✓ tiq | | |
+| frío | ? sej | ✓ ke |  |  |
+| viento | | ✓ iq' | | |
+| nube | | ✓ choql | | |
 | piedra | ✓ ab'aj | | | |
 
 ## Tiempo, cantidades y frases de la app
 
 | Español | K'iche' | Q'eqchi' | Kaqchikel | Mam |
 |---|---|---|---|---|
-| día | ✓ q'ij | | | |
-| mes, luna | | QEQ_MES | | |
-| año | | QEQ_ANIO | | |
+| día | ✓ q'ij | ✓ kutan |  |  |
+| mes, luna | ? ik' | ✓ po |  |  |
+| año | ? ab' |  |  |  |
 | ¿cuándo? | ✓ ¿jampa'? | | | |
 | ¿dónde? | ✓ ¿jawi'? | | | |
-| bueno, bien | ✓ utz | QEQ_BUENO | ≈ ütz | |
-| malo | | | | |
-| mucho | | | | |
-| poco | | | | |
-| gracias | ✓ maltyox | | ≈ matyox | |
+| bueno, bien | ✓ utz | ✓ us / chaab'il | ≈ ütz | |
+| malo | ? ch'awät | ✓ yib' ru |  |  |
+| mucho | ? sib'alaj | ✓ nab'al |  |  |
+| poco | ? juch' |  |  |  |
+| gracias | ✓ maltyox | ✓ b'anyox | ≈ matyox |  |
 | buenos días | ✓ saqarik | | ≈ xseqër k'a | |
-| sí / no | | | | |
+| sí / no | ? je' / man … taj |  |  |  |
 
 ## Frases que la app necesitará
 
