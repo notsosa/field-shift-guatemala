@@ -2,9 +2,34 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { mlpPredict } from '../web/js/model/emulator.js';
-import { computeMapValues, divergingColor, DIVERGING_STOPS, niceLimit } from '../web/js/ui/emulatorMap.js';
+import { loadCrops } from '../web/js/model/crops.js';
+import { computeMapValues, divergingColor, DIVERGING_STOPS, niceLimit, foodCropIds, compareFoodCrops } from '../web/js/ui/emulatorMap.js';
 
 const readJson = (p) => JSON.parse(readFileSync(new URL(`../web/data/${p}`, import.meta.url), 'utf8'));
+
+test('foodCropIds: cultivos de la secuencia con ky ≠ null (los que promedia waterIndex)', () => {
+  const crops = loadCrops(readJson('crops.json'));
+  const seqs = readJson('sequences.json');
+  assert.deepEqual(foodCropIds(seqs.actual, crops), ['maiz', 'frijol']);
+  assert.deepEqual(foodCropIds(seqs.proteger, crops), ['maiz']);
+  assert.deepEqual(foodCropIds(seqs.extra_riego, crops), ['maiz', 'frijol', 'sandia']);
+});
+
+test('compareFoodCrops: detecta cuándo waterIndex no compara los mismos cultivos', () => {
+  const crops = loadCrops(readJson('crops.json'));
+  const seqs = readJson('sequences.json');
+  assert.deepEqual(compareFoodCrops(seqs.actual, seqs.actual, crops),
+    { same: true, alt: ['maiz', 'frijol'], current: ['maiz', 'frijol'], missing: [], added: [] });
+  const p = compareFoodCrops(seqs.proteger, seqs.actual, crops);
+  assert.equal(p.same, false);
+  assert.deepEqual(p.missing, ['frijol']);
+  assert.deepEqual(p.added, []);
+  const s = compareFoodCrops(seqs.extra_secano, seqs.actual, crops);
+  assert.equal(s.same, false);
+  assert.deepEqual([s.missing, s.added], [['frijol'], ['ajonjoli']]);
+  const r = compareFoodCrops(seqs.extra_riego, seqs.actual, crops);
+  assert.deepEqual([r.same, r.missing, r.added], [false, [], ['sandia']]);
+});
 const grid = readJson('grid_features.json');
 const net = readJson('emulator_mlp.json');
 const predict = (x) => mlpPredict(net, x);

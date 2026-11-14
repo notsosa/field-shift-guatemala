@@ -30,6 +30,19 @@ export function computeMapValues({ grid, predict, alternative, targetIdx, textur
   return { values, predictions, ms: performance.now() - t0 };
 }
 
+/** Cultivos de comida de la secuencia (ky ≠ null): los que promedia waterIndex (targetsOf). Sin repetir, en orden. */
+export function foodCropIds(sequence, crops) {
+  return [...new Set(sequence.phases.map((ph) => ph.cropId))].filter((id) => crops.get(id)?.ky != null);
+}
+
+/** ¿waterIndex de la alternativa promedia los mismos cultivos que el de la rotación actual? */
+export function compareFoodCrops(alternative, current, crops) {
+  const alt = foodCropIds(alternative, crops), cur = foodCropIds(current, crops);
+  const missing = cur.filter((id) => !alt.includes(id));
+  const added = alt.filter((id) => !cur.includes(id));
+  return { same: missing.length === 0 && added.length === 0, alt, current: cur, missing, added };
+}
+
 const hex2rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 const rgb2hex = (c) => `#${c.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('')}`;
 
@@ -135,7 +148,7 @@ export function paintMap(ctrl, points, values, { lang, targetId, limit }) {
 }
 
 /** Leyenda: barra divergente con extremos "peor/mejor", ticks con signo y la precisión del modelo elegido. */
-export function renderLegend(el, { lang, targetId, limit, accuracyText, caveatText }) {
+export function renderLegend(el, { lang, targetId, limit, accuracyText, caveatText, likeForLike = true }) {
   const sg = betterSign(targetId);
   const left = -sg * limit, right = sg * limit;
   const disp = limit * TARGET_META[targetId].scale;
@@ -145,7 +158,7 @@ export function renderLegend(el, { lang, targetId, limit, accuracyText, caveatTe
     <div class="legend-title">${esc(t(lang, `target_${targetId}`))} <span class="legend-desc">${esc(t(lang, `targetDesc_${targetId}`))}</span></div>
     <div class="legend-bar" style="background:linear-gradient(to right, ${DIVERGING_STOPS.join(', ')})" aria-hidden="true"></div>
     <div class="legend-ticks"><span>${esc(tick(left))}</span><span>0 · ${esc(t(lang, 'legendSame'))}</span><span>${esc(tick(right))}</span></div>
-    <div class="legend-ends"><span>◀ ${esc(t(lang, 'legendWorse'))}</span><span>${esc(t(lang, 'legendBetter'))} ▶</span></div>
+    <div class="legend-ends"><span>◀ ${esc(t(lang, likeForLike ? 'legendWorse' : 'legendLower'))}</span><span>${esc(t(lang, likeForLike ? 'legendBetter' : 'legendHigher'))} ▶</span></div>
     <div class="legend-held"><svg width="22" height="22" aria-hidden="true"><circle cx="11" cy="11" r="9" fill="none" stroke="${INK}" stroke-width="2" stroke-dasharray="3 4"/><circle cx="11" cy="11" r="5" fill="${DIVERGING_STOPS[3]}" stroke="${INK}" stroke-width="1.5"/></svg>${esc(t(lang, 'legendHeldOut'))}</div>
     ${accuracyText ? `<p class="legend-acc">${esc(accuracyText)}</p>` : ''}
     ${caveatText ? `<p class="legend-acc caveat">${esc(caveatText)}</p>` : ''}`;

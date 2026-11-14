@@ -120,7 +120,7 @@ function doyDate(lang, doy) {
 const ms = (lang, v) => fmtNumber(lang, v, v < 10 ? 1 : 0);
 
 /** Propuesta + tabla lado a lado emulador/simulador con sus tiempos + veredicto. */
-export function renderSowingResult(el, r, { lang, modelShort }) {
+export function renderSowingResult(el, r, { lang, modelShort, indexNote = '' }) {
   const W = (v) => fmtAbs(lang, 'waterIndex', v);
   const same = r.best.offset === 0;
   const headline = same ? t(lang, 'sowKeep') : t(lang, 'sowProposal', { shift: `<strong>${esc(shiftLong(lang, r.best.offset))}</strong>` });
@@ -153,6 +153,7 @@ export function renderSowingResult(el, r, { lang, modelShort }) {
         </tbody>
       </table>
     </div>
+    ${indexNote ? `<p class="sow-note">${esc(indexNote)}</p>` : ''}
     <p class="verdict verdict-${cls}" data-verdict="${r.verdict}"><span class="verdict-icon" aria-hidden="true">${icon}</span> ${esc(text)}</p>`;
 }
 

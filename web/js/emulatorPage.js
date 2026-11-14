@@ -2,9 +2,10 @@
 import { mlpPredict, elmPredict, trainELM, TARGET_NAMES } from './model/emulator.js';
 import { loadCrops } from './model/crops.js';
 import { computeEt0Series, agriculturalYears } from './model/simulate.js';
-import { t, fmtNumber, fmtDiff } from './ui/emulatorStrings.js';
+import { t, fmtNumber, fmtDiff, locale } from './ui/emulatorStrings.js';
 import {
   computeMapValues, createEmulatorMap, paintMap, renderLegend, accuracyText, renderMapTable, scaleLimit, summarize,
+  foodCropIds, compareFoodCrops,
 } from './ui/emulatorMap.js';
 import { SOW_OFFSETS, yearSlices, findBestSowing, renderSowingResult, renderSowingChart } from './ui/bestSowing.js';
 
@@ -59,6 +60,13 @@ function applyStatic() {
 }
 
 const pointById = (id) => state.data.grid.points.find((p) => p.id === id);
+const cropName = (id) => state.data.crops.get(id).name[state.lang] ?? state.data.crops.get(id).name.en;
+/** "maize and beans (ICTA Ligero)" / "maize only" (minúscula inicial, lista del idioma). */
+function cropList(ids) {
+  const names = ids.map((id) => { const n = cropName(id); return n.charAt(0).toLocaleLowerCase(locale(state.lang)) + n.slice(1); });
+  if (names.length === 1) return tr('cropsOnly', { crop: names[0] });
+  return new Intl.ListFormat(locale(state.lang), { type: 'conjunction' }).format(names);
+}
 const seqName = (id) => state.data.sequences[id].name[state.lang] ?? state.data.sequences[id].name.en;
 
 function fillOptions(select, items) {
@@ -74,14 +82,13 @@ function renderDataTexts() {
   fillOptions($('sow-pilot'), PILOTS.map((id) => [id, pointById(id).name]));
   const heldOut = grid.points.filter((p) => p.heldOut).map((p) => p.name).join(', ');
   $('compare-intro').textContent = tr('cmpIntro', { nTrain: num(E.nTrain), nTest: num(E.nTest) });
-  const cropName = (id) => state.data.crops.get(id).name[state.lang] ?? state.data.crops.get(id).name.en;
   const currentChain = state.data.sequences.actual.phases.map((ph) => cropName(ph.cropId)).join(' → ');
   $('map-intro').textContent = tr('mapIntro', { current: currentChain });
   $('hero-stats').innerHTML = [
     [`${num(E.mlp.speedupVsSimulator)}×`, tr('statSpeed')],
-    [num(E.mlp.r2[0], 2), tr('statR2')],
+    [num(E.bySplit.testYears.mlp.r2[0], 2), tr('statR2'), tr('statR2Sub', { v: num(E.mlp.r2[0], 2) })],
     [num(E.nTrain + E.nTest), tr('statRuns')],
-  ].map(([v, label]) => `<div class="stat"><span class="stat-value">${esc(v)}</span><span class="stat-label">${esc(label)}</span></div>`).join('');
+  ].map(([v, label, sub]) => `<div class="stat"><span class="stat-value">${esc(v)}</span><span class="stat-label">${esc(label)}</span>${sub ? `<span class="stat-sub">${esc(sub)}</span>` : ''}</div>`).join('');
   $('sow-intro').textContent = tr('sowIntro', { n: SOW_OFFSETS.length });
   $('foot-simulator').textContent = tr('footSimulator', { n: grid.years.length, first: grid.years[0], last: grid.years.at(-1) });
   $('foot-training').textContent = tr('footTraining', {
@@ -223,9 +230,10 @@ function renderCompare() {
     tr('cmpNoteR2', { nTest: num(E.nTest) }),
     tr('cmpNoteBaseline', { a: num(b[0], 2), b: num(b[1], 2), c: num(b[2], 2) }),
     tr('cmpNoteSpeed', { us: num(E.simulatorMicrosPerYear) }),
-    vb != null && vn != null ? tr('elmBrowserNote', {
-      hb: num(hb), hn: num(E.elmConfig.hidden), rb: num(state.data.subset.X.length), rn: num(E.elmConfig.nFit), vb: num(vb, 2), vn: num(vn, 2),
-    }) : '',
+    tr(vb != null && vn != null ? 'elmBrowserNote' : 'elmBrowserNoteShort', {
+      hb: num(hb), hn: E.elmConfig?.hidden != null ? num(E.elmConfig.hidden) : '—', rb: num(state.data.subset.X.length),
+      rn: E.elmConfig?.nFit != null ? num(E.elmConfig.nFit) : '—', vb: vb != null ? num(vb, 2) : '—', vn: vn != null ? num(vn, 2) : '—',
+    }),
   ].filter(Boolean).map((s) => `<p>${esc(s)}</p>`).join('');
   renderElmCell();
 }
@@ -285,21 +293,29 @@ function repaintMap() {
     $('map-summary').textContent = '';
     $('map-timing').textContent = '';
     $('map-table').innerHTML = '';
+    $('map-note').hidden = true;
     section.dataset.state = 'na';
     return;
   }
+  // waterIndex promedia los cultivos de comida de cada rotación: si no son los mismos, la comparación no es pareja.
+  const { sequences, crops } = state.data;
+  const food = compareFoodCrops(sequences[s.alternative], sequences.actual, crops);
+  const likeForLike = s.target !== 'waterIndex' || food.same;
+  const note = $('map-note');
+  note.hidden = likeForLike;
+  note.textContent = likeForLike ? '' : tr('noteNotLike', { alt: seqName(s.alternative), altCrops: cropList(food.alt), curCrops: cropList(food.current) });
   const limit = scaleLimit(last.values, s.target);
   paintMap(state.map.ctrl, points, last.values, { lang, targetId: s.target, limit });
   renderLegend($('map-legend'), {
-    lang, targetId: s.target, limit,
+    lang, targetId: s.target, limit, likeForLike,
     accuracyText: accuracyText(lang, state.data.eval, s.model, last.targetIdx, s.target),
     caveatText: s.model === 'elm' ? tr('legendElmCaveat', { hn: num(state.data.eval.elmConfig.hidden) }) : '',
   });
   const sm = summarize(last.values, s.target);
   $('map-summary').innerHTML = [
-    esc(tr('mapSummary', { better: sm.better, same: sm.same, worse: sm.worse, n: sm.n })),
-    sm.top ? esc(tr('mapGain', { name: sm.top.point.name, value: fmtDiff(lang, s.target, sm.top.median) })) : '',
-    sm.bottom ? esc(tr('mapLoss', { name: sm.bottom.point.name, value: fmtDiff(lang, s.target, sm.bottom.median) })) : '',
+    esc(tr(likeForLike ? 'mapSummary' : 'mapSummaryIndex', { better: sm.better, same: sm.same, worse: sm.worse, n: sm.n })),
+    sm.top ? esc(tr(likeForLike ? 'mapGain' : 'mapHighest', { name: sm.top.point.name, value: fmtDiff(lang, s.target, sm.top.median) })) : '',
+    sm.bottom ? esc(tr(likeForLike ? 'mapLoss' : 'mapLowest', { name: sm.bottom.point.name, value: fmtDiff(lang, s.target, sm.bottom.median) })) : '',
   ].filter(Boolean).join(' ');
   $('map-timing').textContent = tr('mapTiming', { n: num(last.predictions), ms: num(last.ms, 1) });
   renderMapTable($('map-table'), sm, { lang, targetId: s.target });
@@ -380,7 +396,10 @@ function rerenderSowing() {
     return;
   }
   $('sow-status').textContent = '';
-  const ctx = { lang: state.lang, modelShort: tr(last.s.model === 'elm' ? 'modelShortElm' : 'modelShortMlp') };
+  const ctx = {
+    lang: state.lang, modelShort: tr(last.s.model === 'elm' ? 'modelShortElm' : 'modelShortMlp'),
+    indexNote: tr('sowIndexCrops', { crops: cropList(foodCropIds(state.data.sequences[last.s.sequence], state.data.crops)) }),
+  };
   renderSowingResult($('sow-result'), last.result, ctx);
   renderSowingChart($('sow-chart'), last.result, ctx);
   section.dataset.state = 'done';
