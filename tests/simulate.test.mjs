@@ -64,3 +64,14 @@ test('altura: cycleIncomplete propagado', () => {
   assert.equal(r[0].cycleIncomplete, true);
   assert.equal(r[0].crops[0].cycleIncomplete, true);
 });
+test('sowOffsetDays = 10 mueve la siembra del maíz exactamente 10 días', () => {
+  const base = run('actual')[0].crops[0].sowDate;
+  const moved = run('actual', { sowOffsetDays: 10 })[0].crops[0].sowDate;
+  assert.equal((Date.parse(moved) - Date.parse(base)) / 864e5, 10);
+});
+test('sowOffsetDays fuera del año agrícola queda acotado', () => {
+  const early = run('actual', { sowOffsetDays: -400 })[0];
+  const late = run('actual', { sowOffsetDays: 400 })[0];
+  assert.equal(early.crops[0].sowDate, '2001-04-01');
+  assert.equal(late.crops[0].sowDate, '2002-03-31');
+});

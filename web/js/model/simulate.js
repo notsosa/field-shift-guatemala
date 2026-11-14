@@ -72,7 +72,7 @@ function cropYear({ phase, crop, sl, active }) {
 }
 
 /** Simula la secuencia en cada año agrícola completo. [] si exige riego y irrigation === 'none'. */
-export function runSequence({ sequence, bundle, et0, crops, texture, slopeClass, irrigation }) {
+export function runSequence({ sequence, bundle, et0, crops, texture, slopeClass, irrigation, sowOffsetDays = 0 }) {
   if (sequence.requiresIrrigation && irrigation === 'none') return [];
   return agriculturalYears(bundle.dates).map(({ year, startIdx, endIdx }) => {
     const end = endIdx + 1;
@@ -90,7 +90,7 @@ export function runSequence({ sequence, bundle, et0, crops, texture, slopeClass,
 
     let onsetFallback = false;
     const phases = [];
-    for (const spec of sequence.phases) {
+    for (const [k, spec] of sequence.phases.entries()) {
       let sowIdx;
       if (spec.sow === 'onset') {
         const o = onsetSowIdx(bundle.rain, bundle.dates, year);
@@ -102,6 +102,8 @@ export function runSequence({ sequence, bundle, et0, crops, texture, slopeClass,
       } else {
         sowIdx = phases[spec.sow.relayOf].sowIdx + spec.sow.daysAfterSow;
       }
+      // El desfase solo mueve la fase 0; los relevos la siguen. Acotado al año agrícola.
+      if (k === 0) sowIdx = clamp(sowIdx + sowOffsetDays, 0, sl.dates.length - 1);
       phases.push(buildPhase(crops.get(spec.cropId), sowIdx, tmean));
     }
 
