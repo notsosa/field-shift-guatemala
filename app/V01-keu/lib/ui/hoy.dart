@@ -130,7 +130,7 @@ class PestanaHoy extends StatelessWidget {
                       ],
                       if (r.factorRendimiento != null) ...[
                         const SizedBox(width: Espacio.m),
-                        dato(t.rendimiento, '${(r.factorRendimiento! * 100).round()} %'),
+                        dato(t.rendimiento, '${(r.factorRendimiento! * 100).round()}%'),
                       ],
                     ],
                   ),

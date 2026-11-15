@@ -46,7 +46,8 @@ class Paleta {
     darkColor: Color(0xFF2A2D2B),
   );
 
-  static Color de(BuildContext c, CupertinoDynamicColor color) => color.resolveFrom(c);
+  static Color de(BuildContext c, CupertinoDynamicColor color) =>
+      color.resolveFrom(c);
 }
 
 /// Espacios de la app, en múltiplos de 4.
@@ -62,27 +63,49 @@ class Espacio {
 
 /// Estilo de texto con Inter. El peso se fija también en el eje variable de la
 /// fuente para que se respete en todas las plataformas.
-TextStyle letra(double tam, {double peso = 400, Color? color, double? alto, double espaciado = 0}) => TextStyle(
-      fontFamily: 'Inter',
-      fontSize: tam,
-      fontWeight: FontWeight.values[((peso / 100).round() - 1).clamp(0, 8)],
-      fontVariations: [FontVariation('wght', peso)],
-      color: color,
-      height: alto,
-      letterSpacing: espaciado,
-      decoration: TextDecoration.none,
-      fontFeatures: const [FontFeature.tabularFigures()],
-    );
+TextStyle letra(
+  double tam, {
+  double peso = 400,
+  Color? color,
+  double? alto,
+  double espaciado = 0,
+}) => TextStyle(
+  fontFamily: 'Inter',
+  fontSize: tam,
+  fontWeight: FontWeight.values[((peso / 100).round() - 1).clamp(0, 8)],
+  fontVariations: [FontVariation('wght', peso)],
+  color: color,
+  height: alto,
+  letterSpacing: espaciado,
+  decoration: TextDecoration.none,
+  fontFeatures: const [FontFeature.tabularFigures()],
+);
 
 class Texto {
-  static TextStyle titulo(BuildContext c) =>
-      letra(22, peso: 650, color: Paleta.de(c, Paleta.texto), alto: 1.2, espaciado: -0.4);
-  static TextStyle cuerpo(BuildContext c) => letra(16, color: Paleta.de(c, Paleta.texto), alto: 1.4, espaciado: -0.1);
-  static TextStyle fuerte(BuildContext c) =>
-      letra(16, peso: 600, color: Paleta.de(c, Paleta.texto), alto: 1.35, espaciado: -0.1);
-  static TextStyle nota(BuildContext c) => letra(14, color: Paleta.de(c, Paleta.secundario), alto: 1.4);
-  static TextStyle etiqueta(BuildContext c) =>
-      letra(12, peso: 600, color: Paleta.de(c, Paleta.secundario), espaciado: 0.6);
+  static TextStyle titulo(BuildContext c) => letra(
+    22,
+    peso: 650,
+    color: Paleta.de(c, Paleta.texto),
+    alto: 1.2,
+    espaciado: -0.4,
+  );
+  static TextStyle cuerpo(BuildContext c) =>
+      letra(16, color: Paleta.de(c, Paleta.texto), alto: 1.4, espaciado: -0.1);
+  static TextStyle fuerte(BuildContext c) => letra(
+    16,
+    peso: 600,
+    color: Paleta.de(c, Paleta.texto),
+    alto: 1.35,
+    espaciado: -0.1,
+  );
+  static TextStyle nota(BuildContext c) =>
+      letra(14, color: Paleta.de(c, Paleta.secundario), alto: 1.4);
+  static TextStyle etiqueta(BuildContext c) => letra(
+    12,
+    peso: 600,
+    color: Paleta.de(c, Paleta.secundario),
+    espaciado: 0.6,
+  );
 }
 
 CupertinoThemeData temaApp(Brightness? brillo) {
@@ -98,7 +121,12 @@ CupertinoThemeData temaApp(Brightness? brillo) {
       textStyle: letra(16, color: texto, espaciado: -0.1),
       actionTextStyle: letra(16, peso: 500, color: Paleta.verde),
       navTitleTextStyle: letra(17, peso: 600, color: texto, espaciado: -0.3),
-      navLargeTitleTextStyle: letra(34, peso: 700, color: texto, espaciado: -1.0),
+      navLargeTitleTextStyle: letra(
+        34,
+        peso: 700,
+        color: texto,
+        espaciado: -1.0,
+      ),
       navActionTextStyle: letra(16, peso: 500, color: Paleta.verde),
       tabLabelTextStyle: letra(10.5, peso: 500),
       pickerTextStyle: letra(20, color: texto),
@@ -109,7 +137,12 @@ CupertinoThemeData temaApp(Brightness? brillo) {
 
 /// Superficie plana con esquinas amplias. Es el contenedor base de la app.
 class Tarjeta extends StatelessWidget {
-  const Tarjeta({super.key, required this.child, this.padding = const EdgeInsets.all(Espacio.borde), this.color});
+  const Tarjeta({
+    super.key,
+    required this.child,
+    this.padding = const EdgeInsets.all(Espacio.borde),
+    this.color,
+  });
 
   final Widget child;
   final EdgeInsetsGeometry padding;
@@ -117,12 +150,12 @@ class Tarjeta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => DecoratedBox(
-        decoration: BoxDecoration(
-          color: color ?? Paleta.de(context, Paleta.tarjeta),
-          borderRadius: BorderRadius.circular(Espacio.radio),
-        ),
-        child: Padding(padding: padding, child: child),
-      );
+    decoration: BoxDecoration(
+      color: color ?? Paleta.de(context, Paleta.tarjeta),
+      borderRadius: BorderRadius.circular(Espacio.radio),
+    ),
+    child: Padding(padding: padding, child: child),
+  );
 }
 
 /// Rótulo en mayúsculas pequeñas sobre un grupo de contenido.
@@ -133,14 +166,24 @@ class Rotulo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.fromLTRB(Espacio.m + Espacio.borde, Espacio.l, Espacio.borde, Espacio.s),
-        child: Text(texto.toUpperCase(), style: Texto.etiqueta(context)),
-      );
+    padding: const EdgeInsets.fromLTRB(
+      Espacio.m + Espacio.borde,
+      Espacio.l,
+      Espacio.borde,
+      Espacio.s,
+    ),
+    child: Text(texto.toUpperCase(), style: Texto.etiqueta(context)),
+  );
 }
 
 /// Botón principal de ancho completo.
 class BotonPrincipal extends StatelessWidget {
-  const BotonPrincipal({super.key, required this.texto, required this.alPulsar, this.secundario = false});
+  const BotonPrincipal({
+    super.key,
+    required this.texto,
+    required this.alPulsar,
+    this.secundario = false,
+  });
 
   final String texto;
   final VoidCallback? alPulsar;
@@ -174,7 +217,15 @@ class BotonPrincipal extends StatelessWidget {
 
 /// Fila de un grupo: título a la izquierda y un control o valor a la derecha.
 class Fila extends StatelessWidget {
-  const Fila({super.key, required this.titulo, this.detalle, this.final_, this.alPulsar, this.icono, this.colorIcono});
+  const Fila({
+    super.key,
+    required this.titulo,
+    this.detalle,
+    this.final_,
+    this.alPulsar,
+    this.icono,
+    this.colorIcono,
+  });
 
   final String titulo;
   final String? detalle;
@@ -186,11 +237,18 @@ class Fila extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contenido = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Espacio.borde, vertical: 14),
+      padding: const EdgeInsets.symmetric(
+        horizontal: Espacio.borde,
+        vertical: 14,
+      ),
       child: Row(
         children: [
           if (icono != null) ...[
-            Icon(icono, size: 22, color: colorIcono ?? Paleta.de(context, Paleta.verde)),
+            Icon(
+              icono,
+              size: 22,
+              color: colorIcono ?? Paleta.de(context, Paleta.verde),
+            ),
             const SizedBox(width: 14),
           ],
           Expanded(
@@ -207,7 +265,11 @@ class Fila extends StatelessWidget {
           ),
           if (final_ != null) ...[const SizedBox(width: 12), final_!],
           if (alPulsar != null && final_ == null)
-            Icon(CupertinoIcons.chevron_forward, size: 16, color: Paleta.de(context, Paleta.secundario)),
+            Icon(
+              CupertinoIcons.chevron_forward,
+              size: 16,
+              color: Paleta.de(context, Paleta.secundario),
+            ),
         ],
       ),
     );
@@ -231,7 +293,10 @@ class Grupo extends StatelessWidget {
   Widget build(BuildContext context) {
     final linea = Padding(
       padding: const EdgeInsets.only(left: Espacio.borde),
-      child: SizedBox(height: 0.5, child: ColoredBox(color: Paleta.de(context, Paleta.tenue))),
+      child: SizedBox(
+        height: 0.5,
+        child: ColoredBox(color: Paleta.de(context, Paleta.tenue)),
+      ),
     );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Espacio.m),
@@ -241,8 +306,10 @@ class Grupo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
 
           children: [
-
-            for (var i = 0; i < children.length; i++) ...[if (i > 0) linea, children[i]],
+            for (var i = 0; i < children.length; i++) ...[
+              if (i > 0) linea,
+              children[i],
+            ],
           ],
         ),
       ),
@@ -252,7 +319,12 @@ class Grupo extends StatelessWidget {
 
 /// Selector de opciones en una sola línea, con el estilo de control segmentado.
 class Selector<T extends Object> extends StatelessWidget {
-  const Selector({super.key, required this.opciones, required this.valor, required this.alCambiar});
+  const Selector({
+    super.key,
+    required this.opciones,
+    required this.valor,
+    required this.alCambiar,
+  });
 
   final Map<T, String> opciones;
   final T valor;
@@ -260,29 +332,33 @@ class Selector<T extends Object> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        width: double.infinity,
-        child: CupertinoSlidingSegmentedControl<T>(
-          groupValue: valor,
-          backgroundColor: Paleta.de(context, Paleta.tenue),
-          thumbColor: Paleta.de(context, Paleta.tarjeta),
-          padding: const EdgeInsets.all(3),
-          children: {
-            for (final e in opciones.entries)
-              e.key: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
-                child: Text(
-                  e.value,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: letra(14, peso: e.key == valor ? 600 : 450, color: Paleta.de(context, Paleta.texto)),
-                ),
+    width: double.infinity,
+    child: CupertinoSlidingSegmentedControl<T>(
+      groupValue: valor,
+      backgroundColor: Paleta.de(context, Paleta.tenue),
+      thumbColor: Paleta.de(context, Paleta.tarjeta),
+      padding: const EdgeInsets.all(3),
+      children: {
+        for (final e in opciones.entries)
+          e.key: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 6),
+            child: Text(
+              e.value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: letra(
+                14,
+                peso: e.key == valor ? 600 : 450,
+                color: Paleta.de(context, Paleta.texto),
               ),
-          },
-          onValueChanged: (v) {
-            if (v != null) alCambiar(v);
-          },
-        ),
-      );
+            ),
+          ),
+      },
+      onValueChanged: (v) {
+        if (v != null) alCambiar(v);
+      },
+    ),
+  );
 }
 
 /// Campo de texto sin bordes para usar dentro de un [Grupo].
@@ -304,24 +380,25 @@ class Campo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Espacio.borde, vertical: 6),
-        child: Row(
-          children: [
-            SizedBox(width: 104, child: Text(titulo, style: Texto.cuerpo(context))),
-            Expanded(
-              child: CupertinoTextField(
-                controller: controlador,
-                placeholder: ejemplo,
-                keyboardType: teclado,
-                onChanged: alCambiar,
-                textAlign: TextAlign.end,
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                decoration: const BoxDecoration(),
-                style: Texto.cuerpo(context),
-                placeholderStyle: Texto.cuerpo(context).copyWith(color: Paleta.de(context, Paleta.secundario)),
-              ),
-            ),
-          ],
+    padding: const EdgeInsets.symmetric(horizontal: Espacio.borde, vertical: 6),
+    child: Row(
+      children: [
+        SizedBox(width: 104, child: Text(titulo, style: Texto.cuerpo(context))),
+        Expanded(
+          child: CupertinoTextField(
+            controller: controlador,
+            placeholder: ejemplo,
+            keyboardType: teclado,
+            onChanged: alCambiar,
+            textAlign: TextAlign.end,
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            decoration: const BoxDecoration(),
+            style: Texto.cuerpo(context),
+            placeholderStyle: Texto.cuerpo(context)
+                .copyWith(color: Paleta.de(context, Paleta.secundario)),
+          ),
         ),
-      );
+      ],
+    ),
+  );
 }

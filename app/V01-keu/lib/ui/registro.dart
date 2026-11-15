@@ -59,7 +59,7 @@ class _EstadoRegistro extends State<PantallaRegistro> {
 
     Widget paso(IconData icono, VoidCallback? alPulsar) => CupertinoButton(
       padding: EdgeInsets.zero,
-      minimumSize: const Size(40, 40),
+      minimumSize: const Size(44, 44),
       onPressed: alPulsar,
       child: Container(
         width: 36,
