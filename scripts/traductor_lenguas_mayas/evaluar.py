@@ -1,4 +1,4 @@
-"""Mide la calidad de traducción (chrF++) del modelo sobre datos/lenguas_mayas/llm/sft_eval.jsonl.
+"""Mide la calidad de traducción (chrF++) del modelo sobre datos/lenguas_mayas/pretraining/llm/sft_eval.jsonl.
 
 chrF compara n-gramas de caracteres; es más justo que BLEU para lenguas aglutinantes como las mayas.
 Lo usan entrenar_sft.py (reporte) y entrenar_hfrl.py (compuerta: un modelo nuevo solo entra a

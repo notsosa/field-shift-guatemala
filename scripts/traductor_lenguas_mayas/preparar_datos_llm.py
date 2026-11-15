@@ -6,9 +6,9 @@ Entradas (ya en el repo)
   diccionarios/*.md                                        tablas curadas (confianza Fuente/Contexto/Derivada)
 
 Salida
-  datos/lenguas_mayas/llm/sft_train.jsonl   {"prompt": [...], "completion": [...], "tarea", "lang"}
-  datos/lenguas_mayas/llm/sft_eval.jsonl    pares de traducción reservados para medir chrF
-  datos/lenguas_mayas/llm/estadisticas_sft.json
+  datos/lenguas_mayas/pretraining/llm/sft_train.jsonl   {"prompt": [...], "completion": [...], "tarea", "lang"}
+  datos/lenguas_mayas/pretraining/llm/sft_eval.jsonl    pares de traducción reservados para medir chrF
+  datos/lenguas_mayas/pretraining/llm/estadisticas_sft.json
 
 Tareas generadas
   traducir_es_maya / traducir_maya_es   palabras y frases de los diccionarios (ambas direcciones)

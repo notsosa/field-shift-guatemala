@@ -1,7 +1,7 @@
 """Etapa 2: ajuste por instrucciones (SFT) para traducir y generar texto.
 
 Parte del modelo de la etapa 1 (modelos/cpt/final) si existe; si no, del modelo base.
-Entrena con datos/lenguas_mayas/llm/sft_train.jsonl (formato prompt/completion conversacional de TRL,
+Entrena con datos/lenguas_mayas/pretraining/llm/sft_train.jsonl (formato prompt/completion conversacional de TRL,
 así la pérdida solo cuenta los tokens de la respuesta). Al terminar:
   - fusiona el LoRA y guarda en modelos/sft/final
   - mide chrF en sft_eval.jsonl

@@ -9,7 +9,8 @@ Un modelo de lenguaje pequeño (Qwen2.5-0.5B-Instruct por defecto) adaptado al *
 | Script | Qué hace |
 |---|---|
 | [construir_corpus_pretraining.py](construir_corpus_pretraining.py) | PDF + diccionarios web → corpus limpio (`datos/lenguas_mayas/pretraining/`) |
-| [preparar_datos_llm.py](preparar_datos_llm.py) | Corpus + diccionarios → dataset de instrucciones (`datos/lenguas_mayas/llm/`) |
+| [preparar_datos_llm.py](preparar_datos_llm.py) | Corpus + diccionarios → dataset de instrucciones (`datos/lenguas_mayas/pretraining/llm/`) |
+| [probar_modelo.py](probar_modelo.py) | **Consola interactiva:** escribes texto y ves la traducción o la generación |
 | [entrenar_pretraining.py](entrenar_pretraining.py) | **Etapa 1.** Pre-entrenamiento continuo con texto maya crudo (LoRA) |
 | [entrenar_sft.py](entrenar_sft.py) | **Etapa 2.** Ajuste por instrucciones: traducir, continuar texto, escribir párrafos, explicar palabras |
 | [evaluar.py](evaluar.py) | chrF++ sobre pares reservados (no vistos en el entrenamiento) |
@@ -32,7 +33,7 @@ Si lo tienes en otra carpeta, indica la ruta con la variable de entorno `FIELDSH
 - `datos/lenguas_mayas/pretraining/shards/<lengua>/*.jsonl`: corpus de pre-entrenamiento. Las autorías y licencias de cada fuente están en `final/CREDITOS.md`.
 - `datos/lenguas_mayas/pretraining/raw_web/*.jsonl`: diccionarios web (pares palabra–glosa).
 - `diccionarios/*.md`: tablas curadas. Solo se usan las filas con confianza *Fuente*, *Contexto* o *Derivada*, y se sobremuestrean ×3.
-- `datos/lenguas_mayas/llm/`: lo genera `preparar_datos_llm.py` en unos segundos. No se sube a git; solo se sube `estadisticas_sft.json`.
+- `datos/lenguas_mayas/pretraining/llm/`: datasets del LLM (`sft_train.jsonl`, `sft_eval.jsonl`, `estadisticas_sft.json`). Los genera `preparar_datos_llm.py` en unos segundos y también están en el repo privado. Si los regeneras, súbelos desde esa carpeta (`git add llm && git commit && git push`).
 
 ## Cómo entrenar
 
@@ -46,7 +47,19 @@ pip install -r requirements-llm.txt
 python preparar_datos_llm.py
 python entrenar_pretraining.py            # -> modelos/cpt/final
 python entrenar_sft.py                    # -> modelos/sft/final, y queda registrado en modelos/ACTUAL
-python generar.py traducir --destino kiche "Mañana va a llover, no riegue la milpa."
+python probar_modelo.py                   # consola interactiva: escribe texto y ve la traducción
+```
+
+Ejemplo de sesión en `probar_modelo.py`:
+
+```
+[traducir español → k'iche'] > Mañana va a llover, no riegue la milpa.
+[traducir español → k'iche'] > /traducir qeqchi es
+[traducir q'eqchi' → español] > ixim
+[traducir q'eqchi' → español] > /generar mam
+[generar en mam] > un consejo corto para sembrar maíz
+[generar en mam] > /n 2          (muestra dos opciones)
+[generar en mam] > /salir
 ```
 
 Para probar el pipeline en CPU antes de gastar GPU:

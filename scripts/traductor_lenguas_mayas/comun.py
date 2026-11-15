@@ -1,7 +1,7 @@
 """Configuración y utilidades compartidas por los scripts del LLM de lenguas mayas.
 
 Flujo completo (ver README.md de esta carpeta):
-  1. preparar_datos_llm.py   corpus + diccionarios  ->  datos/lenguas_mayas/llm/*.jsonl
+  1. preparar_datos_llm.py   corpus + diccionarios  ->  datos/lenguas_mayas/pretraining/llm/*.jsonl
   2. entrenar_pretraining.py pre-entrenamiento continuo (texto maya crudo, LoRA)
   3. entrenar_sft.py         ajuste por instrucciones (traducir / generar)
   4. servidor_api.py         API para la app del teléfono + registro de feedback
@@ -19,7 +19,7 @@ DATOS = RAIZ / "datos" / "lenguas_mayas"
 # El corpus está en el repo PRIVADO mariobet23440/lenguas-mayas-corpus (licencias restringidas):
 #   git clone https://github.com/mariobet23440/lenguas-mayas-corpus datos/lenguas_mayas/pretraining
 CORPUS = Path(os.environ.get("FIELDSHIFT_CORPUS", DATOS / "pretraining"))
-DATOS_LLM = DATOS / "llm"
+DATOS_LLM = CORPUS / "llm"           # datasets del LLM: también en el repo privado
 MODELOS = RAIZ / "modelos"            # en .gitignore: pesos y feedback de usuarios
 REGISTRO = MODELOS / "ACTUAL"         # texto con la ruta del modelo en producción
 FEEDBACK_DB = Path(os.environ.get("FIELDSHIFT_FEEDBACK_DB", MODELOS / "feedback.db"))
@@ -140,11 +140,11 @@ def generar(model, tok, mensajes: list[dict], n: int = 1, max_new_tokens: int = 
     import torch
     texto = tok.apply_chat_template(mensajes, tokenize=False, add_generation_prompt=True)
     enc = tok(texto, return_tensors="pt").to(model.device)
-    muestrear = n > 1 or temperatura > 0
+    muestrear = n > 1 or temperatura > 0          # varias opciones distintas exigen muestreo
     with torch.no_grad():
         out = model.generate(
             **enc, max_new_tokens=max_new_tokens, num_return_sequences=n,
-            do_sample=muestrear, temperature=temperatura if muestrear else None,
+            do_sample=muestrear, temperature=max(temperatura, 0.1) if muestrear else None,
             top_p=top_p if muestrear else None, repetition_penalty=1.1,
             pad_token_id=tok.pad_token_id,
         )
