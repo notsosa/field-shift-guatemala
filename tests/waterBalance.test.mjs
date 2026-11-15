@@ -172,7 +172,7 @@ test('simulateDays con objeto de suelo == con la clase equivalente cuando theta 
 });
 test('simulateDays con suelo propio usa su theta y su CN', () => {
   const rain = Array.from({ length: N }, (_, i) => (i % 9 === 0 ? 22 : 0));
-  const site = { thetaFC: 0.34, thetaWP: 0.19, cn: { crop: 89, residue: 87, bare: 94 }, label: 'site', source: 'test fixture' };
+  const site = { thetaFC: 0.34, thetaWP: 0.19, cn: { crop: 89, residue: 85, bare: 94 }, label: 'site', source: 'test fixture' };
   const d = simulateDays({ ...same, rain, texture: site, irrigation: 'none', slopeClass: 'moderate' });
   assert.ok(Math.abs(d.taw[0] - totalAvailableWater(0.34, 0.19, 0.15)) < 1e-9);
   const cn89 = simulateDays({ ...same, rain, texture: 'clay', irrigation: 'none', slopeClass: 'moderate' });

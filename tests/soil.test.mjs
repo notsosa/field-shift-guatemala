@@ -24,7 +24,7 @@ test('textura o pendiente desconocida lanza error', () => {
   assert.throws(() => curveNumber('loam', 'crop', 'cliff'), /cliff/);
 });
 
-const siteSoil = { thetaFC: 0.34, thetaWP: 0.19, cn: { crop: 89, residue: 87, bare: 94 }, label: 'SoilGrids clay loam', source: 'SoilGrids 2.0; CN: TR-55 2-2b' };
+const siteSoil = { thetaFC: 0.34, thetaWP: 0.19, cn: { crop: 89, residue: 85, bare: 94 }, label: 'SoilGrids clay loam', source: 'SoilGrids 2.0; CN: TR-55 2-2b' };
 test('curveNumber acepta un objeto de suelo (mismos ajustes de pendiente y topes)', () => {
   assert.equal(curveNumber(siteSoil, 'crop', 'moderate'), 89);
   assert.equal(curveNumber(siteSoil, 'crop', 'flat'), 86);

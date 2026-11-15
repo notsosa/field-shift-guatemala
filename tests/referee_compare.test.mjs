@@ -60,7 +60,7 @@ test('caseMetrics assembles the agreement numbers', () => {
 import { resolveSiteCases } from '../scripts/referee/resolve_site_cases.mjs';
 
 test('resolveSiteCases: soil "site" becomes the pilot theta pair for AquaCrop and keeps the site id for the simulator', () => {
-  const points = [{ id: 'chiquimula', soil: { thetaFC: 0.3296, thetaWP: 0.1795, label: 'x', source: 's', cn: { crop: 89, residue: 87, bare: 94 } } }, { id: 'zacapa' }];
+  const points = [{ id: 'chiquimula', soil: { thetaFC: 0.3296, thetaWP: 0.1795, label: 'x', source: 's', cn: { crop: 89, residue: 85, bare: 94 } } }, { id: 'zacapa' }];
   const cases = [
     { id: 'a', crop: 'Maize', sowDate: '05-20', years: '2001-2024', soil: 'Loam', initial: 'dry' },
     { id: 'a_site', crop: 'Maize', sowDate: '05-20', years: '2001-2024', soil: 'site', site: 'chiquimula', initial: 'dry' },

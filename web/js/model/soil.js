@@ -5,7 +5,7 @@ const SRC_CN = 'USDA-NRCS TR-55, cuadro 2-2b';
 export const SOILS = {
   sand: { thetaFC: 0.12, thetaWP: 0.045, hydrologicGroup: 'A', cn: { crop: 67, residue: 64, bare: 77 }, source: `${SRC_THETA}; CN: ${SRC_CN}` },
   loam: { thetaFC: 0.25, thetaWP: 0.12, hydrologicGroup: 'B', cn: { crop: 78, residue: 75, bare: 86 }, source: `${SRC_THETA}; CN: ${SRC_CN}` },
-  clay: { thetaFC: 0.36, thetaWP: 0.22, hydrologicGroup: 'D', cn: { crop: 89, residue: 87, bare: 94 }, source: `${SRC_THETA}; CN: ${SRC_CN}` },
+  clay: { thetaFC: 0.36, thetaWP: 0.22, hydrologicGroup: 'D', cn: { crop: 89, residue: 85, bare: 94 }, source: `${SRC_THETA}; CN: ${SRC_CN}` },
 };
 
 export const SLOPE_CLASSES = {
@@ -85,14 +85,14 @@ export function usdaTextureClass(clayPct, sandPct) {
   throw new Error(`Sin clase USDA para clay ${clayPct}, sand ${sandPct}`);
 }
 
-// Grupo hidrológico (NRCS) aproximado desde la clase de textura. Es una aproximación por textura, no una prueba de infiltración.
+// Grupo hidrológico desde la clase de textura (TR-55 apéndice A, Disturbed soil profiles). 'silt' no está en esa tabla: se asigna B por analogía con silt loam.
 const HYDROLOGIC_GROUP = {
   sand: 'A', 'loamy sand': 'A', 'sandy loam': 'A',
   loam: 'B', 'silt loam': 'B', silt: 'B',
   'sandy clay loam': 'C',
   'clay loam': 'D', 'silty clay loam': 'D', 'sandy clay': 'D', 'silty clay': 'D', clay: 'D',
 };
-export const HYDROLOGIC_GROUP_SOURCE = 'Grupo hidrológico aproximado desde la clase de textura USDA (NRCS National Engineering Handbook, parte 630, cap. 7)';
+export const HYDROLOGIC_GROUP_SOURCE = 'Grupo hidrológico por la textura del suelo superficial: USDA-SCS TR-55 (1986), apéndice A, "Disturbed soil profiles" (Brakensiek y Rawls, 1983)';
 
 export function hydrologicGroupOf(usdaClass) {
   const g = HYDROLOGIC_GROUP[usdaClass];
@@ -106,7 +106,7 @@ const CN_BY_GROUP = {
   A: { crop: 67, residue: 64, bare: 77 },
   B: { crop: 78, residue: 75, bare: 86 },
   C: { crop: 85, residue: 82, bare: 91 },
-  D: { crop: 89, residue: 87, bare: 94 },
+  D: { crop: 89, residue: 85, bare: 94 },
 };
 export const CN_TABLE_SOURCE = SRC_CN;
 
