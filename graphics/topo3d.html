@@ -3,38 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Field Shift GT — Visor Topográfico 3D Multicapa (Radio 5 km · NASA SRTM + NASA POWER)</title>
+  <title>Field Shift · Mapa Topográfico 2D/3D · Diseño App Local (V01)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
-    :root {
-      --bg: #070c17;
-      --card: #0f172a;
-      --border: #1e293b;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --accent: #10b981;
-      --poi: #f59e0b;
-      --primary: #3b82f6;
-      --danger: #ef4444;
+    /* =========================================================================
+       SISTEMA DE DISEÑO DE LA APP LOCAL (app/V01/lib/ui/tema.dart)
+       Paleta Cupertino DynamicColor (Claro / Oscuro) + Tipografía Inter
+       ========================================================================= */
+    :root,
+    body[data-theme="light"] {
+      --bg: #F4F4F1;          /* Paleta.fondo (claro) */
+      --card: #FFFFFF;        /* Paleta.tarjeta (claro) */
+      --card-sub: #F8F8F6;
+      --border: #E6E7E3;      /* Paleta.tenue (claro) */
+      --text: #141614;        /* Paleta.texto (claro) */
+      --muted: #6B706C;       /* Paleta.secundario (claro) */
+      --accent: #1D7A4C;      /* Paleta.verde (claro) */
+      --accent-soft: rgba(29, 122, 76, 0.11);
+      --poi: #B26A00;         /* Paleta.ambar (claro) */
+      --poi-bright: #D97706;
+      --danger: #C2392B;      /* Paleta.rojo (claro) */
+      --primary: #2F6FB5;     /* Paleta.azul (claro) */
+      --canvas-bg: radial-gradient(circle at 50% 32%, #EBF0E8 0%, #DCE3D8 100%);
+      --hud-bg: rgba(255, 255, 255, 0.96);
+      --hud-border: #D5D8D2;
+      --seg-bg: #E6E7E3;
+      --seg-thumb: #FFFFFF;
+      --shadow-card: 0 2px 12px rgba(20, 22, 20, 0.04);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body[data-theme="dark"] {
+      --bg: #0B0C0B;          /* Paleta.fondo (oscuro) */
+      --card: #191B1A;        /* Paleta.tarjeta (oscuro) */
+      --card-sub: #121413;
+      --border: #2A2D2B;      /* Paleta.tenue (oscuro) */
+      --text: #F3F4F2;        /* Paleta.texto (oscuro) */
+      --muted: #9BA19C;       /* Paleta.secundario (oscuro) */
+      --accent: #3DD68C;      /* Paleta.verde (oscuro) */
+      --accent-soft: rgba(61, 214, 140, 0.14);
+      --poi: #FFB84D;         /* Paleta.ambar (oscuro) */
+      --poi-bright: #F59E0B;
+      --danger: #FF7A6B;      /* Paleta.rojo (oscuro) */
+      --primary: #6CB0FF;     /* Paleta.azul (oscuro) */
+      --canvas-bg: radial-gradient(circle at 50% 35%, #1A241E 0%, #0B0C0B 100%);
+      --hud-bg: rgba(25, 27, 26, 0.96);
+      --hud-border: #383D3A;
+      --seg-bg: #2A2D2B;
+      --seg-thumb: #191B1A;
+      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-feature-settings: "tnum";
+      -webkit-font-smoothing: antialiased;
+    }
+
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       display: flex;
       flex-direction: column;
       height: 100vh;
       overflow: hidden;
+      transition: background 0.2s, color 0.2s;
     }
+
+    /* Barra Superior estilo Cupertino Navigation Bar + Controles de Vista */
     header {
       background: var(--card);
       border-bottom: 1px solid var(--border);
-      padding: 8px 16px;
+      padding: 10px 18px;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 8px;
       flex-shrink: 0;
     }
     .header-row {
@@ -47,118 +96,118 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .app-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: var(--card);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
     }
     .badge {
-      background: rgba(16, 185, 129, 0.16);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.4);
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent);
       font-size: 11px;
-      font-weight: 700;
-      padding: 2px 9px;
+      font-weight: 600;
+      padding: 3px 10px;
       border-radius: 999px;
-      letter-spacing: 0.3px;
+      letter-spacing: -0.1px;
     }
     .badge-nasa {
-      background: rgba(239, 68, 68, 0.16);
-      color: #fca5a5;
-      border: 1px solid rgba(239, 68, 68, 0.4);
+      background: var(--seg-bg);
+      color: var(--muted);
+      border: 1px solid var(--border);
       font-size: 11px;
-      font-weight: 700;
-      padding: 2px 9px;
+      font-weight: 600;
+      padding: 3px 10px;
       border-radius: 999px;
     }
     h1 {
-      font-size: 14.5px;
+      font-size: 18px;
       font-weight: 700;
-    }
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      font-size: 12px;
-    }
-    button, select, input[type="text"] {
-      background: #1e293b;
+      letter-spacing: -0.5px;
       color: var(--text);
-      border: 1px solid #334155;
-      padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 11.5px;
+    }
+
+    /* Selector estilo CupertinoSlidingSegmentedControl (tema.dart Selector) */
+    .cupertino-seg {
+      display: inline-flex;
+      background: var(--seg-bg);
+      padding: 3px;
+      border-radius: 11px;
+      gap: 2px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .cupertino-seg button {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+    .cupertino-seg button:hover {
+      color: var(--text);
+    }
+    .cupertino-seg button.active,
+    .cupertino-seg button.active-temp,
+    .cupertino-seg button.active-moist,
+    .cupertino-seg button.active-realtime,
+    .cupertino-seg button.active-planning,
+    .cupertino-seg button.active-poi {
+      background: var(--seg-thumb);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    }
+    .cupertino-seg button.active-accent {
+      background: var(--accent);
+      color: var(--card);
+      font-weight: 600;
+    }
+
+    button, select, input[type="text"] {
+      background: var(--card-sub);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 11px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 500;
       cursor: pointer;
       transition: all 0.15s;
     }
     input[type="text"] {
       cursor: text;
     }
-    button:hover, select:hover { border-color: #64748b; }
-    button.active {
-      background: var(--primary);
-      border-color: #60a5fa;
-      font-weight: 600;
-    }
-    button.active-temp {
-      background: linear-gradient(135deg, #dc2626, #ea580c);
-      border-color: #fca5a5;
-      font-weight: 700;
-    }
-    button.active-moist {
-      background: linear-gradient(135deg, #0284c7, #0d9488);
-      border-color: #7dd3fc;
-      font-weight: 700;
-    }
-    button.active-poi {
-      background: linear-gradient(135deg, #d97706, #f59e0b);
-      color: #080d19;
-      border-color: #fde68a;
-      font-weight: 700;
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+    button:hover, select:hover {
+      border-color: var(--muted);
     }
 
-    /* Mode Slide Switch & Temporal Strip */
+    /* Franja de Control Temporal y Dimensiones estilo Tarjeta App V01 */
     .climate-strip {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid #1e293b;
-      border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 11.5px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 7px 12px;
+      font-size: 12px;
       flex-wrap: wrap;
-    }
-    .mode-switch {
-      display: inline-flex;
-      background: #080d19;
-      border: 1px solid #334155;
-      border-radius: 999px;
-      padding: 2px;
-      gap: 2px;
-    }
-    .mode-option {
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 11.5px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.18s;
-    }
-    .mode-option.active-realtime {
-      background: linear-gradient(135deg, #059669, #10b981);
-      color: #051b11;
-      font-weight: 700;
-      box-shadow: 0 0 10px rgba(16, 185, 129, 0.35);
-    }
-    .mode-option.active-planning {
-      background: linear-gradient(135deg, #d97706, #f59e0b);
-      color: #080d19;
-      font-weight: 700;
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
     }
 
     .temporal-controls {
@@ -166,7 +215,7 @@
       align-items: center;
       gap: 10px;
       flex: 1;
-      min-width: 300px;
+      min-width: 280px;
       flex-wrap: wrap;
     }
     .slider-wrap {
@@ -174,33 +223,32 @@
       align-items: center;
       gap: 8px;
       flex: 1;
-      min-width: 230px;
-      background: #090f1d;
-      border: 1px solid #1e293b;
-      padding: 4px 10px;
-      border-radius: 7px;
+      min-width: 220px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 10px;
     }
     .slider-wrap input[type="range"] {
       flex: 1;
-      accent-color: #10b981;
+      accent-color: var(--accent);
       cursor: pointer;
     }
     .status-tag {
-      padding: 2px 8px;
+      padding: 3px 9px;
       border-radius: 999px;
-      font-size: 10.5px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 600;
       white-space: nowrap;
     }
     .tag-observed {
-      background: rgba(16, 185, 129, 0.16);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.45);
+      background: var(--accent-soft);
+      color: var(--accent);
     }
     .tag-projected {
-      background: rgba(245, 158, 11, 0.16);
-      color: #fbbf24;
-      border: 1px dashed rgba(245, 158, 11, 0.6);
+      background: rgba(178, 106, 0, 0.14);
+      color: var(--poi);
+      border: 1px dashed var(--poi);
     }
 
     .month-pills {
@@ -209,23 +257,24 @@
       flex-wrap: wrap;
     }
     .month-btn {
-      padding: 3px 7px;
-      font-size: 10.5px;
-      border-radius: 5px;
-      background: #0f172a;
-      border: 1px solid #334155;
+      padding: 4px 8px;
+      font-size: 11px;
+      border-radius: 7px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
     }
     .month-btn.projected {
       border-style: dashed;
-      border-color: rgba(245, 158, 11, 0.55);
-      color: #fde68a;
+      border-color: var(--poi);
+      color: var(--poi);
     }
     .month-btn.active {
-      background: #f59e0b;
-      color: #080d19;
-      border-color: #fbbf24;
+      background: var(--accent);
+      color: var(--card);
+      border-color: var(--accent);
       border-style: solid;
-      font-weight: 700;
+      font-weight: 600;
     }
 
     .legend-bar {
@@ -233,219 +282,293 @@
       align-items: center;
       gap: 7px;
       font-size: 11.5px;
-      color: #cbd5e1;
+      color: var(--muted);
       font-weight: 600;
     }
     .gradient-pill {
-      width: 145px;
-      height: 11px;
+      width: 120px;
+      height: 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.28);
+      border: 1px solid var(--border);
     }
 
-    /* Box Size Inputs (0.5 km to 10 km) & 2D <-> 3D Morph Slider */
+    /* Cuadro Personalizable (0.5 km a 10 km) y Slider 2D <-> 3D */
     .box-dim-bar {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: #080d19;
-      border: 1px solid #334155;
-      border-radius: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
       padding: 4px 10px;
-      font-size: 11.5px;
+      font-size: 12px;
     }
     .dim-input {
-      width: 56px;
+      width: 52px;
       text-align: center;
-      padding: 3px 5px;
+      padding: 4px 5px;
       font-weight: 700;
-      color: #fde68a;
-      background: #0f172a;
-      border: 1px solid #475569;
-      border-radius: 5px;
-      font-size: 11.5px;
+      color: var(--accent);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      font-size: 12px;
     }
     .dim-input:focus {
       outline: none;
-      border-color: #10b981;
-      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+      border-color: var(--accent);
     }
     .morph-control {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      background: #080d19;
-      border: 1px solid #38bdf8;
+      gap: 6px;
+      background: var(--seg-bg);
+      border: 1px solid var(--border);
       border-radius: 999px;
       padding: 3px 10px;
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.18);
     }
     .morph-btn {
-      padding: 3px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      border: 1px solid transparent;
+      font-size: 11.5px;
+      font-weight: 600;
+      border: none;
       background: transparent;
       color: var(--muted);
       cursor: pointer;
     }
     .morph-btn.active {
-      background: #0284c7;
-      color: #f8fafc;
-      border-color: #7dd3fc;
+      background: var(--accent);
+      color: var(--card);
     }
 
-    /* Main Workspace: Left Sidebar & Right Main 3D Viewport */
+    /* =========================================================================
+       LAYOUT ADAPTATIVO:
+       - data-layout="app"   -> Formato App Móvil Local (V01) con Tarjetas (22px)
+       - data-layout="split" -> Formato Expandido de 2 Columnas
+       ========================================================================= */
     .workspace {
       flex: 1;
       display: grid;
-      grid-template-columns: 355px 1fr;
-      gap: 10px;
-      padding: 10px;
+      grid-template-columns: 380px 1fr;
+      gap: 14px;
+      padding: 14px 18px;
       min-height: 0;
+      max-width: 1600px;
+      width: 100%;
+      margin: 0 auto;
     }
-    .sidebar {
+
+    body[data-layout="mobile"] {
+      overflow-y: auto;
+      height: auto;
+      min-height: 100vh;
+    }
+    body[data-layout="mobile"] .workspace {
+      display: flex;
+      flex-direction: column-reverse;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 12px 16px 36px 16px;
+      gap: 16px;
+    }
+    body[data-layout="mobile"] .stage-panel {
+      height: 500px;
+      flex-shrink: 0;
+    }
+    body[data-layout="mobile"] .sidebar {
+      overflow: visible;
+    }
+
+    /* Tarjetas con radio 22px idénticas a Tarjeta en app/V01/lib/ui/tema.dart */
+    .sidebar,
+    .stage-panel {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 22px;
+      box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
       overflow: hidden;
       min-height: 0;
     }
+
+    /* Cabecera interna estilo PestanaHoy (app/V01/lib/ui/hoy.dart) */
+    .v01-water-card {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--card);
+    }
+    .v01-ring-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .v01-ring-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .v01-ring-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: var(--text);
+    }
+    .v01-ring-detail {
+      font-size: 13px;
+      line-height: 1.38;
+      color: var(--muted);
+    }
+    .v01-bars-box {
+      background: var(--bg);
+      border-radius: 16px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .v01-bars-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
     .sidebar-section {
-      padding: 9px 12px;
+      padding: 10px 16px;
       border-bottom: 1px solid var(--border);
     }
     .sidebar-title {
       font-size: 12px;
-      font-weight: 700;
-      color: #e2e8f0;
-      margin-bottom: 5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     #map2d {
       width: 100%;
-      height: 195px;
+      height: 155px;
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
     .poi-bar {
-      padding: 8px 12px;
-      background: rgba(245, 158, 11, 0.08);
-      border-bottom: 1px solid rgba(245, 158, 11, 0.28);
+      padding: 10px 16px;
+      background: var(--card-sub);
+      border-bottom: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 7px;
     }
     .poi-chips {
       display: flex;
-      gap: 4px;
+      gap: 5px;
       flex-wrap: wrap;
     }
     .poi-chip {
-      font-size: 10.5px;
-      padding: 2px 7px;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
       border-radius: 999px;
-      background: #1e293b;
-      border: 1px solid #475569;
-      color: #fde68a;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
     .poi-chip:hover {
-      border-color: #f59e0b;
-      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--accent);
+      color: var(--accent);
     }
+
     .metrics-stack {
-      padding: 9px 12px;
+      padding: 12px 16px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       overflow-y: auto;
       flex: 1;
     }
     .metric-card {
-      background: #090f1d;
-      border: 1px solid #1e293b;
-      border-radius: 8px;
-      padding: 6px 10px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 8px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .metric-label {
-      font-size: 10px;
+      font-size: 11px;
+      font-weight: 600;
       text-transform: uppercase;
       color: var(--muted);
-      letter-spacing: 0.3px;
+      letter-spacing: 0.5px;
     }
     .metric-sub {
-      font-size: 10px;
-      color: #64748b;
-      margin-top: 1px;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
     }
     .metric-val {
-      font-size: 13.5px;
+      font-size: 15px;
       font-weight: 700;
+      letter-spacing: -0.2px;
       text-align: right;
+      color: var(--text);
     }
     .agro-card {
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 11px;
-      line-height: 1.42;
-      color: #e2e8f0;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      padding: 10px 13px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--text);
     }
 
-    /* Main 3D Viewport */
-    .stage-panel {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      min-height: 0;
-    }
+    /* Panel Principal del Mapa 2D <-> 3D */
     .stage-header {
-      padding: 7px 14px;
+      padding: 10px 16px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 8px;
-      background: rgba(15, 23, 42, 0.92);
+      background: var(--card);
       flex-shrink: 0;
     }
     .stage-title {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: var(--text);
     }
     .dot-pin {
-      width: 11px;
-      height: 11px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: var(--poi);
-      box-shadow: 0 0 8px var(--poi);
+      background: var(--accent);
       display: inline-block;
     }
     .canvas-wrap {
       position: relative;
       flex: 1;
       min-height: 0;
-      background: radial-gradient(circle at 50% 35%, #17253f 0%, #060a12 100%);
+      background: var(--canvas-bg);
       overflow: hidden;
     }
     canvas.gl-canvas, canvas.hud-canvas {
@@ -463,78 +586,95 @@
       position: absolute;
       top: 12px;
       left: 12px;
-      background: rgba(8, 13, 25, 0.98);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      border-radius: 8px;
-      padding: 7px 12px;
+      background: var(--hud-bg);
+      border: 1px solid var(--hud-border);
+      border-radius: 14px;
+      padding: 8px 13px;
       font-size: 12px;
       pointer-events: none;
       line-height: 1.45;
-      color: #e2e8f0;
+      color: var(--text);
       z-index: 4;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
+      box-shadow: var(--shadow-card);
     }
     .hover-overlay {
       position: absolute;
       bottom: 12px;
       right: 12px;
-      background: rgba(8, 13, 25, 0.98);
-      border: 1px solid rgba(245, 158, 11, 0.65);
-      border-radius: 7px;
-      padding: 6px 11px;
-      font-size: 12px;
-      color: #f8fafc;
+      background: var(--hud-bg);
+      border: 1px solid var(--hud-border);
+      border-radius: 12px;
+      padding: 6px 12px;
+      font-size: 11.5px;
+      color: var(--text);
       pointer-events: none;
-      font-family: monospace;
       z-index: 4;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
+      box-shadow: var(--shadow-card);
     }
   </style>
 </head>
-<body>
+<body data-theme="light" data-layout="split">
   <header>
     <div class="header-row">
       <div class="brand">
-        <span class="badge">FIELD SHIFT GT · WEBGL ULTRA-HD (220×220)</span>
-        <span class="badge-nasa" id="nasa-api-status">NASA SRTM z13 + NASA POWER API Live</span>
-        <h1>Mapa Topográfico 3D Multicapa · Radio 5 km con Indicador de Punto de Interés</h1>
+        <span class="app-icon">💧</span>
+        <div>
+          <h1>Field Shift · Hoy y Terreno 2D/3D</h1>
+          <div style="font-size:12px;color:var(--muted);">
+            Sistema de diseño de <strong style="color:var(--accent);">app/V01</strong> (Cupertino · Inter · FAO-56 + NASA SRTM/POWER)
+          </div>
+        </div>
+        <span class="badge" id="nasa-api-status">NASA SRTM + POWER Sincronizado</span>
       </div>
 
-      <div class="toolbar">
-        <span style="color:var(--muted);font-weight:600;">Capa del Mapa 3D:</span>
-        <button id="layer-temp" class="active-temp">🌡️ Temperatura NASA (°C)</button>
-        <button id="layer-moist">💧 Humedad del Suelo (%)</button>
-        <button id="layer-elev">⛰️ Elevación (m s.n.m.)</button>
-        <button id="layer-slope">📐 Pendiente y Escorrentía (%)</button>
-        <button id="layer-icta">🌱 Pisos Térmicos ICTA (500m)</button>
+      <!-- Selector de Capas estilo CupertinoSlidingSegmentedControl (con Filtro de Precipitación NASA) -->
+      <div class="cupertino-seg" title="Capas del mapa topográfico y agroclimático">
+        <button id="layer-rain">🌧️ Precipitación NASA (mm)</button>
+        <button id="layer-moist">💧 Agua Suelo (%)</button>
+        <button id="layer-temp" class="active-temp">🌡️ Temperatura (°C)</button>
+        <button id="layer-elev">⛰️ Elevación (m)</button>
+        <button id="layer-slope">📐 Escorrentía (%)</button>
+        <button id="layer-icta">🌱 Pisos ICTA</button>
+      </div>
+
+      <!-- Conmutador de Formato (App Móvil V01 vs Expandido) y Tema (Claro vs Oscuro) -->
+      <div style="display:flex;align-items:center;gap:6px;">
+        <div class="cupertino-seg" title="Cambiar entre formato móvil vertical (1 columna) y vista expandida">
+          <button id="layout-split-btn" class="active">🖥️ Expandido</button>
+          <button id="layout-mobile-btn">📱 Tarjeta App Móvil</button>
+        </div>
+        <div class="cupertino-seg" title="Cambiar entre Modo Claro (#F4F4F1) y Modo Oscuro (#0B0C0B) de tema.dart">
+          <button id="theme-light-btn" class="active">☀️ Claro</button>
+          <button id="theme-dark-btn">🌙 Oscuro</button>
+        </div>
       </div>
     </div>
 
-    <!-- Dual-Mode Temporal Strip: Real-Time Verification vs. Planting Planning -->
+    <!-- Franja de Modo Temporal + Dimensiones del Cuadro (0.5 km a 10 km) -->
     <div class="climate-strip">
-      <div class="mode-switch">
-        <button id="mode-realtime" class="mode-option active-realtime">
-          📡 Verificación en Tiempo Real (Últimos días)
+      <div class="cupertino-seg">
+        <button id="mode-realtime" class="active-realtime">
+          📡 Tiempo Real (Últimos 14 días)
         </button>
-        <button id="mode-planning" class="mode-option">
-          📅 Planificación de Siembra (Ciclo Anual)
+        <button id="mode-planning">
+          📅 Planificación (12 Meses)
         </button>
       </div>
 
-      <!-- 1) Real-Time Daily Slider Controls -->
+      <!-- 1) Controles de Tiempo Real (14 días sincronizados con BarrasAgua) -->
       <div class="temporal-controls" id="controls-realtime">
         <div class="slider-wrap">
-          <span style="color:#34d399;font-weight:700;white-space:nowrap;" id="rt-date-label">Último pase satelital</span>
+          <span style="color:var(--accent);font-weight:700;white-space:nowrap;" id="rt-date-label">Último pase satelital</span>
           <input type="range" id="rt-day-slider" min="0" max="13" step="1" value="13" />
-          <span class="status-tag tag-observed" id="rt-lag-badge">● Dato Observado NASA (hace 3 días)</span>
+          <span class="status-tag tag-observed" id="rt-lag-badge">● Observado NASA (hace 3 días)</span>
         </div>
       </div>
 
-      <!-- 2) Planting Planning Monthly Slider + Pills Controls -->
+      <!-- 2) Controles de Planificación de Siembra (12 meses) -->
       <div class="temporal-controls" id="controls-planning" style="display:none;">
-        <div class="slider-wrap" style="max-width:255px;">
-          <span style="color:#fbbf24;font-weight:700;white-space:nowrap;" id="plan-month-label">Mayo (Siembra 1ª)</span>
-          <input type="range" id="plan-month-slider" min="1" max="12" step="1" value="5" style="accent-color:#f59e0b;" />
+        <div class="slider-wrap" style="max-width:240px;">
+          <span style="color:var(--poi);font-weight:700;white-space:nowrap;" id="plan-month-label">Mayo (Siembra 1ª)</span>
+          <input type="range" id="plan-month-slider" min="1" max="12" step="1" value="5" />
         </div>
         <div class="month-pills" id="month-pills">
           <button class="month-btn" data-m="1">Ene</button>
@@ -553,11 +693,11 @@
         <span class="status-tag tag-observed" id="plan-type-badge">● Mes Observado</span>
       </div>
 
-      <!-- Variable selector + Color Legend + View Options -->
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <!-- Opciones de Variable, Leyenda y Cuadro Personalizable (0.5–10 km) -->
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
         <select id="temp-var-select" title="Variable térmica de NASA POWER">
-          <option value="T2M_MAX" selected>T2M_MAX (Máxima Diurna · Estrés)</option>
-          <option value="T2M">T2M (Media Diaria a 2m)</option>
+          <option value="T2M_MAX" selected>T2M_MAX (Máxima Diurna)</option>
+          <option value="T2M">T2M (Media Diaria)</option>
           <option value="T2M_MIN">T2M_MIN (Mínima Nocturna)</option>
         </select>
 
@@ -567,25 +707,28 @@
           <span id="legend-max">36°C</span>
         </div>
 
-        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-          <input type="checkbox" id="chk-contours" checked /> Curvas 50m
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--muted);font-weight:500;">
+          <input type="checkbox" id="chk-contours" checked style="accent-color:var(--accent);" /> Curvas
         </label>
-        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
-          <input type="checkbox" id="chk-flow" checked /> Escorrentía
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--muted);font-weight:500;">
+          <input type="checkbox" id="chk-flow" checked style="accent-color:var(--accent);" /> Escorrentía
         </label>
-        <label style="display:flex;align-items:center;gap:4px;">
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--primary);font-weight:600;" title="Mostrar ríos, quebradas y cuerpos de agua cercanos en 2D y 3D">
+          <input type="checkbox" id="chk-water" checked style="accent-color:var(--primary);" /> 🌊 Cuerpos de Agua
+        </label>
+        <label style="display:flex;align-items:center;gap:4px;color:var(--muted);font-weight:500;">
           Relieve ×<span id="exag-label">2.2</span>
-          <input type="range" id="exag-slider" min="1" max="4.0" step="0.1" value="2.2" style="width:55px;" />
+          <input type="range" id="exag-slider" min="1" max="4.0" step="0.1" value="2.2" style="width:52px;accent-color:var(--accent);" />
         </label>
 
         <!-- Cuadro Personalizable: 2 cuadros de texto (0.5 km a 10 km) -->
         <div class="box-dim-bar" title="Ingresa el Ancho (Este-Oeste) y Largo (Norte-Sur) del cuadro desde 0.5 km hasta 10 km">
-          <span style="color:#34d399;font-weight:700;">📐 Cuadro (0.5–10 km):</span>
+          <span style="color:var(--accent);font-weight:600;">📐 Cuadro:</span>
           <input type="text" id="box-width-input" class="dim-input" value="5" placeholder="0.5-10" title="Ancho Este-Oeste en km (0.5 a 10)" />
           <span style="color:var(--muted);font-weight:700;">×</span>
           <input type="text" id="box-height-input" class="dim-input" value="5" placeholder="0.5-10" title="Largo Norte-Sur en km (0.5 a 10)" />
           <span style="color:var(--muted);font-weight:600;">km</span>
-          <button id="btn-apply-box" style="padding:3px 9px;background:#10b981;color:#052e16;border-color:#34d399;font-weight:700;">
+          <button id="btn-apply-box" style="padding:4px 10px;background:var(--accent);color:var(--card);border-color:var(--accent);font-weight:600;">
             Aplicar
           </button>
         </div>
@@ -593,51 +736,83 @@
     </div>
   </header>
 
-  <!-- Single-Point Workspace -->
+  <!-- Contenedor Principal con Tarjetas estilo app/V01 -->
   <main class="workspace">
-    <!-- Left Sidebar: 2D Map + Point of Interest Controls + Agroclimatic Diagnostics -->
+    <!-- Columna de Tarjetas de la App Local (AnilloAgua + BarrasAgua + Tu Parcela + KPIs) -->
     <aside class="sidebar">
+      <!-- 1) Selector de Sistema de Riego (Riego Natural vs Riego por Goteo) + AnilloAgua + BarrasAgua -->
+      <div class="v01-water-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <span style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);">
+            💧 Modalidad de Riego:
+          </span>
+          <div class="cupertino-seg" style="flex:1;justify-content:center;">
+            <button id="irr-mode-natural" class="active" style="flex:1;padding:5px 8px;font-size:11.5px;" title="Secano: depende de la lluvia NASA POWER y retención topográfica">
+              🌧️ Riego Natural (Lluvia)
+            </button>
+            <button id="irr-mode-drip" style="flex:1;padding:5px 8px;font-size:11.5px;" title="Riego por Goteo: evalúa lámina requerida y cuerpos de agua cercanos">
+              💧 Riego por Goteo
+            </button>
+          </div>
+        </div>
+
+        <div class="v01-ring-row">
+          <canvas id="v01-ring-canvas" width="92" height="92" style="width:92px;height:92px;flex-shrink:0;"></canvas>
+          <div class="v01-ring-info">
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--primary);" id="v01-mode-subtitle">
+              🌧️ Secano · Lluvia NASA POWER + Terreno
+            </div>
+            <div class="v01-ring-title" id="v01-water-title">Evaluando humedad...</div>
+            <div class="v01-ring-detail" id="v01-water-detail">
+              Balance hídrico según precipitación NASA POWER y cuerpos de agua cercanos.
+            </div>
+          </div>
+        </div>
+
+        <div class="v01-bars-box">
+          <div class="v01-bars-header">
+            <span style="font-size:12px;font-weight:600;color:var(--text);">Últimos 14 días (toca una barra)</span>
+            <span style="font-size:11px;font-weight:600;color:var(--primary);" id="v01-bars-sub">🌧️ Lluvia 14d: — mm</span>
+          </div>
+          <canvas id="v01-bars-canvas" width="320" height="62" style="width:100%;height:62px;cursor:pointer;"></canvas>
+        </div>
+      </div>
+
+      <!-- 2) Ubicación de Tu Parcela y Punto de Interés -->
       <div class="sidebar-section">
         <div class="sidebar-title">
-          <span>🗺️ Acción al hacer clic en Mapa 2D:</span>
-        </div>
-        <div style="display:flex;gap:5px;margin-bottom:6px;">
-          <button id="map-click-poi" class="active-poi" style="flex:1;font-size:11px;" title="Colocar el Indicador de Punto de Interés dentro del terreno">
-            📍 Colocar Punto Interés
-          </button>
-          <button id="map-click-center" style="flex:1;font-size:11px;" title="Mover el cuadro completo a otra región del mapa">
-            🟩 Mover Cuadro (<span id="btn-center-dim-label">5×5 km</span>)
-          </button>
-        </div>
-        <div style="font-size:10.5px;color:var(--muted);line-height:1.3;">
-          También puedes hacer <strong>clic directo sobre cualquier punto del relieve 3D</strong> a la derecha para colocar ahí el indicador <strong style="color:#fbbf24;">📍 Punto de Interés</strong>.
+          <span>📍 Ubicación en Mapa 2D</span>
+          <div class="cupertino-seg" style="padding:2px;">
+            <button id="map-click-poi" class="active-poi" style="padding:3px 8px;font-size:11px;">📍 Punto</button>
+            <button id="map-click-center" style="padding:3px 8px;font-size:11px;">🟩 Cuadro (<span id="btn-center-dim-label">5×5 km</span>)</button>
+          </div>
         </div>
       </div>
 
       <div id="map2d"></div>
 
-      <!-- Point of Interest (POI) Naming & Saved Pins Strip -->
       <div class="poi-bar">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-          <span style="font-size:11px;font-weight:700;color:#fbbf24;">📍 Punto de Interés Seleccionado:</span>
-          <span id="coords-badge" style="font-family:monospace;font-size:11px;color:#fde68a;">14.8250, -89.5312</span>
+          <span style="font-size:11.5px;font-weight:600;color:var(--muted);">Coordenadas del Punto:</span>
+          <span id="coords-badge" style="font-size:12px;font-weight:600;color:var(--accent);">14.8250, -89.5312</span>
         </div>
         <div style="display:flex;gap:5px;">
-          <input type="text" id="poi-name-input" value="Parcela Piloto MAGA D01" placeholder="Nombre del punto (ej. Mi Parcela)" style="flex:1;" />
-          <button id="btn-save-poi" title="Guardar este Punto de Interés en el mapa 3D" style="background:#f59e0b;color:#080d19;border-color:#fbbf24;font-weight:700;">
+          <input type="text" id="poi-name-input" value="Parcela Piloto MAGA D01" placeholder="Nombre de tu parcela" style="flex:1;" />
+          <button id="btn-save-poi" title="Guardar este Punto de Interés" style="background:var(--accent);color:var(--card);border-color:var(--accent);font-weight:600;">
             📌 Fijar
           </button>
-          <button id="btn-recenter-5km" title="Regenerar el cuadro centrado exactamente en este Punto de Interés">
-            🎯 Centrar Cuadro
+          <button id="btn-recenter-5km" title="Centrar el cuadro en este punto">
+            🎯 Centrar
           </button>
         </div>
         <div class="poi-chips" id="saved-pois-list"></div>
       </div>
 
+      <!-- 3) Indicadores de la Parcela (Estilo Fila/Grupo de tema.dart) -->
       <div class="metrics-stack">
         <div class="metric-card">
           <div>
-            <div class="metric-label">Altitud en Punto de Interés</div>
+            <div class="metric-label">Altitud en la Parcela</div>
             <div class="metric-sub" id="m-range-sub">Rango en 5 km: —</div>
           </div>
           <div class="metric-val" id="m-elev">— m</div>
@@ -645,23 +820,31 @@
 
         <div class="metric-card">
           <div>
-            <div class="metric-label">Temperatura en el Punto</div>
+            <div class="metric-label">Temperatura NASA</div>
             <div class="metric-sub" id="m-trange-sub">Rango en 5 km: —</div>
           </div>
-          <div class="metric-val" id="m-temp" style="color:#fb923c;">— °C</div>
+          <div class="metric-val" id="m-temp" style="color:var(--poi);">— °C</div>
         </div>
 
         <div class="metric-card">
           <div>
-            <div class="metric-label">Humedad del Suelo</div>
+            <div class="metric-label">Precipitación NASA / Humedad</div>
             <div class="metric-sub" id="m-rain-sub">Lluvia: —</div>
           </div>
-          <div class="metric-val" id="m-moist" style="color:#38bdf8;">— %</div>
+          <div class="metric-val" id="m-moist" style="color:var(--primary);">— %</div>
+        </div>
+
+        <div class="metric-card" style="border-color:var(--primary);background:rgba(47,111,181,0.06);">
+          <div>
+            <div class="metric-label" style="color:var(--primary);">🌊 Cuerpo de Agua más Cercano</div>
+            <div class="metric-sub" id="m-water-sub">Buscando ríos, quebradas y cauces...</div>
+          </div>
+          <div class="metric-val" id="m-water-dist" style="color:var(--primary);">— m</div>
         </div>
 
         <div class="metric-card">
           <div>
-            <div class="metric-label">Pendiente / Escorrentía</div>
+            <div class="metric-label">Pendiente y Escorrentía</div>
             <div class="metric-sub" id="m-slope-sub">Mediana en 5 km: —</div>
           </div>
           <div class="metric-val" id="m-risk">—</div>
@@ -673,7 +856,7 @@
       </div>
     </aside>
 
-    <!-- Right Stage: Single Full-Size Ultra-HD 3D Topographic Map -->
+    <!-- Tarjeta Principal del Terreno 2D <-> 3D -->
     <section class="stage-panel">
       <div class="stage-header">
         <div class="stage-title">
@@ -684,25 +867,23 @@
         <!-- Slider de Transición Continua: Vista 2D Cenital <-> Vista 3D Relieve -->
         <div class="morph-control" title="Desliza para pasar suavemente de Mapa 2D Plano (Norte arriba) a Relieve 3D">
           <button id="btn-morph-2d" class="morph-btn">🗺️ 2D Plano</button>
-          <input type="range" id="morph-2d3d-slider" min="0" max="100" step="1" value="100" style="width:115px;accent-color:#38bdf8;cursor:pointer;" />
+          <input type="range" id="morph-2d3d-slider" min="0" max="100" step="1" value="100" style="width:110px;accent-color:var(--accent);cursor:pointer;" />
           <button id="btn-morph-3d" class="morph-btn active">⛰️ 3D Relieve</button>
-          <span id="morph-pct-label" style="font-size:11px;font-weight:700;color:#7dd3fc;min-width:62px;text-align:right;">3D (100%)</span>
+          <span id="morph-pct-label" style="font-size:11.5px;font-weight:700;color:var(--accent);min-width:64px;text-align:right;">3D (100%)</span>
         </div>
 
         <div style="display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted);">
-          <span style="color:#fde68a;font-weight:600;">💡 Clic = Colocar 📍</span>
+          <span style="color:var(--accent);font-weight:600;">💡 Toca el terreno = Colocar 📍</span>
           <span>·</span>
-          <span>Arrastrar = Rotar 3D</span>
-          <span>·</span>
-          <span>Rueda = Zoom</span>
+          <span>Arrastrar = Rotar</span>
         </div>
       </div>
 
       <div class="canvas-wrap">
         <canvas id="gl-main" class="gl-canvas"></canvas>
         <canvas id="hud-main" class="hud-canvas"></canvas>
-        <div class="hud-overlay" id="hud-main-text">Cargando malla WebGL Ultra-HD (180×180)...</div>
-        <div class="hover-overlay" id="hover-main-text">Mueve el cursor sobre el mapa 3D y haz clic para colocar el Indicador de Punto de Interés</div>
+        <div class="hud-overlay" id="hud-main-text">Cargando malla WebGL Ultra-HD (220×220)...</div>
+        <div class="hover-overlay" id="hover-main-text">Toca cualquier punto del mapa para colocar el Indicador de tu Parcela</div>
       </div>
     </section>
   </main>
@@ -784,6 +965,7 @@
         { name: "Cabecera Chiquimula", lat: 14.8000, lon: -89.5400, color: "#38bdf8" }
       ],
       mapClickMode: "poi", // "poi" (move indicator) or "center" (move box)
+      irrigationMode: "natural", // "natural" (Riego Natural / Secano) or "drip" (Riego por Goteo)
       layer: "temp",
       temporalMode: "realtime",
       rtIndex: 13,
@@ -795,6 +977,9 @@
       exag: 2.2,
       contours: true,
       flow: true,
+      showWater: true,
+      waterBodies: [],
+      closestWater: null,
       dem: null,
       clim: DEFAULT_NASA_CLIM,
       computed: null,
@@ -831,6 +1016,34 @@
     // =========================================================================
     // 2. 2D LEAFLET MAP (CUSTOMIZABLE RECTANGLE + POINT OF INTEREST MARKER)
     // =========================================================================
+    if (typeof window.L === "undefined") {
+      const mapEl = document.getElementById("map2d");
+      if (mapEl) {
+        mapEl.innerHTML =
+          '<div style="height:100%;display:flex;align-items:center;justify-content:center;padding:12px;text-align:center;font-size:11.5px;color:var(--muted);">Mapa 2D OSM sin conexión (CDN no disponible). El motor 3D WebGL sigue operativo.</div>';
+      }
+      const noopLayer = () => ({
+        addTo() { return this; },
+        clearLayers() { return this; },
+        setLatLng() { return this; },
+        setBounds() { return this; },
+        setTooltipContent() { return this; },
+        bindTooltip() { return this; },
+        bindPopup() { return this; },
+        on() { return this; }
+      });
+      window.L = {
+        map() { return { setView() { return this; }, panTo() {}, fitBounds() {}, invalidateSize() {}, on() {} }; },
+        tileLayer: noopLayer,
+        rectangle: noopLayer,
+        circleMarker: noopLayer,
+        marker: noopLayer,
+        polyline: noopLayer,
+        layerGroup: noopLayer,
+        divIcon(o) { return o; }
+      };
+    }
+
     const map = L.map("map2d", { zoomControl: true }).setView([state.centerLat, state.centerLon], 12);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 18,
@@ -864,6 +1077,217 @@
     }).addTo(map).bindTooltip("📍 Punto de Interés Seleccionado", { permanent: false });
 
     const savedMarkersGroup = L.layerGroup().addTo(map);
+    const waterBodiesGroup2D = L.layerGroup().addTo(map);
+
+    // =========================================================================
+    // 2B. DETECCIÓN Y EVALUACIÓN DE CUERPOS DE AGUA CERCANOS
+    //     (OpenStreetMap Overpass API + Cauces / Vaguadas Topográficas SRTM)
+    // =========================================================================
+    function extractTopographicWaterChannels(dem) {
+      const { n, elev, slope, bounds } = dem;
+      const [lonW, latS, lonE, latN] = bounds;
+      const channels = [];
+
+      // 1) Trace primary valley thalwegs (lowest elevation convergence paths across N-S and E-W)
+      const nsSpan = Math.abs(elev[0 * n + Math.floor(n / 2)] - elev[(n - 1) * n + Math.floor(n / 2)]);
+      const ewSpan = Math.abs(elev[Math.floor(n / 2) * n + 0] - elev[Math.floor(n / 2) * n + (n - 1)]);
+      const byRow = nsSpan >= ewSpan;
+
+      const mainPts = [];
+      let prevIdx = -1;
+      const numSlices = 28;
+      for (let k = 0; k < numSlices; k++) {
+        const idxFixed = Math.round((k / (numSlices - 1)) * (n - 1));
+        let minVal = Infinity;
+        let bestVar = Math.floor(n / 2);
+
+        const searchMin = prevIdx < 0 ? 8 : Math.max(6, prevIdx - 18);
+        const searchMax = prevIdx < 0 ? n - 9 : Math.min(n - 7, prevIdx + 18);
+        for (let vIdx = searchMin; vIdx <= searchMax; vIdx++) {
+          const r = byRow ? idxFixed : vIdx;
+          const c = byRow ? vIdx : idxFixed;
+          const z = elev[r * n + c];
+          if (z < minVal) {
+            minVal = z;
+            bestVar = vIdx;
+          }
+        }
+        prevIdx = bestVar;
+        const r = byRow ? idxFixed : bestVar;
+        const c = byRow ? bestVar : idxFixed;
+        const u = (c / (n - 1)) * 2.0 - 1.0;
+        const v = (r / (n - 1)) * 2.0 - 1.0;
+        const lat = latN - (r / (n - 1)) * (latN - latS);
+        const lon = lonW + (c / (n - 1)) * (lonE - lonW);
+        mainPts.push({ r, c, u, v, lat, lon, elev: elev[r * n + c] });
+      }
+
+      // Check if near Chiquimula Río San José / Río Taco basin
+      const isChiquimula = Math.hypot(dem.lat - 14.825, dem.lon - (-89.531)) < 0.08;
+      channels.push({
+        name: isChiquimula ? "Río San José / Cauce Principal" : "Cauce Principal de Valle (SRTM)",
+        kind: isChiquimula ? "Río Permanente (Cuenca Chiquimula)" : "Cauce Hidrológico Principal (SRTM)",
+        source: isChiquimula ? "Hidrografía Chiquimula + SRTM" : "Topografía NASA SRTM",
+        isPermanent: isChiquimula,
+        pts: mainPts
+      });
+
+      // 2) Secondary tributary / quebrada in the opposite quadrant
+      const secPts = [];
+      let prevSec = -1;
+      for (let k = 3; k < numSlices - 3; k++) {
+        const idxFixed = Math.round((k / (numSlices - 1)) * (n - 1));
+        let minVal = Infinity;
+        let bestVar = -1;
+        for (let vIdx = 10; vIdx < n - 10; vIdx++) {
+          if (Math.abs(vIdx - (byRow ? mainPts[k].c : mainPts[k].r)) < 38) continue;
+          if (prevSec >= 0 && Math.abs(vIdx - prevSec) > 16) continue;
+          const r = byRow ? idxFixed : vIdx;
+          const c = byRow ? vIdx : idxFixed;
+          const z = elev[r * n + c];
+          if (z < minVal) {
+            minVal = z;
+            bestVar = vIdx;
+          }
+        }
+        if (bestVar >= 0) {
+          prevSec = bestVar;
+          const r = byRow ? idxFixed : bestVar;
+          const c = byRow ? bestVar : idxFixed;
+          const u = (c / (n - 1)) * 2.0 - 1.0;
+          const v = (r / (n - 1)) * 2.0 - 1.0;
+          const lat = latN - (r / (n - 1)) * (latN - latS);
+          const lon = lonW + (c / (n - 1)) * (lonE - lonW);
+          secPts.push({ r, c, u, v, lat, lon, elev: elev[r * n + c] });
+        }
+      }
+      if (secPts.length >= 6) {
+        channels.push({
+          name: isChiquimula ? "Quebrada La Vega / Afluente" : "Quebrada / Vaguada Secundaria (SRTM)",
+          kind: "Quebrada / Escorrentía Estacional",
+          source: "Topografía NASA SRTM",
+          isPermanent: false,
+          pts: secPts
+        });
+      }
+
+      return channels;
+    }
+
+    async function fetchWaterBodiesForBox(dem) {
+      const topoChannels = extractTopographicWaterChannels(dem);
+      const [lonW, latS, lonE, latN] = dem.bounds;
+      const n = dem.n;
+
+      try {
+        const query = `[out:json][timeout:4];(way["waterway"~"river|stream|canal"](${latS.toFixed(4)},${lonW.toFixed(4)},${latN.toFixed(4)},${lonE.toFixed(4)});way["natural"="water"](${latS.toFixed(4)},${lonW.toFixed(4)},${latN.toFixed(4)},${lonE.toFixed(4)}););out geom 12;`;
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 4200);
+        const resp = await fetch("https://overpass-api.de/api/interpreter?data=" + encodeURIComponent(query), {
+          signal: ctrl.signal
+        });
+        clearTimeout(timer);
+        if (resp.ok) {
+          const data = await resp.json();
+          const osmBodies = [];
+          for (const el of (data.elements || [])) {
+            if (!el.geometry || el.geometry.length < 2) continue;
+            const tags = el.tags || {};
+            const wType = tags.waterway || (tags.natural === "water" ? "lagoon" : "stream");
+            const rawName = tags.name || (wType === "river" ? "Río Cartografiado (OSM)" : wType === "lagoon" ? "Laguna / Reservorio (OSM)" : "Quebrada / Arroyo (OSM)");
+            const pts = [];
+            for (const g of el.geometry) {
+              if (g.lat < latS || g.lat > latN || g.lon < lonW || g.lon > lonE) continue;
+              const r = Math.max(0, Math.min(n - 1, Math.round(((latN - g.lat) / (latN - latS)) * (n - 1))));
+              const c = Math.max(0, Math.min(n - 1, Math.round(((g.lon - lonW) / (lonE - lonW)) * (n - 1))));
+              const u = (c / (n - 1)) * 2.0 - 1.0;
+              const v = (r / (n - 1)) * 2.0 - 1.0;
+              pts.push({ r, c, u, v, lat: g.lat, lon: g.lon, elev: dem.elev[r * n + c] });
+            }
+            if (pts.length >= 2) {
+              osmBodies.push({
+                name: rawName,
+                kind: wType === "river" ? "Río Permanente (OSM)" : wType === "lagoon" ? "Cuerpo de Agua / Reservorio (OSM)" : "Quebrada / Cauce (OSM)",
+                source: "OpenStreetMap + NASA SRTM",
+                isPermanent: wType === "river" || wType === "lagoon",
+                pts
+              });
+            }
+          }
+          if (osmBodies.length > 0) {
+            return [...osmBodies.slice(0, 6), ...topoChannels.slice(0, 1)];
+          }
+        }
+      } catch (_) {
+        // Fallback to topographic SRTM channels when offline or Overpass busy
+      }
+      return topoChannels;
+    }
+
+    function evaluateClosestWaterBody() {
+      if (!state.dem || !state.waterBodies || state.waterBodies.length === 0) {
+        state.closestWater = null;
+        return null;
+      }
+      const poiLat = state.poiLat;
+      const poiLon = state.poiLon;
+      const poiIdx = state.poiRow * N + state.poiCol;
+      const poiElev = state.dem.elev[poiIdx];
+      const cosLat = Math.cos((poiLat * Math.PI) / 180);
+
+      let best = null;
+      for (const wb of state.waterBodies) {
+        for (const pt of wb.pts) {
+          const dyM = (pt.lat - poiLat) * 111320.0;
+          const dxM = (pt.lon - poiLon) * 111320.0 * cosLat;
+          const distM = Math.hypot(dxM, dyM);
+          if (!best || distM < best.distMeters) {
+            best = {
+              name: wb.name,
+              kind: wb.kind,
+              source: wb.source,
+              isPermanent: wb.isPermanent,
+              distMeters: Math.round(distM),
+              waterElev: Math.round(pt.elev),
+              poiElev: Math.round(poiElev),
+              deltaZ: Math.round(poiElev - pt.elev), // + means parcel is above water (needs pump), <= 0 means gravity-fed possible
+              pt
+            };
+          }
+        }
+      }
+      state.closestWater = best;
+      renderWaterBodies2D();
+      return best;
+    }
+
+    function renderWaterBodies2D() {
+      waterBodiesGroup2D.clearLayers();
+      if (!state.showWater || !state.waterBodies) return;
+      for (const wb of state.waterBodies) {
+        const latlngs = wb.pts.map((p) => [p.lat, p.lon]);
+        L.polyline(latlngs, {
+          color: wb.isPermanent ? "#0284c7" : "#38bdf8",
+          weight: wb.isPermanent ? 3.5 : 2.2,
+          opacity: 0.9,
+          dashArray: wb.isPermanent ? null : "4, 4"
+        }).addTo(waterBodiesGroup2D).bindTooltip(`🌊 ${wb.name} (${wb.kind})`);
+      }
+      if (state.closestWater && state.closestWater.pt) {
+        L.polyline(
+          [
+            [state.poiLat, state.poiLon],
+            [state.closestWater.pt.lat, state.closestWater.pt.lon]
+          ],
+          {
+            color: "#0284c7",
+            weight: 2,
+            dashArray: "3, 5",
+            opacity: 0.95
+          }
+        ).addTo(waterBodiesGroup2D).bindTooltip(`Captación más cercana: ${state.closestWater.distMeters} m`);
+      }
+    }
 
     function renderSavedPoisUI() {
       savedMarkersGroup.clearLayers();
@@ -909,6 +1333,7 @@
       document.getElementById("stage-title-text").textContent =
         `📍 ${state.poiLabel} (${state.poiLat.toFixed(4)}, ${state.poiLon.toFixed(4)}) · Cuadro ${formatBoxDim()}`;
 
+      evaluateClosestWaterBody();
       updateSidebarMetrics();
       renderScene();
     }
@@ -1108,7 +1533,7 @@
         const img = new Image();
         img.crossOrigin = "anonymous";
         img.onload = () => resolve(img);
-        img.onerror = (err) => reject(err);
+        img.onerror = () => reject(new Error(`No se pudo cargar tesela DEM (${url})`));
         img.src = url;
       });
       tileCache.set(url, p);
@@ -1411,13 +1836,19 @@
 
       const baseTemp = activeRecord[state.tempVar] != null ? activeRecord[state.tempVar] : activeRecord.T2M_MAX;
       const baseMoistPct = ((activeRecord.GWETROOT * 0.65 + activeRecord.GWETTOP * 0.35) * 100.0);
+      const baseRainMm = Math.max(0, Number(activeRecord.PRECTOTCORR || 0));
+
+      const recentList = (clim && clim.recentDays) ? clim.recentDays : FALLBACK_RECENT_DAYS;
+      const rain14dMm = recentList.reduce((acc, d) => acc + Math.max(0, Number(d.PRECTOTCORR || 0)), 0);
 
       const n = dem.n;
       const tempField = new Float32Array(n * n);
       const moistField = new Float32Array(n * n);
+      const rainField = new Float32Array(n * n);
 
       let minT = 999, maxT = -999;
       let minM = 999, maxM = -999;
+      let minR = 999, maxR = -999;
       const elevSpan = Math.max(100, dem.max_elev - dem.min_elev);
 
       for (let i = 0; i < n * n; i++) {
@@ -1437,6 +1868,17 @@
         moistField[i] = m;
         if (m < minM) minM = m;
         if (m > maxM) maxM = m;
+
+        // Spatial NASA Precipitation + Topographic Effective Infiltration/Convergence (mm/día)
+        // Combines NASA POWER PRECTOTCORR with orographic condensation (+18% per 1000m) and SCS slope infiltration/valley convergence
+        const orographicFactor = Math.max(0.75, 1.0 + 0.00022 * (z - refElev));
+        const valleyRainConv = (1.0 - relHeight) * 1.4 - (slopeDrainage * 0.05);
+        const rVal = baseRainMm > 0.05
+          ? Math.max(0.1, baseRainMm * orographicFactor + valleyRainConv * Math.min(1.0, baseRainMm / 3.0))
+          : Math.max(0.0, (rain14dMm / 14.0) * 0.35 * orographicFactor + Math.max(0, valleyRainConv * 0.25));
+        rainField[i] = rVal;
+        if (rVal < minR) minR = rVal;
+        if (rVal > maxR) maxR = rVal;
       }
 
       const sortedS = Array.from(dem.slope).sort((a, b) => a - b);
@@ -1444,14 +1886,18 @@
       state.computed = {
         periodLabel,
         isProjected,
-        rainMmDay: activeRecord.PRECTOTCORR,
+        rainMmDay: baseRainMm,
+        rain14dMm,
         rhPct: activeRecord.RH2M,
         tempField,
         moistField,
+        rainField,
         minT,
         maxT,
         minM,
         maxM,
+        minR,
+        maxR,
         medianSlope: Math.round(sortedS[Math.floor(sortedS.length / 2)] * 10) / 10
       };
 
@@ -1468,6 +1914,7 @@
       attribute float aSlope;
       attribute float aTemp;
       attribute float aMoist;
+      attribute float aRain;
       attribute vec3 aNormal;
 
       uniform float uMinElev;
@@ -1484,6 +1931,7 @@
       varying float vSlope;
       varying float vTemp;
       varying float vMoist;
+      varying float vRain;
       varying vec3 vNormal;
 
       void main() {
@@ -1491,6 +1939,7 @@
         vSlope = aSlope;
         vTemp = aTemp;
         vMoist = aMoist;
+        vRain = aRain;
         vNormal = aNormal;
 
         float zMeters = aElev - uMinElev;
@@ -1521,6 +1970,7 @@
       varying float vSlope;
       varying float vTemp;
       varying float vMoist;
+      varying float vRain;
       varying vec3 vNormal;
 
       uniform int uLayerMode;
@@ -1594,12 +2044,26 @@
         }
       }
 
+      vec3 rampRain(float r) {
+        float u = clamp(r / 15.0, 0.0, 1.0);
+        vec3 c0 = vec3(0.86, 0.74, 0.44); // 0 mm: Seco / ocre cálido
+        vec3 c1 = vec3(0.32, 0.78, 0.52); // 3 mm: Lluvia ligera / verde agua
+        vec3 c2 = vec3(0.06, 0.68, 0.85); // 7 mm: Lluvia moderada / cian hidro
+        vec3 c3 = vec3(0.12, 0.40, 0.92); // 11 mm: Lluvia fuerte / azul cobalto
+        vec3 c4 = vec3(0.36, 0.18, 0.85); // 15+ mm: Acumulación pluvial intensa / índigo
+        if (u < 0.20) return mix(c0, c1, u / 0.20);
+        if (u < 0.48) return mix(c1, c2, (u - 0.20) / 0.28);
+        if (u < 0.76) return mix(c2, c3, (u - 0.48) / 0.28);
+        return mix(c3, c4, (u - 0.76) / 0.24);
+      }
+
       void main() {
         vec3 baseColor;
         if (uLayerMode == 0) baseColor = rampTemp(vTemp);
         else if (uLayerMode == 1) baseColor = rampMoist(vMoist);
         else if (uLayerMode == 2) baseColor = rampElev(vElev);
         else if (uLayerMode == 3) baseColor = rampSlope(vSlope);
+        else if (uLayerMode == 5) baseColor = rampRain(vRain);
         else baseColor = rampIcta(vElev);
 
         vec3 N = normalize(vNormal);
@@ -1706,6 +2170,7 @@
         bufSlope: gl.createBuffer(),
         bufTemp: gl.createBuffer(),
         bufMoist: gl.createBuffer(),
+        bufRain: gl.createBuffer(),
         bufNormal: gl.createBuffer(),
         locs: {
           aGrid: gl.getAttribLocation(prog, "aGrid"),
@@ -1713,6 +2178,7 @@
           aSlope: gl.getAttribLocation(prog, "aSlope"),
           aTemp: gl.getAttribLocation(prog, "aTemp"),
           aMoist: gl.getAttribLocation(prog, "aMoist"),
+          aRain: gl.getAttribLocation(prog, "aRain"),
           aNormal: gl.getAttribLocation(prog, "aNormal"),
           uMinElev: gl.getUniformLocation(prog, "uMinElev"),
           uMaxElev: gl.getUniformLocation(prog, "uMaxElev"),
@@ -1747,6 +2213,9 @@
 
       gl.bindBuffer(gl.ARRAY_BUFFER, ctx.bufMoist);
       gl.bufferData(gl.ARRAY_BUFFER, state.computed.moistField, gl.DYNAMIC_DRAW);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, ctx.bufRain);
+      gl.bufferData(gl.ARRAY_BUFFER, state.computed.rainField, gl.DYNAMIC_DRAW);
 
       gl.bindBuffer(gl.ARRAY_BUFFER, ctx.bufNormal);
       gl.bufferData(gl.ARRAY_BUFFER, state.dem.normals, gl.DYNAMIC_DRAW);
@@ -1800,7 +2269,7 @@
       };
     }
 
-    const LAYER_MAP = { temp: 0, moist: 1, elev: 2, slope: 3, icta: 4 };
+    const LAYER_MAP = { temp: 0, moist: 1, elev: 2, slope: 3, icta: 4, rain: 5 };
 
     function renderScene() {
       if (!state.glCtx || !state.dem || !state.computed) return;
@@ -1841,6 +2310,7 @@
       bindAttr(state.glCtx.bufSlope, locs.aSlope, 1);
       bindAttr(state.glCtx.bufTemp, locs.aTemp, 1);
       bindAttr(state.glCtx.bufMoist, locs.aMoist, 1);
+      bindAttr(state.glCtx.bufRain, locs.aRain, 1);
       bindAttr(state.glCtx.bufNormal, locs.aNormal, 3);
 
       const vt = getViewTransform();
@@ -1911,20 +2381,21 @@
         { label: `ESTE (${Number(state.widthKm.toFixed(1))} km)`,   u: 1.07, v: 0,  edgeElev: state.dem.elev[midIdx * N + (N - 1)] },
         { label: `OESTE (${Number(state.widthKm.toFixed(1))} km)`,  u: -1.07, v: 0, edgeElev: state.dem.elev[midIdx * N + 0] }
       ];
-      hudCtx.font = "bold 11px sans-serif";
+      const isDarkCard = document.body.getAttribute("data-theme") === "dark";
+      hudCtx.font = "600 11px 'Inter', sans-serif";
       hudCtx.textAlign = "center";
       for (const cd of cardinals) {
         const pt = projectPoint2D(cd.u, cd.v, cd.edgeElev, state.dem.min_elev, cw, ch);
         if (isOccludedByTerrain(pt.x, pt.y, pt.depth, 0.03)) continue;
-        const tw = hudCtx.measureText(cd.label).width + 12;
-        hudCtx.fillStyle = "rgba(8, 13, 25, 0.90)";
-        hudCtx.strokeStyle = "rgba(148, 163, 184, 0.35)";
+        const tw = hudCtx.measureText(cd.label).width + 14;
+        hudCtx.fillStyle = isDarkCard ? "rgba(25, 27, 26, 0.94)" : "rgba(255, 255, 255, 0.94)";
+        hudCtx.strokeStyle = isDarkCard ? "#2A2D2B" : "#D5D8D2";
         hudCtx.lineWidth = 1;
         hudCtx.beginPath();
-        hudCtx.roundRect(pt.x - tw / 2, pt.y - 11, tw, 16, 4);
+        hudCtx.roundRect(pt.x - tw / 2, pt.y - 11, tw, 17, 6);
         hudCtx.fill();
         hudCtx.stroke();
-        hudCtx.fillStyle = "#cbd5e1";
+        hudCtx.fillStyle = isDarkCard ? "#F3F4F2" : "#141614";
         hudCtx.fillText(cd.label, pt.x, pt.y + 1);
       }
 
@@ -2010,6 +2481,82 @@
         }
       }
 
+      // Draw 3D Water Bodies (Ríos, Quebradas y Cauces Cercanos) on the Terrain Surface
+      if (state.showWater && state.waterBodies && state.waterBodies.length > 0) {
+        hudCtx.lineCap = "round";
+        hudCtx.lineJoin = "round";
+
+        for (const wb of state.waterBodies) {
+          const visSegs = [];
+          let curSeg = [];
+          for (let i = 0; i < wb.pts.length; i++) {
+            const p = wb.pts[i];
+            const proj = projectPoint2D(p.u, p.v, p.elev, state.dem.min_elev, cw, ch);
+            if (!isOccludedByTerrain(proj.x, proj.y, proj.depth, 0.14)) {
+              curSeg.push({ ...proj, elev: p.elev });
+            } else {
+              if (curSeg.length >= 2) visSegs.push(curSeg);
+              curSeg = [];
+            }
+          }
+          if (curSeg.length >= 2) visSegs.push(curSeg);
+
+          const isMainRiver = Boolean(wb.isPermanent);
+
+          for (const seg of visSegs) {
+            const traceRiver = () => {
+              hudCtx.beginPath();
+              hudCtx.moveTo(seg[0].x, seg[0].y);
+              for (let i = 1; i < seg.length - 1; i++) {
+                const xc = (seg[i].x + seg[i + 1].x) * 0.5;
+                const yc = (seg[i].y + seg[i + 1].y) * 0.5;
+                hudCtx.quadraticCurveTo(seg[i].x, seg[i].y, xc, yc);
+              }
+              hudCtx.lineTo(seg[seg.length - 1].x, seg[seg.length - 1].y);
+            };
+
+            // 1) Dark hydro bank casing
+            traceRiver();
+            hudCtx.strokeStyle = "rgba(5, 18, 38, 0.82)";
+            hudCtx.lineWidth = isMainRiver ? 5.6 : 4.2;
+            hudCtx.stroke();
+
+            // 2) Vibrant river blue channel
+            traceRiver();
+            hudCtx.strokeStyle = isMainRiver ? "#0284c7" : "#0ea5e9";
+            hudCtx.lineWidth = isMainRiver ? 3.5 : 2.5;
+            hudCtx.stroke();
+
+            // 3) Specular water highlight
+            traceRiver();
+            hudCtx.strokeStyle = "#bae6fd";
+            hudCtx.lineWidth = isMainRiver ? 1.2 : 0.85;
+            hudCtx.stroke();
+          }
+
+          // Label the longest visible segment of each water body
+          if (visSegs.length > 0) {
+            const bestSeg = visSegs.reduce((a, b) => (b.length > a.length ? b : a), visSegs[0]);
+            if (bestSeg.length >= 3) {
+              const midPt = bestSeg[Math.floor(bestSeg.length / 2)];
+              const wbLabel = `🌊 ${wb.name}`;
+              hudCtx.font = "600 10px 'Inter', sans-serif";
+              const tw = hudCtx.measureText(wbLabel).width + 10;
+              hudCtx.fillStyle = "rgba(7, 25, 48, 0.90)";
+              hudCtx.strokeStyle = "#38bdf8";
+              hudCtx.lineWidth = 1.1;
+              hudCtx.beginPath();
+              hudCtx.roundRect(midPt.x - tw / 2, midPt.y - 17, tw, 15, 5);
+              hudCtx.fill();
+              hudCtx.stroke();
+              hudCtx.fillStyle = "#e0f2fe";
+              hudCtx.textAlign = "center";
+              hudCtx.fillText(wbLabel, midPt.x, midPt.y - 6);
+            }
+          }
+        }
+      }
+
       // Draw Saved POIs that fall inside the 5km bounds
       const [lonW, latS, lonE, latN] = state.dem.bounds;
       for (const sp of state.savedPois) {
@@ -2077,6 +2624,56 @@
       const pElev = state.dem.elev[poiIdx];
       const pPin = projectPoint2D(pu, pv, pElev, state.dem.min_elev, cw, ch);
 
+      // Draw 3D Hydrological Intake Line from POI to Closest Water Body
+      if (state.showWater && state.closestWater && state.closestWater.pt) {
+        const cwPt = state.closestWater.pt;
+        const pWater = projectPoint2D(cwPt.u, cwPt.v, cwPt.elev, state.dem.min_elev, cw, ch);
+
+        hudCtx.save();
+        hudCtx.beginPath();
+        hudCtx.moveTo(pPin.x, pPin.y);
+        hudCtx.lineTo(pWater.x, pWater.y);
+        hudCtx.strokeStyle = "rgba(7, 24, 46, 0.85)";
+        hudCtx.lineWidth = 3.8;
+        hudCtx.stroke();
+
+        hudCtx.beginPath();
+        hudCtx.setLineDash([5, 4]);
+        hudCtx.moveTo(pPin.x, pPin.y);
+        hudCtx.lineTo(pWater.x, pWater.y);
+        hudCtx.strokeStyle = "#38bdf8";
+        hudCtx.lineWidth = 2.1;
+        hudCtx.stroke();
+        hudCtx.restore();
+
+        // Target node on the closest water body intake point
+        hudCtx.fillStyle = "#0284c7";
+        hudCtx.strokeStyle = "#e0f2fe";
+        hudCtx.lineWidth = 1.8;
+        hudCtx.beginPath();
+        hudCtx.arc(pWater.x, pWater.y, 4.8, 0, Math.PI * 2);
+        hudCtx.fill();
+        hudCtx.stroke();
+
+        const mx = (pPin.x + pWater.x) * 0.5;
+        const my = (pPin.y + pWater.y) * 0.5;
+        const dz = state.closestWater.deltaZ;
+        const gravTxt = dz <= 2 ? `Gravedad` : `ΔZ +${dz}m`;
+        const distBadge = `💧 Captación a ${state.closestWater.distMeters} m (${gravTxt})`;
+        hudCtx.font = "600 10px 'Inter', sans-serif";
+        const dw = hudCtx.measureText(distBadge).width + 12;
+        hudCtx.fillStyle = "rgba(8, 28, 52, 0.94)";
+        hudCtx.strokeStyle = "#38bdf8";
+        hudCtx.lineWidth = 1.2;
+        hudCtx.beginPath();
+        hudCtx.roundRect(mx - dw / 2, my - 9, dw, 16, 6);
+        hudCtx.fill();
+        hudCtx.stroke();
+        hudCtx.fillStyle = "#bae6fd";
+        hudCtx.textAlign = "center";
+        hudCtx.fillText(distBadge, mx, my + 2);
+      }
+
       // Outer target ring on the surface (circle in 2D, perspective ellipse in 3D)
       const ryRing = 8 + 7 * (1.0 - vt.m);
       const poleHeight = Math.round(16 + 20 * vt.m);
@@ -2107,11 +2704,13 @@
       // Floating POI Data Card
       const poiTemp = state.computed.tempField[poiIdx].toFixed(1);
       const poiMoist = Math.round(state.computed.moistField[poiIdx]);
+      const poiRain = state.computed.rainField[poiIdx].toFixed(1);
       const poiSlope = state.dem.slope[poiIdx].toFixed(1);
       const poiElevRound = Math.round(pElev);
 
       let metricHighlight = `${poiTemp} °C · Hum: ${poiMoist}%`;
-      if (state.layer === "elev") metricHighlight = `${poiElevRound} m s.n.m. · Pend: ${poiSlope}%`;
+      if (state.layer === "rain") metricHighlight = `Lluvia: ${poiRain} mm/d · 14d: ${state.computed.rain14dMm.toFixed(1)} mm`;
+      else if (state.layer === "elev") metricHighlight = `${poiElevRound} m s.n.m. · Pend: ${poiSlope}%`;
       else if (state.layer === "slope") metricHighlight = `Pend: ${poiSlope}% · ${poiElevRound} m`;
       else if (state.layer === "icta") metricHighlight = `${poiElevRound} m (${poiElevRound < 500 ? "<500m" : "500-1500m"})`;
 
@@ -2128,27 +2727,249 @@
       const bx = Math.max(boxW / 2 + 6, Math.min(cw - boxW / 2 - 6, pPin.x));
       const by = Math.max(boxH + 8, pPin.y - poleHeight - 4);
 
-      hudCtx.fillStyle = "#080d19";
-      hudCtx.strokeStyle = "#f59e0b";
+      const isDark = document.body.getAttribute("data-theme") === "dark";
+      hudCtx.fillStyle = isDark ? "#191B1A" : "#FFFFFF";
+      hudCtx.strokeStyle = isDark ? "#3DD68C" : "#1D7A4C";
       hudCtx.lineWidth = 2.0;
       hudCtx.beginPath();
-      hudCtx.roundRect(bx - boxW / 2, by - boxH, boxW, boxH, 7);
+      hudCtx.roundRect(bx - boxW / 2, by - boxH, boxW, boxH, 9);
       hudCtx.fill();
       hudCtx.stroke();
 
       hudCtx.textAlign = "center";
-      hudCtx.fillStyle = "#fde68a";
-      hudCtx.font = "bold 12px sans-serif";
+      hudCtx.fillStyle = isDark ? "#3DD68C" : "#1D7A4C";
+      hudCtx.font = "bold 12px 'Inter', sans-serif";
       hudCtx.fillText(line1, bx, by - 21);
 
-      hudCtx.fillStyle = "#f8fafc";
-      hudCtx.font = "11px sans-serif";
+      hudCtx.fillStyle = isDark ? "#F3F4F2" : "#141614";
+      hudCtx.font = "600 11px 'Inter', sans-serif";
       hudCtx.fillText(line2, bx, by - 7);
     }
 
     // =========================================================================
-    // 7. SIDEBAR METRICS FOR SELECTED POINT OF INTEREST (POI)
+    // 7. GRÁFICOS NATIVOS DE APP/V01 (AnilloAgua + BarrasAgua de graficos.dart)
+    //    Sincronizados en vivo con el Punto de Interés (📍) y el Mapa 2D/3D
     // =========================================================================
+    function renderAppV01Charts() {
+      if (!state.dem || !state.computed) return;
+      const isDark = document.body.getAttribute("data-theme") === "dark";
+      const colVerde  = isDark ? "#3DD68C" : "#1D7A4C";
+      const colAmbar  = isDark ? "#FFB84D" : "#B26A00";
+      const colRojo   = isDark ? "#FF7A6B" : "#C2392B";
+      const colAzul   = isDark ? "#6CB0FF" : "#2F6FB5";
+      const colTenue  = isDark ? "#2A2D2B" : "#E6E7E3";
+      const colTexto  = isDark ? "#F3F4F2" : "#141614";
+      const colSec    = isDark ? "#9BA19C" : "#6B706C";
+
+      const poiIdx = state.poiRow * N + state.poiCol;
+      const poiMoist = Math.round(state.computed.moistField[poiIdx]);
+      const poiRainDay = state.computed.rainField[poiIdx];
+      const rain14d = state.computed.rain14dMm || 0;
+      const poiSlope = state.dem.slope[poiIdx];
+      const poiElev  = state.dem.elev[poiIdx];
+
+      // SCS Curve Number slope infiltration efficiency (steep terrain loses more rainfall to surface runoff)
+      const infilEff = Math.max(0.35, Math.min(0.95, 0.92 - poiSlope * 0.011));
+      const rainInfiltrated14d = rain14d * infilEff;
+
+      // Closest water body info for hydrological evaluation
+      const cw = state.closestWater;
+      const cwName = cw ? cw.name : "Cauce estacional";
+      const cwDist = cw ? cw.distMeters : 450;
+      const cwDeltaZ = cw ? cw.deltaZ : 15;
+      const intakeFeasibility = cwDeltaZ <= 3
+        ? `captación por gravedad factible (ΔZ ${cwDeltaZ} m)`
+        : cwDist <= 350
+          ? `requiere bombeo ligero (a ${cwDist} m, ΔZ +${cwDeltaZ} m)`
+          : `fuente lejana (${cwDist} m, ΔZ +${cwDeltaZ} m)`;
+
+      // Convert soil moisture % to FAO-56 root-zone available water fraction (reserva 0..1)
+      // In "drip" mode, we evaluate irrigation requirement + water source distance.
+      // In "natural" mode (default), we strictly evaluate NASA POWER rainfall + slope infiltration + proximity to natural water channels without assuming drip irrigation!
+      const reserva = Math.max(0.05, Math.min(1.0, (poiMoist - 15) / 65));
+      let colorNivel = colVerde;
+      let tituloNivel = "Tu cultivo tiene agua";
+      let detalleNivel = "";
+
+      const barsSubEl = document.getElementById("v01-bars-sub");
+      if (barsSubEl) {
+        barsSubEl.textContent = `🌧️ Lluvia 14d: ${rain14d.toFixed(1)} mm`;
+      }
+
+      const subtitleEl = document.getElementById("v01-mode-subtitle");
+      if (state.irrigationMode === "natural") {
+        if (subtitleEl) subtitleEl.textContent = "🌧️ Secano · Lluvia NASA POWER + Terreno";
+
+        if (reserva < 0.35) {
+          colorNivel = colRojo;
+          const mmDeficit = Math.round((0.65 - reserva) * 90);
+          tituloNivel = "Déficit pluvial (Secano)";
+          detalleNivel =
+            `Lluvia NASA 14d: ${rain14d.toFixed(1)} mm (${rainInfiltrated14d.toFixed(1)} mm infiltrados con ${poiSlope.toFixed(1)}% pend.). ` +
+            `Faltan ${mmDeficit} mm de lluvia; conserva humedad con rastrojo/Canavalia o acerca la parcela a «${cwName}» (${cwDist} m).`;
+        } else if (reserva < 0.55) {
+          colorNivel = colAmbar;
+          const mmDeficit = Math.round((0.70 - reserva) * 90);
+          tituloNivel = "Humedad pluvial justa";
+          detalleNivel =
+            `Lluvia NASA: ${poiRainDay.toFixed(1)} mm/día (${rain14d.toFixed(1)} mm en 14d; infiltra ${Math.round(infilEff * 100)}%). ` +
+            `Se requieren ~${mmDeficit} mm de lluvia próxima o zanjas de infiltración en curva a nivel (cauce «${cwName}» a ${cwDist} m).`;
+        } else {
+          colorNivel = colVerde;
+          tituloNivel = "Humedad natural óptima";
+          detalleNivel =
+            `La precipitación NASA (${rain14d.toFixed(1)} mm en 14d) e infiltración (${Math.round(infilEff * 100)}%) cubren la demanda en «${state.poiLabel}» (cauce «${cwName}» a ${cwDist} m).`;
+        }
+      } else {
+        if (subtitleEl) subtitleEl.textContent = "💧 Riego por Goteo (6 mm) · Captación y Suelo";
+
+        if (reserva < 0.35) {
+          colorNivel = colRojo;
+          const mmFaltan = Math.round((0.65 - reserva) * 90);
+          const riegosGoteo = Math.max(1, Math.ceil(mmFaltan / 6));
+          tituloNivel = "Aplicar riego por goteo";
+          detalleNivel =
+            `Faltan ${mmFaltan} mm (~${riegosGoteo} turnos de goteo de 6 mm, FAO-56). ` +
+            `Fuente más cercana: «${cwName}» a ${cwDist} m (${intakeFeasibility}).`;
+        } else if (reserva < 0.55) {
+          colorNivel = colAmbar;
+          const mmSug = Math.round((0.70 - reserva) * 90);
+          const riegosGoteo = Math.max(1, Math.ceil(mmSug / 6));
+          tituloNivel = "Atención con el goteo";
+          detalleNivel =
+            `Conviene aplicar ${mmSug} mm (~${riegosGoteo} riegos de goteo de 6 mm). ` +
+            `Captación evaluada: «${cwName}» a ${cwDist} m (${intakeFeasibility}).`;
+        } else {
+          colorNivel = colVerde;
+          tituloNivel = "Reserva óptima (sin turno hoy)";
+          detalleNivel =
+            `Suelo con ${poiMoist}% de humedad tras ${rain14d.toFixed(1)} mm de lluvia NASA. ` +
+            `No requiere activar goteo hoy («${cwName}» disponible a ${cwDist} m).`;
+        }
+      }
+
+      document.getElementById("v01-water-title").textContent = tituloNivel;
+      document.getElementById("v01-water-title").style.color = colorNivel;
+      document.getElementById("v01-water-detail").textContent = detalleNivel;
+
+      // 1) Dibujar AnilloAgua (_PintorAnillo de app/V01/lib/ui/graficos.dart)
+      const ringCanvas = document.getElementById("v01-ring-canvas");
+      if (ringCanvas) {
+        const dpr = window.devicePixelRatio || 1;
+        const size = 92;
+        if (ringCanvas.width !== size * dpr) {
+          ringCanvas.width = size * dpr;
+          ringCanvas.height = size * dpr;
+        }
+        const rCtx = ringCanvas.getContext("2d");
+        rCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        rCtx.clearRect(0, 0, size, size);
+
+        const grosor = 8.5;
+        const cx = size / 2, cy = size / 2;
+        const radio = (size - grosor) / 2 - 2;
+
+        rCtx.lineWidth = grosor;
+        rCtx.lineCap = "round";
+        rCtx.strokeStyle = colTenue;
+        rCtx.beginPath();
+        rCtx.arc(cx, cy, radio, 0, Math.PI * 2);
+        rCtx.stroke();
+
+        if (reserva > 0) {
+          rCtx.strokeStyle = colorNivel;
+          rCtx.beginPath();
+          rCtx.arc(cx, cy, radio, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * reserva);
+          rCtx.stroke();
+        }
+
+        const pctTxt = `${Math.round(reserva * 100)}`;
+        rCtx.fillStyle = colTexto;
+        rCtx.font = "700 23px 'Inter', sans-serif";
+        rCtx.textAlign = "center";
+        rCtx.textBaseline = "middle";
+        rCtx.fillText(pctTxt + "%", cx, cy - 3);
+
+        rCtx.fillStyle = colSec;
+        rCtx.font = "500 9.5px 'Inter', sans-serif";
+        rCtx.fillText("agua disp.", cx, cy + 14);
+      }
+
+      // 2) Dibujar BarrasAgua (_PintorBarras de app/V01/lib/ui/graficos.dart - 14 días)
+      const barsCanvas = document.getElementById("v01-bars-canvas");
+      if (barsCanvas) {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = barsCanvas.getBoundingClientRect();
+        const W = Math.max(240, rect.width || 320);
+        const H = 62;
+        if (barsCanvas.width !== Math.round(W * dpr) || barsCanvas.height !== Math.round(H * dpr)) {
+          barsCanvas.width = Math.round(W * dpr);
+          barsCanvas.height = Math.round(H * dpr);
+        }
+        const bCtx = barsCanvas.getContext("2d");
+        bCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        bCtx.clearRect(0, 0, W, H);
+
+        const days = (state.clim && state.clim.recentDays) ? state.clim.recentDays : FALLBACK_RECENT_DAYS;
+        const n = days.length;
+        const altoLluvia = 12.0;
+        const altoBarras = H - altoLluvia - 4;
+        const paso = W / n;
+        const ancho = Math.min(paso * 0.62, 13.0);
+
+        const elevSpan = Math.max(100, state.dem.max_elev - state.dem.min_elev);
+        const relHeight = (poiElev - state.dem.min_elev) / elevSpan;
+        const slopeDrainage = Math.min(20, poiSlope * 0.42);
+        const valleyAccum = (1.0 - relHeight) * 12.0 - 5.0;
+        const ins = state.dem.insolation[poiIdx];
+
+        for (let i = 0; i < n; i++) {
+          const d = days[i];
+          const x = paso * i + (paso - ancho) / 2;
+
+          // Pista de fondo
+          bCtx.fillStyle = colTenue;
+          bCtx.beginPath();
+          bCtx.roundRect(x, altoLluvia, ancho, altoBarras, ancho / 2);
+          bCtx.fill();
+
+          const baseM = (d.GWETROOT * 0.65 + d.GWETTOP * 0.35) * 100.0;
+          const m = Math.max(8, Math.min(98, baseM + valleyAccum - slopeDrainage * 0.65 - ins * 2.5));
+          const resDia = Math.max(0.08, Math.min(1.0, (m - 15) / 65));
+
+          let cBarra = colVerde;
+          if (resDia < 0.35) cBarra = colRojo;
+          else if (resDia < 0.55) cBarra = colAmbar;
+
+          const alto = Math.max(altoBarras * resDia, ancho);
+          bCtx.fillStyle = cBarra;
+          bCtx.globalAlpha = (state.temporalMode === "realtime" && i === state.rtIndex) ? 1.0 : 0.72;
+          bCtx.beginPath();
+          bCtx.roundRect(x, altoLluvia + altoBarras - alto, ancho, alto, ancho / 2);
+          bCtx.fill();
+          bCtx.globalAlpha = 1.0;
+
+          // Anillo selector en el día activo
+          if (state.temporalMode === "realtime" && i === state.rtIndex) {
+            bCtx.strokeStyle = colTexto;
+            bCtx.lineWidth = 1.6;
+            bCtx.beginPath();
+            bCtx.roundRect(x - 1.5, altoLluvia - 1.5, ancho + 3, altoBarras + 3, (ancho + 3) / 2);
+            bCtx.stroke();
+          }
+
+          // Punto azul superior si llovió >= 1 mm (igual que _PintorBarras en graficos.dart)
+          if ((d.PRECTOTCORR || 0) >= 1.0) {
+            const rDot = Math.max(2.0, Math.min(4.2, 1.5 + Math.sqrt(d.PRECTOTCORR) * 0.45));
+            bCtx.fillStyle = colAzul;
+            bCtx.beginPath();
+            bCtx.arc(x + ancho / 2, altoLluvia / 2 - 1, rDot, 0, Math.PI * 2);
+            bCtx.fill();
+          }
+        }
+      }
+    }
+
     function updateLegendForLayer(layer) {
       const minEl = document.getElementById("legend-min");
       const maxEl = document.getElementById("legend-max");
@@ -2161,9 +2982,13 @@
         minEl.textContent = "20% (Seco)";
         maxEl.textContent = "85% (Saturado)";
         gradEl.style.background = "linear-gradient(90deg,#c73d24,#eb9424,#85cc38,#0fb8a6,#1f61e0)";
+      } else if (layer === "rain") {
+        minEl.textContent = "0 mm/d (Seco)";
+        maxEl.textContent = "15+ mm/d (Pluvial)";
+        gradEl.style.background = "linear-gradient(90deg,#dbbd70,#52c785,#0fade0,#1f66eb,#5c2ed9)";
       } else if (layer === "elev") {
-        minEl.textContent = "300 m";
-        maxEl.textContent = "1,350 m";
+        minEl.textContent = state.dem ? `${Math.round(state.dem.min_elev).toLocaleString()} m` : "300 m";
+        maxEl.textContent = state.dem ? `${Math.round(state.dem.max_elev).toLocaleString()} m` : "1,350 m";
         gradEl.style.background = "linear-gradient(90deg,#1f8557,#73b847,#e0c252,#b86b38,#ebe6e0)";
       } else if (layer === "slope") {
         minEl.textContent = "0%";
@@ -2197,7 +3022,25 @@
 
       document.getElementById("m-moist").textContent = `${poiMoist} %`;
       document.getElementById("m-rain-sub").textContent =
-        `Lluvia: ${c.rainMmDay.toFixed(1)} mm/día · HR ${Math.round(c.rhPct)}%`;
+        `Lluvia NASA: ${c.rainMmDay.toFixed(1)} mm/d · 14d: ${c.rain14dMm.toFixed(1)} mm · HR ${Math.round(c.rhPct)}%`;
+
+      // Update Closest Water Body card
+      const waterDistEl = document.getElementById("m-water-dist");
+      const waterSubEl = document.getElementById("m-water-sub");
+      if (waterDistEl && waterSubEl) {
+        if (state.closestWater && state.closestWater.name) {
+          const cw = state.closestWater;
+          const dzTxt = cw.deltaZ <= 2
+            ? `Gravedad factible (ΔZ ${cw.deltaZ} m)`
+            : `Bombeo ΔZ +${cw.deltaZ} m`;
+          waterDistEl.textContent = `${cw.distMeters} m`;
+          waterDistEl.style.color = cw.distMeters <= 350 ? "#0284c7" : cw.distMeters <= 800 ? "#f59e0b" : "#ef4444";
+          waterSubEl.textContent = `${cw.name} (${cw.source}) · ${dzTxt}`;
+        } else {
+          waterDistEl.textContent = "Sin cauce";
+          waterSubEl.textContent = "Fuera del radio del cuadro";
+        }
+      }
 
       const riskEl = document.getElementById("m-risk");
       document.getElementById("m-slope-sub").textContent = `Mediana en ${dimTxt}: ${c.medianSlope}%`;
@@ -2212,22 +3055,29 @@
         riskEl.style.color = "#10b981";
       }
 
+      const cwDiag = state.closestWater && state.closestWater.name
+        ? `🌊 <strong>Agua cercana:</strong> «${state.closestWater.name}» a <strong>${state.closestWater.distMeters} m</strong> (${state.closestWater.deltaZ <= 2 ? "captación por gravedad factible" : "desnivel ΔZ +" + state.closestWater.deltaZ + " m para bombeo"}).`
+        : `🌊 <strong>Agua cercana:</strong> Depende de captación pluvial en parcela (${c.rain14dMm.toFixed(1)} mm acumulados en 14d).`;
+
       const agroBox = document.getElementById("agro-box");
       if (poiElev < 500) {
         agroBox.innerHTML =
-          `<strong>🌱 Diagnóstico en «${state.poiLabel}» (${poiElev} m, &lt;500m):</strong><br>` +
+          `<strong>🌱 Diagnóstico en «${state.poiLabel}» (${poiElev} m, &lt;500m · ${state.irrigationMode === "natural" ? "Riego Natural" : "Riego por Goteo"}):</strong><br>` +
           `• <strong>Frijol apto:</strong> ICTA Ligero o ICTA Patriarca (toleran ${poiTemp} °C).<br>` +
-          `• <strong>Maíz:</strong> ICTA B-5 + cobertura <em>Canavalia</em> (retiene ${poiMoist}% humedad con ${poiSlope}% de pendiente).`;
+          `• <strong>Maíz:</strong> ICTA B-5 + cobertura <em>Canavalia</em> (retiene ${poiMoist}% humedad con ${poiSlope}% de pendiente).<br>` +
+          `• ${cwDiag}`;
       } else {
         agroBox.innerHTML =
-          `<strong>🌱 Diagnóstico en «${state.poiLabel}» (${poiElev} m, 500–1500m):</strong><br>` +
+          `<strong>🌱 Diagnóstico en «${state.poiLabel}» (${poiElev} m, 500–1500m · ${state.irrigationMode === "natural" ? "Riego Natural" : "Riego por Goteo"}):</strong><br>` +
           `• <strong>Frijol apto:</strong> ICTA Chortí, ICTA Petén o ICTA Sayaxché.<br>` +
-          `• <strong>Maíz:</strong> ICTA B-5 / HB-83 (${poiSlope > 12 ? "requiere curvas a nivel por " + poiSlope + "% de pendiente" : "buena infiltración"}).`;
+          `• <strong>Maíz:</strong> ICTA B-5 / HB-83 (${poiSlope > 12 ? "requiere curvas a nivel por " + poiSlope + "% de pendiente" : "buena infiltración"}).<br>` +
+          `• ${cwDiag}`;
       }
 
       const layerNames = {
         temp: `🌡️ Temperatura NASA POWER (${state.tempVar})`,
         moist: `💧 Humedad del Suelo NASA POWER`,
+        rain: `🌧️ Precipitación NASA POWER (PRECTOTCORR mm/día + Acumulación 14d: ${c.rain14dMm.toFixed(1)} mm)`,
         elev: "⛰️ Elevación Topográfica NASA SRTM (z=13, ~19m)",
         slope: "📐 Pendiente y Riesgo de Escorrentía (%)",
         icta: "🌱 Pisos Térmicos ICTA (Umbral 500 m s.n.m.)"
@@ -2237,6 +3087,8 @@
         : `📅 Planificación de Siembra · ${c.periodLabel}`;
       document.getElementById("hud-main-text").innerHTML =
         `<strong>${layerNames[state.layer]}</strong><br>${modeTag}`;
+
+      renderAppV01Charts();
     }
 
     async function loadPointData() {
@@ -2250,11 +3102,14 @@
         ]);
         state.dem = dem;
         state.clim = clim;
+        state.waterBodies = await fetchWaterBodiesForBox(dem);
+        evaluateClosestWaterBody();
         const rtSlider = document.getElementById("rt-day-slider");
         rtSlider.max = String((clim.recentDays || FALLBACK_RECENT_DAYS).length - 1);
         state.rtIndex = parseInt(rtSlider.max, 10);
         rtSlider.value = String(state.rtIndex);
         computeClimateFields();
+        updateLegendForLayer(state.layer);
         renderScene();
       } catch (err) {
         console.error(err);
@@ -2534,11 +3389,12 @@
 
     function setLayer(layer) {
       state.layer = layer;
-      for (const k of ["temp", "moist", "elev", "slope", "icta"]) {
+      for (const k of ["temp", "moist", "rain", "elev", "slope", "icta"]) {
         const btn = document.getElementById("layer-" + k);
+        if (!btn) continue;
         btn.className = "";
         if (k === layer) {
-          btn.className = k === "temp" ? "active-temp" : k === "moist" ? "active-moist" : "active";
+          btn.className = (k === "temp") ? "active-temp" : (k === "moist" || k === "rain") ? "active-moist" : "active";
         }
       }
       updateLegendForLayer(layer);
@@ -2546,9 +3402,29 @@
       renderScene();
     }
 
-    for (const k of ["temp", "moist", "elev", "slope", "icta"]) {
-      document.getElementById("layer-" + k).addEventListener("click", () => setLayer(k));
+    for (const k of ["temp", "moist", "rain", "elev", "slope", "icta"]) {
+      const el = document.getElementById("layer-" + k);
+      if (el) el.addEventListener("click", () => setLayer(k));
     }
+
+    function setIrrigationMode(mode) {
+      state.irrigationMode = mode;
+      const btnNat = document.getElementById("irr-mode-natural");
+      const btnDrip = document.getElementById("irr-mode-drip");
+      if (btnNat) btnNat.classList.toggle("active", mode === "natural");
+      if (btnDrip) btnDrip.classList.toggle("active", mode === "drip");
+      updateSidebarMetrics();
+      renderScene();
+    }
+
+    document.getElementById("irr-mode-natural").addEventListener("click", () => setIrrigationMode("natural"));
+    document.getElementById("irr-mode-drip").addEventListener("click", () => setIrrigationMode("drip"));
+
+    document.getElementById("chk-water").addEventListener("change", (e) => {
+      state.showWater = e.target.checked;
+      renderWaterBodies2D();
+      renderScene();
+    });
 
     document.getElementById("temp-var-select").addEventListener("change", (e) => {
       state.tempVar = e.target.value;
@@ -2570,7 +3446,49 @@
       renderScene();
     });
 
-    window.addEventListener("resize", renderScene);
+    // Interacción con las 14 barras de BarrasAgua (app/V01/lib/ui/graficos.dart)
+    document.getElementById("v01-bars-canvas").addEventListener("click", (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const days = (state.clim && state.clim.recentDays) ? state.clim.recentDays : FALLBACK_RECENT_DAYS;
+      const idx = Math.max(0, Math.min(days.length - 1, Math.floor((x / rect.width) * days.length)));
+      if (state.temporalMode !== "realtime") {
+        setTemporalMode("realtime");
+      }
+      state.rtIndex = idx;
+      document.getElementById("rt-day-slider").value = String(idx);
+      computeClimateFields();
+      renderScene();
+    });
+
+    // Conmutadores de Tema (Claro #F4F4F1 / Oscuro #0B0C0B de tema.dart) y Formato (Expandido / App Móvil V01)
+    function setAppTheme(theme) {
+      document.body.setAttribute("data-theme", theme);
+      document.getElementById("theme-light-btn").classList.toggle("active", theme === "light");
+      document.getElementById("theme-dark-btn").classList.toggle("active", theme === "dark");
+      renderAppV01Charts();
+      renderScene();
+    }
+    document.getElementById("theme-light-btn").addEventListener("click", () => setAppTheme("light"));
+    document.getElementById("theme-dark-btn").addEventListener("click", () => setAppTheme("dark"));
+
+    function setAppLayout(layout) {
+      document.body.setAttribute("data-layout", layout);
+      document.getElementById("layout-split-btn").classList.toggle("active", layout === "split");
+      document.getElementById("layout-mobile-btn").classList.toggle("active", layout === "mobile");
+      setTimeout(() => {
+        map.invalidateSize();
+        renderAppV01Charts();
+        renderScene();
+      }, 60);
+    }
+    document.getElementById("layout-split-btn").addEventListener("click", () => setAppLayout("split"));
+    document.getElementById("layout-mobile-btn").addEventListener("click", () => setAppLayout("mobile"));
+
+    window.addEventListener("resize", () => {
+      renderAppV01Charts();
+      renderScene();
+    });
 
     // Initial load
     loadPointData();

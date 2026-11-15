@@ -1,5 +1,8 @@
 # Motor Gráfico 2D/3D Multicapa (`graphics/`) · Field Shift Guatemala
 
+> **Paquete completo del Dashboard (`app/V01` + Riego + Precipitación + Cuerpos de Agua):**
+> Todo el dashboard actualizado y auditado, junto con su servidor y documentación completa, se encuentra organizado en **[`graphics/dashboard/`](dashboard/README.md)** (entrada principal: [`dashboard/index.html`](dashboard/index.html)). El archivo raíz [`topo3d.html`](topo3d.html) se mantiene sincronizado con la misma versión verificada.
+
 Visor topográfico y agroclimático interactivo **2D ⟷ 3D en WebGL Ultra-HD (`220 × 220`)** diseñado para **Field Shift Guatemala** (*NASA Space Apps Challenge 2026 — Field Shift: Adapting Farms with NASA Data*).
 
 Permite al agricultor y al equipo técnico evaluar cualquier parcela o valle de Guatemala en un **cuadro personalizable desde `0.5 × 0.5 km` hasta `10 × 10 km`**, combinando relieve satelital de alta resolución, datos observados en cuasi-tiempo real y climatología de 25 años de **NASA POWER**, curvas de escorrentía hidrográfica 3D y umbrales agronómicos de **ICTA / MAGA**.
