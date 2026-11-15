@@ -7,7 +7,8 @@
     "url": "https://www.icta.gob.gt/publicaciones/Memoriasicta/Memoria%20de%20Labores%20ICTA%202023.pdf",
     "alcance": "Diagnóstico del ácaro del maíz con VISAR en Quetzaltenango y Totonicapán.",
     "acceso": "Texto o pasaje pertinente consultado en fuente original",
-    "consulta": "2026-11-15"
+    "consulta": "2026-11-15",
+    "uso_en_entrega": "registro_local_directo"
   },
   {
     "id": "S09",
@@ -17,7 +18,31 @@
     "url": "https://icta.gob.gt/plagacultivofrijolGuatemala.html",
     "alcance": "Diagnóstico de trips de flores en frijol, secciones distribución y síntomas.",
     "acceso": "Texto o pasaje pertinente consultado en fuente original",
-    "consulta": "2026-11-15"
+    "consulta": "2026-11-15",
+    "uso_en_entrega": "registro_local_directo"
+  },
+  {
+    "id": "S11",
+    "titulo": "Diagnóstico de Santo Hermano Pedro, Retalhuleu",
+    "institucion": "USAC",
+    "fecha_documento": "2014",
+    "url": "https://biblioteca.usac.edu.gt/tesis/22/22_0252.pdf",
+    "alcance": "Entrevistas de productores de ajonjolí, p.31/PDF 50.",
+    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "consulta": "2026-11-15",
+    "uso_en_entrega": "contexto_documental_fuera_de_tabla_directa"
+  },
+  {
+    "id": "S13",
+    "titulo": "El cultivo de la papa en Guatemala",
+    "institucion": "ICTA",
+    "fecha_documento": "2002",
+    "url": "https://www.icta.gob.gt/publicaciones/Papa/El%20cultivo%20de%20la%20papa%20en%20Guatemala%2C%202002.pdf",
+    "alcance": "Sección5.5, pp.24–27: plagas de suelo y follaje.",
+    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "consulta": "2026-11-15",
+    "sha256": "56b90275fe0904e8d40c04b7a8278faeef1d23103b86590c44d4b88295de4d26",
+    "uso_en_entrega": "contexto_documental_fuera_de_tabla_directa"
   },
   {
     "id": "S16",
@@ -28,7 +53,8 @@
     "alcance": "pp.34–35/PDF 39–40: ensayo de minador en cebolla, Chimaltenango; fotos de cortadores.",
     "acceso": "Texto o pasaje pertinente consultado en fuente original",
     "consulta": "2026-11-15",
-    "sha256": "80f75efefbcb9edb1a4a433e57518d376311a0cd245351b42e3ad0ae9809551c"
+    "sha256": "80f75efefbcb9edb1a4a433e57518d376311a0cd245351b42e3ad0ae9809551c",
+    "uso_en_entrega": "registro_local_directo"
   },
   {
     "id": "S17",
@@ -38,7 +64,8 @@
     "url": "https://www.repositorio.usac.edu.gt/8989/1/Edgar%20Arturo%20Garc%C3%ADa%20Salas%20Cord%C3%B3n.pdf",
     "alcance": "p.65: diagnóstico de Thrips tabaci en muestras de cebolla de Jutiapa, Jalapa y Huehuetenango.",
     "acceso": "Pasaje original indexado; descarga directa agotó tiempo de conexión; copia alternativa USAC 01_2488 no accesible por web",
-    "consulta": "2026-11-15"
+    "consulta": "2026-11-15",
+    "uso_en_entrega": "registro_local_directo"
   },
   {
     "id": "S20",
@@ -49,7 +76,8 @@
     "alcance": "Métodos/resultados p.13, Cuadros1–2 p.14/PDF 5: hospedantes y departamentos; tabla original revisada visualmente. Nombres según identificación de la época.",
     "acceso": "Texto o pasaje pertinente consultado en fuente original",
     "consulta": "2026-11-15",
-    "sha256": "e40ea380a76b11493493c545bc92c649561824bc94db3c64a06250cb4d6c3436"
+    "sha256": "e40ea380a76b11493493c545bc92c649561824bc94db3c64a06250cb4d6c3436",
+    "uso_en_entrega": "registro_local_directo"
   },
   {
     "id": "S21",
@@ -60,7 +88,8 @@
     "alcance": "PDF 20–22: Xecoíl, Santa Apolonia, Chimaltenango; muestreo de Phyllophaga. Anomala se vincula a un trabajo previo citado, no consultado directamente.",
     "acceso": "Texto o pasaje pertinente consultado en fuente original",
     "consulta": "2026-11-15",
-    "sha256": "c931372a23eab134a3cb84ae67a9a8c48beb0842808a4e822388d935d10b84c7"
+    "sha256": "c931372a23eab134a3cb84ae67a9a8c48beb0842808a4e822388d935d10b84c7",
+    "uso_en_entrega": "registro_local_directo"
   },
   {
     "id": "S22",
@@ -70,7 +99,8 @@
     "url": "https://www.repositorio.usac.edu.gt/6251/1/ELMER%20TOMAS%20ALDANA%20AVILA.pdf",
     "alcance": "Resumen p.xxiii, investigación dirigida a P.xylostella en brócoli del altiplano central y occidental.",
     "acceso": "Resumen original indexado; descarga del PDF completo agotó tiempo de conexión",
-    "consulta": "2026-11-15"
+    "consulta": "2026-11-15",
+    "uso_en_entrega": "registro_local_directo"
   },
   {
     "id": "S24",
@@ -80,7 +110,8 @@
     "url": "https://biblioteca.usac.edu.gt/tesis/01/01_2071.pdf",
     "alcance": "6.7.3, p.32/PDF 45 y p.36/PDF 49: revisión diaria e infestación de Aphis sp. en el ensayo.",
     "acceso": "Texto o pasaje pertinente consultado en fuente original",
-    "consulta": "2026-11-15"
+    "consulta": "2026-11-15",
+    "uso_en_entrega": "registro_local_directo"
   },
   {
     "id": "S25",
@@ -90,6 +121,7 @@
     "url": "https://biblioteca.usac.edu.gt/tesis/01/01_3159.pdf",
     "alcance": "3.3, pp.148–156/PDF 174–182: monitoreo y resultados de capturas, finca Bejo, Parramos.",
     "acceso": "Texto o pasaje pertinente consultado en fuente original",
-    "consulta": "2026-11-15"
+    "consulta": "2026-11-15",
+    "uso_en_entrega": "registro_local_directo"
   }
 ]

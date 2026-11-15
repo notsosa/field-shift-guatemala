@@ -27,14 +27,23 @@ Las diez menciones pendientes quedan excluidas de recomendaciones y etiquetas de
 
 ## Cobertura de los siete cultivos
 
-La entrega contiene maíz, frijol, cebolla, brócoli y lechuga. Ajonjolí y papa siguen fuera de este subconjunto estricto: las entradas de la revisión previa se apoyaban en guías, entrevistas o referencias históricas secundarias. Esto no establece ausencia de plagas en esos cultivos.
+**Papa y ajonjolí sí tienen plagas documentadas.** La tabla principal es un subconjunto parcial de 12 relaciones con observaciones o diagnósticos locales directos, que cubre cinco cultivos. Se omitieron papa y ajonjolí al aplicar ese filtro de tipo de evidencia. Esa omisión no describe su estado fitosanitario y no debe interpretarse como ausencia de plagas ni como riesgo cero.
+
+La revisión documental reunió 11 entradas para papa y 7 para ajonjolí, con distintos niveles de respaldo. Estos conteos son relaciones cultivo–taxón o grupo encontradas en las fuentes revisadas; no son un censo exhaustivo ni un ranking nacional. Ejemplos comprobables:
+
+| Cultivo | Plagas documentadas, a modo de ejemplo | Fuente y tipo de evidencia |
+|---|---|---|
+| Papa | Polilla guatemalteca (*Tecia solanivora*), polilla de la papa (*Phthorimaea operculella*) y psílido (*Bactericera cockerelli*, denominado *Paratrioza cockerelli* en el manual). | [ICTA, El cultivo de la papa en Guatemala,2002](https://www.icta.gob.gt/publicaciones/Papa/El%20cultivo%20de%20la%20papa%20en%20Guatemala%2C%202002.pdf), sección5.5.2, pp.24–27. **Guía institucional de cultivo.** |
+| Ajonjolí | Gallina ciega (*Phyllophaga* spp.), tortuguilla (*Diabrotica* sp.) y pulgones (*Aphis* sp.). | [USAC, diagnóstico de Santo Hermano Pedro, Retalhuleu,2014](https://biblioteca.usac.edu.gt/tesis/22/22_0252.pdf), p.31/PDF50, apartado ajonjolí. **Reporte local de agricultores mediante entrevistas**, sin determinación de las especies. |
+
+Estos ejemplos tienen respaldo documental disponible y se conserva su tipo de evidencia. No se añaden a las12 relaciones de observación o diagnóstico directo ni se presentan como infestaciones actuales de la parcela de Chiquimula. Para una evaluación sanitaria, la falta de una entrada en esta tabla se trata como cobertura incompleta; nunca como un beneficio por ausencia de plagas.
 
 Se dejaron fuera las diez menciones pendientes. Tampoco se publican las demás entradas de las72 relaciones documentales como si todas fueran diagnósticos. Un registro de género, como Aphis sp., no identifica una especie particular.
 
 ## Archivos
 
 - [plagas_confirmadas.json](plagas_confirmadas.json): registros, nivel taxonómico, lugar, fecha y evidencia.
-- [fuentes.json](fuentes.json): únicamente las fuentes utilizadas en esta entrega.
+- [fuentes.json](fuentes.json): nueve fuentes de los registros directos y dos fuentes de contexto documental, con el uso indicado.
 - [verificacion.json](verificacion.json): integridad, conteos y hashes de los archivos.
 
 Los PDF se enlazan en sus repositorios de origen. No se publican copias ni rutas temporales. La entrega no modifica los resultados de las auditorías de rotación ni crea etiquetas de infestación para una red neuronal.
