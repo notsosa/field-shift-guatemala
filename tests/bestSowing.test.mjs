@@ -88,7 +88,7 @@ test('findBestSowing (MLP, Chiquimula, rotación actual): propone un desfase y l
   }
 });
 
-const fakeNet = (score) => (x) => [score(Math.round(x[24] * 30)), 1, 0.2];
+const fakeNet = (score) => (x) => [score(Math.round(x[x.length - 1] * 30)), 1, 0.2];
 const mgmt = { texture: 'loam', slopeClass: 'moderate', irrigation: 'none', sequenceId: 'actual' };
 
 test('findBestSowing: un óptimo antes del inicio no se propone (retrospectiva); se queda en el mejor desfase >= 0', () => {
