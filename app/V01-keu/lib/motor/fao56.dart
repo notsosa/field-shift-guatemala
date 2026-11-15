@@ -119,6 +119,9 @@ class EstadoDia {
     required this.lluvia,
     required this.riego,
     required this.estimado,
+    this.escorrentia = 0,
+    this.drenaje = 0,
+    this.agotamientoSubsuelo = 0,
   });
 
   final DateTime fecha;
@@ -146,6 +149,17 @@ class EstadoDia {
   final double lluvia;
   final double riego;
   final bool estimado;
+
+  /// Lluvia que escurre por la superficie, mm.
+  final double escorrentia;
+
+  /// Agua que pasa por debajo de todo el perfil de raíces posible (drenaje
+  /// profundo, se pierde), mm.
+  final double drenaje;
+
+  /// Agua que falta en el suelo por debajo de las raíces actuales, hasta la
+  /// profundidad máxima de raíces, mm.
+  final double agotamientoSubsuelo;
 
   /// Fracción del agua disponible que queda, de 0 a 1.
   double get reserva => aguaTotal <= 0 ? 0 : (1 - agotamiento / aguaTotal).clamp(0.0, 1.0);
@@ -176,8 +190,14 @@ List<EstadoDia> simularBalance({
   final s = 25400 / numeroCurva - 254;
 
   final salida = <EstadoDia>[];
+  // Agotamiento de la zona de raíces y del suelo por debajo de ella, hasta la
+  // profundidad máxima de raíces. El subsuelo guarda su propia agua: recibe lo
+  // que drena de la zona de raíces y no pierde nada más; cuando la raíz crece,
+  // la capa nueva entra con el agotamiento que el subsuelo tenía en ese grosor.
   double? agotado;
+  var agotadoSub = 0.0;
   var tawPrevio = 0.0;
+  final tawMaximo = aguaDisponible * cultivo.raizMaxima;
 
   for (final d in dias) {
     final t = _soloFecha(d.fecha).difference(_soloFecha(siembra)).inDays;
@@ -212,19 +232,34 @@ List<EstadoDia> simularBalance({
     }
 
     final taw = aguaDisponible * zr;
-    // El suelo nuevo que alcanza la raíz entra con el agotamiento inicial.
-    agotado = agotado == null ? agotamientoInicial * taw : agotado + (taw - tawPrevio) * agotamientoInicial;
+    if (agotado == null) {
+      agotado = agotamientoInicial * taw;
+      agotadoSub = agotamientoInicial * (tawMaximo - taw);
+    } else if (taw > tawPrevio) {
+      final capaPrevia = tawMaximo - tawPrevio;
+      final aporte = capaPrevia > 0 ? agotadoSub * (taw - tawPrevio) / capaPrevia : 0.0;
+      agotado += aporte;
+      agotadoSub -= aporte;
+    }
     tawPrevio = taw;
 
     final raw = cultivo.p * taw;
     final ks = agotado <= raw ? 1.0 : ((taw - agotado) / (taw - raw)).clamp(0.0, 1.0);
     final etc = kc * d.et0;
-    final eta = etapa == Etapa.cosechado ? 0.0 : ks * etc;
     final escorrentia =
         d.lluvia > 0.2 * s ? math.pow(d.lluvia - 0.2 * s, 2) / (d.lluvia + 0.8 * s) : 0.0;
     final riego = riegos[_soloFecha(d.fecha)] ?? 0.0;
-    // El exceso sobre capacidad de campo drena: el agotamiento no baja de cero.
-    agotado = (agotado - (d.lluvia - escorrentia) - riego + eta).clamp(0.0, taw);
+    // Lo que sobra sobre capacidad de campo baja al subsuelo; si este también
+    // se llena, el resto es drenaje profundo.
+    final balance = agotado - (d.lluvia - escorrentia) - riego;
+    final exceso = balance < 0 ? -balance : 0.0;
+    final alSubsuelo = math.min(exceso, agotadoSub);
+    agotadoSub -= alSubsuelo;
+    final drenaje = exceso - alSubsuelo;
+    final antes = balance < 0 ? 0.0 : balance;
+    // El cultivo no puede sacar más agua de la que cabe en la zona de raíces.
+    final eta = etapa == Etapa.cosechado ? 0.0 : math.min(ks * etc, taw - antes);
+    agotado = antes + eta;
 
     salida.add(EstadoDia(
       fecha: d.fecha,
@@ -239,6 +274,9 @@ List<EstadoDia> simularBalance({
       lluvia: d.lluvia,
       riego: riego,
       estimado: d.estimado,
+      escorrentia: escorrentia,
+      drenaje: drenaje,
+      agotamientoSubsuelo: agotadoSub,
     ));
   }
   return salida;

@@ -91,6 +91,44 @@ void main() {
     });
   });
 
+  group('agua del subsuelo al crecer las raíces', () {
+    List<DiaAgua> lluvias(int n, double Function(int) f) => [
+          for (var i = 0; i < n; i++) DiaAgua(fecha: DateTime(2026, 6, 1 + i), et0: 5, lluvia: f(i)),
+        ];
+    List<EstadoDia> correr(List<DiaAgua> dias, {Map<DateTime, double> riegos = const {}}) => simularBalance(
+          dias: dias, siembra: DateTime(2026, 6, 1), cultivo: maiz, ciclo: 120, aguaDisponible: 150, riegos: riegos,
+        );
+
+    test('se conserva el agua en una temporada completa con raíces que crecen', () {
+      final dias = lluvias(130, (i) => i % 7 == 0 ? 35 : (i % 3 == 0 ? 4 : 0));
+      final riegos = {for (var i = 10; i < 120; i += 9) DateTime(2026, 6, 1 + i): 30.0};
+      final r = correr(dias, riegos: riegos);
+      // Agotamiento total (raíces + subsuelo) al inicio: la mitad del perfil de 1 m.
+      final inicial = 0.5 * 150 * maiz.raizMaxima;
+      var entra = 0.0;
+      for (final d in r) {
+        entra += d.lluvia - d.escorrentia - d.drenaje - d.eta + d.riego;
+      }
+      final final_ = r.last.agotamiento + r.last.agotamientoSubsuelo;
+      expect(entra, closeTo(inicial - final_, 1e-6));
+      expect(r.any((d) => d.drenaje > 0), isTrue);
+      expect(r.any((d) => d.escorrentia > 0), isTrue);
+    });
+
+    test('un periodo seco antes de que crezca la raíz no cambia el agua del suelo nuevo', () {
+      final r = correr(lluvias(70, (_) => 0));
+      expect(r[40].agotamiento, closeTo(105.36011358, 1e-6)); // valor del motor anterior
+      expect(r.last.agotamiento, closeTo(147.06532121, 1e-6));
+    });
+
+    test('un periodo húmedo antes de que crezca la raíz deja el suelo nuevo con menos agotamiento', () {
+      final r = correr(lluvias(70, (i) => i < 20 ? 25 : 0));
+      expect(r[40].agotamiento, lessThan(83.12956699 - 5)); // el motor anterior daba 83.13
+      expect(r[19].drenaje, greaterThan(0));
+      expect(r[19].agotamientoSubsuelo, lessThan(0.5 * 150 * (1.0 - r[19].aguaTotal / 150)));
+    });
+  });
+
   group('recomendador', () {
     const parcela = Parcela(nombre: 'Prueba', latitud: 14.8, longitud: -89.54, elevacion: 407);
     Plantacion plantacion({TipoRiego riego = TipoRiego.goteo}) => Plantacion(
