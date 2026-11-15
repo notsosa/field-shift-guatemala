@@ -137,4 +137,7 @@ Fuente: `comentarios red.md` en la raíz del repositorio.
 | Margen | No: el modelo no tiene precios ni costos. |
 | Proporción de acciones que el productor puede ejecutar | Todavía no: hace falta la lista de acciones de la red y una regla de qué es ejecutable. |
 
+**Actualización (modelo v2).** Dos de sus medidas ya se calculan, en 54 casos de pérdida del maíz contra su regla agronómica sencilla y con información previa: las pérdidas en años malos (percentil 10 y peor caso) y la proporción de acciones ejecutables. El margen sigue sin calcularse (sin precios ni costos).
+Dónde: `web/data/decision_loss_eval.json` y la sección "Modelo v2: siete cultivos y decisión tras perder la cosecha" de `proyecto/resultados-modelo-keu.md`; la verdad es nuestro simulador, no AquaCrop.
+
 **Una corrección.** Su ejemplo dice que `modelo-keu` ayuda a estimar cuántos días después del inicio de las lluvias conviene sembrar el maíz. La evaluación de decisiones de esta rama (sección "Decisiones con información previa" de `proyecto/resultados-modelo-keu.md`) encontró que esperar para sembrar gana solo en nuestro simulador y que AquaCrop lo contradice. Con el suelo del piloto (18 casos), las seis combinaciones de política pierden contra sembrar en el inicio de lluvias en AquaCrop: de −1.24 a −2.32 t/ha (−10.7 % a −20.1 %), ganan solo 3 a 6 de los 18 casos, y hay 4 a 7 "ganancias solo del simulador" por política. Por eso no se puede usar el modelo para recomendar cuántos días esperar: es un límite encontrado, no una recomendación.

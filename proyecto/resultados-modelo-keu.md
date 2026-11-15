@@ -544,6 +544,60 @@ Generada con `node scripts/compare/succession_matrix.mjs` (sin red ni AquaCrop).
 - Intervalo fijo de 14 días entre cultivos; sin almácigo, curado, retiro ni traslape.
 - La comparación con el equipo es de direcciones (un orden contra el otro) y no de valores: sus déficits son de un año y no son nuestros.
 
+## Modelo v2: siete cultivos y decisión tras perder la cosecha
+
+**Qué se hizo.** Un segundo emulador (v2) que sí conoce los siete cultivos (maíz, frijol, ajonjolí, papa, cebolla, brócoli, lechuga) en sucesiones A→B, donde B puede ser ninguno, y una prueba de decisión: qué hacer con el campo cuando el maíz se pierde. **El modelo que muestra la página sigue siendo el v1**; el v2 no está conectado a la página. Archivos nuevos: `web/js/model/emulatorV2.js`, `scripts/emulator/generate_v2.mjs`, `train_mlp_v2.py`, `evaluate_v2.mjs`, `scripts/compare/loss_decision.mjs` (más `loss_decision_lib.mjs`), y los resultados `web/data/emulator_v2_eval.json`, `emulator_v2_mlp.json` y `decision_loss_eval.json`. Los archivos del v1 no cambiaron.
+
+### El emulador v2
+
+**Datos.** Muestras de nuestro simulador por el mismo código de la matriz de sucesiones: los 20 puntos, años 2001–2024, A en los 7 cultivos sembrado en el inicio de lluvias más 0, 15 o 30 días, B en los otros 6 o ninguno, suelo arena, franco o arcilla, plano y sin riego. Hay 211,680 combinaciones; se conservaron 60,000 por reservorio determinista (`mulberry32(42)`). Prueba = años 2019–2024 o los 4 puntos dejados fuera (23,945 filas); validación = 2017–2018; el resto entrena (36,055 filas; la ELM usa 32,131, sin los años de validación).
+
+**Entradas (31) y salidas (3).** Las 7 variables de clima del v1, día del año de la siembra de A, lluvia y ET₀ en los primeros 60 días tras sembrar y en los días 61–150 (solo del bundle), A (7), B (8 con "ninguno"), suelo (3) y desfase/30. Salidas: `relYieldA`, `relYieldB` (0 sin B o con ciclo incompleto) y `fit` (1 si todo lo sembrado termina dentro del año agrícola).
+
+**Exactitud en años nuevos** (2019–2024 en puntos de entrenamiento, 12,107 filas; la verdad es el simulador):
+
+| | R² `relYieldA` | R² `relYieldB` | R² `fit` | F1 de `fit` (umbral 0.5) |
+|---|---|---|---|---|
+| Red embudo (MLP) | 0.607 | 0.903 | 0.897 | 0.981 |
+| ELM (sin retropropagación) | 0.501 | 0.852 | 0.737 | 0.971 |
+| Línea base (media por A×B×suelo, sin clima) | −0.040 | 0.441 | 0.332 | 0.857 |
+
+En puntos nuevos (4 puntos dejados fuera, 8,824 filas) los R² de la red son 0.807 / 0.898 / 0.883 y los de la ELM 0.750 / 0.839 / 0.698 (línea base −0.143 / 0.144 / 0.334). En toda la prueba (23,945 filas): red 0.752 / 0.896 / 0.890, ELM 0.689 / 0.841 / 0.715, línea base 0.034 / 0.268 / 0.328. Exactitud de `fit` en años nuevos: red 0.973, ELM 0.960, línea base 0.800. La parte difícil es el rendimiento del primer cultivo en años nuevos: la red llega a 0.607 y la ELM a 0.501, lejos de 0.8. La ELM de 1,500 neuronas usa la configuración que se escogió en el v1; no se hizo un barrido nuevo.
+
+**Costo.** La red tiene 4,707 parámetros y entrenó en 7.7 s (29 épocas, GPU RTX 4050). La ELM tiene 52,500 parámetros (4,500 son los pesos de salida que se calculan) y entrenó en 56.6 s en Node. Una predicción tarda 10.5 µs (red) y 68.7 µs (ELM); el simulador, 123.4 µs por muestra: la red es 11.7 veces más rápida y la ELM 1.8. Procedencia en `emulator_v2_eval.json` (fecha 2026-11-15, lluvia ERA5).
+
+### La decisión tras perder el maíz
+
+**Casos (54).** Los 3 pilotos × años objetivo 2019–2024 × maíz sembrado en el inicio de lluvias y perdido a los 30, 45 o 60 días. El campo queda libre al día siguiente y la nueva siembra es 14 días después (45, 60 o 75 días tras el inicio de lluvias). La verdad la da el simulador en ese año con el suelo SoilGrids del piloto (las redes reciben `nearestTexture`). **Acciones:** resembrar uno de los siete cultivos o dejar el campo sin cultivo ("cobertura/barbecho": rendimiento 0, siempre ejecutable). **Objetivo:** rendimiento relativo del cultivo resembrado (0 si su ciclo no termina dentro del año agrícola). **Información:** la decisión del año Y usa solo los años anteriores a Y en ese sitio (la misma doble protección de `decision.js`; una prueba comprueba que alterar los datos desde Y no cambia la decisión). Prioridad "típico" = mediana de los años pasados; "cauto" = percentil 20. En empate gana dejar el campo y luego el orden de la lista.
+
+**La regla agronómica sencilla (de Alex), fijada de antemano:** resembrar maíz si quedan al menos 120 días antes del 15 de noviembre; si no, frijol si quedan al menos 70; si no, dejar el campo. **Oráculo:** la mejor acción en el año Y mismo (rendimiento medio 0.971).
+
+**Resultados** (n = 54 casos por fila; G / E / P = casos en que gana, empata o pierde contra la regla, tolerancia 0.001; pérdidas en años malos = percentil 10 y peor caso del rendimiento relativo de lo elegido; ejecutable = el ciclo de lo elegido termina dentro del año agrícola):
+
+| Política | Prioridad | Rendimiento medio elegido | Ganancia sobre la regla | G / E / P | Arrepentimiento medio | Percentil 10 | Peor caso | Ejecutable | Misma acción que el simulador |
+|---|---|---|---|---|---|---|---|---|---|
+| Regla agronómica | – | 0.802 | 0 | 0 / 54 / 0 | 0.169 | 0.466 | 0.000 | 49 / 54 | 24 (típico), 6 (cauto) |
+| Simulador | típico | 0.925 | +0.123 | 20 / 29 / 5 | 0.046 | 0.809 | 0.243 | 54 / 54 | – |
+| Simulador | cauto | 0.945 | +0.143 | 26 / 17 / 11 | 0.026 | 0.837 | 0.711 | 54 / 54 | – |
+| Red (MLP) | típico | 0.942 | +0.140 | 25 / 19 / 10 | 0.030 | 0.837 | 0.640 | 54 / 54 | 22 de 54 |
+| Red (MLP) | cauto | 0.943 | +0.141 | 27 / 16 / 11 | 0.028 | 0.837 | 0.640 | 54 / 54 | 42 de 54 |
+| ELM | típico | 0.943 | +0.141 | 24 / 17 / 13 | 0.028 | 0.800 | 0.640 | 54 / 54 | 19 de 54 |
+| ELM | cauto | 0.925 | +0.123 | 25 / 16 / 13 | 0.046 | 0.818 | 0.277 | 54 / 54 | 36 de 54 |
+
+Cultivos elegidos (de 54): la regla, maíz 28 y frijol 26; el simulador típico, frijol 35, maíz 11, ajonjolí 6, lechuga 2, y el cauto, ajonjolí 24, lechuga 24, frijol 6; la red típica, ajonjolí 18, lechuga 18, frijol 11, maíz 7, y la cauta, ajonjolí 36, lechuga 18; la ELM típica, ajonjolí 21, maíz 15, lechuga 12, frijol 6, y la cauta, ajonjolí 18, maíz 18, lechuga 18.
+
+**Lectura.** En estos 54 casos las políticas con información previa superan a la regla en el rendimiento medio (0.925 a 0.945 contra 0.802). El peor caso de la regla es 0 (maíz o frijol resembrado sin tiempo de terminar) y no es ejecutable en 5 de 54 casos; los peores casos de las demás políticas quedan entre 0.243 y 0.711 y todas sus acciones son ejecutables. Pero también pierden contra la regla en 5 a 13 casos de 54, y con 54 casos que comparten 3 sitios y 6 años no hay prueba de significancia: no se afirma que una red decida mejor que el simulador ni que una prioridad sea mejor que la otra. Las dos redes coinciden con el simulador en 19 a 42 de 54 decisiones, según la prioridad. Que una red quede por encima del simulador en rendimiento medio (0.942 contra 0.925, típico) no la hace mejor: la verdad es el propio simulador en un año nuevo, y la decisión se toma con años pasados.
+
+### Límites (estos números no son una recomendación)
+
+- **La verdad es nuestro propio simulador.** No se corrió AquaCrop para estos cultivos; no hay juez independiente de ningún número de esta sección. En el v1, AquaCrop contradijo la ganancia del simulador por sembrar más tarde en maíz.
+- **Sin respuesta al calor** para las hortalizas de clima frío (papa, cebolla, brócoli, lechuga): el simulador solo las castiga por agua y calendario; `tbase` de los cuatro cultivos nuevos y el Ky de brócoli y lechuga son sustitutos (sección de siete cultivos). El objetivo es solo rendimiento relativo por agua, por eso ajonjolí y lechuga aparecen tan seguido.
+- **Sin precios ni costos, así que no se calcula el margen**, una de las tres medidas de Alex. Las medidas calculadas aquí son las pérdidas en años malos y la proporción de acciones ejecutables.
+- **El suelo no conserva el agua del maíz perdido:** el cultivo resembrado se simula solo, desde un suelo seco al 1 de abril.
+- **Las redes extrapolan:** se entrenaron con siembras 0, 15 y 30 días tras el inicio de lluvias y aquí reciben 45, 60 y 75.
+- **Muestra pequeña:** 54 casos (3 sitios × 6 años × 3 momentos de pérdida), con los conteos junto a cada cifra y sin significancia estadística.
+- **El v1 sigue siendo el modelo de la página.** El v2 se reproduce con `node scripts/emulator/generate_v2.mjs`, `python scripts/emulator/train_mlp_v2.py`, `node scripts/emulator/evaluate_v2.mjs` y `node scripts/compare/loss_decision.mjs`.
+
 ## Limitaciones conocidas
 
 - El modelo solo simula agua. No incluye plagas, fertilización, sombra, precios ni mano de obra.
