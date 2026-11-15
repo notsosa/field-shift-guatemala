@@ -1,6 +1,6 @@
 # Demo del piloto: la app Field Shift (copia `app/V01-keu`)
 
-Guion para mostrar la app en el navegador, con una lista de pruebas al final. La app es la de nuestro compañero, con los arreglos de la rama `modelo-keu` (ver el README de `app/V01-keu`).
+Guion para mostrar la app en el navegador, con una lista de pruebas al final. La app es la de nuestro compañero, con los arreglos de la rama `modelo-keu` (ver el README de `app/V01-keu`). Los pasos de abajo se ensayaron en Chrome (ventana de teléfono, 390 px) el 15 de noviembre de 2026 y funcionan en cualquier fecha, porque las fechas de siembra se dan en días antes del día de la demo.
 
 ## Antes de empezar
 
@@ -11,50 +11,56 @@ flutter build web --release
 python -m http.server 8787 -d build/web
 ```
 
-Abre `http://localhost:8787` en Chrome, con wifi (el clima se baja de NASA POWER al guardar la parcela). Para empezar de cero: Ajustes, "Borrar todos los datos". El teléfono simulado queda mejor con la ventana angosta (unos 400 px).
+Abre `http://localhost:8787` en Chrome con internet: al guardar la parcela la app baja el clima de NASA POWER y tarda unos 5 a 10 segundos en mostrar la pantalla **Hoy**. Para empezar de cero: Ajustes, "Borrar todos los datos", Borrar.
+
+## Qué muestra y qué no muestra "Ver un ejemplo"
+
+El botón de la bienvenida carga un frijol sembrado hace 38 días en Chiquimula (`14.8250`, `-89.5312`, el punto de la finca), con goteo, fertilización ya registrada y un registro de hace 9 días (2 riegos, plaga leve, "Mosca blanca"). Sirve para ver rápido las pantallas y un registro con riego. **No** sirve para: el aviso de fertilizar (el ejemplo ya está fertilizado), café ni roya (es frijol), ni un maíz. Para esas escenas hay que crear la plantación a mano, como abajo.
 
 ## Guion
 
 ### 1. Maíz en Chiquimula, con riego
 
-1. En la bienvenida toca **Empezar**. En "Tu parcela" escribe nombre "Chiquimula", latitud `14.80`, longitud `-89.54` y toca **Continuar**. No uses "Usar mi ubicación": el navegador puede negarla. (Punto alternativo, el de la finca: `14.8250`, `-89.5312`; es el que usa "Ver un ejemplo".)
-2. En "Plantación" elige **Maíz**, suelo **Franco**, y como fecha de siembra el inicio de las lluvias (hacia mediados de mayo). Riego **Goteo**, temporada **Auxilio**. Deja "Plaga reciente" apagada y toca **Guardar**.
-3. En **Hoy** muestra el porcentaje de agua disponible, la etapa, la cosecha y el rendimiento. Dilo así: "es una estimación del agua en la raíz, calculada con el clima de NASA de este punto".
-4. Si hoy ya pasó la cosecha (ciclo de 120 días), la app dice "Ciclo terminado": el rendimiento queda fijo y ya no cae por los días después de cosechar. Para ver un cultivo activo, usa una siembra de hace 40 a 60 días.
-5. En **Registros**, toca **+**: "Veces que regaste" 3, plaga **Ninguna**, "Fertilizaste" apagado, **Guardar**. Debe aparecer en la lista con "3 riegos" y la reserva de agua en Hoy sube si el clima de esos días fue seco.
+1. En la bienvenida toca **Empezar**. En "Tu parcela" escribe el nombre "Chiquimula", latitud `14.80` y longitud `-89.54`, y toca **Continuar**. No uses "Usar mi ubicación": el navegador puede negarla.
+2. En "Plantación" deja **Maíz**, ciclo **120 días**, suelo **Franco**. Toca la fecha de siembra: se abre una rueda de día, mes y año; gira el día y el mes hasta **hace 50 días** (el inicio de las lluvias en Chiquimula es hacia mediados de mayo; si la demo no cae en esa época, hace 50 días mantiene el maíz en pleno desarrollo) y toca **Listo**. En Riego elige **Goteo**. Toca **Guardar**.
+3. En **Hoy** debe verse (ensayado con el maíz de hace 50 días): "Maíz · Chiquimula", un porcentaje de agua disponible, la etapa **Desarrollo**, "Cosecha: en 70 días", "Rendimiento 100 %", la gráfica de los últimos 14 días con la lluvia y la necesidad de la semana, y en "Por hacer" el registro semanal pendiente y **Momento de fertilizar** (hay riego, y por eso el aviso sale aunque no llueva). Di: "es una estimación del agua en la raíz, con el clima de NASA de este punto".
+4. Si la siembra fuera de hace más de 120 días, Hoy dice "Ciclo terminado", sin fila de cosecha, y el rendimiento queda fijo. Es un buen momento para decir que después de cosechar ya no baja.
+5. Abre **Registros**, toca **Registro semanal** (o el **+**): sube "Veces que regaste" a 3 con el **+**, deja la plaga en Ninguna y toca **Guardar**. En la lista debe aparecer la fecha de hoy y "3 riegos". Vuelve a Hoy: el aviso de registro pendiente ya no está y el agua disponible refleja los riegos.
 
 ### 2. Café con roya
 
-1. Ajustes, **Borrar todos los datos**, y repite la parcela (`14.80`, `-89.54`).
-2. En "Plantación" elige **Café**. La fecha es la de la última floración. Riego **Ninguno**. Enciende **Plaga reciente**: aparece "Tipo de plaga" con Roya, Minador, Antracnosis y Otra. Elige **Roya** y **Guardar**.
-3. En Hoy debe salir el aviso "Plaga reportada". Di: "la app registra qué plaga es; no la predice ni dice cuándo aplicar".
-4. En **Registros**, **+**: plaga **Media**, tipo **Roya**, sin riego (el café no tiene riego en este caso, así que la pregunta de riegos no aparece), **Guardar**. En la lista debe verse "plaga media (roya)".
-5. Para mostrar dos registros en una misma sesión, usa **Ver un ejemplo** (frijol, `14.8250`, `-89.5312`): ya trae un registro de hace 9 días con 2 riegos. Agrega el de hoy sin riegos (semana sin lluvia). La app guarda un registro por día, así que dos registros propios exigen dos días distintos.
+1. Ajustes, **Borrar todos los datos**, Borrar. Repite la parcela (`14.80`, `-89.54`).
+2. En "Plantación" toca **Café** (la fecha es la de la última floración; puedes dejar la de hoy). En Riego deja **Sin riego**. En "Manejo" enciende **Plaga reciente**: aparece "Tipo de plaga" con Roya, Minador, Antracnosis y Otra. Elige **Roya** y **Guardar**.
+3. En Hoy debe verse (ensayado): "Café · Chiquimula", agua disponible, etapa **Establecido**, sin fila de cosecha ni de rendimiento (el café es perenne y no tiene Ky), y en "Por hacer" **Plaga reportada** y el registro pendiente. Di: "la app registra qué plaga es; no la predice ni dice cuándo aplicar".
+4. En **Registros**, **Registro semanal**: como el café no tiene riego no aparece "Veces que regaste". Elige plaga **Media** y aparece "Tipo de plaga": toca **Roya** y **Guardar**. En la lista debe verse "Sin riego · plaga media (roya)".
+5. La app guarda un registro por día (si guardas otro el mismo día, reemplaza al anterior). Para enseñar dos registros en una misma sesión, usa el ejemplo: ya trae el de hace 9 días con 2 riegos; agrega el de hoy con 0 riegos, y la lista muestra uno con riego y otro "Sin riego".
 
-### 3. Fertilizar solo con agua (frijol o maíz en desarrollo)
+### 3. Fertilizar solo con agua
 
-Con un maíz o frijol en etapa de desarrollo, sin fertilización registrada: si hubo lluvia en los últimos 7 días o hay riego, sale "Momento de fertilizar"; si no, "Fertilizar: en espera". Di: "así lo hace el productor: sin lluvia no abona".
+El aviso depende del clima real del día, así que no se puede forzar en vivo. Con un maíz o un frijol en etapa de desarrollo (sembrado hace 30 a 60 días) y sin fertilización registrada, la regla es: si hay riego o cayó lluvia (1 mm o más) en los últimos 7 días, sale "Momento de fertilizar"; si no, sale "Fertilizar: en espera", con la nota de que no hay lluvia registrada en los datos disponibles (los últimos días aún no se publican). Para verlo en una plantación **Sin riego**, hay que probar en una semana sin lluvia; en el ensayo de hoy llovió 10 mm en la semana, así que salió el recordatorio normal. Di: "así lo hace el productor: sin lluvia no abona".
 
 ## Lista de pruebas
 
 | Qué probar | Resultado esperado |
 |---|---|
-| Parcela con `14.80`, `-89.54` y Continuar | Pasa a "Plantación"; al guardar, Hoy baja el clima y muestra el nombre de la parcela |
+| Parcela con `14.80`, `-89.54` y Continuar | Pasa a "Plantación"; al guardar, Hoy baja el clima (5 a 10 s) y muestra el nombre de la parcela |
+| Ajustes después de guardar | Muestra "Chiquimula 14.8000, -89.5400", la elevación de la celda de NASA y el cultivo con su fecha |
 | Coordenadas fuera de rango (`95`, `-89`) | Mensaje de coordenadas inválidas y no avanza |
-| Cultivo Café, Plaga reciente encendida | Aparece "Tipo de plaga" con cuatro opciones |
-| Cultivo Maíz o Frijol, Plaga reciente encendida | No aparece "Tipo de plaga" (lista pendiente del compañero) |
-| Registro con plaga y tipo | La lista muestra "plaga media (roya)", por ejemplo |
-| Cambiar a English | Todos los textos cambian, incluido el tipo de plaga ("Rust", "Leaf miner") |
-| Día con clima faltante | Hoy dice "N días estimados" y la precisión baja si caen en la última semana |
-| Sin lluvia en 7 días y sin riego, cultivo en desarrollo | "Fertilizar: en espera" en vez de "Momento de fertilizar" |
+| Cultivo Café, Plaga reciente encendida | Aparece "Tipo de plaga" con Roya, Minador, Antracnosis y Otra |
+| Cultivo Maíz o Frijol, Plaga reciente encendida | No aparece "Tipo de plaga" (la lista de plagas de esos cultivos está pendiente del compañero) |
+| Registro con plaga y tipo (café) | La lista muestra "plaga media (roya)" |
+| Cambiar a English en Ajustes | Los textos cambian, incluidos los tipos de plaga ("Rust", "Leaf miner", "Anthracnose", "Other") |
+| Clima con 3 o 4 días de retraso (lo normal) | Hoy no baja la precisión por eso; si faltan más de 5 días de clima, o hay un hueco o lluvia faltante en la última semana, sí baja |
+| Maíz sembrado hace más de 120 días | "Ciclo terminado" y el rendimiento no cambia de un día a otro |
 | Recargar la página | La parcela, la plantación y los registros siguen ahí |
-| Sin internet | La app abre con el clima guardado y avisa que no se pudo actualizar |
+| Sin internet al abrir | La app abre con el clima guardado y avisa que no se pudo actualizar |
 
 ## Lo que la app no hace
 
 - No predice plagas ni dice cuándo aplicar; solo las registra.
-- Su lluvia viene de NASA POWER (celda de unos 50 km, 3 o 4 días de retraso), no de IMERG ni de ERA5 como nuestro modelo; en el oriente de Guatemala puede estar sobreestimada.
-- Usa un solo número de curva, un Ky único por cultivo y parámetros de café y tomate citados de memoria (por verificar).
+- Su lluvia viene de NASA POWER (celda de unos 50 km, 3 o 4 días de retraso), no de IMERG ni de ERA5 como nuestro modelo; en el oriente de Guatemala puede estar sobreestimada. Los últimos días sin publicar se estiman con lluvia cero, así que una lluvia reciente puede no aparecer todavía.
+- Usa un solo número de curva, un Ky único por cultivo y parámetros de café y tomate citados de memoria (por verificar). El café no tiene fecha de cosecha ni rendimiento.
+- No registra la lluvia que el productor ve: solo riegos, plaga y abono.
 - Un registro por día y una sola plantación por parcela. No hay red neuronal.
 - Sin validar en campo: apoya, no reemplaza, el criterio del finquero.
 
