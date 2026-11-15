@@ -21,7 +21,13 @@
   "simulatorSetup": "texture loam of the simulator (AquaCrop: its own default Loam, a different profile; cases with a site field: the SoilGrids soil of that pilot, same thetaFC/thetaWP in both models), flat slope, rainfed, dry start on 1 April, single crop with fixed sowing date",
   "classSoilNote": "Cases with soil Loam, Sand or Clay are NOT the same soil in both models: AquaCrop uses its own default class profile and the simulator its own class (see soilComparison). Only the site-soil cases (soil \"site\" / SoilGrids) give both models the same thetaFC and thetaWP. The headline maiz_0520 compares each model with its own loam.",
   "relYieldScale": "simulator relYield: 0-1, relative to no water stress (stage-multiplicative for maize and beans, seasonal Ky for the other crops)",
-  "note": "AquaCrop uses default crop parameters (no local calibration): this tests logic and robustness, not field truth. Do not quote AquaCrop absolute yields. AquaCrop relYield = yield / max over the case years."
+  "note": "AquaCrop uses default crop parameters (no local calibration): this tests logic and robustness, not field truth. Do not quote AquaCrop absolute yields. AquaCrop relYield = yield / max over the case years.",
+  "rainProducts": {
+   "ERA5": "Copernicus ERA5 via Open-Meteo (the model rain)",
+   "IMERG": "ClimateSERV dataset 26 (named \"NASA-IMERG-V06-Late 1 Day\" in the ClimateSERV documentation)",
+   "IMERG_LATE": "ClimateSERV dataset 226 (named \"NASA-IMERG-V07-Late 1 Day\" in the ClimateSERV documentation)",
+   "CHIRPS": "CHIRPS v2.0 via ClimateSERV dataset 0"
+  }
  },
  "stages": [
   {
@@ -4291,6 +4297,11 @@
    2023
   ],
   "nYears": 22,
+  "products": {
+   "ERA5": "Copernicus ERA5 via Open-Meteo (the model rain)",
+   "IMERG": "ClimateSERV dataset 26 (named \"NASA-IMERG-V06-Late 1 Day\" in the ClimateSERV documentation)",
+   "CHIRPS": "CHIRPS v2.0 via ClimateSERV dataset 0"
+  },
   "excludedYears": {
    "ERA5": [],
    "IMERG": [
@@ -4524,6 +4535,307 @@
      "residue": 85,
      "bare": 94
     }
+   }
+  }
+ },
+ "rainSensitivityFourProducts": {
+  "site": "chiquimula",
+  "crop": "Maize",
+  "sowDate": "05-20",
+  "soil": "Loam",
+  "years": [
+   2001,
+   2002,
+   2003,
+   2004,
+   2005,
+   2006,
+   2007,
+   2008,
+   2009,
+   2010,
+   2011,
+   2012,
+   2013,
+   2015,
+   2016,
+   2017,
+   2018,
+   2020,
+   2021,
+   2022
+  ],
+  "nYears": 20,
+  "products": {
+   "ERA5": "Copernicus ERA5 via Open-Meteo (the model rain)",
+   "IMERG": "ClimateSERV dataset 26 (named \"NASA-IMERG-V06-Late 1 Day\" in the ClimateSERV documentation)",
+   "CHIRPS": "CHIRPS v2.0 via ClimateSERV dataset 0",
+   "IMERG_LATE": "ClimateSERV dataset 226 (named \"NASA-IMERG-V07-Late 1 Day\" in the ClimateSERV documentation)"
+  },
+  "excludedYears": {
+   "ERA5": [],
+   "IMERG": [
+    2019,
+    2024
+   ],
+   "CHIRPS": [],
+   "IMERG_LATE": [
+    2014,
+    2023,
+    2024
+   ]
+  },
+  "note": "Gap days of a product are never filled; years with a gap in any product are excluded from all of this comparison. The model keeps ERA5 as its rain source: this quantifies an information gap, it is not a choice of product. IMERG = ClimateSERV dataset 26, IMERG_LATE = dataset 226.",
+  "meanRainMm": {
+   "ERA5": 1110.3,
+   "IMERG": 1139.6,
+   "CHIRPS": 1317.9,
+   "IMERG_LATE": 1574.5
+  },
+  "vsAquacrop": {
+   "ERA5": {
+    "spearman": 0.834,
+    "worst5": {
+     "aquacrop": [
+      2001,
+      2002,
+      2004,
+      2011,
+      2015
+     ],
+     "simulator": [
+      2002,
+      2004,
+      2012,
+      2015,
+      2018
+     ],
+     "overlap": 3
+    },
+    "cv": {
+     "aquacrop": 0.3036,
+     "simulator": 0.2201
+    },
+    "simYearsAtOne": 9
+   },
+   "IMERG": {
+    "spearman": 0.6091,
+    "worst5": {
+     "aquacrop": [
+      2002,
+      2015,
+      2016,
+      2018,
+      2021
+     ],
+     "simulator": [
+      2003,
+      2009,
+      2015,
+      2016,
+      2018
+     ],
+     "overlap": 3
+    },
+    "cv": {
+     "aquacrop": 0.315,
+     "simulator": 0.1903
+    },
+    "simYearsAtOne": 5
+   },
+   "CHIRPS": {
+    "spearman": 0.6934,
+    "worst5": {
+     "aquacrop": [
+      2002,
+      2007,
+      2009,
+      2015,
+      2016
+     ],
+     "simulator": [
+      2003,
+      2007,
+      2015,
+      2016,
+      2018
+     ],
+     "overlap": 3
+    },
+    "cv": {
+     "aquacrop": 0.0889,
+     "simulator": 0.0573
+    },
+    "simYearsAtOne": 13
+   },
+   "IMERG_LATE": {
+    "spearman": 0.8427,
+    "worst5": {
+     "aquacrop": [
+      2002,
+      2003,
+      2007,
+      2018,
+      2021
+     ],
+     "simulator": [
+      2002,
+      2003,
+      2007,
+      2015,
+      2018
+     ],
+     "overlap": 4
+    },
+    "cv": {
+     "aquacrop": 0.0941,
+     "simulator": 0.0562
+    },
+    "simYearsAtOne": 10
+   }
+  },
+  "betweenProducts": {
+   "ERA5-IMERG": {
+    "simulatorSpearman": 0.672,
+    "simulatorWorst5Overlap": 2,
+    "aquacropSpearman": 0.6827,
+    "meanAbsDiffRelYield": 0.1045
+   },
+   "ERA5-CHIRPS": {
+    "simulatorSpearman": 0.6586,
+    "simulatorWorst5Overlap": 2,
+    "aquacropSpearman": 0.6782,
+    "meanAbsDiffRelYield": 0.0764
+   },
+   "ERA5-IMERG_LATE": {
+    "simulatorSpearman": 0.753,
+    "simulatorWorst5Overlap": 3,
+    "aquacropSpearman": 0.6812,
+    "meanAbsDiffRelYield": 0.0743
+   },
+   "IMERG-CHIRPS": {
+    "simulatorSpearman": 0.8125,
+    "simulatorWorst5Overlap": 4,
+    "aquacropSpearman": 0.806,
+    "meanAbsDiffRelYield": 0.0896
+   },
+   "IMERG-IMERG_LATE": {
+    "simulatorSpearman": 0.6767,
+    "simulatorWorst5Overlap": 3,
+    "aquacropSpearman": 0.8812,
+    "meanAbsDiffRelYield": 0.0872
+   },
+   "CHIRPS-IMERG_LATE": {
+    "simulatorSpearman": 0.7466,
+    "simulatorWorst5Overlap": 4,
+    "aquacropSpearman": 0.8316,
+    "meanAbsDiffRelYield": 0.0204
+   }
+  }
+ },
+ "rainSensitivityCompleteProducts": {
+  "site": "chiquimula",
+  "crop": "Maize",
+  "sowDate": "05-20",
+  "soil": "Loam",
+  "years": [
+   2001,
+   2002,
+   2003,
+   2004,
+   2005,
+   2006,
+   2007,
+   2008,
+   2009,
+   2010,
+   2011,
+   2012,
+   2013,
+   2014,
+   2015,
+   2016,
+   2017,
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024
+  ],
+  "nYears": 24,
+  "products": {
+   "ERA5": "Copernicus ERA5 via Open-Meteo (the model rain)",
+   "CHIRPS": "CHIRPS v2.0 via ClimateSERV dataset 0"
+  },
+  "excludedYears": {
+   "ERA5": [],
+   "CHIRPS": []
+  },
+  "note": "Only products with no gap day in any of the agricultural years are included, so all of those years are used. IMERG (dataset 26) is not complete and is not in this block. The model keeps ERA5 as its rain source.",
+  "meanRainMm": {
+   "ERA5": 1094.9,
+   "CHIRPS": 1297.4
+  },
+  "vsAquacrop": {
+   "ERA5": {
+    "spearman": 0.8512,
+    "worst5": {
+     "aquacrop": [
+      2011,
+      2014,
+      2015,
+      2019,
+      2023
+     ],
+     "simulator": [
+      2004,
+      2014,
+      2015,
+      2018,
+      2019
+     ],
+     "overlap": 3
+    },
+    "cv": {
+     "aquacrop": 0.3977,
+     "simulator": 0.2504
+    },
+    "simYearsAtOne": 9
+   },
+   "CHIRPS": {
+    "spearman": 0.6248,
+    "worst5": {
+     "aquacrop": [
+      2002,
+      2015,
+      2016,
+      2023,
+      2024
+     ],
+     "simulator": [
+      2003,
+      2014,
+      2015,
+      2018,
+      2019
+     ],
+     "overlap": 1
+    },
+    "cv": {
+     "aquacrop": 0.1068,
+     "simulator": 0.0679
+    },
+    "simYearsAtOne": 14
+   }
+  },
+  "betweenProducts": {
+   "ERA5-CHIRPS": {
+    "simulatorSpearman": 0.6916,
+    "simulatorWorst5Overlap": 4,
+    "aquacropSpearman": 0.693,
+    "meanAbsDiffRelYield": 0.1005
    }
   }
  }

@@ -150,7 +150,7 @@
      "validYears": 24
     },
     "IMERG": {
-     "label": "NASA GPM IMERG daily via ClimateSERV (box ±0.03°)",
+     "label": "ClimateSERV dataset 26, \"NASA-IMERG-V06-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
      "annualMm": [
       1311.8,
       1015.7,
@@ -371,6 +371,117 @@
      "meanCaniculaDays": 6.3,
      "validYears": 24
     },
+    "IMERG_LATE": {
+     "label": "ClimateSERV dataset 226, \"NASA-IMERG-V07-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
+     "annualMm": [
+      1613.5,
+      1289.5,
+      1555.9,
+      1152.1,
+      1850.4,
+      1338.4,
+      1428.3,
+      1931.5,
+      1543.1,
+      2200.5,
+      2185.9,
+      1463,
+      1692.7,
+      null,
+      1114.6,
+      1028.4,
+      1766.1,
+      877.5,
+      1394.6,
+      1817.9,
+      1419.6,
+      2220.2,
+      null,
+      null
+     ],
+     "mayOctMm": [
+      1496.3,
+      1187.6,
+      1371.6,
+      981.6,
+      1756.7,
+      1221.1,
+      1351,
+      1805.1,
+      1333.2,
+      2000.6,
+      1954.9,
+      1361.3,
+      1616.8,
+      null,
+      940.8,
+      901.8,
+      1713.2,
+      817.7,
+      1336.7,
+      1408.3,
+      1348,
+      1941,
+      null,
+      null
+     ],
+     "caniculaDays": [
+      7,
+      10,
+      8,
+      9,
+      7,
+      7,
+      6,
+      3,
+      5,
+      2,
+      4,
+      7,
+      5,
+      null,
+      10,
+      5,
+      10,
+      12,
+      6,
+      5,
+      6,
+      4,
+      null,
+      null
+     ],
+     "missingDays": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      7,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      31
+     ],
+     "meanAnnualMm": 1565.9,
+     "meanMayOctMm": 1421.2,
+     "meanCaniculaDays": 6.6,
+     "validYears": 21
+    },
     "POWER": {
      "label": "NASA POWER PRECTOTCORR (MERRA-2 corrected; comparison only, never used by the model)",
      "annualMm": [
@@ -498,33 +609,135 @@
      2011,
      2012,
      2013,
-     2014,
      2015,
      2016,
      2017,
      2018,
      2020,
      2021,
-     2022,
-     2023
+     2022
     ],
     "meanAnnualMm": {
-     "ERA5": 1098.9,
-     "IMERG": 1164.1,
-     "CHIRPS": 1307.9,
-     "POWER": 1566.5
+     "ERA5": 1110.3,
+     "IMERG": 1139.6,
+     "CHIRPS": 1317.9,
+     "IMERG_LATE": 1574.5,
+     "POWER": 1551
     },
     "meanMayOctMm": {
-     "ERA5": 990.1,
-     "IMERG": 1049,
-     "CHIRPS": 1217.5,
-     "POWER": 1146.4
+     "ERA5": 1002.2,
+     "IMERG": 1022.8,
+     "CHIRPS": 1226.3,
+     "IMERG_LATE": 1425.4,
+     "POWER": 1152.4
     },
     "meanCaniculaDays": {
-     "ERA5": 4.3,
-     "IMERG": 7.7,
+     "ERA5": 4.2,
+     "IMERG": 7.6,
      "CHIRPS": 6.2,
-     "POWER": 3.5
+     "IMERG_LATE": 6.6,
+     "POWER": 3.4
+    }
+   },
+   "commonSets": {
+    "withoutImergLate": {
+     "products": [
+      "ERA5",
+      "IMERG",
+      "CHIRPS",
+      "POWER"
+     ],
+     "years": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2020,
+      2021,
+      2022,
+      2023
+     ],
+     "meanAnnualMm": {
+      "ERA5": 1098.9,
+      "IMERG": 1164.1,
+      "CHIRPS": 1307.9,
+      "POWER": 1566.5
+     },
+     "meanMayOctMm": {
+      "ERA5": 990.1,
+      "IMERG": 1049,
+      "CHIRPS": 1217.5,
+      "POWER": 1146.4
+     },
+     "meanCaniculaDays": {
+      "ERA5": 4.3,
+      "IMERG": 7.7,
+      "CHIRPS": 6.2,
+      "POWER": 3.5
+     }
+    },
+    "withoutImerg": {
+     "products": [
+      "ERA5",
+      "CHIRPS",
+      "POWER",
+      "IMERG_LATE"
+     ],
+     "years": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+     ],
+     "meanAnnualMm": {
+      "ERA5": 1103,
+      "CHIRPS": 1316.4,
+      "POWER": 1545.1,
+      "IMERG_LATE": 1565.9
+     },
+     "meanMayOctMm": {
+      "ERA5": 995.1,
+      "CHIRPS": 1225.1,
+      "POWER": 1153.9,
+      "IMERG_LATE": 1421.2
+     },
+     "meanCaniculaDays": {
+      "ERA5": 4.3,
+      "CHIRPS": 6.2,
+      "POWER": 3.4,
+      "IMERG_LATE": 6.6
+     }
     }
    }
   },
@@ -646,7 +859,7 @@
      "validYears": 24
     },
     "IMERG": {
-     "label": "NASA GPM IMERG daily via ClimateSERV (box ±0.03°)",
+     "label": "ClimateSERV dataset 26, \"NASA-IMERG-V06-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
      "annualMm": [
       1370.3,
       1237.9,
@@ -867,6 +1080,117 @@
      "meanCaniculaDays": 4.5,
      "validYears": 24
     },
+    "IMERG_LATE": {
+     "label": "ClimateSERV dataset 226, \"NASA-IMERG-V07-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
+     "annualMm": [
+      1247.6,
+      1592.3,
+      1477,
+      1354.1,
+      1459.1,
+      1783.4,
+      1608.5,
+      1598.4,
+      1440.7,
+      2016.4,
+      2066.7,
+      1546.7,
+      1310.5,
+      null,
+      1439.5,
+      1150.5,
+      1230.7,
+      1374.5,
+      1232.1,
+      1842.9,
+      1304.7,
+      1590.1,
+      null,
+      null
+     ],
+     "mayOctMm": [
+      1175.5,
+      1500.6,
+      1390.7,
+      1317.5,
+      1413.7,
+      1562.7,
+      1472.4,
+      1520.8,
+      1160.5,
+      1876.6,
+      1983,
+      1462.5,
+      1250.8,
+      null,
+      1257.1,
+      1066.4,
+      1182.2,
+      1243.5,
+      1175.2,
+      1607.7,
+      1195.8,
+      1371.6,
+      null,
+      null
+     ],
+     "caniculaDays": [
+      5,
+      4,
+      2,
+      3,
+      4,
+      4,
+      2,
+      5,
+      5,
+      2,
+      3,
+      3,
+      4,
+      null,
+      5,
+      4,
+      4,
+      11,
+      6,
+      4,
+      8,
+      4,
+      null,
+      null
+     ],
+     "missingDays": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      7,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      31
+     ],
+     "meanAnnualMm": 1507.9,
+     "meanMayOctMm": 1389.8,
+     "meanCaniculaDays": 4.4,
+     "validYears": 21
+    },
     "POWER": {
      "label": "NASA POWER PRECTOTCORR (MERRA-2 corrected; comparison only, never used by the model)",
      "annualMm": [
@@ -994,33 +1318,135 @@
      2011,
      2012,
      2013,
-     2014,
      2015,
      2016,
      2017,
      2018,
      2020,
      2021,
-     2022,
-     2023
+     2022
     ],
     "meanAnnualMm": {
-     "ERA5": 1084.2,
-     "IMERG": 1313.1,
-     "CHIRPS": 1302.5,
-     "POWER": 1253.2
+     "ERA5": 1102.6,
+     "IMERG": 1329.2,
+     "CHIRPS": 1311.7,
+     "IMERG_LATE": 1521.7,
+     "POWER": 1252.1
     },
     "meanMayOctMm": {
-     "ERA5": 1008.4,
-     "IMERG": 1195.7,
-     "CHIRPS": 1234,
-     "POWER": 1081.5
+     "ERA5": 1026.2,
+     "IMERG": 1207.4,
+     "CHIRPS": 1240.3,
+     "IMERG_LATE": 1400.6,
+     "POWER": 1084.7
     },
     "meanCaniculaDays": {
-     "ERA5": 5.5,
-     "IMERG": 5.4,
+     "ERA5": 5.6,
+     "IMERG": 5.2,
      "CHIRPS": 4.5,
-     "POWER": 3.3
+     "IMERG_LATE": 4.3,
+     "POWER": 3.2
+    }
+   },
+   "commonSets": {
+    "withoutImergLate": {
+     "products": [
+      "ERA5",
+      "IMERG",
+      "CHIRPS",
+      "POWER"
+     ],
+     "years": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2020,
+      2021,
+      2022,
+      2023
+     ],
+     "meanAnnualMm": {
+      "ERA5": 1084.2,
+      "IMERG": 1313.1,
+      "CHIRPS": 1302.5,
+      "POWER": 1253.2
+     },
+     "meanMayOctMm": {
+      "ERA5": 1008.4,
+      "IMERG": 1195.7,
+      "CHIRPS": 1234,
+      "POWER": 1081.5
+     },
+     "meanCaniculaDays": {
+      "ERA5": 5.5,
+      "IMERG": 5.4,
+      "CHIRPS": 4.5,
+      "POWER": 3.3
+     }
+    },
+    "withoutImerg": {
+     "products": [
+      "ERA5",
+      "CHIRPS",
+      "POWER",
+      "IMERG_LATE"
+     ],
+     "years": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+     ],
+     "meanAnnualMm": {
+      "ERA5": 1097.8,
+      "CHIRPS": 1309.2,
+      "POWER": 1256.7,
+      "IMERG_LATE": 1507.9
+     },
+     "meanMayOctMm": {
+      "ERA5": 1022.1,
+      "CHIRPS": 1237.9,
+      "POWER": 1091.7,
+      "IMERG_LATE": 1389.8
+     },
+     "meanCaniculaDays": {
+      "ERA5": 5.7,
+      "CHIRPS": 4.5,
+      "POWER": 3.2,
+      "IMERG_LATE": 4.4
+     }
     }
    }
   },
@@ -1142,7 +1568,7 @@
      "validYears": 24
     },
     "IMERG": {
-     "label": "NASA GPM IMERG daily via ClimateSERV (box ±0.03°)",
+     "label": "ClimateSERV dataset 26, \"NASA-IMERG-V06-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
      "annualMm": [
       1275.9,
       1085.1,
@@ -1363,6 +1789,117 @@
      "meanCaniculaDays": 6.5,
      "validYears": 24
     },
+    "IMERG_LATE": {
+     "label": "ClimateSERV dataset 226, \"NASA-IMERG-V07-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
+     "annualMm": [
+      1444.9,
+      1455.1,
+      1720.4,
+      1549.7,
+      2044.9,
+      1894.7,
+      1599.8,
+      2160.4,
+      1910.7,
+      2384.9,
+      1926.8,
+      1866.8,
+      1670.9,
+      null,
+      1639.1,
+      1227.9,
+      1543,
+      1110,
+      1255.2,
+      1791.9,
+      1505.1,
+      2037.3,
+      null,
+      null
+     ],
+     "mayOctMm": [
+      1309.6,
+      1264.5,
+      1453.9,
+      1416.9,
+      1861.8,
+      1607.1,
+      1427.6,
+      1859.5,
+      1332.2,
+      2154.8,
+      1726.3,
+      1608.8,
+      1546.8,
+      null,
+      1346.4,
+      943.7,
+      1466.7,
+      1016.7,
+      1181.7,
+      1437,
+      1246.4,
+      1625.4,
+      null,
+      null
+     ],
+     "caniculaDays": [
+      3,
+      7,
+      4,
+      2,
+      5,
+      4,
+      8,
+      4,
+      6,
+      2,
+      3,
+      4,
+      6,
+      null,
+      8,
+      4,
+      5,
+      7,
+      5,
+      4,
+      5,
+      3,
+      null,
+      null
+     ],
+     "missingDays": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      7,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      31
+     ],
+     "meanAnnualMm": 1701.9,
+     "meanMayOctMm": 1468.3,
+     "meanCaniculaDays": 4.7,
+     "validYears": 21
+    },
     "POWER": {
      "label": "NASA POWER PRECTOTCORR (MERRA-2 corrected; comparison only, never used by the model)",
      "annualMm": [
@@ -1490,33 +2027,135 @@
      2011,
      2012,
      2013,
-     2014,
      2015,
      2016,
      2017,
      2018,
      2020,
      2021,
-     2022,
-     2023
+     2022
     ],
     "meanAnnualMm": {
-     "ERA5": 1100.7,
-     "IMERG": 1224.5,
-     "CHIRPS": 1158.3,
-     "POWER": 1398.6
+     "ERA5": 1103.3,
+     "IMERG": 1239.4,
+     "CHIRPS": 1164.6,
+     "IMERG_LATE": 1724.2,
+     "POWER": 1409.3
     },
     "meanMayOctMm": {
-     "ERA5": 971,
-     "IMERG": 1026.9,
-     "CHIRPS": 1077.6,
-     "POWER": 1220.8
+     "ERA5": 971.6,
+     "IMERG": 1035.7,
+     "CHIRPS": 1081.1,
+     "IMERG_LATE": 1482.6,
+     "POWER": 1230.9
     },
     "meanCaniculaDays": {
      "ERA5": 5.3,
-     "IMERG": 5.7,
+     "IMERG": 5.6,
      "CHIRPS": 6.6,
-     "POWER": 3
+     "IMERG_LATE": 4.7,
+     "POWER": 2.9
+    }
+   },
+   "commonSets": {
+    "withoutImergLate": {
+     "products": [
+      "ERA5",
+      "IMERG",
+      "CHIRPS",
+      "POWER"
+     ],
+     "years": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2020,
+      2021,
+      2022,
+      2023
+     ],
+     "meanAnnualMm": {
+      "ERA5": 1100.7,
+      "IMERG": 1224.5,
+      "CHIRPS": 1158.3,
+      "POWER": 1398.6
+     },
+     "meanMayOctMm": {
+      "ERA5": 971,
+      "IMERG": 1026.9,
+      "CHIRPS": 1077.6,
+      "POWER": 1220.8
+     },
+     "meanCaniculaDays": {
+      "ERA5": 5.3,
+      "IMERG": 5.7,
+      "CHIRPS": 6.6,
+      "POWER": 3
+     }
+    },
+    "withoutImerg": {
+     "products": [
+      "ERA5",
+      "CHIRPS",
+      "POWER",
+      "IMERG_LATE"
+     ],
+     "years": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+     ],
+     "meanAnnualMm": {
+      "ERA5": 1095.7,
+      "CHIRPS": 1164.1,
+      "POWER": 1424.6,
+      "IMERG_LATE": 1701.9
+     },
+     "meanMayOctMm": {
+      "ERA5": 966,
+      "CHIRPS": 1082.6,
+      "POWER": 1248,
+      "IMERG_LATE": 1468.3
+     },
+     "meanCaniculaDays": {
+      "ERA5": 5.5,
+      "CHIRPS": 6.6,
+      "POWER": 3,
+      "IMERG_LATE": 4.7
+     }
     }
    }
   }

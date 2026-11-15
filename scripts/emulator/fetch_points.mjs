@@ -1,7 +1,8 @@
 // Descarga POWER + ERA5 para los puntos del Corredor Seco y arma un ClimateBundle por punto.
 // Lluvia del entrenamiento: UNA sola fuente para todo el conjunto. Si IMERG (caché de
 // scripts/data/fetch_rain_climateserv.py) está completo —sin años inválidos 2001–2024— en los 20 puntos, los bundles
-// usan IMERG; si no, ERA5. En ambos casos los 3 pilotos guardan las series alternas en `rainAlt`.
+// usan IMERG (conjunto 26 de ClimateSERV); si no, ERA5. En ambos casos los 3 pilotos guardan las series alternas en
+// `rainAlt` (ERA5, IMERG = conjunto 26, CHIRPS, IMERG_LATE = conjunto 226 si hay caché, POWER).
 // Uso: node scripts/emulator/fetch_points.mjs [--refresh]   (secuencial, con caché y reintentos)
 //   --refresh vuelve a descargar POWER/ERA5 aunque exista scripts/emulator/cache_raw/{id}.json
 import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync } from 'node:fs';
@@ -98,6 +99,10 @@ for (const [n, p] of points.entries()) {
     const im = imergRain(p); if (im) b.rainAlt.IMERG = align(im.dates, im.rain);
     const cdoc = rainDoc(p.id, 'chirps');
     if (cdoc) { const c = climateservRain(cdoc, power.dates, 'CHIRPS'); b.rainAlt.CHIRPS = align(c.dates, c.rain); }
+    // IMERG_LATE = ClimateSERV dataset 226 ("NASA-IMERG-V07-Late 1 Day" per ClimateSERV's documentation); IMERG = dataset 26 (V06 Late).
+    // Solo comparación: el modelo sigue con la fuente elegida arriba.
+    const ldoc = rainDoc(p.id, 'imerg_late');
+    if (ldoc) { const l = climateservRain(ldoc, power.dates, 'IMERG_LATE'); b.rainAlt.IMERG_LATE = align(l.dates, l.rain); }
     if (power.rainPower) b.rainAlt.POWER = align(power.dates, power.rainPower); // solo para comparar; el modelo no la usa
   }
   const file = new URL(`${p.id}.json`, CACHE);

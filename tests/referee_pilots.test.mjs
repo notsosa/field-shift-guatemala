@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validYearsOf, rainVariant, requireYields } from '../scripts/referee/pilots.mjs';
+import { validYearsOf, rainVariant, requireYields, commonYears, completeProducts } from '../scripts/referee/pilots.mjs';
 
 const dates = [];
 for (let t = Date.UTC(2001, 0, 1); t <= Date.UTC(2003, 11, 31); t += 864e5) dates.push(new Date(t).toISOString().slice(0, 10));
@@ -25,6 +25,16 @@ test('rainVariant: swaps only the rain series, gap days become 0 and nothing els
   assert.deepEqual(v.rain, [0.5, 0, 4]);
   assert.deepEqual(v.tmax, bundle.tmax);
   assert.deepEqual(bundle.rain, [1, 2, 3]);
+});
+
+test('commonYears / completeProducts: a product with a gap drops its year from the common set and from the complete list', () => {
+  const ok = dates.map(() => 1);
+  const gap2001 = [...ok]; gap2001[dates.indexOf('2001-08-01')] = null; // agricultural year 2001
+  const rainAlt = { A: ok, B: gap2001, C: ok };
+  assert.deepEqual(commonYears(dates, rainAlt, ['A', 'C']), [2001, 2002]);
+  assert.deepEqual(commonYears(dates, rainAlt, ['A', 'B', 'C']), [2002]);
+  assert.deepEqual(completeProducts(dates, rainAlt, ['A', 'B', 'C'], [2001, 2002]), ['A', 'C']);
+  assert.deepEqual(completeProducts(dates, rainAlt, ['A', 'B', 'C'], [2002]), ['A', 'B', 'C']);
 });
 
 import { readFileSync } from 'node:fs';
@@ -58,6 +68,24 @@ test('referee_aquacrop.json: rain sensitivity uses only years complete in every 
   for (const p of Object.values(s.excludedYears)) for (const y of p) assert.ok(!s.years.includes(y));
   assert.ok(s.excludedYears.IMERG.includes(2019) && s.excludedYears.IMERG.includes(2024));
   assert.equal(s.nYears, s.years.length);
+});
+
+test('referee_aquacrop.json: the four-product block adds IMERG_LATE (dataset 226) next to IMERG (dataset 26); the complete-products block has only gap-free products', () => {
+  const s4 = artifact.rainSensitivityFourProducts;
+  assert.deepEqual(Object.keys(s4.vsAquacrop), ['ERA5', 'IMERG', 'CHIRPS', 'IMERG_LATE']);
+  assert.deepEqual(s4.excludedYears.IMERG_LATE, [2014, 2023, 2024]);
+  for (const p of Object.values(s4.excludedYears)) for (const y of p) assert.ok(!s4.years.includes(y));
+  assert.equal(s4.nYears, s4.years.length);
+  assert.match(artifact.meta.rainProducts.IMERG, /dataset 26/);
+  assert.match(artifact.meta.rainProducts.IMERG_LATE, /dataset 226/);
+  const sc = artifact.rainSensitivityCompleteProducts;
+  assert.deepEqual(Object.keys(sc.vsAquacrop), ['ERA5', 'CHIRPS']); // neither IMERG series is gap-free over the 24 years
+  assert.equal(sc.nYears, 24);
+  for (const p of Object.values(sc.excludedYears)) assert.deepEqual(p, []);
+  // the original three-product numbers are unchanged (checked against the values published before IMERG_LATE existed)
+  assert.equal(artifact.rainSensitivity.nYears, 22);
+  assert.deepEqual(artifact.rainSensitivity.meanRainMm, { ERA5: 1098.9, IMERG: 1164.1, CHIRPS: 1307.9 });
+  assert.equal(artifact.rainSensitivity.vsAquacrop.ERA5.spearman, 0.8462);
 });
 
 test('requireYields: a missing AquaCrop yield fails loudly naming the case and years instead of giving NaN later', () => {

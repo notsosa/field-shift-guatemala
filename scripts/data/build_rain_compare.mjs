@@ -3,19 +3,18 @@
 // (longest run of days < 1 mm between 1 Jul and 31 Aug). A year with any missing day has null figures.
 // Uso: node scripts/data/build_rain_compare.mjs
 import { readFileSync, writeFileSync } from 'node:fs';
-import { annualRainStats } from '../../web/js/data/rainCompare.js';
+import { compareSources } from '../../web/js/data/rainCompare.js';
 
 const here = (p) => new URL(p, import.meta.url);
 const PILOTS = ['chiquimula', 'jutiapa', 'sanmartin'];
 const YEARS = Array.from({ length: 24 }, (_, i) => 2001 + i);
 const points = JSON.parse(readFileSync(here('../emulator/points.json'), 'utf8'));
-const r1 = (v) => (v == null ? null : Math.round(v * 10) / 10);
-const mean = (a) => { const v = a.filter((x) => x != null); return v.length ? r1(v.reduce((s, x) => s + x, 0) / v.length) : null; };
 
 const SOURCE_LABELS = {
   POWER: 'NASA POWER PRECTOTCORR (MERRA-2 corrected; comparison only, never used by the model)',
   ERA5: 'Copernicus ERA5 via Open-Meteo',
-  IMERG: 'NASA GPM IMERG daily via ClimateSERV (box ±0.03°)',
+  IMERG: 'ClimateSERV dataset 26, "NASA-IMERG-V06-Late 1 Day" per the ClimateSERV documentation (box ±0.03°)',
+  IMERG_LATE: 'ClimateSERV dataset 226, "NASA-IMERG-V07-Late 1 Day" per the ClimateSERV documentation (box ±0.03°)',
   CHIRPS: 'CHIRPS v2.0 via ClimateSERV (box ±0.03°)',
 };
 
@@ -23,35 +22,18 @@ const out = { generated: new Date().toISOString().slice(0, 10), years: YEARS, un
 for (const id of PILOTS) {
   const b = JSON.parse(readFileSync(here(`../../web/data/snapshots/${id}.json`), 'utf8'));
   const meta = points.find((p) => p.id === id);
-  const sources = {};
-  for (const [name, series] of Object.entries(b.rainAlt ?? {})) {
-    const stats = annualRainStats(b.dates, series);
-    const rows = YEARS.map((y) => stats.get(y) ?? null);
-    sources[name] = {
-      label: SOURCE_LABELS[name],
-      annualMm: rows.map((r) => r1(r?.totalMm)),
-      mayOctMm: rows.map((r) => r1(r?.mayOctMm)),
-      caniculaDays: rows.map((r) => r?.caniculaDays ?? null),
-      missingDays: rows.map((r) => r?.missingDays ?? null),
-      meanAnnualMm: mean(rows.map((r) => r?.totalMm ?? null)),
-      meanMayOctMm: mean(rows.map((r) => r?.mayOctMm ?? null)),
-      meanCaniculaDays: mean(rows.map((r) => r?.caniculaDays ?? null)),
-      validYears: rows.filter((r) => r && r.missingDays === 0).length,
-    };
-  }
-  // Means over the years where every source has all its days (fair comparison; IMERG lacks 2019 and 2024).
-  const commonIdx = YEARS.map((_, i) => i).filter((i) => Object.values(sources).every((s) => s.missingDays[i] === 0));
-  const common = { years: commonIdx.map((i) => YEARS[i]), meanAnnualMm: {}, meanMayOctMm: {}, meanCaniculaDays: {} };
-  for (const [n, s] of Object.entries(sources)) {
-    common.meanAnnualMm[n] = mean(commonIdx.map((i) => s.annualMm[i]));
-    common.meanMayOctMm[n] = mean(commonIdx.map((i) => s.mayOctMm[i]));
-    common.meanCaniculaDays[n] = mean(commonIdx.map((i) => s.caniculaDays[i]));
-  }
-  out.pilots[id] = { name: meta.name, lat: meta.lat, lon: meta.lon, modelRainSource: b.rainSource, sources, common };
+  // `common` = means over the years where every source has all its days (fair comparison; a year with a gap is never filled).
+  // `commonSets` keeps the earlier four-product means (without IMERG_LATE) and gives the pair set without IMERG (dataset 26).
+  const { sources, common, commonSets } = compareSources(b.dates, b.rainAlt ?? {}, YEARS, SOURCE_LABELS, {
+    withoutImergLate: ['ERA5', 'IMERG', 'CHIRPS', 'POWER'],
+    withoutImerg: ['ERA5', 'CHIRPS', 'POWER', 'IMERG_LATE'],
+  });
+  out.pilots[id] = { name: meta.name, lat: meta.lat, lon: meta.lon, modelRainSource: b.rainSource, sources, common, commonSets };
 }
 writeFileSync(here('../../web/data/rain_compare.json'), JSON.stringify(out, null, 1) + '\n');
 for (const [id, p] of Object.entries(out.pilots)) {
   console.log(`${id} (model: ${p.modelRainSource})`);
-  console.log(`  common years (${p.common.years.length}): annual ${JSON.stringify(p.common.meanAnnualMm)}`);
+  console.log(`  common years, all sources (${p.common.years.length}): annual ${JSON.stringify(p.common.meanAnnualMm)}`);
+  for (const [k, c] of Object.entries(p.commonSets)) console.log(`  common ${k} (${c.years.length} years): annual ${JSON.stringify(c.meanAnnualMm)}`);
   for (const [n, s] of Object.entries(p.sources)) console.log(`  ${n.padEnd(7)} annual ${s.meanAnnualMm} mm, May–Oct ${s.meanMayOctMm} mm, canícula ${s.meanCaniculaDays} d, valid years ${s.validYears}/24`);
 }

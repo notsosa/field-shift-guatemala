@@ -11,9 +11,12 @@ Usage (from the repo root, inside the data venv; `python -m doctest scripts/data
     python scripts/data/fetch_rain_climateserv.py --workers 12 --budget-minutes 30
     python scripts/data/fetch_rain_climateserv.py --points chiquimula --datasets imerg
 
-ClimateSERV data ids: chirps = 0, imerg = 26 (GPM IMERG daily, 0.1 deg; the response does not state the product
-run, so none is claimed). --budget-minutes stops submitting new requests after that wall-clock time; requests
-already running are allowed to finish.
+ClimateSERV data ids: chirps = 0, imerg = 26, imerg_late = 226. The API response carries only the numeric datatype;
+the names come from ClimateSERV's own documentation page (https://climateserv2.servirglobal.net/develop-api, "List of
+Datatypes"): 0 "UCSB CHIRPS Rainfall", 26 "NASA-IMERG-V06-Late 1 Day", 226 "NASA-IMERG-V07-Late 1 Day" (all daily,
+"2000 - near present" for the IMERG ones). The cache key `imerg` is therefore dataset 26 (V06 Late per that page) and
+`imerg_late` is dataset 226 (V07 Late per that page). --budget-minutes stops submitting new requests after that
+wall-clock time; requests already running are allowed to finish.
 """
 
 import argparse
@@ -35,7 +38,7 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 POINTS = ROOT / "scripts" / "emulator" / "points.json"
 CACHE = ROOT / "scripts" / "emulator" / "cache_rain"
 PILOTS = ["chiquimula", "jutiapa", "sanmartin"]
-DATASETS = {"imerg": 26, "chirps": 0}
+DATASETS = {"imerg": 26, "chirps": 0, "imerg_late": 226}
 URL = "https://climateserv.servirglobal.net/"
 LOCK = threading.Lock()
 

@@ -38,3 +38,48 @@ export function annualRainStats(dates, rain) {
   }
   return out;
 }
+
+const r1 = (v) => (v == null ? null : Math.round(v * 10) / 10);
+const mean = (a) => { const v = a.filter((x) => x != null); return v.length ? r1(v.reduce((s, x) => s + x, 0) / v.length) : null; };
+
+/**
+ * Estadísticas por año agrícola de cada producto de lluvia y medias sobre los años completos en TODOS los productos.
+ * @param {string[]} dates ISO ascendentes
+ * @param {Record<string,(number|null)[]>} rainAlt serie por producto, alineada con dates (día sin dato = null)
+ * @param {number[]} years años agrícolas a reportar
+ * @param {Record<string,string>} [labels] texto descriptivo por producto
+ * @param {Record<string,string[]>} [sets] conjuntos nombrados de productos para los que además se calculan medias sobre sus años completos comunes
+ * @returns {{sources: Record<string,object>, common: {years:number[], meanAnnualMm:object, meanMayOctMm:object, meanCaniculaDays:object}, commonSets: Record<string,object>}}
+ *   Un año con algún día null en un producto tiene cifras null en ese producto y queda fuera de `common`; no se rellena.
+ */
+export function compareSources(dates, rainAlt, years, labels = {}, sets = {}) {
+  const sources = {};
+  for (const [name, series] of Object.entries(rainAlt)) {
+    const stats = annualRainStats(dates, series);
+    const rows = years.map((y) => stats.get(y) ?? null);
+    sources[name] = {
+      label: labels[name],
+      annualMm: rows.map((r) => r1(r?.totalMm)),
+      mayOctMm: rows.map((r) => r1(r?.mayOctMm)),
+      caniculaDays: rows.map((r) => r?.caniculaDays ?? null),
+      missingDays: rows.map((r) => r?.missingDays ?? null),
+      meanAnnualMm: mean(rows.map((r) => r?.totalMm ?? null)),
+      meanMayOctMm: mean(rows.map((r) => r?.mayOctMm ?? null)),
+      meanCaniculaDays: mean(rows.map((r) => r?.caniculaDays ?? null)),
+      validYears: rows.filter((r) => r && r.missingDays === 0).length,
+    };
+  }
+  const commonOf = (names) => {
+    const idx = years.map((_, i) => i).filter((i) => names.every((n) => sources[n].missingDays[i] === 0));
+    const c = { products: names, years: idx.map((i) => years[i]), meanAnnualMm: {}, meanMayOctMm: {}, meanCaniculaDays: {} };
+    for (const n of names) {
+      c.meanAnnualMm[n] = mean(idx.map((i) => sources[n].annualMm[i]));
+      c.meanMayOctMm[n] = mean(idx.map((i) => sources[n].mayOctMm[i]));
+      c.meanCaniculaDays[n] = mean(idx.map((i) => sources[n].caniculaDays[i]));
+    }
+    return c;
+  };
+  const { products, ...common } = commonOf(Object.keys(sources));
+  const commonSets = Object.fromEntries(Object.entries(sets).map(([k, names]) => [k, commonOf(names)]));
+  return { sources, common, commonSets };
+}

@@ -1,5 +1,5 @@
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { annualRainStats } from '../web/js/data/rainCompare.js';
+import { annualRainStats, compareSources } from '../web/js/data/rainCompare.js';
 
 function isoRange(start, n) {
   const out = []; const t = new Date(start + 'T00:00:00Z');
@@ -39,4 +39,47 @@ test('annualRainStats: la racha de canicula no cruza fuera de 1 jul - 31 ago y s
   for (let d = 20; d <= 31; d++) rain[dates.indexOf(`2001-08-${d}`)] = 0;     // 12 dias hasta el 31 ago
   rain[dates.indexOf('2001-09-01')] = 0; rain[dates.indexOf('2001-09-02')] = 0; // septiembre no cuenta
   assert.equal(annualRainStats(dates, rain).get(2001).caniculaDays, 12);
+});
+
+test('compareSources: cinco productos, una serie con un dia null; medias comunes solo en los anios completos de todas (cifras a mano)', () => {
+  const ds = isoRange('2001-04-01', 365 + 365 + 366); // anios agricolas 2001, 2002, 2003 (2003 incluye el 29 feb 2004)
+  const flat = (v) => ds.map(() => v);
+  const imerg = flat(1); imerg[400] = null;           // un dia dentro del anio agricola 2002
+  const rainAlt = { ERA5: flat(1), IMERG: imerg, CHIRPS: flat(2), POWER: flat(0.5), IMERG_LATE: flat(3) };
+  const labels = { IMERG: 'conjunto 26', IMERG_LATE: 'conjunto 226' };
+  const out = compareSources(ds, rainAlt, [2001, 2002, 2003], labels, { sinImerg: ['ERA5', 'CHIRPS', 'POWER', 'IMERG_LATE'] });
+  assert.deepEqual(Object.keys(out.sources), ['ERA5', 'IMERG', 'CHIRPS', 'POWER', 'IMERG_LATE']);
+  assert.equal(out.sources.IMERG_LATE.label, 'conjunto 226');
+  assert.deepEqual(out.sources.IMERG_LATE.annualMm, [1095, 1095, 1098]);
+  assert.deepEqual(out.sources.IMERG.annualMm, [365, null, 366]);
+  assert.deepEqual(out.sources.IMERG.missingDays, [0, 1, 0]);
+  assert.equal(out.sources.IMERG.validYears, 2);
+  assert.equal(out.sources.IMERG_LATE.validYears, 3);
+  assert.equal(out.sources.IMERG_LATE.meanAnnualMm, 1096);     // (1095 + 1095 + 1098) / 3
+  assert.equal(out.sources.IMERG.meanAnnualMm, 365.5);          // solo los 2 anios completos
+  assert.deepEqual(out.common.years, [2001, 2003]);             // 2002 tiene un hueco en IMERG
+  assert.equal(out.common.meanAnnualMm.IMERG_LATE, 1096.5);     // (1095 + 1098) / 2
+  assert.equal(out.common.meanAnnualMm.ERA5, 365.5);
+  assert.equal(out.common.products, undefined);
+  // conjunto nombrado: sin IMERG (el de la brecha) los tres anios son comunes y las medias cambian
+  assert.deepEqual(out.commonSets.sinImerg.years, [2001, 2002, 2003]);
+  assert.deepEqual(out.commonSets.sinImerg.products, ['ERA5', 'CHIRPS', 'POWER', 'IMERG_LATE']);
+  assert.equal(out.commonSets.sinImerg.meanAnnualMm.ERA5, 365.3);   // (365 + 365 + 366) / 3 = 365.33
+  assert.equal(out.commonSets.sinImerg.meanAnnualMm.IMERG_LATE, 1096);
+  assert.equal(out.common.meanCaniculaDays.ERA5, 0);            // 1 mm/dia: ningun dia < 1 mm
+  assert.equal(out.common.meanCaniculaDays.POWER, 62);          // 0.5 mm/dia: 1 jul - 31 ago completo (62 dias)
+});
+
+import { readFileSync } from 'node:fs';
+test('rain_compare.json: IMERG_LATE (dataset 226) is in every pilot, with the three gap years left null and the earlier four-source means kept', () => {
+  const j = JSON.parse(readFileSync(new URL('../web/data/rain_compare.json', import.meta.url), 'utf8'));
+  for (const [id, p] of Object.entries(j.pilots)) {
+    const s = p.sources.IMERG_LATE;
+    assert.equal(s.validYears, 21, id);
+    for (const y of [2014, 2023, 2024]) assert.equal(s.annualMm[j.years.indexOf(y)], null, `${id} ${y}`);
+    assert.deepEqual(p.commonSets.withoutImergLate.years.length, 22, id);
+    assert.ok(!('IMERG_LATE' in p.commonSets.withoutImergLate.meanAnnualMm), id);
+    assert.ok(!p.common.years.includes(2014) && !p.common.years.includes(2023), id);
+  }
+  assert.equal(j.pilots.chiquimula.commonSets.withoutImergLate.meanAnnualMm.ERA5, 1098.9);
 });
