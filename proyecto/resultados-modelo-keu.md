@@ -306,6 +306,93 @@ En los 21 años comunes con ERA5, el conjunto 226 queda 42 % (Chiquimula), 37 % 
 
 **Qué haría falta para usar el conjunto 226 en el entrenamiento (opción abierta para decidir; no se hizo).** (1) Descargar los otros 17 puntos: en la descarga de los 3 pilotos del 15 de noviembre de 2026 se hicieron 75 solicitudes con 8 trabajadores en paralelo en unos 10 minutos (observación de esa descarga, no reproducible desde el repositorio; ClimateSERV había respondido HTTP 503 con más trabajadores), lo que haría pensar en del orden de 1 hora para 17 puntos si el ritmo se mantuviera. (2) Los pilotos pierden los años agrícolas 2014, 2023 y 2024; no se sabe si los demás puntos tienen los mismos huecos, y sin rellenarlos el entrenamiento tendría como máximo 21 años (o habría que decidir cómo tratarlos). (3) Regenerar las entradas y etiquetas del emulador con esa lluvia, reentrenar las tres redes y volver a evaluar. (4) Decidir si se acepta una lluvia 15 % a 55 % más alta que la de ERA5 y CHIRPS en los pilotos (ver arriba) y una corrida Late en lugar de la Final. El modelo y el emulador siguen con ERA5.
 
+## Decisiones con información previa
+
+Nuestro modelo no decide nada por sí solo. Para poder compararlo con la red de política del equipo se le dio **una sola decisión**: cuántos días esperar, después del inicio de lluvias, para sembrar el maíz principal de la rotación actual (maíz, luego frijol el 1 de septiembre; sin riego; pendiente plana). Protocolo completo, formato de acciones y lo que no se puede decidir: `proyecto/comparacion-modelos.md`. Los números salen de `web/data/decision_eval.json` (`scripts/compare/sowing_policy.mjs`; reproducir en `scripts/compare/README.md`).
+
+**Diseño, fijado antes de ver ningún número** (no se cambió después):
+
+- 3 pilotos × años agrícolas 2019–2024 × 4 suelos = 72 casos: 54 con las clases `sand`, `loam` y `clay` y 18 con el suelo de SoilGrids del piloto (el simulador corre ese suelo; los emuladores reciben el `nearestTexture` del piloto, que es lo único que pueden recibir).
+- Desfases posibles: 0, 5, 10, 15, 20, 25 y 30 días después de la regla de inicio. Los negativos no son acciones (necesitan saber cuándo llega la lluvia).
+- **Regla de información:** la decisión para el año Y usa solo los años agrícolas anteriores a Y (de 18 años en 2019 a 23 en 2024). Una prueba cambia los datos de Y en adelante y la decisión no cambia.
+- Se elige el desfase con mayor resumen del índice de agua de esos años pasados; prioridad **típica** = mediana, **cauta** = percentil 20; empate al desfase más cercano a 0.
+- Tres políticas con la misma regla y distinto motor: **simulador** (corre el simulador en los años pasados: lo mejor que esta regla puede hacer), **red embudo** (`emulator_mlp.json`) y **ELM del navegador** (entrenada sin backpropagation con `emulator_train_subset.json`, 600 neuronas, escala 0.1, λ 0.1, semilla 42, igual que la página).
+- **Línea base:** sembrar en el inicio de lluvias (desfase 0). **Oráculo:** el mejor desfase posible según el simulador en el propio año Y.
+- Verdad para puntuar: el simulador con el suelo del caso. Se reporta el índice de agua de la rotación, el rendimiento relativo del maíz (0 si su ciclo no termina) y los días de traslape entre maíz y frijol.
+- Revisión independiente: AquaCrop 3.1.0 solo en los 18 casos con suelo del piloto, solo maíz, con las mismas θFC y θWP, suelo seco al inicio y la fecha de siembra que da la regla de inicio más el desfase (126 temporadas).
+- Tolerancia de 0.001 para ganar, empatar o perder (también 0.001 t/ha en AquaCrop).
+
+**Suelos de clase (54 casos).** Línea base (desfase 0): índice medio 0.858, percentil 10 de 0.634, peor caso 0.454, maíz medio 0.868, traslape mediano 48 días. Oráculo: índice medio 0.931.
+
+| Política | Prioridad | Índice medio elegido | Ganancia sobre la línea base | Gana / empata / pierde (de 54) | Arrepentimiento medio | Percentil 10 / peor caso | Ganancia del maíz | Maíz: gana / empata / pierde | Índice sube y maíz baja | Traslape mediano (días) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Simulador | típica | 0.916 | +0.058 | 37 / 8 / 9 | 0.015 | 0.729 / 0.508 | +0.080 | 25 / 16 / 13 | 5 | 75 |
+| Simulador | cauta | 0.909 | +0.051 | 36 / 8 / 10 | 0.022 | 0.746 / 0.465 | +0.063 | 26 / 15 / 13 | 4 | 75 |
+| Red embudo | típica | 0.913 | +0.055 | 32 / 15 / 7 | 0.017 | 0.751 / 0.508 | +0.077 | 22 / 22 / 10 | 4 | 75 |
+| Red embudo | cauta | 0.910 | +0.052 | 35 / 11 / 8 | 0.021 | 0.737 / 0.485 | +0.070 | 23 / 17 / 14 | 7 | 75 |
+| ELM navegador | típica | 0.912 | +0.054 | 36 / 10 / 8 | 0.019 | 0.751 / 0.533 | +0.076 | 26 / 15 / 13 | 4 | 75 |
+| ELM navegador | cauta | 0.919 | +0.061 | 38 / 7 / 9 | 0.012 | 0.737 / 0.533 | +0.080 | 24 / 13 / 17 | 9 | 76 |
+
+**Suelo del piloto (18 casos).** Línea base: índice medio 0.797, percentil 10 de 0.450, peor caso 0.311, maíz medio 0.758, traslape mediano 48 días. Oráculo: índice medio 0.900. La columna AquaCrop es la ganancia del rendimiento del maíz (t/ha y %), contra la siembra en el inicio de lluvias.
+
+| Política | Prioridad | Índice medio elegido | Ganancia (simulador) | Gana / empata / pierde (de 18) | Arrepentimiento medio | Ganancia del maíz (simulador) | Maíz: gana / empata / pierde | AquaCrop: ganancia media | AquaCrop: gana / empata / pierde | Gana solo el simulador |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Simulador | típica | 0.891 | +0.094 | 13 / 2 / 3 | 0.009 | +0.153 | 9 / 6 / 3 | −2.12 t/ha (−18.1 %) | 6 / 0 / 12 | 7 |
+| Simulador | cauta | 0.890 | +0.093 | 13 / 2 / 3 | 0.010 | +0.149 | 10 / 5 / 3 | −2.23 t/ha (−19.0 %) | 5 / 0 / 13 | 7 |
+| Red embudo | típica | 0.883 | +0.086 | 11 / 4 / 3 | 0.017 | +0.143 | 8 / 7 / 3 | −2.39 t/ha (−20.4 %) | 4 / 2 / 12 | 7 |
+| Red embudo | cauta | 0.868 | +0.071 | 10 / 6 / 2 | 0.032 | +0.116 | 7 / 8 / 3 | −0.82 t/ha (−7.0 %) | 4 / 4 / 10 | 5 |
+| ELM navegador | típica | 0.883 | +0.087 | 12 / 3 / 3 | 0.016 | +0.144 | 9 / 5 / 4 | −2.50 t/ha (−21.4 %) | 4 / 0 / 14 | 8 |
+| ELM navegador | cauta | 0.891 | +0.094 | 13 / 2 / 3 | 0.009 | +0.150 | 9 / 5 / 4 | −2.37 t/ha (−20.2 %) | 5 / 0 / 13 | 7 |
+
+(En los 18 casos, percentil 10 y peor caso del índice elegido: 0.681 / 0.458 en cinco de las seis filas y 0.645 / 0.397 en la red embudo cauta; los de la línea base están arriba. "Índice sube y maíz baja": 0 casos en cinco filas y 1 caso en la red embudo cauta y en la ELM cauta.)
+
+**Qué muestra, en claro:**
+
+1. **En el simulador, las tres políticas ganan a sembrar en el inicio de lluvias** en promedio (+0.05 a +0.06 con suelos de clase, +0.07 a +0.09 con el suelo del piloto) y quedan cerca del oráculo (arrepentimiento medio de 0.009 a 0.032). Pero ese resultado lo juzga el mismo simulador que eligió; no prueba nada sobre el campo.
+2. **AquaCrop no lo confirma: lo contradice.** Con el suelo del piloto, las seis combinaciones pierden contra la línea base: de −0.82 a −2.50 t/ha (−7 % a −21 %), y ganan solo 4 a 6 de los 18 casos. Hay **5 a 8 "ganancias solo del simulador"** por política (en los 18 casos). Por piloto, la ganancia de AquaCrop es negativa en todos (de −0.09 a −5.73 t/ha; 6 casos por piloto).
+3. **Casi todas las políticas eligen el borde de la rejilla.** Con la política simulador típica, 47 de los 72 casos eligen 30 días (el máximo permitido); la ELM cauta elige 30 días en los 72. Es probable que el mejor desfase del simulador esté más allá de 30, pero la rejilla no se amplió (el diseño estaba fijado de antemano). Una política así no "decide": reporta que el índice del simulador sube con el desfase.
+4. **Las redes no superan a la política simulador, salvo por suerte.** El simulador es lo mejor que esta regla puede hacer con esos datos. La red embudo y la ELM coinciden con su desfase en 41 y 32 de 54 casos (típica) con suelos de clase, y en 18 y 13 de 54 (cauta). En la prioridad cauta con suelos de clase, la ELM saca una ganancia mayor (+0.061) que el propio simulador (+0.051); eso viene de elegir siempre 30, no de estimar mejor, y no se interpreta como mejora.
+5. **El índice de rotación sube a veces mientras el maíz baja.** Con suelos de clase pasa en 4 a 9 de 54 casos según la política (por ejemplo, simulador típica: 5 casos, como `chiquimula_2022_sand` con +0.075 en el índice y −0.014 en el maíz). Con el suelo del piloto, en 0 o 1 de 18.
+6. **Sembrar tarde hace que maíz y frijol compartan el campo:** el traslape mediano pasa de 48 días (línea base) a 74–76 días. El modelo no cobra ese costo (competencia por luz, agua y trabajo), así que parte de la "ganancia" del índice podría no existir en la realidad.
+7. **Por piloto** (política típica; el índice cuenta los 24 casos de cada piloto, AquaCrop solo sus 6 casos con suelo del piloto):
+
+   | Piloto | Simulador: ganancia, gana/empata/pierde | Red embudo | ELM | AquaCrop (6 casos): ganancia media, gana/empata/pierde, simulador / red embudo / ELM |
+   |---|---|---|---|---|
+   | Chiquimula | +0.087, 18 / 6 / 0 | +0.087, 18 / 6 / 0 | +0.083, 18 / 6 / 0 | −0.54, 1 / 0 / 5 en las tres |
+   | Jutiapa | +0.088, 17 / 3 / 4 | +0.088, 17 / 3 / 4 | +0.088, 17 / 3 / 4 | −5.73, 2 / 0 / 4 en las tres |
+   | San Martín | +0.027, 15 / 1 / 8 | +0.014, 8 / 10 / 6 | +0.016, 13 / 4 / 7 | −0.09 (3 / 0 / 3), −0.91 (1 / 2 / 3), −1.24 (1 / 0 / 5) |
+
+**Dónde discrepan los dos modelos.** En los 18 casos con suelo del piloto, el promedio por desfase es:
+
+| Desfase (días) | 0 | 5 | 10 | 15 | 20 | 25 | 30 |
+|---|---|---|---|---|---|---|---|
+| Índice de agua (simulador) | 0.797 | 0.809 | 0.828 | 0.851 | 0.870 | 0.884 | 0.891 |
+| Maíz, rendimiento relativo (simulador) | 0.758 | 0.772 | 0.797 | 0.836 | 0.867 | 0.892 | 0.908 |
+| Maíz, rendimiento (AquaCrop, t/ha) | 11.72 | 10.95 | 11.20 | 11.48 | 11.42 | 11.01 | 9.35 |
+
+Para el simulador, cuanto más tarde se siembra, mejor. Para AquaCrop, la siembra en el inicio y hasta 20 días después rinden parecido y a 30 días el rendimiento cae. Cuál de los dos se acerca más al campo no se puede saber aquí: AquaCrop corre con parámetros de cultivo sin calibrar. Lo que sí se sabe es que **una decisión que gana en el simulador no gana en AquaCrop**.
+
+**Las "ganancias solo del simulador" de la política simulador típica** (maíz; relYield del simulador y rendimiento de AquaCrop en t/ha, en la línea base → con el desfase elegido):
+
+| Caso | Desfase | Maíz, simulador | Maíz, AquaCrop (t/ha) |
+|---|---|---|---|
+| `chiquimula_2019_site` | 30 | 0.341 → 1.000 | 0.03 → 0.00 |
+| `chiquimula_2020_site` | 30 | 0.999 → 1.000 | 14.73 → 13.04 |
+| `chiquimula_2023_site` | 30 | 0.979 → 1.000 | 14.78 → 12.17 |
+| `jutiapa_2019_site` | 30 | 0.050 → 0.506 | 5.79 → 0.00 |
+| `jutiapa_2020_site` | 30 | 0.571 → 1.000 | 13.32 → 0.00 |
+| `jutiapa_2024_site` | 30 | 0.849 → 0.928 | 14.86 → 5.01 |
+| `sanmartin_2019_site` | 15 | 0.606 → 0.911 | 5.46 → 1.44 |
+
+Las listas de las otras cinco combinaciones están en `decision_eval.json` (`aggregates.siteSoil.aquacrop.<política>.<prioridad>.simulatorOnlyWins`).
+
+**Límites de esta evaluación.**
+
+- La muestra es pequeña: 18 casos con suelo del piloto, 54 con clases. Los 4 suelos de un mismo sitio y año comparten el mismo clima, así que los 72 casos **no son independientes**. Se dan los conteos y no se calcula significancia.
+- Los emuladores se entrenaron con los años anteriores a 2019 de 20 municipios (los 3 pilotos entre ellos); los años 2019–2024 no se usaron para entrenarlos. Con el suelo del piloto, el emulador solo recibe la textura más cercana (en Jutiapa, `sand`, aunque el suelo del piloto es una arcilla de agua disponible muy baja).
+- Solo se decide un desfase de siembra y solo por agua: no hay precios, márgenes, plagas ni fertilización. Detalle en el protocolo.
+- Tiempos: la evaluación de las políticas (72 casos, 3 políticas, 2 prioridades) tarda unos 5 s en Node, más 1 s para entrenar la ELM; AquaCrop tarda unos 30 s de reloj para las 126 temporadas.
+
 ## Limitaciones conocidas
 
 - El modelo solo simula agua. No incluye plagas, fertilización, sombra, precios ni mano de obra.
@@ -325,7 +412,7 @@ En los 21 años comunes con ERA5, el conjunto 226 queda 42 % (Chiquimula), 37 % 
 ## Cómo reproducir
 
 ```bash
-npm test                                             # 184 pruebas (1 pendiente: la meta de R² de la ELM)
+npm test                                             # 219 pruebas (1 pendiente: la meta de R² de la ELM)
 node scripts/emulator/fetch_points.mjs               # descarga clima de los 20 puntos (NASA POWER + ERA5); ya hecho, usa cachés
 node scripts/emulator/generate.mjs                   # genera los 50,000 ejemplos (guarda commit, lluvia y fecha)
 node scripts/emulator/build_screening_superset.mjs && python scripts/emulator/screen_features.py   # cribado en validación de las entradas de agua antecedente (sin filas de prueba)
@@ -335,12 +422,13 @@ node --expose-gc scripts/emulator/evaluate.mjs       # barrido de la ELM y todas
 # juez AquaCrop: ver scripts/referee/README.md
 node scripts/referee/compare.mjs --aquacrop <resultados> --bundle web/data/snapshots/chiquimula.json --stage pre-subsoil=<d02febe> --stage subsoil=<4ea12c1> --stage stage-ky=<df4da88> --stage final=.
 node scripts/referee/pilots.mjs prepare --dir <tmp>  # pilotos y sensibilidad a la lluvia (luego AquaCrop y `score`)
+node scripts/compare/sowing_policy.mjs prepare --dir <tmp>   # decisiones con información previa (luego AquaCrop y `score`; ver scripts/compare/README.md)
 python -m http.server 8765 -d web                    # abrir http://localhost:8765/emulator.html
 ```
 
 ## Propuesta para comparar con el otro modelo del equipo
 
-Para saber cuál modelo es mejor, o si conviene alimentar uno con el otro, los dos deberían evaluarse igual:
+Para saber cuál modelo es mejor, o si conviene alimentar uno con el otro, los dos deberían evaluarse igual (el protocolo detallado, el formato de acciones y el evaluador están en `proyecto/comparacion-modelos.md`; nuestra parte ya está medida en la sección "Decisiones con información previa"):
 
 1. **Mismos casos:** Chiquimula (14.80, −89.54), Jutiapa (14.29, −89.90) y San Martín Jilotepeque (14.78, −90.79), años agrícolas 2019–2024, que ningún modelo use para entrenar.
 2. **Mismo juez:** el resultado de cada decisión se calcula con este simulador en el mismo commit, y además con AquaCrop como juez independiente para maíz, frijol y sorgo.
