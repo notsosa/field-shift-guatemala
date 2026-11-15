@@ -70,7 +70,7 @@
       "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
       "days": "ICTA, Manual de producción de frijol 2022, cuadro 1 p. 8 (Ligero: 29–30 d a floración, 64–70 d a cosecha) https://www.icta.gob.gt/publicaciones/Frijol/Manual%20de%20producci%C3%B3n%20de%20frijol%20ICTA.pdf",
       "econ": null,
-      "kyStages": "FAO-66 cap. 2, cuadro de comparación FAO/IAEA, y IAEA/FAO Water Reports 22 (Deficit irrigation practices) cuadro 1: Ky de FAO-33 para frijol (vegetativa 0.20, floración 1.10, formación 0.75, maduración 0.20) https://www.fao.org/4/Y3655E/y3655e04.htm"
+      "kyStages": "IAEA/FAO Water Reports 22 (Deficit irrigation practices) cuadro 1: Ky de FAO-33 para frijol (vegetativa 0.20, floración 1.10, formación 0.75, maduración 0.20) https://www.fao.org/4/Y3655E/y3655e04.htm"
     },
     "kyStages": {
       "veg": 0.2,

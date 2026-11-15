@@ -46,6 +46,11 @@ export function resolveMainSowIdx(bundle, year, sowOffsetDays = 0) {
   return { idx: clamp(o.idx - startIdx + sowOffsetDays, 0, endIdx - startIdx), onsetFallback: o.onsetFallback };
 }
 
+/** Ventana de floración [a, b] (índices locales) acotada al último día del año agrícola; única fuente para ksFlowerMean y stageYield. */
+export function floweringWindow(phase, lastIdx) {
+  return [Math.min(phase.floweringIdx[0], lastIdx), Math.min(phase.floweringIdx[1], lastIdx)];
+}
+
 /**
  * Rendimiento relativo por Ky de FAO-33. Por etapa i: ratio_i = Σ(ks·Kc·ET0)/Σ(Kc·ET0) en sus días (Kc del propio cultivo) y
  * factor_i = clamp(1 − ky_i·(1 − ratio_i), 0, 1); relYield = Π factor_i (efectos de etapa multiplicativos: producto de fracciones de rendimiento, regla del
@@ -71,9 +76,7 @@ export function stageYield(crop, phase, sl) {
   if (crop.ky == null || crop.kyStages == null) {
     return { etaOverEtc, relYieldSeasonal, relYield: relYieldSeasonal, stageRatios: null };
   }
-  const last = sl.ks.length - 1;
-  const fa = Math.min(phase.floweringIdx[0], last);
-  const fb = Math.min(phase.floweringIdx[1], last);
+  const [fa, fb] = floweringWindow(phase, sl.ks.length - 1);
   const stageRatios = {
     veg: ratio(sowIdx, endIdx.dev),
     flower: ratio(fa, fb),
@@ -93,9 +96,7 @@ function cropYear({ phase, crop, sl, active }) {
   let irrigationMm = 0;
   for (let i = sowIdx; i <= harvestIdx; i++) irrigationMm += sl.irr[i] / active[i];
   const { etaOverEtc, relYieldSeasonal, relYield, stageRatios } = stageYield(crop, phase, sl);
-  const last = sl.ks.length - 1;
-  const a = Math.min(phase.floweringIdx[0], last);
-  const b = Math.min(phase.floweringIdx[1], last);
+  const [a, b] = floweringWindow(phase, sl.ks.length - 1);
   const ksFlowerMean = sum(sl.ks.slice(a, b + 1)) / (b - a + 1);
   let harvestRainEvent = false;
   if (crop.harvestRainSensitive) {

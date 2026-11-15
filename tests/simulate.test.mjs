@@ -116,6 +116,19 @@ test('stageYield: dos etapas con estrés se multiplican', () => {
   const r = syn(maiz, ks);
   assert.ok(Math.abs(r.relYield - (1 - 0.4 * 0.5) * (1 - 0.5 * 0.5)) < 1e-9); // 0.8 · 0.75 = 0.6
 });
+test('stageYield: ciclo incompleto (frío) — floración acotada al último día; formación y maduración vacías → null y factor 1', () => {
+  const cold = buildPhase(maiz, 150, Array(365).fill(14));
+  assert.equal(cold.cycleIncomplete, true);
+  assert.deepEqual(cold.floweringIdx, [365, 365]); // fuera del año: stageYield la acota al día 364
+  const ks = Array(synN).fill(1);
+  ks[364] = 0.5;
+  const r = stageYield(maiz, cold, { et0: synEt0, ks });
+  assert.equal(r.stageRatios.flower, 0.5);
+  assert.equal(r.stageRatios.yieldForm, null);
+  assert.equal(r.stageRatios.ripen, null);
+  const expected = (1 - 0.4 * (1 - r.stageRatios.veg)) * (1 - 1.5 * 0.5); // etapas vacías valen 1
+  assert.ok(Math.abs(r.relYield - expected) < 1e-12);
+});
 test('stageYield: kyStages null → relYield === relYieldSeasonal (fórmula estacional)', () => {
   const sorgo = crops.get('sorgo');
   const ph = buildPhase(sorgo, 10, Array(365).fill(26));
