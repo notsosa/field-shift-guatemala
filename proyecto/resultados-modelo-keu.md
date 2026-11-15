@@ -698,7 +698,7 @@ G / E / P = casos en que gana, empata o pierde contra la regla (tolerancia 0.001
 
 ## Red que recomienda (prioridad del agricultor, estado del lote, entrenada por el resultado de la decisión)
 
-15 de noviembre de 2026. Es la tarea de la pérdida del maíz de las condiciones comunes (`proyecto/condiciones-comunes.md`), pero ahora una red elige directamente la acción en vez de predecir y luego elegir. Todo es aditivo: el simulador, las redes v2 y sus resultados no cambian. Los números salen de `web/data/recommender_eval.json` (commit del simulador `b4c9516`); las filas de las políticas de "predecir y elegir" están copiadas de `web/data/aligned_eval.json`, no recalculadas.
+15 de noviembre de 2026. Es la tarea de la pérdida del maíz de las condiciones comunes (`proyecto/condiciones-comunes.md`), pero ahora una red elige directamente la acción en vez de predecir y luego elegir. Todo es aditivo: el simulador, las redes v2 y sus resultados no cambian. Los números salen de `web/data/recommender_eval.json` (commit del simulador `929a05e`); las filas de las políticas de "predecir y elegir" están copiadas de `web/data/aligned_eval.json`, no recalculadas. **Desde la Tarea 33 la red se entrena en GPU (otro flujo aleatorio que la versión en JS de la Tarea 31); los números de esta sección son los del reentrenamiento y la comparación con los anteriores está en la sección "Entrenamiento en GPU y más datos y entradas".**
 
 **Qué hace.** Para cada una de las 8 acciones (resembrar uno de siete cultivos o dejar el terreno) la red da una corrección; el puntaje es 1 si la acción es la de la regla agronómica (0 si no) más tanh(corrección), y se recomienda el mayor puntaje (empate: la acción de la regla). Al inicio la corrección vale 0 y la red recomienda exactamente lo que la regla (hay una prueba). Tres ideas tomadas del diseño del compañero: la **prioridad del agricultor** como entrada (0 = rendir más en un año típico, 1 = no perder en un año malo), el entrenamiento por **cómo salió la decisión**, y **más información del lote** el día de la decisión.
 
@@ -706,18 +706,19 @@ G / E / P = casos en que gana, empata o pierde contra la regla (tolerancia 0.001
 - Entradas (32): día del año, días desde el inicio de lluvias (la siembra), días al 15 de noviembre y al fin del año agrícola, día de la pérdida, lluvia y ET₀ de los últimos 7 y 28 días y desde el 1 de abril, racha seca más larga de los últimos 28 días, temperatura media de los últimos 28 días, balance antecedente acotado a 150 mm (la lógica de `storeProxy` del emulador, con Kc del maíz hasta el día de la pérdida y suelo desnudo, Kc = kc.ini del maíz, después), agua disponible del suelo (mm por m), número de curva del cultivo, altitud; la prioridad; y por acción: one-hot de 8, ciclo nominal en días, Kc medio, profundidad de raíz, p, Ky y si el ciclo nominal cabe antes del fin del año agrícola. Solo se usa el clima hasta el día de la decisión (el día de la pérdida, con el clima de ese día); una prueba altera todo lo posterior y ninguna entrada cambia.
 - **No hay entradas de finanzas ni de historial de plagas o fertilizante: el proyecto no tiene esos datos y no se inventaron.**
 - Red: 32 → 64 → 32 → 16 → 1 (tanh en las ocultas, salida en cero al inicio), 4737 parámetros.
-- Entrenamiento sin retropropagación: estrategia de evolución (μ, λ), población 32, 8 padres, mutación gaussiana σ = 0.05, elitismo 1, 150 generaciones; en cada generación 512 escenarios de entrenamiento (sorteados con la semilla de la generación) con las dos prioridades. Aptitud: prioridad 0 = media de y; prioridad 1 = media de y − max(0, 0.5 − y); la aptitud es el promedio de las dos. El mejor de cada generación se puntúa con toda la validación y se guarda el mejor. Semillas 17, 29, 43.
-- Datos: tabla de escenarios calculada una vez con el simulador: entrenamiento 2592 (20 puntos × años 2001–2016 × pérdida 30/45/60; arena, franco y arcilla en los puntos que no son piloto y el suelo del sitio en los pilotos), validación 324 (2017–2018), prueba 54 (los 3 pilotos, 2019–2024). Tiempo de la tabla: 13.4 s.
+- Entrenamiento sin retropropagación: estrategia de evolución (μ, λ), población 32, 8 padres, mutación gaussiana σ = 0.05, elitismo 1, 150 generaciones; en cada generación 512 escenarios de entrenamiento (sorteados con el generador de torch) con las dos prioridades. Aptitud: prioridad 0 = media de y; prioridad 1 = media de y − max(0, 0.5 − y); la aptitud es el promedio de las dos. El mejor de cada generación se puntúa con toda la validación y se guarda el mejor. Semillas 17, 29, 43. Código: `scripts/gpu/train_recommender.py` sobre el núcleo `scripts/gpu/es_core.py` (una operación por lotes por generación: 32 individuos × 512 escenarios × 2 prioridades × 8 acciones).
+- Datos: tabla de escenarios calculada una vez con el simulador: entrenamiento 2592 (20 puntos × años 2001–2016 × pérdida 30/45/60; arena, franco y arcilla en los puntos que no son piloto y el suelo del sitio en los pilotos), validación 324 (2017–2018), prueba 54 (los 3 pilotos, 2019–2024). Tiempo de la tabla: 17.5 s.
+- Comprobación entre JS y PyTorch (`jsVsTorchCheck` en el artefacto): semilla 17, 62 filas, diferencia máxima de puntaje 4.8e-15, misma recomendación en 62/62; semilla 29, 62 filas, diferencia máxima de puntaje 4.1e-15, misma recomendación en 62/62; semilla 43, 62 filas, diferencia máxima de puntaje 4.4e-15, misma recomendación en 62/62.
 
 ### Aprendizaje y tiempos
 
 | Semilla | Validación primera / mejor / última | Mejor generación | Aptitud de entrenamiento primera / última | Tiempo (s) | Evaluaciones de escenario por s |
 |---|---|---|---|---|---|
-| 17 | 0.923 / 0.960 / 0.947 | 61 | 0.888 / 0.939 | 539 | 9111 |
-| 29 | 0.923 / 0.957 / 0.954 | 122 | 0.867 / 0.938 | 541 | 9092 |
-| 43 | 0.923 / 0.958 / 0.938 | 59 | 0.873 / 0.928 | 540 | 9101 |
+| 17 | 0.923 / 0.957 / 0.954 | 128 | 0.885 / 0.931 | 5.6 | 870582 |
+| 29 | 0.923 / 0.961 / 0.951 | 146 | 0.881 / 0.937 | 5.3 | 929478 |
+| 43 | 0.923 / 0.959 / 0.950 | 129 | 0.898 / 0.932 | 5.5 | 888602 |
 
-La aptitud de validación de la red inicial (igual a la regla) es 0.923; "primera" es la del mejor de la generación 0. Las tres semillas corrieron a la vez en un mismo equipo (CPU; 559 s en total), así que los tiempos incluyen competencia entre procesos. Una evaluación de escenario = un individuo decidiendo un escenario con una prioridad. El checkpoint guardado en `web/data/recommender_mlp.json` es el de la semilla 17 (generación 61, aptitud de validación 0.960), la mejor en validación. Tiempo por recomendación (8 acciones): 0.055 ms.
+La aptitud de validación de la red inicial (igual a la regla) es 0.923; "primera" es la del mejor de la generación 0. Las tres semillas corrieron una tras otra en la GPU (NVIDIA GeForce RTX 4050 Laptop GPU, torch 2.11.0+cu128). Una evaluación de escenario = un individuo decidiendo un escenario con una prioridad. El checkpoint guardado en `web/data/recommender_mlp.json` es el de la semilla 29 (generación 146, aptitud de validación 0.961), la mejor en validación. Tiempo por recomendación (8 acciones, JS): 0.134 ms.
 
 ### Años reservados 2022–2024 (n = 27 casos)
 
@@ -729,12 +730,12 @@ Columnas: rendimiento relativo medio de lo elegido; ganancia media sobre la regl
 | Mejor opción en retrospectiva (techo) | 0.979 | | | 0.000 | | | 27/27 | 0/27 | 17/27 |
 | Simulador como política (típico) | 0.947 | +0.091 | 10 / 16 / 1 | 0.032 | 0.907 | 0.462 | 27/27 | 1/27 | 15/27 |
 | Simulador como política (cauto) | 0.963 | +0.107 | 13 / 8 / 6 | 0.017 | 0.905 | 0.796 | 27/27 | 0/27 | 24/27 |
-| **Red que recomienda**, semilla 17, típico | 0.936 | +0.080 | 9 / 16 / 2 | 0.044 | 0.792 | 0.565 | 27/27 | 0/27 | 13/27 |
-| **Red que recomienda**, semilla 17, cauto | 0.932 | +0.076 | 8 / 18 / 1 | 0.047 | 0.804 | 0.462 | 27/27 | 1/27 | 10/27 |
-| **Red que recomienda**, semilla 29, típico | 0.944 | +0.088 | 8 / 19 / 0 | 0.035 | 0.902 | 0.462 | 27/27 | 1/27 | 9/27 |
-| **Red que recomienda**, semilla 29, cauto | 0.937 | +0.081 | 8 / 18 / 1 | 0.042 | 0.828 | 0.462 | 27/27 | 1/27 | 11/27 |
-| **Red que recomienda**, semilla 43, típico | 0.897 | +0.041 | 6 / 19 / 2 | 0.082 | 0.649 | 0.462 | 27/27 | 1/27 | 10/27 |
-| **Red que recomienda**, semilla 43, cauto | 0.905 | +0.049 | 5 / 19 / 3 | 0.075 | 0.592 | 0.462 | 27/27 | 1/27 | 10/27 |
+| **Red que recomienda**, semilla 17, típico | 0.881 | +0.025 | 4 / 17 / 6 | 0.099 | 0.652 | 0.462 | 27/27 | 1/27 | 10/27 |
+| **Red que recomienda**, semilla 17, cauto | 0.828 | -0.027 | 1 / 22 / 4 | 0.151 | 0.524 | 0.000 | 25/27 | 3/27 | 5/27 |
+| **Red que recomienda**, semilla 29, típico | 0.944 | +0.088 | 7 / 20 / 0 | 0.035 | 0.902 | 0.462 | 27/27 | 1/27 | 9/27 |
+| **Red que recomienda**, semilla 29, cauto | 0.928 | +0.072 | 5 / 19 / 3 | 0.051 | 0.781 | 0.462 | 27/27 | 1/27 | 10/27 |
+| **Red que recomienda**, semilla 43, típico | 0.838 | -0.018 | 3 / 21 / 3 | 0.141 | 0.524 | 0.000 | 26/27 | 3/27 | 9/27 |
+| **Red que recomienda**, semilla 43, cauto | 0.895 | +0.040 | 4 / 20 / 3 | 0.084 | 0.619 | 0.462 | 27/27 | 1/27 | 10/27 |
 | Predecir y elegir: red v2, semilla 17, típico (copiado) | 0.953 | +0.097 | 13 / 8 / 6 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 27/27 |
 | Predecir y elegir: red v2, semilla 17, cauto (copiado) | 0.953 | +0.097 | 13 / 8 / 6 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 27/27 |
 | Predecir y elegir: red v2, semilla 29, típico (copiado) | 0.952 | +0.097 | 13 / 7 / 7 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 25/27 |
@@ -748,11 +749,11 @@ Columnas: rendimiento relativo medio de lo elegido; ganancia media sobre la regl
 | Predecir y elegir: ELM v2, semilla 43, típico (copiado) | 0.935 | +0.079 | 13 / 6 / 8 | 0.044 | 0.811 | 0.422 | 27/27 | 1/27 | 26/27 |
 | Predecir y elegir: ELM v2, semilla 43, cauto (copiado) | 0.952 | +0.096 | 13 / 6 / 8 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 27/27 |
 
-Resumen de la red que recomienda entre las 3 semillas (media, mínimo y máximo de la media de lo elegido): típico 0.926 (0.897–0.944); cauto 0.925 (0.905–0.937).
+Resumen de la red que recomienda entre las 3 semillas (media, mínimo y máximo de la media de lo elegido): típico 0.888 (0.838–0.944); cauto 0.884 (0.828–0.928).
 
 ### Adicional 2019–2024 (n = 54 casos)
 
-Columnas: rendimiento relativo medio de lo elegido; ganancia media sobre la regla; casos ganados / empatados / perdidos (tolerancia 0.001); arrepentimiento medio frente a la mejor opción; percentil 10; peor caso; recomendaciones ejecutables; resultados por debajo de 0.5; casos en que se aparta de la regla.
+Mismas columnas.
 
 | Política | Media | Ganancia | G / E / P | Arrepent. | P10 | Peor | Ejecut. | < 0.5 | Se aparta |
 |---|---|---|---|---|---|---|---|---|---|
@@ -760,12 +761,12 @@ Columnas: rendimiento relativo medio de lo elegido; ganancia media sobre la regl
 | Mejor opción en retrospectiva (techo) | 0.971 | | | 0.000 | | | 54/54 | 0/54 | 33/54 |
 | Simulador como política (típico) | 0.925 | +0.123 | 20 / 29 / 5 | 0.046 | 0.809 | 0.243 | 54/54 | 3/54 | 30/54 |
 | Simulador como política (cauto) | 0.945 | +0.143 | 26 / 17 / 11 | 0.026 | 0.837 | 0.711 | 54/54 | 0/54 | 48/54 |
-| **Red que recomienda**, semilla 17, típico | 0.885 | +0.083 | 20 / 30 / 4 | 0.086 | 0.663 | 0.000 | 51/54 | 3/54 | 34/54 |
-| **Red que recomienda**, semilla 17, cauto | 0.899 | +0.097 | 19 / 30 / 5 | 0.072 | 0.708 | 0.000 | 52/54 | 3/54 | 30/54 |
-| **Red que recomienda**, semilla 29, típico | 0.890 | +0.088 | 17 / 35 / 2 | 0.081 | 0.661 | 0.000 | 51/54 | 4/54 | 25/54 |
-| **Red que recomienda**, semilla 29, cauto | 0.927 | +0.125 | 21 / 31 / 2 | 0.044 | 0.809 | 0.000 | 53/54 | 2/54 | 30/54 |
-| **Red que recomienda**, semilla 43, típico | 0.871 | +0.068 | 16 / 34 / 4 | 0.101 | 0.627 | 0.000 | 52/54 | 4/54 | 29/54 |
-| **Red que recomienda**, semilla 43, cauto | 0.928 | +0.126 | 17 / 33 / 4 | 0.043 | 0.735 | 0.462 | 54/54 | 2/54 | 29/54 |
+| **Red que recomienda**, semilla 17, típico | 0.816 | +0.014 | 12 / 34 / 8 | 0.155 | 0.139 | 0.000 | 48/54 | 7/54 | 28/54 |
+| **Red que recomienda**, semilla 17, cauto | 0.796 | -0.006 | 8 / 39 / 7 | 0.175 | 0.000 | 0.000 | 47/54 | 8/54 | 21/54 |
+| **Red que recomienda**, semilla 29, típico | 0.915 | +0.113 | 19 / 33 / 2 | 0.056 | 0.827 | 0.000 | 52/54 | 3/54 | 29/54 |
+| **Red que recomienda**, semilla 29, cauto | 0.896 | +0.094 | 15 / 32 / 7 | 0.075 | 0.687 | 0.000 | 52/54 | 3/54 | 30/54 |
+| **Red que recomienda**, semilla 43, típico | 0.855 | +0.053 | 14 / 35 / 5 | 0.116 | 0.513 | 0.000 | 51/54 | 6/54 | 30/54 |
+| **Red que recomienda**, semilla 43, cauto | 0.856 | +0.054 | 13 / 34 / 7 | 0.115 | 0.513 | 0.000 | 52/54 | 6/54 | 30/54 |
 | Predecir y elegir: red v2, semilla 17, típico (copiado) | 0.943 | +0.141 | 27 / 16 / 11 | 0.028 | 0.837 | 0.640 | 54/54 | 0/54 | 54/54 |
 | Predecir y elegir: red v2, semilla 17, cauto (copiado) | 0.943 | +0.141 | 27 / 16 / 11 | 0.028 | 0.837 | 0.640 | 54/54 | 0/54 | 54/54 |
 | Predecir y elegir: red v2, semilla 29, típico (copiado) | 0.943 | +0.141 | 26 / 17 / 11 | 0.028 | 0.837 | 0.640 | 54/54 | 0/54 | 44/54 |
@@ -779,7 +780,7 @@ Columnas: rendimiento relativo medio de lo elegido; ganancia media sobre la regl
 | Predecir y elegir: ELM v2, semilla 43, típico (copiado) | 0.925 | +0.123 | 25 / 16 / 13 | 0.046 | 0.818 | 0.277 | 54/54 | 2/54 | 47/54 |
 | Predecir y elegir: ELM v2, semilla 43, cauto (copiado) | 0.942 | +0.140 | 26 / 15 / 13 | 0.029 | 0.837 | 0.640 | 54/54 | 0/54 | 52/54 |
 
-Resumen de la red que recomienda entre las 3 semillas (media, mínimo y máximo de la media de lo elegido): típico 0.882 (0.871–0.890); cauto 0.918 (0.899–0.928).
+Resumen de la red que recomienda entre las 3 semillas (media, mínimo y máximo de la media de lo elegido): típico 0.862 (0.816–0.915); cauto 0.849 (0.796–0.896).
 
 ### En qué casos se aparta de la regla (semilla 17, 54 casos)
 
@@ -787,14 +788,15 @@ La lista completa, con lo que eligió en lugar de la regla y los rendimientos de
 
 | Prioridad | Regla → elegido (casos) |
 |---|---|
-| típico | maiz → ajonjoli: 19; frijol → ajonjoli: 7; maiz → frijol: 4; maiz → brocoli: 2; maiz → lechuga: 2 |
-| cauto | maiz → ajonjoli: 17; maiz → frijol: 5; maiz → papa: 3; frijol → ajonjoli: 2; maiz → lechuga: 2; maiz → brocoli: 1 |
+| típico | maiz → ajonjoli: 19; frijol → ajonjoli: 4; maiz → frijol: 2; frijol → brocoli: 1; maiz → brocoli: 1; maiz → papa: 1 |
+| cauto | maiz → ajonjoli: 16; maiz → brocoli: 2; frijol → ajonjoli: 1; maiz → frijol: 1; maiz → lechuga: 1 |
 
 ### Lectura, sin rodeos
 
-- Años reservados 2022–2024 (n = 27 casos): la red que recomienda queda entre 0.897 y 0.944 de rendimiento relativo medio, frente a 0.856 de la regla y 0.979 del techo; supera a la regla en 6 de las 6 combinaciones de semilla y prioridad. Las políticas de predecir y elegir (red v2 y ELM v2) van de 0.917 a 0.957: la red que recomienda solo alcanza a las más bajas de ellas (ver las tablas).
-- Adicional 2019–2024 (n = 54 casos): la red que recomienda queda entre 0.871 y 0.928 de rendimiento relativo medio, frente a 0.802 de la regla y 0.971 del techo; supera a la regla en 6 de las 6 combinaciones de semilla y prioridad. Las políticas de predecir y elegir (red v2 y ELM v2) van de 0.910 a 0.944: la red que recomienda solo alcanza a las más bajas de ellas (ver las tablas).
-- Con 27 y 54 casos (muchos casi iguales entre sí porque comparten sitio y año), los conteos ganados / empatados / perdidos son descriptivos; no se calculó significancia. Las semillas difieren entre sí, así que la diferencia entre prioridades no se puede ordenar con firmeza.
+- Años reservados 2022–2024 (n = 27 casos): la red que recomienda queda entre 0.828 y 0.944 de rendimiento relativo medio, frente a 0.856 de la regla y 0.979 del techo; mejora la media de la regla en 4 de las 6 combinaciones de semilla y prioridad, y tiene más casos ganados que perdidos en 3 de 6. Las políticas de predecir y elegir (red v2 y ELM v2) van de 0.917 a 0.957: la red que recomienda no alcanza a las más altas (0.957); la mejor semilla (0.944) queda dentro de su rango.
+- Adicional 2019–2024 (n = 54 casos): la red que recomienda queda entre 0.796 y 0.915 de rendimiento relativo medio, frente a 0.802 de la regla y 0.971 del techo; mejora la media de la regla en 5 de las 6 combinaciones de semilla y prioridad, y tiene más casos ganados que perdidos en 6 de 6. Las políticas de predecir y elegir (red v2 y ELM v2) van de 0.910 a 0.944: la red que recomienda no alcanza a las más altas (0.944); la mejor semilla (0.915) queda dentro de su rango.
+- **Cambio frente a la versión en JS (Tarea 31):** con el flujo aleatorio de la GPU la red ya **no** mejora a la regla en las seis combinaciones (en la versión en JS sí lo hacía): ver la tabla "antes y ahora" de la sección de GPU. Es una variación entre corridas del mismo diseño, no un cambio de diseño; el resultado depende de la semilla.
+- Con 27 y 54 casos (muchos casi iguales entre sí porque comparten sitio y año), los conteos ganados / empatados / perdidos son descriptivos; no se calculó significancia. Las semillas difieren entre sí, así que la diferencia entre prioridades no se puede ordenar con firmeza. (Mejora en 4 de 6 con 27 casos y en 5 de 6 con 54.)
 
 ### Límites
 
@@ -822,17 +824,17 @@ Es descriptivo y **no ajusta nada**: pone lo que las fuentes dicen que hicieron 
 
 | Punto (suelo), distancia | Pérdida (día) | Fecha de resiembra | Partición del año | Regla (rend.) | Red típica (rend.) | Red cauta (rend.) | Maíz resembrado (rend.) | Mejor (rend.) |
 |---|---|---|---|---|---|---|---|---|
-| chiquimula (site), 0 km | 30 | 2009-06-17 | train | maiz (0.995) | maiz (0.995) | lechuga (0.845) | 0.995 | ajonjoli (1.000) |
-| chiquimula (site), 0 km | 45 | 2009-07-02 | train | maiz (0.997) | ajonjoli (1.000) | lechuga (0.892) | 0.997 | ajonjoli (1.000) |
+| chiquimula (site), 0 km | 30 | 2009-06-17 | train | maiz (0.995) | ajonjoli (1.000) | ajonjoli (1.000) | 0.995 | ajonjoli (1.000) |
+| chiquimula (site), 0 km | 45 | 2009-07-02 | train | maiz (0.997) | ajonjoli (1.000) | ajonjoli (1.000) | 0.997 | ajonjoli (1.000) |
 | chiquimula (site), 0 km | 60 | 2009-07-17 | train | maiz (0.978) | ajonjoli (0.997) | ajonjoli (0.997) | 0.978 | frijol (1.000) |
 | jutiapa (site), 0 km | 30 | 2009-06-23 | train | maiz (0.460) | ajonjoli (0.822) | ajonjoli (0.822) | 0.460 | ajonjoli (0.822) |
-| jutiapa (site), 0 km | 45 | 2009-07-08 | train | maiz (0.763) | lechuga (0.672) | ajonjoli (0.895) | 0.763 | ajonjoli (0.895) |
+| jutiapa (site), 0 km | 45 | 2009-07-08 | train | maiz (0.763) | frijol (0.430) | ajonjoli (0.895) | 0.763 | ajonjoli (0.895) |
 | jutiapa (site), 0 km | 60 | 2009-07-23 | train | frijol (0.487) | frijol (0.487) | frijol (0.487) | 0.677 | ajonjoli (0.828) |
 | zacapa (loam), 0 km | 30 | 2009-06-22 | train | maiz (1.000) | ajonjoli (1.000) | ajonjoli (1.000) | 1.000 | maiz (1.000) |
 | zacapa (loam), 0 km | 45 | 2009-07-07 | train | maiz (1.000) | ajonjoli (1.000) | ajonjoli (1.000) | 1.000 | maiz (1.000) |
 | zacapa (loam), 0 km | 60 | 2009-07-22 | train | frijol (1.000) | frijol (1.000) | frijol (1.000) | 1.000 | maiz (1.000) |
 | jalapa (loam), 0 km | 30 | 2009-06-22 | train | maiz (0.813) | ajonjoli (0.868) | ajonjoli (0.868) | 0.813 | ajonjoli (0.868) |
-| jalapa (loam), 0 km | 45 | 2009-07-07 | train | maiz (0.692) | ajonjoli (0.806) | brocoli (0.680) | 0.692 | ajonjoli (0.806) |
+| jalapa (loam), 0 km | 45 | 2009-07-07 | train | maiz (0.692) | frijol (0.755) | frijol (0.755) | 0.692 | ajonjoli (0.806) |
 | jalapa (loam), 0 km | 60 | 2009-07-22 | train | frijol (0.667) | frijol (0.667) | frijol (0.667) | 0.727 | lechuga (0.790) |
 
 ### Olopa y San Juan Ermita, Chiquimula, año agrícola 2023
@@ -843,8 +845,8 @@ Es descriptivo y **no ajusta nada**: pone lo que las fuentes dicen que hicieron 
 |---|---|---|---|---|---|---|---|---|
 | olopa (loam), 0 km | 30 | 2023-06-17 | not used (test years are only scored at the pilots) | maiz (1.000) | ajonjoli (1.000) | ajonjoli (1.000) | 1.000 | maiz (1.000) |
 | olopa (loam), 0 km | 45 | 2023-07-02 | not used (test years are only scored at the pilots) | maiz (1.000) | ajonjoli (1.000) | ajonjoli (1.000) | 1.000 | maiz (1.000) |
-| olopa (loam), 0 km | 60 | 2023-07-17 | not used (test years are only scored at the pilots) | maiz (1.000) | ajonjoli (1.000) | maiz (1.000) | 1.000 | maiz (1.000) |
-| chiquimula (site), 25.31 km | 30 | 2023-07-30 | test | frijol (1.000) | frijol (1.000) | frijol (1.000) | 1.000 | maiz (1.000) |
+| olopa (loam), 0 km | 60 | 2023-07-17 | not used (test years are only scored at the pilots) | maiz (1.000) | lechuga (1.000) | frijol (1.000) | 1.000 | maiz (1.000) |
+| chiquimula (site), 25.31 km | 30 | 2023-07-30 | test | frijol (1.000) | ajonjoli (1.000) | ajonjoli (1.000) | 1.000 | maiz (1.000) |
 | chiquimula (site), 25.31 km | 45 | 2023-08-14 | test | frijol (0.935) | frijol (0.935) | frijol (0.935) | 1.000 | maiz (1.000) |
 | chiquimula (site), 25.31 km | 60 | 2023-08-29 | test | frijol (1.000) | frijol (1.000) | frijol (1.000) | 0.984 | frijol (1.000) |
 
@@ -1135,6 +1137,194 @@ node scripts/coffee/bench_js.mjs 5 17                             # velocidad de
 node scripts/coffee/evaluate.mjs                                  # ELM, métricas y artefactos
 ```
 
+## Entrenamiento en GPU y más datos y entradas
+
+15 de noviembre de 2026 (Tarea 33). Tres cosas: (1) el entrenamiento que faltaba pasó a lotes en la GPU; (2) con ello se reentrenó el recomendador de pérdida de cultivo y se midió cuánto cambia; (3) se probó si **más datos y más entradas** mejoran el emulador de siete cultivos (v2), juzgando solo con validación. Todos los números salen de artefactos: `web/data/recommender_eval.json`, `web/data/gpu_checks.json`, `web/data/aligned_eval.json` y `aligned_eval_v3.json`, `web/data/coffee_eval.json`, `scripts/emulator/v2_screening.json`. Seeds 17, 29 y 43; las condiciones son las de `proyecto/condiciones-comunes.md` (entrenamiento 2001–2016, validación 2017–2018, prueba 2019–2024 y puntos reservados); ninguna fila de prueba se usó para elegir nada y la prueba se evaluó una sola vez.
+
+### 1. Entrenamiento por lotes en GPU
+
+- **Núcleo compartido** `scripts/gpu/es_core.py`: la estrategia de evolución del café (Tarea 32), generalizada. Una generación evalúa los 32 individuos sobre 512 escenarios en una sola operación por lotes (pesos apilados, `bmm`), sin bucles de Python por individuo ni por escenario y sin `.item()` dentro de la generación. Lo usan el café (`scripts/coffee/train_es.py`, ya refactorizado: los pesos de las tres semillas salen idénticos a los de la Tarea 32, `coffee_recommender.json` no cambió) y el recomendador de pérdida de cultivo (`scripts/gpu/train_recommender.py`; el JS `scripts/compare/train_recommender.mjs` arma la tabla, evalúa y escribe los artefactos, y su entrenamiento en JS se conserva como referencia). Mismo diseño: población 32, 8 padres, σ 0.05, elitismo 1, 150 generaciones, 512 escenarios compartidos, las dos prioridades, mejor punto de control en validación, semillas 17/29/43, mismo formato de `recommender_mlp.json`. **El flujo aleatorio es el de torch (CUDA), no el de mulberry32 de JS: los números se mueven** (abajo).
+- **Comprobación JS contra PyTorch** (puntajes de las 8 acciones con la regla, `jsVsTorchCheck` en `recommender_eval.json`): semilla 17: 62 filas, diferencia máxima 4.8e-15, misma recomendación en 62/62; semilla 29: 62 filas, diferencia máxima 4.1e-15, misma recomendación en 62/62; semilla 43: 62 filas, diferencia máxima 4.4e-15, misma recomendación en 62/62 (tolerancia 1e-5).
+- **ELM en GPU** (`scripts/gpu/elm_gpu.py`): la misma ELM de `trainELM` con la solución de ridge por `torch.linalg` (Cholesky, float64), por bloques de filas. Los pesos ocultos salen del mismo generador mulberry32 (portado de forma vectorizada), de modo que con la misma semilla el modelo es el mismo. Comprobación (`gpu_checks.json`, `scripts/gpu/check_gpu_training.mjs`): ajuste con 4000 filas de v2 y semilla 42; en 300 filas la diferencia máxima entre las predicciones de JS y de la GPU es 5.0e-12 (tolerancia 0.0001). Se usa donde el ELM se repite por semilla: la evaluación alineada de v2 y de v3 y el café. Los artefactos de v1 no se regeneraron. La evaluación alineada de v2 con los ELM de la GPU da las mismas decisiones que antes (los números cambian solo en el redondeo, del orden de 1e-11).
+
+**Tiempos, medidos** (equipo: NVIDIA GeForce RTX 4050 Laptop GPU, torch 2.11.0+cu128; el JS "antes" es el de los artefactos previos; la primera semilla de la GPU incluye el arranque de CUDA):
+
+| Entrenamiento | JS antes (s) | GPU ahora (s) | Cómo se midió |
+|---|---|---|---|
+| Recomendador de pérdida de cultivo, evolución, 150 generaciones, semillas 17 / 29 / 43 | 539.49 / 540.59 / 540.07 (3 procesos a la vez, 559 s en total) | 5.65 / 5.29 / 5.53 (una tras otra, 16.5 s en total) | JS: `recommender_eval.json` de la Tarea 31 (commit 4778afc), medido; GPU: `recommender_eval.json` actual |
+| Recomendador de riego del café, evolución, 150 generaciones | 76.1 por semilla (proyectado: 5 generaciones medidas y escaladas a 150) | 1.66 / 1.51 / 1.53 | `coffee_eval.json` (`timing.jsEsBenchmark` y `timing.gpuEs`); el JS de 150 generaciones no se corrió completo |
+| ELM del emulador v2 (1500 ocultas; filas de ajuste de v2) | 56.6 (semilla 42, `emulator_v2_eval.json`) | 1.08 / 0.92 / 0.92 | JS: medido en la Tarea 26 con las mismas filas y configuración; GPU: `aligned_eval.json` (`meta.networks.elm.trainSecondsGpu`) |
+| ELM del café (1500 ocultas) | 8.26 / 8.34 / 11.13 | 0.29 / 0.13 / 0.13 | `coffee_eval.json` (`timing.elmSecondsJs` y `timing.elmSeconds`) |
+| ELM en una muestra de 4000 filas de v2 (comprobación) | 9.5 | 0.40 | `gpu_checks.json` |
+
+En el recomendador de pérdida de cultivo el JS corría las tres semillas a la vez (competencia entre procesos); en la GPU corren una tras otra.
+
+### 2. El recomendador de pérdida de cultivo, antes y ahora
+
+Mismo diseño, otro flujo aleatorio. Las semillas dan resultados distintos entre sí y distintos de la corrida en JS; esta es la variación entre corridas, no un cambio de diseño. Antes = `recommender_eval.json` de la Tarea 31 (commit 4778afc); ahora = el actual.
+
+**Años reservados 2022–2024 (27 casos).** Media de lo elegido (ganancia sobre la regla; ganados / empatados / perdidos; se aparta de la regla). Regla: 0.856; techo: 0.979.
+
+| Semilla | Prioridad | Antes (JS) | Ahora (GPU) |
+|---|---|---|---|
+| 17 | típico | 0.936 (+0.080; 9/16/2; 13/27) | 0.881 (+0.025; 4/17/6; 10/27) |
+| 17 | cauto | 0.932 (+0.076; 8/18/1; 10/27) | 0.828 (-0.027; 1/22/4; 5/27) |
+| 29 | típico | 0.944 (+0.088; 8/19/0; 9/27) | 0.944 (+0.088; 7/20/0; 9/27) |
+| 29 | cauto | 0.937 (+0.081; 8/18/1; 11/27) | 0.928 (+0.072; 5/19/3; 10/27) |
+| 43 | típico | 0.897 (+0.041; 6/19/2; 10/27) | 0.838 (-0.018; 3/21/3; 9/27) |
+| 43 | cauto | 0.905 (+0.049; 5/19/3; 10/27) | 0.895 (+0.040; 4/20/3; 10/27) |
+
+**Adicional 2019–2024 (54 casos).** Media de lo elegido (ganancia sobre la regla; ganados / empatados / perdidos; se aparta de la regla). Regla: 0.802; techo: 0.971.
+
+| Semilla | Prioridad | Antes (JS) | Ahora (GPU) |
+|---|---|---|---|
+| 17 | típico | 0.885 (+0.083; 20/30/4; 34/54) | 0.816 (+0.014; 12/34/8; 28/54) |
+| 17 | cauto | 0.899 (+0.097; 19/30/5; 30/54) | 0.796 (-0.006; 8/39/7; 21/54) |
+| 29 | típico | 0.890 (+0.088; 17/35/2; 25/54) | 0.915 (+0.113; 19/33/2; 29/54) |
+| 29 | cauto | 0.927 (+0.125; 21/31/2; 30/54) | 0.896 (+0.094; 15/32/7; 30/54) |
+| 43 | típico | 0.871 (+0.068; 16/34/4; 29/54) | 0.855 (+0.053; 14/35/5; 30/54) |
+| 43 | cauto | 0.928 (+0.126; 17/33/4; 29/54) | 0.856 (+0.054; 13/34/7; 30/54) |
+
+**¿Cambian las conclusiones?** Sí, en una (la de la regla); la otra se mantiene:
+- 27 casos de 2022–2024: la red que recomienda mejoraba la media de la regla en 6 de las 6 combinaciones (semilla × prioridad) con el entrenamiento en JS y la mejora en 4 de 6 con el de la GPU; tenía más casos ganados que perdidos en 6 de 6 y ahora en 3 de 6. Rango de la media de lo elegido: 0.897–0.944 antes y 0.828–0.944 ahora; predecir y elegir (red v2 y ELM v2, 12 combinaciones): 0.917–0.957.
+- 54 casos de 2019–2024: la red que recomienda mejoraba la media de la regla en 6 de las 6 combinaciones (semilla × prioridad) con el entrenamiento en JS y la mejora en 5 de 6 con el de la GPU; tenía más casos ganados que perdidos en 6 de 6 y ahora en 6 de 6. Rango de la media de lo elegido: 0.871–0.928 antes y 0.796–0.915 ahora; predecir y elegir (red v2 y ELM v2, 12 combinaciones): 0.910–0.944.
+- **Ya no se puede decir que la red que recomienda mejora a la regla en las seis combinaciones**: con el entrenamiento de la GPU, las combinaciones con ganancia media sobre la regla de cero o menos son 27 casos, semilla 17, cauto (-0.027); 27 casos, semilla 43, típico (-0.018); 54 casos, semilla 17, cauto (-0.006) (ver las tablas). El resultado depende de la semilla.
+- **Sigue sin superar a predecir y elegir**: la mejor combinación de la red que recomienda (0.944 con 27 casos y 0.915 con 54) queda por debajo de la mejor de predecir y elegir (0.957 y 0.944).
+- El punto de control que guarda `recommender_mlp.json` es ahora el de la semilla 29 (generación 146, aptitud de validación 0.961); `historical_check.json` se regeneró con esa red (semilla 29, generación 146) y las tablas de la sección de contraste con agricultores son las nuevas; siguen siendo ilustrativas, no una prueba.
+
+### 3. Más datos y más entradas para el emulador de siete cultivos
+
+**Por qué.** La primera salida de v2 (`relYieldA`) tenía R² de unos 0.6 en años nuevos y una prueba de tamaño mostró que más parámetros no ayudan. La palanca es más datos o más entradas.
+
+**Candidatos (fijados de antemano), tres semillas cada uno, solo validación 2017–2018.**
+- `base`: v2 de hoy, 60 000 muestras (reservorio), 31 entradas.
+- `data`: todas las muestras que produce el generador (211680), mismas 31 entradas.
+- `inputs`: las 60 000 + 16 entradas nuevas: para el cultivo A y, con la misma definición, para B (ceros si no hay B, si A no termina en el año o si B ya no cabe): lluvia y ET₀ de los 30 días antes de que empiece la ventana de floración, el índice de lluvia antecedente y el balance corrido acotado a 150 mm al día anterior (la lógica de `apiFlower` y `storeProxy` de v1 con el Kc del propio cultivo), lluvia y déficit climático dentro de la ventana de floración, los días del ciclo simulado por grados-día y los días que quedan al fin del año agrícola en la siembra (`web/js/model/emulatorV3.js`).
+- `data+inputs`: las dos cosas.
+
+**Qué período cubre cada entrada nueva** (importante). Son entradas de una **temporada conocida** (retrospectiva), igual que `rainYear` o `caniculaDays` de v2: usan el clima diario del año agrícola (1 de abril a 31 de marzo) del paquete de datos, la ET₀ calculada de ese clima, los parámetros del cultivo y el día de siembra. La lluvia y la ET₀ se leen del 1 de abril hasta el último día de la ventana de floración (la de antes de la floración, la de dentro de ella); la temperatura diaria, que fija la duración del ciclo y por tanto la ventana, se lee de la siembra a la cosecha. **No usan ninguna salida del simulador** (ni balance de agua del suelo, ni Ks, ni rendimiento) ni nada posterior al 31 de marzo del año agrícola; `storeProxy` es el indicador sin suelo de v1, no el balance del simulador. Hay pruebas hechas a mano (`tests/emulator_v3.test.mjs`) que alteran la lluvia y la ET₀ posteriores a la floración, la temperatura posterior a la cosecha y todo lo posterior al 31 de marzo, y las entradas no cambian. En la decisión tras perder el maíz estas entradas se calculan sobre años pasados completos (como ya hacían las de v2), así que el modelo no ve la temporada que decide.
+
+**Resultado del cribado** (solo validación; MSE de las salidas estandarizadas sobre las mismas filas de validación para todos):
+
+| Candidato | Entradas | Filas de entrenamiento | MSE de validación por semilla 17 / 29 / 43 | MSE medio | R² de validación medio: relYieldA / relYieldB / fit |
+|---|---|---|---|---|---|
+| base (v2 de hoy) | 31 | 36055 | 0.1576 / 0.1588 / 0.1593 | 0.1586 | 0.731 / 0.935 / 0.890 |
+| data (todos los candidatos) | 31 | 127008 | 0.1607 / 0.1567 / 0.1559 | 0.1578 | 0.725 / 0.937 / 0.898 |
+| inputs (60 000 + 16 entradas) | 47 | 36055 | 0.0735 / 0.0726 / 0.0716 | 0.0726 | 0.902 / 0.967 / 0.923 |
+| data+inputs | 47 | 127008 | 0.0601 / 0.0622 / 0.0623 | 0.0615 | 0.919 / 0.974 / 0.931 |
+
+Regla fijada antes de correr: gana el menor MSE de validación medio de las tres semillas; se adopta solo si mejora a `base` en al menos 2 % y ninguna salida empeora su R² de validación en más de 0.01 (medias de las tres semillas); si no, se conserva `base`. Resultado: gana **data+inputs** con un MSE medio de 0.0615 frente a 0.1586 de `base` (mejora de 61.2 %); el menor cambio del R² de validación de una salida frente a `base` es +0.039 (ninguna empeora). **Se adopta: sí.**
+
+Métrica: error cuadrático medio de las salidas estandarizadas (con la desviación del entrenamiento de `base`) sobre las mismas filas de validación para todos los candidatos: las filas de 2017–2018 del reservorio de 60 000 (n = 3924). Receta: la de siempre (`fit_network`: embudo n → 64 → 32 → 16 → 3, ReLU, Adam 1e-3, lotes de 256, parada temprana con paciencia 10 sobre 2017–2018). Ninguna fila de prueba (años 2019–2024 y puntos reservados) se usó (`testRowsUsed`: false). Épocas y tiempos de cada corrida: `scripts/emulator/v2_screening.json` (`runs`); las corridas más largas duran hasta 44 s en CUDA.
+
+Lectura: más filas sin más entradas (`data`) cambia el MSE de validación 0.5 % frente a `base` (reducción; un valor negativo sería un empeoramiento); las entradas nuevas con las mismas 60 000 filas (`inputs`) lo reducen 54.2 %; las dos juntas lo reducen 61.2 %.
+
+**Adoptado: `data+inputs` (v3).** Se regeneraron las muestras (`scripts/emulator/generate_v3.mjs`: todos los candidatos, con las 47 entradas), se entrenaron las tres semillas en CUDA (`scripts/emulator/train_mlp_v3.py`; no se instaló nada en el entorno de CUDA) y se escribieron `web/data/emulator_v3_mlp_seed{17,29,43}.json` (y `emulator_v3_mlp.json`, semilla 42) junto a los de v2, que no se tocaron. La red es la misma receta con 47 entradas (47 entradas, 5731 parámetros; la de v2, 31 entradas y 4707). Evaluación de prueba, una sola vez (`aligned_eval_v3.json`):
+
+**Exactitud del emulador v2 → v3 por semilla**, sobre **las mismas filas de prueba** (las del reservorio de v2, para que la comparación sea directa). R² de relYieldA / relYieldB / fit; entre paréntesis, el RMSE de relYieldA.
+
+| División (n) | Modelo | Semilla | v2 | v3 |
+|---|---|---|---|---|
+| años nuevos (12107) | red embudo | 17 | 0.595 / 0.911 / 0.906 (0.093) | 0.824 / 0.961 / 0.917 (0.061) |
+| años nuevos (12107) | red embudo | 29 | 0.622 / 0.899 / 0.894 (0.090) | 0.840 / 0.965 / 0.925 (0.059) |
+| años nuevos (12107) | red embudo | 43 | 0.632 / 0.906 / 0.902 (0.089) | 0.835 / 0.963 / 0.924 (0.059) |
+| años nuevos (12107) | ELM | 17 | 0.519 / 0.850 / 0.735 (0.102) | 0.675 / 0.914 / 0.778 (0.084) |
+| años nuevos (12107) | ELM | 29 | 0.509 / 0.853 / 0.728 (0.103) | 0.675 / 0.913 / 0.779 (0.084) |
+| años nuevos (12107) | ELM | 43 | 0.520 / 0.855 / 0.730 (0.102) | 0.676 / 0.916 / 0.774 (0.083) |
+| puntos nuevos (8824) | red embudo | 17 | 0.797 / 0.907 / 0.864 (0.111) | 0.929 / 0.962 / 0.923 (0.066) |
+| puntos nuevos (8824) | red embudo | 29 | 0.805 / 0.917 / 0.887 (0.108) | 0.916 / 0.969 / 0.924 (0.071) |
+| puntos nuevos (8824) | red embudo | 43 | 0.792 / 0.908 / 0.884 (0.112) | 0.913 / 0.963 / 0.938 (0.072) |
+| puntos nuevos (8824) | ELM | 17 | 0.760 / 0.831 / 0.698 (0.120) | 0.838 / 0.915 / 0.745 (0.099) |
+| puntos nuevos (8824) | ELM | 29 | 0.759 / 0.852 / 0.691 (0.121) | 0.842 / 0.906 / 0.732 (0.098) |
+| puntos nuevos (8824) | ELM | 43 | 0.750 / 0.843 / 0.687 (0.123) | 0.832 / 0.916 / 0.736 (0.101) |
+
+En las filas de prueba **de todos los candidatos** (v3 se entrena con todos; 42336 filas en años nuevos y 31752 en puntos nuevos; los del reservorio son un subconjunto) la red embudo da, en años nuevos, R² de relYieldA 0.822 / 0.838 / 0.833 y en puntos nuevos 0.935 / 0.924 / 0.922 (semillas 17 / 29 / 43).
+
+**Decisión tras perder el maíz con las redes v3 (predecir y elegir)**, mismas columnas que las demás tablas. Las filas de v2 se copian de `aligned_eval.json`, las de v3 vienen de `aligned_eval_v3.json`; regla, techo y simulador no cambian.
+
+*Años reservados 2022–2024 (27 casos)*
+
+| Política | Media | Ganancia | G / E / P | Arrepent. | P10 | Peor | Ejecut. | < 0.5 | Se aparta |
+|---|---|---|---|---|---|---|---|---|---|
+| Regla agronómica | 0.856 | +0.000 | 0 / 27 / 0 | 0.123 | 0.607 | 0.000 | 26/27 | 2/27 | 0/27 |
+| Mejor opción en retrospectiva (techo) | 0.979 | | | 0.000 | | | 27/27 | 0/27 | 17/27 |
+| Simulador como política (típico) | 0.947 | +0.091 | 10 / 16 / 1 | 0.032 | 0.907 | 0.462 | 27/27 | 1/27 | 15/27 |
+| Simulador como política (cauto) | 0.963 | +0.107 | 13 / 8 / 6 | 0.017 | 0.905 | 0.796 | 27/27 | 0/27 | 24/27 |
+| Predecir y elegir: red v2, semilla 17, típico | 0.953 | +0.097 | 13 / 8 / 6 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 27/27 |
+| Predecir y elegir: red v2, semilla 17, cauto | 0.953 | +0.097 | 13 / 8 / 6 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 27/27 |
+| Predecir y elegir: red v2, semilla 29, típico | 0.952 | +0.097 | 13 / 7 / 7 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 25/27 |
+| Predecir y elegir: red v2, semilla 29, cauto | 0.952 | +0.096 | 13 / 6 / 8 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 27/27 |
+| Predecir y elegir: red v2, semilla 43, típico | 0.957 | +0.101 | 12 / 10 / 5 | 0.022 | 0.851 | 0.752 | 27/27 | 0/27 | 22/27 |
+| Predecir y elegir: red v2, semilla 43, cauto | 0.952 | +0.096 | 12 / 9 / 6 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 24/27 |
+| Predecir y elegir: ELM v2, semilla 17, típico | 0.928 | +0.072 | 12 / 7 / 8 | 0.052 | 0.761 | 0.422 | 27/27 | 1/27 | 25/27 |
+| Predecir y elegir: ELM v2, semilla 17, cauto | 0.917 | +0.061 | 12 / 6 / 9 | 0.062 | 0.718 | 0.422 | 27/27 | 1/27 | 27/27 |
+| Predecir y elegir: ELM v2, semilla 29, típico | 0.935 | +0.079 | 13 / 6 / 8 | 0.044 | 0.811 | 0.422 | 27/27 | 1/27 | 26/27 |
+| Predecir y elegir: ELM v2, semilla 29, cauto | 0.935 | +0.079 | 13 / 6 / 8 | 0.044 | 0.811 | 0.422 | 27/27 | 1/27 | 27/27 |
+| Predecir y elegir: ELM v2, semilla 43, típico | 0.935 | +0.079 | 13 / 6 / 8 | 0.044 | 0.811 | 0.422 | 27/27 | 1/27 | 26/27 |
+| Predecir y elegir: ELM v2, semilla 43, cauto | 0.952 | +0.096 | 13 / 6 / 8 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 27/27 |
+| Predecir y elegir: red v3, semilla 17, típico | 0.960 | +0.104 | 12 / 14 / 1 | 0.020 | 0.907 | 0.565 | 27/27 | 0/27 | 21/27 |
+| Predecir y elegir: red v3, semilla 17, cauto | 0.965 | +0.109 | 13 / 9 / 5 | 0.015 | 0.905 | 0.796 | 27/27 | 0/27 | 26/27 |
+| Predecir y elegir: red v3, semilla 29, típico | 0.942 | +0.086 | 10 / 16 / 1 | 0.038 | 0.871 | 0.462 | 27/27 | 1/27 | 18/27 |
+| Predecir y elegir: red v3, semilla 29, cauto | 0.955 | +0.099 | 13 / 9 / 5 | 0.025 | 0.851 | 0.711 | 27/27 | 0/27 | 24/27 |
+| Predecir y elegir: red v3, semilla 43, típico | 0.959 | +0.103 | 11 / 15 / 1 | 0.021 | 0.907 | 0.565 | 27/27 | 0/27 | 16/27 |
+| Predecir y elegir: red v3, semilla 43, cauto | 0.964 | +0.108 | 12 / 12 / 3 | 0.016 | 0.896 | 0.796 | 27/27 | 0/27 | 20/27 |
+| Predecir y elegir: ELM v3, semilla 17, típico | 0.958 | +0.102 | 12 / 11 / 4 | 0.022 | 0.916 | 0.565 | 27/27 | 0/27 | 21/27 |
+| Predecir y elegir: ELM v3, semilla 17, cauto | 0.958 | +0.102 | 12 / 11 / 4 | 0.022 | 0.916 | 0.565 | 27/27 | 0/27 | 21/27 |
+| Predecir y elegir: ELM v3, semilla 29, típico | 0.939 | +0.083 | 7 / 16 / 4 | 0.041 | 0.813 | 0.565 | 27/27 | 0/27 | 16/27 |
+| Predecir y elegir: ELM v3, semilla 29, cauto | 0.928 | +0.072 | 12 / 7 / 8 | 0.052 | 0.761 | 0.422 | 27/27 | 1/27 | 25/27 |
+| Predecir y elegir: ELM v3, semilla 43, típico | 0.938 | +0.082 | 8 / 12 / 7 | 0.041 | 0.813 | 0.565 | 27/27 | 0/27 | 20/27 |
+| Predecir y elegir: ELM v3, semilla 43, cauto | 0.935 | +0.079 | 13 / 6 / 8 | 0.044 | 0.811 | 0.422 | 27/27 | 1/27 | 26/27 |
+
+Resumen entre semillas (media, mínimo–máximo de la media de lo elegido): red típico: v2 0.954 (0.952–0.957) → v3 0.953 (0.942–0.960); red cauto: v2 0.952 (0.952–0.953) → v3 0.961 (0.955–0.965); ELM típico: v2 0.933 (0.928–0.935) → v3 0.945 (0.938–0.958); ELM cauto: v2 0.935 (0.917–0.952) → v3 0.940 (0.928–0.958).
+
+*Adicional 2019–2024 (54 casos)*
+
+| Política | Media | Ganancia | G / E / P | Arrepent. | P10 | Peor | Ejecut. | < 0.5 | Se aparta |
+|---|---|---|---|---|---|---|---|---|---|
+| Regla agronómica | 0.802 | +0.000 | 0 / 54 / 0 | 0.169 | 0.466 | 0.000 | 49/54 | 7/54 | 0/54 |
+| Mejor opción en retrospectiva (techo) | 0.971 | | | 0.000 | | | 54/54 | 0/54 | 33/54 |
+| Simulador como política (típico) | 0.925 | +0.123 | 20 / 29 / 5 | 0.046 | 0.809 | 0.243 | 54/54 | 3/54 | 30/54 |
+| Simulador como política (cauto) | 0.945 | +0.143 | 26 / 17 / 11 | 0.026 | 0.837 | 0.711 | 54/54 | 0/54 | 48/54 |
+| Predecir y elegir: red v2, semilla 17, típico | 0.943 | +0.141 | 27 / 16 / 11 | 0.028 | 0.837 | 0.640 | 54/54 | 0/54 | 54/54 |
+| Predecir y elegir: red v2, semilla 17, cauto | 0.943 | +0.141 | 27 / 16 / 11 | 0.028 | 0.837 | 0.640 | 54/54 | 0/54 | 54/54 |
+| Predecir y elegir: red v2, semilla 29, típico | 0.943 | +0.141 | 26 / 17 / 11 | 0.028 | 0.837 | 0.640 | 54/54 | 0/54 | 44/54 |
+| Predecir y elegir: red v2, semilla 29, cauto | 0.942 | +0.140 | 27 / 14 / 13 | 0.029 | 0.837 | 0.640 | 54/54 | 0/54 | 54/54 |
+| Predecir y elegir: red v2, semilla 43, típico | 0.944 | +0.142 | 24 / 21 / 9 | 0.027 | 0.807 | 0.640 | 54/54 | 0/54 | 42/54 |
+| Predecir y elegir: red v2, semilla 43, cauto | 0.944 | +0.142 | 26 / 19 / 9 | 0.027 | 0.818 | 0.640 | 54/54 | 0/54 | 49/54 |
+| Predecir y elegir: ELM v2, semilla 17, típico | 0.915 | +0.113 | 22 / 19 / 13 | 0.056 | 0.757 | 0.277 | 54/54 | 2/54 | 43/54 |
+| Predecir y elegir: ELM v2, semilla 17, cauto | 0.910 | +0.108 | 24 / 15 / 15 | 0.061 | 0.759 | 0.277 | 54/54 | 2/54 | 51/54 |
+| Predecir y elegir: ELM v2, semilla 29, típico | 0.925 | +0.123 | 25 / 16 / 13 | 0.046 | 0.818 | 0.277 | 54/54 | 2/54 | 47/54 |
+| Predecir y elegir: ELM v2, semilla 29, cauto | 0.925 | +0.123 | 25 / 16 / 13 | 0.046 | 0.818 | 0.277 | 54/54 | 2/54 | 51/54 |
+| Predecir y elegir: ELM v2, semilla 43, típico | 0.925 | +0.123 | 25 / 16 / 13 | 0.046 | 0.818 | 0.277 | 54/54 | 2/54 | 47/54 |
+| Predecir y elegir: ELM v2, semilla 43, cauto | 0.942 | +0.140 | 26 / 15 / 13 | 0.029 | 0.837 | 0.640 | 54/54 | 0/54 | 52/54 |
+| Predecir y elegir: red v3, semilla 17, típico | 0.950 | +0.148 | 25 / 24 / 5 | 0.021 | 0.858 | 0.491 | 54/54 | 1/54 | 46/54 |
+| Predecir y elegir: red v3, semilla 17, cauto | 0.949 | +0.147 | 26 / 17 / 11 | 0.022 | 0.837 | 0.711 | 54/54 | 0/54 | 53/54 |
+| Predecir y elegir: red v3, semilla 29, típico | 0.925 | +0.123 | 22 / 27 / 5 | 0.046 | 0.809 | 0.243 | 54/54 | 3/54 | 38/54 |
+| Predecir y elegir: red v3, semilla 29, cauto | 0.945 | +0.143 | 27 / 17 / 10 | 0.026 | 0.837 | 0.640 | 54/54 | 0/54 | 51/54 |
+| Predecir y elegir: red v3, semilla 43, típico | 0.952 | +0.150 | 23 / 29 / 2 | 0.019 | 0.881 | 0.491 | 54/54 | 1/54 | 31/54 |
+| Predecir y elegir: red v3, semilla 43, cauto | 0.954 | +0.152 | 25 / 23 / 6 | 0.017 | 0.845 | 0.711 | 54/54 | 0/54 | 42/54 |
+| Predecir y elegir: ELM v3, semilla 17, típico | 0.942 | +0.140 | 25 / 22 / 7 | 0.029 | 0.845 | 0.491 | 54/54 | 1/54 | 44/54 |
+| Predecir y elegir: ELM v3, semilla 17, cauto | 0.942 | +0.140 | 25 / 22 / 7 | 0.029 | 0.845 | 0.491 | 54/54 | 1/54 | 43/54 |
+| Predecir y elegir: ELM v3, semilla 29, típico | 0.925 | +0.123 | 15 / 33 / 6 | 0.046 | 0.742 | 0.491 | 54/54 | 1/54 | 29/54 |
+| Predecir y elegir: ELM v3, semilla 29, cauto | 0.915 | +0.113 | 22 / 19 / 13 | 0.056 | 0.757 | 0.277 | 54/54 | 2/54 | 43/54 |
+| Predecir y elegir: ELM v3, semilla 43, típico | 0.925 | +0.123 | 18 / 25 / 11 | 0.046 | 0.768 | 0.491 | 54/54 | 1/54 | 37/54 |
+| Predecir y elegir: ELM v3, semilla 43, cauto | 0.922 | +0.120 | 25 / 15 / 14 | 0.049 | 0.791 | 0.277 | 54/54 | 2/54 | 49/54 |
+
+Resumen entre semillas (media, mínimo–máximo de la media de lo elegido): red típico: v2 0.943 (0.943–0.944) → v3 0.942 (0.925–0.952); red cauto: v2 0.943 (0.942–0.944) → v3 0.949 (0.945–0.954); ELM típico: v2 0.922 (0.915–0.925) → v3 0.931 (0.925–0.942); ELM cauto: v2 0.926 (0.910–0.942) → v3 0.926 (0.915–0.942).
+
+De las 12 combinaciones (semilla × modelo × prioridad), v3 sube la media de lo elegido en 9 y la baja en 3 con 27 casos, y la sube en 8 y la baja en 4 con 54 casos.
+
+La red que recomienda (reentrenada en GPU) llega, en la mejor de sus seis combinaciones, a 0.944 (27 casos) y 0.915 (54 casos); las políticas de predecir y elegir con v3, a 0.965 y 0.954.
+
+### 4. Qué empeoró, qué no se adoptó y límites
+
+- **La red que recomienda ya no gana a la regla en las seis combinaciones** (sección 2): es lo único que empeoró de una conclusión anterior, por el cambio de flujo aleatorio y no por un cambio de diseño.
+- **Con v3 la decisión no mejora de forma pareja.** La exactitud del emulador mejora claramente en las tres salidas y en las cuatro divisiones, pero la media de lo elegido por las políticas de predecir y elegir sube en unas combinaciones y baja en otras (ver el conteo arriba y las filas por semilla): la decisión elige el mejor de siete cultivos y no depende solo del error medio. No se afirma que v3 decida mejor.
+- **No se adoptó** `data` solo (no mejora la validación) ni `inputs` solo (mejora mucho, pero `data+inputs` mejora más).
+- **v3 no está conectado a la aplicación web**: la interfaz usa el simulador y el emulador v1; v2 y v3 son para la comparación de decisiones. Los artefactos v1 y v2 no se modificaron.
+- **No se hizo:** AquaCrop como segundo juez de las recomendaciones; el margen económico (no hay precios y costos en el juez); el año agrícola 2025 (la serie termina el 2025-12-31); un reentrenamiento con 2019–2021 añadidos; ajustar el diseño del recomendador tras ver la prueba.
+- El juez sigue siendo nuestro simulador y la prueba usa 3 pilotos con 27 y 54 casos casi repetidos entre sí; los conteos son descriptivos, no se calculó significancia.
+
 ## Limitaciones conocidas
 
 - El modelo solo simula agua. No incluye plagas, fertilización, sombra, precios ni mano de obra.
@@ -1169,6 +1359,15 @@ node scripts/referee/compare.mjs --aquacrop <resultados> --bundle web/data/snaps
 node scripts/data/cycle_lengths.mjs --before <raíz de e5a3d49: git archive e5a3d49 web | tar -x -C <raíz>>   # duración de ciclos antes y después de la corrección
 node scripts/referee/pilots.mjs prepare --dir <tmp>  # pilotos y sensibilidad a la lluvia (luego AquaCrop y `score`)
 node scripts/compare/sowing_policy.mjs prepare --dir <tmp>   # decisiones con información previa (luego AquaCrop y `score`; ver scripts/compare/README.md)
+node scripts/compare/train_recommender.mjs --dump    # Tarea 33: tabla de escenarios del recomendador de pérdida de cultivo
+C:/Users/velas/venv_lab4/Scripts/python.exe scripts/gpu/train_recommender.py          # evolución por lotes en GPU, 3 semillas (~5 s cada una)
+node scripts/emulator/generate_v3.mjs                # todos los candidatos con las 47 entradas (samples_v3_all.json, ignorado por git)
+PYTHONPATH=scripts/emulator C:/Users/velas/venv_lab4/Scripts/python.exe scripts/emulator/screen_v2_data_inputs.py   # cribado de datos y entradas (v2_screening.json)
+PYTHONPATH=scripts/emulator C:/Users/velas/venv_lab4/Scripts/python.exe scripts/emulator/train_mlp_v3.py --device cuda --seed 17 --out web/data/emulator_v3_mlp_seed17.json   # idem 29 y 43
+C:/Users/velas/venv_lab4/Scripts/python.exe scripts/gpu/elm_gpu.py v2     # ELM de v2 en GPU; con --samples scripts/emulator/samples_v3_all.json --tag v3 para v3; `coffee` para el café; `check` + node scripts/gpu/check_gpu_training.mjs
+node scripts/compare/aligned_eval.mjs ; node scripts/compare/aligned_eval.mjs --v3     # evaluación alineada v2 y v3
+node scripts/compare/train_recommender.mjs ; node scripts/compare/historical_check.mjs   # evaluación del recomendador y contraste histórico
+node scripts/gpu/doc_tables.mjs gpu                  # las tablas de la sección de GPU, desde los artefactos
 python -m http.server 8765 -d web                    # abrir http://localhost:8765/emulator.html
 ```
 

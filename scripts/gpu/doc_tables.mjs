@@ -169,6 +169,128 @@ ${line('years2019_2024', 'Adicional 2019–2024', n.decision.reference.years2019
 | ELM del café (1500 ocultas) | ${L(SEEDS.map((s) => kj[SEEDS.indexOf(s)]))} | ${L(kg)} | \`coffee_eval.json\` (\`timing.elmSecondsJs\` y \`timing.elmSeconds\`) |
 | ELM en una muestra de ${gc.elm.fitRows} filas de v2 (comprobación) | ${gc.elm.jsSeconds.toFixed(1)} | ${gc.elm.gpuSeconds.toFixed(2)} | \`gpu_checks.json\` |`;
   },
+
+  screening() {
+    const sc = readJson(path.join(root, 'scripts/emulator/v2_screening.json'));
+    const NAMES = { base: 'base (v2 de hoy)', data: 'data (todos los candidatos)', inputs: 'inputs (60 000 + 16 entradas)', 'data+inputs': 'data+inputs' };
+    const L = ['| Candidato | Entradas | Filas de entrenamiento | MSE de validación por semilla 17 / 29 / 43 | MSE medio | R² de validación medio: relYieldA / relYieldB / fit |', '|---|---|---|---|---|---|'];
+    for (const [k, v] of Object.entries(sc.summary)) L.push(`| ${NAMES[k]} | ${v.inputs} | ${v.nTrainRows} | ${v.mseBySeed.map((x) => x.toFixed(4)).join(' / ')} | ${v.meanMSE.toFixed(4)} | ${v.meanR2.map(f3).join(' / ')} |`);
+    const dd = sc.decision;
+    L.push('');
+    L.push(`Regla fijada antes de correr: gana el menor MSE de validación medio de las tres semillas; se adopta solo si mejora a \`base\` en al menos 2 % y ninguna salida empeora su R² de validación en más de 0.01 (medias de las tres semillas); si no, se conserva \`base\`. Resultado: gana **${dd.winner}** con un MSE medio de ${dd.meanMSEWinner.toFixed(4)} frente a ${dd.meanMSEBase.toFixed(4)} de \`base\` (mejora de ${(100 * dd.improvementOverBase).toFixed(1)} %); el menor cambio del R² de validación de una salida frente a \`base\` es ${sg(dd.worstR2ChangeVsBase)} (ninguna empeora). **Se adopta: ${dd.adopt ? 'sí' : 'no'}.**`);
+    L.push('');
+    L.push(`Métrica: error cuadrático medio de las salidas estandarizadas (con la desviación del entrenamiento de \`base\`) sobre las mismas filas de validación para todos los candidatos: las filas de 2017–2018 del reservorio de 60 000 (n = ${sc.meta.metric.match(/n = (\d+)/)[1]}). Receta: la de siempre (\`fit_network\`: embudo n → 64 → 32 → 16 → 3, ReLU, Adam 1e-3, lotes de 256, parada temprana con paciencia 10 sobre 2017–2018). Ninguna fila de prueba (años 2019–2024 y puntos reservados) se usó (\`testRowsUsed\`: ${sc.meta.testRowsUsed}). Épocas y tiempos de cada corrida: \`scripts/emulator/v2_screening.json\` (\`runs\`); las corridas más largas duran hasta ${Math.max(...sc.runs.map((r) => r.trainSeconds)).toFixed(0)} s en CUDA.`);
+    const rel = (a, b) => `${(100 * (1 - sc.summary[b].meanMSE / sc.summary[a].meanMSE)).toFixed(1)} %`;
+    L.push('');
+    L.push(`Lectura: más filas sin más entradas (\`data\`) cambia el MSE de validación ${rel('base', 'data')} frente a \`base\` (reducción; un valor negativo sería un empeoramiento); las entradas nuevas con las mismas 60 000 filas (\`inputs\`) lo reducen ${rel('base', 'inputs')}; las dos juntas lo reducen ${rel('base', 'data+inputs')}.`);
+    return L.join('\n');
+  },
+
+  v3() {
+    const a = d('aligned_eval.json'), b = d('aligned_eval_v3.json'), rec = d('recommender_eval.json');
+    const out = [];
+    out.push('**Exactitud del emulador v2 → v3 por semilla**, sobre **las mismas filas de prueba** (las del reservorio de v2, para que la comparación sea directa). R² de relYieldA / relYieldB / fit; entre paréntesis, el RMSE de relYieldA.\n');
+    out.push('| División (n) | Modelo | Semilla | v2 | v3 |\n|---|---|---|---|---|');
+    for (const sp of ['newYears', 'newPoints']) for (const pol of ['mlp', 'elm']) for (const s of SEEDS) {
+      const x = a.emulator.perSeed[s][pol][sp], y = b.emulator.perSeed[s].onV2Rows[pol][sp];
+      out.push(`| ${sp === 'newYears' ? 'años nuevos' : 'puntos nuevos'} (${x.n}) | ${pol === 'mlp' ? 'red embudo' : 'ELM'} | ${s} | ${x.r2.map(f3).join(' / ')} (${f3(x.rmse[0])}) | ${y.r2.map(f3).join(' / ')} (${f3(y.rmse[0])}) |`);
+    }
+    out.push('');
+    out.push(`En las filas de prueba **de todos los candidatos** (v3 se entrena con todos; ${b.emulator.perSeed[17].mlp.newYears.n} filas en años nuevos y ${b.emulator.perSeed[17].mlp.newPoints.n} en puntos nuevos; los del reservorio son un subconjunto) la red embudo da, en años nuevos, R² de relYieldA ${SEEDS.map((s) => f3(b.emulator.perSeed[s].mlp.newYears.r2[0])).join(' / ')} y en puntos nuevos ${SEEDS.map((s) => f3(b.emulator.perSeed[s].mlp.newPoints.r2[0])).join(' / ')} (semillas 17 / 29 / 43).`);
+    out.push('');
+    out.push('**Decisión tras perder el maíz con las redes v3 (predecir y elegir)**, mismas columnas que las demás tablas. Las filas de v2 se copian de `aligned_eval.json`, las de v3 vienen de `aligned_eval_v3.json`; regla, techo y simulador no cambian.\n');
+    for (const [setName, title] of [['reserved2022_2024', 'Años reservados 2022–2024 (27 casos)'], ['years2019_2024', 'Adicional 2019–2024 (54 casos)']]) {
+      const ref = a.decision.noSeed[setName], n = ref.n;
+      out.push(`*${title}*\n`);
+      out.push(HEAD);
+      out.push(row('Regla agronómica', ref.rule, n));
+      out.push(`| Mejor opción en retrospectiva (techo) | ${f3(ref.oracle.chosenMean)} | | | ${f3(0)} | | | ${Math.round(ref.oracle.executableShare * n)}/${n} | ${ref.oracle.below05}/${n} | ${ref.oracle.departsFromRule}/${n} |`);
+      for (const p of PRI) out.push(row(`Simulador como política (${PN[p]})`, ref.simulator[p], n));
+      for (const [tag, ev] of [['v2', a], ['v3', b]]) for (const [pol, name] of [['mlp', 'red'], ['elm', 'ELM']]) for (const s of SEEDS) for (const p of PRI) out.push(row(`Predecir y elegir: ${name} ${tag}, semilla ${s}, ${PN[p]}`, ev.decision.perSeed[setName][s][pol][p], n));
+      out.push('');
+      const mean = (ev, pol, p) => ev.decision.summary[setName][pol][p].chosenMean;
+      out.push(`Resumen entre semillas (media, mínimo–máximo de la media de lo elegido): ${['mlp', 'elm'].map((pol) => PRI.map((p) => `${pol === 'mlp' ? 'red' : 'ELM'} ${PN[p]}: v2 ${f3(mean(a, pol, p).mean)} (${f3(mean(a, pol, p).min)}–${f3(mean(a, pol, p).max)}) → v3 ${f3(mean(b, pol, p).mean)} (${f3(mean(b, pol, p).min)}–${f3(mean(b, pol, p).max)})`).join('; ')).join('; ')}.\n`);
+    }
+    const cmp = (setName) => { let up = 0, down = 0; for (const s of SEEDS) for (const pol of ['mlp', 'elm']) for (const p of PRI) { const x = a.decision.perSeed[setName][s][pol][p].chosenMean, y = b.decision.perSeed[setName][s][pol][p].chosenMean; if (y > x + 1e-9) up++; else if (y < x - 1e-9) down++; } return { up, down }; };
+    const c27 = cmp('reserved2022_2024'), c54 = cmp('years2019_2024');
+    out.push(`De las 12 combinaciones (semilla × modelo × prioridad), v3 sube la media de lo elegido en ${c27.up} y la baja en ${c27.down} con 27 casos, y la sube en ${c54.up} y la baja en ${c54.down} con 54 casos.`);
+    const best = (setName) => Math.max(...SEEDS.flatMap((s) => PRI.map((p) => rec.decision.perSeed[setName][s][p].chosenMean)));
+    const bestV3 = (setName) => Math.max(...SEEDS.flatMap((s) => ['mlp', 'elm'].flatMap((pol) => PRI.map((p) => b.decision.perSeed[setName][s][pol][p].chosenMean))));
+    out.push('');
+    out.push(`La red que recomienda (reentrenada en GPU) llega, en la mejor de sus seis combinaciones, a ${f3(best('reserved2022_2024'))} (27 casos) y ${f3(best('years2019_2024'))} (54 casos); las políticas de predecir y elegir con v3, a ${f3(bestV3('reserved2022_2024'))} y ${f3(bestV3('years2019_2024'))}.`);
+    return out.join('\n');
+  },
+
+  gpu() {
+    const n = d('recommender_eval.json'), o = gitJson('recommender_eval.json'), gc = d('gpu_checks.json'), sc = readJson(path.join(root, 'scripts/emulator/v2_screening.json')), h = d('historical_check.json');
+    const a = d('aligned_eval.json'), b = d('aligned_eval_v3.json');
+    const cnt = (ev, setName) => { let pos = 0, more = 0; for (const s of SEEDS) for (const p of PRI) { const m = ev.decision.perSeed[setName][s][p]; if (m.meanGainVsRule > 1e-9) pos++; if (m.win > m.loss) more++; } return { pos, more }; };
+    const ptcRange = (setName, ev) => { const v = SEEDS.flatMap((s) => ['mlp', 'elm'].flatMap((k) => PRI.map((p) => ev.decision.reference[setName].predictThenChoose[s][k][p].chosenMean))); return [Math.min(...v), Math.max(...v)]; };
+    const recRange = (setName, ev) => { const v = SEEDS.flatMap((s) => PRI.map((p) => ev.decision.perSeed[setName][s][p].chosenMean)); return [Math.min(...v), Math.max(...v)]; };
+    const r = (x) => `${f3(x[0])}–${f3(x[1])}`;
+    const sets = [['reserved2022_2024', '27 casos de 2022–2024'], ['years2019_2024', '54 casos de 2019–2024']];
+    const concl = sets.map(([k, t]) => { const x = cnt(o, k), y = cnt(n, k); return `- ${t}: la red que recomienda mejoraba la media de la regla en ${x.pos} de las 6 combinaciones (semilla × prioridad) con el entrenamiento en JS y la mejora en ${y.pos} de 6 con el de la GPU; tenía más casos ganados que perdidos en ${x.more} de 6 y ahora en ${y.more} de 6. Rango de la media de lo elegido: ${r(recRange(k, o))} antes y ${r(recRange(k, n))} ahora; predecir y elegir (red v2 y ELM v2, 12 combinaciones): ${r(ptcRange(k, n))}.`; }).join('\n');
+    const ck = SEEDS.map((s) => n.jsVsTorchCheck[s]);
+    const negL = []; for (const [k, t] of sets) for (const s of SEEDS) for (const p of PRI) { const m = n.decision.perSeed[k][s][p]; if (m.meanGainVsRule <= 1e-9) negL.push(`${t.split(' ')[0]} casos, semilla ${s}, ${PN[p]} (${sg(m.meanGainVsRule)})`); }
+    const neg = negL.join('; ');
+    const v3p = readJson(path.join(root, 'web/data/emulator_v3_mlp_seed17.json')).params, v2p = readJson(path.join(root, 'web/data/emulator_v2_mlp_seed17.json')).params;
+    return `## Entrenamiento en GPU y más datos y entradas
+
+15 de noviembre de 2026 (Tarea 33). Tres cosas: (1) el entrenamiento que faltaba pasó a lotes en la GPU; (2) con ello se reentrenó el recomendador de pérdida de cultivo y se midió cuánto cambia; (3) se probó si **más datos y más entradas** mejoran el emulador de siete cultivos (v2), juzgando solo con validación. Todos los números salen de artefactos: \`web/data/recommender_eval.json\`, \`web/data/gpu_checks.json\`, \`web/data/aligned_eval.json\` y \`aligned_eval_v3.json\`, \`web/data/coffee_eval.json\`, \`scripts/emulator/v2_screening.json\`. Seeds 17, 29 y 43; las condiciones son las de \`proyecto/condiciones-comunes.md\` (entrenamiento 2001–2016, validación 2017–2018, prueba 2019–2024 y puntos reservados); ninguna fila de prueba se usó para elegir nada y la prueba se evaluó una sola vez.
+
+### 1. Entrenamiento por lotes en GPU
+
+- **Núcleo compartido** \`scripts/gpu/es_core.py\`: la estrategia de evolución del café (Tarea 32), generalizada. Una generación evalúa los 32 individuos sobre 512 escenarios en una sola operación por lotes (pesos apilados, \`bmm\`), sin bucles de Python por individuo ni por escenario y sin \`.item()\` dentro de la generación. Lo usan el café (\`scripts/coffee/train_es.py\`, ya refactorizado: los pesos de las tres semillas salen idénticos a los de la Tarea 32, \`coffee_recommender.json\` no cambió) y el recomendador de pérdida de cultivo (\`scripts/gpu/train_recommender.py\`; el JS \`scripts/compare/train_recommender.mjs\` arma la tabla, evalúa y escribe los artefactos, y su entrenamiento en JS se conserva como referencia). Mismo diseño: población 32, 8 padres, σ 0.05, elitismo 1, 150 generaciones, 512 escenarios compartidos, las dos prioridades, mejor punto de control en validación, semillas 17/29/43, mismo formato de \`recommender_mlp.json\`. **El flujo aleatorio es el de torch (CUDA), no el de mulberry32 de JS: los números se mueven** (abajo).
+- **Comprobación JS contra PyTorch** (puntajes de las 8 acciones con la regla, \`jsVsTorchCheck\` en \`recommender_eval.json\`): ${SEEDS.map((s, i) => `semilla ${s}: ${ck[i].rows} filas, diferencia máxima ${ck[i].maxScoreDiff.toExponential(1)}, misma recomendación en ${ck[i].sameRecommendation}/${ck[i].rows}`).join('; ')} (tolerancia 1e-5).
+- **ELM en GPU** (\`scripts/gpu/elm_gpu.py\`): la misma ELM de \`trainELM\` con la solución de ridge por \`torch.linalg\` (Cholesky, float64), por bloques de filas. Los pesos ocultos salen del mismo generador mulberry32 (portado de forma vectorizada), de modo que con la misma semilla el modelo es el mismo. Comprobación (\`gpu_checks.json\`, \`scripts/gpu/check_gpu_training.mjs\`): ajuste con ${gc.elm.fitRows} filas de v2 y semilla 42; en ${gc.elm.probeRows} filas la diferencia máxima entre las predicciones de JS y de la GPU es ${gc.elm.maxAbsPredictionDiff.toExponential(1)} (tolerancia ${gc.elm.tolerance}). Se usa donde el ELM se repite por semilla: la evaluación alineada de v2 y de v3 y el café. Los artefactos de v1 no se regeneraron. La evaluación alineada de v2 con los ELM de la GPU da las mismas decisiones que antes (los números cambian solo en el redondeo, del orden de 1e-11).
+
+**Tiempos, medidos** (equipo: ${gc.elm.device}, torch ${gc.elm.torchVersion}; el JS "antes" es el de los artefactos previos; la primera semilla de la GPU incluye el arranque de CUDA):
+
+${pieces.timing()}
+
+En el recomendador de pérdida de cultivo el JS corría las tres semillas a la vez (competencia entre procesos); en la GPU corren una tras otra.
+
+### 2. El recomendador de pérdida de cultivo, antes y ahora
+
+Mismo diseño, otro flujo aleatorio. Las semillas dan resultados distintos entre sí y distintos de la corrida en JS; esta es la variación entre corridas, no un cambio de diseño. Antes = \`recommender_eval.json\` de la Tarea 31 (commit ${OLD}); ahora = el actual.
+
+${oldNew()}
+**¿Cambian las conclusiones?** Sí, en una (la de la regla); la otra se mantiene:
+${concl}
+- **Ya no se puede decir que la red que recomienda mejora a la regla en las seis combinaciones**: con el entrenamiento de la GPU, las combinaciones con ganancia media sobre la regla de cero o menos son ${neg} (ver las tablas). El resultado depende de la semilla.
+- **Sigue sin superar a predecir y elegir**: la mejor combinación de la red que recomienda (${f3(recRange('reserved2022_2024', n)[1])} con 27 casos y ${f3(recRange('years2019_2024', n)[1])} con 54) queda por debajo de la mejor de predecir y elegir (${f3(ptcRange('reserved2022_2024', n)[1])} y ${f3(ptcRange('years2019_2024', n)[1])}).
+- El punto de control que guarda \`recommender_mlp.json\` es ahora el de la semilla ${n.meta.selected.seed} (generación ${n.meta.selected.generation}, aptitud de validación ${f3(n.meta.selected.valFitness)}); \`historical_check.json\` se regeneró con esa red (semilla ${h.meta.network.seed}, generación ${h.meta.network.generation}) y las tablas de la sección de contraste con agricultores son las nuevas; siguen siendo ilustrativas, no una prueba.
+
+### 3. Más datos y más entradas para el emulador de siete cultivos
+
+**Por qué.** La primera salida de v2 (\`relYieldA\`) tenía R² de unos 0.6 en años nuevos y una prueba de tamaño mostró que más parámetros no ayudan. La palanca es más datos o más entradas.
+
+**Candidatos (fijados de antemano), tres semillas cada uno, solo validación 2017–2018.**
+- \`base\`: v2 de hoy, 60 000 muestras (reservorio), 31 entradas.
+- \`data\`: todas las muestras que produce el generador (${sc.meta.samples.candidates}), mismas 31 entradas.
+- \`inputs\`: las 60 000 + 16 entradas nuevas: para el cultivo A y, con la misma definición, para B (ceros si no hay B, si A no termina en el año o si B ya no cabe): lluvia y ET₀ de los 30 días antes de que empiece la ventana de floración, el índice de lluvia antecedente y el balance corrido acotado a 150 mm al día anterior (la lógica de \`apiFlower\` y \`storeProxy\` de v1 con el Kc del propio cultivo), lluvia y déficit climático dentro de la ventana de floración, los días del ciclo simulado por grados-día y los días que quedan al fin del año agrícola en la siembra (\`web/js/model/emulatorV3.js\`).
+- \`data+inputs\`: las dos cosas.
+
+**Qué período cubre cada entrada nueva** (importante). Son entradas de una **temporada conocida** (retrospectiva), igual que \`rainYear\` o \`caniculaDays\` de v2: usan el clima diario del año agrícola (1 de abril a 31 de marzo) del paquete de datos, la ET₀ calculada de ese clima, los parámetros del cultivo y el día de siembra. La lluvia y la ET₀ se leen del 1 de abril hasta el último día de la ventana de floración (la de antes de la floración, la de dentro de ella); la temperatura diaria, que fija la duración del ciclo y por tanto la ventana, se lee de la siembra a la cosecha. **No usan ninguna salida del simulador** (ni balance de agua del suelo, ni Ks, ni rendimiento) ni nada posterior al 31 de marzo del año agrícola; \`storeProxy\` es el indicador sin suelo de v1, no el balance del simulador. Hay pruebas hechas a mano (\`tests/emulator_v3.test.mjs\`) que alteran la lluvia y la ET₀ posteriores a la floración, la temperatura posterior a la cosecha y todo lo posterior al 31 de marzo, y las entradas no cambian. En la decisión tras perder el maíz estas entradas se calculan sobre años pasados completos (como ya hacían las de v2), así que el modelo no ve la temporada que decide.
+
+**Resultado del cribado** (solo validación; MSE de las salidas estandarizadas sobre las mismas filas de validación para todos):
+
+${pieces.screening()}
+
+**Adoptado: \`data+inputs\` (v3).** Se regeneraron las muestras (\`scripts/emulator/generate_v3.mjs\`: todos los candidatos, con las 47 entradas), se entrenaron las tres semillas en CUDA (\`scripts/emulator/train_mlp_v3.py\`; no se instaló nada en el entorno de CUDA) y se escribieron \`web/data/emulator_v3_mlp_seed{17,29,43}.json\` (y \`emulator_v3_mlp.json\`, semilla 42) junto a los de v2, que no se tocaron. La red es la misma receta con 47 entradas (${b.meta.features} entradas, ${v3p} parámetros; la de v2, 31 entradas y ${v2p}). Evaluación de prueba, una sola vez (\`aligned_eval_v3.json\`):
+
+${pieces.v3()}
+
+### 4. Qué empeoró, qué no se adoptó y límites
+
+- **La red que recomienda ya no gana a la regla en las seis combinaciones** (sección 2): es lo único que empeoró de una conclusión anterior, por el cambio de flujo aleatorio y no por un cambio de diseño.
+- **Con v3 la decisión no mejora de forma pareja.** La exactitud del emulador mejora claramente en las tres salidas y en las cuatro divisiones, pero la media de lo elegido por las políticas de predecir y elegir sube en unas combinaciones y baja en otras (ver el conteo arriba y las filas por semilla): la decisión elige el mejor de siete cultivos y no depende solo del error medio. No se afirma que v3 decida mejor.
+- **No se adoptó** \`data\` solo (no mejora la validación) ni \`inputs\` solo (mejora mucho, pero \`data+inputs\` mejora más).
+- **v3 no está conectado a la aplicación web**: la interfaz usa el simulador y el emulador v1; v2 y v3 son para la comparación de decisiones. Los artefactos v1 y v2 no se modificaron.
+- **No se hizo:** AquaCrop como segundo juez de las recomendaciones; el margen económico (no hay precios y costos en el juez); el año agrícola 2025 (la serie termina el 2025-12-31); un reentrenamiento con 2019–2021 añadidos; ajustar el diseño del recomendador tras ver la prueba.
+- El juez sigue siendo nuestro simulador y la prueba usa 3 pilotos con 27 y 54 casos casi repetidos entre sí; los conteos son descriptivos, no se calculó significancia.
+`;
+  },
 };
 
 const piece = process.argv[2];
