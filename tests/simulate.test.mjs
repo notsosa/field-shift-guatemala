@@ -75,3 +75,64 @@ test('sowOffsetDays fuera del año agrícola queda acotado', () => {
   assert.equal(early.crops[0].sowDate, '2001-04-01');
   assert.equal(late.crops[0].sowDate, '2002-03-31');
 });
+
+// ---- Tarea 15b: respuesta del rendimiento por etapa (FAO-33) ----
+import { buildPhase } from '../web/js/model/phenology.js';
+import { stageYield } from '../web/js/model/simulate.js';
+
+const maiz = crops.get('maiz');
+const synPhase = buildPhase(maiz, 10, Array(365).fill(26)); // ini 20, dev 35, mid 40, late 25 días
+const synN = 365;
+const synEt0 = Array(synN).fill(4);
+const ksWith = (lo, hi, v) => Array.from({ length: synN }, (_, i) => (i >= lo && i <= hi ? v : 1));
+const [fa, fb] = synPhase.floweringIdx;
+const windows = {
+  veg: [synPhase.sowIdx, synPhase.endIdx.dev],
+  flower: [fa, fb],
+  yieldForm: [fb + 1, synPhase.endIdx.mid],
+  ripen: [synPhase.endIdx.mid + 1, synPhase.harvestIdx],
+};
+const syn = (crop, ks) => stageYield(crop, synPhase, { et0: synEt0, ks });
+
+test('stageYield: sin estrés relYield = relYieldSeasonal = 1', () => {
+  const r = syn(maiz, ksWith(0, 0, 1));
+  assert.equal(r.relYield, 1);
+  assert.equal(r.relYieldSeasonal, 1);
+});
+test('stageYield: déficit solo en floración (ratio 0.5): 1 − 1.5·0.5 = 0.25, menor que el estacional', () => {
+  const r = syn(maiz, ksWith(...windows.flower, 0.5));
+  assert.ok(Math.abs(r.relYield - 0.25) < 1e-9);
+  assert.ok(r.relYield < r.relYieldSeasonal);
+  assert.ok(Math.abs(r.stageRatios.flower - 0.5) < 1e-9);
+  assert.equal(r.stageRatios.veg, 1);
+});
+test('stageYield: el mismo déficit en la etapa vegetativa: 1 − 0.4·0.5 = 0.8', () => {
+  const r = syn(maiz, ksWith(...windows.veg, 0.5));
+  assert.ok(Math.abs(r.relYield - 0.8) < 1e-9);
+});
+test('stageYield: dos etapas con estrés se multiplican', () => {
+  const ks = ksWith(0, 0, 1);
+  for (const [lo, hi] of [windows.veg, windows.yieldForm]) for (let i = lo; i <= hi; i++) ks[i] = 0.5;
+  const r = syn(maiz, ks);
+  assert.ok(Math.abs(r.relYield - (1 - 0.4 * 0.5) * (1 - 0.5 * 0.5)) < 1e-9); // 0.8 · 0.75 = 0.6
+});
+test('stageYield: kyStages null → relYield === relYieldSeasonal (fórmula estacional)', () => {
+  const sorgo = crops.get('sorgo');
+  const ph = buildPhase(sorgo, 10, Array(365).fill(26));
+  const ks = Array.from({ length: synN }, (_, i) => (i % 3 === 0 ? 0.6 : 1));
+  const r = stageYield(sorgo, ph, { et0: synEt0, ks });
+  assert.equal(r.relYield, r.relYieldSeasonal);
+  assert.ok(r.relYield < 1);
+  assert.equal(r.stageRatios, null);
+});
+test('stageYield: mucuna sin ky → relYield null', () => {
+  const m = crops.get('mucuna');
+  const r = stageYield(m, buildPhase(m, 10, Array(365).fill(26)), { et0: synEt0, ks: ksWith(0, 0, 1) });
+  assert.equal(r.relYield, null);
+  assert.equal(r.relYieldSeasonal, null);
+});
+test('runSequence: CropYear trae relYieldSeasonal y stageRatios', () => {
+  const c = run('actual')[0].crops[0];
+  assert.equal(typeof c.relYieldSeasonal, 'number');
+  assert.deepEqual(Object.keys(c.stageRatios), ['veg', 'flower', 'yieldForm', 'ripen']);
+});

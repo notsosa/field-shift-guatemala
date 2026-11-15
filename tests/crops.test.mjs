@@ -26,3 +26,15 @@ test('secuencias referencian cultivos existentes', () => {
   assert.equal(seqs.extra_riego.requiresIrrigation, true);
   assert.deepEqual(seqs.proteger.phases[1], { cropId: 'mucuna', sow: { relayOf: 0, daysAfterSow: 60 } });
 });
+test('kyStages sin sources.kyStages es rechazado, nombrando el id', () =>
+  assert.throws(() => loadCrops([{ ...base, id: 'kysin', kyStages: { veg: 0.4, flower: 1.5, yieldForm: 0.5, ripen: 0.2 } }]), /kysin/));
+test('kyStages con fuente es aceptado; null no exige fuente', () => {
+  const ok = { ...base, kyStages: { veg: 0.4, flower: 1.5, yieldForm: 0.5, ripen: 0.2 }, sources: { agro: 'x', kyStages: 'FAO-33' } };
+  assert.equal(loadCrops([ok, { ...base, id: 'y', kyStages: null }]).size, 2);
+});
+test('catálogo: maíz y frijol con Ky por etapa verificado; el resto null', () => {
+  const m = loadCrops(json);
+  assert.deepEqual(m.get('maiz').kyStages, { veg: 0.4, flower: 1.5, yieldForm: 0.5, ripen: 0.2 });
+  assert.deepEqual(m.get('frijol').kyStages, { veg: 0.2, flower: 1.1, yieldForm: 0.75, ripen: 0.2 });
+  for (const id of ['sorgo', 'ajonjoli', 'sandia', 'melon', 'tomate', 'mucuna']) assert.equal(m.get(id).kyStages, null);
+});

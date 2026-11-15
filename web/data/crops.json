@@ -29,7 +29,14 @@
     "sources": {
       "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
       "days": "ICTA, publicaciones de maíz (ciclo ~120 d en tierras bajas) https://www.icta.gob.gt/publicacionesdemaiz",
-      "econ": null
+      "econ": null,
+      "kyStages": "FAO-66 (Steduto et al., 2012) cap. 2, fig. 1 y cuadro de comparación FAO/IAEA: Ky por etapa de FAO-33 (vegetativa 0.4, floración 1.5, formación 0.5, maduración 0.2) https://www.fao.org/4/i2800e/i2800e02.pdf"
+    },
+    "kyStages": {
+      "veg": 0.4,
+      "flower": 1.5,
+      "yieldForm": 0.5,
+      "ripen": 0.2
     }
   },
   {
@@ -62,7 +69,14 @@
     "sources": {
       "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
       "days": "ICTA, Manual de producción de frijol 2022, cuadro 1 p. 8 (Ligero: 29–30 d a floración, 64–70 d a cosecha) https://www.icta.gob.gt/publicaciones/Frijol/Manual%20de%20producci%C3%B3n%20de%20frijol%20ICTA.pdf",
-      "econ": null
+      "econ": null,
+      "kyStages": "FAO-66 cap. 2, cuadro de comparación FAO/IAEA, y IAEA/FAO Water Reports 22 (Deficit irrigation practices) cuadro 1: Ky de FAO-33 para frijol (vegetativa 0.20, floración 1.10, formación 0.75, maduración 0.20) https://www.fao.org/4/Y3655E/y3655e04.htm"
+    },
+    "kyStages": {
+      "veg": 0.2,
+      "flower": 1.1,
+      "yieldForm": 0.75,
+      "ripen": 0.2
     }
   },
   {
@@ -96,7 +110,8 @@
       "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
       "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
       "econ": null
-    }
+    },
+    "kyStages": null
   },
   {
     "id": "ajonjoli",
@@ -131,7 +146,8 @@
       "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
       "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
       "econ": null
-    }
+    },
+    "kyStages": null
   },
   {
     "id": "sandia",
@@ -164,7 +180,8 @@
       "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
       "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
       "econ": null
-    }
+    },
+    "kyStages": null
   },
   {
     "id": "melon",
@@ -199,7 +216,8 @@
       "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
       "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
       "econ": null
-    }
+    },
+    "kyStages": null
   },
   {
     "id": "tomate",
@@ -232,7 +250,8 @@
       "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional",
       "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
       "econ": null
-    }
+    },
+    "kyStages": null
   },
   {
     "id": "mucuna",
@@ -270,6 +289,7 @@
       "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p); FAO-33 (Doorenbos & Kassam, 1979) Ky estacional; valores de soya como proxy",
       "days": "FAO-56 cuadro 11 (duración de etapas), ajustado a tierras bajas",
       "econ": null
-    }
+    },
+    "kyStages": null
   }
 ]
