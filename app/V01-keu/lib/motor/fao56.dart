@@ -283,10 +283,14 @@ List<EstadoDia> simularBalance({
 }
 
 /// Factor de rendimiento por agua de FAO-33: 1 − Ky · (1 − ETa/ETc).
+///
+/// Solo suma los días dentro del ciclo (de la siembra a la cosecha): después de
+/// cosechar el cultivo ya no usa agua y esos días no cuentan como estrés.
 double? factorRendimiento(List<EstadoDia> dias, double? ky) {
-  if (ky == null || dias.isEmpty) return null;
-  final etc = dias.fold<double>(0, (a, d) => a + d.etc);
-  final eta = dias.fold<double>(0, (a, d) => a + d.eta);
+  final ciclo = dias.where((d) => d.etapa != Etapa.cosechado);
+  if (ky == null || ciclo.isEmpty) return null;
+  final etc = ciclo.fold<double>(0, (a, d) => a + d.etc);
+  final eta = ciclo.fold<double>(0, (a, d) => a + d.eta);
   if (etc <= 0) return null;
   return (1 - ky * (1 - eta / etc)).clamp(0.0, 1.0);
 }

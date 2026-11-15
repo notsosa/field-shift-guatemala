@@ -127,6 +127,19 @@ void main() {
       expect(r[19].drenaje, greaterThan(0));
       expect(r[19].agotamientoSubsuelo, lessThan(0.5 * 150 * (1.0 - r[19].aguaTotal / 150)));
     });
+
+    test('el factor de rendimiento no cambia cuando pasan los días después de la cosecha', () {
+      final dias = _dias(160, lluvia: 3.5); // el ciclo de 120 días termina el 28 de septiembre
+      final alCosechar = simularBalance(
+        dias: dias.sublist(0, 120), siembra: DateTime(2026, 6, 1), cultivo: maiz, ciclo: 120, aguaDisponible: 150,
+      );
+      final despues = simularBalance(
+        dias: dias, siembra: DateTime(2026, 6, 1), cultivo: maiz, ciclo: 120, aguaDisponible: 150,
+      );
+      expect(despues.last.etapa, Etapa.cosechado);
+      expect(factorRendimiento(alCosechar, maiz.ky)!, inExclusiveRange(0.05, 0.95));
+      expect(factorRendimiento(despues, maiz.ky), closeTo(factorRendimiento(alCosechar, maiz.ky)!, 1e-12));
+    });
   });
 
   group('recomendador', () {
@@ -193,6 +206,18 @@ void main() {
       );
       expect(r.diasEstimados, 10);
       expect(r.ultimoClima, DateTime(2026, 7, 10));
+    });
+
+    test('el factor de rendimiento de la recomendación no depende de cuánto pasó después de la cosecha', () {
+      Recomendacion en(DateTime dia) => recomendar(
+            parcela: parcela, plantacion: plantacion(riego: TipoRiego.ninguno),
+            clima: _clima(dia.difference(DateTime(2026, 6, 1)).inDays + 1, DateTime(2026, 6, 1), lluvia: 3.5),
+            registros: [], hoy: dia,
+          );
+      final enCosecha = en(DateTime(2026, 9, 28));
+      final despues = en(DateTime(2026, 10, 25));
+      expect(enCosecha.factorRendimiento!, inExclusiveRange(0.05, 0.95));
+      expect(despues.factorRendimiento, closeTo(enCosecha.factorRendimiento!, 1e-12));
     });
 
     group('lluvia sin dato', () {
