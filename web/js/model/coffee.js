@@ -142,3 +142,75 @@ export function abonoNotice({ dates, rain, t, dr, taw, p }) {
   const moist = dr < raw && rain7 >= ABONO.rainMm;
   return { notice: 'abono', level: inWindow && moist ? 'apply_now' : 'wait', triggers: { month: m, inWindow, dr, raw, rain7, moist }, sourceKey: inWindow && moist ? 'abono_ventanas' : 'abono_suelo_seco', confidence: 'alta (Anacafe)' };
 }
+
+// --- Parte C: decisión de riego (20 mm ahora o no) a 30, 60 y 90 días tras la floración ---
+export const IRRIGATION_MM = 20; // única lámina con ensayo centroamericano en las notas (una finca, Nicaragua)
+export const HORIZON_DAYS = 30; // se puntúa el estrés de los 30 días siguientes al día de la decisión
+export const DECISION_DAYS = [30, 60, 90];
+export const PRICE = { 0: 3, 1: 1 }; // prioridad 0 = ahorrar agua y trabajo (3 días de estrés); 1 = proteger el cultivo (1 día). Convenciones.
+export const DRY_DAY_MM = 1;
+export const STATE_NAMES = [
+  'daysSinceFlowering', 'doy', 'rain7', 'et0_7', 'rain28', 'et0_28', 'rainSinceNov1', 'et0SinceNov1', 'dryspell28',
+  'tmean28', 'tmaxMax28', 'runningDepletion', 'soilAWmm', 'elevation', 'shadeTrees', 'deciduous',
+];
+/** Utilidad de regar = días de estrés evitados − precio; no regar = 0. */
+export const irrigationUtility = (avoided, priority) => avoided - PRICE[priority];
+
+const dayOfYear = (date) => { const [y, m, d] = date.split('-').map(Number); return Math.round((Date.UTC(y, m - 1, d) - Date.UTC(y, 0, 0)) / 864e5); };
+function maxDryRun(rain, lo, hi) {
+  let best = 0, cur = 0;
+  for (let i = lo; i <= hi; i++) { cur = rain[i] < DRY_DAY_MM ? cur + 1 : 0; if (cur > best) best = cur; }
+  return best;
+}
+
+/**
+ * Balance corrido acotado desde el 1 de noviembre del año cafetalero (regla fijada): D = 0 (suelo a capacidad de campo) el 1 de noviembre y,
+ * cada día, D ← min(TAW, max(0, D + Kc·ET0 − lluvia)) con Kc = 0.95 (el del café). Sin escorrentía, sin sombra, sin riego pasado: solo datos observables.
+ * Devuelve D (mm) al final del día t. Solo mira hasta t.
+ */
+export function runningDepletion({ rain, et0, nov1Idx, t, taw, kc }) {
+  let d = 0;
+  for (let i = nov1Idx; i <= t; i++) d = Math.min(taw, Math.max(0, d + kc * et0[i] - rain[i]));
+  return d;
+}
+
+/**
+ * Entradas del día de la decisión t (índice en la serie diaria). Los arreglos diarios se cortan en t: nada posterior entra.
+ * floweringIdx = floración del año (ya conocida el día t, que es ≥ 30 días después). Devuelve { state (STATE_NAMES), depletion, taw }.
+ */
+export function coffeeDecisionState({ dates, rain, et0, tmax, tmin, t, year, floweringIdx, soil, crop, elevation, shade, treeType }) {
+  const cut = (a) => a.slice(0, t + 1);
+  const d = cut(dates), r = cut(rain), e = cut(et0), tx = cut(tmax), tn = cut(tmin);
+  const nov1 = d.indexOf(`${year}-11-01`);
+  const taw = 1000 * (soil.thetaFC - soil.thetaWP) * crop.zrMax;
+  const depletion = runningDepletion({ rain: r, et0: e, nov1Idx: nov1, t, taw, kc: crop.kc.mid });
+  let tm = 0, tmx = -Infinity;
+  for (let i = t - 27; i <= t; i++) { tm += (tx[i] + tn[i]) / 2; if (tx[i] > tmx) tmx = tx[i]; }
+  const state = [
+    t - floweringIdx, dayOfYear(d[t]), sum(r, t - 6, t), sum(e, t - 6, t), sum(r, t - 27, t), sum(e, t - 27, t), sum(r, nov1, t), sum(e, nov1, t),
+    maxDryRun(r, t - 27, t), tm / 28, tmx, depletion, taw, elevation, shade === 'trees' ? 1 : 0, shade === 'trees' && treeType === 'deciduous' ? 1 : 0,
+  ];
+  return { state, depletion, taw };
+}
+
+/** La regla: regar si el balance corrido dice que la zona radicular gastó más de p (0.40) de su agua disponible (FAO-56). */
+export const ruleIrrigates = (depletion, taw, p) => depletion > p * taw;
+
+/**
+ * Contrafactual desde el estado del día t (de la corrida continua `sim` sin riego): los 30 días siguientes sin riego y regando 20 mm al final del día t.
+ * Estrés = días con Ks < 1. El riego sobre lo que falta se pierde hacia el subsuelo (que en este perfil, Zp = Zr, no tiene capacidad).
+ */
+export function counterfactual({ dates, rain, et0, crops, texture, shade, treeType, sim, t, slopeClass = 'flat', irrigationMm = IRRIGATION_MM, horizon = HORIZON_DAYS }) {
+  const lo = t + 1, hi = t + horizon;
+  if (hi >= rain.length) throw new Error('counterfactual: the 30-day window goes past the end of the series');
+  const run = (mm) => {
+    const dr0 = Math.max(0, sim.dr[t] - mm);
+    const excess = Math.max(0, mm - sim.dr[t]);
+    const ds0 = Math.max(0, sim.ds[t] - excess);
+    const w = simulateCoffee({ dates: dates.slice(lo, hi + 1), rain: rain.slice(lo, hi + 1), et0: et0.slice(lo, hi + 1), crops, texture, shade, treeType, slopeClass, drInit: dr0, dsInit: ds0 });
+    const m = stressOver(w, 0, horizon - 1);
+    return { stressDays: m.stressDays, etaOverEtc: m.etaOverEtc };
+  };
+  const no = run(0), yes = run(irrigationMm);
+  return { stressNo: no.stressDays, stressYes: yes.stressDays, stressDaysAvoided: no.stressDays - yes.stressDays, etaOverEtcNo: no.etaOverEtc, etaOverEtcYes: yes.etaOverEtc };
+}

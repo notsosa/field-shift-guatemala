@@ -11,3 +11,6 @@ scripts/emulator/screening_superset.json
 # Scratch work of the decision comparison (the committed result is web/data/decision_eval.json)
 scripts/compare/out/
 scripts/emulator/samples_v2.json
+
+# café: tabla de escenarios y salidas intermedias (se regeneran)
+scripts/coffee/cache/
