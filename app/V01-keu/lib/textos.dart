@@ -79,6 +79,11 @@ class Txt {
         'frijol' => _('Frijol', 'Beans'),
         'tomate' => _('Tomate', 'Tomato'),
         'cafe' => _('Café', 'Coffee'),
+        'ajonjoli' => _('Ajonjolí', 'Sesame'),
+        'papa' => _('Papa', 'Potato'),
+        'cebolla' => _('Cebolla', 'Onion'),
+        'brocoli' => _('Brócoli', 'Broccoli'),
+        'lechuga' => _('Lechuga', 'Lettuce'),
         _ => id,
       };
 
@@ -119,6 +124,33 @@ class Txt {
       };
 
   String get tipoPlaga => _('Tipo de plaga', 'Pest type');
+  String get verFuente => _('Ver fuente y detalle', 'See source and details');
+  String get notaRegistroNoPresencia => _(
+      'Un registro documentado en Guatemala no significa que la plaga esté presente en esta parcela.',
+      'A documented record in Guatemala does not mean the pest is present in this plot.');
+  String get sinRegistroLocal => _(
+      'El equipo aún no tiene un registro local confirmado de plagas para este cultivo.',
+      'The team has no confirmed local pest record for this crop yet.');
+  String get notaListaCaficultor => _(
+      'Lista reportada por un caficultor; no son registros con fuente.',
+      'List reported by a coffee grower; these are not sourced records.');
+  String get origenInvestigacion => _('Registro documentado por el equipo', 'Record documented by the team');
+  String get origenCaficultor => _('Reportado por un caficultor', 'Reported by a coffee grower');
+  String get detalleCaficultor => _(
+      'Esta plaga la nombró un caficultor. No es un registro con fuente: el equipo aún no tiene un documento que la respalde.',
+      'This pest was named by a coffee grower. It is not a sourced record: the team does not have a document backing it yet.');
+  String get plagaSinInformacion => _('No hay información de esta plaga.', 'There is no information on this pest.');
+  String registrosDocumentados(int n) => n == 1
+      ? _('Registro documentado', 'Documented record')
+      : _('$n registros documentados', '$n documented records');
+  String resolucionTaxon(String r) => r == 'grupo'
+      ? _('Identificado solo a nivel de género', 'Identified only to genus level')
+      : _('Identificado a nivel de especie', 'Identified to species level');
+  String get danio => _('Daño', 'Damage');
+  String get dondeDocumentado => _('Dónde se documentó', 'Where it was documented');
+  String get cuandoDocumentado => _('Cuándo', 'When');
+  String get fuente => _('Fuente', 'Source');
+  String get limiteRegistro => _('Límite del registro', 'Limit of the record');
   /// Nombre del tipo de plaga; si el id no tiene nombre en los datos se muestra el id.
   String nombreTipoPlaga(String id) {
     final t = tipoPlagaPorId(id);
@@ -285,8 +317,13 @@ class Txt {
         ),
         (
           _('Cultivos', 'Crops'),
-          _('Coeficientes de cultivo, raíces y etapas de FAO-56; variedades y ciclos del ICTA para maíz y frijol.',
-              'Crop coefficients, roots and stages from FAO-56; ICTA varieties and cycles for maize and beans.')
+          _('Coeficientes de cultivo, raíces y etapas de FAO-56; variedades y ciclos del ICTA para maíz y frijol. Ajonjolí, papa, cebolla, brócoli y lechuga usan los valores del equipo; el factor de sensibilidad al agua del ajonjolí, el brócoli y la lechuga es de un cultivo parecido (proxy).',
+              'Crop coefficients, roots and stages from FAO-56; ICTA varieties and cycles for maize and beans. Sesame, potato, onion, broccoli and lettuce use the team values; the water-sensitivity factor for sesame, broccoli and lettuce comes from a similar crop (proxy).')
+        ),
+        (
+          _('Plagas', 'Pests'),
+          _('Las plagas listadas son registros locales documentados por la investigación del equipo, con su fuente, lugar y fecha. Un registro no significa que la plaga esté en tu parcela, y la app no predice plagas ni recomienda tratamientos.',
+              'The pests listed are local records documented by the team research, with their source, place and date. A record does not mean the pest is in your plot, and the app does not predict pests or recommend treatments.')
         ),
         (
           _('Límites', 'Limits'),

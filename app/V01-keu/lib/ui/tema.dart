@@ -238,7 +238,10 @@ class Grupo extends StatelessWidget {
       child: Tarjeta(
         padding: const EdgeInsets.symmetric(vertical: 4),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+
           children: [
+
             for (var i = 0; i < children.length; i++) ...[if (i > 0) linea, children[i]],
           ],
         ),

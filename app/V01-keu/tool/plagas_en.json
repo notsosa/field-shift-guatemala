@@ -1,0 +1,90 @@
+{
+  "_nota": "Traducción al inglés, hecha a mano, de los textos de plagas_confirmadas.json. Una entrada por id de registro. Los nombres de taxón no se traducen. Si un registro nuevo no tiene entrada aquí, el generador deja el texto en español y lo avisa.",
+  "etapa": { "campo": "field" },
+  "registros": {
+    "maiz-06": {
+      "nombre": "Maize mite",
+      "danio": "Leaves",
+      "lugar": "Quetzaltenango and Totonicapán",
+      "periodo": "2023",
+      "limite": "ICTA/VISAR diagnosis; do not infer presence in Chiquimula."
+    },
+    "frijol-01": {
+      "nombre": "Flower thrips",
+      "danio": "Flowers and pods",
+      "lugar": "Petén, El Progreso, Zacapa and Chimaltenango (2022 sampling); San Jerónimo, Baja Verapaz (study described by ICTA)",
+      "periodo": "2022",
+      "limite": "The ICTA page describes 2022 sampling and observations in beans. Its damage percentages are not extrapolated to other localities."
+    },
+    "frijol-08": {
+      "nombre": "Leaf miner fly",
+      "danio": "Leaf mines",
+      "lugar": "Guatemala department",
+      "periodo": "1997",
+      "limite": "Historical taxonomic record on Phaseolus vulgaris; Guatemala department. The name from the identification of that time is kept."
+    },
+    "frijol-20": {
+      "nombre": "Leaf miner fly",
+      "danio": "Leaf mines",
+      "lugar": "Guatemala department",
+      "periodo": "1997",
+      "limite": "Historical record on Phaseolus vulgaris; name used in the article, without current molecular review."
+    },
+    "cebolla-01": {
+      "nombre": "Onion thrips",
+      "danio": "Leaves",
+      "lugar": "Jutiapa, Jalapa and Huehuetenango",
+      "periodo": "January 2007",
+      "limite": "19 onion samples, 11 of them for entomology. This does not equal 11 farms and does not estimate prevalence."
+    },
+    "cebolla-02": {
+      "nombre": "Leaf miner fly",
+      "danio": "Leaf mines",
+      "lugar": "Chimaltenango (2000 trial); Chimaltenango, Sololá and Quetzaltenango (UVG table, 1997)",
+      "periodo": "1997 and 2000",
+      "limite": "Two local sources: a historical UVG identification and an ICTA/JICA trial. One crop–taxon relationship, without duplicating records."
+    },
+    "brocoli-01": {
+      "nombre": "Diamondback moth",
+      "danio": "Leaves and inflorescence",
+      "lugar": "Central and western highlands of Guatemala; regional precision, without fixing the individual trial site here",
+      "periodo": "February–November 2006, EPS period",
+      "limite": "The original abstract describes an evaluation against this species in broccoli. Access to the full text is limited; each EPS locality is not assigned to the trial."
+    },
+    "brocoli-02": {
+      "nombre": "White grub",
+      "danio": "Roots",
+      "lugar": "Xecoíl, Santa Apolonia, Chimaltenango",
+      "periodo": "August–November 1998",
+      "limite": "Historical record with prior sampling in the plots. P. obsoleta and P. menetriesi remain as detail of the complex, without adding entries."
+    },
+    "brocoli-04": {
+      "nombre": "Leaf miner fly",
+      "danio": "Leaf mines",
+      "lugar": "Chimaltenango",
+      "periodo": "1997",
+      "limite": "Historical record; name from the identification of that time. Original table inspected visually."
+    },
+    "lechuga-01": {
+      "nombre": "Aphid",
+      "danio": "Trial plants",
+      "lugar": "Pachalí, San Juan Sacatepéquez",
+      "periodo": "2004",
+      "limite": "Observation during a hydroponic trial; not identified to species."
+    },
+    "lechuga-02": {
+      "nombre": "Thrips",
+      "danio": "Catches in lettuce monitoring",
+      "lugar": "Finca Bejo, Parramos, Chimaltenango",
+      "periodo": "Fieldwork 2016; thesis 2017",
+      "limite": "Monitoring results; the author assigns the species, with no located detail of keys or reference specimens."
+    },
+    "lechuga-03": {
+      "nombre": "Leaf miner fly",
+      "danio": "Leaf mines",
+      "lugar": "Chimaltenango",
+      "periodo": "1997",
+      "limite": "Historical record with taxonomic identification; it does not show current frequency or presence in Chiquimula."
+    }
+  }
+}

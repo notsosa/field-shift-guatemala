@@ -8,8 +8,8 @@ void main() {
       expect(tiposPlaga('cafe'), ['roya', 'minador', 'antracnosis', 'otra']);
     });
 
-    test('los demás cultivos solo ofrecen otra / sin especificar por ahora', () {
-      for (final c in catalogo.where((c) => c.id != 'cafe')) {
+    test('los cultivos sin lista propia solo ofrecen otra', () {
+      for (final c in catalogo.where((c) => !tiposPlagaPorCultivo.containsKey(c.id))) {
         expect(tiposPlaga(c.id), ['otra'], reason: c.id);
       }
     });

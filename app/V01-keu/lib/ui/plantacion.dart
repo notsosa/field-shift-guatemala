@@ -2,6 +2,7 @@ import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../estado.dart';
 import '../modelos.dart';
+import 'plagas.dart';
 import 'tema.dart';
 
 /// Información de la plantación: cultivo, fecha, suelo, riego y manejo.
@@ -113,7 +114,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
       temporadaRiego: _temporada,
       plagaReciente: _plaga,
       notaPlaga: _plaga ? _notaPlaga.text.trim() : '',
-      tipoPlaga: !_plaga || tipos.length < 2 ? '' : (_tipoPlaga ?? tipos.last),
+      tipoPlaga: !_plaga ? '' : (tipos.contains(_tipoPlaga) ? _tipoPlaga! : tipos.last),
       fertilizo: _fertilizo,
     ));
     estado.sincronizar();
@@ -165,7 +166,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
                         final_: Icon(
                           c.id == _cultivo ? CupertinoIcons.checkmark_circle_fill : CupertinoIcons.circle,
                           size: 24,
-                          color: c.id == _cultivo ? verde : Paleta.de(context, Paleta.tenue),
+                          color: c.id == _cultivo ? verde : Paleta.de(context, Paleta.secundario),
                         ),
                         alPulsar: () => _elegirCultivo(c.id),
                       ),
@@ -203,7 +204,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
                         final_: Icon(
                           r == _riego ? CupertinoIcons.checkmark_circle_fill : CupertinoIcons.circle,
                           size: 24,
-                          color: r == _riego ? verde : Paleta.de(context, Paleta.tenue),
+                          color: r == _riego ? verde : Paleta.de(context, Paleta.secundario),
                         ),
                         alPulsar: () => setState(() => _riego = r),
                       ),
@@ -227,14 +228,11 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
                         onChanged: (v) => setState(() => _plaga = v),
                       ),
                     ),
-                    if (_plaga && tipos.length > 1)
-                      bloque(
-                        t.tipoPlaga,
-                        Selector<String>(
-                          opciones: {for (final id in tipos) id: t.nombreTipoPlaga(id)},
-                          valor: tipos.contains(_tipoPlaga) ? _tipoPlaga! : tipos.last,
-                          alCambiar: (v) => setState(() => _tipoPlaga = v),
-                        ),
+                    if (_plaga)
+                      ListaPlagas(
+                        cultivoId: _cultivo,
+                        valor: tipos.contains(_tipoPlaga) ? _tipoPlaga! : tipos.last,
+                        alCambiar: (v) => setState(() => _tipoPlaga = v),
                       ),
                     if (_plaga) Campo(titulo: t.cualPlaga, controlador: _notaPlaga, ejemplo: t.notaOpcional),
                     Fila(

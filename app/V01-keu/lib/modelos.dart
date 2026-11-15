@@ -3,6 +3,9 @@ library;
 
 import 'motor/fao56.dart';
 
+export 'plagas.dart';
+export 'plagas_tipos.dart';
+
 DateTime soloFecha(DateTime f) => DateTime(f.year, f.month, f.day);
 
 String _iso(DateTime f) =>
@@ -111,48 +114,6 @@ const catalogo = <Cultivo>[
     ),
   ),
 ];
-
-/// Un tipo de plaga o enfermedad con su nombre en español e inglés.
-class TipoPlaga {
-  const TipoPlaga(this.id, this.es, this.en);
-
-  final String id;
-  final String es;
-  final String en;
-}
-
-const _otraPlaga = TipoPlaga('otra', 'Otra', 'Other');
-
-/// Tipos de plaga o enfermedad que el productor puede elegir al reportarla, por
-/// cultivo, con sus nombres en ES/EN. Café: lo que nombró un caficultor (roya,
-/// minador, antracnosis).
-/// PENDIENTE: un compañero del equipo investiga las plagas comunes de maíz,
-/// frijol y tomate; cuando las entregue basta agregar aquí una entrada por
-/// plaga (id y nombres): es solo datos. 'otra' va siempre al final.
-/// No hay predicción ni umbrales: solo registro.
-const tiposPlagaPorCultivo = <String, List<TipoPlaga>>{
-  'cafe': [
-    TipoPlaga('roya', 'Roya', 'Rust'),
-    TipoPlaga('minador', 'Minador', 'Leaf miner'),
-    TipoPlaga('antracnosis', 'Antracnosis', 'Anthracnose'),
-    _otraPlaga,
-  ],
-};
-
-/// Ids de los tipos de plaga de un cultivo; los que no tienen lista propia solo
-/// ofrecen 'otra'.
-List<String> tiposPlaga(String cultivoId) =>
-    [for (final t in tiposPlagaPorCultivo[cultivoId] ?? const [_otraPlaga]) t.id];
-
-/// Busca un tipo de plaga por id en todas las listas; nulo si no existe.
-TipoPlaga? tipoPlagaPorId(String id) {
-  for (final lista in [...tiposPlagaPorCultivo.values, const [_otraPlaga]]) {
-    for (final t in lista) {
-      if (t.id == id) return t;
-    }
-  }
-  return null;
-}
 
 Cultivo cultivoPorId(String id) => catalogo.firstWhere((c) => c.id == id, orElse: () => catalogo.first);
 

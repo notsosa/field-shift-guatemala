@@ -11,6 +11,7 @@ import 'package:field_shift/datos/clima.dart';
 import 'package:field_shift/estado.dart';
 import 'package:field_shift/main.dart';
 import 'package:field_shift/modelos.dart';
+import 'package:field_shift/ui/plagas.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -206,7 +207,7 @@ void main() {
     expect(find.textContaining('(roya)'), findsOneWidget);
   });
 
-  testWidgets('frijol: sin lista de plagas propia no se pregunta el tipo', (tester) async {
+  testWidgets('frijol: elegir una plaga con fuente, guardarla y abrir su detalle desde el registro', (tester) async {
     final estado = await _abrir(tester);
     await tester.tap(find.text('Ver un ejemplo'));
     await tester.pumpAndSettle();
@@ -214,13 +215,111 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byIcon(CupertinoIcons.add));
     await tester.pumpAndSettle();
+    expect(find.text('Trips de las flores'), findsNothing); // sin plaga no se pregunta el tipo
     await tester.tap(find.text('Media'));
     await tester.pumpAndSettle();
-    expect(find.text('Roya'), findsNothing);
-    expect(find.text('Otra'), findsNothing);
+    expect(find.text('Trips de las flores'), findsOneWidget);
+    expect(find.text('Mosca minadora'), findsOneWidget);
+    expect(find.text('Otra'), findsOneWidget);
+    expect(find.textContaining('no significa que la plaga esté presente en esta parcela'), findsOneWidget);
+    await tester.drag(find.byType(ListView).first, const Offset(0, -200));
+    await tester.pumpAndSettle();
+    await _captura(tester, '11_plagas_selector');
+    await tester.tap(find.text('Trips de las flores'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Guardar'));
     await tester.pumpAndSettle();
-    expect(estado.registros.first.tipoPlaga, '');
+    expect(estado.registros.first.tipoPlaga, 'trips-de-las-flores');
+    expect(find.textContaining('(trips de las flores)'), findsOneWidget);
+
+    await tester.tap(find.byIcon(CupertinoIcons.info_circle));
+    await tester.pumpAndSettle();
+    expect(find.text('Megalurothrips usitatus'), findsOneWidget);
+    expect(find.text('Flores y vainas'), findsOneWidget);
+    expect(find.textContaining('Petén, El Progreso, Zacapa y Chimaltenango'), findsOneWidget);
+    expect(find.text('2022'), findsOneWidget);
+    expect(find.textContaining('ICTA · Una nueva plaga en el cultivo de frijol'), findsOneWidget);
+    expect(find.text('https://icta.gob.gt/plagacultivofrijolGuatemala.html'), findsOneWidget);
+    expect(find.textContaining('No se extrapolan sus porcentajes de daño'), findsOneWidget);
+    expect(find.textContaining('no significa que la plaga esté presente en esta parcela'), findsOneWidget);
+    await _captura(tester, '12_plaga_detalle');
+  });
+
+  testWidgets('brócoli en inglés y modo oscuro: selector con nombres largos y detalle sin desbordes', (tester) async {
+    final estado = await _abrir(tester, brillo: Brightness.dark);
+    await tester.tap(find.text('Ver un ejemplo'));
+    await tester.pumpAndSettle();
+    await estado.guardarPlantacion(Plantacion(
+      cultivoId: 'brocoli', fecha: DateTime(2026, 9, 20), ciclo: 135, suelo: Suelo.franco,
+      riego: TipoRiego.goteo, temporadaRiego: TemporadaRiego.todoElAnio, plagaReciente: false, fertilizo: false,
+    ));
+    await estado.cambiarIdioma('en');
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Logs'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(CupertinoIcons.add));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Medium'));
+    await tester.pumpAndSettle();
+    expect(find.text('Diamondback moth'), findsOneWidget);
+    expect(find.text('White grub'), findsOneWidget);
+    expect(find.text('Leaf miner fly'), findsOneWidget);
+    await tester.drag(find.byType(ListView).first, const Offset(0, -260));
+    await tester.pumpAndSettle();
+    await _captura(tester, '11b_plagas_selector_oscuro');
+    await tester.tap(find.byIcon(CupertinoIcons.info_circle).first);
+    await tester.pumpAndSettle();
+    expect(find.text('Plutella xylostella'), findsOneWidget);
+    expect(find.text('Leaves and inflorescence'), findsOneWidget);
+    expect(find.textContaining('A documented record in Guatemala does not mean'), findsOneWidget);
+    await _captura(tester, '12b_plaga_detalle_oscuro');
+  });
+
+  testWidgets('ajonjolí: sin registro confirmado solo se ofrece Otra y se dice por qué', (tester) async {
+    final estado = await _abrir(tester);
+    await tester.tap(find.text('Ver un ejemplo'));
+    await tester.pumpAndSettle();
+    await estado.guardarPlantacion(Plantacion(
+      cultivoId: 'ajonjoli', fecha: DateTime(2026, 9, 20), ciclo: 110, suelo: Suelo.franco,
+      riego: TipoRiego.ninguno, temporadaRiego: TemporadaRiego.auxilio, plagaReciente: false, fertilizo: false,
+    ));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Registros'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(CupertinoIcons.add));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Media'));
+    await tester.pumpAndSettle();
+    expect(find.text('Otra'), findsOneWidget);
+    // una sola fila (Otra) y sin botón de detalle
+    expect(find.descendant(of: find.byType(ListaPlagas), matching: find.byType(CupertinoButton)), findsOneWidget);
+    expect(find.textContaining('aún no tiene un registro local confirmado'), findsOneWidget);
+    expect(find.textContaining('no significa que la plaga esté presente'), findsNothing);
+    await tester.tap(find.text('Guardar'));
+    await tester.pumpAndSettle();
+    expect(estado.registros.first.tipoPlaga, 'otra');
+  });
+
+  testWidgets('café: el detalle dice que lo reportó un caficultor y no es un registro con fuente', (tester) async {
+    final estado = await _abrir(tester);
+    await tester.tap(find.text('Ver un ejemplo'));
+    await tester.pumpAndSettle();
+    await estado.guardarPlantacion(Plantacion(
+      cultivoId: 'cafe', fecha: DateTime(2026, 5, 1), ciclo: 365, suelo: Suelo.franco,
+      riego: TipoRiego.ninguno, temporadaRiego: TemporadaRiego.auxilio, plagaReciente: false, fertilizo: false,
+    ));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Registros'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(CupertinoIcons.add));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Media'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(CupertinoIcons.info_circle).first);
+    await tester.pumpAndSettle();
+    expect(find.text('Roya'), findsOneWidget);
+    expect(find.textContaining('Reportado por un caficultor'), findsWidgets);
+    expect(find.textContaining('No es un registro con fuente'), findsOneWidget);
   });
 
   testWidgets('modo oscuro y cultivo sin estrés', (tester) async {
