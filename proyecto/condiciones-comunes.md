@@ -87,11 +87,19 @@ No se fija el mismo algoritmo para los dos, porque es parte de lo que cada arqui
 
 | | Keu (`modelo-keu`) | Alex (`modelo-linds`) |
 |---|---|---|
-| Tarea de la sección 1 | Ya medida con el simulador y las redes v2 (`web/data/decision_loss_eval.json`) | Por adaptar: sus pesos se entrenaron en otro simulador y con otras prioridades |
+| Tarea de la sección 1 | Ya medida con el simulador y las redes v2 (`web/data/decision_loss_eval.json`). Además hay una red que recomienda directamente la acción, con la prioridad del agricultor como entrada y entrenada por el resultado de la decisión (`web/data/recommender_eval.json`; ver `proyecto/resultados-modelo-keu.md`) | Por adaptar: sus pesos se entrenaron en otro simulador y con otras prioridades |
 | Datos y juez de esta rama | Sí | Falta conectar su red a estos datos, o publicar el código que arma sus entradas |
 | Tres semillas 17 / 29 / 43 | Hecho de nuestro lado (`web/data/aligned_eval.json`); la semilla 42 de antes se conserva | Sí |
 | Prueba de "sin datos futuros" | Sí | Por confirmar |
 | Años de prueba 2022–2025 | Alineado de nuestro lado en 2022–2024; 2025 pendiente de datos (la serie termina el 2025-12-31). 2019–2024 se reporta como adicional | Reservó 2022–2025 |
+
+## Datos por conseguir: decisiones reales de agricultores
+
+Para pasar de comparar contra el simulador a comparar contra lo que se hizo de verdad hacen falta datos por parcela (cultivo, fecha de pérdida, fecha y cultivo de la resiembra, rendimiento). Lo que hay hasta ahora son descripciones de regiones o comunidades (informe FAO/PMA de 2010; informes MAGA/PMA de junio y julio de 2023; FEWS NET de febrero de 2024), verificadas en `web/data/historical_check.json`. Conjuntos registrados que el responsable listó y que **no se descargaron** (piden registro o no se revisaron):
+
+- CASCADE Chiquimula.
+- CUNORI, anexo 4.
+- CIMMYT / CRS.
 
 ## Acuerdos
 

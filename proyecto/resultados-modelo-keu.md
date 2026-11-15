@@ -696,6 +696,166 @@ G / E / P = casos en que gana, empata o pierde contra la regla (tolerancia 0.001
 - **Exactitud del emulador.** La salida más débil de la red es el rendimiento relativo del primer cultivo en años nuevos (R² de 0.595 a 0.632 entre semillas); la de la ELM también (0.509 a 0.520), y la ELM queda por debajo de la red en todas las salidas y semillas, en años nuevos y en puntos nuevos. Esa exactitud se mide en los años de prueba 2019–2024 con que se entrenó, no en 2022–2024 solamente.
 - **Contra la regla.** En 2022–2024 la regla tiene peor caso 0 y un caso no ejecutable de 27; el simulador tiene peor caso 0.462 (típico) y 0.796 (cauto). Todo esto es del simulador como juez, sin precios ni costos, y no es una recomendación.
 
+## Red que recomienda (prioridad del agricultor, estado del lote, entrenada por el resultado de la decisión)
+
+15 de noviembre de 2026. Es la tarea de la pérdida del maíz de las condiciones comunes (`proyecto/condiciones-comunes.md`), pero ahora una red elige directamente la acción en vez de predecir y luego elegir. Todo es aditivo: el simulador, las redes v2 y sus resultados no cambian. Los números salen de `web/data/recommender_eval.json` (commit del simulador `b4c9516`); las filas de las políticas de "predecir y elegir" están copiadas de `web/data/aligned_eval.json`, no recalculadas.
+
+**Qué hace.** Para cada una de las 8 acciones (resembrar uno de siete cultivos o dejar el terreno) la red da una corrección; el puntaje es 1 si la acción es la de la regla agronómica (0 si no) más tanh(corrección), y se recomienda el mayor puntaje (empate: la acción de la regla). Al inicio la corrección vale 0 y la red recomienda exactamente lo que la regla (hay una prueba). Tres ideas tomadas del diseño del compañero: la **prioridad del agricultor** como entrada (0 = rendir más en un año típico, 1 = no perder en un año malo), el entrenamiento por **cómo salió la decisión**, y **más información del lote** el día de la decisión.
+
+**Diseño (fijado antes de ver los casos de prueba).**
+- Entradas (32): día del año, días desde el inicio de lluvias (la siembra), días al 15 de noviembre y al fin del año agrícola, día de la pérdida, lluvia y ET₀ de los últimos 7 y 28 días y desde el 1 de abril, racha seca más larga de los últimos 28 días, temperatura media de los últimos 28 días, balance antecedente acotado a 150 mm (la lógica de `storeProxy` del emulador, con Kc del maíz hasta el día de la pérdida y suelo desnudo, Kc = kc.ini del maíz, después), agua disponible del suelo (mm por m), número de curva del cultivo, altitud; la prioridad; y por acción: one-hot de 8, ciclo nominal en días, Kc medio, profundidad de raíz, p, Ky y si el ciclo nominal cabe antes del fin del año agrícola. Solo se usa el clima hasta el día de la decisión (el día de la pérdida, con el clima de ese día); una prueba altera todo lo posterior y ninguna entrada cambia.
+- **No hay entradas de finanzas ni de historial de plagas o fertilizante: el proyecto no tiene esos datos y no se inventaron.**
+- Red: 32 → 64 → 32 → 16 → 1 (tanh en las ocultas, salida en cero al inicio), 4737 parámetros.
+- Entrenamiento sin retropropagación: estrategia de evolución (μ, λ), población 32, 8 padres, mutación gaussiana σ = 0.05, elitismo 1, 150 generaciones; en cada generación 512 escenarios de entrenamiento (sorteados con la semilla de la generación) con las dos prioridades. Aptitud: prioridad 0 = media de y; prioridad 1 = media de y − max(0, 0.5 − y); la aptitud es el promedio de las dos. El mejor de cada generación se puntúa con toda la validación y se guarda el mejor. Semillas 17, 29, 43.
+- Datos: tabla de escenarios calculada una vez con el simulador: entrenamiento 2592 (20 puntos × años 2001–2016 × pérdida 30/45/60; arena, franco y arcilla en los puntos que no son piloto y el suelo del sitio en los pilotos), validación 324 (2017–2018), prueba 54 (los 3 pilotos, 2019–2024). Tiempo de la tabla: 13.4 s.
+
+### Aprendizaje y tiempos
+
+| Semilla | Validación primera / mejor / última | Mejor generación | Aptitud de entrenamiento primera / última | Tiempo (s) | Evaluaciones de escenario por s |
+|---|---|---|---|---|---|
+| 17 | 0.923 / 0.960 / 0.947 | 61 | 0.888 / 0.939 | 539 | 9111 |
+| 29 | 0.923 / 0.957 / 0.954 | 122 | 0.867 / 0.938 | 541 | 9092 |
+| 43 | 0.923 / 0.958 / 0.938 | 59 | 0.873 / 0.928 | 540 | 9101 |
+
+La aptitud de validación de la red inicial (igual a la regla) es 0.923; "primera" es la del mejor de la generación 0. Las tres semillas corrieron a la vez en un mismo equipo (CPU; 559 s en total), así que los tiempos incluyen competencia entre procesos. Una evaluación de escenario = un individuo decidiendo un escenario con una prioridad. El checkpoint guardado en `web/data/recommender_mlp.json` es el de la semilla 17 (generación 61, aptitud de validación 0.960), la mejor en validación. Tiempo por recomendación (8 acciones): 0.055 ms.
+
+### Años reservados 2022–2024 (n = 27 casos)
+
+Columnas: rendimiento relativo medio de lo elegido; ganancia media sobre la regla; casos ganados / empatados / perdidos (tolerancia 0.001); arrepentimiento medio frente a la mejor opción; percentil 10; peor caso; recomendaciones ejecutables; resultados por debajo de 0.5; casos en que se aparta de la regla.
+
+| Política | Media | Ganancia | G / E / P | Arrepent. | P10 | Peor | Ejecut. | < 0.5 | Se aparta |
+|---|---|---|---|---|---|---|---|---|---|
+| Regla agronómica | 0.856 | +0.000 | 0 / 27 / 0 | 0.123 | 0.607 | 0.000 | 26/27 | 2/27 | 0/27 |
+| Mejor opción en retrospectiva (techo) | 0.979 | | | 0.000 | | | 27/27 | 0/27 | 17/27 |
+| Simulador como política (típico) | 0.947 | +0.091 | 10 / 16 / 1 | 0.032 | 0.907 | 0.462 | 27/27 | 1/27 | 15/27 |
+| Simulador como política (cauto) | 0.963 | +0.107 | 13 / 8 / 6 | 0.017 | 0.905 | 0.796 | 27/27 | 0/27 | 24/27 |
+| **Red que recomienda**, semilla 17, típico | 0.936 | +0.080 | 9 / 16 / 2 | 0.044 | 0.792 | 0.565 | 27/27 | 0/27 | 13/27 |
+| **Red que recomienda**, semilla 17, cauto | 0.932 | +0.076 | 8 / 18 / 1 | 0.047 | 0.804 | 0.462 | 27/27 | 1/27 | 10/27 |
+| **Red que recomienda**, semilla 29, típico | 0.944 | +0.088 | 8 / 19 / 0 | 0.035 | 0.902 | 0.462 | 27/27 | 1/27 | 9/27 |
+| **Red que recomienda**, semilla 29, cauto | 0.937 | +0.081 | 8 / 18 / 1 | 0.042 | 0.828 | 0.462 | 27/27 | 1/27 | 11/27 |
+| **Red que recomienda**, semilla 43, típico | 0.897 | +0.041 | 6 / 19 / 2 | 0.082 | 0.649 | 0.462 | 27/27 | 1/27 | 10/27 |
+| **Red que recomienda**, semilla 43, cauto | 0.905 | +0.049 | 5 / 19 / 3 | 0.075 | 0.592 | 0.462 | 27/27 | 1/27 | 10/27 |
+| Predecir y elegir: red v2, semilla 17, típico (copiado) | 0.953 | +0.097 | 13 / 8 / 6 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 27/27 |
+| Predecir y elegir: red v2, semilla 17, cauto (copiado) | 0.953 | +0.097 | 13 / 8 / 6 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 27/27 |
+| Predecir y elegir: red v2, semilla 29, típico (copiado) | 0.952 | +0.097 | 13 / 7 / 7 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 25/27 |
+| Predecir y elegir: red v2, semilla 29, cauto (copiado) | 0.952 | +0.096 | 13 / 6 / 8 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 27/27 |
+| Predecir y elegir: red v2, semilla 43, típico (copiado) | 0.957 | +0.101 | 12 / 10 / 5 | 0.022 | 0.851 | 0.752 | 27/27 | 0/27 | 22/27 |
+| Predecir y elegir: red v2, semilla 43, cauto (copiado) | 0.952 | +0.096 | 12 / 9 / 6 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 24/27 |
+| Predecir y elegir: ELM v2, semilla 17, típico (copiado) | 0.928 | +0.072 | 12 / 7 / 8 | 0.052 | 0.761 | 0.422 | 27/27 | 1/27 | 25/27 |
+| Predecir y elegir: ELM v2, semilla 17, cauto (copiado) | 0.917 | +0.061 | 12 / 6 / 9 | 0.062 | 0.718 | 0.422 | 27/27 | 1/27 | 27/27 |
+| Predecir y elegir: ELM v2, semilla 29, típico (copiado) | 0.935 | +0.079 | 13 / 6 / 8 | 0.044 | 0.811 | 0.422 | 27/27 | 1/27 | 26/27 |
+| Predecir y elegir: ELM v2, semilla 29, cauto (copiado) | 0.935 | +0.079 | 13 / 6 / 8 | 0.044 | 0.811 | 0.422 | 27/27 | 1/27 | 27/27 |
+| Predecir y elegir: ELM v2, semilla 43, típico (copiado) | 0.935 | +0.079 | 13 / 6 / 8 | 0.044 | 0.811 | 0.422 | 27/27 | 1/27 | 26/27 |
+| Predecir y elegir: ELM v2, semilla 43, cauto (copiado) | 0.952 | +0.096 | 13 / 6 / 8 | 0.027 | 0.851 | 0.711 | 27/27 | 0/27 | 27/27 |
+
+Resumen de la red que recomienda entre las 3 semillas (media, mínimo y máximo de la media de lo elegido): típico 0.926 (0.897–0.944); cauto 0.925 (0.905–0.937).
+
+### Adicional 2019–2024 (n = 54 casos)
+
+Columnas: rendimiento relativo medio de lo elegido; ganancia media sobre la regla; casos ganados / empatados / perdidos (tolerancia 0.001); arrepentimiento medio frente a la mejor opción; percentil 10; peor caso; recomendaciones ejecutables; resultados por debajo de 0.5; casos en que se aparta de la regla.
+
+| Política | Media | Ganancia | G / E / P | Arrepent. | P10 | Peor | Ejecut. | < 0.5 | Se aparta |
+|---|---|---|---|---|---|---|---|---|---|
+| Regla agronómica | 0.802 | +0.000 | 0 / 54 / 0 | 0.169 | 0.466 | 0.000 | 49/54 | 7/54 | 0/54 |
+| Mejor opción en retrospectiva (techo) | 0.971 | | | 0.000 | | | 54/54 | 0/54 | 33/54 |
+| Simulador como política (típico) | 0.925 | +0.123 | 20 / 29 / 5 | 0.046 | 0.809 | 0.243 | 54/54 | 3/54 | 30/54 |
+| Simulador como política (cauto) | 0.945 | +0.143 | 26 / 17 / 11 | 0.026 | 0.837 | 0.711 | 54/54 | 0/54 | 48/54 |
+| **Red que recomienda**, semilla 17, típico | 0.885 | +0.083 | 20 / 30 / 4 | 0.086 | 0.663 | 0.000 | 51/54 | 3/54 | 34/54 |
+| **Red que recomienda**, semilla 17, cauto | 0.899 | +0.097 | 19 / 30 / 5 | 0.072 | 0.708 | 0.000 | 52/54 | 3/54 | 30/54 |
+| **Red que recomienda**, semilla 29, típico | 0.890 | +0.088 | 17 / 35 / 2 | 0.081 | 0.661 | 0.000 | 51/54 | 4/54 | 25/54 |
+| **Red que recomienda**, semilla 29, cauto | 0.927 | +0.125 | 21 / 31 / 2 | 0.044 | 0.809 | 0.000 | 53/54 | 2/54 | 30/54 |
+| **Red que recomienda**, semilla 43, típico | 0.871 | +0.068 | 16 / 34 / 4 | 0.101 | 0.627 | 0.000 | 52/54 | 4/54 | 29/54 |
+| **Red que recomienda**, semilla 43, cauto | 0.928 | +0.126 | 17 / 33 / 4 | 0.043 | 0.735 | 0.462 | 54/54 | 2/54 | 29/54 |
+| Predecir y elegir: red v2, semilla 17, típico (copiado) | 0.943 | +0.141 | 27 / 16 / 11 | 0.028 | 0.837 | 0.640 | 54/54 | 0/54 | 54/54 |
+| Predecir y elegir: red v2, semilla 17, cauto (copiado) | 0.943 | +0.141 | 27 / 16 / 11 | 0.028 | 0.837 | 0.640 | 54/54 | 0/54 | 54/54 |
+| Predecir y elegir: red v2, semilla 29, típico (copiado) | 0.943 | +0.141 | 26 / 17 / 11 | 0.028 | 0.837 | 0.640 | 54/54 | 0/54 | 44/54 |
+| Predecir y elegir: red v2, semilla 29, cauto (copiado) | 0.942 | +0.140 | 27 / 14 / 13 | 0.029 | 0.837 | 0.640 | 54/54 | 0/54 | 54/54 |
+| Predecir y elegir: red v2, semilla 43, típico (copiado) | 0.944 | +0.142 | 24 / 21 / 9 | 0.027 | 0.807 | 0.640 | 54/54 | 0/54 | 42/54 |
+| Predecir y elegir: red v2, semilla 43, cauto (copiado) | 0.944 | +0.142 | 26 / 19 / 9 | 0.027 | 0.818 | 0.640 | 54/54 | 0/54 | 49/54 |
+| Predecir y elegir: ELM v2, semilla 17, típico (copiado) | 0.915 | +0.113 | 22 / 19 / 13 | 0.056 | 0.757 | 0.277 | 54/54 | 2/54 | 43/54 |
+| Predecir y elegir: ELM v2, semilla 17, cauto (copiado) | 0.910 | +0.108 | 24 / 15 / 15 | 0.061 | 0.759 | 0.277 | 54/54 | 2/54 | 51/54 |
+| Predecir y elegir: ELM v2, semilla 29, típico (copiado) | 0.925 | +0.123 | 25 / 16 / 13 | 0.046 | 0.818 | 0.277 | 54/54 | 2/54 | 47/54 |
+| Predecir y elegir: ELM v2, semilla 29, cauto (copiado) | 0.925 | +0.123 | 25 / 16 / 13 | 0.046 | 0.818 | 0.277 | 54/54 | 2/54 | 51/54 |
+| Predecir y elegir: ELM v2, semilla 43, típico (copiado) | 0.925 | +0.123 | 25 / 16 / 13 | 0.046 | 0.818 | 0.277 | 54/54 | 2/54 | 47/54 |
+| Predecir y elegir: ELM v2, semilla 43, cauto (copiado) | 0.942 | +0.140 | 26 / 15 / 13 | 0.029 | 0.837 | 0.640 | 54/54 | 0/54 | 52/54 |
+
+Resumen de la red que recomienda entre las 3 semillas (media, mínimo y máximo de la media de lo elegido): típico 0.882 (0.871–0.890); cauto 0.918 (0.899–0.928).
+
+### En qué casos se aparta de la regla (semilla 17, 54 casos)
+
+La lista completa, con lo que eligió en lugar de la regla y los rendimientos de cada una, está en `recommender_eval.json` (`decision.perSeed.years2019_2024.17.*.departures`). Resumen:
+
+| Prioridad | Regla → elegido (casos) |
+|---|---|
+| típico | maiz → ajonjoli: 19; frijol → ajonjoli: 7; maiz → frijol: 4; maiz → brocoli: 2; maiz → lechuga: 2 |
+| cauto | maiz → ajonjoli: 17; maiz → frijol: 5; maiz → papa: 3; frijol → ajonjoli: 2; maiz → lechuga: 2; maiz → brocoli: 1 |
+
+### Lectura, sin rodeos
+
+- Años reservados 2022–2024 (n = 27 casos): la red que recomienda queda entre 0.897 y 0.944 de rendimiento relativo medio, frente a 0.856 de la regla y 0.979 del techo; supera a la regla en 6 de las 6 combinaciones de semilla y prioridad. Las políticas de predecir y elegir (red v2 y ELM v2) van de 0.917 a 0.957: la red que recomienda solo alcanza a las más bajas de ellas (ver las tablas).
+- Adicional 2019–2024 (n = 54 casos): la red que recomienda queda entre 0.871 y 0.928 de rendimiento relativo medio, frente a 0.802 de la regla y 0.971 del techo; supera a la regla en 6 de las 6 combinaciones de semilla y prioridad. Las políticas de predecir y elegir (red v2 y ELM v2) van de 0.910 a 0.944: la red que recomienda solo alcanza a las más bajas de ellas (ver las tablas).
+- Con 27 y 54 casos (muchos casi iguales entre sí porque comparten sitio y año), los conteos ganados / empatados / perdidos son descriptivos; no se calculó significancia. Las semillas difieren entre sí, así que la diferencia entre prioridades no se puede ordenar con firmeza.
+
+### Límites
+
+- **El juez es nuestro simulador**: "lo mejor" es lo que el simulador califica más alto, no una cosecha medida. Un segundo juez (AquaCrop) no se aplicó a estas recomendaciones.
+- **Una decisión por caso** (la pérdida a los 30, 45 o 60 días y una resiembra 14 días después); no vuelve a decidir en cada fecha.
+- **Sin finanzas, plagas ni fertilizante** como entradas: no hay esos datos en el proyecto. **El margen no se calcula** (no hay precios ni costos en el juez).
+- 54 y 27 casos de tres pilotos. La red que recomienda se entrenó con 2001–2016 y se validó con 2017–2018; las redes de predecir y elegir se entrenaron sin 2019–2024. El año agrícola 2025 no se puede medir (la serie termina el 2025-12-31).
+- Los escenarios de entrenamiento usan arena, franco y arcilla en 17 puntos y el suelo del sitio solo en los pilotos; la prueba usa el suelo del sitio.
+- El diseño (tamaños, σ, generaciones, entradas, regla) no se tocó después de ver los números de prueba.
+
+## Contraste con decisiones documentadas de agricultores
+
+Es descriptivo y **no ajusta nada**: pone lo que las fuentes dicen que hicieron algunos agricultores junto a lo que recomiendan la regla y la red, y a lo que el simulador dice que habría pasado. Los números salen de `web/data/historical_check.json`. Las fuentes se abrieron y se verificó cada cita (fragmentos cortos; el contexto está resumido):
+
+- **Misión FAO/PMA de evaluación de cosecha y seguridad alimentaria en Guatemala, informe especial, 23 de febrero de 2010** (https://www.fao.org/4/ak344s/ak344s00.htm). Anexo 1, "Región Oriente (departamentos de Jalapa, Chiquimula, El Progreso, Jutiapa, Baja Verapaz, Zacapa y Quiché)", párrafo 3. Dice: "se sembró maíz también en el segundo ciclo productivo"; "perdiéndose nuevamente todas las plantaciones". Contexto de la fuente: por pérdidas en el primer ciclo y por el uso de semilla de maíz del Ministerio de Agricultura, en 2009 se sembró maíz también en el segundo ciclo; la sequía se prolongó y se perdieron de nuevo todas las plantaciones.
+- **MAGA/PMA Informe SMC No. 06, junio 2023** (https://precios.maga.gob.gt/archivos/smc/2023/06%20Informe%20SMC%20-%20Junio%20-%202023.pdf). p. 10, sección de monitoreo de cultivos (PMA), región Nororiente. Dice: "han tenido que realizar resiembra". Lo dicen los agricultores entrevistados de San Juan Ermita (Chiquimula), que sembraron el ciclo de primera del 10 al 18 de mayo. El cultivo que se resembró no se indica en la frase.
+- **MAGA/PMA Informe SMC No. 07, julio 2023** (https://precios.maga.gob.gt/archivos/smc/2023/07%20Informe%20SMC%20-%20Julio%20-%202023.pdf). p. 11, sección VI, región Nororiente. Dice: "del municipio de Olopa realizaron resiembra debido a las condiciones climáticas desfavorables". Dice "algunos de los agricultores entrevistados"; no indica el cultivo resembrado ni la fecha de la pérdida o de la resiembra.
+- **FEWS NET, Guatemala, Perspectiva de seguridad alimentaria, febrero 2024** (https://fews.net/es/latin-america-and-caribbean/guatemala/perspectiva-de-seguridad-alimentaria/febrero-2024). sección Situación actual, producción de granos básicos 2023 (nacional). Dice: "Algunos agricultores decidieron esperar que las lluvias mejoraran"; "muchos pequeños agricultores no pudieron resembrar". Es una descripción nacional del ciclo de primera de 2023 (siembras retrasadas uno o dos meses); nombra Chiquimula solo entre los departamentos con daños por sequía. Dice que la mayoría de medianos, excedentarios y comerciales sí resembró, con "capacidades productivas" mayores (extensión, capital, mecanización). La frase "no tenían recursos" no aparece tal cual.
+
+**Evento solo mencionado:** San Martín Jilotepeque 2026 (farmers sowed local beans after losing maize): Outside the weather data (ends 2025-12-31) and not among the sources the brief asked to open; mentioned only, not evaluated. Las otras tres fuentes se abrieron y apoyan su evento, con estas precisiones: la de 2009 habla de una siembra del *segundo ciclo*, no de una resiembra 14 días después de la pérdida; las de 2023 no dicen qué cultivo se resembró; FEWS NET habla del país (Chiquimula aparece solo entre los departamentos con daños por sequía) y no dice textualmente que faltaran recursos, solo que muchos pequeños agricultores no pudieron resembrar mientras la mayoría de medianos y comerciales sí.
+
+### Oriente de Guatemala (departamentos de Jalapa, Chiquimula, El Progreso, Jutiapa, Baja Verapaz, Zacapa y Quiché), año agrícola 2009
+
+**Documentado:** Tras perder el primer ciclo de maíz, los agricultores resembraron maíz en el segundo ciclo con semilla del MAGA; la sequía siguió y se perdió de nuevo todo. Resultado documentado: perdida (segunda siembra perdida). **Puntos:** El informe describe una región; se usan los puntos de nuestros 20 que llevan el nombre de departamentos citados (distancia 0 a ese punto por construcción; no hay coordenada de parcela). **Cuidado:** El "segundo ciclo" del informe es una siembra de segunda (después de la cosecha o pérdida de la primera, calendario de segunda), no una resiembra 14 días después de perder el maíz a los 30, 45 o 60 días: el calendario de la decisión de nuestro simulador no es el mismo.
+
+| Punto (suelo), distancia | Pérdida (día) | Fecha de resiembra | Partición del año | Regla (rend.) | Red típica (rend.) | Red cauta (rend.) | Maíz resembrado (rend.) | Mejor (rend.) |
+|---|---|---|---|---|---|---|---|---|
+| chiquimula (site), 0 km | 30 | 2009-06-17 | train | maiz (0.995) | maiz (0.995) | lechuga (0.845) | 0.995 | ajonjoli (1.000) |
+| chiquimula (site), 0 km | 45 | 2009-07-02 | train | maiz (0.997) | ajonjoli (1.000) | lechuga (0.892) | 0.997 | ajonjoli (1.000) |
+| chiquimula (site), 0 km | 60 | 2009-07-17 | train | maiz (0.978) | ajonjoli (0.997) | ajonjoli (0.997) | 0.978 | frijol (1.000) |
+| jutiapa (site), 0 km | 30 | 2009-06-23 | train | maiz (0.460) | ajonjoli (0.822) | ajonjoli (0.822) | 0.460 | ajonjoli (0.822) |
+| jutiapa (site), 0 km | 45 | 2009-07-08 | train | maiz (0.763) | lechuga (0.672) | ajonjoli (0.895) | 0.763 | ajonjoli (0.895) |
+| jutiapa (site), 0 km | 60 | 2009-07-23 | train | frijol (0.487) | frijol (0.487) | frijol (0.487) | 0.677 | ajonjoli (0.828) |
+| zacapa (loam), 0 km | 30 | 2009-06-22 | train | maiz (1.000) | ajonjoli (1.000) | ajonjoli (1.000) | 1.000 | maiz (1.000) |
+| zacapa (loam), 0 km | 45 | 2009-07-07 | train | maiz (1.000) | ajonjoli (1.000) | ajonjoli (1.000) | 1.000 | maiz (1.000) |
+| zacapa (loam), 0 km | 60 | 2009-07-22 | train | frijol (1.000) | frijol (1.000) | frijol (1.000) | 1.000 | maiz (1.000) |
+| jalapa (loam), 0 km | 30 | 2009-06-22 | train | maiz (0.813) | ajonjoli (0.868) | ajonjoli (0.868) | 0.813 | ajonjoli (0.868) |
+| jalapa (loam), 0 km | 45 | 2009-07-07 | train | maiz (0.692) | ajonjoli (0.806) | brocoli (0.680) | 0.692 | ajonjoli (0.806) |
+| jalapa (loam), 0 km | 60 | 2009-07-22 | train | frijol (0.667) | frijol (0.667) | frijol (0.667) | 0.727 | lechuga (0.790) |
+
+### Olopa y San Juan Ermita, Chiquimula, año agrícola 2023
+
+**Documentado:** Agricultores entrevistados de Olopa y San Juan Ermita resembraron (cultivo no indicado); en el país algunos esperaron la lluvia y muchos pequeños no pudieron resembrar (FEWS NET, nacional). Resultado documentado: sin dato en las fuentes. **Puntos:** Olopa es uno de los 20 puntos (distancia 0: el punto lleva el nombre del municipio). San Juan Ermita no tiene punto propio y no se verificó una coordenada para él. Chiquimula (departamento) se añade por ser piloto. **Cuidado:** No hay rendimiento, fechas ni cultivo por parcela. Las fuentes describen municipios o el país.
+
+| Punto (suelo), distancia | Pérdida (día) | Fecha de resiembra | Partición del año | Regla (rend.) | Red típica (rend.) | Red cauta (rend.) | Maíz resembrado (rend.) | Mejor (rend.) |
+|---|---|---|---|---|---|---|---|---|
+| olopa (loam), 0 km | 30 | 2023-06-17 | not used (test years are only scored at the pilots) | maiz (1.000) | ajonjoli (1.000) | ajonjoli (1.000) | 1.000 | maiz (1.000) |
+| olopa (loam), 0 km | 45 | 2023-07-02 | not used (test years are only scored at the pilots) | maiz (1.000) | ajonjoli (1.000) | ajonjoli (1.000) | 1.000 | maiz (1.000) |
+| olopa (loam), 0 km | 60 | 2023-07-17 | not used (test years are only scored at the pilots) | maiz (1.000) | ajonjoli (1.000) | maiz (1.000) | 1.000 | maiz (1.000) |
+| chiquimula (site), 25.31 km | 30 | 2023-07-30 | test | frijol (1.000) | frijol (1.000) | frijol (1.000) | 1.000 | maiz (1.000) |
+| chiquimula (site), 25.31 km | 45 | 2023-08-14 | test | frijol (0.935) | frijol (0.935) | frijol (0.935) | 1.000 | maiz (1.000) |
+| chiquimula (site), 25.31 km | 60 | 2023-08-29 | test | frijol (1.000) | frijol (1.000) | frijol (1.000) | 0.984 | frijol (1.000) |
+
+### Qué muestra y qué no
+
+- **No es una prueba con datos retenidos**: Illustrative, not a held-out test: 2009 is a training year at every point; 2023 is not used for training or validation (at the pilots it is a test year). Nothing is fitted to these events.
+- Las fuentes describen regiones o comunidades, no una parcela; no hay rendimientos ni fechas por parcela, así que nada se calibró con estos eventos.
+- **Resultado documentado de 2009** (la segunda siembra de maíz se perdió): el simulador **no lo reproduce** para el maíz resembrado a los 30, 45 o 60 días de la pérdida: su rendimiento relativo va de 0.460 a 1.000 en los cuatro puntos; es menor de 0.5 solo en jutiapa a los 30 días, y en Chiquimula y Zacapa da casi 1. El calendario tampoco es el mismo (el informe habla de una siembra del segundo ciclo, más tarde), así que la discrepancia no prueba que el simulador falle ese año, pero tampoco lo confirma.
+- Lo documentado en 2009 (resembrar maíz) coincide con la acción de la regla en casi todas las filas, pero el único resultado documentado es la pérdida y el simulador no la reproduce; por eso no se puede decir que la red o la regla habrían decidido mejor que los agricultores.
+- Para 2023 no hay resultado documentado; solo que se resembró (cultivo no indicado). No se puede comparar con lo que el agricultor realmente sembró.
+
 ## Optimizaciones de entrenamiento (notas de Alex)
 
 Alex listó lo que mejoró el entrenamiento de su CNN. Aplicamos a nuestra red embudo (unos 4,500 parámetros, entrena en segundos) lo que le cabe, eligiendo solo con validación (filas de entrenamiento de los años 2017-2018; ninguna fila de prueba se leyó: `nTestRowsRead` = 0 en `scripts/emulator/recipe_screening.json`).
