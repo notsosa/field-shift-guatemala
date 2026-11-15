@@ -18,8 +18,28 @@ from datetime import date
 from comun import CORPUS, DATOS_LLM, LENGUAS, MAYAS, MODELO_BASE, leer_jsonl
 from construir_corpus_pretraining import PDFS
 
-TIPO = {f: t.split(":")[0] for f, _, t, *_ in PDFS} | {"mamNT_usfm.zip": "biblia"}
+TIPO_PDF = {f: t.split(":")[0] for f, _, t, *_ in PDFS}
+TOK_S_T4, TOK_S_CPU = 1500, 19     # tokens/s: T4 estimado; CPU medido en esta laptop (Qwen2.5-0.5B + LoRA)
+
+
+def tipo_y_fuente(src: str):
+    """(tipo de texto, nombre de fuente agrupado) de un documento del corpus."""
+    if "|" in src:                                   # fineweb2|url, madlad|url
+        return "webcorpus", src.split("|")[0]
+    if src.endswith(".jsonl"):
+        return "web", src
+    if src.endswith("_usfm.zip"):
+        return "biblia", "eBible " + src.replace("_usfm.zip", "")
+    if "/" in src:                                    # p. ej. biblia_catolica/<archivo>.pdf
+        return "biblia" if "biblia" in src else "texto", src.split("/")[0]
+    return TIPO_PDF.get(src, "texto"), src
+
+
+def horas(tokens: int, tok_s: float) -> str:
+    h = tokens / tok_s / 3600
+    return f"≈ {h * 60:.0f} min" if h < 1 else f"≈ {h:.1f} h" if h < 48 else f"≈ {h / 24:.0f} días"
 NOMBRE_TIPO = {"texto": "Prosa (libros, leyes, revistas)", "biblia": "Biblia", "dicc": "Diccionarios en PDF",
+               "webcorpus": "Páginas web (FineWeb-2, MADLAD-400)",
                "web": "Diccionarios web"}
 
 
@@ -51,9 +71,9 @@ def main():
         corpus[lang] = dict(docs=len(docs), chars=sum(map(len, textos)), palabras=palabras, tokens=tokens)
         for d in docs:
             src = d["source"]
-            tipo = "web" if src.endswith(".jsonl") else TIPO.get(src, "texto")
+            tipo, fuente = tipo_y_fuente(src)
             por_tipo[lang][tipo] += len(d["text"])
-            por_fuente[lang][src] += len(d["text"])
+            por_fuente[lang][fuente] += len(d["text"])
     tot = {k: sum(c[k] for c in corpus.values()) for k in ("docs", "chars", "palabras", "tokens")}
 
     # ---------------------------------------------------------------- SFT
@@ -95,7 +115,7 @@ def main():
           "Para equilibrar las lenguas, `entrenar_pretraining.py` muestrea con temperatura (α = 0.5): "
           "el k'iche' se repite más y el q'eqchi' se recorta.", "",
           "## 2. Tipo de texto por lengua (caracteres)", ""]
-    tipos = ["texto", "biblia", "dicc", "web"]
+    tipos = ["texto", "biblia", "webcorpus", "dicc", "web"]
     filas = []
     for lang in MAYAS:
         t = sum(por_tipo[lang].values())
@@ -124,12 +144,13 @@ def main():
           "sus cifras de chrF van a variar mucho de una evaluación a otra.", "",
           "## 6. ¿Cuánto tarda en entrenarse?", "",
           "Estimación aproximada para una época con `Qwen2.5-0.5B-Instruct` y LoRA:", ""]
+    tok_trad = int(largo_medio * sum(v for (l, t), v in cuenta.items() if t.startswith("traducir")))
     L += tabla(["Etapa", "Tokens", "GPU T4 (Colab)", "CPU de 8 núcleos"],
-               [["1. Pre-entrenamiento continuo", fmt(tot["tokens"]), "≈ 1–2 h", "semanas (no viable)"],
-                ["2. SFT completo", fmt(tok_sft), "≈ 30–60 min", "varios días"],
-                ["2. SFT solo traducción (`--solo-tareas`)",
-                 fmt(int(largo_medio * sum(v for (l, t), v in cuenta.items() if t.startswith("traducir")))),
-                 "≈ 15 min", "≈ 1–2 noches"]])
+               [["1. Pre-entrenamiento continuo", fmt(tot["tokens"]), horas(tot["tokens"], TOK_S_T4), horas(tot["tokens"], TOK_S_CPU)],
+                ["2. SFT completo", fmt(tok_sft), horas(tok_sft, TOK_S_T4), horas(tok_sft, TOK_S_CPU)],
+                ["2. SFT solo traducción (`--solo-tareas`)", fmt(tok_trad), horas(tok_trad, TOK_S_T4), horas(tok_trad, TOK_S_CPU)]])
+    L += [f"Supuestos: {TOK_S_T4} tokens/s en una T4 (estimado) y {TOK_S_CPU} tokens/s en CPU (medido en la laptop del equipo). "
+          "El pre-entrenamiento usa muestreo con temperatura, así que el número real de tokens vistos por época es menor.", ""]
     (CORPUS / "ESTADISTICAS.md").write_text("\n".join(L), encoding="utf-8")
     print(f"Escrito {CORPUS / 'ESTADISTICAS.md'}")
     print(json.dumps({"corpus_tokens": tot["tokens"], "sft_ejemplos": len(sft), "sft_tokens": tok_sft}, indent=2))

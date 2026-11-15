@@ -39,7 +39,12 @@ WEB = {  # archivo -> lengua
 }
 TABLAS_MD = {"kiche.md": "kiche", "kaqchikel.md": "kaqchikel", "qeqchi.md": "qeqchi", "mam.md": "mam"}
 CONFIANZA_OK = {"fuente", "contexto", "derivada"}
-PROSA = {f for f, _, tipo, *_ in PDFS if tipo in ("texto", "biblia")} | {"mamNT_usfm.zip"}
+DICC_PDF = {f for f, _, tipo, *_ in PDFS if tipo == "dicc"}
+
+
+def es_prosa(src: str) -> bool:
+    """Todo lo que no es diccionario: libros, leyes, Biblias (PDF, eBible), páginas web (FineWeb-2, MADLAD)."""
+    return bool(src) and not src.endswith(".jsonl") and src not in DICC_PDF
 
 P_EXPLICAR = [
     "¿Qué significa la palabra «{w}» en {L}? Responde en español.",
@@ -133,7 +138,7 @@ def pares_md():
 def fragmentos_prosa(lang, rng, max_chars=700):
     docs = []
     for ruta in sorted((CORPUS / "shards" / lang).glob("*.jsonl")):
-        docs += [d["text"] for d in leer_jsonl(ruta) if d.get("source") in PROSA]
+        docs += [d["text"] for d in leer_jsonl(ruta) if es_prosa(d.get("source", ""))]
     rng.shuffle(docs)
     for d in docs:
         ps = [p.strip() for p in d.split("\n\n") if len(p.strip()) > 80]
