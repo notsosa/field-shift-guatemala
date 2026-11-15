@@ -3,7 +3,7 @@
   "fecha": "2026-11-15",
   "criterio": "Solo observaciones, muestreos, ensayos o diagnósticos locales directos, al nivel taxonómico realmente identificado.",
   "unidad": "Relación cultivo–taxón; no especies únicas, ranking de frecuencia ni presencia actual en una parcela.",
-  "alcance": "12 relaciones, 10 a nivel de especie y2 de género. Incluye registros históricos y un estudio con precisión geográfica regional.",
+  "alcance": "12 relaciones, 10 a nivel de especie y 2 de género. Incluye registros históricos y un estudio con precisión geográfica regional.",
   "exclusiones": "Guías generales, reportes comunitarios, bibliografía mezclada, inventarios citados no revisados directamente y diez menciones pendientes.",
   "registros": [
     {
@@ -322,5 +322,14 @@
       "estado": "registro_local_directo_documentado",
       "fecha_revision": "2026-11-15"
     }
-  ]
+  ],
+  "alcance_entrega_space_apps": {
+    "fecha_corte": "2026-11-15",
+    "base": "Evidencia pública ya corroborada y disponible en la fecha de corte.",
+    "contactos_institucionales": "fuera_del_alcance_no_autorizados",
+    "muestreos_nuevos": "fuera_del_alcance_de_la_entrega",
+    "menciones_pendientes": "excluidas_de_recomendaciones_y_etiquetas_de_presencia",
+    "falta_de_registro": "desconocido_no_equivale_a_ausencia",
+    "infestacion_actual_chiquimula": "no_determinada"
+  }
 }

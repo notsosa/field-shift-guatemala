@@ -19,7 +19,7 @@
   "archivos": [
     {
       "ruta": "plagas_confirmadas.json",
-      "sha256": "6f24e49ca7c07fb1d50bb78d44fd332a37e53a00308e5213dc28a81b7187a12e"
+      "sha256": "1edfcc5e4ff638313d67fda31f87fedadac15bebf96f1c90d599a9860233d585"
     },
     {
       "ruta": "fuentes.json",
@@ -27,7 +27,7 @@
     },
     {
       "ruta": "README.md",
-      "sha256": "1c1a0338239553a130fadf858cc153e69997ef5078f0132358d0f6a77d296a39"
+      "sha256": "5c2dd3e6b3bc37c84a9ad4cc840d4b2278a405f6d1d921cff5d4357c5c45e882"
     }
   ]
 }

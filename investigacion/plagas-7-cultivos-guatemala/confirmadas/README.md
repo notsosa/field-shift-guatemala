@@ -19,6 +19,12 @@ Entrega del 15 de noviembre de 2026. Se publican únicamente **12 relaciones cul
 | Lechuga | *Frankliniella occidentalis* | Finca Bejo, Parramos, Chimaltenango | Trabajo de campo 2016; tesis 2017 | [S25](https://biblioteca.usac.edu.gt/tesis/01/01_3159.pdf), 3.3, pp.148–156/PDF 174–182 | Resultados de monitoreo; el autor asigna especie, sin detalle localizado de claves ni ejemplares de referencia. |
 | Lechuga | *Liriomyza huidobrensis* | Chimaltenango | Muestreo descrito en 1996; publicación 1997 | [S20](https://repositorio.uvg.edu.gt/server/api/core/bitstreams/bbee17fe-bceb-41e7-b960-e7e1e383b219/content), p.13 y Cuadro 1, p.14/PDF 5 | Registro histórico con identificación taxonómica; no demuestra frecuencia actual ni presencia en Chiquimula. |
 
+## Base para la entrega de Space Apps
+
+Por indicación del usuario, la entrega del proyecto se basa en la evidencia pública ya corroborada y disponible al 15 de noviembre de 2026. Este subconjunto de 12 relaciones es la base documental de plagas para esa entrega. Se conservan las fechas y el nivel taxonómico originales.
+
+Las diez menciones pendientes quedan excluidas de recomendaciones y etiquetas de presencia. Las consultas institucionales y nuevos muestreos quedan fuera del alcance de esta entrega. La falta de registro se trata como información desconocida. Esta base no demuestra infestación actual en Chiquimula ni permite asignar un efecto cuantificado de las plagas sobre las rotaciones.
+
 ## Cobertura de los siete cultivos
 
 La entrega contiene maíz, frijol, cebolla, brócoli y lechuga. Ajonjolí y papa siguen fuera de este subconjunto estricto: las entradas de la revisión previa se apoyaban en guías, entrevistas o referencias históricas secundarias. Esto no establece ausencia de plagas en esos cultivos.
