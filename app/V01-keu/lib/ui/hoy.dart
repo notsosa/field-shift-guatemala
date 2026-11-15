@@ -178,6 +178,7 @@ class PestanaHoy extends StatelessWidget {
                       Aviso.climaViejo => CupertinoIcons.cloud_download,
                       Aviso.plaga => CupertinoIcons.ant,
                       Aviso.fertilizar => CupertinoIcons.leaf_arrow_circlepath,
+                      Aviso.fertilizarEnEspera => CupertinoIcons.clock,
                       Aviso.cosechaCerca => CupertinoIcons.calendar,
                     },
                     colorIcono: a == Aviso.plaga ? Paleta.de(context, Paleta.ambar) : null,

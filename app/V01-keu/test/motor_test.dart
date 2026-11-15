@@ -220,6 +220,52 @@ void main() {
       expect(despues.factorRendimiento, closeTo(enCosecha.factorRendimiento!, 1e-12));
     });
 
+    group('recordatorio de fertilizar atado al agua', () {
+      final dia = DateTime(2026, 7, 5); // 34 días después de la siembra: etapa de desarrollo
+      List<DiaClima> clima({required bool llovio}) => [
+            for (final d in _clima(35, DateTime(2026, 6, 1)))
+              DiaClima(
+                fecha: d.fecha, tmax: d.tmax, tmin: d.tmin, humedad: d.humedad, viento: d.viento,
+                radiacion: d.radiacion,
+                lluvia: llovio && !d.fecha.isBefore(DateTime(2026, 6, 30)) && d.fecha.day % 2 == 1 ? 6 : 0,
+              ),
+          ];
+      Recomendacion en(TipoRiego riego, {required bool llovio}) => recomendar(
+            parcela: parcela, plantacion: plantacion(riego: riego), clima: clima(llovio: llovio),
+            registros: [], hoy: dia,
+          );
+
+      test('sin lluvia en la semana y sin riego no se recomienda fertilizar: queda en espera', () {
+        final r = en(TipoRiego.ninguno, llovio: false);
+        expect(r.etapa, Etapa.desarrollo);
+        expect(r.lluviaSemana, 0);
+        expect(r.avisos, isNot(contains(Aviso.fertilizar)));
+        expect(r.avisos, contains(Aviso.fertilizarEnEspera));
+      });
+
+      test('si llovió en los últimos siete días se recomienda fertilizar', () {
+        final r = en(TipoRiego.ninguno, llovio: true);
+        expect(r.lluviaSemana, greaterThan(0));
+        expect(r.avisos, contains(Aviso.fertilizar));
+        expect(r.avisos, isNot(contains(Aviso.fertilizarEnEspera)));
+      });
+
+      test('con riego se recomienda fertilizar aunque no llueva', () {
+        final r = en(TipoRiego.goteo, llovio: false);
+        expect(r.avisos, contains(Aviso.fertilizar));
+        expect(r.avisos, isNot(contains(Aviso.fertilizarEnEspera)));
+      });
+
+      test('si ya fertilizó no aparece ninguno de los dos', () {
+        final r = recomendar(
+          parcela: parcela, plantacion: plantacion(riego: TipoRiego.ninguno), clima: clima(llovio: false),
+          registros: [RegistroSemanal(fecha: dia, riegos: 0, plaga: NivelPlaga.ninguna, fertilizo: true)], hoy: dia,
+        );
+        expect(r.avisos, isNot(contains(Aviso.fertilizar)));
+        expect(r.avisos, isNot(contains(Aviso.fertilizarEnEspera)));
+      });
+    });
+
     group('lluvia sin dato', () {
       final registros = [
         RegistroSemanal(fecha: DateTime(2026, 7, 13), riegos: 2, plaga: NivelPlaga.ninguna, fertilizo: true),

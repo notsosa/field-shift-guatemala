@@ -11,7 +11,11 @@ import 'fao56.dart';
 
 enum NivelAgua { sinDatos, bien, atencion, estres }
 
-enum Aviso { registroPendiente, climaViejo, plaga, fertilizar, cosechaCerca }
+enum Aviso { registroPendiente, climaViejo, plaga, fertilizar, fertilizarEnEspera, cosechaCerca }
+
+/// Lluvia de la última semana, en mm, desde la cual se considera que llovió
+/// para abonar (el productor no fertiliza si no llueve).
+const lluviaMinimaParaAbonar = 1.0;
 
 enum Precision { baja, media, alta }
 
@@ -223,6 +227,7 @@ Recomendacion recomendar({
       ultimoRegistro == null ? null : soloFecha(hoy).difference(soloFecha(ultimoRegistro.fecha)).inDays;
   final climaViejo = ultimoClima == null || soloFecha(hoy).difference(ultimoClima).inDays > 10;
 
+  final lluviaSemana = semana.fold<double>(0, (a, d) => a + d.lluvia);
   final avisos = <Aviso>[];
   if (diasSinRegistro == null || diasSinRegistro >= 7) avisos.add(Aviso.registroPendiente);
   if (climaViejo) avisos.add(Aviso.climaViejo);
@@ -231,7 +236,11 @@ Recomendacion recomendar({
       : plantacion.plagaReciente;
   if (plagaActiva) avisos.add(Aviso.plaga);
   final fertilizado = plantacion.fertilizo || registros.any((r) => r.fertilizo);
-  if (!cultivo.perenne && actual.etapa == Etapa.desarrollo && !fertilizado) avisos.add(Aviso.fertilizar);
+  if (!cultivo.perenne && actual.etapa == Etapa.desarrollo && !fertilizado) {
+    // Sin lluvia reciente ni riego el abono no se aprovecha: se pospone.
+    final hayAgua = plantacion.riego != TipoRiego.ninguno || lluviaSemana >= lluviaMinimaParaAbonar;
+    avisos.add(hayAgua ? Aviso.fertilizar : Aviso.fertilizarEnEspera);
+  }
   if (aCosecha != null && aCosecha >= 0 && aCosecha <= 10) avisos.add(Aviso.cosechaCerca);
 
   // La precisión sube con clima reciente y con registros semanales al día.
@@ -251,7 +260,7 @@ Recomendacion recomendar({
     diasACosecha: aCosecha,
     factorRendimiento: factorRendimiento(estados, cultivo.parametros.ky),
     diasEstres: semana.where((d) => d.ks < 1 && d.etapa != Etapa.cosechado).length,
-    lluviaSemana: semana.fold(0, (a, d) => a + d.lluvia),
+    lluviaSemana: lluviaSemana,
     necesidadSemana: semana.fold(0, (a, d) => a + d.etc),
     ultimos: ultimos,
     avisos: avisos,

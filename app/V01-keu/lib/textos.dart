@@ -187,6 +187,7 @@ class Txt {
         Aviso.climaViejo => _('Clima desactualizado', 'Weather out of date'),
         Aviso.plaga => _('Plaga reportada', 'Pest reported'),
         Aviso.fertilizar => _('Momento de fertilizar', 'Time to fertilize'),
+        Aviso.fertilizarEnEspera => _('Fertilizar: en espera', 'Fertilizing: on hold'),
         Aviso.cosechaCerca => _('Cosecha cercana', 'Harvest is near'),
       };
 
@@ -197,6 +198,8 @@ class Txt {
             'Check it with an extension agent and log it again.'),
         Aviso.fertilizar => _('El cultivo está en desarrollo y no hay fertilización registrada.',
             'The crop is developing and no fertilizer has been logged.'),
+        Aviso.fertilizarEnEspera => _('No ha llovido en la última semana ni hay riego: espera a que haya agua.',
+            'No rain in the last week and no irrigation: wait until there is water.'),
         Aviso.cosechaCerca => _('Evita regar de más y vigila la lluvia.', 'Avoid over-irrigating and watch the rain.'),
       };
 
