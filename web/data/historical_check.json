@@ -1,0 +1,854 @@
+{
+ "meta": {
+  "generated": "2026-11-15",
+  "network": {
+   "file": "web/data/recommender_mlp.json",
+   "seed": 17,
+   "generation": 61
+  },
+  "lossDays": [
+   30,
+   45,
+   60
+  ],
+  "note": "Illustrative, not a held-out test: 2009 is a training year at every point; 2023 is not used for training or validation (at the pilots it is a test year). Nothing is fitted to these events.",
+  "dropped": [
+   {
+    "event": "San Martín Jilotepeque 2026 (farmers sowed local beans after losing maize)",
+    "reason": "Outside the weather data (ends 2025-12-31) and not among the sources the brief asked to open; mentioned only, not evaluated."
+   }
+  ]
+ },
+ "sources": {
+  "fao2010": {
+   "url": "https://www.fao.org/4/ak344s/ak344s00.htm",
+   "title": "Misión FAO/PMA de evaluación de cosecha y seguridad alimentaria en Guatemala, informe especial, 23 de febrero de 2010",
+   "where": "Anexo 1, \"Región Oriente (departamentos de Jalapa, Chiquimula, El Progreso, Jutiapa, Baja Verapaz, Zacapa y Quiché)\", párrafo 3",
+   "opened": true,
+   "quotes": [
+    "\"se sembró maíz también en el segundo ciclo productivo\"",
+    "\"perdiéndose nuevamente todas las plantaciones\""
+   ],
+   "context": "Contexto de la fuente: por pérdidas en el primer ciclo y por el uso de semilla de maíz del Ministerio de Agricultura, en 2009 se sembró maíz también en el segundo ciclo; la sequía se prolongó y se perdieron de nuevo todas las plantaciones."
+  },
+  "magaJune2023": {
+   "url": "https://precios.maga.gob.gt/archivos/smc/2023/06%20Informe%20SMC%20-%20Junio%20-%202023.pdf",
+   "title": "MAGA/PMA Informe SMC No. 06, junio 2023",
+   "where": "p. 10, sección de monitoreo de cultivos (PMA), región Nororiente",
+   "opened": true,
+   "quotes": [
+    "\"han tenido que realizar resiembra\""
+   ],
+   "context": "Lo dicen los agricultores entrevistados de San Juan Ermita (Chiquimula), que sembraron el ciclo de primera del 10 al 18 de mayo. El cultivo que se resembró no se indica en la frase."
+  },
+  "magaJuly2023": {
+   "url": "https://precios.maga.gob.gt/archivos/smc/2023/07%20Informe%20SMC%20-%20Julio%20-%202023.pdf",
+   "title": "MAGA/PMA Informe SMC No. 07, julio 2023",
+   "where": "p. 11, sección VI, región Nororiente",
+   "opened": true,
+   "quotes": [
+    "\"del municipio de Olopa realizaron resiembra debido a las condiciones climáticas desfavorables\""
+   ],
+   "context": "Dice \"algunos de los agricultores entrevistados\"; no indica el cultivo resembrado ni la fecha de la pérdida o de la resiembra."
+  },
+  "fews2024": {
+   "url": "https://fews.net/es/latin-america-and-caribbean/guatemala/perspectiva-de-seguridad-alimentaria/febrero-2024",
+   "title": "FEWS NET, Guatemala, Perspectiva de seguridad alimentaria, febrero 2024",
+   "where": "sección Situación actual, producción de granos básicos 2023 (nacional)",
+   "opened": true,
+   "quotes": [
+    "\"Algunos agricultores decidieron esperar que las lluvias mejoraran\"",
+    "\"muchos pequeños agricultores no pudieron resembrar\""
+   ],
+   "context": "Es una descripción nacional del ciclo de primera de 2023 (siembras retrasadas uno o dos meses); nombra Chiquimula solo entre los departamentos con daños por sequía. Dice que la mayoría de medianos, excedentarios y comerciales sí resembró, con \"capacidades productivas\" mayores (extensión, capital, mecanización). La frase \"no tenían recursos\" no aparece tal cual."
+  }
+ },
+ "events": [
+  {
+   "id": "oriente2009",
+   "year": 2009,
+   "place": "Oriente de Guatemala (departamentos de Jalapa, Chiquimula, El Progreso, Jutiapa, Baja Verapaz, Zacapa y Quiché)",
+   "sources": [
+    "fao2010"
+   ],
+   "documented": "Tras perder el primer ciclo de maíz, los agricultores resembraron maíz en el segundo ciclo con semilla del MAGA; la sequía siguió y se perdió de nuevo todo.",
+   "documentedOutcome": "perdida (segunda siembra perdida)",
+   "nearestPoints": "El informe describe una región; se usan los puntos de nuestros 20 que llevan el nombre de departamentos citados (distancia 0 a ese punto por construcción; no hay coordenada de parcela).",
+   "caveat": "El \"segundo ciclo\" del informe es una siembra de segunda (después de la cosecha o pérdida de la primera, calendario de segunda), no una resiembra 14 días después de perder el maíz a los 30, 45 o 60 días: el calendario de la decisión de nuestro simulador no es el mismo.",
+   "cases": [
+    {
+     "point": "chiquimula",
+     "distanceKmToEventReference": 0,
+     "soil": "site",
+     "year": 2009,
+     "lossDay": 30,
+     "resowDate": "2009-06-17",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 0.995,
+      "simulatorRelYieldIfBeansResown": 0.711
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 0.995
+     },
+     "network": {
+      "typical": {
+       "action": "maiz",
+       "relYield": 0.995
+      },
+      "cautious": {
+       "action": "lechuga",
+       "relYield": 0.845
+      }
+     },
+     "oracle": {
+      "action": "ajonjoli",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 0.995,
+      "frijol": 0.711,
+      "ajonjoli": 1,
+      "papa": 0.857,
+      "cebolla": 0.806,
+      "brocoli": 0.886,
+      "lechuga": 0.845,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "chiquimula",
+     "distanceKmToEventReference": 0,
+     "soil": "site",
+     "year": 2009,
+     "lossDay": 45,
+     "resowDate": "2009-07-02",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 0.997,
+      "simulatorRelYieldIfBeansResown": 0.823
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 0.997
+     },
+     "network": {
+      "typical": {
+       "action": "ajonjoli",
+       "relYield": 1
+      },
+      "cautious": {
+       "action": "lechuga",
+       "relYield": 0.892
+      }
+     },
+     "oracle": {
+      "action": "ajonjoli",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 0.997,
+      "frijol": 0.823,
+      "ajonjoli": 1,
+      "papa": 0.873,
+      "cebolla": 0.812,
+      "brocoli": 0.889,
+      "lechuga": 0.892,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "chiquimula",
+     "distanceKmToEventReference": 0,
+     "soil": "site",
+     "year": 2009,
+     "lossDay": 60,
+     "resowDate": "2009-07-17",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 0.978,
+      "simulatorRelYieldIfBeansResown": 1
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 0.978
+     },
+     "network": {
+      "typical": {
+       "action": "ajonjoli",
+       "relYield": 0.997
+      },
+      "cautious": {
+       "action": "ajonjoli",
+       "relYield": 0.997
+      }
+     },
+     "oracle": {
+      "action": "frijol",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 0.978,
+      "frijol": 1,
+      "ajonjoli": 0.997,
+      "papa": 0.838,
+      "cebolla": 0.79,
+      "brocoli": 0.89,
+      "lechuga": 0.913,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "jutiapa",
+     "distanceKmToEventReference": 0,
+     "soil": "site",
+     "year": 2009,
+     "lossDay": 30,
+     "resowDate": "2009-06-23",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 0.46,
+      "simulatorRelYieldIfBeansResown": 0.176
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 0.46
+     },
+     "network": {
+      "typical": {
+       "action": "ajonjoli",
+       "relYield": 0.822
+      },
+      "cautious": {
+       "action": "ajonjoli",
+       "relYield": 0.822
+      }
+     },
+     "oracle": {
+      "action": "ajonjoli",
+      "relYield": 0.822
+     },
+     "allActions": {
+      "maiz": 0.46,
+      "frijol": 0.176,
+      "ajonjoli": 0.822,
+      "papa": 0.668,
+      "cebolla": 0.542,
+      "brocoli": 0.692,
+      "lechuga": 0.63,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "jutiapa",
+     "distanceKmToEventReference": 0,
+     "soil": "site",
+     "year": 2009,
+     "lossDay": 45,
+     "resowDate": "2009-07-08",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 0.763,
+      "simulatorRelYieldIfBeansResown": 0.43
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 0.763
+     },
+     "network": {
+      "typical": {
+       "action": "lechuga",
+       "relYield": 0.672
+      },
+      "cautious": {
+       "action": "ajonjoli",
+       "relYield": 0.895
+      }
+     },
+     "oracle": {
+      "action": "ajonjoli",
+      "relYield": 0.895
+     },
+     "allActions": {
+      "maiz": 0.763,
+      "frijol": 0.43,
+      "ajonjoli": 0.895,
+      "papa": 0.685,
+      "cebolla": 0.505,
+      "brocoli": 0.609,
+      "lechuga": 0.672,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "jutiapa",
+     "distanceKmToEventReference": 0,
+     "soil": "site",
+     "year": 2009,
+     "lossDay": 60,
+     "resowDate": "2009-07-23",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 0.677,
+      "simulatorRelYieldIfBeansResown": 0.487
+     },
+     "rule": {
+      "action": "frijol",
+      "relYield": 0.487
+     },
+     "network": {
+      "typical": {
+       "action": "frijol",
+       "relYield": 0.487
+      },
+      "cautious": {
+       "action": "frijol",
+       "relYield": 0.487
+      }
+     },
+     "oracle": {
+      "action": "ajonjoli",
+      "relYield": 0.828
+     },
+     "allActions": {
+      "maiz": 0.677,
+      "frijol": 0.487,
+      "ajonjoli": 0.828,
+      "papa": 0.631,
+      "cebolla": 0.462,
+      "brocoli": 0.587,
+      "lechuga": 0.721,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "zacapa",
+     "distanceKmToEventReference": 0,
+     "soil": "loam",
+     "year": 2009,
+     "lossDay": 30,
+     "resowDate": "2009-06-22",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 1,
+      "simulatorRelYieldIfBeansResown": 0.995
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "network": {
+      "typical": {
+       "action": "ajonjoli",
+       "relYield": 1
+      },
+      "cautious": {
+       "action": "ajonjoli",
+       "relYield": 1
+      }
+     },
+     "oracle": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 1,
+      "frijol": 0.995,
+      "ajonjoli": 1,
+      "papa": 0.994,
+      "cebolla": 0.982,
+      "brocoli": 0.995,
+      "lechuga": 0.996,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "zacapa",
+     "distanceKmToEventReference": 0,
+     "soil": "loam",
+     "year": 2009,
+     "lossDay": 45,
+     "resowDate": "2009-07-07",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 1,
+      "simulatorRelYieldIfBeansResown": 1
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "network": {
+      "typical": {
+       "action": "ajonjoli",
+       "relYield": 1
+      },
+      "cautious": {
+       "action": "ajonjoli",
+       "relYield": 1
+      }
+     },
+     "oracle": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 1,
+      "frijol": 1,
+      "ajonjoli": 1,
+      "papa": 0.99,
+      "cebolla": 0.974,
+      "brocoli": 0.993,
+      "lechuga": 0.999,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "zacapa",
+     "distanceKmToEventReference": 0,
+     "soil": "loam",
+     "year": 2009,
+     "lossDay": 60,
+     "resowDate": "2009-07-22",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 1,
+      "simulatorRelYieldIfBeansResown": 1
+     },
+     "rule": {
+      "action": "frijol",
+      "relYield": 1
+     },
+     "network": {
+      "typical": {
+       "action": "frijol",
+       "relYield": 1
+      },
+      "cautious": {
+       "action": "frijol",
+       "relYield": 1
+      }
+     },
+     "oracle": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 1,
+      "frijol": 1,
+      "ajonjoli": 1,
+      "papa": 0.954,
+      "cebolla": 0.91,
+      "brocoli": 0.979,
+      "lechuga": 0.984,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "jalapa",
+     "distanceKmToEventReference": 0,
+     "soil": "loam",
+     "year": 2009,
+     "lossDay": 30,
+     "resowDate": "2009-06-22",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 0.813,
+      "simulatorRelYieldIfBeansResown": 0.553
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 0.813
+     },
+     "network": {
+      "typical": {
+       "action": "ajonjoli",
+       "relYield": 0.868
+      },
+      "cautious": {
+       "action": "ajonjoli",
+       "relYield": 0.868
+      }
+     },
+     "oracle": {
+      "action": "ajonjoli",
+      "relYield": 0.868
+     },
+     "allActions": {
+      "maiz": 0.813,
+      "frijol": 0.553,
+      "ajonjoli": 0.868,
+      "papa": 0.747,
+      "cebolla": 0.591,
+      "brocoli": 0.745,
+      "lechuga": 0.803,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "jalapa",
+     "distanceKmToEventReference": 0,
+     "soil": "loam",
+     "year": 2009,
+     "lossDay": 45,
+     "resowDate": "2009-07-07",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 0.692,
+      "simulatorRelYieldIfBeansResown": 0.755
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 0.692
+     },
+     "network": {
+      "typical": {
+       "action": "ajonjoli",
+       "relYield": 0.806
+      },
+      "cautious": {
+       "action": "brocoli",
+       "relYield": 0.68
+      }
+     },
+     "oracle": {
+      "action": "ajonjoli",
+      "relYield": 0.806
+     },
+     "allActions": {
+      "maiz": 0.692,
+      "frijol": 0.755,
+      "ajonjoli": 0.806,
+      "papa": 0.692,
+      "cebolla": 0.538,
+      "brocoli": 0.68,
+      "lechuga": 0.773,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "jalapa",
+     "distanceKmToEventReference": 0,
+     "soil": "loam",
+     "year": 2009,
+     "lossDay": 60,
+     "resowDate": "2009-07-22",
+     "split": "train",
+     "documented": {
+      "action": "maiz",
+      "simulatorRelYieldIfMaizeResown": 0.727,
+      "simulatorRelYieldIfBeansResown": 0.667
+     },
+     "rule": {
+      "action": "frijol",
+      "relYield": 0.667
+     },
+     "network": {
+      "typical": {
+       "action": "frijol",
+       "relYield": 0.667
+      },
+      "cautious": {
+       "action": "frijol",
+       "relYield": 0.667
+      }
+     },
+     "oracle": {
+      "action": "lechuga",
+      "relYield": 0.79
+     },
+     "allActions": {
+      "maiz": 0.727,
+      "frijol": 0.667,
+      "ajonjoli": 0.733,
+      "papa": 0.68,
+      "cebolla": 0.49,
+      "brocoli": 0.637,
+      "lechuga": 0.79,
+      "fallow": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": "chiquimula2023",
+   "year": 2023,
+   "place": "Olopa y San Juan Ermita, Chiquimula",
+   "sources": [
+    "magaJune2023",
+    "magaJuly2023",
+    "fews2024"
+   ],
+   "documented": "Agricultores entrevistados de Olopa y San Juan Ermita resembraron (cultivo no indicado); en el país algunos esperaron la lluvia y muchos pequeños no pudieron resembrar (FEWS NET, nacional).",
+   "documentedOutcome": "sin dato en las fuentes",
+   "nearestPoints": "Olopa es uno de los 20 puntos (distancia 0: el punto lleva el nombre del municipio). San Juan Ermita no tiene punto propio y no se verificó una coordenada para él. Chiquimula (departamento) se añade por ser piloto.",
+   "caveat": "No hay rendimiento, fechas ni cultivo por parcela. Las fuentes describen municipios o el país.",
+   "cases": [
+    {
+     "point": "olopa",
+     "distanceKmToEventReference": 0,
+     "soil": "loam",
+     "year": 2023,
+     "lossDay": 30,
+     "resowDate": "2023-06-17",
+     "split": "not used (test years are only scored at the pilots)",
+     "documented": {
+      "action": "resembrar (cultivo no indicado)",
+      "simulatorRelYieldIfMaizeResown": 1,
+      "simulatorRelYieldIfBeansResown": 1
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "network": {
+      "typical": {
+       "action": "ajonjoli",
+       "relYield": 1
+      },
+      "cautious": {
+       "action": "ajonjoli",
+       "relYield": 1
+      }
+     },
+     "oracle": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 1,
+      "frijol": 1,
+      "ajonjoli": 1,
+      "papa": 1,
+      "cebolla": 0.999,
+      "brocoli": 1,
+      "lechuga": 0.999,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "olopa",
+     "distanceKmToEventReference": 0,
+     "soil": "loam",
+     "year": 2023,
+     "lossDay": 45,
+     "resowDate": "2023-07-02",
+     "split": "not used (test years are only scored at the pilots)",
+     "documented": {
+      "action": "resembrar (cultivo no indicado)",
+      "simulatorRelYieldIfMaizeResown": 1,
+      "simulatorRelYieldIfBeansResown": 1
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "network": {
+      "typical": {
+       "action": "ajonjoli",
+       "relYield": 1
+      },
+      "cautious": {
+       "action": "ajonjoli",
+       "relYield": 1
+      }
+     },
+     "oracle": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 1,
+      "frijol": 1,
+      "ajonjoli": 1,
+      "papa": 1,
+      "cebolla": 0.97,
+      "brocoli": 0.999,
+      "lechuga": 1,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "olopa",
+     "distanceKmToEventReference": 0,
+     "soil": "loam",
+     "year": 2023,
+     "lossDay": 60,
+     "resowDate": "2023-07-17",
+     "split": "not used (test years are only scored at the pilots)",
+     "documented": {
+      "action": "resembrar (cultivo no indicado)",
+      "simulatorRelYieldIfMaizeResown": 1,
+      "simulatorRelYieldIfBeansResown": 1
+     },
+     "rule": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "network": {
+      "typical": {
+       "action": "ajonjoli",
+       "relYield": 1
+      },
+      "cautious": {
+       "action": "maiz",
+       "relYield": 1
+      }
+     },
+     "oracle": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 1,
+      "frijol": 1,
+      "ajonjoli": 1,
+      "papa": 1,
+      "cebolla": 0.901,
+      "brocoli": 0.961,
+      "lechuga": 1,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "chiquimula",
+     "distanceKmToEventReference": 25.31,
+     "soil": "site",
+     "year": 2023,
+     "lossDay": 30,
+     "resowDate": "2023-07-30",
+     "split": "test",
+     "documented": {
+      "action": "resembrar (cultivo no indicado)",
+      "simulatorRelYieldIfMaizeResown": 1,
+      "simulatorRelYieldIfBeansResown": 1
+     },
+     "rule": {
+      "action": "frijol",
+      "relYield": 1
+     },
+     "network": {
+      "typical": {
+       "action": "frijol",
+       "relYield": 1
+      },
+      "cautious": {
+       "action": "frijol",
+       "relYield": 1
+      }
+     },
+     "oracle": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 1,
+      "frijol": 1,
+      "ajonjoli": 1,
+      "papa": 0.922,
+      "cebolla": 0.827,
+      "brocoli": 0.935,
+      "lechuga": 0.892,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "chiquimula",
+     "distanceKmToEventReference": 25.31,
+     "soil": "site",
+     "year": 2023,
+     "lossDay": 45,
+     "resowDate": "2023-08-14",
+     "split": "test",
+     "documented": {
+      "action": "resembrar (cultivo no indicado)",
+      "simulatorRelYieldIfMaizeResown": 1,
+      "simulatorRelYieldIfBeansResown": 0.935
+     },
+     "rule": {
+      "action": "frijol",
+      "relYield": 0.935
+     },
+     "network": {
+      "typical": {
+       "action": "frijol",
+       "relYield": 0.935
+      },
+      "cautious": {
+       "action": "frijol",
+       "relYield": 0.935
+      }
+     },
+     "oracle": {
+      "action": "maiz",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 1,
+      "frijol": 0.935,
+      "ajonjoli": 1,
+      "papa": 0.953,
+      "cebolla": 0.737,
+      "brocoli": 0.85,
+      "lechuga": 0.945,
+      "fallow": 0
+     }
+    },
+    {
+     "point": "chiquimula",
+     "distanceKmToEventReference": 25.31,
+     "soil": "site",
+     "year": 2023,
+     "lossDay": 60,
+     "resowDate": "2023-08-29",
+     "split": "test",
+     "documented": {
+      "action": "resembrar (cultivo no indicado)",
+      "simulatorRelYieldIfMaizeResown": 0.984,
+      "simulatorRelYieldIfBeansResown": 1
+     },
+     "rule": {
+      "action": "frijol",
+      "relYield": 1
+     },
+     "network": {
+      "typical": {
+       "action": "frijol",
+       "relYield": 1
+      },
+      "cautious": {
+       "action": "frijol",
+       "relYield": 1
+      }
+     },
+     "oracle": {
+      "action": "frijol",
+      "relYield": 1
+     },
+     "allActions": {
+      "maiz": 0.984,
+      "frijol": 1,
+      "ajonjoli": 1,
+      "papa": 0.827,
+      "cebolla": 0.648,
+      "brocoli": 0.737,
+      "lechuga": 0.98,
+      "fallow": 0
+     }
+    }
+   ]
+  }
+ ]
+}
