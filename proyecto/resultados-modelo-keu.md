@@ -16,7 +16,7 @@ El emulador **imita al simulador; no predice cosechas reales**.
 
 1. **Reserva de agua del subsuelo.** Al crecer las raíces ya no aparece agua nueva a capacidad de campo (commit `4ea12c1`).
 2. **Ky por etapa** (vegetativa, floración, formación, maduración) para maíz y frijol, combinadas multiplicando las fracciones de rendimiento (commit `df4da88`). Sorgo, sandía y tomate siguen con el Ky estacional porque no se pudo verificar su Ky por etapa.
-3. **Suelo real en los pilotos** (SoilGrids) y lluvia comparada con IMERG y CHIRPS. El modelo sigue usando ERA5 (ver limitaciones).
+3. **Suelo real en los pilotos** (SoilGrids) y lluvia comparada con dos series IMERG de ClimateSERV (conjuntos 26 y 226) y CHIRPS. El modelo sigue usando ERA5 (ver limitaciones).
 4. **Corrección del número de curva** del grupo hidrológico D (clase `clay`) con residuo: 85 y no 87 (TR-55, cuadro 2-2b). Cambia un poco las corridas con `clay` y residuo.
 5. Un solo lugar para calcular la ventana de floración (sin cambio numérico: diferencia 0 en 360 valores comprobados) y la fuente del Ky por etapa del frijol ahora cita solo el cuadro donde se verificó.
 
@@ -234,30 +234,84 @@ En estos 3 pilotos `nearestTexture` sí es la clase más cercana en resultado, p
 
 ### Sensibilidad a la lluvia (Chiquimula)
 
-Maíz el 20 de mayo, franco de cada modelo (no es el mismo suelo; ver la tabla de suelos), modelo final, con cada producto de lluvia en el simulador **y** en AquaCrop. Solo los 22 años agrícolas completos en los tres productos (se excluyen 2019 y 2024, donde IMERG tiene huecos; no se rellenó ningún hueco). POWER no se usa nunca como lluvia. El modelo sigue usando ERA5: esto mide una brecha de información, no elige un producto.
+**Nombres de las series IMERG.** ClimateSERV ofrece dos conjuntos de datos IMERG diarios. En la página de documentación de ClimateSERV (https://climateserv2.servirglobal.net/develop-api, "List of Datatypes", consultada el 15 de noviembre de 2026) el conjunto **26** se llama "NASA-IMERG-V06-Late 1 Day" y el **226**, "NASA-IMERG-V07-Late 1 Day". Las respuestas de datos de la API traen solo el número del conjunto, no el nombre. Aquí `IMERG` es el conjunto 26 (el de las rondas anteriores) e `IMERG_LATE` es el conjunto 226. El conjunto 226 se probó porque la auditoría de un compañero (`auditorias/prueba frijol maiz 2025` en `origin/main`) obtuvo con él los 365 días de 2025.
+
+Maíz el 20 de mayo, franco de cada modelo (no es el mismo suelo; ver la tabla de suelos), modelo final, con cada producto de lluvia en el simulador **y** en AquaCrop. Primera comparación: los tres productos originales (ERA5, IMERG conjunto 26, CHIRPS), solo los 22 años agrícolas completos en los tres (se excluyen 2019 y 2024, donde el conjunto 26 tiene huecos; no se rellenó ningún hueco). POWER no se usa nunca como lluvia. El modelo sigue usando ERA5: esto mide una brecha de información, no elige un producto. Estas cifras no cambiaron al agregar el conjunto 226.
 
 | Producto | Lluvia media (mm por año agrícola) | Spearman simulador vs AquaCrop | Coincidencia 5 peores | CV del simulador | Años en 1.0 |
 |---|---|---|---|---|---|
 | ERA5 | 1,098.9 | 0.846 | 3 | 0.24 | 9 |
-| IMERG | 1,164.1 | 0.602 | 4 | 0.21 | 6 |
+| IMERG (conjunto 26) | 1,164.1 | 0.602 | 4 | 0.21 | 6 |
 | CHIRPS | 1,307.9 | 0.632 | 2 | 0.07 | 14 |
 
 Acuerdo entre productos:
 
 | Par | Spearman del simulador | Coincidencia 5 peores del simulador | Diferencia media de `relYield` | Spearman de AquaCrop |
 |---|---|---|---|---|
-| ERA5–IMERG | 0.633 | 3 | 0.099 | 0.673 |
+| ERA5–IMERG (26) | 0.633 | 3 | 0.099 | 0.673 |
 | ERA5–CHIRPS | 0.658 | 3 | 0.087 | 0.735 |
-| IMERG–CHIRPS | 0.831 | 3 | 0.096 | 0.791 |
+| IMERG (26)–CHIRPS | 0.831 | 3 | 0.096 | 0.791 |
 
-Con otro producto de lluvia el orden de los años del simulador cambia mucho (Spearman de 0.63 a 0.83) y AquaCrop se mueve parecido: la elección de la lluvia pesa tanto como los cambios de modelo de esta ronda. Que ERA5 concuerde mejor con AquaCrop no prueba que ERA5 esté más cerca de la realidad: en cada fila los dos modelos reciben la misma lluvia.
+**Con el conjunto 226 (cuatro productos).** El conjunto 226 tampoco está completo: faltan 40 días, los mismos en los 3 pilotos (del 1 al 7 de junio de 2014, el 31 de diciembre de 2023, el 1 de enero de 2024 y todo mayo de 2024), y por eso quedan fuera los años agrícolas 2014, 2023 y 2024. Los años agrícolas completos en los cuatro productos son 20 (2001–2013, 2015–2018 y 2020–2022); no se rellenó ningún hueco.
+
+| Producto | Lluvia media (mm por año agrícola) | Spearman simulador vs AquaCrop | Coincidencia 5 peores | CV del simulador | Años en 1.0 |
+|---|---|---|---|---|---|
+| ERA5 | 1,110.3 | 0.834 | 3 | 0.22 | 9 |
+| IMERG (26) | 1,139.6 | 0.609 | 3 | 0.19 | 5 |
+| CHIRPS | 1,317.9 | 0.693 | 3 | 0.06 | 13 |
+| IMERG_LATE (226) | 1,574.5 | 0.843 | 4 | 0.06 | 10 |
+
+| Par | Spearman del simulador | Coincidencia 5 peores del simulador | Diferencia media de `relYield` | Spearman de AquaCrop |
+|---|---|---|---|---|
+| ERA5–IMERG (26) | 0.672 | 2 | 0.105 | 0.683 |
+| ERA5–CHIRPS | 0.659 | 2 | 0.076 | 0.678 |
+| ERA5–IMERG_LATE | 0.753 | 3 | 0.074 | 0.681 |
+| IMERG (26)–CHIRPS | 0.813 | 4 | 0.090 | 0.806 |
+| IMERG (26)–IMERG_LATE | 0.677 | 3 | 0.087 | 0.881 |
+| CHIRPS–IMERG_LATE | 0.747 | 4 | 0.020 | 0.832 |
+
+Con la lluvia del conjunto 226 el CV del simulador baja a 0.06 (con ERA5, 0.22): el producto es tan húmedo que el simulador casi no distingue años, y su Spearman de 0.843 se calcula sobre diferencias pequeñas de `relYield`.
+
+**Solo los productos completos, los 24 años (2001–2024).** Solo ERA5 y CHIRPS no tienen ningún día faltante en los 24 años agrícolas; ninguna de las dos series IMERG es completa, así que no entran aquí.
+
+| Producto | Lluvia media (mm por año agrícola) | Spearman simulador vs AquaCrop | Coincidencia 5 peores | CV del simulador | Años en 1.0 |
+|---|---|---|---|---|---|
+| ERA5 | 1,094.9 | 0.851 | 3 | 0.25 | 9 |
+| CHIRPS | 1,297.4 | 0.625 | 1 | 0.07 | 14 |
+
+Par ERA5–CHIRPS en los 24 años: Spearman del simulador 0.692, coincidencia de los 5 peores 4, diferencia media de `relYield` 0.101, Spearman de AquaCrop 0.693.
+
+Con otro producto de lluvia el orden de los años del simulador cambia mucho (Spearman entre productos de 0.63 a 0.83 en los 22 años y de 0.66 a 0.81 en los 20) y AquaCrop se mueve parecido: la elección de la lluvia pesa tanto como los cambios de modelo de esta ronda. Que ERA5 concuerde mejor con AquaCrop no prueba que ERA5 esté más cerca de la realidad: en cada fila los dos modelos reciben la misma lluvia.
+
+**Lluvia media por producto y piloto** (mm por año agrícola, de `web/data/rain_compare.json`; POWER solo para comparar, el modelo no la usa; n/d = no se calcula sobre ese conjunto de años).
+
+| Piloto | Años | ERA5 | IMERG (26) | CHIRPS | IMERG_LATE (226) | POWER |
+|---|---|---|---|---|---|---|
+| Chiquimula | 22 comunes sin IMERG_LATE | 1,098.9 | 1,164.1 | 1,307.9 | n/d | 1,566.5 |
+| Jutiapa | 22 comunes sin IMERG_LATE | 1,084.2 | 1,313.1 | 1,302.5 | n/d | 1,253.2 |
+| San Martín | 22 comunes sin IMERG_LATE | 1,100.7 | 1,224.5 | 1,158.3 | n/d | 1,398.6 |
+| Chiquimula | 21 comunes sin IMERG (26) | 1,103.0 | n/d | 1,316.4 | 1,565.9 | 1,545.1 |
+| Jutiapa | 21 comunes sin IMERG (26) | 1,097.8 | n/d | 1,309.2 | 1,507.9 | 1,256.7 |
+| San Martín | 21 comunes sin IMERG (26) | 1,095.7 | n/d | 1,164.1 | 1,701.9 | 1,424.6 |
+| Chiquimula | 20 comunes a los cinco | 1,110.3 | 1,139.6 | 1,317.9 | 1,574.5 | 1,551.0 |
+| Jutiapa | 20 comunes a los cinco | 1,102.6 | 1,329.2 | 1,311.7 | 1,521.7 | 1,252.1 |
+| San Martín | 20 comunes a los cinco | 1,103.3 | 1,239.4 | 1,164.6 | 1,724.2 | 1,409.3 |
+| Chiquimula | todos los años completos de cada serie (24, 22, 24, 21, 24) | 1,094.9 | 1,164.1 | 1,297.4 | 1,565.9 | 1,543.5 |
+| Jutiapa | todos los años completos de cada serie (24, 22, 24, 21, 24) | 1,092.9 | 1,313.1 | 1,313.0 | 1,507.9 | 1,250.4 |
+| San Martín | todos los años completos de cada serie (24, 22, 24, 21, 24) | 1,101.6 | 1,224.5 | 1,154.5 | 1,701.9 | 1,413.4 |
+
+En los 21 años comunes con ERA5, el conjunto 226 queda 42 % (Chiquimula), 37 % (Jutiapa) y 55 % (San Martín) por encima de ERA5, y 19 %, 15 % y 46 % por encima de CHIRPS. El servicio no explica esa diferencia y no se investigó su causa. Comprobación de orden de magnitud: el total de 2025 del conjunto 226 en Chiquimula con nuestro cuadro (±0.03° alrededor de 14.80, −89.54) es 2,384.3 mm; el archivo del compañero (cuadro ±0.015° alrededor de 14.825, −89.5312) da 2,243.5 mm, 6.3 % menos. Son puntos y cuadros distintos, así que esto solo muestra que ambos obtienen el mismo orden de magnitud, no que las cifras coincidan.
+
+**Corrida Late, no Final.** El conjunto 226 es de la corrida Late de IMERG. La página de NASA sobre IMERG (https://gpm.nasa.gov/data/imerg, consultada el 15 de noviembre de 2026) indica que las corridas Early y Late sirven para aplicaciones de baja latencia y la Final para investigación cuando la latencia no importa; el directorio de datos de GPM (https://gpm.nasa.gov/data/directory) describe la Final como la que usa datos mensuales de pluviómetros. Esas páginas no dicen cuál corrida entrega ClimateSERV en cada conjunto: eso solo consta en la documentación de ClimateSERV citada arriba.
+
+**Qué haría falta para usar el conjunto 226 en el entrenamiento (opción abierta para decidir; no se hizo).** (1) Descargar los otros 17 puntos: los 3 pilotos tomaron 10.1 minutos (75 solicitudes con 8 trabajadores en paralelo; ClimateSERV respondió HTTP 503 con más), unas 7.4 solicitudes por minuto, es decir del orden de 1 hora para 17 puntos si el ritmo se mantiene. (2) Los pilotos pierden los años agrícolas 2014, 2023 y 2024; no se sabe si los demás puntos tienen los mismos huecos, y sin rellenarlos el entrenamiento tendría como máximo 21 años (o habría que decidir cómo tratarlos). (3) Regenerar las entradas y etiquetas del emulador con esa lluvia, reentrenar las tres redes y volver a evaluar. (4) Decidir si se acepta una lluvia 15 % a 55 % más alta que la de ERA5 y CHIRPS en los pilotos (ver arriba) y una corrida Late en lugar de la Final. El modelo y el emulador siguen con ERA5.
 
 ## Limitaciones conocidas
 
 - El modelo solo simula agua. No incluye plagas, fertilización, sombra, precios ni mano de obra.
 - **Subsuelo corregido:** las raíces que crecen ya solo alcanzan el agua que la lluvia percoló hasta ahí (commit `4ea12c1`). Ya no "regala" agua.
 - **Ky por etapa solo para maíz y frijol** (verificados en FAO-66 cap. 2 y en IAEA/FAO Water Reports 22). Sorgo, sandía y tomate usan el Ky estacional porque su Ky por etapa no se pudo verificar; ajonjolí y melón no tienen. La regla de multiplicar las fracciones de rendimiento de cada etapa está documentada en una fuente secundaria (ayuda de WEAP/SEI); no se pudo confirmar que sea la forma de Rao, Sarma y Chander (1988), así que no se cita como su fuente.
-- **Lluvia:** el modelo usa ERA5 (Copernicus, por Open-Meteo). IMERG de NASA (ClimateSERV) termina el 1 de junio de 2024 y le falta el 30 de junio de 2019, así que cubre 22 de los 24 años agrícolas y no puede ser la única fuente; no se rellenó ningún hueco. CHIRPS está completo, pero no se cambió de fuente. En los 3 pilotos ERA5 es el producto más seco (promedio de los 22 años comunes: Chiquimula 1,098.9 / 1,164.1 / 1,307.9 mm por año agrícola con ERA5 / IMERG / CHIRPS; Jutiapa 1,084.2 / 1,313.1 / 1,302.5; San Martín 1,100.7 / 1,224.5 / 1,158.3). La lluvia de NASA POWER no se usa. Ver la sensibilidad a la lluvia arriba.
+- **Lluvia:** el modelo usa ERA5 (Copernicus, por Open-Meteo). ClimateSERV ofrece dos conjuntos IMERG diarios y ninguno está completo en 2001–2024. **El conjunto 26** ("NASA-IMERG-V06-Late 1 Day" según la documentación de ClimateSERV) termina el 1 de junio de 2024 y le falta el 30 de junio de 2019, así que cubre 22 de los 24 años agrícolas (579 días faltantes de 2001–2025). **El conjunto 226** ("NASA-IMERG-V07-Late 1 Day") llega hasta el 31 de diciembre de 2025, pero le faltan 40 días en los 3 pilotos (1–7 de junio de 2014, 31 de diciembre de 2023, 1 de enero de 2024 y mayo de 2024), así que cubre 21 de los 24 años agrícolas. Ninguno de los dos puede ser la única fuente sin rellenar huecos, y no se rellenó ninguno. El conjunto 226 solo se descargó en los 3 pilotos y es de la corrida Late, no de la Final. CHIRPS está completo, pero no se cambió de fuente. En los 3 pilotos ERA5 es el producto más seco: en los 21 años comunes con el conjunto 226, la lluvia media por año agrícola con ERA5 / CHIRPS / conjunto 226 es 1,103.0 / 1,316.4 / 1,565.9 mm en Chiquimula, 1,097.8 / 1,309.2 / 1,507.9 en Jutiapa y 1,095.7 / 1,164.1 / 1,701.9 en San Martín. En los 22 años comunes de las series anteriores (ERA5 / conjunto 26 / CHIRPS): Chiquimula 1,098.9 / 1,164.1 / 1,307.9; Jutiapa 1,084.2 / 1,313.1 / 1,302.5; San Martín 1,100.7 / 1,224.5 / 1,158.3. La lluvia de NASA POWER no se usa. Ver la sensibilidad a la lluvia arriba.
 - **Suelo:** el simulador y el emulador usan 3 clases (arena, franco, arcilla). Los suelos de SoilGrids de los 3 pilotos solo entran en el simulador y en las pruebas de AquaCrop de arriba, no en el emulador. SoilGrids es una predicción global y necesita verificación local; en Jutiapa el agua disponible (0.056) es muy baja para una arcilla. `nearestTexture` se elige solo por el agua disponible y puede no coincidir con la clase más cercana en resultado (ver arriba).
 - El número de curva del grupo hidrológico D con residuo es 85; la asignación de grupo según la textura es una aproximación.
 - En cultivos traslapados (relevo) se usa el Kc mayor y la raíz mayor, sin competencia entre cultivos.
