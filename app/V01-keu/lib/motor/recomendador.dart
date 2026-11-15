@@ -4,6 +4,8 @@
 /// conservando la misma salida.
 library;
 
+import 'dart:math' as math;
+
 import '../modelos.dart';
 import 'fao56.dart';
 
@@ -97,7 +99,9 @@ class Recomendacion {
 
 /// Convierte el clima de NASA POWER en ET₀ y lluvia diarias, sin huecos, hasta
 /// [hoy]. Los días sin dato observado se completan con el promedio reciente y
-/// lluvia cero, y quedan marcados como estimados.
+/// quedan marcados como estimados. Un día cuya lluvia falta también es
+/// estimado: la lluvia que falta se deja en cero (no se inventa) y se avisa en
+/// `diasEstimados` y en la precisión.
 List<DiaAgua> prepararClima(List<DiaClima> clima, Parcela parcela, DateTime hoy) {
   final validos = clima.where((d) => d.completo).toList()..sort((a, b) => a.fecha.compareTo(b.fecha));
   if (validos.isEmpty) return [];
@@ -116,7 +120,8 @@ List<DiaAgua> prepararClima(List<DiaClima> clima, Parcela parcela, DateTime hoy)
       latitud: parcela.latitud,
       elevacion: parcela.elevacion ?? 500,
     );
-    porFecha[soloFecha(d.fecha)] = DiaAgua(fecha: soloFecha(d.fecha), et0: et0, lluvia: d.lluvia ?? 0);
+    porFecha[soloFecha(d.fecha)] =
+        DiaAgua(fecha: soloFecha(d.fecha), et0: et0, lluvia: d.lluvia ?? 0, estimado: d.lluvia == null);
   }
 
   final salida = <DiaAgua>[];
@@ -178,7 +183,11 @@ Recomendacion recomendar({
   final ultimos = estados.length > 14 ? estados.sublist(estados.length - 14) : estados;
   final observados = dias.where((d) => !d.estimado);
   final ultimoClima = observados.isEmpty ? null : observados.last.fecha;
-  final diasEstimados = dias.reversed.takeWhile((d) => d.estimado).length;
+  // Días estimados de la ventana reciente (catorce días, o toda la racha final
+  // si es más larga).
+  final racha = dias.reversed.takeWhile((d) => d.estimado).length;
+  final diasEstimados = dias.reversed.take(racha > 14 ? racha : 14).where((d) => d.estimado).length;
+  final estimadoEstaSemana = dias.reversed.take(7).any((d) => d.estimado);
 
   final NivelAgua nivel;
   if (actual.etapa == Etapa.cosechado) {
@@ -228,7 +237,8 @@ Recomendacion recomendar({
   // La precisión sube con clima reciente y con registros semanales al día.
   final registrosRecientes =
       registros.where((r) => soloFecha(hoy).difference(soloFecha(r.fecha)).inDays <= 21).length;
-  final puntos = (climaViejo ? 0 : 1) + (registrosRecientes >= 2 ? 1 : 0);
+  // Si algún día de la última semana es estimado (clima o lluvia sin dato), baja un punto.
+  final puntos = math.max(0, (climaViejo ? 0 : 1) + (registrosRecientes >= 2 ? 1 : 0) - (estimadoEstaSemana ? 1 : 0));
 
   return Recomendacion(
     nivel: nivel,

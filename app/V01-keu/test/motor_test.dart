@@ -194,6 +194,57 @@ void main() {
       expect(r.diasEstimados, 10);
       expect(r.ultimoClima, DateTime(2026, 7, 10));
     });
+
+    group('lluvia sin dato', () {
+      final registros = [
+        RegistroSemanal(fecha: DateTime(2026, 7, 13), riegos: 2, plaga: NivelPlaga.ninguna, fertilizo: true),
+        RegistroSemanal(fecha: DateTime(2026, 7, 20), riegos: 2, plaga: NivelPlaga.ninguna, fertilizo: true),
+      ];
+      Recomendacion con(List<DiaClima> clima) =>
+          recomendar(parcela: parcela, plantacion: plantacion(), clima: clima, registros: registros, hoy: hoy);
+
+      test('un día con lluvia faltante queda marcado como estimado, sin inventar lluvia, y baja la precisión', () {
+        final completo = _clima(50, DateTime(2026, 6, 1), lluvia: 3);
+        final base = con(completo);
+        expect(base.precision, Precision.alta);
+        expect(base.diasEstimados, 0);
+
+        final sinLluvia = [
+          for (final d in completo)
+            d.fecha == DateTime(2026, 7, 18)
+                ? DiaClima(
+                    fecha: d.fecha, tmax: d.tmax, tmin: d.tmin, humedad: d.humedad,
+                    viento: d.viento, radiacion: d.radiacion, lluvia: null)
+                : d,
+        ];
+        final r = con(sinLluvia);
+        expect(r.diasEstimados, 1);
+        final dia = r.ultimos.firstWhere((d) => d.fecha == DateTime(2026, 7, 18));
+        expect(dia.estimado, isTrue);
+        expect(dia.lluvia, 0);
+        expect(r.precision, Precision.media);
+      });
+
+      test('un día incompleto antes de la última semana se cuenta pero no baja la precisión', () {
+        final completo = _clima(50, DateTime(2026, 6, 1), lluvia: 3);
+        final r = con([
+          for (final d in completo)
+            d.fecha == DateTime(2026, 7, 10)
+                ? DiaClima(
+                    fecha: d.fecha, tmax: d.tmax, tmin: d.tmin, humedad: d.humedad,
+                    viento: d.viento, radiacion: d.radiacion, lluvia: null)
+                : d,
+        ]);
+        expect(r.diasEstimados, 1);
+        expect(r.precision, Precision.alta);
+      });
+
+      test('los días sin ningún dato en la última semana también bajan la precisión', () {
+        final r = con(_clima(45, DateTime(2026, 6, 1), lluvia: 3));
+        expect(r.diasEstimados, 5);
+        expect(r.precision.index, lessThan(Precision.alta.index));
+      });
+    });
   });
 
   test('interpreta la respuesta de NASA POWER y descarta los -999', () {
