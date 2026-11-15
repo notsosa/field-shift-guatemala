@@ -64,6 +64,11 @@ El aviso depende del clima real del día, así que no se puede forzar en vivo. C
 | Recargar la página | La parcela, la plantación y los registros siguen ahí |
 | Sin internet al abrir | La app abre con el clima guardado y avisa que no se pudo actualizar |
 
+## Qué mostrar en la demo
+
+- Para la demo, muestra la app, la comparación de rotaciones por agua y la matriz de sucesión.
+- Presenta el consejo de la fecha de siembra como un límite que encontramos (el simulador dice que esperar gana y AquaCrop lo contradice), no como una recomendación.
+
 ## Lo que la app no hace
 
 - No predice plagas ni dice cuándo aplicar; solo las registra. Las plagas listadas son registros documentados en Guatemala (lugar y fecha propios), no la presencia en tu parcela; no hay frecuencias ni umbrales.

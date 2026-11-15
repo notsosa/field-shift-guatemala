@@ -122,3 +122,19 @@ Con eso corremos `score_actions.mjs` sobre las dos listas y calculamos las medid
 | **Dejar cobertura** | En parte | La única cobertura que simula el modelo es la mucuna en relevo de la rotación `proteger`, más el rastrojo después de la cosecha. Dejar el lote con cobertura en una fecha cualquiera no se puede representar. |
 
 En resumen, **no se pueden representar**: resiembra de una variedad, cualquier acción en medio de la temporada, el estado que pasa de un ciclo a otro, los sublotes, la caja y el flujo de dinero, la fertilización y las plagas. Esas partes de la red solo pueden evaluarse con sus propios indicadores, no con nuestro simulador.
+
+## Comentarios de Alex (15 nov)
+
+Fuente: `comentarios red.md` en la raíz del repositorio.
+
+**Su posición.** Para la demo usaría `modelo-keu`, porque ya corre y sus resultados se pueden reproducir. La red de política propuesta encaja mejor con la decisión "qué hacer después de perder una cosecha", pero todavía no está implementada ni se ha medido si decide mejor.
+
+**Sus tres medidas** para comparar la red de política contra una regla agronómica sencilla, en los mismos casos y con la misma información, y qué puede calcular hoy esta rama:
+
+| Medida | ¿Se puede con esta rama? |
+|---|---|
+| Pérdidas en años malos | Sí: el peor caso y el percentil 10 del índice de agua y del rendimiento relativo (sección 6). |
+| Margen | No: el modelo no tiene precios ni costos. |
+| Proporción de acciones que el productor puede ejecutar | Todavía no: hace falta la lista de acciones de la red y una regla de qué es ejecutable. |
+
+**Una corrección.** Su ejemplo dice que `modelo-keu` ayuda a estimar cuántos días después del inicio de las lluvias conviene sembrar el maíz. La evaluación de decisiones de esta rama (sección "Decisiones con información previa" de `proyecto/resultados-modelo-keu.md`) encontró que esperar para sembrar gana solo en nuestro simulador y que AquaCrop lo contradice. Con el suelo del piloto (18 casos), las seis combinaciones de política pierden contra sembrar en el inicio de lluvias en AquaCrop: de −1.24 a −2.32 t/ha (−10.7 % a −20.1 %), ganan solo 3 a 6 de los 18 casos, y hay 4 a 7 "ganancias solo del simulador" por política. Por eso no se puede usar el modelo para recomendar cuántos días esperar: es un límite encontrado, no una recomendación.
