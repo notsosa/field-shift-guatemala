@@ -1,0 +1,13 @@
+{
+  "fecha_utc": "2026-11-15T03:28:43.287Z",
+  "carpeta": "auditorias/prueba frijol maiz 2025",
+  "reproduccion_en_carpeta_autocontenida": true,
+  "escenarios": 1728,
+  "resultados_iguales_a_corrida_original": true,
+  "pasos_diarios": 630720,
+  "fuentes_sha256_comprobadas": 37,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "pruebas_fisicas": 4,
+  "pruebas_fisicas_resultado": "OK",
+  "errores": []
+}

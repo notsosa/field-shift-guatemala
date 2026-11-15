@@ -1,0 +1,460 @@
+{
+  "generado_utc": "2026-11-15T03:27:33.025201+00:00",
+  "modo": "hindcast exploratorio 2025, no pronóstico disponible al decidir",
+  "sitio": {
+    "lat": 14.825,
+    "lon": -89.5312,
+    "caracter": "candidato agrícola elegido por el usuario; sin delimitación de finca ni verificación de campo",
+    "elevacion_dsm_m": 373.0,
+    "pendiente_dsm_local_pct": 2.5655780058800133,
+    "maga_cobertura_2025_en_punto": [
+      {
+        "gid": 79955,
+        "depto": "Chiquimula",
+        "codigo": 2001,
+        "municipio": "Chiquimula",
+        "C_USO": 2111,
+        "usot": "Maíz y frijol",
+        "nivel_1": "2. Territorios agrícolas",
+        "nivel_2": "2.1. Cultivos anuales",
+        "nivel_3": "2.1.1. Granos básicos",
+        "nivel_4": "2.1.1.1. Maíz y frijol",
+        "valp1": "2.1.1.1",
+        "area_ha": 102.325631621,
+        "area_ha_aj": 102.325631621,
+        "ha_final": 102.325765433,
+        "conteo": 1
+      }
+    ],
+    "worldcover_2021_clase": 30.0,
+    "suelo_superficial_estimado": {
+      "clay": 26.4,
+      "sand": 45.0,
+      "silt": 28.6,
+      "phh2o": 7.0,
+      "soc": 22.8,
+      "bdod": 1.4
+    },
+    "perfil_soilgrids": [
+      {
+        "profundidad": "0-5cm",
+        "desde_m": 0.0,
+        "hasta_m": 0.05,
+        "wv0033": 0.299,
+        "wv1500": 0.158,
+        "cfvo": 15.3,
+        "agua_disponible_mm": 7.049999999999999
+      },
+      {
+        "profundidad": "5-15cm",
+        "desde_m": 0.05,
+        "hasta_m": 0.15,
+        "wv0033": 0.294,
+        "wv1500": 0.16,
+        "cfvo": 14.1,
+        "agua_disponible_mm": 13.399999999999999
+      },
+      {
+        "profundidad": "15-30cm",
+        "desde_m": 0.15,
+        "hasta_m": 0.3,
+        "wv0033": 0.298,
+        "wv1500": 0.157,
+        "cfvo": 15.1,
+        "agua_disponible_mm": 21.15
+      },
+      {
+        "profundidad": "30-60cm",
+        "desde_m": 0.3,
+        "hasta_m": 0.6,
+        "wv0033": 0.307,
+        "wv1500": 0.178,
+        "cfvo": 19.7,
+        "agua_disponible_mm": 38.7
+      },
+      {
+        "profundidad": "60-100cm",
+        "desde_m": 0.6,
+        "hasta_m": 1.0,
+        "wv0033": 0.306,
+        "wv1500": 0.18,
+        "cfvo": 22.9,
+        "agua_disponible_mm": 50.4
+      }
+    ],
+    "agua_disponible_0_100cm_mm": 130.7,
+    "fuentes_estaticas": "SoilGrids 2.0 WCS; MAGA cobertura 2025; JAXA AW3D30 v4.1; ESA WorldCover 2021 v200",
+    "limites": [
+      "DSM incluye vegetación y construcciones; pendiente no mide drenaje ni inundabilidad.",
+      "SoilGrids es predicción espacial estática, no análisis del suelo en 2025.",
+      "wv0033 se usa como aproximación de capacidad de campo, no medición de campo.",
+      "No se aplica una corrección adicional por fragmentos gruesos a wv; almacenamiento se perturba en sensibilidad.",
+      "Las discrepancias MAGA/WorldCover no demuestran cuál clasificación es correcta en campo."
+    ],
+    "contexto_tematico_maga": {
+      "fisiografia": [
+        {
+          "CODGP": "4.4.4",
+          "G_PAISAJE": "4.4.4 Abanicos Aluviales",
+          "CODSR": "4.4",
+          "NOMGP": "Abanicos Aluviales",
+          "UBICGP": "Se encuentra en los municipios de Chiquimula, Jocotán y Camotán en Chiquimula.",
+          "ELEVGP1": 0,
+          "ELEVGP2": 0,
+          "PENGP": "0",
+          "DRENGP": "",
+          "ROCAGP": "Rocas intrusivas y rocas metamórficas",
+          "MORFOGEGP": "Los fragmentos se originaron por erosión y transporte hídrico de materiales de las partes altas.",
+          "EDADGEOGP": "Cuaternario",
+          "OBSERGP": "",
+          "CODR": 4,
+          "NOMR": "Tierras Altas Cristalinas",
+          "CODSR_1": "4.4",
+          "NOMSR": "Montañas de San Raymundo - Progreso - Jalapa - Espíritu Santo",
+          "UBICSR": "Municipio San Raymundo, San Pedro Ayampúc de Guatemala, Jocotán y Camotán de Chiquimula, montañas de Chiquimula y Zacapa, Los Amates, Izabal y frontera con Honduras",
+          "ELEVSR1": 50,
+          "ELEVSR2": 1800,
+          "DRENSR": "Dendrítico, subparalelo y angular",
+          "EDADGEOSR": "Cretácito, Terciario y Cuaternario",
+          "ROCASR": "Hay rocas ígneas, metamórficas, carbonatos y rocas clásticas.",
+          "OBSERSR": ""
+        }
+      ],
+      "taxonomia_suelos": [
+        {
+          "ORDEN": "Inceptisoles"
+        }
+      ],
+      "capacidad_uso_tierra_usda": [
+        {
+          "CAPACIDAD": "III",
+          "VOCACION": "Agrícola"
+        }
+      ],
+      "amenaza_sequia": [
+        {
+          "OBJECTID": 9,
+          "fid_1": 70,
+          "cat": 62,
+          "cat_": 6,
+          "AMENAZA2": "Muy alto",
+          "COUNT": 5,
+          "AREA_KM2": 2934.21225577,
+          "PORCEN": 3.5
+        }
+      ],
+      "zonas_de_vida": [
+        {
+          "ZONAS": "bs-S",
+          "ZVIDA": "Bosque seco Subtropical",
+          "PMIN": 500,
+          "PMAX": 1000,
+          "PPROM": 750,
+          "TBMIN": 19,
+          "TBMAX": 24,
+          "EMIN": 0,
+          "EMAX": 1200,
+          "RELIEVE": "Plano a ligeramente accidentado",
+          "CCLIMA": "Días claros y soleados durante los meses en que no llueve y parcialmente nublados durante la época de enero-abril.",
+          "VEGETACION": "---",
+          "AREA_CALC": 4099.18
+        }
+      ]
+    },
+    "unidades": {
+      "clay_sand_silt_cfvo": "%",
+      "wv0033_wv1500": "m³/m³",
+      "soc": "g/kg",
+      "bdod": "g/cm³",
+      "phh2o": "pH",
+      "agua_disponible": "mm"
+    }
+  },
+  "escenarios": 1728,
+  "celdas_dia_simuladas": 630720,
+  "series_completas_dias": 365,
+  "faltantes": 0,
+  "et0_power_total_mm": 1502.062800135051,
+  "et0_era5_total_mm": 1459.38,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "power_elevacion_celda_m": 762.46,
+  "era5_coordenada_de_celda_y_elevacion_solicitada": [
+    14.75,
+    -89.5,
+    373.0
+  ],
+  "temperatura_maxima_POWER_C": 37.62,
+  "temperatura_maxima_ERA5_C": 39.9,
+  "parametros_cultivo": {
+    "maiz": {
+      "stages": [
+        20,
+        35,
+        40,
+        30
+      ],
+      "kc": [
+        0.3,
+        1.2,
+        0.35
+      ],
+      "zr": 1.0,
+      "p": 0.55
+    },
+    "frijol": {
+      "stages": [
+        15,
+        25,
+        35,
+        20
+      ],
+      "kc": [
+        0.4,
+        1.15,
+        0.35
+      ],
+      "zr": 0.6,
+      "p": 0.45
+    }
+  },
+  "calendarios": [
+    {
+      "id": "FAO_125_95_mayo15",
+      "inicio": "2025-05-15",
+      "ciclo_corto": false
+    },
+    {
+      "id": "corto_90_70_mayo15",
+      "inicio": "2025-05-15",
+      "ciclo_corto": true
+    },
+    {
+      "id": "corto_90_70_junio01",
+      "inicio": "2025-06-01",
+      "ciclo_corto": true
+    },
+    {
+      "id": "corto_90_70_junio15",
+      "inicio": "2025-06-15",
+      "ciclo_corto": true
+    }
+  ],
+  "supuestos": [
+    "Intervalo de siete días completos entre cultivos, sin relevo.",
+    "Ciclos FAO 125/95 días son referencias extranjeras, sin calibración local.",
+    "Ciclos cortos 90/70 días exploran referencias de duración ICTA B-5/Ligero; etapas Kc prorrateadas, no validación de variedades.",
+    "Raíces crecen por calendario incluso bajo estrés: supuesto simplificador.",
+    "Kc único, sin ajuste local por viento, humedad, densidad ni humedecimiento; suelo sin cultivo Kc=0.20 supuesto.",
+    "Perfil de cinco capas hasta un metro, almacenamiento entre marchitez y capacidad de campo.",
+    "Sin límite de infiltración por intensidad; escorrentía fija supuesta de 0/15/30%; drenaje instantáneo del exceso sobre capacidad.",
+    "Sin ascenso capilar, nivel freático, anegamiento, salinidad ni transporte lateral.",
+    "Sensibilidad: perfil de referencia, raíces limitadas a 40 cm o capacidad de almacenamiento 25% menor. No son intervalos estadísticos.",
+    "Agua inicial al 1 de enero: 25/75% del agua disponible; misma inicialización en secuencias comparadas.",
+    "Riego hipotético: 20 mm netos en días de cultivo cuyo agotamiento supera RAW; suministro sin tope estacional. No dosis recomendada ni disponibilidad comprobada.",
+    "Ks<0.95 es indicador operativo de estrés del modelo, no daño observado.",
+    "IMERG/CHIRPS conservan fecha del servicio; POWER LST y ERA5 America/Guatemala. Cortes diarios difieren; no comparar hora de evento.",
+    "GWET es fracción regional de saturación y ERA5 humedad volumétrica es modelada; no se convierten una en otra ni se usan para calibrar el perfil.",
+    "No simula patógenos, N residual, rendimiento, calidad comercial, precios ni compatibilidad sanitaria.",
+    "Fin de cada ciclo equivale a retiro/terminación SUPUESTOS. Madurez o duración ICTA no garantiza grano seco ni terreno liberado; comprobar secado y retiro. Si A permanece al sembrar B, corresponde relevo fuera de este modelo."
+  ],
+  "versiones": {
+    "python": "3.12.14",
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2"
+  },
+  "fuentes": [
+    {
+      "nombre": "NASA POWER Daily",
+      "url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/"
+    },
+    {
+      "nombre": "NASA GPM IMERG",
+      "url": "https://gpm.nasa.gov/data/imerg"
+    },
+    {
+      "nombre": "ClimateSERV, productos 226 y 0",
+      "url": "https://climateserv2.servirglobal.net/develop-api"
+    },
+    {
+      "nombre": "UCSB CHIRPS",
+      "url": "https://www.chc.ucsb.edu/data/chirps"
+    },
+    {
+      "nombre": "ERA5 vía Open-Meteo",
+      "url": "https://open-meteo.com/en/docs/historical-weather-api"
+    },
+    {
+      "nombre": "SoilGrids WCS",
+      "url": "https://docs.isric.org/globaldata/soilgrids/SoilGrids_faqs_02.html"
+    },
+    {
+      "nombre": "FAO-56, capítulos 2–3, 6 y 8",
+      "url": "https://www.fao.org/4/x0490e/x0490e00.htm"
+    }
+  ],
+  "presion_para_ET0": {
+    "metodo": "FAO-56 ec. 7, presión estimada por elevación DSM; PS regional se conserva en los datos brutos y no entra en gamma.",
+    "kPa": 96.96791768729304
+  },
+  "origen_caso_github": {
+    "url": "https://github.com/notsosa/field-shift-guatemala/blob/main/proyecto/decisions.md",
+    "decision": "D01, candidato agrícola 14.8250, −89.5312",
+    "seleccion": "El usuario eligió este candidato para la corrida en este chat."
+  },
+  "controles_fisicos": {
+    "pruebas_unitarias": 4,
+    "resultado_ultima_ejecucion": "OK: sin flujo conserva agua; suelo vacío no evapora; excedente drena; riego contabilizado",
+    "script": "tests/test_simular_chiquimula_2025.py",
+    "limite": "Control numérico y físico de límites; no validación contra mediciones."
+  },
+  "archivos_fuente_sha256": [
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\power_2025.json",
+      "sha256": "7b3aba896d24c1826e3418da2ad296f933863e20ddb6bd4f9744b7925984d567"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\era5_2025.json",
+      "sha256": "23279b8ef14d0cbae94c051c5b5ee4395953b7da024436f57b3c447529a4e1b9"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\imerg_v07_late_2025.json",
+      "sha256": "ae827ba20b3fe748442acf561cd80ee87f52a6e8d9af809ca10e93ad6a13cfd0"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\chirps_v2_2025.json",
+      "sha256": "729f71110c581b6ae5af2458d9fe1b2f28a204890fdda1d573e008a78791e3ee"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\bdod_0-5cm.tif",
+      "sha256": "b514698857fa349ac6278a45a98c53b0c20debe44a5468c85c78a33c9dd9101e"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\cfvo_0-5cm.tif",
+      "sha256": "2cb78718152bf9233cf3ce0c2bdc69a7f618da0c7b9656a21cdd13c0b80157b5"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\cfvo_15-30cm.tif",
+      "sha256": "004f47940e7f7d5a2e37f78f55f5d2af40fe8f7cc92f8a6332fd1476132cd6c7"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\cfvo_30-60cm.tif",
+      "sha256": "0e18ef47e27da0a212278197c514c4be40be91a66ca3b9704e55f12de129efc0"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\cfvo_5-15cm.tif",
+      "sha256": "558611db9e3abe52619ea8c9ea7d37c7ff27243d1d8b870f16af03c1910833d8"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\cfvo_60-100cm.tif",
+      "sha256": "f857e221e91e82eecb2e55533f49b099d57da29f64a8dded9c70f72b3042ac9b"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\clay_0-5cm.tif",
+      "sha256": "5936b01d3a47d51185fbc415da36a4b8ba3e60fe03be32c5a435c39ab056c569"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\phh2o_0-5cm.tif",
+      "sha256": "fd58066d2d7eb18de9dbf4b873bd998dc8b8d4750406246128bbc1f59ef6c75b"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\sand_0-5cm.tif",
+      "sha256": "5149b13860ab1c713e9b689de88a89aaf0e938843ccb9a7542d031354536076a"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\silt_0-5cm.tif",
+      "sha256": "06ee04ffd53a7daa040b05bbacb957e178924fc133f059fec63fa05ef983fb6f"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\soc_0-5cm.tif",
+      "sha256": "ebaf5a9e768856d08714f1c92762662f9ce33de09c6ddb7c206dcca67be2afc6"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\wv0033_0-5cm.tif",
+      "sha256": "2fc6aa900201f067f93400ba4d0e85687cd365893d6595857a879ad162f73877"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\wv0033_15-30cm.tif",
+      "sha256": "265583176fe30a07341a5cd951a4351fc54a6235606f6237dc43ce4a3c36f6a7"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\wv0033_30-60cm.tif",
+      "sha256": "388a59fe3a10ff9b1173dfe1a908f696e35d03c3713f7fd46987bd9611ea6c4d"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\wv0033_5-15cm.tif",
+      "sha256": "921af4fe1aec221dd631e1916a4d6923116292a39b56f3cb84140d5ee25f47cd"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\wv0033_60-100cm.tif",
+      "sha256": "68eb2dc4534a63c41efad3dbdb2e90b807b3c57019e0ea672fc15004b5fb8d57"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\wv1500_0-5cm.tif",
+      "sha256": "5c7815a996b313c06e93e8ab5ead58099fadd50191554828793c4c638f2400ad"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\wv1500_15-30cm.tif",
+      "sha256": "168ce5598be893a2e2bb5aa1cac9b742251a7543847f62aa9fdce02afd549ca0"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\wv1500_30-60cm.tif",
+      "sha256": "cb6862a2d43e7a475d915897774a87514febffd024eff51788dccddbcd12bee3"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\wv1500_5-15cm.tif",
+      "sha256": "b8a128ba0c9d3415deda8fcce5e6c4b3b4ac5c478493b602fa253171fb68e669"
+    },
+    {
+      "path": "datos\\escenarios\\chiquimula_2025\\suelo_wcs\\wv1500_60-100cm.tif",
+      "sha256": "08db68f543e5f82bc197e857739674434478f50fa75f3db0b1b13963aa018865"
+    },
+    {
+      "path": "datos\\relieve\\chiquimula_aw3d30_dsm.tif",
+      "sha256": "d460c5fd1e8b875fda96021a9494995fbce1973c1b94b773ce32d072ecbd22fa"
+    },
+    {
+      "path": "datos\\cobertura\\chiquimula_worldcover2021.tif",
+      "sha256": "5cb6e7b07efe4122bcfa510ea35fe0aa834f401db7bce78f8a0ffd193ba80e28"
+    },
+    {
+      "path": "datos\\maga\\chiquimula_cobertura_uso_tierra_2025.geojson",
+      "sha256": "35b6ce1ab372663ebe43ad70865da2dbda6008743df42507ea53a1ce3385a265"
+    },
+    {
+      "path": "datos\\maga\\chiquimula_fisiografia.geojson",
+      "sha256": "217c959e5c2bd191b4b7ba11bb73500aa3735da6df13fdb019e42b10968949dc"
+    },
+    {
+      "path": "datos\\maga\\chiquimula_taxonomia_suelos.geojson",
+      "sha256": "f0e5a398afb7ef095c8fbc9f5e4536b5aee5dc79e3f06fed801a212343f00de2"
+    },
+    {
+      "path": "datos\\maga\\chiquimula_capacidad_uso_tierra_usda.geojson",
+      "sha256": "4cf772e266047f92cb95cd14f501dac3d587cd4d1144d53af01c43526ac3ef1f"
+    },
+    {
+      "path": "datos\\maga\\chiquimula_amenaza_sequia.geojson",
+      "sha256": "cf2348d3734df9ff9451c7ca1230d855c5f8c1d4e4c84ca8bb4193c9620eab56"
+    },
+    {
+      "path": "datos\\maga\\chiquimula_zonas_de_vida.geojson",
+      "sha256": "a9a80d7d1941e1f48626f60ab9bddfe0e27e980a251397224c97368c41321c7d"
+    },
+    {
+      "path": "scripts\\simular_chiquimula_2025.py",
+      "sha256": "c31caf6e782cce238b0ce6b50a1ed9183d1aa1e881b863dcac32a3eb6858f979"
+    },
+    {
+      "path": "datos\\cultivos\\maiz_frijol.json",
+      "sha256": "cc038188a7a2d7a131c2a794cd34fcc3949899315818519cb2f9c2ae3bd75d58"
+    },
+    {
+      "path": "tests\\test_simular_chiquimula_2025.py",
+      "sha256": "4c82efba24c86378377b36e1a84d2db903e00aed5eb1a9bda9893bca4397a88b"
+    },
+    {
+      "path": "requirements-simulacion.txt",
+      "sha256": "4c8ab871bfc979af304848b467c8526f34c975c533cbaf1319e47dacb5bd2946"
+    }
+  ]
+}
