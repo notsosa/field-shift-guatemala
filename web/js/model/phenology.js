@@ -40,11 +40,18 @@ export function buildPhase(crop, sowIdx, tmean) {
   return { cropId: crop.id, sowIdx, endIdx, harvestIdx: endIdx.late, floweringIdx: [a, b], cycleIncomplete, gddCum, stageGddCum };
 }
 
+/** Fase de un cultivo perenne (café): activo todos los días 0..n-1, sin siembra ni cosecha, sin ciclo por GDD. */
+export function buildPerennialPhase(crop, n) {
+  const last = n - 1;
+  return { cropId: crop.id, sowIdx: 0, endIdx: { ini: 0, dev: 0, mid: last, late: last }, harvestIdx: last, floweringIdx: [0, -1], cycleIncomplete: false, perennial: true, gddCum: [], stageGddCum: {} };
+}
+
 /** Kc del día idx: constante en ini y mid, lineal en dev y late; 0 fuera del ciclo. */
 export function kcOnDay(crop, phase, idx) {
   const { endIdx, sowIdx, harvestIdx } = phase;
   const { kc } = crop;
   if (idx < sowIdx || idx > harvestIdx) return 0;
+  if (crop.perennial) return kc.mid; // perenne: un solo Kc todo el año (el de la etapa media de FAO-56)
   // Interpolación por fracción de GDD acumulada de la etapa hasta el día idx.
   const lerp = (from, to, prevStage, stage) => {
     const lo = phase.stageGddCum[prevStage];

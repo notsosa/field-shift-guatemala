@@ -453,5 +453,49 @@
       "econ": null
     },
     "kyStages": null
+  },
+  {
+    "id": "cafe",
+    "perennial": true,
+    "name": {
+      "en": "Coffee (arabica, perennial)",
+      "es": "Café (arábica, perenne)"
+    },
+    "family": "Rubiaceae",
+    "legume": false,
+    "needsIrrigation": false,
+    "harvestRainSensitive": false,
+    "tbase": 10,
+    "days": {
+      "ini": 0,
+      "dev": 0,
+      "mid": 365,
+      "late": 0
+    },
+    "kc": {
+      "ini": 0.9,
+      "mid": 0.95,
+      "end": 0.95
+    },
+    "kcWeedCover": {
+      "ini": 1.05,
+      "mid": 1.1,
+      "end": 1.1
+    },
+    "zrMax": 1.2,
+    "zrRange": [
+      0.9,
+      1.5
+    ],
+    "p": 0.4,
+    "ky": null,
+    "econ": null,
+    "proxy": [],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc de café, suelo desnudo 0.90/0.95/0.95; con malezas 1.05/1.10/1.10 como alternativa documentada) y cuadro 22 (Zr 0.9-1.5 m, p = 0.40); FAO no da Ky para café (cuadro 24 no lo incluye): sin estimación de rendimiento. Perenne: sin siembra ni cosecha, un solo Kc todo el año (0.95), raíces constantes.",
+      "days": "perenne: sin ciclo",
+      "econ": null
+    },
+    "kyStages": null
   }
 ]

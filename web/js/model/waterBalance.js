@@ -22,6 +22,7 @@ export function stressCoefficient(dr, taw, p) {
 
 /** Zr (m) de una fase en el día idx: lineal de 0.15 m al sembrar a zrMax al fin de dev. */
 function rootDepth(crop, phase, idx) {
+  if (crop.perennial) return crop.zrMax; // cultivo perenne: raíces ya desarrolladas, Zr constante
   const span = phase.endIdx.dev - phase.sowIdx;
   if (!(span > 0)) return crop.zrMax;
   const f = Math.min(1, (idx - phase.sowIdx) / span);
@@ -44,9 +45,11 @@ function rootDepth(crop, phase, idx) {
  * de la zona radicular rellena primero el subsuelo; solo lo que sobra sale del perfil (drainOut).
  * Condición inicial: con riego 'none'/'limited' todo el perfil arranca seco (Dr = TAWr, Ds = TAWs: fin de
  * la estación seca, 1 de abril); con 'full' ambos arrancan en 0. drInit fija solo Dr; dsInit fija Ds.
+ * plotAdjust (opcional, solo café con sombra): { reduce[], add[] } en mm/día. La demanda del lote es max(0, Kc·ET0 − reduce[i]) + add[i];
+ * sin plotAdjust la demanda es Kc·ET0 (resultados idénticos a antes). Ks se aplica a la demanda completa del lote.
  * Conservación: Σrain − Σrunoff + Σirr − Σeta − ΣdrainOut = (Dr0 + Ds0) − (Dr_fin + Ds_fin).
  */
-export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, irrigation, drInit, dsInit, residueMask }) {
+export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, irrigation, drInit, dsInit, residueMask, plotAdjust }) {
   if (!IRRIGATION_MODES.includes(irrigation)) throw new Error(`Riego desconocido: ${irrigation}`);
   const soil = resolveSoil(texture); // clave 'sand'|'loam'|'clay' u objeto de suelo
   const n = rain.length;
@@ -89,7 +92,7 @@ export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, ir
     zrPrev = zr;
 
     const ks = stressCoefficient(dr, taw, p);
-    const etc = kc * et0[i];
+    const etc = plotAdjust ? Math.max(0, kc * et0[i] - plotAdjust.reduce[i]) + plotAdjust.add[i] : kc * et0[i];
     const eta = ks * etc;
     const cover = active.length ? 'crop' : (residueMask?.[i] ? 'residue' : 'bare');
     const runoff = scsRunoff(rain[i], curveNumber(texture, cover, slopeClass));

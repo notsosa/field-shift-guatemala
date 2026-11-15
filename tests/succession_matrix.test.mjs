@@ -105,7 +105,7 @@ test('agregar los cuatro cultivos no cambia las rotaciones existentes (Chiquimul
   const cropsOld = loadCrops(all.filter((c) => original.includes(c.id)));
   const cropsNew = loadCrops(all);
   assert.equal(cropsOld.size, 8);
-  assert.equal(cropsNew.size, 12);
+  assert.equal(cropsNew.size, 13) // + café (Tarea 32);
   const bundle = rj('../web/data/snapshots/chiquimula.json');
   const et0 = computeEt0Series(bundle);
   const seqs = rj('../web/data/sequences.json');

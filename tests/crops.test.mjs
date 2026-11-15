@@ -6,9 +6,9 @@ const json = JSON.parse(readFileSync(new URL('../web/data/crops.json', import.me
 const seqs = JSON.parse(readFileSync(new URL('../web/data/sequences.json', import.meta.url), 'utf8'));
 const base = { id: 'x', name: { en: 'X', es: 'X' }, sources: { agro: 'x' }, econ: null };
 
-test('catálogo: 12 cultivos con fuente agronómica', () => {
+test('catálogo: 13 cultivos con fuente agronómica', () => {
   const m = loadCrops(json);
-  assert.equal(m.size, 12);
+  assert.equal(m.size, 13);
   for (const c of m.values()) assert.ok(c.sources.agro);
   assert.equal(m.get('maiz').kc.mid, 1.2);
   assert.equal(m.get('mucuna').ky, null);
