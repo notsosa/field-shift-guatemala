@@ -4,3 +4,5 @@ scripts/emulator/samples.json
 # AquaCrop referee scratch outputs (the committed result is web/data/referee_aquacrop.json)
 .venv-referee/
 scripts/referee/out/
+scripts/emulator/cache_rain/
+scripts/emulator/cache_raw/

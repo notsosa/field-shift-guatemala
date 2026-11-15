@@ -1,0 +1,553 @@
+{
+ "source": "ISRIC SoilGrids 2.0 WCS (mean prediction, 250 m native), CC BY 4.0",
+ "url": "https://maps.isric.org/",
+ "factors": {
+  "clay": "mapped value / 10",
+  "sand": "mapped value / 10",
+  "wv0033": "mapped value / 1000",
+  "wv1500": "mapped value / 1000"
+ },
+ "downloadedUtc": "2026-11-15T01:08:43+00:00",
+ "points": {
+  "chiquimula": {
+   "lat": 14.8,
+   "lon": -89.54,
+   "layers": {
+    "clay": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 278.1666666666667,
+      "value": 27.8167,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 280.3333333333333,
+      "value": 28.0333,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 322.25,
+      "value": 32.225,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 326.3333333333333,
+      "value": 32.6333,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 326.5,
+      "value": 32.65,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     }
+    ],
+    "sand": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 458.3333333333333,
+      "value": 45.8333,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 452.6666666666667,
+      "value": 45.2667,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 423.3333333333333,
+      "value": 42.3333,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 419.75,
+      "value": 41.975,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 414.0833333333333,
+      "value": 41.4083,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     }
+    ],
+    "wv0033": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 316.3333333333333,
+      "value": 0.3163,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 313.0,
+      "value": 0.313,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 318.4166666666667,
+      "value": 0.3184,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 333.0,
+      "value": 0.333,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 337.0833333333333,
+      "value": 0.3371,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     }
+    ],
+    "wv1500": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 160.83333333333334,
+      "value": 0.1608,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 162.16666666666666,
+      "value": 0.1622,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 164.41666666666666,
+      "value": 0.1644,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 185.33333333333334,
+      "value": 0.1853,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 187.41666666666666,
+      "value": 0.1874,
+      "method": "mean of 12 valid pixels in +-0.01 deg"
+     }
+    ]
+   },
+   "weighted0to100cm": {
+    "clay": 31.8779,
+    "sand": 42.3242,
+    "wv0033": 0.3296,
+    "wv1500": 0.1795
+   }
+  },
+  "jutiapa": {
+   "lat": 14.29,
+   "lon": -89.9,
+   "layers": {
+    "clay": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 406.0,
+      "value": 40.6,
+      "method": "point pixel"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 435.0,
+      "value": 43.5,
+      "method": "point pixel"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 463.0,
+      "value": 46.3,
+      "method": "point pixel"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 536.0,
+      "value": 53.6,
+      "method": "point pixel"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 511.0,
+      "value": 51.1,
+      "method": "point pixel"
+     }
+    ],
+    "sand": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 259.0,
+      "value": 25.9,
+      "method": "point pixel"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 249.0,
+      "value": 24.9,
+      "method": "point pixel"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 231.0,
+      "value": 23.1,
+      "method": "point pixel"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 203.0,
+      "value": 20.3,
+      "method": "point pixel"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 226.0,
+      "value": 22.6,
+      "method": "point pixel"
+     }
+    ],
+    "wv0033": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 353.0,
+      "value": 0.353,
+      "method": "point pixel"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 362.0,
+      "value": 0.362,
+      "method": "point pixel"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 361.0,
+      "value": 0.361,
+      "method": "point pixel"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 366.0,
+      "value": 0.366,
+      "method": "point pixel"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 354.0,
+      "value": 0.354,
+      "method": "point pixel"
+     }
+    ],
+    "wv1500": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 259.0,
+      "value": 0.259,
+      "method": "point pixel"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 269.0,
+      "value": 0.269,
+      "method": "point pixel"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 284.0,
+      "value": 0.284,
+      "method": "point pixel"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 324.0,
+      "value": 0.324,
+      "method": "point pixel"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 310.0,
+      "value": 0.31,
+      "method": "point pixel"
+     }
+    ]
+   },
+   "weighted0to100cm": {
+    "clay": 49.845,
+    "sand": 22.38,
+    "wv0033": 0.3594,
+    "wv1500": 0.3037
+   }
+  },
+  "sanmartin": {
+   "lat": 14.78,
+   "lon": -90.79,
+   "layers": {
+    "clay": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 289.73214285714283,
+      "value": 28.9732,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 302.2857142857143,
+      "value": 30.2286,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 312.10714285714283,
+      "value": 31.2107,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 323.57142857142856,
+      "value": 32.3571,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 337.7857142857143,
+      "value": 33.7786,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     }
+    ],
+    "sand": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 362.26785714285717,
+      "value": 36.2268,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 353.80357142857144,
+      "value": 35.3804,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 349.35714285714283,
+      "value": 34.9357,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 342.23214285714283,
+      "value": 34.2232,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 344.92857142857144,
+      "value": 34.4929,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     }
+    ],
+    "wv0033": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 341.64285714285717,
+      "value": 0.3416,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 342.98214285714283,
+      "value": 0.343,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 342.9107142857143,
+      "value": 0.3429,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 342.0,
+      "value": 0.342,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 340.875,
+      "value": 0.3409,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     }
+    ],
+    "wv1500": [
+     {
+      "depth": "0-5cm",
+      "topCm": 0,
+      "bottomCm": 5,
+      "mapped": 191.67857142857142,
+      "value": 0.1917,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "5-15cm",
+      "topCm": 5,
+      "bottomCm": 15,
+      "mapped": 193.625,
+      "value": 0.1936,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "15-30cm",
+      "topCm": 15,
+      "bottomCm": 30,
+      "mapped": 201.01785714285714,
+      "value": 0.201,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "30-60cm",
+      "topCm": 30,
+      "bottomCm": 60,
+      "mapped": 217.60714285714286,
+      "value": 0.2176,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     },
+     {
+      "depth": "60-100cm",
+      "topCm": 60,
+      "bottomCm": 100,
+      "mapped": 217.17857142857142,
+      "value": 0.2172,
+      "method": "mean of 56 valid pixels in +-0.01 deg"
+     }
+    ]
+   },
+   "weighted0to100cm": {
+    "clay": 32.3717,
+    "sand": 34.6539,
+    "wv0033": 0.3418,
+    "wv1500": 0.2113
+   }
+  }
+ }
+}

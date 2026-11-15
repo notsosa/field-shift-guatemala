@@ -1,5 +1,5 @@
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { isInsideGuatemala, fetchPowerDaily, fetchEra5Rain, buildBundle } from '../web/js/data/climate.js';
+import { isInsideGuatemala, fetchPowerDaily, fetchEra5Rain, buildBundle, climateservRain } from '../web/js/data/climate.js';
 
 const compact = (d) => d.replace(/-/g, '');
 function isoRange(start, n) {
@@ -93,12 +93,66 @@ test('buildBundle: hueco de 5 dias en junio 2010 marca 2010 invalido', async () 
   assert.equal(b.rs[dates.indexOf('2010-06-12')], null);
 });
 
-test('buildBundle: nulos en la lluvia tambien se interpolan; hueco en el borde es largo', async () => {
+test('buildBundle: un dia sin lluvia NO se interpola: queda null y su anio agricola es invalido', async () => {
   const dates = isoRange('2012-04-01', 10);
   const rain = dates.map(() => 2); rain[3] = null; rain[0] = null;
   const b = await bundleFrom(dates, {}, rain);
-  assert.equal(b.rain[3], 2); assert.equal(b.rain[0], null);
+  assert.equal(b.rain[3], null); assert.equal(b.rain[0], null);
   assert.deepEqual(b.invalidYears, [2012]);
+});
+
+test('buildBundle: un solo dia de lluvia null en medio del anio invalida ese anio y los huecos de otras series <= 3 dias siguen interpolando', async () => {
+  const dates = isoRange('2010-01-01', 800);
+  const rain = dates.map(() => 1); rain[dates.indexOf('2010-07-15')] = null;
+  const tmax = Object.fromEntries(dates.map((d, i) => [compact(d), 30 + (i % 2)]));
+  tmax[compact('2011-02-10')] = -999; // otro anio agricola (2010), hueco de 1 dia: se interpola
+  const b = await bundleFrom(dates, { T2M_MAX: tmax }, rain);
+  assert.deepEqual(b.invalidYears, [2010]);
+  assert.equal(b.rain[dates.indexOf('2010-07-15')], null);
+  assert.notEqual(b.tmax[dates.indexOf('2011-02-10')], null);
+});
+
+test('buildBundle: objeto de lluvia con source IMERG fija rainSource, fuente y detalle', async () => {
+  const dates = isoRange('2010-01-01', 5);
+  const power = await fetchPowerDaily(14.8, -89.5, jsonFetch(fakePowerJson(dates)));
+  const rain = { dates, rain: dates.map(() => 3), source: 'IMERG', sourceDetail: 'caja +-0.03 deg, 2010' };
+  const b = buildBundle(power, rain, { lat: 14.8, lon: -89.5 });
+  assert.equal(b.rainSource, 'IMERG');
+  assert.equal(b.sources.length, 2);
+  assert.match(b.sources[0], /NASA POWER.*power\.larc\.nasa\.gov/);
+  assert.match(b.sources[1], /IMERG.*https:\/\/climateserv\.servirglobal\.net\//);
+  assert.match(b.sources[1], /caja \+-0\.03 deg, 2010/);
+  assert.deepEqual(b.rain, [3, 3, 3, 3, 3]);
+});
+
+test('buildBundle: CHIRPS tambien se anuncia; fuente de lluvia desconocida lanza error', async () => {
+  const dates = isoRange('2010-01-01', 3);
+  const power = await fetchPowerDaily(14.8, -89.5, jsonFetch(fakePowerJson(dates)));
+  const b = buildBundle(power, { dates, rain: [1, 1, 1], source: 'CHIRPS' }, { lat: 14.8, lon: -89.5 });
+  assert.equal(b.rainSource, 'CHIRPS'); assert.match(b.sources[1], /CHIRPS/);
+  assert.throws(() => buildBundle(power, { dates, rain: [1, 1, 1], source: 'POWER' }, { lat: 14.8, lon: -89.5 }), /POWER|fuente de lluvia/i);
+});
+
+test('climateservRain: alinea con las fechas pedidas; lo que ClimateSERV no devolvio queda null', () => {
+  const doc = { days: { '2010-01-01': 0, '2010-01-02': 4.5, '2010-01-04': null } };
+  const r = climateservRain(doc, ['2010-01-01', '2010-01-02', '2010-01-03', '2010-01-04'], 'IMERG');
+  assert.deepEqual(r.rain, [0, 4.5, null, null]);
+  assert.equal(r.source, 'IMERG');
+  assert.deepEqual(r.dates, ['2010-01-01', '2010-01-02', '2010-01-03', '2010-01-04']);
+});
+
+test('fetchPowerDaily: PRECTOTCORR opcional -> rainPower (no es parte del bundle del modelo)', async () => {
+  const dates = isoRange('2010-01-01', 3);
+  const calls = [];
+  const body = fakePowerJson(dates, { PRECTOTCORR: { 20100101: 1.5, 20100102: -999, 20100103: 0 } });
+  const p = await fetchPowerDaily(14.8, -89.5, jsonFetch(body, calls));
+  assert.deepEqual(p.rainPower, [1.5, null, 0]);
+  assert.match(calls[0], /PRECTOTCORR/);
+  const q = await fetchPowerDaily(14.8, -89.5, jsonFetch(fakePowerJson(dates)));
+  assert.equal(q.rainPower, undefined);
+  const power = await fetchPowerDaily(14.8, -89.5, jsonFetch(body));
+  const b = buildBundle(power, { dates, rain: [1, 1, 1] }, { lat: 14.8, lon: -89.5 });
+  assert.equal('rainPower' in b, false);
 });
 
 test('buildBundle: fechas desalineadas se recortan a la interseccion', async () => {

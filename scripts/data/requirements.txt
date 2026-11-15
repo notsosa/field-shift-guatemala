@@ -1,0 +1,6 @@
+# Download scripts in scripts/data/. Install in a venv OUTSIDE the repo:
+#   python -m venv <venv> && <venv>/Scripts/python -m pip install -r scripts/data/requirements.txt
+climateserv==1.0.8
+truststore==0.10.5
+numpy==2.5.4
+tifffile==2026.11.12
