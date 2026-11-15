@@ -119,12 +119,11 @@ class Txt {
       };
 
   String get tipoPlaga => _('Tipo de plaga', 'Pest type');
-  String nombreTipoPlaga(String id) => switch (id) {
-        'roya' => _('Roya', 'Rust'),
-        'minador' => _('Minador', 'Leaf miner'),
-        'antracnosis' => _('Antracnosis', 'Anthracnose'),
-        _ => _('Otra', 'Other'),
-      };
+  /// Nombre del tipo de plaga; si el id no tiene nombre en los datos se muestra el id.
+  String nombreTipoPlaga(String id) {
+    final t = tipoPlagaPorId(id);
+    return t == null ? id : _(t.es, t.en);
+  }
 
   // Pestañas
   String get hoy => _('Hoy', 'Today');
@@ -198,8 +197,9 @@ class Txt {
             'Check it with an extension agent and log it again.'),
         Aviso.fertilizar => _('El cultivo está en desarrollo y no hay fertilización registrada.',
             'The crop is developing and no fertilizer has been logged.'),
-        Aviso.fertilizarEnEspera => _('No ha llovido en la última semana ni hay riego: espera a que haya agua.',
-            'No rain in the last week and no irrigation: wait until there is water.'),
+        Aviso.fertilizarEnEspera => _(
+            'No hay lluvia registrada en los datos disponibles (los últimos días aún no se publican) ni hay riego: espera a que haya agua.',
+            'No rain recorded in the available data (the most recent days are not published yet) and no irrigation: wait until there is water.'),
         Aviso.cosechaCerca => _('Evita regar de más y vigila la lluvia.', 'Avoid over-irrigating and watch the rain.'),
       };
 
