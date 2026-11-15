@@ -1,0 +1,29 @@
+[
+  {
+    "archivo": "maga_mercado_ajonjoli.pdf",
+    "url": "https://www.maga.gob.gt/sitios/diplan/download/informacion_del_sector/fichasdemercado/Ajonjol%C3%AD%20de%20Primera%20Mayorista.pdf",
+    "status": 403,
+    "pdf": false,
+    "bytes": 118,
+    "sha256": "58bf2215b395dcac74c009aa98701854e43cbe54a1cd3a95fee6a647ca9910d4",
+    "fecha_utc": "2026-11-15T06:02:53.075Z"
+  },
+  {
+    "archivo": "maga_caracterizacion_ajonjoli.pdf",
+    "url": "https://precios.maga.gob.gt/archivos/fichas/fichasproducto/Ajonjol%C3%AD.pdf",
+    "status": 200,
+    "pdf": true,
+    "bytes": 235445,
+    "sha256": "d278462df1c7764a0578f231054b60a1776e4a8e6717524b456fd515adc103c1",
+    "fecha_utc": "2026-11-15T06:02:53.390Z"
+  },
+  {
+    "archivo": "maga_epocas_siembra.pdf",
+    "url": "https://www.maga.gob.gt/download/epocas-siembra-cosecha-agricolas-guatemala.pdf",
+    "status": 403,
+    "pdf": false,
+    "bytes": 118,
+    "sha256": "58bf2215b395dcac74c009aa98701854e43cbe54a1cd3a95fee6a647ca9910d4",
+    "fecha_utc": "2026-11-15T06:02:53.087Z"
+  }
+]

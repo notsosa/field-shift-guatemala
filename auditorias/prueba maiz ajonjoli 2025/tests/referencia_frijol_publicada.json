@@ -1,0 +1,26 @@
+{
+  "commit": "7c18ff91b52bca410ea37552143881f699ac4d44",
+  "caso": "Inicio 1 junio, maíz 90/frijol 70, secano, suelo referencia, escorrentía 15%, reserva 25%",
+  "valores": [
+    {
+      "fuente": "imerg",
+      "deficit_ET_mm": 58.90361,
+      "dias_estres": 35
+    },
+    {
+      "fuente": "chirps",
+      "deficit_ET_mm": 59.57817,
+      "dias_estres": 46
+    },
+    {
+      "fuente": "era5",
+      "deficit_ET_mm": 72.38949,
+      "dias_estres": 54
+    },
+    {
+      "fuente": "power",
+      "deficit_ET_mm": 54.699,
+      "dias_estres": 46
+    }
+  ]
+}

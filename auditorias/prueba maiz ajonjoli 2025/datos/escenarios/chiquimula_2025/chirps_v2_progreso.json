@@ -1,0 +1,9 @@
+{
+  "job_id": "cbd1dbaf-a4d9-428e-9996-c22f5a5f7610",
+  "fecha_utc": "2026-11-15T02:50:51.606Z",
+  "progress": [
+    100
+  ],
+  "status": 200,
+  "url": "https://climateserv.servirglobal.net/api/getDataRequestProgress/?id=cbd1dbaf-a4d9-428e-9996-c22f5a5f7610"
+}

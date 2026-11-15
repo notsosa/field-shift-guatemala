@@ -1,0 +1,15 @@
+{
+  "fecha_utc": "2026-11-15T06:16:55.993Z",
+  "alternativa": "maíz→ajonjolí",
+  "programas_calendario": 48,
+  "programas_ciclo_completo_2025": 23,
+  "programas_inconclusos_sin_simular": 25,
+  "corridas_hidricas": 3312,
+  "pasos_diarios": 1208880,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "pruebas": 8,
+  "resultado_pruebas": "OK",
+  "regresion_frijol_publicado": "Coincide con las cuatro fuentes de lluvia",
+  "fuentes_sha_comprobadas": 48,
+  "errores": []
+}
