@@ -23,7 +23,7 @@ El botón de la bienvenida carga un frijol sembrado hace 38 días en Chiquimula 
 
 1. En la bienvenida toca **Empezar**. En "Tu parcela" escribe el nombre "Chiquimula", latitud `14.80` y longitud `-89.54`, y toca **Continuar**. No uses "Usar mi ubicación": el navegador puede negarla.
 2. En "Plantación" deja **Maíz**, ciclo **120 días**, suelo **Franco**. Toca la fecha de siembra: se abre una rueda de día, mes y año; gira el día y el mes hasta **hace 50 días** (el inicio de las lluvias en Chiquimula es hacia mediados de mayo; si la demo no cae en esa época, hace 50 días mantiene el maíz en pleno desarrollo) y toca **Listo**. En Riego elige **Goteo**. Toca **Guardar**.
-3. En **Hoy** debe verse (ensayado con el maíz de hace 50 días): "Maíz · Chiquimula", un porcentaje de agua disponible, la etapa **Desarrollo**, "Cosecha: en 70 días", "Rendimiento 100 %", la gráfica de los últimos 14 días con la lluvia y la necesidad de la semana, y en "Por hacer" el registro semanal pendiente y **Momento de fertilizar** (hay riego, y por eso el aviso sale aunque no llueva). Di: "es una estimación del agua en la raíz, con el clima de NASA de este punto".
+3. En **Hoy** debe verse (ensayado con el maíz de hace 50 días): "Maíz · Chiquimula", un porcentaje de agua disponible, la etapa **Desarrollo**, "Cosecha: en 70 días", "Rendimiento 100%", la gráfica de los últimos 14 días con la lluvia y la necesidad de la semana, y en "Por hacer" el registro semanal pendiente y **Momento de fertilizar** (hay riego, y por eso el aviso sale aunque no llueva). Di: "es una estimación del agua en la raíz, con el clima de NASA de este punto".
 4. Si la siembra fuera de hace más de 120 días, Hoy dice "Ciclo terminado", sin fila de cosecha, y el rendimiento queda fijo. Es un buen momento para decir que después de cosechar ya no baja.
 5. Abre **Registros**, toca **Registro semanal** (o el **+**): sube "Veces que regaste" a 3 con el **+**, deja la plaga en Ninguna y toca **Guardar**. En la lista debe aparecer la fecha de hoy y "3 riegos". Vuelve a Hoy: el aviso de registro pendiente ya no está y el agua disponible refleja los riegos.
 
@@ -39,6 +39,13 @@ El botón de la bienvenida carga un frijol sembrado hace 38 días en Chiquimula 
 
 El aviso depende del clima real del día, así que no se puede forzar en vivo. Con un maíz o un frijol en etapa de desarrollo (sembrado hace 30 a 60 días) y sin fertilización registrada, la regla es: si hay riego o cayó lluvia (1 mm o más) en los últimos 7 días, sale "Momento de fertilizar"; si no, sale "Fertilizar: en espera", con la nota de que no hay lluvia registrada en los datos disponibles (los últimos días aún no se publican). Para verlo en una plantación **Sin riego**, hay que probar en una semana sin lluvia; en el ensayo de hoy llovió 10 mm en la semana, así que salió el recordatorio normal. Di: "así lo hace el productor: sin lluvia no abona".
 
+### 4. Frijol con "Trips de las flores" y su fuente
+
+1. Con el ejemplo cargado (frijol en Chiquimula), abre **Registros**, el **+**, y toca **Media** en Plaga. Aparece "Tipo de plaga": Trips de las flores (*Megalurothrips usitatus*), Mosca minadora (*Liriomyza huidobrensis*, *Liriomyza sabaziae*) y Otra, con la nota fija de que un registro documentado no significa presencia en la parcela.
+2. Elige **Trips de las flores** y **Guardar**. En la lista sale "plaga media (trips de las flores)" con un botón (i). Tócalo: se ve la tarjeta de la fuente. Daña flores y vainas; muestreos 2022 en Petén, El Progreso, Zacapa y Chimaltenango y un estudio en San Jerónimo, Baja Verapaz; fuente ICTA ("Una nueva plaga en el cultivo de frijol en Guatemala"), con su dirección; y el límite del propio registro: no se extrapolan sus porcentajes de daño a otras localidades.
+3. Di: "estas plagas no son una predicción ni una lista de lo que hay en tu parcela: son los registros locales que nuestro equipo encontró con fuente, con su lugar y su fecha, y cada uno dice hasta dónde vale".
+4. Qué son y qué no son las listas: salen de 12 registros cultivo-taxón del equipo (maíz 1, frijol 3, cebolla 2, brócoli 3, lechuga 3). Ajonjolí y papa no tienen ninguno en este conjunto estricto y por eso solo ofrecen "Otra". El café conserva roya, minador y antracnosis, marcados como "reportado por un caficultor", no como registro con fuente. No hay umbrales, ni recomendación de tratamiento, ni frecuencia.
+
 ## Lista de pruebas
 
 | Qué probar | Resultado esperado |
@@ -47,7 +54,9 @@ El aviso depende del clima real del día, así que no se puede forzar en vivo. C
 | Ajustes después de guardar | Muestra "Chiquimula 14.8000, -89.5400", la elevación de la celda de NASA y el cultivo con su fecha |
 | Coordenadas fuera de rango (`95`, `-89`) | Mensaje de coordenadas inválidas y no avanza |
 | Cultivo Café, Plaga reciente encendida | Aparece "Tipo de plaga" con Roya, Minador, Antracnosis y Otra |
-| Cultivo Maíz o Frijol, Plaga reciente encendida | No aparece "Tipo de plaga" (la lista de plagas de esos cultivos está pendiente del compañero) |
+| Cultivo Frijol, Plaga reciente encendida | "Tipo de plaga" con Trips de las flores, Mosca minadora y Otra; cada plaga con su botón (i) de fuente y la nota "Un registro documentado en Guatemala no significa que la plaga esté presente en esta parcela" |
+| Cultivo Ajonjolí o Papa, Plaga reciente encendida | Solo "Otra" y la línea "El equipo aún no tiene un registro local confirmado de plagas para este cultivo" (sin botón de fuente) |
+| Brócoli o Lechuga en English | Nombres como "Diamondback moth", "White grub", "Aphid", "Thrips" sin cortarse |
 | Registro con plaga y tipo (café) | La lista muestra "plaga media (roya)" |
 | Cambiar a English en Ajustes | Los textos cambian, incluidos los tipos de plaga ("Rust", "Leaf miner", "Anthracnose", "Other") |
 | Clima con 3 o 4 días de retraso (lo normal) | Hoy no baja la precisión por eso; si faltan más de 5 días de clima, o hay un hueco o lluvia faltante en la última semana, sí baja |
@@ -57,7 +66,7 @@ El aviso depende del clima real del día, así que no se puede forzar en vivo. C
 
 ## Lo que la app no hace
 
-- No predice plagas ni dice cuándo aplicar; solo las registra.
+- No predice plagas ni dice cuándo aplicar; solo las registra. Las plagas listadas son registros documentados en Guatemala (lugar y fecha propios), no la presencia en tu parcela; no hay frecuencias ni umbrales.
 - Su lluvia viene de NASA POWER (celda de unos 50 km, 3 o 4 días de retraso), no de IMERG ni de ERA5 como nuestro modelo; en el oriente de Guatemala puede estar sobreestimada. Los últimos días sin publicar se estiman con lluvia cero, así que una lluvia reciente puede no aparecer todavía.
 - Usa un solo número de curva, un Ky único por cultivo y parámetros de café y tomate citados de memoria (por verificar). El café no tiene fecha de cosecha ni rendimiento.
 - No registra la lluvia que el productor ve: solo riegos, plaga y abono.
