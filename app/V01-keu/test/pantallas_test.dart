@@ -176,6 +176,53 @@ void main() {
     await _captura(tester, '08_ajustes');
   });
 
+  testWidgets('café: el tipo de plaga se elige, se guarda y se ve en la lista de registros', (tester) async {
+    final estado = await _abrir(tester);
+    await tester.tap(find.text('Ver un ejemplo'));
+    await tester.pumpAndSettle();
+    await estado.guardarPlantacion(Plantacion(
+      cultivoId: 'cafe', fecha: DateTime(2026, 5, 1), ciclo: 365, suelo: Suelo.franco,
+      riego: TipoRiego.ninguno, temporadaRiego: TemporadaRiego.auxilio, plagaReciente: false, fertilizo: false,
+    ));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Registros'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(CupertinoIcons.add));
+    await tester.pumpAndSettle();
+    expect(find.text('Roya'), findsNothing); // sin plaga no se pregunta el tipo
+    await tester.tap(find.text('Media'));
+    await tester.pumpAndSettle();
+    expect(find.text('Roya'), findsOneWidget);
+    expect(find.text('Minador'), findsOneWidget);
+    expect(find.text('Antracnosis'), findsOneWidget);
+    expect(find.text('Otra'), findsOneWidget);
+    await tester.tap(find.text('Roya'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Guardar'));
+    await tester.pumpAndSettle();
+
+    expect(estado.registros.first.tipoPlaga, 'roya');
+    expect(find.textContaining('(roya)'), findsOneWidget);
+  });
+
+  testWidgets('frijol: sin lista de plagas propia no se pregunta el tipo', (tester) async {
+    final estado = await _abrir(tester);
+    await tester.tap(find.text('Ver un ejemplo'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Registros'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(CupertinoIcons.add));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Media'));
+    await tester.pumpAndSettle();
+    expect(find.text('Roya'), findsNothing);
+    expect(find.text('Otra'), findsNothing);
+    await tester.tap(find.text('Guardar'));
+    await tester.pumpAndSettle();
+    expect(estado.registros.first.tipoPlaga, '');
+  });
+
   testWidgets('modo oscuro y cultivo sin estrés', (tester) async {
     final estado = await _abrir(tester, brillo: Brightness.dark, clima: ClimaFalso(lluvioso: true));
     await tester.tap(find.text('Ver un ejemplo'));

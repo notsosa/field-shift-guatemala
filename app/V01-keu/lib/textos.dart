@@ -118,6 +118,14 @@ class Txt {
         NivelPlaga.fuerte => _('Fuerte', 'Severe'),
       };
 
+  String get tipoPlaga => _('Tipo de plaga', 'Pest type');
+  String nombreTipoPlaga(String id) => switch (id) {
+        'roya' => _('Roya', 'Rust'),
+        'minador' => _('Minador', 'Leaf miner'),
+        'antracnosis' => _('Antracnosis', 'Anthracnose'),
+        _ => _('Otra', 'Other'),
+      };
+
   // Pestañas
   String get hoy => _('Hoy', 'Today');
   String get registros => _('Registros', 'Logs');
@@ -231,7 +239,9 @@ class Txt {
   String resumenRegistro(RegistroSemanal r) {
     final partes = <String>[
       r.riegos == 0 ? _('Sin riego', 'No irrigation') : _('${r.riegos} ${r.riegos == 1 ? 'riego' : 'riegos'}', '${r.riegos} ${r.riegos == 1 ? 'irrigation' : 'irrigations'}'),
-      if (r.plaga != NivelPlaga.ninguna) _('plaga ${nombrePlaga(r.plaga).toLowerCase()}', '${nombrePlaga(r.plaga).toLowerCase()} pest'),
+      if (r.plaga != NivelPlaga.ninguna)
+        _('plaga ${nombrePlaga(r.plaga).toLowerCase()}${r.tipoPlaga.isEmpty ? '' : ' (${nombreTipoPlaga(r.tipoPlaga).toLowerCase()})'}',
+            '${nombrePlaga(r.plaga).toLowerCase()} pest${r.tipoPlaga.isEmpty ? '' : ' (${nombreTipoPlaga(r.tipoPlaga).toLowerCase()})'}'),
       if (r.fertilizo) _('fertilizó', 'fertilized'),
     ];
     return partes.join(' · ');

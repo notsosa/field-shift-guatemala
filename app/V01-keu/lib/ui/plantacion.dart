@@ -22,6 +22,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
   TipoRiego _riego = TipoRiego.ninguno;
   TemporadaRiego _temporada = TemporadaRiego.auxilio;
   bool _plaga = false;
+  String? _tipoPlaga;
   bool _fertilizo = false;
   final _notaPlaga = TextEditingController();
   bool _iniciado = false;
@@ -42,6 +43,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
       _riego = p.riego;
       _temporada = p.temporadaRiego;
       _plaga = p.plagaReciente;
+      _tipoPlaga = p.tipoPlaga.isEmpty ? null : p.tipoPlaga;
       _fertilizo = p.fertilizo;
       _notaPlaga.text = p.notaPlaga;
     }
@@ -57,6 +59,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
         _cultivo = id;
         final c = cultivoPorId(id);
         if (!c.ciclos.contains(_ciclo)) _ciclo = c.ciclos.first;
+        if (!tiposPlaga(id).contains(_tipoPlaga)) _tipoPlaga = null;
       });
 
   Future<void> _elegirFecha() async {
@@ -100,6 +103,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
     final estado = Alcance.leer(context);
     final navegador = Navigator.of(context);
     final c = cultivoPorId(_cultivo);
+    final tipos = tiposPlaga(_cultivo);
     await estado.guardarPlantacion(Plantacion(
       cultivoId: _cultivo,
       fecha: _fecha,
@@ -109,6 +113,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
       temporadaRiego: _temporada,
       plagaReciente: _plaga,
       notaPlaga: _plaga ? _notaPlaga.text.trim() : '',
+      tipoPlaga: !_plaga || tipos.length < 2 ? '' : (_tipoPlaga ?? tipos.last),
       fertilizo: _fertilizo,
     ));
     estado.sincronizar();
@@ -124,6 +129,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
     final t = Alcance.de(context).txt;
     final cultivo = cultivoPorId(_cultivo);
     final verde = Paleta.de(context, Paleta.verde);
+    final tipos = tiposPlaga(_cultivo);
 
     Widget bloque(String titulo, Widget control) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: Espacio.borde, vertical: 14),
@@ -221,6 +227,15 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
                         onChanged: (v) => setState(() => _plaga = v),
                       ),
                     ),
+                    if (_plaga && tipos.length > 1)
+                      bloque(
+                        t.tipoPlaga,
+                        Selector<String>(
+                          opciones: {for (final id in tipos) id: t.nombreTipoPlaga(id)},
+                          valor: tipos.contains(_tipoPlaga) ? _tipoPlaga! : tipos.last,
+                          alCambiar: (v) => setState(() => _tipoPlaga = v),
+                        ),
+                      ),
                     if (_plaga) Campo(titulo: t.cualPlaga, controlador: _notaPlaga, ejemplo: t.notaOpcional),
                     Fila(
                       titulo: t.fertilizacion,

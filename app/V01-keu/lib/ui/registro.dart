@@ -16,6 +16,7 @@ class PantallaRegistro extends StatefulWidget {
 class _EstadoRegistro extends State<PantallaRegistro> {
   int _riegos = 0;
   NivelPlaga _plaga = NivelPlaga.ninguna;
+  String? _tipoPlaga;
   bool _fertilizo = false;
   final _notaPlaga = TextEditingController();
   final _notaFertilizante = TextEditingController();
@@ -30,10 +31,12 @@ class _EstadoRegistro extends State<PantallaRegistro> {
   Future<void> _guardar() async {
     final estado = Alcance.leer(context);
     final navegador = Navigator.of(context);
+    final tipos = tiposPlaga(estado.plantacion?.cultivoId ?? '');
     await estado.guardarRegistro(RegistroSemanal(
       fecha: soloFecha(estado.hoy),
       riegos: _riegos,
       plaga: _plaga,
+      tipoPlaga: _plaga == NivelPlaga.ninguna || tipos.length < 2 ? '' : (_tipoPlaga ?? tipos.last),
       notaPlaga: _plaga == NivelPlaga.ninguna ? '' : _notaPlaga.text.trim(),
       fertilizo: _fertilizo,
       notaFertilizante: _fertilizo ? _notaFertilizante.text.trim() : '',
@@ -47,6 +50,7 @@ class _EstadoRegistro extends State<PantallaRegistro> {
     final t = estado.txt;
     final verde = Paleta.de(context, Paleta.verde);
     final tieneRiego = estado.plantacion?.riego != TipoRiego.ninguno;
+    final tipos = tiposPlaga(estado.plantacion?.cultivoId ?? '');
 
     Widget paso(IconData icono, VoidCallback? alPulsar) => CupertinoButton(
           padding: EdgeInsets.zero,
@@ -121,6 +125,22 @@ class _EstadoRegistro extends State<PantallaRegistro> {
                         ],
                       ),
                     ),
+                    if (_plaga != NivelPlaga.ninguna && tipos.length > 1)
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(Espacio.borde, 0, Espacio.borde, 14),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(t.tipoPlaga, style: Texto.nota(context)),
+                            const SizedBox(height: 8),
+                            Selector<String>(
+                              opciones: {for (final id in tipos) id: t.nombreTipoPlaga(id)},
+                              valor: tipos.contains(_tipoPlaga) ? _tipoPlaga! : tipos.last,
+                              alCambiar: (v) => setState(() => _tipoPlaga = v),
+                            ),
+                          ],
+                        ),
+                      ),
                     if (_plaga != NivelPlaga.ninguna)
                       Campo(titulo: t.cualPlaga, controlador: _notaPlaga, ejemplo: t.notaOpcional),
                   ]),

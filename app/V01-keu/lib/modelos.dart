@@ -112,6 +112,19 @@ const catalogo = <Cultivo>[
   ),
 ];
 
+/// Tipos de plaga o enfermedad que el productor puede elegir al reportarla, por
+/// cultivo. Café: lo que nombró un caficultor (roya, minador, antracnosis).
+/// PENDIENTE: un compañero del equipo investiga las plagas comunes de maíz,
+/// frijol y tomate; cuando las entregue basta agregarlas aquí (es solo datos).
+/// 'otra' va siempre al final. No hay predicción ni umbrales: solo registro.
+const tiposPlagaPorCultivo = <String, List<String>>{
+  'cafe': ['roya', 'minador', 'antracnosis', 'otra'],
+};
+
+const _soloOtra = ['otra'];
+
+List<String> tiposPlaga(String cultivoId) => tiposPlagaPorCultivo[cultivoId] ?? _soloOtra;
+
 Cultivo cultivoPorId(String id) => catalogo.firstWhere((c) => c.id == id, orElse: () => catalogo.first);
 
 /// Información de la plantación que el usuario da al configurar la app.
@@ -126,6 +139,7 @@ class Plantacion {
     required this.plagaReciente,
     required this.fertilizo,
     this.notaPlaga = '',
+    this.tipoPlaga = '',
   });
 
   final String cultivoId;
@@ -138,6 +152,9 @@ class Plantacion {
   final TemporadaRiego temporadaRiego;
   final bool plagaReciente;
   final String notaPlaga;
+
+  /// Tipo de plaga elegido de [tiposPlaga]; vacío si no hay plaga o no se eligió.
+  final String tipoPlaga;
   final bool fertilizo;
 
   Cultivo get cultivo => cultivoPorId(cultivoId);
@@ -151,6 +168,7 @@ class Plantacion {
         'temporadaRiego': temporadaRiego.name,
         'plagaReciente': plagaReciente,
         'notaPlaga': notaPlaga,
+        'tipoPlaga': tipoPlaga,
         'fertilizo': fertilizo,
       };
 
@@ -163,6 +181,7 @@ class Plantacion {
         temporadaRiego: TemporadaRiego.values.byName(j['temporadaRiego'] as String),
         plagaReciente: j['plagaReciente'] as bool? ?? false,
         notaPlaga: j['notaPlaga'] as String? ?? '',
+        tipoPlaga: j['tipoPlaga'] as String? ?? '',
         fertilizo: j['fertilizo'] as bool? ?? false,
       );
 }
@@ -178,6 +197,7 @@ class RegistroSemanal {
     required this.plaga,
     required this.fertilizo,
     this.notaPlaga = '',
+    this.tipoPlaga = '',
     this.notaFertilizante = '',
   });
 
@@ -188,6 +208,9 @@ class RegistroSemanal {
   final int riegos;
   final NivelPlaga plaga;
   final String notaPlaga;
+
+  /// Tipo de plaga elegido de [tiposPlaga]; vacío si no hubo plaga o no se eligió.
+  final String tipoPlaga;
   final bool fertilizo;
   final String notaFertilizante;
 
@@ -196,6 +219,7 @@ class RegistroSemanal {
         'riegos': riegos,
         'plaga': plaga.name,
         'notaPlaga': notaPlaga,
+        'tipoPlaga': tipoPlaga,
         'fertilizo': fertilizo,
         'notaFertilizante': notaFertilizante,
       };
@@ -205,6 +229,7 @@ class RegistroSemanal {
         riegos: (j['riegos'] as num).toInt(),
         plaga: NivelPlaga.values.byName(j['plaga'] as String),
         notaPlaga: j['notaPlaga'] as String? ?? '',
+        tipoPlaga: j['tipoPlaga'] as String? ?? '',
         fertilizo: j['fertilizo'] as bool? ?? false,
         notaFertilizante: j['notaFertilizante'] as String? ?? '',
       );
