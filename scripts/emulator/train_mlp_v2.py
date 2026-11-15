@@ -15,6 +15,7 @@ def main():
     ap.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
     ap.add_argument("--recipe", choices=["base", "sched", "resid", "sched+resid"], default="base")
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--out", default=None, help="ruta de salida (por defecto web/data/emulator_v2_mlp.json)")
     args = ap.parse_args()
     device, device_name = resolve_device(args.device)
     samples = json.loads((HERE / "samples_v2.json").read_text(encoding="utf8"))
@@ -43,8 +44,9 @@ def main():
     }
     if fit["baseline"]:
         out["baseline"] = fit["baseline"]
-    OUT.write_text(json.dumps(out), encoding="utf8")
-    print(f"epocas {fit['epochs']}, {fit['train_seconds']:.1f} s, params {fit['params']}; escrito {OUT}")
+    dest = Path(args.out) if args.out else OUT
+    dest.write_text(json.dumps(out), encoding="utf8")
+    print(f"epocas {fit['epochs']}, {fit['train_seconds']:.1f} s, params {fit['params']}; escrito {dest}")
 
 
 if __name__ == "__main__":

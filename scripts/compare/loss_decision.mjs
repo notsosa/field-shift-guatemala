@@ -2,70 +2,30 @@
 // Uso: node scripts/compare/loss_decision.mjs  (requiere scripts/emulator/samples_v2.json y web/data/emulator_v2_mlp.json; la ELM v2 se entrena aquí, ~1 min)
 // Casos: 3 pilotos x años 2019-2024 x pérdida a los 30, 45 o 60 días de la siembra = 54. Verdad = el simulador en el año Y.
 // Todo está fijado en loss_decision_lib.mjs y aquí; no se ajusta tras ver resultados. NO se calcula margen: el modelo no tiene precios ni costos.
+// Las piezas compartidas (casos, políticas de red, métricas) están en loss_decision_core.mjs.
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
 import { performance } from 'node:perf_hooks';
-import { loadCrops } from '../../web/js/model/crops.js';
-import { computeEt0Series, resolveMainSowIdx } from '../../web/js/model/simulate.js';
-import { trainELM, elmPredict, mlpPredict } from '../../web/js/model/emulator.js';
-import { PRIORITIES } from '../../web/js/model/decision.js';
+import { elmPredict, mlpPredict } from '../../web/js/model/emulator.js';
+import { RESOW_CROPS, FALLOW, RULE } from './loss_decision_lib.mjs';
 import {
-  RESOW_CROPS, FALLOW, LOSS_DAYS, RULE, resowOffset, ruleAction, daysBeforeNov15, chooseAction, decideAction, lossMetrics, pastData,
-  simulatorOutcomes, networkOutcomes, simulateResow,
-} from './loss_decision_lib.mjs';
+  SITES, TARGET_YEARS, ELM_CFG, root, readJson, loadContext, trainElmV2, buildRows, addNetworkPolicy, strip, metricsFor as metricsOf, PRIORITIES, LOSS_DAYS,
+} from './loss_decision_core.mjs';
 
-const SITES = ['chiquimula', 'jutiapa', 'sanmartin'];
-const TARGET_YEARS = [2019, 2020, 2021, 2022, 2023, 2024];
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const readJson = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
-const ELM_CFG = { hidden: 1500, inputScale: 0.1, lambda: 0.1, seed: 42 };
-
-const crops = loadCrops(readJson(path.join(root, 'web/data/crops.json')));
-const points = readJson(path.join(root, 'scripts/emulator/points.json'));
-const bundles = Object.fromEntries(SITES.map((s) => [s, readJson(path.join(root, `web/data/snapshots/${s}.json`))]));
-const siteSoil = Object.fromEntries(SITES.map((s) => [s, points.find((p) => p.id === s).soil]));
+const ctx = loadContext();
+const bundles = ctx.bundles;
 const mlp = readJson(path.join(root, 'web/data/emulator_v2_mlp.json'));
-const samples = readJson(path.join(root, 'scripts/emulator/samples_v2.json'));
-const held = new Set(points.filter((p) => p.heldOut).map((p) => p.id));
-const fitIdx = samples.meta.map((m, i) => i).filter((i) => { const m = samples.meta[i]; return !((m.year >= 2019 && m.year <= 2024) || held.has(m.pointId)) && ![2017, 2018].includes(m.year); });
 const t0 = performance.now();
-const elm = trainELM(fitIdx.map((i) => samples.X[i]), fitIdx.map((i) => samples.Y[i]), ELM_CFG);
-console.log(`ELM v2 entrenada (${fitIdx.length} filas) en ${((performance.now() - t0) / 1000).toFixed(1)} s`);
+const elm = trainElmV2(ctx, ELM_CFG.seed);
+console.log(`ELM v2 entrenada (${ctx.fitIdx.length} filas) en ${((performance.now() - t0) / 1000).toFixed(1)} s`);
 const predictors = { mlp: (x) => mlpPredict(mlp, x), elm: (x) => elmPredict(elm, x) };
 
-const rows = [];
-for (const site of SITES) {
-  const bundle = bundles[site];
-  const et0Full = computeEt0Series(bundle);
-  for (const year of TARGET_YEARS) {
-    const past = pastData(bundle, year); // lo único que ve la decisión: hasta el 31 de marzo de `year`
-    const s0 = resolveMainSowIdx(bundle, year, 0).idx;
-    for (const lossDay of LOSS_DAYS) {
-      const offsetDays = resowOffset(lossDay);
-      // Verdad del año Y con el bundle completo y el suelo SoilGrids del piloto.
-      const truth = Object.fromEntries(RESOW_CROPS.map((c) => [c, simulateResow({ bundle, et0: et0Full, crops, texture: siteSoil[site], year, cropId: c, offsetDays })]));
-      const truthOf = (a) => (a === FALLOW ? { relYield: 0, executable: true } : truth[a]);
-      const resowDate = bundle.dates[bundle.dates.indexOf(`${year}-04-01`) + s0 + offsetDays];
-      const oracle = chooseAction([...RESOW_CROPS.map((c) => ({ action: c, value: truth[c].relYield })), { action: FALLOW, value: 0 }]);
-      const decisions = { rule: { none: ruleAction(resowDate) } };
-      decisions.simulator = Object.fromEntries(PRIORITIES.map((p) => [p, decideAction({ outcomes: simulatorOutcomes({ crops, simSoil: siteSoil[site] }, past, offsetDays), targetYear: year, priority: p })]));
-      for (const [name, predict] of Object.entries(predictors)) {
-        const outcomes = networkOutcomes({ emuTexture: siteSoil[site].nearestTexture, predict }, past, offsetDays);
-        decisions[name] = Object.fromEntries(PRIORITIES.map((p) => [p, decideAction({ outcomes, targetYear: year, priority: p })]));
-      }
-      rows.push({ site, year, lossDay, resowDate, daysBeforeNov15: daysBeforeNov15(resowDate), oracle, truth: Object.fromEntries(RESOW_CROPS.map((c) => [c, { relYield: truth[c].relYield, executable: truth[c].executable }])), decisions, _truthOf: truthOf });
-    }
-  }
-}
+const rows = buildRows(ctx);
+for (const [name, predict] of Object.entries(predictors)) addNetworkPolicy(rows, ctx, name, predict);
 
 const POLICY_LIST = ['simulator', 'mlp', 'elm'];
-const metricsFor = (policy, priority, subset = rows) => lossMetrics(subset.map((r) => {
-  const action = policy === 'rule' ? r.decisions.rule.none : r.decisions[policy][priority];
-  const t = r._truthOf(action);
-  return { action, value: t.relYield, executable: t.executable, ruleValue: r._truthOf(r.decisions.rule.none).relYield, oracleValue: r._truthOf(r.oracle).relYield, simAction: r.decisions.simulator[priority ?? 'typical'] };
-}));
+const metricsFor = (policy, priority, subset = rows) => metricsOf(subset, policy, priority);
 const metrics = { rule: metricsFor('rule', null) };
 for (const policy of POLICY_LIST) metrics[policy] = Object.fromEntries(PRIORITIES.map((p) => [p, metricsFor(policy, p)]));
 const byLossDay = Object.fromEntries(LOSS_DAYS.map((L) => {
@@ -97,7 +57,7 @@ const out = {
   },
   metrics, byLossDay, ruleVsSimulatorSameAction: ruleVsSimulator,
   oracle: { chosenMean: metrics.rule.oracleMean, executableShare: rows.filter((r) => r._truthOf(r.oracle).executable).length / rows.length },
-  cases: rows.map(({ _truthOf, ...r }) => r),
+  cases: strip(rows),
 };
 fs.writeFileSync(path.join(root, 'web/data/decision_loss_eval.json'), JSON.stringify(out, null, 1));
 const f = (v) => (v == null ? '-' : v.toFixed(3));
