@@ -37,6 +37,7 @@ El proyecto busca ayudar al finquero a comparar secuencias de cultivos en una mi
 | `diccionarios/` | Idiomas mayas para la interfaz. |
 | `scripts/` | Descarga de datos: NASA POWER, CHIRPS/IMERG (ClimateSERV), JAXA (GSMaP, AW3D30), SoilGrids, ESA WorldCover y MAGA. |
 | `graphics/` | Motor gráfico interactivo 2D ⟷ 3D WebGL Ultra-HD (`topo3d.html`), servidor local (`servidor_topo3d.py`), documentación (`README.md`) y handoff (`HANDOFF.md`). |
+| `app/` | App Android en Flutter, una carpeta por versión. `app/V01/`: registro de parcela y plantación, registro semanal y recomendación de riego sin conexión (ver `app/V01/README.md`). |
 | `datos/` | Datos descargados para la parcela piloto provisional, cada uno con su `.meta.json` de procedencia. |
 
 Para correr los scripts: `py -3.12 -m venv .venv`, `.venv/Scripts/python -m pip install -r requirements.txt` y luego `.venv/Scripts/python scripts/<script>.py --lat <lat> --lon <lon> --nombre <parcela>`. `descargar_power.py` funciona sin instalar nada.
