@@ -1,0 +1,13 @@
+# LLM de lenguas mayas (scripts/traductor_lenguas_mayas/).
+# GPU (Colab/Kaggle): pip install -r requirements-llm.txt
+# CPU en Windows:     pip install torch --index-url https://download.pytorch.org/whl/cpu  y luego este archivo
+torch>=2.4
+transformers>=5.0
+datasets>=3.0
+accelerate>=1.0
+peft>=0.17
+trl>=0.23
+sacrebleu>=2.4
+fastapi>=0.115
+uvicorn>=0.30
+pydantic>=2.7
