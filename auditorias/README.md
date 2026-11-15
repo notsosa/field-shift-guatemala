@@ -2,6 +2,8 @@
 
 Índice actualizado el **15 de noviembre de 2026**. Candidato agrícola elegido por el usuario: **14.8250, −89.5312**, sin linderos o mediciones de finca confirmados.
 
+**Cobertura entre los siete cultivos principales: 42/42 sucesiones entre cultivos distintos, evaluadas de forma exploratoria.** La [entrega de las 34 pendientes](combinaciones%20pendientes%207%20cultivos%202025/README.md) reúne 17 parejas nuevas en ambos órdenes, 271,296 corridas y una matriz con enlace a cada dirección. Se suma a las ocho sucesiones anteriores; no incluye las siete repeticiones ni los otros once cultivos del catálogo. Evaluada no significa recomendación agronómica aprobada.
+
 Estas carpetas cubren las **cinco alternativas iniciales** de la tabla del proyecto y comparadores indicados. La matriz documental de 18 cultivos conserva otros pares sin auditoría de parcela; este índice no declara auditadas sus 324 celdas.
 
 | Alternativa de la lista inicial | Carpeta | Cobertura |

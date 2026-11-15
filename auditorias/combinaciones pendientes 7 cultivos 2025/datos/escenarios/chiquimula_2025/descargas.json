@@ -1,0 +1,56 @@
+[
+  {
+    "archivo": "chirps_v2_job.json",
+    "url": "https://climateserv.servirglobal.net/api/submitDataRequest/?datatype=0&begintime=01%2F01%2F2025&endtime=12%2F31%2F2025&intervaltype=0&operationtype=5&geometry=%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B-89.5462%2C14.809999999999999%5D%2C%5B-89.5162%2C14.809999999999999%5D%2C%5B-89.5162%2C14.84%5D%2C%5B-89.5462%2C14.84%5D%2C%5B-89.5462%2C14.809999999999999%5D%5D%5D%7D",
+    "status": 200,
+    "bytes": 40,
+    "fecha_utc": "2026-11-15T02:49:35.681Z",
+    "sha256": "190a4102c352421d5458fe494d288810515faa052544c5bbf9953abaa3b0513d",
+    "segundos": 0.722
+  },
+  {
+    "archivo": "power_2025.json",
+    "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CT2MDEW%2CRH2M%2CWS2M%2CALLSKY_SFC_SW_DWN%2CCLRSKY_SFC_SW_DWN%2CPRECTOTCORR%2CPS%2CGWETTOP%2CGWETROOT%2CGWETPROF%2CEVLAND&community=AG&longitude=-89.5312&latitude=14.825&start=20250101&end=20251231&format=JSON&time-standard=LST",
+    "status": 200,
+    "bytes": 85699,
+    "fecha_utc": "2026-11-15T02:49:36.317Z",
+    "sha256": "7b3aba896d24c1826e3418da2ad296f933863e20ddb6bd4f9744b7925984d567",
+    "segundos": 1.431
+  },
+  {
+    "archivo": "era5_2025.json",
+    "url": "https://archive-api.open-meteo.com/v1/archive?latitude=14.825&longitude=-89.5312&start_date=2025-01-01&end_date=2025-12-31&daily=precipitation_sum%2Ctemperature_2m_max%2Ctemperature_2m_min%2Cet0_fao_evapotranspiration&hourly=soil_moisture_0_to_7cm%2Csoil_moisture_7_to_28cm%2Csoil_moisture_28_to_100cm&models=era5&timezone=America%2FGuatemala&elevation=373",
+    "status": 200,
+    "bytes": 336891,
+    "fecha_utc": "2026-11-15T02:49:36.365Z",
+    "sha256": "23279b8ef14d0cbae94c051c5b5ee4395953b7da024436f57b3c447529a4e1b9",
+    "segundos": 1.401
+  },
+  {
+    "archivo": "imerg_v07_late_job.json",
+    "url": "https://climateserv.servirglobal.net/api/submitDataRequest/?datatype=226&begintime=01%2F01%2F2025&endtime=12%2F31%2F2025&intervaltype=0&operationtype=5&geometry=%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B-89.5462%2C14.809999999999999%5D%2C%5B-89.5162%2C14.809999999999999%5D%2C%5B-89.5162%2C14.84%5D%2C%5B-89.5462%2C14.84%5D%2C%5B-89.5462%2C14.809999999999999%5D%5D%5D%7D",
+    "status": 200,
+    "bytes": 40,
+    "fecha_utc": "2026-11-15T02:49:41.695Z",
+    "sha256": "e34d14ddea34184668f0adcc893ea227f9baf2d435069cda378f08f96e4f15bf",
+    "segundos": 6.73
+  },
+  {
+    "archivo": "imerg_v07_late_2025.json",
+    "url": "https://climateserv.servirglobal.net/api/getDataFromRequest/?id=bcf337b7-2be3-4f4d-b1bf-07a776056224",
+    "status": 200,
+    "bytes": 64323,
+    "fecha_utc": "2026-11-15T02:50:50.978Z",
+    "sha256": "ae827ba20b3fe748442acf561cd80ee87f52a6e8d9af809ca10e93ad6a13cfd0",
+    "segundos": 0.512
+  },
+  {
+    "archivo": "chirps_v2_2025.json",
+    "url": "https://climateserv.servirglobal.net/api/getDataFromRequest/?id=cbd1dbaf-a4d9-428e-9996-c22f5a5f7610",
+    "status": 200,
+    "bytes": 64031,
+    "fecha_utc": "2026-11-15T02:50:51.762Z",
+    "sha256": "729f71110c581b6ae5af2458d9fe1b2f28a204890fdda1d573e008a78791e3ee",
+    "segundos": 0.156
+  }
+]

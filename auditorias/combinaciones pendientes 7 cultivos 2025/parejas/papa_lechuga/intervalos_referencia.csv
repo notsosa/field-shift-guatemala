@@ -1,0 +1,9 @@
+secuencia,inicio,fin,dias,fuente_lluvia,P_intervalo_mm,dias_P_ge1mm
+papa_lechuga,2025-06-24,2025-07-07,14,imerg,235.2000061571598,10
+papa_lechuga,2025-06-24,2025-07-07,14,chirps,130.71574640274048,10
+papa_lechuga,2025-06-24,2025-07-07,14,era5,93.2,10
+papa_lechuga,2025-06-24,2025-07-07,14,power,81.0,10
+lechuga_papa,2025-05-15,2025-05-28,14,imerg,54.900000274181366,8
+lechuga_papa,2025-05-15,2025-05-28,14,chirps,18.329545378684998,6
+lechuga_papa,2025-05-15,2025-05-28,14,era5,16.9,7
+lechuga_papa,2025-05-15,2025-05-28,14,power,12.17,4

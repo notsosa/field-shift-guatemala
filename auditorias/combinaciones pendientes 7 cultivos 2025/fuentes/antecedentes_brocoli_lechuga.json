@@ -1,0 +1,99 @@
+{
+  "fecha_consulta": "2026-11-15",
+  "metodo": "Revisión selectiva de documentos primarios, con alcance de lectura declarado. Evidencia contextual no equivale a validación de parcela.",
+  "afirmaciones": [
+    {
+      "id": "F01",
+      "afirmacion": "Kc y etapas de referencia por cultivo/producto",
+      "fuentes": [
+        "https://www.fao.org/4/x0490e/x0490e0b.htm"
+      ],
+      "localizador": "Tablas 11 y 12",
+      "lectura": "Filas originales HTML contrastadas",
+      "limite": "Referencias extranjeras. Kc inicial heredado del grupo; sin ajuste climático ni observación local de etapas. Ocupación de campo supuesta, almácigo externo excluido."
+    },
+    {
+      "id": "F02",
+      "afirmacion": "Rangos de profundidad efectiva y fracción p de agotamiento",
+      "fuentes": [
+        "https://www.fao.org/4/x0490e/x0490e0e.htm"
+      ],
+      "localizador": "Tabla 22 y ecuaciones 82/83",
+      "lectura": "Filas originales HTML contrastadas",
+      "limite": "Raíz elegida dentro del rango como hipótesis; sin raíces medidas ni capacidad de campo medida. El modelo usa Kc único simplificado."
+    },
+    {
+      "id": "F03",
+      "afirmacion": "Identidad y familia botánica de los productos de esta carpeta",
+      "lectura": "Cabeceras POWO Kew reconsultadas, especies aceptadas",
+      "limite": "La familia no asigna un premio de compatibilidad ni demuestra ruptura sanitaria.",
+      "fuentes": [
+        "https://powo.science.kew.org/taxon/279435-1",
+        "https://powo.science.kew.org/taxon/228239-1"
+      ]
+    },
+    {
+      "id": "B01",
+      "afirmacion": "La ficha MAGA de brócoli describe clima fresco, óptimo 16–18 °C y un rango general de altitud de 1,100–2,500 m.",
+      "fuentes": [
+        "https://guatemalanosedetiene.gt/wp-content/uploads/2024/06/FICHA-TECNICA-AGROCLIMATICA-BROCOLI.pdf"
+      ],
+      "localizador": "Página 1, requerimientos; página 2, criterios de áreas aptas",
+      "lectura": "Documento primario con autoría y logotipos MAGA-DIGEGR, alojado en sitio de terceros; descargado, texto leído y páginas relevantes renderizadas",
+      "limite": "La zonificación de la página 2 usa criterios más estrechos: 1,800–2,300 m y media 15–18 °C. No confundir criterio cartográfico con tolerancia universal de cada variedad ni trasladarlo a la parcela como medición."
+    },
+    {
+      "id": "B02",
+      "afirmacion": "MAGA distingue cosecha principal a 75–90 días después del trasplante, ciclo general 90–120 y una figura que incluye laterales/semilla; raíz hasta 30 cm frente a 0.4–0.6 m FAO.",
+      "fuentes": [
+        "https://guatemalanosedetiene.gt/wp-content/uploads/2024/06/FICHA-TECNICA-AGROCLIMATICA-BROCOLI.pdf",
+        "https://www.fao.org/4/x0490e/x0490e0b.htm",
+        "https://www.fao.org/4/x0490e/x0490e0e.htm"
+      ],
+      "localizador": "MAGA páginas 1 y 3; FAO tablas 11/22",
+      "lectura": "Fuentes originales contrastadas; PDF con página 3 de ciclo revisada",
+      "limite": "Se usan 75/90 días de ocupación como sensibilidad de cosecha principal, con etapas prorrateadas sin validación. Los 135 días FAO son referencia extranjera separada. El ciclo general de 90–120 no se adopta como duración de una cosecha principal. Referencia radical 0.5 m y límite de 0.3 m conservan la discrepancia."
+    },
+    {
+      "id": "B03",
+      "afirmacion": "La lechuga presenta problemas de espigado, amargor o calidad con temperaturas altas.",
+      "fuentes": [
+        "https://ipm.ucanr.edu/home-and-landscape/cultural-tips-for-growing-lettuce/"
+      ],
+      "localizador": "Time to Plant",
+      "lectura": "Página original UC IPM",
+      "limite": "Guía hortícola de California. No se adopta un umbral único de daño para todas las variedades. La inhibición de germinación a temperatura alta no se aplica como pérdida a trasplantes del modelo."
+    },
+    {
+      "id": "B04",
+      "afirmacion": "Un ensayo de rotaciones con brócoli redujo inóculo y enfermedad por Sclerotinia minor en un contexto de Salinas.",
+      "fuentes": [
+        "https://apsjournals.apsnet.org/doi/pdf/10.1094/PDIS.2003.87.2.159",
+        "https://pubmed.ncbi.nlm.nih.gov/30812921/"
+      ],
+      "localizador": "Hao, Subbarao y Koike, 2003, Plant Disease 87:159–166; resumen original indexado",
+      "lectura": "Resumen del artículo recuperado del índice del editor y del registro PubMed; descarga del texto completo 403",
+      "limite": "Dos sitios con distinta presión y secuencias de varios ciclos; respuesta destacada en Hartnell con presión alta. No valida una sola transición, no demuestra lechuga→brócoli ni elimina otros patógenos. No se extraen coeficientes sanitarios de tablas no leídas."
+    },
+    {
+      "id": "B05",
+      "afirmacion": "Lechuga y coles incluyen Meloidogyne incognita entre sus nematodos documentados.",
+      "fuentes": [
+        "https://ipm.ucanr.edu/agriculture/lettuce/nematodes/",
+        "https://ipm.ucanr.edu/agriculture/cole-crops/nematodes/"
+      ],
+      "localizador": "Listados de especies y evaluación de campo",
+      "lectura": "Guías originales UC IPM",
+      "limite": "Para brócoli la evidencia es del grupo de coles. Es alerta a investigar, no susceptibilidad de todos los cultivares ni diagnóstico guatemalteco. Puede coexistir con evidencia favorable respecto de S. minor."
+    }
+  ],
+  "faltantes": [
+    "Variedad y sistema",
+    "Fecha real de inicio y retiro, incluido almácigo/curado",
+    "Mediciones de temperatura, humedad y drenaje",
+    "Análisis de suelo y sanidad",
+    "Agua entregable",
+    "Comprador y costos"
+  ],
+  "dictamen": "Balance hídrico y calendario exploratorios. Adaptación térmica, respuesta sanitaria y rentabilidad sin validar."
+}

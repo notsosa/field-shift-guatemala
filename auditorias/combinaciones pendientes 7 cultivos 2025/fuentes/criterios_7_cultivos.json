@@ -1,0 +1,60 @@
+{
+  "fecha_consulta": "2026-11-15",
+  "metodo": "Revisión selectiva con fuentes primarias y conservación de la evidencia de las auditorías publicadas. Las alertas no son diagnóstico ni efectos de una sucesión calibrados.",
+  "fuentes_comunes": {
+    "FAO56_T11_T12": {"url": "https://www.fao.org/4/x0490e/x0490e0b.htm", "lectura": "Tablas 11 y 12, filas de los siete cultivos reconsultadas o contrastadas en las auditorías conservadas", "limite": "Etapas y Kc extranjeros; Kc inicial de grupo en varios cultivos. Sin ajuste climático de Kc ni calibración local."},
+    "FAO56_T22": {"url": "https://www.fao.org/4/x0490e/x0490e0e.htm", "lectura": "Tabla 22, raíces y p", "limite": "Rangos de referencia, sin raíces medidas ni suelo muestreado."}
+  },
+  "cultivos": {
+    "maiz": {
+      "fuentes": ["https://www.icta.gob.gt/publicaciones/Maiz/Recomendaciones%20tecnicas%20para%20el%20cultivo%20de%20maiz%20en%20el%20oriente%20de%20Guatemala%202015.pdf"],
+      "alcance": "Guía ICTA de oriente conservada en la evidencia anterior; variedades, época de siembra, dobla y cosecha.",
+      "alertas": ["90 días es sensibilidad de ciclo corto con etapas prorrateadas; madurez no garantiza grano seco ni retiro.", "Si el cultivo siguiente se establece antes de retirar el maíz, corresponde evaluar relevo o coexistencia, fuera de este motor."],
+      "sanidad": "No se declara al maíz no hospedante de organismos por falta de una alerta incorporada. La consulta de UC IPM corn/nematodes no fue accesible y no se usó para clasificarlo."
+    },
+    "frijol": {
+      "fuentes": ["https://www.icta.gob.gt/publicaciones/Frijol/Manual%20de%20producci%C3%B3n%20de%20frijol%20ICTA.pdf", "https://ipm.ucanr.edu/agriculture/dry-beans/nematodes/"],
+      "alcance": "Manual ICTA previamente leído en la base documental; guía original UC IPM reconsultada, lista de nematodos y evaluación de campo.",
+      "alertas": ["70 días es sensibilidad prorrateada; no duración universal de una variedad.", "No se asigna crédito fijo de nitrógeno ni se simula fijación o mineralización.", "La guía Dry Beans reúne distintos tipos de frijol: hospedaje de grupo no acredita susceptibilidad de cada material guatemalteco."],
+      "sanidad": "Meloidogyne incognita se incorpora solo como alerta de grupo a investigar, con variedad, especie/población y diagnóstico pendientes."
+    },
+    "ajonjoli": {
+      "fuentes": ["https://content.ces.ncsu.edu/sesame-production-fact-sheet", "https://www.maga.gob.gt/sitios/diplan/download/informacion_del_sector/fichasdemercado/Ajonjol%C3%AD%20de%20Primera%20Mayorista.pdf"],
+      "alcance": "Guía original NC State de marzo 2026 reconsultada; referencia MAGA comercial 2017 con límites de acceso conservados en antecedentes.",
+      "alertas": ["La fila HTML FAO suma 110 días aunque su total dice 100. 100/150/180 son hipótesis reescaladas, sin cultivar local validado.", "La sensibilidad al anegamiento requiere observación de drenaje; el modelo drena instantáneamente el exceso.", "7/14/21 días de intervalo no garantizan secado, cosecha o retiro.", "La resistencia a nematodos descrita para materiales de otra región no se generaliza a cualquier ajonjolí guatemalteco."],
+      "sanidad": "Sin bonificación sanitaria ni condición general de no hospedante; las referencias extranjeras no validan las nuevas sucesiones."
+    },
+    "papa": {
+      "fuentes": ["https://www.icta.gob.gt/publicaciones/Papa/manualpapaconsumo2013.pdf", "https://ipm.ucanr.edu/agriculture/potato/nematodes/"],
+      "alcance": "Manual ICTA 2013 página impresa 4, leído/renderizado en auditoría previa; guía original UC IPM de papa.",
+      "alertas": ["Referencia de mejor producción con media diaria de 18–20 °C. La máxima del aire y temperatura del tubérculo son variables distintas.", "Se requiere verificar material adaptado al candidato cálido y sanidad del tubérculo-semilla.", "No se incorporan pérdidas por calor o pudrición al balance de agua."],
+      "sanidad": "Meloidogyne incognita documentado para papa en la guía; sin diagnóstico de parcela o susceptibilidad local confirmada."
+    },
+    "cebolla": {
+      "fuentes": ["https://www.jstage.jst.go.jp/article/hortj/89/4/89_UTD-155/_html/-char/en", "https://ipm.ucanr.edu/agriculture/onion-and-garlic/nematodes/"],
+      "alcance": "Tanaka, Iritani y Araki, 2020, artículo original: resumen e introducción; guía UC IPM de cebolla/ajo.",
+      "alertas": ["Variedad, fotoperíodo y trasplante condicionan bulbificación. Se calcula largo astronómico del día, sin respuesta del bulbo.", "Producto modelado: bulbo seco, con almácigo externo supuesto; curado y retiro sin verificar."],
+      "sanidad": "Meloidogyne incognita figura en la guía. El cambio de familia no garantiza interrupción de ese organismo."
+    },
+    "brocoli": {
+      "fuentes": ["https://guatemalanosedetiene.gt/wp-content/uploads/2024/06/FICHA-TECNICA-AGROCLIMATICA-BROCOLI.pdf", "https://ipm.ucanr.edu/agriculture/cole-crops/nematodes/"],
+      "alcance": "Documento primario MAGA-DIGEGR alojado por tercero, páginas 1–3 examinadas en auditoría previa; UC IPM para el grupo de coles.",
+      "alertas": ["Cosecha principal: 75–90 días después del trasplante; etapas prorrateadas. Los 135 días FAO son referencia extranjera separada.", "El ciclo general que incluye laterales/semilla no se usa como cosecha principal de 120 días.", "MAGA describe óptimo 16–18 °C y raíz de 30 cm; esta última difiere del rango FAO 0.4–0.6 m. Se prueban hipótesis radicales sin validarlas."],
+      "sanidad": "Meloidogyne incognita documentado para coles como grupo, sin prueba de todos los cultivares de brócoli. El ensayo brócoli/lechuga de otra carpeta no se extrapola a estas parejas."
+    },
+    "lechuga": {
+      "fuentes": ["https://ipm.ucanr.edu/home-and-landscape/cultural-tips-for-growing-lettuce/", "https://ipm.ucanr.edu/agriculture/lettuce/nematodes/"],
+      "alcance": "Guías originales UC IPM conservadas en la revisión anterior: temperatura/calidad y nematodos.",
+      "alertas": ["Calor, tipo comercial y variedad condicionan espigado, amargor y formación de cabeza.", "La temperatura de inhibición de germinación no se aplica como pérdida a trasplantes.", "Una cosecha de hoja/cabeza fresca, sin cortes múltiples; almácigo externo supuesto."],
+      "sanidad": "Meloidogyne incognita documentado para lechuga; sin diagnóstico o evaluación del cultivar local."
+    }
+  },
+  "regla_hospedaje_compartido": {
+    "organismo": "Meloidogyne incognita",
+    "cultivos": ["frijol", "papa", "cebolla", "brocoli", "lechuga"],
+    "evidencia_por_cultivo": {"frijol": "grupo Dry Beans; material local pendiente", "papa": "guía por cultivo", "cebolla": "guía cebolla/ajo", "brocoli": "grupo de coles", "lechuga": "guía por cultivo"},
+    "uso": "Alerta potencial en ambas direcciones si ambos cultivos figuran. No representa infección local, prohibición universal, penalización ni efecto cuantificado de la rotación. Las combinaciones sin esta alerta también requieren diagnóstico."
+  },
+  "evidencia_de_pareja": "En esta entrega no se incorpora un experimento local específico de cada una de las 17 parejas nuevas. Los resultados son comparaciones de calendario/agua con revisión documental por mecanismo, no compatibilidad experimental demostrada.",
+  "faltantes": ["Material y producto", "Fechas reales y almácigo/curado/retiro", "Temperatura de finca", "Perfil físico y análisis de suelo", "Drenaje y sanidad", "Agua entregable", "Residuos y fertilización", "Comprador, costos y recursos"]
+}

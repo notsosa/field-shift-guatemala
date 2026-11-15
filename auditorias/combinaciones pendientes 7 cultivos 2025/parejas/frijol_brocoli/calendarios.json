@@ -1,0 +1,5798 @@
+[
+  {
+    "programa": "frijol70_brocoli75_gap7_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-06-15",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-25"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-02",
+        "fin": "2025-06-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap7_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-06-15",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-30"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-04-07",
+        "fin": "2025-06-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap14_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-06-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-25"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-09",
+        "fin": "2025-06-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap14_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-06-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-30"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-04-14",
+        "fin": "2025-06-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap21_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-06-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-25"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-16",
+        "fin": "2025-06-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap21_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-06-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-30"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-04-21",
+        "fin": "2025-06-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap7_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-06-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-25"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-02",
+        "fin": "2025-06-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap7_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-06-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-04-22",
+        "fin": "2025-06-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap14_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-07-07",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-25"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-09",
+        "fin": "2025-07-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap14_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-07-07",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-04-29",
+        "fin": "2025-07-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap21_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-07-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-25"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-16",
+        "fin": "2025-07-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap21_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-07-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-06",
+        "fin": "2025-07-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap7_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-08-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-25"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-02",
+        "fin": "2025-08-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap7_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-08-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-06",
+        "fin": "2025-08-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap14_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-25"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-09",
+        "fin": "2025-08-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap14_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-13",
+        "fin": "2025-08-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap21_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-25"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-16",
+        "fin": "2025-08-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap21_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-20",
+        "fin": "2025-08-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap7_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-07-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-19"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-27",
+        "fin": "2025-07-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap7_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-07-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-30"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-04-07",
+        "fin": "2025-07-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap14_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-07-17",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-19"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-04",
+        "fin": "2025-07-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap14_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-07-17",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-30"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-04-14",
+        "fin": "2025-07-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap21_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-07-24",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-19"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-11",
+        "fin": "2025-07-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap21_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-07-24",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-03-30"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-04-21",
+        "fin": "2025-07-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap7_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-07-25",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-19"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-27",
+        "fin": "2025-07-25"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap7_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-07-25",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-04-22",
+        "fin": "2025-07-25"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap14_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-01",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-19"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-04",
+        "fin": "2025-08-01"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap14_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-01",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-04-29",
+        "fin": "2025-08-01"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap21_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-08-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-19"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-11",
+        "fin": "2025-08-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap21_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-08-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-06",
+        "fin": "2025-08-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap7_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-19"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-04-27",
+        "fin": "2025-09-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap7_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-06",
+        "fin": "2025-09-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap14_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-09-15",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-19"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-04",
+        "fin": "2025-09-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap14_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-09-15",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-13",
+        "fin": "2025-09-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap21_2025-01-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-09-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-19"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-11",
+        "fin": "2025-09-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap21_2025-01-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-01-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-09-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-20",
+        "fin": "2025-09-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap7_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-07-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-17",
+        "fin": "2025-07-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap7_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-07-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-22",
+        "fin": "2025-07-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap14_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-06",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-24",
+        "fin": "2025-08-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap14_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-06",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-29",
+        "fin": "2025-08-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap21_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-08-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-31",
+        "fin": "2025-08-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap21_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-08-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-05",
+        "fin": "2025-08-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap7_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-08-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-17",
+        "fin": "2025-08-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap7_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-08-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-06",
+        "fin": "2025-08-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap14_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-24",
+        "fin": "2025-08-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap14_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-13",
+        "fin": "2025-08-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap21_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-31",
+        "fin": "2025-08-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap21_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-20",
+        "fin": "2025-08-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap7_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-17",
+        "fin": "2025-09-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap7_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-07-21",
+        "fin": "2025-09-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap14_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-24",
+        "fin": "2025-10-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap14_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-07-28",
+        "fin": "2025-10-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap21_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-31",
+        "fin": "2025-10-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap21_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-04",
+        "fin": "2025-10-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap7_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-08-24",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-11",
+        "fin": "2025-08-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap7_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-08-24",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-22",
+        "fin": "2025-08-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap14_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-31",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-18",
+        "fin": "2025-08-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap14_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-31",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-29",
+        "fin": "2025-08-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap21_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-09-07",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-25",
+        "fin": "2025-09-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap21_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-09-07",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-05",
+        "fin": "2025-09-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap7_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-11",
+        "fin": "2025-09-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap7_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-06",
+        "fin": "2025-09-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap14_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-09-15",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-18",
+        "fin": "2025-09-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap14_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-09-15",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-13",
+        "fin": "2025-09-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap21_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-09-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-25",
+        "fin": "2025-09-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap21_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-09-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-20",
+        "fin": "2025-09-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap7_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-23",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-11",
+        "fin": "2025-10-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap7_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-23",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-07-21",
+        "fin": "2025-10-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap14_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-18",
+        "fin": "2025-10-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap14_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-07-28",
+        "fin": "2025-10-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap21_2025-03-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-06",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-25",
+        "fin": "2025-11-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap21_2025-03-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-03-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-06",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-04",
+        "fin": "2025-11-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap7_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-17",
+        "fin": "2025-09-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap7_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-07-22",
+        "fin": "2025-09-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap14_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-06",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-24",
+        "fin": "2025-10-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap14_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-06",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-07-29",
+        "fin": "2025-10-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap21_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-31",
+        "fin": "2025-10-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap21_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-05",
+        "fin": "2025-10-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap7_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-17",
+        "fin": "2025-10-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap7_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-06",
+        "fin": "2025-10-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap14_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-24",
+        "fin": "2025-10-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap14_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-13",
+        "fin": "2025-10-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap21_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-31",
+        "fin": "2025-10-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap21_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-20",
+        "fin": "2025-10-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap7_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-17",
+        "fin": "2025-11-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap7_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-20",
+        "fin": "2025-11-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap14_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-24",
+        "fin": "2025-12-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap14_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-27",
+        "fin": "2025-12-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap21_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-31",
+        "fin": "2025-12-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap21_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-04",
+        "fin": "2025-12-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap7_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-24",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-11",
+        "fin": "2025-10-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap7_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-24",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-07-22",
+        "fin": "2025-10-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap14_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-31",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-18",
+        "fin": "2025-10-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap14_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-31",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-07-29",
+        "fin": "2025-10-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap21_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-07",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-25",
+        "fin": "2025-11-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap21_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-07",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-05",
+        "fin": "2025-11-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap7_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-11",
+        "fin": "2025-11-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap7_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-06",
+        "fin": "2025-11-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap14_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-15",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-18",
+        "fin": "2025-11-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap14_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-15",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-13",
+        "fin": "2025-11-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap21_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-25",
+        "fin": "2025-11-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap21_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-20",
+        "fin": "2025-11-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap7_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-23",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-11",
+        "fin": "2025-12-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap7_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-23",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-20",
+        "fin": "2025-12-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap14_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-18",
+        "fin": "2025-12-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap14_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-27",
+        "fin": "2025-12-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap21_2025-05-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-25",
+        "fin": "2026-01-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap21_2025-05-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-04",
+        "fin": "2026-01-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap7_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-31",
+        "fin": "2025-10-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap7_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-05",
+        "fin": "2025-10-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap14_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-20",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-07",
+        "fin": "2025-10-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap14_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-20",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-12",
+        "fin": "2025-10-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap21_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-14",
+        "fin": "2025-10-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap21_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-19",
+        "fin": "2025-10-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap7_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-31",
+        "fin": "2025-10-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap7_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-20",
+        "fin": "2025-10-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap14_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-04",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-07",
+        "fin": "2025-11-04"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap14_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-04",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-27",
+        "fin": "2025-11-04"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap21_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-14",
+        "fin": "2025-11-11"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap21_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-03",
+        "fin": "2025-11-11"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap7_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-07-31",
+        "fin": "2025-12-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap7_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-04",
+        "fin": "2025-12-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap14_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-19",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-07",
+        "fin": "2025-12-19"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap14_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-19",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-11",
+        "fin": "2025-12-19"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap21_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-14",
+        "fin": "2025-12-26"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap21_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-18",
+        "fin": "2025-12-26"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap7_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-07",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-25",
+        "fin": "2025-11-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap7_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-07",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-05",
+        "fin": "2025-11-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap14_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap14_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-12",
+        "fin": "2025-11-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap21_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-08",
+        "fin": "2025-11-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap21_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-19",
+        "fin": "2025-11-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap7_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-25",
+        "fin": "2025-11-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap7_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-20",
+        "fin": "2025-11-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap14_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap14_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-27",
+        "fin": "2025-11-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap21_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-06",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-08",
+        "fin": "2025-12-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap21_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-06",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-03",
+        "fin": "2025-12-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap7_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-25",
+        "fin": "2026-01-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap7_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-04",
+        "fin": "2026-01-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap14_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap14_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-11",
+        "fin": "2026-01-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap21_2025-05-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-08",
+        "fin": "2026-01-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap21_2025-05-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-05-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-18",
+        "fin": "2026-01-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap7_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-17",
+        "fin": "2025-10-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap7_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-22",
+        "fin": "2025-10-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap14_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-06",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-24",
+        "fin": "2025-11-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap14_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-06",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-29",
+        "fin": "2025-11-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap21_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-31",
+        "fin": "2025-11-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap21_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-05",
+        "fin": "2025-11-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap7_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-17",
+        "fin": "2025-11-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap7_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-06",
+        "fin": "2025-11-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap14_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-24",
+        "fin": "2025-11-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap14_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-13",
+        "fin": "2025-11-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap21_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-31",
+        "fin": "2025-11-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap21_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-20",
+        "fin": "2025-11-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap7_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-17",
+        "fin": "2025-12-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap7_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-21",
+        "fin": "2025-12-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap14_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-05",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-24",
+        "fin": "2026-01-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap14_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-05",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-28",
+        "fin": "2026-01-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap21_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-31",
+        "fin": "2026-01-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap21_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-04",
+        "fin": "2026-01-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap7_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-24",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-11",
+        "fin": "2025-11-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap7_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-24",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-22",
+        "fin": "2025-11-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap14_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-01",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-18",
+        "fin": "2025-12-01"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap14_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-01",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-08-29",
+        "fin": "2025-12-01"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap21_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-25",
+        "fin": "2025-12-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap21_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-05",
+        "fin": "2025-12-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap7_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-09",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-11",
+        "fin": "2025-12-09"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap7_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-09",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-06",
+        "fin": "2025-12-09"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap14_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-16",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-18",
+        "fin": "2025-12-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap14_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-16",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-13",
+        "fin": "2025-12-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap21_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-23",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-25",
+        "fin": "2025-12-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap21_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-23",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-20",
+        "fin": "2025-12-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap7_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-23",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-11",
+        "fin": "2026-01-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap7_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-23",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-21",
+        "fin": "2026-01-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap14_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-18",
+        "fin": "2026-01-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap14_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-28",
+        "fin": "2026-01-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap21_2025-06-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-03"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-25",
+        "fin": "2026-02-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap21_2025-06-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-04",
+        "fin": "2026-02-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap7_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-31",
+        "fin": "2025-11-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap7_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-05",
+        "fin": "2025-11-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap14_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-20",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-07",
+        "fin": "2025-11-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap14_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-20",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-12",
+        "fin": "2025-11-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap21_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-14",
+        "fin": "2025-11-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap21_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-19",
+        "fin": "2025-11-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap7_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-31",
+        "fin": "2025-11-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap7_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-20",
+        "fin": "2025-11-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap14_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-07",
+        "fin": "2025-12-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap14_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-27",
+        "fin": "2025-12-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap21_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-14",
+        "fin": "2025-12-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap21_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-04",
+        "fin": "2025-12-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap7_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-08-31",
+        "fin": "2026-01-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap7_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-04",
+        "fin": "2026-01-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap14_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-19",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-07",
+        "fin": "2026-01-19"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap14_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-19",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-11",
+        "fin": "2026-01-19"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap21_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-14",
+        "fin": "2026-01-26"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap21_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-18",
+        "fin": "2026-01-26"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap7_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-25",
+        "fin": "2025-12-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap7_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-08",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-05",
+        "fin": "2025-12-08"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap14_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-15",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-10-02",
+        "fin": "2025-12-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap14_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-15",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-12",
+        "fin": "2025-12-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap21_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-10-09",
+        "fin": "2025-12-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap21_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-22",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-08-28"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-19",
+        "fin": "2025-12-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap7_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-23",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-25",
+        "fin": "2025-12-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap7_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-23",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-20",
+        "fin": "2025-12-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap14_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-10-02",
+        "fin": "2025-12-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap14_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-30",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-27",
+        "fin": "2025-12-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap21_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-10-09",
+        "fin": "2026-01-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap21_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-10-04",
+        "fin": "2026-01-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap7_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-25",
+        "fin": "2026-02-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap7_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-04",
+        "fin": "2026-02-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap14_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-10-02",
+        "fin": "2026-02-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap14_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-11",
+        "fin": "2026-02-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap21_2025-06-15",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-17"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-10-09",
+        "fin": "2026-02-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap21_2025-06-15",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-06-15",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-18",
+        "fin": "2026-02-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap7_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-11-17",
+        "fin": "2026-01-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap7_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-22",
+        "fin": "2026-01-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap14_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-11-24",
+        "fin": "2026-02-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap14_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-29",
+        "fin": "2026-02-06"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli75_gap21_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-01",
+        "fin": "2026-02-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol70_gap21_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-12-06",
+        "fin": "2026-02-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap7_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-11-17",
+        "fin": "2026-02-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap7_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-12-07",
+        "fin": "2026-02-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap14_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-21",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-11-24",
+        "fin": "2026-02-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap14_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-21",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-12-14",
+        "fin": "2026-02-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli90_gap21_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-01",
+        "fin": "2026-02-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol70_gap21_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-12-21",
+        "fin": "2026-02-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap7_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-03-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-11-17",
+        "fin": "2026-03-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap7_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-03-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2026-01-21",
+        "fin": "2026-03-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap14_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-04-07",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-11-24",
+        "fin": "2026-04-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap14_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-04-07",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2026-01-28",
+        "fin": "2026-04-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol70_brocoli135_gap21_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-04-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-09"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-01",
+        "fin": "2026-04-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol70_gap21_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 70,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-04-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2026-02-04",
+        "fin": "2026-04-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap7_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-04"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-12",
+        "fin": "2026-02-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap7_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-22",
+        "fin": "2026-02-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap14_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-03-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-04"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-19",
+        "fin": "2026-03-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap14_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-03-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-11-29",
+        "fin": "2026-03-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli75_gap21_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-03-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-04"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-26",
+        "fin": "2026-03-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli75_frijol95_gap21_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 75,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-03-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-14"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-12-06",
+        "fin": "2026-03-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap7_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-03-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-04"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-12",
+        "fin": "2026-03-11"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap7_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-03-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-12-07",
+        "fin": "2026-03-11"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap14_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-03-18",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-04"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-19",
+        "fin": "2026-03-18"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap14_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-03-18",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-12-14",
+        "fin": "2026-03-18"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli90_gap21_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-03-25",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-04"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-26",
+        "fin": "2026-03-25"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli90_frijol95_gap21_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 90,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-03-25",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-12-21",
+        "fin": "2026-03-25"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap7_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-04-25",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-04"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-12",
+        "fin": "2026-04-25"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap7_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-04-25",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2026-01-21",
+        "fin": "2026-04-25"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap14_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-05-02",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-04"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-19",
+        "fin": "2026-05-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap14_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-05-02",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2026-01-28",
+        "fin": "2026-05-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "frijol95_brocoli135_gap21_2025-09-01",
+    "secuencia": "frijol_brocoli",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-05-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "frijol",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-04"
+      },
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-12-26",
+        "fin": "2026-05-09"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "brocoli135_frijol95_gap21_2025-09-01",
+    "secuencia": "brocoli_frijol",
+    "inicio": "2025-09-01",
+    "duracion_frijol_dias": 95,
+    "duracion_brocoli_dias": 135,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-05-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "brocoli",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-13"
+      },
+      {
+        "cultivo": "frijol",
+        "inicio": "2026-02-04",
+        "fin": "2026-05-09"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  }
+]

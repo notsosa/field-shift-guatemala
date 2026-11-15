@@ -1,0 +1,26 @@
+{
+  "pareja": "frijol_cebolla",
+  "cultivos": [
+    "frijol",
+    "cebolla"
+  ],
+  "sucesiones": [
+    "frijol → cebolla",
+    "cebolla → frijol"
+  ],
+  "programas": 168,
+  "completos_2025": 50,
+  "inconclusos_sin_simular": 118,
+  "corridas": 7200,
+  "pares": 3600,
+  "pares_secano": 1800,
+  "inverso_mayor_deficit": 1448,
+  "inverso_menor_deficit": 352,
+  "pares_en_tolerancia": 0,
+  "tolerancia_mm": 0.0001,
+  "pasos_diarios": 2628000,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "registros_balance_referencia": 5840,
+  "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+  "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+}

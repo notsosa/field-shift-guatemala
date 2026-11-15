@@ -1,0 +1,26 @@
+{
+  "pareja": "cebolla_lechuga",
+  "cultivos": [
+    "cebolla",
+    "lechuga"
+  ],
+  "sucesiones": [
+    "cebolla → lechuga",
+    "lechuga → cebolla"
+  ],
+  "programas": 168,
+  "completos_2025": 46,
+  "inconclusos_sin_simular": 122,
+  "corridas": 6624,
+  "pares": 3312,
+  "pares_secano": 1656,
+  "inverso_mayor_deficit": 293,
+  "inverso_menor_deficit": 1363,
+  "pares_en_tolerancia": 0,
+  "tolerancia_mm": 0.0001,
+  "pasos_diarios": 2417760,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "registros_balance_referencia": 5840,
+  "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+  "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+}

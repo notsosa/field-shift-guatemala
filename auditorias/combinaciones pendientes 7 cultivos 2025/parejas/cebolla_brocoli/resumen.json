@@ -1,0 +1,26 @@
+{
+  "pareja": "cebolla_brocoli",
+  "cultivos": [
+    "cebolla",
+    "brocoli"
+  ],
+  "sucesiones": [
+    "cebolla → brocoli",
+    "brocoli → cebolla"
+  ],
+  "programas": 252,
+  "completos_2025": 58,
+  "inconclusos_sin_simular": 194,
+  "corridas": 8352,
+  "pares": 4176,
+  "pares_secano": 2088,
+  "inverso_mayor_deficit": 560,
+  "inverso_menor_deficit": 1528,
+  "pares_en_tolerancia": 0,
+  "tolerancia_mm": 0.0001,
+  "pasos_diarios": 3048480,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "registros_balance_referencia": 5840,
+  "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+  "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+}

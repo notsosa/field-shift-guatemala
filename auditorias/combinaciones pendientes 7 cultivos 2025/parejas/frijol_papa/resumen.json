@@ -1,0 +1,26 @@
+{
+  "pareja": "frijol_papa",
+  "cultivos": [
+    "frijol",
+    "papa"
+  ],
+  "sucesiones": [
+    "frijol → papa",
+    "papa → frijol"
+  ],
+  "programas": 168,
+  "completos_2025": 102,
+  "inconclusos_sin_simular": 66,
+  "corridas": 14688,
+  "pares": 7344,
+  "pares_secano": 3672,
+  "inverso_mayor_deficit": 2676,
+  "inverso_menor_deficit": 996,
+  "pares_en_tolerancia": 0,
+  "tolerancia_mm": 0.0001,
+  "pasos_diarios": 5361120,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "registros_balance_referencia": 5840,
+  "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+  "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+}

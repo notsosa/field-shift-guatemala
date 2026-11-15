@@ -1,0 +1,3866 @@
+[
+  {
+    "programa": "maiz90_papa115_gap7_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-08-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-04-22",
+        "fin": "2025-08-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap7_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-08-14",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-17",
+        "fin": "2025-08-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap14_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-04-29",
+        "fin": "2025-08-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap14_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-08-21",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-24",
+        "fin": "2025-08-21"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap21_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-06",
+        "fin": "2025-08-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap21_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-31",
+        "fin": "2025-08-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap7_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-08-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-04-22",
+        "fin": "2025-08-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap7_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-08-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap14_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-09-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-04-29",
+        "fin": "2025-09-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap14_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-09-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-08",
+        "fin": "2025-09-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap21_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-09-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-04-14"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-06",
+        "fin": "2025-09-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap21_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-09-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap7_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-18",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-19"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-27",
+        "fin": "2025-09-18"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap7_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-18",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-17",
+        "fin": "2025-09-18"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap14_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-09-25",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-19"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-03",
+        "fin": "2025-09-25"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap14_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-09-25",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-24",
+        "fin": "2025-09-25"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap21_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-02",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-19"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-10",
+        "fin": "2025-10-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap21_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-02",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-31",
+        "fin": "2025-10-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap7_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-03",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-19"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-27",
+        "fin": "2025-10-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap7_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-03",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap14_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-19"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-03",
+        "fin": "2025-10-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap14_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-08",
+        "fin": "2025-10-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap21_2025-01-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-17",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-19"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-10",
+        "fin": "2025-10-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap21_2025-01-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-01-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-17",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap7_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-06",
+        "fin": "2025-09-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap7_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-09-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-01",
+        "fin": "2025-09-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap14_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-13",
+        "fin": "2025-10-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap14_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-08",
+        "fin": "2025-10-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap21_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-20",
+        "fin": "2025-10-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap21_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-15",
+        "fin": "2025-10-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap7_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-06",
+        "fin": "2025-10-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap7_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-10-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-16",
+        "fin": "2025-10-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap14_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-20",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-13",
+        "fin": "2025-10-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap14_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-10-20",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-23",
+        "fin": "2025-10-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap21_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-05-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-20",
+        "fin": "2025-10-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap21_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-30",
+        "fin": "2025-10-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap7_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-02",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-07-11",
+        "fin": "2025-11-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap7_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-02",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-01",
+        "fin": "2025-11-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap14_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-09",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-07-18",
+        "fin": "2025-11-09"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap14_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-09",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-08",
+        "fin": "2025-11-09"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap21_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-16",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-07-25",
+        "fin": "2025-11-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap21_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-11-16",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-15",
+        "fin": "2025-11-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap7_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-17",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-07-11",
+        "fin": "2025-11-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap7_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-17",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-16",
+        "fin": "2025-11-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap14_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-24",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-07-18",
+        "fin": "2025-11-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap14_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-11-24",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-23",
+        "fin": "2025-11-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap21_2025-03-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-01",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-07-25",
+        "fin": "2025-12-01"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap21_2025-03-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-03-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-01",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-07-30",
+        "fin": "2025-12-01"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap7_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-06",
+        "fin": "2025-11-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap7_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-11-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-31",
+        "fin": "2025-11-28"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap14_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-13",
+        "fin": "2025-12-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap14_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-05",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-07",
+        "fin": "2025-12-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap21_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-20",
+        "fin": "2025-12-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap21_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-14",
+        "fin": "2025-12-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap7_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-06",
+        "fin": "2025-12-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap7_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-15",
+        "fin": "2025-12-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap14_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-20",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-13",
+        "fin": "2025-12-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap14_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-20",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-22",
+        "fin": "2025-12-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap21_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-20",
+        "fin": "2025-12-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap21_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-29",
+        "fin": "2025-12-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap7_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-02",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-10",
+        "fin": "2026-01-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap7_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-02",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-31",
+        "fin": "2026-01-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap14_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-17",
+        "fin": "2026-01-09"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap14_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-07",
+        "fin": "2026-01-09"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap21_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-16",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-24",
+        "fin": "2026-01-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap21_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-16",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-14",
+        "fin": "2026-01-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap7_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-17",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-10",
+        "fin": "2026-01-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap7_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-17",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-15",
+        "fin": "2026-01-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap14_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-17",
+        "fin": "2026-01-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap14_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-22",
+        "fin": "2026-01-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap21_2025-05-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-24",
+        "fin": "2026-01-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap21_2025-05-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-29",
+        "fin": "2026-01-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap7_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-20",
+        "fin": "2025-12-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap7_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-14",
+        "fin": "2025-12-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap14_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-19",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-27",
+        "fin": "2025-12-19"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap14_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2025-12-19",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-21",
+        "fin": "2025-12-19"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap21_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-03",
+        "fin": "2025-12-26"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap21_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-28",
+        "fin": "2025-12-26"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap7_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-20",
+        "fin": "2025-12-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap7_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-29",
+        "fin": "2025-12-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap14_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-27",
+        "fin": "2026-01-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap14_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-06",
+        "fin": "2026-01-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap21_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-03",
+        "fin": "2026-01-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap21_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-13",
+        "fin": "2026-01-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap7_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-16",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-24",
+        "fin": "2026-01-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap7_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-16",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-14",
+        "fin": "2026-01-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap14_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-23",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-01",
+        "fin": "2026-01-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap14_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-23",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-21",
+        "fin": "2026-01-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap21_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-08",
+        "fin": "2026-01-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap21_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-28",
+        "fin": "2026-01-30"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap7_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-24",
+        "fin": "2026-01-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap7_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-29",
+        "fin": "2026-01-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap14_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-07",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-01",
+        "fin": "2026-02-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap14_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-07",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-06",
+        "fin": "2026-02-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap21_2025-05-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-08",
+        "fin": "2026-02-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap21_2025-05-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-05-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-13",
+        "fin": "2026-02-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap7_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-06",
+        "fin": "2025-12-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap7_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2025-12-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-01",
+        "fin": "2025-12-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap14_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-05",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-13",
+        "fin": "2026-01-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap14_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-05",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-08",
+        "fin": "2026-01-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap21_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-20",
+        "fin": "2026-01-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap21_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-15",
+        "fin": "2026-01-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap7_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-06",
+        "fin": "2026-01-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap7_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-16",
+        "fin": "2026-01-13"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap14_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-13",
+        "fin": "2026-01-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap14_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-23",
+        "fin": "2026-01-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap21_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-20",
+        "fin": "2026-01-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap21_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-30",
+        "fin": "2026-01-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap7_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-02",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-11",
+        "fin": "2026-02-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap7_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-02",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-01",
+        "fin": "2026-02-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap14_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-18",
+        "fin": "2026-02-09"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap14_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-08",
+        "fin": "2026-02-09"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap21_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-16",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-25",
+        "fin": "2026-02-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap21_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-16",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-15",
+        "fin": "2026-02-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap7_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-17",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-11",
+        "fin": "2026-02-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap7_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-17",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-16",
+        "fin": "2026-02-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap14_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-18",
+        "fin": "2026-02-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap14_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-23",
+        "fin": "2026-02-24"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap21_2025-06-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-03-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-25",
+        "fin": "2026-03-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap21_2025-06-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-03-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-30",
+        "fin": "2026-03-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap7_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-20",
+        "fin": "2026-01-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap7_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-15",
+        "fin": "2026-01-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap14_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-19",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-27",
+        "fin": "2026-01-19"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap14_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-01-19",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-22",
+        "fin": "2026-01-19"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap21_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-04",
+        "fin": "2026-01-26"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap21_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-29",
+        "fin": "2026-01-26"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap7_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-20",
+        "fin": "2026-01-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap7_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-01-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-30",
+        "fin": "2026-01-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap14_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-27",
+        "fin": "2026-02-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap14_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-06",
+        "fin": "2026-02-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap21_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-04",
+        "fin": "2026-02-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap21_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-02-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-13",
+        "fin": "2026-02-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap7_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-16",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-25",
+        "fin": "2026-02-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap7_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-02-16",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-15",
+        "fin": "2026-02-16"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap14_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-23",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-01",
+        "fin": "2026-02-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap14_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-02-23",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-22",
+        "fin": "2026-02-23"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap21_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-03-02",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-08",
+        "fin": "2026-03-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap21_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-03-02",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-29",
+        "fin": "2026-03-02"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap7_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-03-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-25",
+        "fin": "2026-03-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap7_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-03-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-30",
+        "fin": "2026-03-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap14_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-03-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-01",
+        "fin": "2026-03-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap14_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-03-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-06",
+        "fin": "2026-03-10"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap21_2025-06-15",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-03-17",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-08",
+        "fin": "2026-03-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap21_2025-06-15",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-06-15",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-03-17",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-13",
+        "fin": "2026-03-17"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap7_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-03-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-07",
+        "fin": "2026-03-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap7_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-03-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-01",
+        "fin": "2026-03-31"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap14_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-04-07",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-14",
+        "fin": "2026-04-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap14_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-04-07",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-08",
+        "fin": "2026-04-07"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa115_gap21_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-04-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-21",
+        "fin": "2026-04-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz90_gap21_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-04-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-15",
+        "fin": "2026-04-14"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap7_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-04-15",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-07",
+        "fin": "2026-04-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap7_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-04-15",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-16",
+        "fin": "2026-04-15"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap14_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-04-22",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-14",
+        "fin": "2026-04-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap14_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-04-22",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-23",
+        "fin": "2026-04-22"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz90_papa130_gap21_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-04-29",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2025-11-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-21",
+        "fin": "2026-04-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz90_gap21_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 90,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-04-29",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-30",
+        "fin": "2026-04-29"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap7_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-05-05",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-11",
+        "fin": "2026-05-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap7_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-05-05",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-01",
+        "fin": "2026-05-05"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap14_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-05-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-18",
+        "fin": "2026-05-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap14_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-05-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-08",
+        "fin": "2026-05-12"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa115_gap21_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-05-19",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-25",
+        "fin": "2026-05-19"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa115_maiz125_gap21_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 115,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-05-19",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-15",
+        "fin": "2026-05-19"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap7_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-05-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-11",
+        "fin": "2026-05-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap7_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 7,
+    "fin_ciclo": "2026-05-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-16",
+        "fin": "2026-05-20"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap14_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-05-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-18",
+        "fin": "2026-05-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap14_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 14,
+    "fin_ciclo": "2026-05-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-23",
+        "fin": "2026-05-27"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "maiz125_papa130_gap21_2025-09-01",
+    "secuencia": "maiz_papa",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-06-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-03"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-25",
+        "fin": "2026-06-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  },
+  {
+    "programa": "papa130_maiz125_gap21_2025-09-01",
+    "secuencia": "papa_maiz",
+    "inicio": "2025-09-01",
+    "duracion_maiz_dias": 125,
+    "duracion_papa_dias": 130,
+    "intervalo_dias": 21,
+    "fin_ciclo": "2026-06-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-30",
+        "fin": "2026-06-03"
+      }
+    ],
+    "estado": "calendario_supuesto; madurez_comercial_y_retiro_sin_verificar"
+  }
+]

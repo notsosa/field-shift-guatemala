@@ -1,0 +1,9 @@
+secuencia,inicio,fin,dias,fuente_lluvia,P_intervalo_mm,dias_P_ge1mm
+maiz_lechuga,2025-05-30,2025-06-12,14,imerg,276.100004196167,11
+maiz_lechuga,2025-05-30,2025-06-12,14,chirps,137.97265243530273,7
+maiz_lechuga,2025-05-30,2025-06-12,14,era5,148.8,11
+maiz_lechuga,2025-05-30,2025-06-12,14,power,106.48,12
+lechuga_maiz,2025-05-15,2025-05-28,14,imerg,54.900000274181366,8
+lechuga_maiz,2025-05-15,2025-05-28,14,chirps,18.329545378684998,6
+lechuga_maiz,2025-05-15,2025-05-28,14,era5,16.9,7
+lechuga_maiz,2025-05-15,2025-05-28,14,power,12.17,4

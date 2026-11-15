@@ -1,0 +1,9 @@
+secuencia,inicio,fin,dias,fuente_lluvia,P_intervalo_mm,dias_P_ge1mm
+ajonjoli_papa,2025-06-19,2025-07-02,14,imerg,229.90000438690186,12
+ajonjoli_papa,2025-06-19,2025-07-02,14,chirps,165.72740650177002,10
+ajonjoli_papa,2025-06-19,2025-07-02,14,era5,95.6,9
+ajonjoli_papa,2025-06-19,2025-07-02,14,power,79.51,12
+papa_ajonjoli,2025-06-24,2025-07-07,14,imerg,235.2000061571598,10
+papa_ajonjoli,2025-06-24,2025-07-07,14,chirps,130.71574640274048,10
+papa_ajonjoli,2025-06-24,2025-07-07,14,era5,93.2,10
+papa_ajonjoli,2025-06-24,2025-07-07,14,power,81.0,10

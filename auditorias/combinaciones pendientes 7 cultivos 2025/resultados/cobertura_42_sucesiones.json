@@ -1,0 +1,296 @@
+[
+  {
+    "antecesor": "maiz",
+    "sucesor": "frijol",
+    "estado": "evaluacion_exploratoria_anterior",
+    "auditoria": "../prueba frijol maiz 2025/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "maiz",
+    "sucesor": "ajonjoli",
+    "estado": "evaluacion_exploratoria_anterior",
+    "auditoria": "../prueba ajonjoli maiz 2025/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "maiz",
+    "sucesor": "papa",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/maiz_papa/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "maiz",
+    "sucesor": "cebolla",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/maiz_cebolla/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "maiz",
+    "sucesor": "brocoli",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/maiz_brocoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "maiz",
+    "sucesor": "lechuga",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/maiz_lechuga/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "frijol",
+    "sucesor": "maiz",
+    "estado": "evaluacion_exploratoria_anterior",
+    "auditoria": "../prueba frijol maiz 2025/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "frijol",
+    "sucesor": "ajonjoli",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/frijol_ajonjoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "frijol",
+    "sucesor": "papa",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/frijol_papa/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "frijol",
+    "sucesor": "cebolla",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/frijol_cebolla/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "frijol",
+    "sucesor": "brocoli",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/frijol_brocoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "frijol",
+    "sucesor": "lechuga",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/frijol_lechuga/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "ajonjoli",
+    "sucesor": "maiz",
+    "estado": "evaluacion_exploratoria_anterior",
+    "auditoria": "../prueba ajonjoli maiz 2025/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "ajonjoli",
+    "sucesor": "frijol",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/frijol_ajonjoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "ajonjoli",
+    "sucesor": "papa",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/ajonjoli_papa/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "ajonjoli",
+    "sucesor": "cebolla",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/ajonjoli_cebolla/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "ajonjoli",
+    "sucesor": "brocoli",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/ajonjoli_brocoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "ajonjoli",
+    "sucesor": "lechuga",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/ajonjoli_lechuga/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "papa",
+    "sucesor": "maiz",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/maiz_papa/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "papa",
+    "sucesor": "frijol",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/frijol_papa/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "papa",
+    "sucesor": "ajonjoli",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/ajonjoli_papa/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "papa",
+    "sucesor": "cebolla",
+    "estado": "evaluacion_exploratoria_anterior",
+    "auditoria": "../prueba papa cebolla 2025/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "papa",
+    "sucesor": "brocoli",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/papa_brocoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "papa",
+    "sucesor": "lechuga",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/papa_lechuga/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "cebolla",
+    "sucesor": "maiz",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/maiz_cebolla/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "cebolla",
+    "sucesor": "frijol",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/frijol_cebolla/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "cebolla",
+    "sucesor": "ajonjoli",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/ajonjoli_cebolla/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "cebolla",
+    "sucesor": "papa",
+    "estado": "evaluacion_exploratoria_anterior",
+    "auditoria": "../prueba papa cebolla 2025/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "cebolla",
+    "sucesor": "brocoli",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/cebolla_brocoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "cebolla",
+    "sucesor": "lechuga",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/cebolla_lechuga/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "brocoli",
+    "sucesor": "maiz",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/maiz_brocoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "brocoli",
+    "sucesor": "frijol",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/frijol_brocoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "brocoli",
+    "sucesor": "ajonjoli",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/ajonjoli_brocoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "brocoli",
+    "sucesor": "papa",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/papa_brocoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "brocoli",
+    "sucesor": "cebolla",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/cebolla_brocoli/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "brocoli",
+    "sucesor": "lechuga",
+    "estado": "evaluacion_exploratoria_anterior",
+    "auditoria": "../prueba brocoli lechuga 2025/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "lechuga",
+    "sucesor": "maiz",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/maiz_lechuga/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "lechuga",
+    "sucesor": "frijol",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/frijol_lechuga/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "lechuga",
+    "sucesor": "ajonjoli",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/ajonjoli_lechuga/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "lechuga",
+    "sucesor": "papa",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/papa_lechuga/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "lechuga",
+    "sucesor": "cebolla",
+    "estado": "evaluacion_exploratoria_nueva",
+    "auditoria": "parejas/cebolla_lechuga/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  },
+  {
+    "antecesor": "lechuga",
+    "sucesor": "brocoli",
+    "estado": "evaluacion_exploratoria_anterior",
+    "auditoria": "../prueba brocoli lechuga 2025/README.md",
+    "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+  }
+]

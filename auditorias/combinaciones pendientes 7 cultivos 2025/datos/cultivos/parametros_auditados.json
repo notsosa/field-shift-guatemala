@@ -1,0 +1,271 @@
+{
+  "cultivos": {
+    "maiz": {
+      "especie": "Zea mays L.",
+      "familia": "Poaceae",
+      "kc": [
+        0.3,
+        1.2,
+        0.35
+      ],
+      "zr": 1.0,
+      "p": 0.55,
+      "etapas": {
+        "90": [
+          14,
+          25,
+          29,
+          22
+        ],
+        "125": [
+          20,
+          35,
+          40,
+          30
+        ]
+      },
+      "fuentes": [
+        "FAO56_T11",
+        "FAO56_T12",
+        "FAO56_T22",
+        "ICTA_MAIZ"
+      ],
+      "nota": "90 días es sensibilidad de ciclo corto con etapas prorrateadas; no confirma retiro ni grano seco. 125 días es referencia extranjera FAO.",
+      "producto": "grano seco"
+    },
+    "frijol": {
+      "especie": "Phaseolus vulgaris L.",
+      "familia": "Fabaceae",
+      "kc": [
+        0.4,
+        1.15,
+        0.35
+      ],
+      "zr": 0.6,
+      "p": 0.45,
+      "etapas": {
+        "70": [
+          11,
+          18,
+          26,
+          15
+        ],
+        "95": [
+          15,
+          25,
+          35,
+          20
+        ]
+      },
+      "fuentes": [
+        "FAO56_T11",
+        "FAO56_T12",
+        "FAO56_T22"
+      ],
+      "nota": "Comparador de la prueba anterior; calendario corto ilustrativo, sin bonificación fija de N.",
+      "producto": "grano seco"
+    },
+    "ajonjoli": {
+      "especie": "Sesamum indicum L.",
+      "familia": "Pedaliaceae",
+      "kc": [
+        0.35,
+        1.1,
+        0.25
+      ],
+      "zr": 1.0,
+      "p": 0.6,
+      "etapas": {
+        "100": [
+          18,
+          27,
+          36,
+          19
+        ],
+        "110": [
+          20,
+          30,
+          40,
+          20
+        ],
+        "150": [
+          27,
+          41,
+          55,
+          27
+        ],
+        "180": [
+          33,
+          49,
+          65,
+          33
+        ]
+      },
+      "fuentes": [
+        "FAO56_T11",
+        "FAO56_T12",
+        "FAO56_T22",
+        "MAGA_MERCADO_2017",
+        "KEW_SESAMUM"
+      ],
+      "nota": "Kc inicial 0.35 procede del grupo oleaginosas; Kc medio/final 1.10/0.25 de la fila Sesame. Raíz FAO 1.0–1.5 m: se limita a 1 m por el perfil disponible. Etapas de 110 días sumadas de la fila FAO; 100/150/180 son reescalados para sensibilidad, no fenología observada.",
+      "producto": "semilla oleaginosa"
+    },
+    "papa": {
+      "especie": "Solanum tuberosum L.",
+      "familia": "Solanaceae",
+      "producto": "tuberculo para consumo",
+      "kc": [
+        0.5,
+        1.15,
+        0.75
+      ],
+      "zr": 0.5,
+      "p": 0.35,
+      "rango_zr_fao": [
+        0.4,
+        0.6
+      ],
+      "etapas": {
+        "115": [
+          25,
+          30,
+          30,
+          30
+        ],
+        "130": [
+          25,
+          30,
+          45,
+          30
+        ]
+      },
+      "nota": "FAO tabla 11, clima semiárido; fechas y duración no calibradas localmente. Kc inicial heredado de raíces/tubérculos. Cosecha y retiro sin verificar.",
+      "kew": "https://powo.science.kew.org/taxon/821337-1"
+    },
+    "cebolla": {
+      "especie": "Allium cepa L.",
+      "familia": "Amaryllidaceae",
+      "producto": "bulbo seco; no verdeo ni semilla",
+      "kc": [
+        0.7,
+        1.05,
+        0.75
+      ],
+      "zr": 0.5,
+      "p": 0.3,
+      "rango_zr_fao": [
+        0.3,
+        0.6
+      ],
+      "etapas": {
+        "150": [
+          15,
+          25,
+          70,
+          40
+        ],
+        "210": [
+          20,
+          35,
+          110,
+          45
+        ]
+      },
+      "nota": "FAO tabla 11, mediterráneo/árido. Ocupación de campo supuesta; almácigo externo no consume esta parcela. Verificar sistema, fotoperíodo, edad del trasplante, curado y retiro.",
+      "kew": "https://powo.science.kew.org/taxon/527795-1"
+    },
+    "brocoli": {
+      "especie": "Brassica oleracea L. (grupo brócoli)",
+      "familia": "Brassicaceae",
+      "producto": "inflorescencia fresca; sin cortes laterales prolongados",
+      "kc": [
+        0.7,
+        1.05,
+        0.95
+      ],
+      "zr": 0.5,
+      "p": 0.45,
+      "rango_zr_fao": [
+        0.4,
+        0.6
+      ],
+      "etapas": {
+        "75": [
+          19,
+          25,
+          23,
+          8
+        ],
+        "90": [
+          23,
+          30,
+          27,
+          10
+        ],
+        "135": [
+          35,
+          45,
+          40,
+          15
+        ]
+      },
+      "nota": "MAGA página 3 indica cosecha principal 75–90 días después del trasplante; etapas 75/90 prorrateadas como sensibilidad, sin calibración. La misma página muestra ciclo general 90–120, laterales/semilla en 100–120: no se adopta ese tramo como cosecha principal. 135 días FAO de California es referencia extranjera separada. Raíz FAO 0.4–0.6 m frente a 30 cm MAGA: se prueban ambas hipótesis. Almácigo externo excluido.",
+      "kew": "https://powo.science.kew.org/taxon/279435-1"
+    },
+    "lechuga": {
+      "especie": "Lactuca sativa L.",
+      "familia": "Asteraceae",
+      "producto": "hoja/cabeza fresca, una cosecha",
+      "kc": [
+        0.7,
+        1.0,
+        0.95
+      ],
+      "zr": 0.4,
+      "p": 0.3,
+      "rango_zr_fao": [
+        0.3,
+        0.5
+      ],
+      "etapas": {
+        "75": [
+          20,
+          30,
+          15,
+          10
+        ],
+        "105": [
+          30,
+          40,
+          25,
+          10
+        ]
+      },
+      "nota": "FAO tabla 11, referencias mediterráneas; ocupación de campo supuesta, sin almácigo externo. No equivale a todos los tipos comerciales ni contempla cortes sucesivos.",
+      "kew": "https://powo.science.kew.org/taxon/228239-1"
+    }
+  },
+  "procedencia": [
+    {
+      "path": "auditorias/prueba ajonjoli maiz 2025/datos/cultivos/parametros_auditados.json",
+      "sha256": "642887405f9346c0ed44ebd738fa9ac53b4536cd30ed525283b3e364804c8075",
+      "commit": "ef51faf83a975656a927bc4934673b668c3a94e9"
+    },
+    {
+      "path": "auditorias/prueba papa cebolla 2025/datos/cultivos/parametros_auditados.json",
+      "sha256": "472d25dbf15a676a2ca701f9d5c267d1450b1c7869144f84275d1de221746086",
+      "commit": "ef51faf83a975656a927bc4934673b668c3a94e9"
+    },
+    {
+      "path": "auditorias/prueba brocoli lechuga 2025/datos/cultivos/parametros_auditados.json",
+      "sha256": "ccc665fe6af79c30cd97e64a31c5dcbd3a5beb00c5250195cf920002322bc83d",
+      "commit": "ef51faf83a975656a927bc4934673b668c3a94e9"
+    }
+  ],
+  "estado": "referencias_y_supuestos_sin_calibracion_local",
+  "fuentes_comunes": {
+    "etapas_kc": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+    "raices_p": "https://www.fao.org/4/x0490e/x0490e0e.htm"
+  }
+}

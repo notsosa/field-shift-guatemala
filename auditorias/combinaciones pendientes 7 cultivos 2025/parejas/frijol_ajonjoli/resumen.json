@@ -1,0 +1,26 @@
+{
+  "pareja": "frijol_ajonjoli",
+  "cultivos": [
+    "frijol",
+    "ajonjoli"
+  ],
+  "sucesiones": [
+    "frijol → ajonjoli",
+    "ajonjoli → frijol"
+  ],
+  "programas": 336,
+  "completos_2025": 180,
+  "inconclusos_sin_simular": 156,
+  "corridas": 25920,
+  "pares": 12960,
+  "pares_secano": 6480,
+  "inverso_mayor_deficit": 3974,
+  "inverso_menor_deficit": 2506,
+  "pares_en_tolerancia": 0,
+  "tolerancia_mm": 0.0001,
+  "pasos_diarios": 9460800,
+  "max_error_balance_mm": 8.526512829121202e-14,
+  "registros_balance_referencia": 5840,
+  "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+  "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+}

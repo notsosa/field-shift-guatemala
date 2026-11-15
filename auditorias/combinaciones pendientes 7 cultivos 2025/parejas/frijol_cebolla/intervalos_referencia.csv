@@ -1,0 +1,9 @@
+secuencia,inicio,fin,dias,fuente_lluvia,P_intervalo_mm,dias_P_ge1mm
+frijol_cebolla,2025-05-10,2025-05-23,14,imerg,115.60000216960907,9
+frijol_cebolla,2025-05-10,2025-05-23,14,chirps,42.9144926071167,8
+frijol_cebolla,2025-05-10,2025-05-23,14,era5,27.5,7
+frijol_cebolla,2025-05-10,2025-05-23,14,power,39.91,5
+cebolla_frijol,2025-07-29,2025-08-11,14,imerg,35.50000100582838,5
+cebolla_frijol,2025-07-29,2025-08-11,14,chirps,42.17342948913574,3
+cebolla_frijol,2025-07-29,2025-08-11,14,era5,36.6,10
+cebolla_frijol,2025-07-29,2025-08-11,14,power,34.839999999999996,11

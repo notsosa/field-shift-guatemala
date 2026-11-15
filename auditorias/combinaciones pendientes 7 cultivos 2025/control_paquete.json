@@ -1,0 +1,20 @@
+{
+  "fecha_utc": "2026-11-15T18:34:57.712276+00:00",
+  "sucesiones_nuevas": 34,
+  "sucesiones_previas": 8,
+  "sucesiones_cubiertas": 42,
+  "parejas_nuevas": 17,
+  "programas": 4200,
+  "completos_2025": 1884,
+  "corridas": 271296,
+  "pasos_diarios": 99023040,
+  "registros_diarios_referencia": 99280,
+  "max_error_balance_mm": 8.526512829121202e-14,
+  "pruebas": 12,
+  "resultado_pruebas": "OK",
+  "equivalencia": "144 variantes de un calendario contra motor escalar; todos los cultivos; 48 resultados publicados.",
+  "fuentes_sha_comprobadas": 49,
+  "csv_json": "conteos y valores numéricos comprobados en todas las corridas",
+  "cobertura_y_enlaces": "42 direcciones enlazadas; 34 nuevas sin duplicados ni faltantes",
+  "errores": []
+}

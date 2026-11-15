@@ -1,0 +1,9 @@
+secuencia,inicio,fin,dias,fuente_lluvia,P_intervalo_mm,dias_P_ge1mm
+ajonjoli_cebolla,2025-06-19,2025-07-02,14,imerg,229.90000438690186,12
+ajonjoli_cebolla,2025-06-19,2025-07-02,14,chirps,165.72740650177002,10
+ajonjoli_cebolla,2025-06-19,2025-07-02,14,era5,95.6,9
+ajonjoli_cebolla,2025-06-19,2025-07-02,14,power,79.51,12
+cebolla_ajonjoli,2025-07-29,2025-08-11,14,imerg,35.50000100582838,5
+cebolla_ajonjoli,2025-07-29,2025-08-11,14,chirps,42.17342948913574,3
+cebolla_ajonjoli,2025-07-29,2025-08-11,14,era5,36.6,10
+cebolla_ajonjoli,2025-07-29,2025-08-11,14,power,34.839999999999996,11

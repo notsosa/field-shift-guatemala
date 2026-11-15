@@ -1,0 +1,9 @@
+secuencia,inicio,fin,dias,fuente_lluvia,P_intervalo_mm,dias_P_ge1mm
+ajonjoli_lechuga,2025-06-19,2025-07-02,14,imerg,229.90000438690186,12
+ajonjoli_lechuga,2025-06-19,2025-07-02,14,chirps,165.72740650177002,10
+ajonjoli_lechuga,2025-06-19,2025-07-02,14,era5,95.6,9
+ajonjoli_lechuga,2025-06-19,2025-07-02,14,power,79.51,12
+lechuga_ajonjoli,2025-05-15,2025-05-28,14,imerg,54.900000274181366,8
+lechuga_ajonjoli,2025-05-15,2025-05-28,14,chirps,18.329545378684998,6
+lechuga_ajonjoli,2025-05-15,2025-05-28,14,era5,16.9,7
+lechuga_ajonjoli,2025-05-15,2025-05-28,14,power,12.17,4

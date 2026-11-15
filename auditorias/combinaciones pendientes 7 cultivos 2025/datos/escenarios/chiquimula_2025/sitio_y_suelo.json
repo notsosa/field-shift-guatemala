@@ -1,0 +1,169 @@
+{
+  "lat": 14.825,
+  "lon": -89.5312,
+  "caracter": "candidato agrícola elegido por el usuario; sin delimitación de finca ni verificación de campo",
+  "elevacion_dsm_m": 373.0,
+  "pendiente_dsm_local_pct": 2.5655780058800133,
+  "maga_cobertura_2025_en_punto": [
+    {
+      "gid": 79955,
+      "depto": "Chiquimula",
+      "codigo": 2001,
+      "municipio": "Chiquimula",
+      "C_USO": 2111,
+      "usot": "Maíz y frijol",
+      "nivel_1": "2. Territorios agrícolas",
+      "nivel_2": "2.1. Cultivos anuales",
+      "nivel_3": "2.1.1. Granos básicos",
+      "nivel_4": "2.1.1.1. Maíz y frijol",
+      "valp1": "2.1.1.1",
+      "area_ha": 102.325631621,
+      "area_ha_aj": 102.325631621,
+      "ha_final": 102.325765433,
+      "conteo": 1
+    }
+  ],
+  "worldcover_2021_clase": 30.0,
+  "suelo_superficial_estimado": {
+    "clay": 26.4,
+    "sand": 45.0,
+    "silt": 28.6,
+    "phh2o": 7.0,
+    "soc": 22.8,
+    "bdod": 1.4
+  },
+  "perfil_soilgrids": [
+    {
+      "profundidad": "0-5cm",
+      "desde_m": 0.0,
+      "hasta_m": 0.05,
+      "wv0033": 0.299,
+      "wv1500": 0.158,
+      "cfvo": 15.3,
+      "agua_disponible_mm": 7.049999999999999
+    },
+    {
+      "profundidad": "5-15cm",
+      "desde_m": 0.05,
+      "hasta_m": 0.15,
+      "wv0033": 0.294,
+      "wv1500": 0.16,
+      "cfvo": 14.1,
+      "agua_disponible_mm": 13.399999999999999
+    },
+    {
+      "profundidad": "15-30cm",
+      "desde_m": 0.15,
+      "hasta_m": 0.3,
+      "wv0033": 0.298,
+      "wv1500": 0.157,
+      "cfvo": 15.1,
+      "agua_disponible_mm": 21.15
+    },
+    {
+      "profundidad": "30-60cm",
+      "desde_m": 0.3,
+      "hasta_m": 0.6,
+      "wv0033": 0.307,
+      "wv1500": 0.178,
+      "cfvo": 19.7,
+      "agua_disponible_mm": 38.7
+    },
+    {
+      "profundidad": "60-100cm",
+      "desde_m": 0.6,
+      "hasta_m": 1.0,
+      "wv0033": 0.306,
+      "wv1500": 0.18,
+      "cfvo": 22.9,
+      "agua_disponible_mm": 50.4
+    }
+  ],
+  "agua_disponible_0_100cm_mm": 130.7,
+  "fuentes_estaticas": "SoilGrids 2.0 WCS; MAGA cobertura 2025; JAXA AW3D30 v4.1; ESA WorldCover 2021 v200",
+  "limites": [
+    "DSM incluye vegetación y construcciones; pendiente no mide drenaje ni inundabilidad.",
+    "SoilGrids es predicción espacial estática, no análisis del suelo en 2025.",
+    "wv0033 se usa como aproximación de capacidad de campo, no medición de campo.",
+    "No se aplica una corrección adicional por fragmentos gruesos a wv; almacenamiento se perturba en sensibilidad.",
+    "Las discrepancias MAGA/WorldCover no demuestran cuál clasificación es correcta en campo."
+  ],
+  "contexto_tematico_maga": {
+    "fisiografia": [
+      {
+        "CODGP": "4.4.4",
+        "G_PAISAJE": "4.4.4 Abanicos Aluviales",
+        "CODSR": "4.4",
+        "NOMGP": "Abanicos Aluviales",
+        "UBICGP": "Se encuentra en los municipios de Chiquimula, Jocotán y Camotán en Chiquimula.",
+        "ELEVGP1": 0,
+        "ELEVGP2": 0,
+        "PENGP": "0",
+        "DRENGP": "",
+        "ROCAGP": "Rocas intrusivas y rocas metamórficas",
+        "MORFOGEGP": "Los fragmentos se originaron por erosión y transporte hídrico de materiales de las partes altas.",
+        "EDADGEOGP": "Cuaternario",
+        "OBSERGP": "",
+        "CODR": 4,
+        "NOMR": "Tierras Altas Cristalinas",
+        "CODSR_1": "4.4",
+        "NOMSR": "Montañas de San Raymundo - Progreso - Jalapa - Espíritu Santo",
+        "UBICSR": "Municipio San Raymundo, San Pedro Ayampúc de Guatemala, Jocotán y Camotán de Chiquimula, montañas de Chiquimula y Zacapa, Los Amates, Izabal y frontera con Honduras",
+        "ELEVSR1": 50,
+        "ELEVSR2": 1800,
+        "DRENSR": "Dendrítico, subparalelo y angular",
+        "EDADGEOSR": "Cretácito, Terciario y Cuaternario",
+        "ROCASR": "Hay rocas ígneas, metamórficas, carbonatos y rocas clásticas.",
+        "OBSERSR": ""
+      }
+    ],
+    "taxonomia_suelos": [
+      {
+        "ORDEN": "Inceptisoles"
+      }
+    ],
+    "capacidad_uso_tierra_usda": [
+      {
+        "CAPACIDAD": "III",
+        "VOCACION": "Agrícola"
+      }
+    ],
+    "amenaza_sequia": [
+      {
+        "OBJECTID": 9,
+        "fid_1": 70,
+        "cat": 62,
+        "cat_": 6,
+        "AMENAZA2": "Muy alto",
+        "COUNT": 5,
+        "AREA_KM2": 2934.21225577,
+        "PORCEN": 3.5
+      }
+    ],
+    "zonas_de_vida": [
+      {
+        "ZONAS": "bs-S",
+        "ZVIDA": "Bosque seco Subtropical",
+        "PMIN": 500,
+        "PMAX": 1000,
+        "PPROM": 750,
+        "TBMIN": 19,
+        "TBMAX": 24,
+        "EMIN": 0,
+        "EMAX": 1200,
+        "RELIEVE": "Plano a ligeramente accidentado",
+        "CCLIMA": "Días claros y soleados durante los meses en que no llueve y parcialmente nublados durante la época de enero-abril.",
+        "VEGETACION": "---",
+        "AREA_CALC": 4099.18
+      }
+    ]
+  },
+  "unidades": {
+    "clay_sand_silt_cfvo": "%",
+    "wv0033_wv1500": "m³/m³",
+    "soc": "g/kg",
+    "bdod": "g/cm³",
+    "phh2o": "pH",
+    "agua_disponible": "mm"
+  }
+}

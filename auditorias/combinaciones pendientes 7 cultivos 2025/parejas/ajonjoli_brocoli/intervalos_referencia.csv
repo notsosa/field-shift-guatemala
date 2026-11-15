@@ -1,0 +1,9 @@
+secuencia,inicio,fin,dias,fuente_lluvia,P_intervalo_mm,dias_P_ge1mm
+ajonjoli_brocoli,2025-06-19,2025-07-02,14,imerg,229.90000438690186,12
+ajonjoli_brocoli,2025-06-19,2025-07-02,14,chirps,165.72740650177002,10
+ajonjoli_brocoli,2025-06-19,2025-07-02,14,era5,95.6,9
+ajonjoli_brocoli,2025-06-19,2025-07-02,14,power,79.51,12
+brocoli_ajonjoli,2025-05-30,2025-06-12,14,imerg,276.100004196167,11
+brocoli_ajonjoli,2025-05-30,2025-06-12,14,chirps,137.97265243530273,7
+brocoli_ajonjoli,2025-05-30,2025-06-12,14,era5,148.8,11
+brocoli_ajonjoli,2025-05-30,2025-06-12,14,power,106.48,12

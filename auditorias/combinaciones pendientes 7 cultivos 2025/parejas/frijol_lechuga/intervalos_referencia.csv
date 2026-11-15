@@ -1,0 +1,9 @@
+secuencia,inicio,fin,dias,fuente_lluvia,P_intervalo_mm,dias_P_ge1mm
+frijol_lechuga,2025-05-10,2025-05-23,14,imerg,115.60000216960907,9
+frijol_lechuga,2025-05-10,2025-05-23,14,chirps,42.9144926071167,8
+frijol_lechuga,2025-05-10,2025-05-23,14,era5,27.5,7
+frijol_lechuga,2025-05-10,2025-05-23,14,power,39.91,5
+lechuga_frijol,2025-05-15,2025-05-28,14,imerg,54.900000274181366,8
+lechuga_frijol,2025-05-15,2025-05-28,14,chirps,18.329545378684998,6
+lechuga_frijol,2025-05-15,2025-05-28,14,era5,16.9,7
+lechuga_frijol,2025-05-15,2025-05-28,14,power,12.17,4

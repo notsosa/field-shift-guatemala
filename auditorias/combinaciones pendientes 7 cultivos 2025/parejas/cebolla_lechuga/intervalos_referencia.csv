@@ -1,0 +1,9 @@
+secuencia,inicio,fin,dias,fuente_lluvia,P_intervalo_mm,dias_P_ge1mm
+cebolla_lechuga,2025-07-29,2025-08-11,14,imerg,35.50000100582838,5
+cebolla_lechuga,2025-07-29,2025-08-11,14,chirps,42.17342948913574,3
+cebolla_lechuga,2025-07-29,2025-08-11,14,era5,36.6,10
+cebolla_lechuga,2025-07-29,2025-08-11,14,power,34.839999999999996,11
+lechuga_cebolla,2025-05-15,2025-05-28,14,imerg,54.900000274181366,8
+lechuga_cebolla,2025-05-15,2025-05-28,14,chirps,18.329545378684998,6
+lechuga_cebolla,2025-05-15,2025-05-28,14,era5,16.9,7
+lechuga_cebolla,2025-05-15,2025-05-28,14,power,12.17,4

@@ -1,0 +1,5 @@
+# Dependencias comprobadas de la corrida exploratoria de Chiquimula 2025.
+# scripts/ de descarga HTTP usan Node.js y los scripts Python existentes.
+numpy==2.5.4
+Pillow==13.0.0
+matplotlib==3.11.2

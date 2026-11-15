@@ -1,0 +1,468 @@
+{
+  "fecha_utc": "2026-11-15T18:31:41.970749+00:00",
+  "cultivos": [
+    "maiz",
+    "frijol",
+    "ajonjoli",
+    "papa",
+    "cebolla",
+    "brocoli",
+    "lechuga"
+  ],
+  "parejas_nuevas": 17,
+  "sucesiones_nuevas": 34,
+  "sucesiones_anteriores": 8,
+  "sucesiones_totales": 42,
+  "programas": 4200,
+  "completos_2025": 1884,
+  "inconclusos_sin_simular": 2316,
+  "corridas": 271296,
+  "pares": 135648,
+  "pasos_diarios": 99023040,
+  "max_error_balance_mm": 8.526512829121202e-14,
+  "parejas": [
+    {
+      "pareja": "maiz_papa",
+      "cultivos": [
+        "maiz",
+        "papa"
+      ],
+      "sucesiones": [
+        "maiz → papa",
+        "papa → maiz"
+      ],
+      "programas": 168,
+      "completos_2025": 70,
+      "inconclusos_sin_simular": 98,
+      "corridas": 10080,
+      "pares": 5040,
+      "pares_secano": 2520,
+      "inverso_mayor_deficit": 1856,
+      "inverso_menor_deficit": 664,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 3679200,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "maiz_cebolla",
+      "cultivos": [
+        "maiz",
+        "cebolla"
+      ],
+      "sucesiones": [
+        "maiz → cebolla",
+        "cebolla → maiz"
+      ],
+      "programas": 168,
+      "completos_2025": 34,
+      "inconclusos_sin_simular": 134,
+      "corridas": 4896,
+      "pares": 2448,
+      "pares_secano": 1224,
+      "inverso_mayor_deficit": 972,
+      "inverso_menor_deficit": 252,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 1787040,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "maiz_brocoli",
+      "cultivos": [
+        "maiz",
+        "brocoli"
+      ],
+      "sucesiones": [
+        "maiz → brocoli",
+        "brocoli → maiz"
+      ],
+      "programas": 252,
+      "completos_2025": 148,
+      "inconclusos_sin_simular": 104,
+      "corridas": 21312,
+      "pares": 10656,
+      "pares_secano": 5328,
+      "inverso_mayor_deficit": 2364,
+      "inverso_menor_deficit": 2964,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 7778880,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "maiz_lechuga",
+      "cultivos": [
+        "maiz",
+        "lechuga"
+      ],
+      "sucesiones": [
+        "maiz → lechuga",
+        "lechuga → maiz"
+      ],
+      "programas": 168,
+      "completos_2025": 108,
+      "inconclusos_sin_simular": 60,
+      "corridas": 15552,
+      "pares": 7776,
+      "pares_secano": 3888,
+      "inverso_mayor_deficit": 1746,
+      "inverso_menor_deficit": 2142,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 5676480,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "frijol_ajonjoli",
+      "cultivos": [
+        "frijol",
+        "ajonjoli"
+      ],
+      "sucesiones": [
+        "frijol → ajonjoli",
+        "ajonjoli → frijol"
+      ],
+      "programas": 336,
+      "completos_2025": 180,
+      "inconclusos_sin_simular": 156,
+      "corridas": 25920,
+      "pares": 12960,
+      "pares_secano": 6480,
+      "inverso_mayor_deficit": 3974,
+      "inverso_menor_deficit": 2506,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 9460800,
+      "max_error_balance_mm": 8.526512829121202e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "frijol_papa",
+      "cultivos": [
+        "frijol",
+        "papa"
+      ],
+      "sucesiones": [
+        "frijol → papa",
+        "papa → frijol"
+      ],
+      "programas": 168,
+      "completos_2025": 102,
+      "inconclusos_sin_simular": 66,
+      "corridas": 14688,
+      "pares": 7344,
+      "pares_secano": 3672,
+      "inverso_mayor_deficit": 2676,
+      "inverso_menor_deficit": 996,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 5361120,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "frijol_cebolla",
+      "cultivos": [
+        "frijol",
+        "cebolla"
+      ],
+      "sucesiones": [
+        "frijol → cebolla",
+        "cebolla → frijol"
+      ],
+      "programas": 168,
+      "completos_2025": 50,
+      "inconclusos_sin_simular": 118,
+      "corridas": 7200,
+      "pares": 3600,
+      "pares_secano": 1800,
+      "inverso_mayor_deficit": 1448,
+      "inverso_menor_deficit": 352,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 2628000,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "frijol_brocoli",
+      "cultivos": [
+        "frijol",
+        "brocoli"
+      ],
+      "sucesiones": [
+        "frijol → brocoli",
+        "brocoli → frijol"
+      ],
+      "programas": 252,
+      "completos_2025": 184,
+      "inconclusos_sin_simular": 68,
+      "corridas": 26496,
+      "pares": 13248,
+      "pares_secano": 6624,
+      "inverso_mayor_deficit": 3885,
+      "inverso_menor_deficit": 2739,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 9671040,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "frijol_lechuga",
+      "cultivos": [
+        "frijol",
+        "lechuga"
+      ],
+      "sucesiones": [
+        "frijol → lechuga",
+        "lechuga → frijol"
+      ],
+      "programas": 168,
+      "completos_2025": 136,
+      "inconclusos_sin_simular": 32,
+      "corridas": 19584,
+      "pares": 9792,
+      "pares_secano": 4896,
+      "inverso_mayor_deficit": 2649,
+      "inverso_menor_deficit": 2247,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 7148160,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "ajonjoli_papa",
+      "cultivos": [
+        "ajonjoli",
+        "papa"
+      ],
+      "sucesiones": [
+        "ajonjoli → papa",
+        "papa → ajonjoli"
+      ],
+      "programas": 336,
+      "completos_2025": 104,
+      "inconclusos_sin_simular": 232,
+      "corridas": 14976,
+      "pares": 7488,
+      "pares_secano": 3744,
+      "inverso_mayor_deficit": 3068,
+      "inverso_menor_deficit": 676,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 5466240,
+      "max_error_balance_mm": 8.526512829121202e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "ajonjoli_cebolla",
+      "cultivos": [
+        "ajonjoli",
+        "cebolla"
+      ],
+      "sucesiones": [
+        "ajonjoli → cebolla",
+        "cebolla → ajonjoli"
+      ],
+      "programas": 336,
+      "completos_2025": 48,
+      "inconclusos_sin_simular": 288,
+      "corridas": 6912,
+      "pares": 3456,
+      "pares_secano": 1728,
+      "inverso_mayor_deficit": 1390,
+      "inverso_menor_deficit": 338,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 2522880,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "ajonjoli_brocoli",
+      "cultivos": [
+        "ajonjoli",
+        "brocoli"
+      ],
+      "sucesiones": [
+        "ajonjoli → brocoli",
+        "brocoli → ajonjoli"
+      ],
+      "programas": 504,
+      "completos_2025": 226,
+      "inconclusos_sin_simular": 278,
+      "corridas": 32544,
+      "pares": 16272,
+      "pares_secano": 8136,
+      "inverso_mayor_deficit": 4019,
+      "inverso_menor_deficit": 4117,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 11878560,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "ajonjoli_lechuga",
+      "cultivos": [
+        "ajonjoli",
+        "lechuga"
+      ],
+      "sucesiones": [
+        "ajonjoli → lechuga",
+        "lechuga → ajonjoli"
+      ],
+      "programas": 336,
+      "completos_2025": 170,
+      "inconclusos_sin_simular": 166,
+      "corridas": 24480,
+      "pares": 12240,
+      "pares_secano": 6120,
+      "inverso_mayor_deficit": 3069,
+      "inverso_menor_deficit": 3051,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 8935200,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "papa_brocoli",
+      "cultivos": [
+        "papa",
+        "brocoli"
+      ],
+      "sucesiones": [
+        "papa → brocoli",
+        "brocoli → papa"
+      ],
+      "programas": 252,
+      "completos_2025": 128,
+      "inconclusos_sin_simular": 124,
+      "corridas": 18432,
+      "pares": 9216,
+      "pares_secano": 4608,
+      "inverso_mayor_deficit": 1433,
+      "inverso_menor_deficit": 3175,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 6727680,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "papa_lechuga",
+      "cultivos": [
+        "papa",
+        "lechuga"
+      ],
+      "sucesiones": [
+        "papa → lechuga",
+        "lechuga → papa"
+      ],
+      "programas": 168,
+      "completos_2025": 92,
+      "inconclusos_sin_simular": 76,
+      "corridas": 13248,
+      "pares": 6624,
+      "pares_secano": 3312,
+      "inverso_mayor_deficit": 1035,
+      "inverso_menor_deficit": 2277,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 4835520,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "cebolla_brocoli",
+      "cultivos": [
+        "cebolla",
+        "brocoli"
+      ],
+      "sucesiones": [
+        "cebolla → brocoli",
+        "brocoli → cebolla"
+      ],
+      "programas": 252,
+      "completos_2025": 58,
+      "inconclusos_sin_simular": 194,
+      "corridas": 8352,
+      "pares": 4176,
+      "pares_secano": 2088,
+      "inverso_mayor_deficit": 560,
+      "inverso_menor_deficit": 1528,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 3048480,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    },
+    {
+      "pareja": "cebolla_lechuga",
+      "cultivos": [
+        "cebolla",
+        "lechuga"
+      ],
+      "sucesiones": [
+        "cebolla → lechuga",
+        "lechuga → cebolla"
+      ],
+      "programas": 168,
+      "completos_2025": 46,
+      "inconclusos_sin_simular": 122,
+      "corridas": 6624,
+      "pares": 3312,
+      "pares_secano": 1656,
+      "inverso_mayor_deficit": 293,
+      "inverso_menor_deficit": 1363,
+      "pares_en_tolerancia": 0,
+      "tolerancia_mm": 0.0001,
+      "pasos_diarios": 2417760,
+      "max_error_balance_mm": 5.684341886080802e-14,
+      "registros_balance_referencia": 5840,
+      "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+      "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+    }
+  ],
+  "segundos_ejecucion": 261.1560000000027
+}

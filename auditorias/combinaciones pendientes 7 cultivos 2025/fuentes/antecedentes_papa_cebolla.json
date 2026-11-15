@@ -1,0 +1,82 @@
+{
+  "fecha_consulta": "2026-11-15",
+  "metodo": "Revisión selectiva de documentos primarios, con alcance de lectura declarado. Evidencia contextual no equivale a validación de parcela.",
+  "afirmaciones": [
+    {
+      "id": "F01",
+      "afirmacion": "Kc y etapas de referencia por cultivo/producto",
+      "fuentes": [
+        "https://www.fao.org/4/x0490e/x0490e0b.htm"
+      ],
+      "localizador": "Tablas 11 y 12",
+      "lectura": "Filas originales HTML contrastadas",
+      "limite": "Referencias extranjeras. Kc inicial heredado del grupo; sin ajuste climático ni observación local de etapas. Ocupación de campo supuesta, almácigo externo excluido."
+    },
+    {
+      "id": "F02",
+      "afirmacion": "Rangos de profundidad efectiva y fracción p de agotamiento",
+      "fuentes": [
+        "https://www.fao.org/4/x0490e/x0490e0e.htm"
+      ],
+      "localizador": "Tabla 22 y ecuaciones 82/83",
+      "lectura": "Filas originales HTML contrastadas",
+      "limite": "Raíz elegida dentro del rango como hipótesis; sin raíces medidas ni capacidad de campo medida. El modelo usa Kc único simplificado."
+    },
+    {
+      "id": "F03",
+      "afirmacion": "Identidad y familia botánica de los productos de esta carpeta",
+      "lectura": "Cabeceras POWO Kew reconsultadas, especies aceptadas",
+      "limite": "La familia no asigna un premio de compatibilidad ni demuestra ruptura sanitaria.",
+      "fuentes": [
+        "https://powo.science.kew.org/taxon/821337-1",
+        "https://powo.science.kew.org/taxon/527795-1"
+      ]
+    },
+    {
+      "id": "P01",
+      "afirmacion": "La papa para consumo se describe como cultivo de clima templado y se indica mejor producción con temperatura diaria media de 18–20 °C.",
+      "fuentes": [
+        "https://www.icta.gob.gt/publicaciones/Papa/manualpapaconsumo2013.pdf"
+      ],
+      "localizador": "Página impresa 4, PDF página 8, Aspectos climáticos",
+      "lectura": "PDF original descargado, texto consultado y página renderizada e inspeccionada",
+      "limite": "Es una referencia agronómica; Tmax del aire, media diaria regional y temperatura del tubérculo no son equivalentes. No se asigna pérdida ni inviabilidad absoluta por exceder un día el rango."
+    },
+    {
+      "id": "P02",
+      "afirmacion": "Cebolla responde al fotoperíodo y a la combinación de material, siembra y trasplante.",
+      "fuentes": [
+        "https://www.jstage.jst.go.jp/article/hortj/89/4/89_UTD-155/_html/-char/en"
+      ],
+      "localizador": "Tanaka, Iritani y Araki, 2020; resumen e introducción, DOI 10.2503/hortj.UTD-155",
+      "lectura": "Artículo original HTML: contexto, resumen e introducción",
+      "limite": "Ensayos de Hokkaido, Japón; los grupos de día corto/intermedio/largo no validan una variedad guatemalteca. Se calcula duración astronómica del día, sin simular bulbificación ni rendimiento."
+    },
+    {
+      "id": "P03",
+      "afirmacion": "Papa y cebolla tienen hospedaje documentado de Meloidogyne incognita, M. hapla y M. chitwoodi en las guías consultadas.",
+      "fuentes": [
+        "https://ipm.ucanr.edu/agriculture/potato/nematodes/",
+        "https://ipm.ucanr.edu/agriculture/onion-and-garlic/nematodes/"
+      ],
+      "localizador": "Listado de especies de ambas guías",
+      "lectura": "Textos originales UC IPM",
+      "limite": "Guías de California; sin diagnóstico de la parcela ni susceptibilidad evaluada de variedades locales. No usar papa→cebolla como ruptura garantizada de esos organismos."
+    },
+    {
+      "id": "P04",
+      "afirmacion": "Una transición de papa a cebolla garantiza rendimiento, sanidad o rentabilidad en este valle.",
+      "lectura": "No demostrada; excluida del cálculo",
+      "limite": "Esta revisión selectiva no aporta ensayo de esa sucesión en el candidato. Se requieren variedad, manejo, suelo, agua, diagnóstico y mercado."
+    }
+  ],
+  "faltantes": [
+    "Variedad y sistema",
+    "Fecha real de inicio y retiro, incluido almácigo/curado",
+    "Mediciones de temperatura, humedad y drenaje",
+    "Análisis de suelo y sanidad",
+    "Agua entregable",
+    "Comprador y costos"
+  ],
+  "dictamen": "Balance hídrico y calendario exploratorios. Adaptación térmica, respuesta sanitaria y rentabilidad sin validar."
+}

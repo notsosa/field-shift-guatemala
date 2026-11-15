@@ -1,0 +1,9 @@
+secuencia,inicio,fin,dias,fuente_lluvia,P_intervalo_mm,dias_P_ge1mm
+frijol_brocoli,2025-05-10,2025-05-23,14,imerg,115.60000216960907,9
+frijol_brocoli,2025-05-10,2025-05-23,14,chirps,42.9144926071167,8
+frijol_brocoli,2025-05-10,2025-05-23,14,era5,27.5,7
+frijol_brocoli,2025-05-10,2025-05-23,14,power,39.91,5
+brocoli_frijol,2025-05-30,2025-06-12,14,imerg,276.100004196167,11
+brocoli_frijol,2025-05-30,2025-06-12,14,chirps,137.97265243530273,7
+brocoli_frijol,2025-05-30,2025-06-12,14,era5,148.8,11
+brocoli_frijol,2025-05-30,2025-06-12,14,power,106.48,12

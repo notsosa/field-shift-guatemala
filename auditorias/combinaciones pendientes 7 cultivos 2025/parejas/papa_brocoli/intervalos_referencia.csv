@@ -1,0 +1,9 @@
+secuencia,inicio,fin,dias,fuente_lluvia,P_intervalo_mm,dias_P_ge1mm
+papa_brocoli,2025-06-24,2025-07-07,14,imerg,235.2000061571598,10
+papa_brocoli,2025-06-24,2025-07-07,14,chirps,130.71574640274048,10
+papa_brocoli,2025-06-24,2025-07-07,14,era5,93.2,10
+papa_brocoli,2025-06-24,2025-07-07,14,power,81.0,10
+brocoli_papa,2025-05-30,2025-06-12,14,imerg,276.100004196167,11
+brocoli_papa,2025-05-30,2025-06-12,14,chirps,137.97265243530273,7
+brocoli_papa,2025-05-30,2025-06-12,14,era5,148.8,11
+brocoli_papa,2025-05-30,2025-06-12,14,power,106.48,12

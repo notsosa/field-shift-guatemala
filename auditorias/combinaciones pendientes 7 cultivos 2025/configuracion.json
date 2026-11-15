@@ -1,0 +1,161 @@
+{
+  "fecha_auditoria": "2026-11-15",
+  "cultivos": [
+    "maiz",
+    "frijol",
+    "ajonjoli",
+    "papa",
+    "cebolla",
+    "brocoli",
+    "lechuga"
+  ],
+  "parejas_nuevas": [
+    [
+      "maiz",
+      "papa"
+    ],
+    [
+      "maiz",
+      "cebolla"
+    ],
+    [
+      "maiz",
+      "brocoli"
+    ],
+    [
+      "maiz",
+      "lechuga"
+    ],
+    [
+      "frijol",
+      "ajonjoli"
+    ],
+    [
+      "frijol",
+      "papa"
+    ],
+    [
+      "frijol",
+      "cebolla"
+    ],
+    [
+      "frijol",
+      "brocoli"
+    ],
+    [
+      "frijol",
+      "lechuga"
+    ],
+    [
+      "ajonjoli",
+      "papa"
+    ],
+    [
+      "ajonjoli",
+      "cebolla"
+    ],
+    [
+      "ajonjoli",
+      "brocoli"
+    ],
+    [
+      "ajonjoli",
+      "lechuga"
+    ],
+    [
+      "papa",
+      "brocoli"
+    ],
+    [
+      "papa",
+      "lechuga"
+    ],
+    [
+      "cebolla",
+      "brocoli"
+    ],
+    [
+      "cebolla",
+      "lechuga"
+    ]
+  ],
+  "parejas_anteriores": [
+    [
+      "maiz",
+      "frijol"
+    ],
+    [
+      "maiz",
+      "ajonjoli"
+    ],
+    [
+      "papa",
+      "cebolla"
+    ],
+    [
+      "brocoli",
+      "lechuga"
+    ]
+  ],
+  "inicios": [
+    "2025-01-15",
+    "2025-03-01",
+    "2025-05-01",
+    "2025-05-15",
+    "2025-06-01",
+    "2025-06-15",
+    "2025-09-01"
+  ],
+  "intervalos_dias": [
+    7,
+    14,
+    21
+  ],
+  "referencia_inicio": "2025-03-01",
+  "referencia_intervalo_dias": 14,
+  "referencia_duraciones": {
+    "maiz": 90,
+    "frijol": 70,
+    "ajonjoli": 110,
+    "papa": 115,
+    "cebolla": 150,
+    "brocoli": 90,
+    "lechuga": 75
+  },
+  "suelo_escenarios": [
+    [
+      "perfil_referencia",
+      1.0,
+      1.0
+    ],
+    [
+      "raiz_limitada_30cm",
+      0.3,
+      1.0
+    ],
+    [
+      "almacenamiento_menos25pct",
+      1.0,
+      0.75
+    ]
+  ],
+  "escorrentias": [
+    0.0,
+    0.15,
+    0.3
+  ],
+  "reservas_iniciales": [
+    0.25,
+    0.75
+  ],
+  "riego": [
+    false,
+    true
+  ],
+  "sitio": {
+    "lat": 14.825,
+    "lon": -89.5312
+  },
+  "alcance": "34 sucesiones pendientes; sin repeticiones ni cultivos simultáneos",
+  "base_commit": "ef51faf83a975656a927bc4934673b668c3a94e9"
+}

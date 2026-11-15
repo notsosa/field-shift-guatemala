@@ -1,0 +1,1842 @@
+{
+  "fecha_utc": "2026-11-15T18:34:57.712276+00:00",
+  "nota": "Excluye el propio inventario, cachés y PDF no republicados.",
+  "archivos": [
+    {
+      "ruta": ".gitignore",
+      "bytes": 45,
+      "sha256": "05cdd093cde322f4e76b75b656345a3f5fd5285bb9030f24a0f338b0c602517e",
+      "git_blob_sha": "b46a131f870d8b1adedeae0b064a3e9f21b13a86"
+    },
+    {
+      "ruta": "configuracion.json",
+      "bytes": 2297,
+      "sha256": "e72176d2b15534e4da4b899dc57073619efbeb3d78e8faadf8f368e18ef1c9d2",
+      "git_blob_sha": "d2f0865f6f27f19b032485e9dc2df8c5b08ffb0a"
+    },
+    {
+      "ruta": "control_paquete.json",
+      "bytes": 758,
+      "sha256": "1d6da3f933f1ea7dd37e66ef4a32b0225023d7c132529169309f1aefc70df8ab",
+      "git_blob_sha": "828f6f3e44ec285f8d2c69ddbea696813932bd35"
+    },
+    {
+      "ruta": "datos/cobertura/chiquimula_worldcover2021.tif",
+      "bytes": 635878,
+      "sha256": "5cb6e7b07efe4122bcfa510ea35fe0aa834f401db7bce78f8a0ffd193ba80e28",
+      "git_blob_sha": "7ec8ad137cadad298b804b012a484b2d6dabab8c"
+    },
+    {
+      "ruta": "datos/cultivos/parametros_auditados.json",
+      "bytes": 6906,
+      "sha256": "5a7a39d888c7668691367e83fdf4845969e2f8c3205f3001c0284237b7b2f5fb",
+      "git_blob_sha": "1bc993519b96bd33c1dc342da580f475be3b1deb"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/chirps_v2_2025.json",
+      "bytes": 64031,
+      "sha256": "729f71110c581b6ae5af2458d9fe1b2f28a204890fdda1d573e008a78791e3ee",
+      "git_blob_sha": "0aa529d86daec73e46f577a206a198c00c74a41a"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/chirps_v2_job.json",
+      "bytes": 40,
+      "sha256": "190a4102c352421d5458fe494d288810515faa052544c5bbf9953abaa3b0513d",
+      "git_blob_sha": "f6148ef2f4b0244f931b306735ab294fb18be1ee"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/chirps_v2_progreso.json",
+      "bytes": 261,
+      "sha256": "1a53d685bb677c3c274982d58f7220d41b12cd82a058acdf697a50bf7244c95e",
+      "git_blob_sha": "f4786d5a82af10aae84158362b12c9d730f9a3bb"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/descargas.json",
+      "bytes": 3144,
+      "sha256": "7e5e47ca2445e995ebd45da5a7f7e5015eb565135ad1a63e1b14e9770c4fe34f",
+      "git_blob_sha": "c511c31d95ebf57b6657751da380582de01630a3"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/entorno_diario_2025.csv",
+      "bytes": 72979,
+      "sha256": "6c08a215f1b3f97dc87b95d8b030a757908e4b577615aefa68c153136506e582",
+      "git_blob_sha": "d712768ff1f64b00ffac88e09bc91e81bf30c45c"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/era5_2025.json",
+      "bytes": 336891,
+      "sha256": "23279b8ef14d0cbae94c051c5b5ee4395953b7da024436f57b3c447529a4e1b9",
+      "git_blob_sha": "f1f7e5ebd56b4b1776d41875f6a5edaef7b9dc63"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/imerg_v07_late_2025.json",
+      "bytes": 64323,
+      "sha256": "ae827ba20b3fe748442acf561cd80ee87f52a6e8d9af809ca10e93ad6a13cfd0",
+      "git_blob_sha": "7bdef839f24ecee438a5d14f0109ea2fa08b055b"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/imerg_v07_late_job.json",
+      "bytes": 40,
+      "sha256": "e34d14ddea34184668f0adcc893ea227f9baf2d435069cda378f08f96e4f15bf",
+      "git_blob_sha": "cae9bfa55dac34248f44ea49778c51dc0fb003fc"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/imerg_v07_late_progreso.json",
+      "bytes": 261,
+      "sha256": "5b6ce822b4fe08f72310cee32d7ea73a669f9d9760ef9ac75973e45a376f8420",
+      "git_blob_sha": "05b4355387115c294c8e40f7d82c67e3666824c2"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/perfil_suelo.csv",
+      "bytes": 290,
+      "sha256": "354b21a4776ec46651c5a682e0a8c171aa9307e1e1bc56c5a021267273627ced",
+      "git_blob_sha": "5442ed28a3f44f9061efa2525dff54d4d7a8af49"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/power_2025.json",
+      "bytes": 85699,
+      "sha256": "7b3aba896d24c1826e3418da2ad296f933863e20ddb6bd4f9744b7925984d567",
+      "git_blob_sha": "a09a998ff8cc99774a37c2c3da85565862bbdd5f"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/sitio_y_suelo.json",
+      "bytes": 5155,
+      "sha256": "e351684ac5d455594eb1e84bc266b2befab49ee2bb5934847538ded918b63c1f",
+      "git_blob_sha": "34b0088364eabb9169fc48de1f238eb7f1f177b0"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/bdod_0-5cm.tif",
+      "bytes": 611,
+      "sha256": "b514698857fa349ac6278a45a98c53b0c20debe44a5468c85c78a33c9dd9101e",
+      "git_blob_sha": "9b4c8a7be4da9b02383ea2838a344ee9c99c7670"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_0-5cm.tif",
+      "bytes": 624,
+      "sha256": "2cb78718152bf9233cf3ce0c2bdc69a7f618da0c7b9656a21cdd13c0b80157b5",
+      "git_blob_sha": "11f890057c5cc698420ad102ec151fcc7d77d183"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_15-30cm.tif",
+      "bytes": 623,
+      "sha256": "004f47940e7f7d5a2e37f78f55f5d2af40fe8f7cc92f8a6332fd1476132cd6c7",
+      "git_blob_sha": "c5ebbfed1941b93651f1f875627494af56ec2069"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_30-60cm.tif",
+      "bytes": 624,
+      "sha256": "0e18ef47e27da0a212278197c514c4be40be91a66ca3b9704e55f12de129efc0",
+      "git_blob_sha": "2c5f6bbd04ee5f7cd43717ff25395b11e420ad5d"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_5-15cm.tif",
+      "bytes": 624,
+      "sha256": "558611db9e3abe52619ea8c9ea7d37c7ff27243d1d8b870f16af03c1910833d8",
+      "git_blob_sha": "6a6dbc0f684275df57abd568cd605130d27d3812"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_60-100cm.tif",
+      "bytes": 621,
+      "sha256": "f857e221e91e82eecb2e55533f49b099d57da29f64a8dded9c70f72b3042ac9b",
+      "git_blob_sha": "a6f71abf4f467c159e4c6308b9d9592991f46422"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/clay_0-5cm.tif",
+      "bytes": 619,
+      "sha256": "5936b01d3a47d51185fbc415da36a4b8ba3e60fe03be32c5a435c39ab056c569",
+      "git_blob_sha": "1a6970e901721fee86f1af3826207c91ed93f93c"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/descargas.json",
+      "bytes": 12522,
+      "sha256": "89d4a2fb4d833e4257de411f91b03ea34828f881c845a9d31044c45fc9ca5480",
+      "git_blob_sha": "9e980e7bddc8f1c29080d1fc7ed5cc1ef9283d1b"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/phh2o_0-5cm.tif",
+      "bytes": 605,
+      "sha256": "fd58066d2d7eb18de9dbf4b873bd998dc8b8d4750406246128bbc1f59ef6c75b",
+      "git_blob_sha": "6bbdadc2c3fcc20d1f6e55048bedde45c6fc5cc0"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/sand_0-5cm.tif",
+      "bytes": 622,
+      "sha256": "5149b13860ab1c713e9b689de88a89aaf0e938843ccb9a7542d031354536076a",
+      "git_blob_sha": "05cc6abb5fc7cdcfdcecda4b9e7c68c9fe8168a4"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/silt_0-5cm.tif",
+      "bytes": 618,
+      "sha256": "06ee04ffd53a7daa040b05bbacb957e178924fc133f059fec63fa05ef983fb6f",
+      "git_blob_sha": "13c1ad755d2b4afc60ad088efa589269186b3b70"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/soc_0-5cm.tif",
+      "bytes": 621,
+      "sha256": "ebaf5a9e768856d08714f1c92762662f9ce33de09c6ddb7c206dcca67be2afc6",
+      "git_blob_sha": "8c2287eae43b21264832fbe81e434508b9536194"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_0-5cm.tif",
+      "bytes": 619,
+      "sha256": "2fc6aa900201f067f93400ba4d0e85687cd365893d6595857a879ad162f73877",
+      "git_blob_sha": "13110a6349ee1c0d5f7edbb0fc20720e9cf6168a"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_15-30cm.tif",
+      "bytes": 622,
+      "sha256": "265583176fe30a07341a5cd951a4351fc54a6235606f6237dc43ce4a3c36f6a7",
+      "git_blob_sha": "58a571b39297c6022e2b1df8374ba0dac1a795ea"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_30-60cm.tif",
+      "bytes": 621,
+      "sha256": "388a59fe3a10ff9b1173dfe1a908f696e35d03c3713f7fd46987bd9611ea6c4d",
+      "git_blob_sha": "013db32cffb0c97cf69170783690d39cefb5d7ee"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_5-15cm.tif",
+      "bytes": 617,
+      "sha256": "921af4fe1aec221dd631e1916a4d6923116292a39b56f3cb84140d5ee25f47cd",
+      "git_blob_sha": "0b0c657fcfd985faf9822ced50334e28a6262a19"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_60-100cm.tif",
+      "bytes": 622,
+      "sha256": "68eb2dc4534a63c41efad3dbdb2e90b807b3c57019e0ea672fc15004b5fb8d57",
+      "git_blob_sha": "28c55c2ab2c2ef39f300218fc67975ff7ffcfeca"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_0-5cm.tif",
+      "bytes": 615,
+      "sha256": "5c7815a996b313c06e93e8ab5ead58099fadd50191554828793c4c638f2400ad",
+      "git_blob_sha": "eb99e4f3fe1c3aae4623cec9d9d8771f7787df90"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_15-30cm.tif",
+      "bytes": 617,
+      "sha256": "168ce5598be893a2e2bb5aa1cac9b742251a7543847f62aa9fdce02afd549ca0",
+      "git_blob_sha": "11671291c8f236abffa9280f31f3b0bdb2efb51a"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_30-60cm.tif",
+      "bytes": 618,
+      "sha256": "cb6862a2d43e7a475d915897774a87514febffd024eff51788dccddbcd12bee3",
+      "git_blob_sha": "32bd624e079b98e95e784bef9a3677b8b1c079aa"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_5-15cm.tif",
+      "bytes": 615,
+      "sha256": "b8a128ba0c9d3415deda8fcce5e6c4b3b4ac5c478493b602fa253171fb68e669",
+      "git_blob_sha": "8614bc2f1a80c654d18f82dd53a3e9f5c3f5f14f"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_60-100cm.tif",
+      "bytes": 614,
+      "sha256": "08db68f543e5f82bc197e857739674434478f50fa75f3db0b1b13963aa018865",
+      "git_blob_sha": "0fd36ec33d258b4915613b166faaac36aa84e26e"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_amenaza_sequia.geojson",
+      "bytes": 1016807,
+      "sha256": "cf2348d3734df9ff9451c7ca1230d855c5f8c1d4e4c84ca8bb4193c9620eab56",
+      "git_blob_sha": "417eebcef798cbe333a0f41ee8a218f1b334acaf"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_capacidad_uso_tierra_usda.geojson",
+      "bytes": 1757421,
+      "sha256": "4cf772e266047f92cb95cd14f501dac3d587cd4d1144d53af01c43526ac3ef1f",
+      "git_blob_sha": "8b6193bbed55becf65cf8a915f4a902400bf8bae"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_cobertura_uso_tierra_2025.geojson",
+      "bytes": 5227410,
+      "sha256": "35b6ce1ab372663ebe43ad70865da2dbda6008743df42507ea53a1ce3385a265",
+      "git_blob_sha": "fafdc9995463cb68fa454cd173ccc3587935ddb7"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_fisiografia.geojson",
+      "bytes": 2642832,
+      "sha256": "217c959e5c2bd191b4b7ba11bb73500aa3735da6df13fdb019e42b10968949dc",
+      "git_blob_sha": "253e23773d8ef5b23d395591cedb6ec60d4bb726"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_taxonomia_suelos.geojson",
+      "bytes": 15639714,
+      "sha256": "f0e5a398afb7ef095c8fbc9f5e4536b5aee5dc79e3f06fed801a212343f00de2",
+      "git_blob_sha": "d02f99ca460e3a021ba036b02af8a0b01e01606a"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_zonas_de_vida.geojson",
+      "bytes": 4127109,
+      "sha256": "a9a80d7d1941e1f48626f60ab9bddfe0e27e980a251397224c97368c41321c7d",
+      "git_blob_sha": "77561e1f48bc5b048e8f7376c3636a0e42351b64"
+    },
+    {
+      "ruta": "datos/relieve/chiquimula_aw3d30_dsm.tif",
+      "bytes": 148181,
+      "sha256": "d460c5fd1e8b875fda96021a9494995fbce1973c1b94b773ce32d072ecbd22fa",
+      "git_blob_sha": "2e0f2a9e8dcd01bf683216fddefa3ed0ac921f0b"
+    },
+    {
+      "ruta": "fuentes/antecedentes_ajonjoli_maiz.json",
+      "bytes": 5466,
+      "sha256": "8639d47837a6248f0471c6611886584b8b3ffeef6b42e9b54fb0650e195d92c8",
+      "git_blob_sha": "f7995d5393c4315e7d400933ddbf9ccf9c340d16"
+    },
+    {
+      "ruta": "fuentes/antecedentes_brocoli_lechuga.json",
+      "bytes": 5860,
+      "sha256": "0e9c585ed5b83f6c95179aaf00147c23e7fcaa5aa032181d2b9d9aee1214bda3",
+      "git_blob_sha": "6fc42cc8fd985c14ea09aa1b5883a49b7eee25d7"
+    },
+    {
+      "ruta": "fuentes/antecedentes_papa_cebolla.json",
+      "bytes": 4372,
+      "sha256": "97bd11925ed5e97322fae5c3732dff9db5667313d7ab3defb74d18a79a0b86a7",
+      "git_blob_sha": "5d059defe1511e2c6b3c6a9f14bb0a7844a07a7c"
+    },
+    {
+      "ruta": "fuentes/criterios_7_cultivos.json",
+      "bytes": 7623,
+      "sha256": "5292d8d62f62065132b06d8cbe9c2abe25026213b3f185a3b987172bfcc24c20",
+      "git_blob_sha": "e8a5ab9f6210d30c9206d49564689e4b7cad2125"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/balances_referencia.csv.gz",
+      "bytes": 161092,
+      "sha256": "47bb45cab13ad12cd1c1e4e9b2a38eb71d2c6a923f8d13f75e4def77fb5f3751",
+      "git_blob_sha": "61aa2951b3c9af0f3ce787b44e3c72fffc9b8db3"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/calendarios.csv",
+      "bytes": 79025,
+      "sha256": "4216e0014ed684d1cf99f8b12056b4a8c06a0d48c4383277d931c65209a6c096",
+      "git_blob_sha": "050fe4455b3e14309d75ee1a74f4f89c5b802909"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/calendarios.json",
+      "bytes": 317803,
+      "sha256": "042182a8ec34861f919e863ee9940fefbbe9dfa20b88d79451c33d933ed1955c",
+      "git_blob_sha": "e003c304e8615ec67328db310a135413fd74de6a"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/comparacion_hidrica.png",
+      "bytes": 44278,
+      "sha256": "7bfb90ecc3e35632d6debeb7d81a78eaeeabee044af1f5e18578045e93e1d50d",
+      "git_blob_sha": "2dd79de1ae0f165d0cbf8f7db9c17b6c863f96d6"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/comparacion_pareada.csv.gz",
+      "bytes": 198382,
+      "sha256": "54b558267a375444d82b515863e5ecfc31689c28c1630e3fb80ac9387f277662",
+      "git_blob_sha": "a5d91b91fcaff7d6d973e40a19787b2e4900b34f"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/escenarios.csv.gz",
+      "bytes": 1313868,
+      "sha256": "a5f3ee36bf6da6ea0e1a2f38991bb19370846bfb32eeb3a388170e657a239ea5",
+      "git_blob_sha": "51fd0ca949c1e2d1fbe1d70ad26257e7acdcca23"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/escenarios.json.gz",
+      "bytes": 2095117,
+      "sha256": "45608554fa75e72c4ee35ef1e1a335c0554dc9366d960ab5efd2db99731e5c16",
+      "git_blob_sha": "cf9e5daa7b0e5122363a2ce571592d5e741d1ca9"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/exposicion_climatica.csv.gz",
+      "bytes": 21479,
+      "sha256": "339d5e01e12c030bd0f82d5b36d97422702a7c3bbdca6c4c6bb9f252f3aa5cae",
+      "git_blob_sha": "45a73f203ac4582d57a1755e358239f8573e4145"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/exposicion_referencia.csv",
+      "bytes": 2429,
+      "sha256": "add60ad044972ff1702072053441a75772261bf3e605b8c56e3f77ed67d2d3b6",
+      "git_blob_sha": "2965d54965acbdf4e908585df6f954b5cb0f88a7"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/intervalos_referencia.csv",
+      "bytes": 581,
+      "sha256": "a516f3bf7efb3148cddc8e32f6deed27fa921956a9a8c35d9e77438643ad704a",
+      "git_blob_sha": "f0c6637e7549baaccaa8fe76af6ffdd59ed28e94"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/README.md",
+      "bytes": 9179,
+      "sha256": "35e03c8cf113d89444995083582696d29aa79edc12e8f174d4e62aae2dd03e9f",
+      "git_blob_sha": "fa30ac0a76dced49290d4f5f601a4fc42ff91fa1"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/referencia.csv",
+      "bytes": 7287,
+      "sha256": "670b94980d626b0847bf834eaeecc58afa96d6d17056248e56063cdc58f47c0d",
+      "git_blob_sha": "32260b9946d6ff9f2f3a21437b338466123c65eb"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/referencia.json",
+      "bytes": 34529,
+      "sha256": "2e5ee06e50f6b900a7b715ef26d0f2e29b02c64115ab9dee02e22386d89305e2",
+      "git_blob_sha": "8ac8b7a949a55db6e450f6c926de1dfc37c3fc0b"
+    },
+    {
+      "ruta": "parejas/ajonjoli_brocoli/resumen.json",
+      "bytes": 705,
+      "sha256": "5c4ae7e433cf158ac296a71c957d572c4607c70becb733c3ffd563d8687d6dec",
+      "git_blob_sha": "88e75a44ca61b933667f729bc06a961c9eded57f"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/balances_referencia.csv.gz",
+      "bytes": 176595,
+      "sha256": "0a37d5d8cff3f7f93f8e2e64feb08bcabadb899d21c11913d662179a4c04682c",
+      "git_blob_sha": "f49827244615e8f4ead929bc11b4d0432cc6bdea"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/calendarios.csv",
+      "bytes": 53275,
+      "sha256": "e3d1dfa92585acd44d6995f8fd2dd76bcbd0e3716380c6060aeaba4593077fdf",
+      "git_blob_sha": "ac267b6fa57375a86f049c21a7f54e437e20dce9"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/calendarios.json",
+      "bytes": 212421,
+      "sha256": "4e44c22614052faef5978f7b578664156b3ee7770c4838fe5eca3a052195c66b",
+      "git_blob_sha": "fb977a12875855f045b52024beaac38750f0856f"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/comparacion_hidrica.png",
+      "bytes": 45373,
+      "sha256": "4a4dcfc3b337990fd7f9482c6a51922073bfc127f6b893eaedbec471f58e3c44",
+      "git_blob_sha": "a2052f7e0a2e1cd861b6ad0dd29fc561675bd9c9"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/comparacion_pareada.csv.gz",
+      "bytes": 47330,
+      "sha256": "1d0cdfb8ec7ecb7bd3bb81671cbb69c8c9a2bcc8f0d8c06e9eb679caad362ba2",
+      "git_blob_sha": "9fe06e7bdefc087496e9443c32eedfc81d6b42c1"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/escenarios.csv.gz",
+      "bytes": 301727,
+      "sha256": "a9129c746ad36340d1bc36422f9e29cfc9926fa957c3657b53ecebf24b7ebeca",
+      "git_blob_sha": "6be0cb1852604f064ee540b1c81b8f8a7b9984e0"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/escenarios.json.gz",
+      "bytes": 477409,
+      "sha256": "a84b8c22d067196048aa0f11d18bc2c9117f31ad4674cddcd053761431b07a6d",
+      "git_blob_sha": "343b40233762dc3478a09201a333bb5d9b2d394d"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/exposicion_climatica.csv.gz",
+      "bytes": 5329,
+      "sha256": "ccee68b3bf0d77f0a63a698614dd7e45eab1558fd875e1a83b07668182b970a9",
+      "git_blob_sha": "117fe7e1856a90991e15a30a69540608013c464d"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/exposicion_referencia.csv",
+      "bytes": 2414,
+      "sha256": "fea4c55bb7342198e0fb9de377a8b3f57fcbb7d8cbb8a78029901be61552cd46",
+      "git_blob_sha": "97a7d3c6dd0aaa70a3bfb4f07b8d83a6d0bb6a41"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/intervalos_referencia.csv",
+      "bytes": 591,
+      "sha256": "8be93e9dc00c4f4e4d0298a3d4ed7fa91a47ae8e415f708a553c6db4d034b067",
+      "git_blob_sha": "c893b6254658a00c46fb4ccf381cb57e83cd7ba6"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/README.md",
+      "bytes": 8875,
+      "sha256": "15df13b0abaa1effc5a393945650688bf01addde4b027440110ecc6df86fef9b",
+      "git_blob_sha": "52db93edce16970ae200f801f3f2e8a2a2e9f689"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/referencia.csv",
+      "bytes": 7265,
+      "sha256": "00c6c3db308527cae96dde6a9a8ae2dc6925b422c66b857d31403878909c58fc",
+      "git_blob_sha": "2dc508627653f2d00088c6cec25e4de70a4236d6"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/referencia.json",
+      "bytes": 34626,
+      "sha256": "66815f4d65cf7e732ba2de0d193091e4787012cb3719410b18b23838adbc442d",
+      "git_blob_sha": "1d85f8322cc2af68fb554071bb87e74d06a07ef7"
+    },
+    {
+      "ruta": "parejas/ajonjoli_cebolla/resumen.json",
+      "bytes": 700,
+      "sha256": "6310c4ad5425cdd417df7a7a474e841b035c9510139a969ef40b972cf85e3ba8",
+      "git_blob_sha": "e6c27973fbd83da78b6ad8fcb9f9932600bd996c"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/balances_referencia.csv.gz",
+      "bytes": 157851,
+      "sha256": "c5931f74b3a8eacd18f4c3711baa753c299e3414b9acc4c35075171f105fdb28",
+      "git_blob_sha": "52475570258c2ddf2a0e04e68fefd08ea35b2efb"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/calendarios.csv",
+      "bytes": 52817,
+      "sha256": "bef787159a016e5117c3a1c84ef151206c7f8904eed28bbfa7dc9e285ab847a5",
+      "git_blob_sha": "b4e4e717f66e2ab521844c53a7a6ba794939c412"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/calendarios.json",
+      "bytes": 211963,
+      "sha256": "1ae0306eb9286c6d3b3bd2b3df34f0d1a9767c58106780c9f7a5807898760446",
+      "git_blob_sha": "77372066c5b2d679e06e0051df1ac278f5badcdf"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/comparacion_hidrica.png",
+      "bytes": 44645,
+      "sha256": "2c93e27ca6baede76e61ffe3d96aa2150db93afa7a9378d245f2bf945f806c92",
+      "git_blob_sha": "8c28492dd31ce97a343190554b9cc0c0031e26aa"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/comparacion_pareada.csv.gz",
+      "bytes": 149416,
+      "sha256": "93891cc7dd249a88a411519a3d414833c26f6800593aa9f54ea598d376e14f58",
+      "git_blob_sha": "e0cf4494b70f56eaafde71fdf1f433be65c3b9f9"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/escenarios.csv.gz",
+      "bytes": 986226,
+      "sha256": "b31de3e8e4aefa40bef394bae5239e28178572c3fac59c1637d864025595f388",
+      "git_blob_sha": "287c6dd10ac92c6015e885d3132cafa2aa761219"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/escenarios.json.gz",
+      "bytes": 1569160,
+      "sha256": "f1cb40c94dcedb359e0745f5fb554291085c5077d03e8126e45145d207c1ab1e",
+      "git_blob_sha": "021651390321909b935aef43536743322001f974"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/exposicion_climatica.csv.gz",
+      "bytes": 16676,
+      "sha256": "61f63e368adfb5fcbd408de431220f860f9a9fec8a63f988e027ebf21bc8bd40",
+      "git_blob_sha": "ccef5aee60e2bcf4346b11f55af05f753f84cb2e"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/exposicion_referencia.csv",
+      "bytes": 2390,
+      "sha256": "ced81cbd503b7e2cd58537eb5b7bb1f42a10557b0dc35d0dc036979dc95b7f55",
+      "git_blob_sha": "7a2de28974ad23754cd8a084a3779fb598f518e8"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/intervalos_referencia.csv",
+      "bytes": 578,
+      "sha256": "c168916485b68a5ba6f695b53c194319c28a913888bb7bbd94cbf3e3c6d1ac76",
+      "git_blob_sha": "d2956fa7eee6edda7392d00f0a4c93dfd3e5b249"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/README.md",
+      "bytes": 8993,
+      "sha256": "bb24e363c93ffc3089dfcba26a50606d590c68f10576c0dc9f6103de4f407a25",
+      "git_blob_sha": "fac1ee9f7993b08c02e7a89370c8c53f8030cc5c"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/referencia.csv",
+      "bytes": 7278,
+      "sha256": "56bfc14a9f3cc3c0a3204dfaebe32474fec4c82c1a33540adc814401c4636f4b",
+      "git_blob_sha": "7271d9aca3a544c335b9aff8ccf595c209e580eb"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/referencia.json",
+      "bytes": 34673,
+      "sha256": "0e1e21e7e6e95be81579e7e7f865ed99a9371ab6db6908dcc4fcda2e3cfe2ab4",
+      "git_blob_sha": "eeeecd2c3fd9d7fd231788a2f62e8912137c3f4a"
+    },
+    {
+      "ruta": "parejas/ajonjoli_lechuga/resumen.json",
+      "bytes": 704,
+      "sha256": "c1a718f48deb3ff5c54ae5e4dc68bf2c8b95953de2b0be3dbb728fdb0b370cc3",
+      "git_blob_sha": "bf2c6a3e9cc3ada5b16b882eb74aaf1f86062166"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/balances_referencia.csv.gz",
+      "bytes": 160498,
+      "sha256": "49c0533f3c899261ba646ecc92e68617c43fe9825ff64f0872bf55c9998acfaa",
+      "git_blob_sha": "810eab6aee2c114293e08c10270434679239aa9d"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/calendarios.csv",
+      "bytes": 51200,
+      "sha256": "7b834c52b607ba043bb621e3aaa99764b42be0ba772cbc3a37a10d3df0210afd",
+      "git_blob_sha": "95da88289e9f8434dd94ce6006f9c574f22e3843"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/calendarios.json",
+      "bytes": 208333,
+      "sha256": "709515e610d744646e43cf7ead7c1cc935b48700653787be5b4f08a6ee40a39c",
+      "git_blob_sha": "ac205c876cd0e70850e265252a7511f8208b6a34"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/comparacion_hidrica.png",
+      "bytes": 43821,
+      "sha256": "dc26e01a88295179c15b6142ff57aec1f998ef3d3c9da5851f992a3f81e5f790",
+      "git_blob_sha": "42a823137fea734d5c0fc9a03b9f4a7765fefb90"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/comparacion_pareada.csv.gz",
+      "bytes": 97910,
+      "sha256": "e94c1bc1232fbc860a8852407eb8ac8a6f9c8c2182360752f7040a61a1121a61",
+      "git_blob_sha": "f4a7a3562196b9d72dbc9c54f01afb22dc5f2c07"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/escenarios.csv.gz",
+      "bytes": 635218,
+      "sha256": "5a32204eb85a222642a87ca0e10bf69af26ddabeacbc30edae3d97289caf264e",
+      "git_blob_sha": "5ffb1dd2ef24dfee403b37aa959885d1fc9b8f20"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/escenarios.json.gz",
+      "bytes": 1007679,
+      "sha256": "0d80f735dad0f56902dd21f6a1565de73341376de9ea7db88128d28bc688159c",
+      "git_blob_sha": "79ae949e29822e4fa565d1481ab3e5ad702147c6"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/exposicion_climatica.csv.gz",
+      "bytes": 10922,
+      "sha256": "7c524000deb6dbe00302e508bffc03f23b34f1a600429260ca3f20f8cb9bbb38",
+      "git_blob_sha": "9d73459bc2f66c2bffbb2c8f8be5047ceba9da62"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/exposicion_referencia.csv",
+      "bytes": 2375,
+      "sha256": "aba8e8c5937c968a2af439be430c4256e46e3d64d2fbd2b139f47ee777b3c7df",
+      "git_blob_sha": "c9b451062d01078f6e87727d6855f518c2167d66"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/intervalos_referencia.csv",
+      "bytes": 556,
+      "sha256": "a33f00600c3503542b27e86814600f5d7ea1a578f7c8d56fd3434be6ce44371f",
+      "git_blob_sha": "ee7a39d0e16a1d64b0291bcd8fd28dbd8a9e57b0"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/README.md",
+      "bytes": 9001,
+      "sha256": "56d882912f014492aed6127575dd4eefbf8d4cfb42416a55357c829cab6a2598",
+      "git_blob_sha": "604958aca848f1137096eb517a9815f2c60066ad"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/referencia.csv",
+      "bytes": 7113,
+      "sha256": "949759abb6edfc845daa111a2ac8d1d54ecf15d948b18292affe4a56bd885b47",
+      "git_blob_sha": "39f63a588e4fd554c5275ffe7f38b6b6519146a9"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/referencia.json",
+      "bytes": 34059,
+      "sha256": "c4815823e79f2e34ed351c0dff669081cb44f4faa641210ee24abbc247178e05",
+      "git_blob_sha": "4a824ace4d3fcd1e843222786ffbdfcafadb3f80"
+    },
+    {
+      "ruta": "parejas/ajonjoli_papa/resumen.json",
+      "bytes": 690,
+      "sha256": "70bba493c4587d4fe2d0d8b0c193a1942ab45672e8580ba814ebbb84cf079043",
+      "git_blob_sha": "879da223cc942345422809035a432a9cb4f61e2a"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/balances_referencia.csv.gz",
+      "bytes": 182315,
+      "sha256": "1890f256dd6a6a11adda3b786fd18e1908fba7cd4182a4e735da25ac03c5e07d",
+      "git_blob_sha": "fa371b642ed244f6c9d25e1bfacf9ad18b92f2c5"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/calendarios.csv",
+      "bytes": 39124,
+      "sha256": "17ec6f2afc1f05fbdbf95e043e4ef9cffa20292124fe83b813f67f9343c65ff9",
+      "git_blob_sha": "4ef5f7a592b3ed5efa45df8748922a72e509b3dd"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/calendarios.json",
+      "bytes": 157951,
+      "sha256": "158e18f89c441e48a3e5d07b6b48e90da8458ff1b5f96b91ad6038fd15cdfeec",
+      "git_blob_sha": "cde0aaf45da49116bf61d4cb35434b9bebaf0d85"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/comparacion_hidrica.png",
+      "bytes": 41222,
+      "sha256": "ad1bc89fd0732549d9e80b9a4de0e5d598c41e9b334c56d684dcc569f49e9c0b",
+      "git_blob_sha": "f12af252a52513da2bf5d358c5af463c565707f8"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/comparacion_pareada.csv.gz",
+      "bytes": 55659,
+      "sha256": "0742727f25f99663c61b448ca2d877b994454aec8f5a6b5420973104073dcab8",
+      "git_blob_sha": "95adc0d4219a3079b78f183ceead88cecdafdb78"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/escenarios.csv.gz",
+      "bytes": 365173,
+      "sha256": "21b9c922b8d1836d00c48303d2852bb50b292abd454ecd5b3970f7f0be78db3e",
+      "git_blob_sha": "405a04eda7a76dfd8493f6bfa8671ed28cedec02"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/escenarios.json.gz",
+      "bytes": 572609,
+      "sha256": "3320649ca63c8a6ab609cdd0700934bab7ee1e68eb22061a03ccce820881b54c",
+      "git_blob_sha": "1350c674806ac7baa341aff231d2dd2ea004ddac"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/exposicion_climatica.csv.gz",
+      "bytes": 6385,
+      "sha256": "4afa25e1a23e98dd805968d90bf3d5fa444a4b03b0cd00cc4ad69fe568bd939b",
+      "git_blob_sha": "cd723df8f7c5aad8492dd5df1612c7b90556c7aa"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/exposicion_referencia.csv",
+      "bytes": 2361,
+      "sha256": "a5b5a07baf7d55dec2fb5f790f1c6a37da26188df7c544824e3bcaae17fd0598",
+      "git_blob_sha": "679d456a507887b233206411d9e588b79702a248"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/intervalos_referencia.csv",
+      "bytes": 583,
+      "sha256": "affcb020706788cbd2a77de0a19f81aa3f028e82700c98cb6c25879a5886599c",
+      "git_blob_sha": "1ce5198464a2644ed3268c2e5a6495e55889fc03"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/README.md",
+      "bytes": 8905,
+      "sha256": "10239ba511e2805e45ca416f25beb5766e498761c0e083cf64f40f81fd05379c",
+      "git_blob_sha": "e707cad300b0b30c23dd0b2c88cc4afb12e284e7"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/referencia.csv",
+      "bytes": 7192,
+      "sha256": "bbf4c9fd7b5ae8f7c47b2c80b1ca2983f46d115688d8778fcb5d56dbab1db04c",
+      "git_blob_sha": "9339226ab2142f80768160faf5557df412ff67a0"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/referencia.json",
+      "bytes": 34250,
+      "sha256": "ed0e847311698d5d511aadf0c9e0565b9bbcd0027a565a748c56e74c4d3e1744",
+      "git_blob_sha": "b4f76f68b370bcd7efc8d3bc173294521d1d4ba3"
+    },
+    {
+      "ruta": "parejas/cebolla_brocoli/resumen.json",
+      "bytes": 696,
+      "sha256": "97e5b0120537690987cc729be8b0ebdb4bdebe9d72f06eb812fd949aefce9a62",
+      "git_blob_sha": "ad0bbf743478b925e934b46dc2e21d5a33735fda"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/balances_referencia.csv.gz",
+      "bytes": 169905,
+      "sha256": "6ffbd3e65c674f6580ef970bf1a0d6e104f0cb1e18b572ce87a60b83597510dd",
+      "git_blob_sha": "d33bf161cd6087f3c21b572b59e240e853a3ce56"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/calendarios.csv",
+      "bytes": 26172,
+      "sha256": "d6d95a956b72f4967c8e73d147fd66208b252a4bbb8139aa3e6e1200439a2dda",
+      "git_blob_sha": "05d938392104163cb62712aab48fd3796966ded4"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/calendarios.json",
+      "bytes": 105351,
+      "sha256": "369e808845568c316bf69a33c00fa2cd31a601bc2a92eb52476ae244d0e99427",
+      "git_blob_sha": "babde2d9c11805e03bb9144fbf9103dc919476e8"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/comparacion_hidrica.png",
+      "bytes": 45961,
+      "sha256": "2a7fc58b97abc073141cedbe5cb7d055e88d15d5752105e1f8fd1159d98dd39e",
+      "git_blob_sha": "d1bc2cc6a658948f9e5b878682f4630663844212"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/comparacion_pareada.csv.gz",
+      "bytes": 44712,
+      "sha256": "cb0c76715aba713ebfb65ca76444497bf057502a2ec38dcba8df4edff6f10a74",
+      "git_blob_sha": "6d421e3287de6e080026af80f6e37322fb925e86"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/escenarios.csv.gz",
+      "bytes": 290697,
+      "sha256": "7c5c27b018d8fe6c90a64bc30314ca73a0011797dbfe54fc7dfacb0d89eaffcc",
+      "git_blob_sha": "b6600920a5755cd250f23dc1186b15b2c4e784bc"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/escenarios.json.gz",
+      "bytes": 454557,
+      "sha256": "f52d1e9af77006b46014e1c6b093754e3fdc4ea012a79ba23eee6ac64046bba2",
+      "git_blob_sha": "b7f2a9cf31f017561934ce5c9389d1c32ccc920a"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/exposicion_climatica.csv.gz",
+      "bytes": 5475,
+      "sha256": "7641f110ef69d14b4af96d16d41779dbc4d5ccae9024ea594daecd420b155e71",
+      "git_blob_sha": "7f842f0b06b6cfe3ea666eb8dbec970ba7e76569"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/exposicion_referencia.csv",
+      "bytes": 2363,
+      "sha256": "accf08bcb60185bbf7ddb631e4619d508ff6ee29fda94fa90b049c02a770e7fd",
+      "git_blob_sha": "7eb14f6d46ea165b7322283c4d15edee8fccf4cd"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/intervalos_referencia.csv",
+      "bytes": 580,
+      "sha256": "cd3e1704d988af489b87fff3ffacf6ea42902685fb4006fe85ec0a8264d37c22",
+      "git_blob_sha": "a1abbdb23ddfa2a355684e97d4e7b4723b90dbee"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/README.md",
+      "bytes": 8718,
+      "sha256": "714968a9dc2c092eb9089d063218c0659237104660eada9f5d7cf2c885edd4fc",
+      "git_blob_sha": "bba78cbe575b348fdb0b589a5b93afa094a5cf65"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/referencia.csv",
+      "bytes": 7217,
+      "sha256": "6f529201295e6555b8834c8632e7227c6cf780a7e6a6252fe55158eae5d43cd9",
+      "git_blob_sha": "db07610b7bcbb9bbe7bd55c703b955391d4374ed"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/referencia.json",
+      "bytes": 34476,
+      "sha256": "6148e221a0938cf46137e9be75e61b14998c957cf8e703a2101ca10791f47675",
+      "git_blob_sha": "0b7c0770bf9fc55aee121e1e2717cfcb6ee3b133"
+    },
+    {
+      "ruta": "parejas/cebolla_lechuga/resumen.json",
+      "bytes": 696,
+      "sha256": "9b9748d0f609dfe6e3cf0bd9eabacc0385c2502ee750eb58c26f96b366330011",
+      "git_blob_sha": "51645a6ae10d9dfa668a8ffefdf8ef93506819f1"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/balances_referencia.csv.gz",
+      "bytes": 153506,
+      "sha256": "aef1b608c81b1f4502a54f8a1f6e34a6eb1bfa1e7f7daece8961bca2b1e944c2",
+      "git_blob_sha": "d3b858dece3c2cc808959a9a4c0589559f87070d"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/calendarios.csv",
+      "bytes": 51798,
+      "sha256": "f46095d5aafab8dd8aaee23a08b0789d3b6251cff2633d98b6c6e72d098b0d21",
+      "git_blob_sha": "44078d1d0e8592769c2c56677896730f3c6a382f"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/calendarios.json",
+      "bytes": 210273,
+      "sha256": "f028ef0f645fc9588bd09b9948bd614ecb6d0c7dd1f46f6f61b68fd096e429cb",
+      "git_blob_sha": "8f96f45206f7da9c505f14783d8f171175ee41b6"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/comparacion_hidrica.png",
+      "bytes": 43368,
+      "sha256": "9983d575932415b85855835913f970a48c100d34387cfd219fc1dd74136c7e48",
+      "git_blob_sha": "f71a9a2d5785085c47a1d717b180a8c574c41275"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/comparacion_pareada.csv.gz",
+      "bytes": 154438,
+      "sha256": "65852d45d656fb283d0abfb013bf6fcadec70d45043ae6e7066225bb49cad402",
+      "git_blob_sha": "7ba3e894707ead7cce42d0aed2d3f099f4e19c6c"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/escenarios.csv.gz",
+      "bytes": 1029563,
+      "sha256": "ab7cb743a5c6839e9f7e24c5dee31650f8b97c54bb5b560fdf825a057c8446b7",
+      "git_blob_sha": "b7371b4071c3afcf91be70fe0df4a70439a4da83"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/escenarios.json.gz",
+      "bytes": 1647317,
+      "sha256": "40d7e4177328b8426c3311b101187502db1fc4337caa9a9872c98f212078eb81",
+      "git_blob_sha": "928606c3eb1b41fd2bcc26109101ec6872d33216"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/exposicion_climatica.csv.gz",
+      "bytes": 17388,
+      "sha256": "84eaecb4464a42a04207016339d56451ee9e309d5b0fd86b9dc6cd8e3c2a7fb0",
+      "git_blob_sha": "5a16d2946a80a5e5081e522d72c8d7248f2e2183"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/exposicion_referencia.csv",
+      "bytes": 2413,
+      "sha256": "5c02d66d109426711dffb8dbd6a57302be32f30b97f7b2e54b3bfe781170b331",
+      "git_blob_sha": "16a913e31f0d89ef535eff7c14dbf63024651639"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/intervalos_referencia.csv",
+      "bytes": 568,
+      "sha256": "95321d2c14b3afed60bac5491ea3a5829a2866e410d206c68cc8722ce2df0f9e",
+      "git_blob_sha": "a0c22d1d3536e7de7e17c01a3a9dbc530b886dca"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/README.md",
+      "bytes": 8942,
+      "sha256": "609ca9abe5b5c2a6b3e8957e8d6aab39d404df75505dac4c98795f2bff5afd6a",
+      "git_blob_sha": "ae8462d26d776d8df8139fa549d28505afe4d39d"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/referencia.csv",
+      "bytes": 7218,
+      "sha256": "81853c09f2a4988b26113218f9a8dbbc9943bf91c4bfb768ffe3b9be82728d79",
+      "git_blob_sha": "620ba116ba390296de94e6c946446317d224b9b1"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/referencia.json",
+      "bytes": 34422,
+      "sha256": "8d9398881b78bd321cb90c99358602fd3a7639bdeb9026553d42f9be8ecba313",
+      "git_blob_sha": "19998a0657dfc5c647b9f61656ec746e00d286a5"
+    },
+    {
+      "ruta": "parejas/frijol_ajonjoli/resumen.json",
+      "bytes": 700,
+      "sha256": "336fe69d17e260079aeedfd7659c135d9d3ec01e8570a5598c8612191b1b711b",
+      "git_blob_sha": "59d9f221af03801372357b4194f0c8426f2e321e"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/balances_referencia.csv.gz",
+      "bytes": 156327,
+      "sha256": "e7919b1190f75e0c01374f17d0b8eaba0e9069c3fb5b091e1e2fa465fc27202b",
+      "git_blob_sha": "32a4fc9f064e97d459499ab16f79e776778d61ab"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/calendarios.csv",
+      "bytes": 37989,
+      "sha256": "1baf5e8646b6a863fb9bcbdeaeb98b43360be91858d198e34e030811f0a58d6d",
+      "git_blob_sha": "d05037c25efc8053979e9c6025d6417180f170e0"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/calendarios.json",
+      "bytes": 156313,
+      "sha256": "ca9d7f6f6427ceb4d33bc548b46c4b13fe4d25678923df3bb0eb57d3d54878a1",
+      "git_blob_sha": "48e17b99ac21f58029786cdab77de6234e2e5328"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/comparacion_hidrica.png",
+      "bytes": 40156,
+      "sha256": "84cadda896cceb361ab4faaa68bbd8242af8ced541b553697d238ac1278ed3a8",
+      "git_blob_sha": "7a381d413caea16d24d2dd8d46df6fbe5f8ed2f1"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/comparacion_pareada.csv.gz",
+      "bytes": 149734,
+      "sha256": "e6c7b4227d8a505e2975d452f9e947accabbebb19fd350c35fec63c4b30f4313",
+      "git_blob_sha": "551bce6b805d5ac4b6e37c1591c3bf031a4db970"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/escenarios.csv.gz",
+      "bytes": 1031036,
+      "sha256": "bfef580bf72ac12e887223a4fb4576c4eea4da0f2e7c1e12fe962f4588358f33",
+      "git_blob_sha": "809dead06c45c07682b8b45cf48259d33690d0e3"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/escenarios.json.gz",
+      "bytes": 1637147,
+      "sha256": "02028c1279621735ddea485da9e7295e4034bfe4ba5f5a1b7fb6ddf689580d0d",
+      "git_blob_sha": "f12bc5ed9bbe605e9dcc729a575e800f29f0121f"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/exposicion_climatica.csv.gz",
+      "bytes": 16995,
+      "sha256": "5011382b9ebb68e40c76e3f930aa3dd62f9404d0ff55b2ea0cd6149536e2ffdc",
+      "git_blob_sha": "4dbfde974ed62d319f7c507ae4e691d6cfaa8f27"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/exposicion_referencia.csv",
+      "bytes": 2346,
+      "sha256": "961f1823ac78925615608200fa5f8b6243e77536b0b846e05f4cfc116098a18a",
+      "git_blob_sha": "c0ce15cc783fea0a1336dde56fd762c7f20160be"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/intervalos_referencia.csv",
+      "bytes": 560,
+      "sha256": "d25a9d57743e6d0a80daf943dcdf0eb0318a0cf2b5e1a24fb803258419ff1ff7",
+      "git_blob_sha": "c2d09f03679724927faad21fee400d745c1a0c12"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/README.md",
+      "bytes": 8971,
+      "sha256": "50e14a46524eeb37c0bb6140c331142f081c6d50fad957abb02009cc21a30b69",
+      "git_blob_sha": "00fa6c05154a55a49daefe53ddbc2e1d46eae231"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/referencia.csv",
+      "bytes": 7099,
+      "sha256": "9a1cbfd28cfba94eeb30c529d8001c48fbd9274341fbdb36ca21607fdd5aa657",
+      "git_blob_sha": "88855c72099efb3497e31f93ed68ef4148890820"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/referencia.json",
+      "bytes": 34092,
+      "sha256": "2ab92516c31bfb5198ee1c87d6ad233ad7378e4d0745ae45a8b9dd130e6cb948",
+      "git_blob_sha": "a42e01645b333d0d2552af45a6853c8a9de645ad"
+    },
+    {
+      "ruta": "parejas/frijol_brocoli/resumen.json",
+      "bytes": 695,
+      "sha256": "0d711daa11e60e99b3d400bbba6cdfa54dc8239d4c1dc39e6bcd8b84a1caa774",
+      "git_blob_sha": "63c82f95d5678cb429ec3552cce7fd09e04c6f91"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/balances_referencia.csv.gz",
+      "bytes": 166876,
+      "sha256": "7312cffd5be08bfc2d58229651f6aad87048874478fea585433c748cef04f926",
+      "git_blob_sha": "03157fceb4ad058fccbb09f76e277998eabc2ad5"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/calendarios.csv",
+      "bytes": 25663,
+      "sha256": "ddb1f67bb6387dedc5f856aa49af60a9e3664a312c53bec7a04681f0d68a7af3",
+      "git_blob_sha": "deef55f7a35ba5c6a854b3ed6e2a92eae578cb04"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/calendarios.json",
+      "bytes": 104507,
+      "sha256": "79f2a4e1e666a5ee10d867c6e883476532c5a9268a59cb8dcd3aff7e367a860e",
+      "git_blob_sha": "4c00b67e5d2b50060165f5ae718914fc340d6b0d"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/comparacion_hidrica.png",
+      "bytes": 44735,
+      "sha256": "7601de9fa170bd87336c32600da1ad2fd40fe7c7f37fd4db848627e0a28723b9",
+      "git_blob_sha": "bbfaf56978838334aab5a7d492cef40ff0fd901a"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/comparacion_pareada.csv.gz",
+      "bytes": 47522,
+      "sha256": "0a785030fc8470d0f9595f229175552628e235b5296eeab4aa1f8221f08f0e04",
+      "git_blob_sha": "08e826b8c30b2af10584eb82ea847f76c6e9d677"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/escenarios.csv.gz",
+      "bytes": 312340,
+      "sha256": "609ae9a000d52daf594026ac2fb124490f237c13d01e548a441dd33d385151c2",
+      "git_blob_sha": "303734604138492e5a5960256cd099d024081dc0"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/escenarios.json.gz",
+      "bytes": 490499,
+      "sha256": "e51cecf0fffc6a2e9726055dd0fd4e6877f23d457ea89d6a71676d009217e9d2",
+      "git_blob_sha": "e1e7b8ef747e806011515b65ace25bc02be958eb"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/exposicion_climatica.csv.gz",
+      "bytes": 5907,
+      "sha256": "cf96da8eabed5c7de56354adaf246723f2851a4bf0b7662c6ccb1a1f4e23edc3",
+      "git_blob_sha": "d14d37767ebbe0b61cf771f802485a02f9e80565"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/exposicion_referencia.csv",
+      "bytes": 2382,
+      "sha256": "eee5f48403b3458b1b9923f8d04ae214e639030d2aca0d479f8917559c9378ab",
+      "git_blob_sha": "cf854635edd99869a993a20bafc0e4360c2c6537"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/intervalos_referencia.csv",
+      "bytes": 570,
+      "sha256": "781ca7a2d4683d74c7e657cf482d20d61ca93e7789027f9b270890713cc11478",
+      "git_blob_sha": "a18fd11d359c452a794db95d7c0b6573fdae00d6"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/README.md",
+      "bytes": 8668,
+      "sha256": "bfdd8e687289adf1c2b153ef25095a7fa9be42ef7eab414053fd98a2782ab312",
+      "git_blob_sha": "7978bf4aa2715f470842f6f4b6f11c8b106c2a35"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/referencia.csv",
+      "bytes": 7080,
+      "sha256": "94840b3d0ea994bee37006a35ccddf4cc8b33aa4ac069f7d66e46783cb415af4",
+      "git_blob_sha": "d798c7ecd2c5dc9c5812a46366bcb55c804ef6c4"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/referencia.json",
+      "bytes": 34180,
+      "sha256": "9abcf98a8ee4329b1dcb56fb7020e7486337beb61b1d16674900631da65e89af",
+      "git_blob_sha": "8c3a2c051ecd4f20728d35afe38e845cef6d9a90"
+    },
+    {
+      "ruta": "parejas/frijol_cebolla/resumen.json",
+      "bytes": 692,
+      "sha256": "7a1acdeeceb92de18bd90c21acded7ab83f5e4fa1848185382585661ee04b4a0",
+      "git_blob_sha": "ba22262c76d76b3e4bbbcc5c872bdf31a46de61b"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/balances_referencia.csv.gz",
+      "bytes": 149322,
+      "sha256": "fc8ca45e71dbf75563516a13a1864ce794a04944de81564c32377bf0db0f02ff",
+      "git_blob_sha": "7361b899e1d869b8303d7a9d2b7c6d65a610d1b7"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/calendarios.csv",
+      "bytes": 25409,
+      "sha256": "e23bda2ac3af1e23eaebb53ce37a5c8bd57ae6f9c7143998c60a55855aa97652",
+      "git_blob_sha": "95e949a4128f0ca8210389c9c373761ef543d5d3"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/calendarios.json",
+      "bytes": 104253,
+      "sha256": "13cfd92b5c122d3ff3428e54391254c62a9fec323cda882205b511b0341d72a6",
+      "git_blob_sha": "2b6c75a8631c55953aa726aa9d5f2cd85d60c29d"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/comparacion_hidrica.png",
+      "bytes": 44109,
+      "sha256": "40eaf635c32525a5dca5a68ca0120e4734499de7faf2df4e3fe5c819cdff38de",
+      "git_blob_sha": "9bab909f6f106163983ef040c53a766d6c8d5f9b"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/comparacion_pareada.csv.gz",
+      "bytes": 110525,
+      "sha256": "5750ac6398aeaf68256de98eab8b619cade97677013752a40df465576ddd80e3",
+      "git_blob_sha": "0f890b2837f9a6ae85d8ebaa52d8e459d8db1c6d"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/escenarios.csv.gz",
+      "bytes": 757127,
+      "sha256": "81cd0b55934b777526036dc232b9653a88b4d23e3a287778396c201aae062cb1",
+      "git_blob_sha": "f829d6835277a7df39f15a680289dfd97165733c"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/escenarios.json.gz",
+      "bytes": 1202919,
+      "sha256": "cf8e3d2e122ac1421c30fb6884076ad0c506ff4211b14c073a2758f8a51808f6",
+      "git_blob_sha": "efe8de9ef73ec292522fd1bdf5ccd2659f0aae5d"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/exposicion_climatica.csv.gz",
+      "bytes": 13266,
+      "sha256": "79e48935ea75437e10784ee5f27c4a15257cf5f4143a38ca0493a7d9d56afa0d",
+      "git_blob_sha": "7c196d312b681d33b3317ba9cd5f8e1caf5b02f5"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/exposicion_referencia.csv",
+      "bytes": 2322,
+      "sha256": "5dff12b5e48a67e390f7450cd5394556a4432be46429949ba302e42a94b66c82",
+      "git_blob_sha": "70073c397d244caa679023f667859bc67109a6ca"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/intervalos_referencia.csv",
+      "bytes": 557,
+      "sha256": "ce60cb97d430a89be961bde7226e0bfcab1c40632fbfa7edd5a72ea92ad70dfb",
+      "git_blob_sha": "f9384eee2a696747adfd9d8905a39a8deb7f3004"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/README.md",
+      "bytes": 8780,
+      "sha256": "decc4d34836d5b241d5d9fa84c3c2b43e3e4252f39b0ef8ce72414819d3efbe0",
+      "git_blob_sha": "696c35436cdb95b2d4c3ff5858f9dacfd60f50a3"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/referencia.csv",
+      "bytes": 7108,
+      "sha256": "252784cc674ae53676b4a9cb846096086e300d6fe0e6702a85a80837f8ac0040",
+      "git_blob_sha": "25db29b86f98ca49f1fc6a4454b0ae1093b702aa"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/referencia.json",
+      "bytes": 34307,
+      "sha256": "411918a65b2101ea1ae162522ae8e228818d19e5f1ccd807df7aea7e52bfe521",
+      "git_blob_sha": "91e3d7c06c6ab318a3b8c9870679a89a021d526e"
+    },
+    {
+      "ruta": "parejas/frijol_lechuga/resumen.json",
+      "bytes": 694,
+      "sha256": "dacbe394350fe1daf6be0e56cca3ce821f3074f907fbd917878fd14f372a7610",
+      "git_blob_sha": "3c97886d68781c11dd59c612c806101f97f65eac"
+    },
+    {
+      "ruta": "parejas/frijol_papa/balances_referencia.csv.gz",
+      "bytes": 160352,
+      "sha256": "98953290bbb3767dec9c07c6d0817476107f303f3f8ae0d65c198d1248f2bd60",
+      "git_blob_sha": "cadf6f2aca7bfb5ff1e33474702fe035c644d222"
+    },
+    {
+      "ruta": "parejas/frijol_papa/calendarios.csv",
+      "bytes": 24600,
+      "sha256": "d544d9ee26bb77c64d5485b9beca6b1b0c2ae82cb0603a0b1285ab85c9d1b4cf",
+      "git_blob_sha": "eb8b280c0ffefb3df95718f61b4b63b8d53e85d9"
+    },
+    {
+      "ruta": "parejas/frijol_papa/calendarios.json",
+      "bytes": 102439,
+      "sha256": "a707d8241f732c1bcd3c49f9ff882d809fcd2a09eebb4da907d8b1fe269363dc",
+      "git_blob_sha": "3e37bc47e712c7558b808f3e381b8dc1a99abd04"
+    },
+    {
+      "ruta": "parejas/frijol_papa/comparacion_hidrica.png",
+      "bytes": 43877,
+      "sha256": "1d93bf39e9edb5ca4a8e2cd0122f9c950caf975d3a5897330ba6d180052eed41",
+      "git_blob_sha": "1e2f9a3d3b6db596e713f86e91db66f7e03ddeaf"
+    },
+    {
+      "ruta": "parejas/frijol_papa/comparacion_pareada.csv.gz",
+      "bytes": 89008,
+      "sha256": "ef97fd52d07ef3cba5abec92ce87d5e48f40a4c7554ca127350f1901c0a0ddd0",
+      "git_blob_sha": "9d5cc94e4a71f80e708051f9d9fa10dba0385dff"
+    },
+    {
+      "ruta": "parejas/frijol_papa/escenarios.csv.gz",
+      "bytes": 597831,
+      "sha256": "7e515edc33bf504d970b5d152489d1609eae6dba392505105cfd2e920b13229b",
+      "git_blob_sha": "0c2e70b485849a390797d493586f8c9f53bb587e"
+    },
+    {
+      "ruta": "parejas/frijol_papa/escenarios.json.gz",
+      "bytes": 944364,
+      "sha256": "d998c35bb023f6f53775ea8b0d641d0d56e171ffd442b2383a52fbf0ef4350d7",
+      "git_blob_sha": "9a2746ea00340e34126cbcbd955805a5744ff3f5"
+    },
+    {
+      "ruta": "parejas/frijol_papa/exposicion_climatica.csv.gz",
+      "bytes": 10604,
+      "sha256": "31375be5ec53ce67135cb3974ea771c8984359e253dcee6c2cd619090a768c2e",
+      "git_blob_sha": "14b031092c04399f32480227dbce705acd9ca405"
+    },
+    {
+      "ruta": "parejas/frijol_papa/exposicion_referencia.csv",
+      "bytes": 2331,
+      "sha256": "664e6037962cbaa6b8aaa0fd05998d04febae987c8d12aa325d2eb712dcdf62e",
+      "git_blob_sha": "8f2dee01aec9402e937a2badb3f6487fc1dfc7f3"
+    },
+    {
+      "ruta": "parejas/frijol_papa/intervalos_referencia.csv",
+      "bytes": 535,
+      "sha256": "c53a62d8c9e15a6a9fca8ad8c02f3dd88e4d03ebc035ef5b5dabcb4008c9a461",
+      "git_blob_sha": "cef64338a321e7ac7eb6c7a4f7d78e0d45b0ccfd"
+    },
+    {
+      "ruta": "parejas/frijol_papa/README.md",
+      "bytes": 8796,
+      "sha256": "f0c43a45d48c9e13f948fdf29ccc9dde2a4f6686b8c4347403d574684b1e8d12",
+      "git_blob_sha": "b29088d94d5fcfa6f9558de22e51c94ae5ce8f09"
+    },
+    {
+      "ruta": "parejas/frijol_papa/referencia.csv",
+      "bytes": 7017,
+      "sha256": "77456fed340ed76c65f4491ea2994318c8290ddb5576e79661dc4daf0e2c9fc1",
+      "git_blob_sha": "6b5408dd8c6ffd80c6f3bc14aadb66b33212fe32"
+    },
+    {
+      "ruta": "parejas/frijol_papa/referencia.json",
+      "bytes": 33780,
+      "sha256": "883fe29f738b136dcf0271241c00ca803cdb76e91d45a17f08dc8760287ac302",
+      "git_blob_sha": "1de0d57e019bb0197e85d4ca03dafd8c6aaba0f0"
+    },
+    {
+      "ruta": "parejas/frijol_papa/resumen.json",
+      "bytes": 681,
+      "sha256": "550fd19fae5a6aec68b0d2aec7113a66828a4fde4c7d2f5ec1429eb2c992a94e",
+      "git_blob_sha": "d65d894ab61a924c48a9e9e958fbf3f2838afca1"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/balances_referencia.csv.gz",
+      "bytes": 159689,
+      "sha256": "e4fba0049a51cd8eb1dc4072f7c8bfb1705903a8775ad33e49d2ff8e04dbfe5a",
+      "git_blob_sha": "d4b2744318a877a1537624dca6c629accbb5b67d"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/calendarios.csv",
+      "bytes": 37267,
+      "sha256": "e483b73844fbfed540ec0f05971e80c0a95435533e807d42f0637fb4bb23223b",
+      "git_blob_sha": "49d0a48e07de1b2687e6c6d785ac58c57bbd544b"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/calendarios.json",
+      "bytes": 154585,
+      "sha256": "40294f7ae32a1dfbed42ac727eb62a938864e809b2d94274808ab49163c11123",
+      "git_blob_sha": "2ccc55a24568789b5d37b55ad21be6de82aeefd2"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/comparacion_hidrica.png",
+      "bytes": 44698,
+      "sha256": "cacaae08ac08ebf7c2908fe7960af92a08a421c3613464a0c563caf820da54bd",
+      "git_blob_sha": "0867fb6579db0cf03d2925240f0ed45390402942"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/comparacion_pareada.csv.gz",
+      "bytes": 126684,
+      "sha256": "3fd2e01f7a776f834cf62e2d146f441894564a40f1dbc3c13befdeb97f9e6225",
+      "git_blob_sha": "c139fd3e280a0a69e15913ff5ecb6c270bd631d1"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/escenarios.csv.gz",
+      "bytes": 849358,
+      "sha256": "a64b7e5ce066045ecb4f3d9308a1878dca1152c518796ba5f079f4e47b0bec0a",
+      "git_blob_sha": "e2c374b5b2ce4ce6a86545ef5d14d950bf6d9858"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/escenarios.json.gz",
+      "bytes": 1347595,
+      "sha256": "e3549a4b97b2e0a52b9e9d7497a8dea0e29260dd551d0921a8fd3a7c091869b9",
+      "git_blob_sha": "46add2b3f6dca703f4280d3b29e522555802609d"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/exposicion_climatica.csv.gz",
+      "bytes": 12723,
+      "sha256": "d17d9169eb357c7aae07eec0741449215d08116ceb384a5875151d9b020f9599",
+      "git_blob_sha": "3cca17011ca3504a017f36e0e8ae2e130d879c7b"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/exposicion_referencia.csv",
+      "bytes": 2289,
+      "sha256": "c36f5c11e451a858ec250aed55dec49705893f1e1a95f07e69d22bc2ec5c9d29",
+      "git_blob_sha": "e974c53de28ef7fc48d970d4be3cafa9539e360d"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/intervalos_referencia.csv",
+      "bytes": 549,
+      "sha256": "5f42561ddb052cf24fad2762dc793322d7bafb6bc0f820cd84bca36dbb9327fb",
+      "git_blob_sha": "9c3bac551926e7e92be5347e3e8900f6106b8ad0"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/README.md",
+      "bytes": 8855,
+      "sha256": "fe60d93aea2202e21ea1fd00ad6037aedbb4ec4a18af525d40c92324a789c955",
+      "git_blob_sha": "c1ccfc91887265583f386f687014ad925aab3c6d"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/referencia.csv",
+      "bytes": 6986,
+      "sha256": "2d0175fcdd7ec782e3d896c8bc019367002ae24c2379cf06d567110a718688f9",
+      "git_blob_sha": "27bae9dc9af3e9a030c36d9f92b016806dec2721"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/referencia.json",
+      "bytes": 33737,
+      "sha256": "5e5c3896127b4f3ec407384c08b769a051d4d1d886b6d2302d0ca44774545ffc",
+      "git_blob_sha": "e5f9077a9ffb954e003b6177545cfde6ca478a2d"
+    },
+    {
+      "ruta": "parejas/maiz_brocoli/resumen.json",
+      "bytes": 688,
+      "sha256": "2a2065c3cc5a64136db17ab71a250020d0c2bb8b82ddf1fc660f37de899b72e2",
+      "git_blob_sha": "878b813d5523ceddb14c91d617ac5930631d233c"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/balances_referencia.csv.gz",
+      "bytes": 172163,
+      "sha256": "3ce660d6d0768c8ebb755aa8179bdf35a3160e2500376aae2c1dd0f5380832f9",
+      "git_blob_sha": "0766b3ad37866f614fc9ae2d987c8504b1b708d1"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/calendarios.csv",
+      "bytes": 25173,
+      "sha256": "8989404dfae547693c481a1159135ca02fd8f289f0a62f2c4bb33f3fbcf47d57",
+      "git_blob_sha": "0322a27ac611af47a490333165e6840d955db3f9"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/calendarios.json",
+      "bytes": 103347,
+      "sha256": "24bf4987fc3bd2dd9511e0d227b29d14c29f56f83856f39047f3d811fa37f1c3",
+      "git_blob_sha": "08e2902d28c416e25ea79110855474db8ec24cc9"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/comparacion_hidrica.png",
+      "bytes": 45007,
+      "sha256": "922ec70dfb5499fe1d749fc6b902d8b877c8c7f0d328cc1be686399c60a69d3e",
+      "git_blob_sha": "57db51deeed12d77e677f3a8335a4391147f4e25"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/comparacion_pareada.csv.gz",
+      "bytes": 33553,
+      "sha256": "722c020b6d7a1fedf387a7595767ba71755f1099efe8d305b8eb451b5f0cf576",
+      "git_blob_sha": "376a9d8b2522e6a1256379a776c6de34e66b64a7"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/escenarios.csv.gz",
+      "bytes": 215269,
+      "sha256": "838d66444e638aa4268df2e31283b8145edbc8a83a70e3abbee19447ff48cf61",
+      "git_blob_sha": "8b3a71b60d0a4d5451cfbfc411b79555fef540d5"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/escenarios.json.gz",
+      "bytes": 338802,
+      "sha256": "b365d4ef684083af7b72a0ecf86a498845b74e32451839650276257feb9248a6",
+      "git_blob_sha": "7cb43e61d555a3135237077a7ecfeb6a7dbf2e24"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/exposicion_climatica.csv.gz",
+      "bytes": 4154,
+      "sha256": "65d88b5101b9f656e412efa92130e387e57543bf6731609957e4e08e4f392b63",
+      "git_blob_sha": "d9e0a21bd01c3c4c806167194785df9c7faaba7d"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/exposicion_referencia.csv",
+      "bytes": 2301,
+      "sha256": "65a40e2fbd603dc6e85388cba1d097a7feb016313e1a9650b7ffe9c99e1ec635",
+      "git_blob_sha": "4a9e0702f9ce3fdeeb793270e66139ae8ea879fa"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/intervalos_referencia.csv",
+      "bytes": 559,
+      "sha256": "8561cf2a0f8982c273ca18816afb7bbffd499b5a715b57158b75d452593d0d8e",
+      "git_blob_sha": "e18297417ba6e12aad1db0ba6b8c62ce2af814b1"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/README.md",
+      "bytes": 8549,
+      "sha256": "b3afbff1bc0f4a19064b4dc5ab159e0855249eb867000e447383f54984be8e3a",
+      "git_blob_sha": "ab93e3f5f75f3bfdbfb655eb8ffcf99e9f785ace"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/referencia.csv",
+      "bytes": 6977,
+      "sha256": "fe1dc0563108010402d3d1fbe08e19a4470831cdba6644a238428ec525f28fb5",
+      "git_blob_sha": "35ef036997ac328a23818a1b8437c94966f527ff"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/referencia.json",
+      "bytes": 33664,
+      "sha256": "9b1c0ba8c3ce96554d361b3e1bdbc668e70b10fd5b200970eff2a45e253d6f45",
+      "git_blob_sha": "8aa3c3eadf23d349dcf4fff9dc48b7375607dd6d"
+    },
+    {
+      "ruta": "parejas/maiz_cebolla/resumen.json",
+      "bytes": 683,
+      "sha256": "6766c7b0d967bcd45a7ceec5374461ee330d367fa254bded7aadb7616ed6b86c",
+      "git_blob_sha": "01b284e8509e346c34a610f0f55b3c7d86d46d8b"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/balances_referencia.csv.gz",
+      "bytes": 154757,
+      "sha256": "df5668fe10834a881adcf48d8884bd5ca099c6908af0f40cf00c4cd8f9e94651",
+      "git_blob_sha": "7bd6dab78ce7551177b033217f45398ecba34767"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/calendarios.csv",
+      "bytes": 24931,
+      "sha256": "d058c770b3438d52b8e5b77551e4223cb918707ddfb86c81ef1cba07770bb9aa",
+      "git_blob_sha": "1e2a8c40d3e3fb500baa3a02dfc9fefef0ebedf1"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/calendarios.json",
+      "bytes": 103105,
+      "sha256": "d8acb5774f2345f19b1abd3dd80898810c3529b27c642137dc64c4bea333d1c5",
+      "git_blob_sha": "baaa441e9c614a6b2c70c30e50221ba41e993496"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/comparacion_hidrica.png",
+      "bytes": 45293,
+      "sha256": "b120b2ecb9e5178a78f376b9c30b7cada29b2e9e9c64fdb674b65ae521a41cde",
+      "git_blob_sha": "b1e2d9fd4621e95804c59c007c3314f91b5316b3"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/comparacion_pareada.csv.gz",
+      "bytes": 92294,
+      "sha256": "f5d7cf3234fe183ac35e326c05e24159243d6ea225783a520b78813d40022164",
+      "git_blob_sha": "a05744184fc0ffdee519357d72fc7e30775c7460"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/escenarios.csv.gz",
+      "bytes": 616965,
+      "sha256": "08293f8d0c1e2108852079b09240abea064f6c57511b0bb88b6d4ac91fdb1d1f",
+      "git_blob_sha": "a5182f7bd1b1a9c273398fff5a62e22ef072e10f"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/escenarios.json.gz",
+      "bytes": 977543,
+      "sha256": "3a7cfe713dc59bc02d257f90dc684e514e961cd4e1321b5062fdbde4e5f9a308",
+      "git_blob_sha": "4d35d577389c148a367b6f39a6c6b3414b322779"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/exposicion_climatica.csv.gz",
+      "bytes": 11187,
+      "sha256": "a983b643f11134c4524d82fb13a762f5fec3377b12d0bb1a3739a5ed327bd00d",
+      "git_blob_sha": "1d9938408d6ec051aa67763bd0feb1bc0e91b754"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/exposicion_referencia.csv",
+      "bytes": 2284,
+      "sha256": "d895bb745250b5ff6b0c5ec26b0983a780cced7b3a2441da08044679d2522b54",
+      "git_blob_sha": "e1dd5b53af69c93245ecd0a8bae987d542756de6"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/intervalos_referencia.csv",
+      "bytes": 546,
+      "sha256": "b4108596bcd46d9a7a0fd2113abdeb6ee5ac20c6e9d50071ac1f797fab6dfd8c",
+      "git_blob_sha": "485069376c8d075d8e145acbfc8b2cd141f9da9a"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/README.md",
+      "bytes": 8667,
+      "sha256": "c07350a1391bb312ea87a12f001b414e46f64911fa76f461a6bc2450438efa5a",
+      "git_blob_sha": "5915328f7208f63e15bbbac5cf1cfad76046fc5d"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/referencia.csv",
+      "bytes": 6999,
+      "sha256": "5758c53d4bf42b2f33001dfa16e371ffcc4c6ab9645ca0481ec54aa6238d4d05",
+      "git_blob_sha": "b0f8743e45b91b3588fe1fbff108d265fab63375"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/referencia.json",
+      "bytes": 33866,
+      "sha256": "75caab5a4af5501be1832a83d06a6d53b94ca05f548af3fff075753f0e02332c",
+      "git_blob_sha": "1afce2bdd7d8171c9a4b609a99fcdf36fbb3903d"
+    },
+    {
+      "ruta": "parejas/maiz_lechuga/resumen.json",
+      "bytes": 686,
+      "sha256": "de0244dcc43b7656f553970a9fb398200948606fa93bcc85ad7bb69641f5c976",
+      "git_blob_sha": "f9f08e0fa41ecdff05ae19d2cbad68864f9bd768"
+    },
+    {
+      "ruta": "parejas/maiz_papa/balances_referencia.csv.gz",
+      "bytes": 159205,
+      "sha256": "1986b6e539aff192686de2d8216dad1f28c80d93388e41d716145e6adb87f5e1",
+      "git_blob_sha": "1c13980bbe935294619d331c7394bf2df4c65ac4"
+    },
+    {
+      "ruta": "parejas/maiz_papa/calendarios.csv",
+      "bytes": 24126,
+      "sha256": "cda9df1f027fbf3bef1bda4cd425ff1e4df433224269fb352ad370dc71b141e8",
+      "git_blob_sha": "9de7b3b2172f3eb865633fcede8f4f21e3ef1eaf"
+    },
+    {
+      "ruta": "parejas/maiz_papa/calendarios.json",
+      "bytes": 101295,
+      "sha256": "fb449cf8e2e74a09911560cdaff4e307da8c76765a53e14ac367226867653f0e",
+      "git_blob_sha": "757ddba59f52df5a2d810d236476eb882e24c56a"
+    },
+    {
+      "ruta": "parejas/maiz_papa/comparacion_hidrica.png",
+      "bytes": 44138,
+      "sha256": "14af44fd81dbe8336fb36f4466325aebbfeeb7160a1200d83ec75a32b689a753",
+      "git_blob_sha": "01712dd936d7cdd49a5f347f26d5320245b34953"
+    },
+    {
+      "ruta": "parejas/maiz_papa/comparacion_pareada.csv.gz",
+      "bytes": 64595,
+      "sha256": "e6d63a08fbbdb1533514892052a991c6ebb7ba5a2a393219e7a0ae4ba7ffa7b1",
+      "git_blob_sha": "21a5ae698417eb375ddbf281999d70aad8e2e069"
+    },
+    {
+      "ruta": "parejas/maiz_papa/escenarios.csv.gz",
+      "bytes": 423168,
+      "sha256": "ba8d9e79ad3a87a182d8568ac929bdb816fafbea09a9ad0ffb4d3e6f11ede56e",
+      "git_blob_sha": "6cd2f78b6ea81169c94045d898c3faa77d9fcfee"
+    },
+    {
+      "ruta": "parejas/maiz_papa/escenarios.json.gz",
+      "bytes": 666330,
+      "sha256": "da3affedce9e63783faf3784f21bcf1cb9efa3298409baa1b192e74e1d581536",
+      "git_blob_sha": "e7db146a9b0ec07f8cb7bf9905ff1e8950b08626"
+    },
+    {
+      "ruta": "parejas/maiz_papa/exposicion_climatica.csv.gz",
+      "bytes": 7577,
+      "sha256": "9f85e9018d6f431fa7af402040568d145079d760a0b7b65f325081827e74f4b0",
+      "git_blob_sha": "f7cd06cec92cb700aa0429754bf28f3ddda18058"
+    },
+    {
+      "ruta": "parejas/maiz_papa/exposicion_referencia.csv",
+      "bytes": 2264,
+      "sha256": "314d914cdf8ee208eb3e03767e1440310bcbd9a1b21b94561164c9a7ad6f645c",
+      "git_blob_sha": "b376a3a0827513dc61075d2c8ac367fccd9566e1"
+    },
+    {
+      "ruta": "parejas/maiz_papa/intervalos_referencia.csv",
+      "bytes": 524,
+      "sha256": "9286de6bd547b0ce20080842399f23f875eb002f04c2a0710c038146835276d0",
+      "git_blob_sha": "1faffe35df6452961e24eaece2e3f8699db924ac"
+    },
+    {
+      "ruta": "parejas/maiz_papa/README.md",
+      "bytes": 8676,
+      "sha256": "20e83e5a64ad1699bfd9fe98f7e02185bbf71b84ca80c25c4d30cf43cac6d8b5",
+      "git_blob_sha": "98f49f04c6d644d89c2328ae7b0af4c17f4b04d0"
+    },
+    {
+      "ruta": "parejas/maiz_papa/referencia.csv",
+      "bytes": 6876,
+      "sha256": "05f552e185e2fd8a5514aeb77be2efdefb379e77560ac46c1d67bf1659c35967",
+      "git_blob_sha": "94bb27a40b30d2f350e3bca3b1fba2ea3c7b24ef"
+    },
+    {
+      "ruta": "parejas/maiz_papa/referencia.json",
+      "bytes": 33311,
+      "sha256": "0cd457e858f27c5465603d426b1b03a56de73fc3faa28f9f3b1213014f18afc4",
+      "git_blob_sha": "0f245612798cedfd808cde75fbe5f492088580e5"
+    },
+    {
+      "ruta": "parejas/maiz_papa/resumen.json",
+      "bytes": 672,
+      "sha256": "3338de7092f32743e1e19ec27453c3e6888d741d5d5822cdc1ebf39ffe3aa4d4",
+      "git_blob_sha": "60c3e118cd99d7f321afffbc1391405f91158972"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/balances_referencia.csv.gz",
+      "bytes": 169386,
+      "sha256": "7eafb818d6dc41b2691ae58c4cc6e9bb7c16a352d407ae4dbd62478a44765c73",
+      "git_blob_sha": "a31f8a70e4bd4299ad80f2bd4055500eb6d122fc"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/calendarios.csv",
+      "bytes": 37539,
+      "sha256": "b4b7800fb42fbc07d6453aab8e0d3b9c2854f0f572033a3fafb14d8066a50e4e",
+      "git_blob_sha": "9524e1e41a4702db6cfd9a9fd91b27d90064087b"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/calendarios.json",
+      "bytes": 154857,
+      "sha256": "d818bd5108d00d942f785aa5cae826020ed53a479d912975a07342cdd6b2912c",
+      "git_blob_sha": "659411d12ad6709a3cb51a7fe08852bbbd5f767a"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/comparacion_hidrica.png",
+      "bytes": 44799,
+      "sha256": "155ba71c9aa094a05316201145e8a11bf010d677d484a6abbd4866667adcd5b7",
+      "git_blob_sha": "8e2f3e3660feabb6bd3d008a46625d0d2d9201ea"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/comparacion_pareada.csv.gz",
+      "bytes": 113354,
+      "sha256": "870cd138ae5a0df311a20bcb3c36a9471f0953a9c6a5abbcedd35e5867062268",
+      "git_blob_sha": "14e8182102a934bb0899652067b72de009eb7cc5"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/escenarios.csv.gz",
+      "bytes": 760246,
+      "sha256": "6b7168f663e16937a915eccbc23248c54f1f9a7a1d05fb9c53267d38b68ee7f8",
+      "git_blob_sha": "6744c084134bf7927f3cad6a8a0b783e5869e8db"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/escenarios.json.gz",
+      "bytes": 1200803,
+      "sha256": "da400e494c22a6db005e0005e32fa89435390d830432905737fa4c3f83a15411",
+      "git_blob_sha": "9b67570e5f5097bc240ff587c1a33d89937cfd0e"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/exposicion_climatica.csv.gz",
+      "bytes": 12225,
+      "sha256": "94d16213bc0c879e657c65e3f001a9242e91ac16b2dc198a5ba881b5da6fe13d",
+      "git_blob_sha": "db4291b44e4d704d3f00ea68de64d7c46c5a6271"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/exposicion_referencia.csv",
+      "bytes": 2324,
+      "sha256": "63c2a611a820cb067ababd1f8ac8d83df2911d73aa13a84531e15fea68935a57",
+      "git_blob_sha": "11c6a585bee588abea9b5e3b1386f79cd0595950"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/intervalos_referencia.csv",
+      "bytes": 548,
+      "sha256": "0f1734ca5b4214c3c408b240051cb31030ff5488501e3a0065da33d0a774232d",
+      "git_blob_sha": "8dada6527717de55480d648523807f586329bdb7"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/README.md",
+      "bytes": 8946,
+      "sha256": "37a3177a7a32a91e90d66fd0523dbb0313e8591c5af24f97f3669d3794db8a82",
+      "git_blob_sha": "a09dee7a0efd35d5c00289ebc69ea088d83d2bf0"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/referencia.csv",
+      "bytes": 7072,
+      "sha256": "e5bc53b87516ceeb3c630439c0706034fa2f5e8664b398af5f0779518c977caf",
+      "git_blob_sha": "2e6e71160cabb0bcfef266d558efe4d088ffb55d"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/referencia.json",
+      "bytes": 33853,
+      "sha256": "cf2a8a3e412481dfb2211c783e0d74bf059c02cf9fb83c2da21a1acfadd93541",
+      "git_blob_sha": "1ec222b296ab5f4642682879907af85f4b15f4a8"
+    },
+    {
+      "ruta": "parejas/papa_brocoli/resumen.json",
+      "bytes": 687,
+      "sha256": "58ca6916232486e34e73b41c1d922ac66d88c4b75a235f9cbdbe30a7c506c46f",
+      "git_blob_sha": "9a0afae0129a535454040b76d708ae2018e0094e"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/balances_referencia.csv.gz",
+      "bytes": 165134,
+      "sha256": "22484a700069f0c26ff9b37796dd11df27c90630a55a5cc37d6df92d593a6612",
+      "git_blob_sha": "bcc8087c60345300452028f9a73d39ec4357dbdc"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/calendarios.csv",
+      "bytes": 25115,
+      "sha256": "a5c7bf948a9efc4873931297e3b710e3d77d9fc2fa9365db2b0a8036478ea6ff",
+      "git_blob_sha": "41068f255347c31134e9ba04c7d595e9480b58c7"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/calendarios.json",
+      "bytes": 103289,
+      "sha256": "d9fe7ab6c92123a8e7bcfe73e2e98a0f6b8ac73b70e4a3f2a9f5b39f7e49e6af",
+      "git_blob_sha": "6a39a3cdab398383912e826cda23bd38ca935fac"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/comparacion_hidrica.png",
+      "bytes": 45515,
+      "sha256": "72bfdc09807467efc3ee9a02b6676a5eec1066be197d44239a01c5fbed80f5a9",
+      "git_blob_sha": "4795ad1555344db6f1275e21002d1e66b3211d12"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/comparacion_pareada.csv.gz",
+      "bytes": 81313,
+      "sha256": "efb01ced5d466e721ba4e2dfe4007e864bb6ed692991740357ddd2649b4663a8",
+      "git_blob_sha": "b69b8faa5cbe598ffcbba732b49ad6f9ae939878"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/escenarios.csv.gz",
+      "bytes": 544795,
+      "sha256": "872aff1466ca4b9241af1ae851df9928dfa7614330b48f706c3b9e8fc50f79e5",
+      "git_blob_sha": "40dfddb819d7978e04c14a999243ddd19b9736f4"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/escenarios.json.gz",
+      "bytes": 858207,
+      "sha256": "bf13ab03e92919b23488892aded98309cb8d62ced92df507e8ea029ad63f406a",
+      "git_blob_sha": "c58a43ea5b1997d2fd75da3099fbacb2360beb0a"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/exposicion_climatica.csv.gz",
+      "bytes": 9655,
+      "sha256": "a00697f390203486614c25f94c803e40631fa4cac873962fefc406f363e38009",
+      "git_blob_sha": "a0db8636bc0b4eeb0f8ab6c420062450b948bddb"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/exposicion_referencia.csv",
+      "bytes": 2339,
+      "sha256": "35ec2c99d1baf783968347b1598c96b840faa5fed04eda0ed0f3dbc2ac54ea4a",
+      "git_blob_sha": "079dda89975d809a6c25b17a8c20b5eb366c310a"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/intervalos_referencia.csv",
+      "bytes": 545,
+      "sha256": "f71e027ffc7b8f2a62bff29c8648810edeb5d5cf005fc2bceaddd264ea964aa2",
+      "git_blob_sha": "30bd3c06b69668ca7ce1ccf5b43514362d62ba3f"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/README.md",
+      "bytes": 8759,
+      "sha256": "492685091a2f50fd97242acd0c95900355dcf73aeca12cd05fa414cc95a306c7",
+      "git_blob_sha": "987259459a724472a982b367626b2e9d4695c6e0"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/referencia.csv",
+      "bytes": 7061,
+      "sha256": "f27867eadff05ba47884249868ec6ce0f944643d9381bf3e27d3091d40f291f3",
+      "git_blob_sha": "7adeee10732e94a791edec5ce9f4ec0346cd683e"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/referencia.json",
+      "bytes": 33858,
+      "sha256": "7643cd996b99e58ce180a44b010622dc4eb2e7130b7a321739c95c130ebf594a",
+      "git_blob_sha": "8a0f6c4553edd30c372bee321bf69bdcb9ef970e"
+    },
+    {
+      "ruta": "parejas/papa_lechuga/resumen.json",
+      "bytes": 685,
+      "sha256": "d5e14067a5b02e74b933abaab5c6adb74180e12fc0b476ea61afb38966eae217",
+      "git_blob_sha": "31157b40e89aa0fe81fa60da7e8c8d26514315ff"
+    },
+    {
+      "ruta": "README.md",
+      "bytes": 11726,
+      "sha256": "f39c06ad7ff4ee6f7af18a6b546e6f3f36e3d19e3a090a30cd8b229d19a15402",
+      "git_blob_sha": "bb0a240038039704167b30d2c1cc345bd551603e"
+    },
+    {
+      "ruta": "requirements-simulacion.txt",
+      "bytes": 195,
+      "sha256": "4c8ab871bfc979af304848b467c8526f34c975c533cbaf1319e47dacb5bd2946",
+      "git_blob_sha": "7f1458b2aad4639ad8b0e0bef545abe7260646ed"
+    },
+    {
+      "ruta": "resultados/cobertura_42_sucesiones.csv",
+      "bytes": 4994,
+      "sha256": "92593e9d8e1abf66dd3c574751504c7a9daf5cf19e7304066929c5b8a3f7fe1e",
+      "git_blob_sha": "ae7908da53d7e5632db0fe1fd3ab23c2f5e651ea"
+    },
+    {
+      "ruta": "resultados/cobertura_42_sucesiones.json",
+      "bytes": 10105,
+      "sha256": "90bb1915b5ce6650323790d81db53724cb5d1332dbdd690fb9b294d3062f513f",
+      "git_blob_sha": "5431da0d85a55c254af23b0085ccdf72a5514f99"
+    },
+    {
+      "ruta": "resultados/episodios_2025.json",
+      "bytes": 6198,
+      "sha256": "1943010c17dfe695814a554f3e74ddc5427d3ee0f33b30d06c09c78743b468f7",
+      "git_blob_sha": "3186b339680b144e5e50398e44eb56369c8c668d"
+    },
+    {
+      "ruta": "resultados/matriz_cobertura.png",
+      "bytes": 79630,
+      "sha256": "c3461e4d6a592652592fc001df1b0d8c5f234e96c0ddd2e59fb26cbf61bb1504",
+      "git_blob_sha": "f3a9cf52ebf103851a93023e14d77d558b1bf8fb"
+    },
+    {
+      "ruta": "resultados/metodo_y_validacion.json",
+      "bytes": 17649,
+      "sha256": "4168198e99227ad648b0e6545a78a4d5b49c8e119cda5058e5cf17827406c51f",
+      "git_blob_sha": "546270913e2a985f325ba26b65177dfc2bec5629"
+    },
+    {
+      "ruta": "resultados/resumen_general.json",
+      "bytes": 14110,
+      "sha256": "b2cbed51dd38457dd8d641aedd47d64408854f197e543ec2f97614e01d385a36",
+      "git_blob_sha": "3389ea2ed41c9d5568a8f402f3bc86a89aa0fcb2"
+    },
+    {
+      "ruta": "resultados/resumen_mensual.csv",
+      "bytes": 1675,
+      "sha256": "490c73ed11d6ebf8990e0528c0961ade5805e898e466767098ff97ebcb636ca5",
+      "git_blob_sha": "c1a17671a3c04c8fa3cdae9739a9e7085f5ce75b"
+    },
+    {
+      "ruta": "scripts/auditar_7_cultivos_2025.py",
+      "bytes": 12525,
+      "sha256": "29d41318919a65c97234b1462bb405b178f05f60b018f8a41c295e6bb28b0fee",
+      "git_blob_sha": "d04e4c997f17728063f13bf2e495e8900585365c"
+    },
+    {
+      "ruta": "scripts/descargar_escenario_chiquimula_2025.cjs",
+      "bytes": 4092,
+      "sha256": "25004812f54d5cd213b165eb64f1c2c184f3f88c9160b625e390c127717372ff",
+      "git_blob_sha": "3ee6c465471558719741c786554673cd85f8d872"
+    },
+    {
+      "ruta": "scripts/descargar_suelo_escenario_2025.cjs",
+      "bytes": 1846,
+      "sha256": "548c2f9ac325c28abbdfaa3898ceea705f6ee65f7855069b9489a2e79a2d071c",
+      "git_blob_sha": "c112e3ddaba1104efcef4a6dd69939ced8a63f99"
+    },
+    {
+      "ruta": "scripts/motor_hidrico_base.py",
+      "bytes": 17248,
+      "sha256": "dfb40cb8b9a209a1c20baf5f16282eb0218f0a98b19da47b958c1e8baa37ab53",
+      "git_blob_sha": "4f6e03198dec9db8d3fe4a195d1a669e6a21e034"
+    },
+    {
+      "ruta": "scripts/motor_vectorizado.py",
+      "bytes": 6139,
+      "sha256": "5160bd39aa73a67337767800e0a541601781dd65b84f28d22a86d1af76b1b6d7",
+      "git_blob_sha": "9d2de4db17985d7493b5ed7adeefe98cd1d568af"
+    },
+    {
+      "ruta": "scripts/redactar_informes.py",
+      "bytes": 24045,
+      "sha256": "95d3a1727ba172c405968e377d0b2d686424269a11bebf33ab2a3f21ac619ad0",
+      "git_blob_sha": "3be6a9a7aa3c87a0c03b200e6b08e6640e03e072"
+    },
+    {
+      "ruta": "scripts/verificar_paquete.py",
+      "bytes": 7515,
+      "sha256": "4442b4c7d7c3c053ac9284c9d283606e7f56b2cc036bfbfb99334e8032bcd3ca",
+      "git_blob_sha": "b3cf4a53f59de18d8f7e9276fa57ee6ab8f320d2"
+    },
+    {
+      "ruta": "tests/referencias_publicadas.json",
+      "bytes": 127469,
+      "sha256": "92bbc3e64b3a46cd5f3a592e7e66cc13329fcca34770356ccb23e6496d0ecb91",
+      "git_blob_sha": "cd7ca1b81a0256c10a0eda91ce8d8648fbe11104"
+    },
+    {
+      "ruta": "tests/test_auditoria.py",
+      "bytes": 6546,
+      "sha256": "c2a7a5ff919033f2aa5363ac2d4c3dc9a4aa3e0dd053eab15659e37ab0e74728",
+      "git_blob_sha": "e5a96b8b5776283efa322fb683c22930d191b782"
+    }
+  ]
+}

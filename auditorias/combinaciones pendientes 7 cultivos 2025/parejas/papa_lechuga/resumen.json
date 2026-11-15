@@ -1,0 +1,26 @@
+{
+  "pareja": "papa_lechuga",
+  "cultivos": [
+    "papa",
+    "lechuga"
+  ],
+  "sucesiones": [
+    "papa → lechuga",
+    "lechuga → papa"
+  ],
+  "programas": 168,
+  "completos_2025": 92,
+  "inconclusos_sin_simular": 76,
+  "corridas": 13248,
+  "pares": 6624,
+  "pares_secano": 3312,
+  "inverso_mayor_deficit": 1035,
+  "inverso_menor_deficit": 2277,
+  "pares_en_tolerancia": 0,
+  "tolerancia_mm": 0.0001,
+  "pasos_diarios": 4835520,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "registros_balance_referencia": 5840,
+  "cobertura": "ambas_direcciones_evaluadas_exploratoriamente",
+  "decision_compatibilidad": "requiere_evaluacion_local_y_sanitaria"
+}
