@@ -1,0 +1,24 @@
+{
+  "actions": [
+    {
+      "id": "ejemplo_rotacion",
+      "site": "chiquimula",
+      "year": 2021,
+      "texture": "loam",
+      "slopeClass": "flat",
+      "irrigation": "none",
+      "sequenceId": "actual",
+      "sowOffsetDays": 10
+    },
+    {
+      "id": "ejemplo_un_cultivo",
+      "site": "jutiapa",
+      "year": 2020,
+      "soil": "site",
+      "slopeClass": "flat",
+      "irrigation": "none",
+      "crop": "maiz",
+      "sowDate": "06-05"
+    }
+  ]
+}
