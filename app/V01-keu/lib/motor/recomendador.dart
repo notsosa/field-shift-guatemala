@@ -17,6 +17,9 @@ enum Aviso { registroPendiente, climaViejo, plaga, fertilizar, fertilizarEnEsper
 /// para abonar (el productor no fertiliza si no llueve).
 const lluviaMinimaParaAbonar = 1.0;
 
+/// Días de retraso de publicación del clima que se consideran normales.
+const _retrasoNormalDias = 5;
+
 enum Precision { baja, media, alta }
 
 class Recomendacion {
@@ -191,7 +194,14 @@ Recomendacion recomendar({
   // si es más larga).
   final racha = dias.reversed.takeWhile((d) => d.estimado).length;
   final diasEstimados = dias.reversed.take(racha > 14 ? racha : 14).where((d) => d.estimado).length;
-  final estimadoEstaSemana = dias.reversed.take(7).any((d) => d.estimado);
+  // El retraso normal de publicación de NASA POWER (hasta 5 días tras el último
+  // día con clima) no baja la precisión; un hueco dentro de lo observado, una
+  // lluvia faltante o un retraso mayor sí.
+  final completos = clima.where((d) => d.completo).map((d) => soloFecha(d.fecha));
+  final ultimoCompleto = completos.isEmpty ? null : completos.reduce((a, b) => a.isAfter(b) ? a : b);
+  final retraso = ultimoCompleto == null ? 0 : soloFecha(hoy).difference(ultimoCompleto).inDays;
+  final estimadoEstaSemana = dias.reversed.take(7).any(
+      (d) => d.estimado && (retraso > _retrasoNormalDias || ultimoCompleto == null || !d.fecha.isAfter(ultimoCompleto)));
 
   final NivelAgua nivel;
   if (actual.etapa == Etapa.cosechado) {

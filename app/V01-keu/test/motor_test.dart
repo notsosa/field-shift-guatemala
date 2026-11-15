@@ -310,10 +310,23 @@ void main() {
         expect(r.precision, Precision.alta);
       });
 
-      test('los días sin ningún dato en la última semana también bajan la precisión', () {
-        final r = con(_clima(45, DateTime(2026, 6, 1), lluvia: 3));
-        expect(r.diasEstimados, 5);
+      test('el retraso normal de publicación (3 a 4 días) no baja la precisión: sigue alta', () {
+        final r = con(_clima(46, DateTime(2026, 6, 1), lluvia: 3)); // el dato llega hasta el 16 de julio
+        expect(r.diasEstimados, 4);
+        expect(r.precision, Precision.alta);
+      });
+
+      test('un retraso de siete días sí baja la precisión', () {
+        final r = con(_clima(43, DateTime(2026, 6, 1), lluvia: 3)); // el dato llega hasta el 13 de julio
+        expect(r.diasEstimados, 7);
         expect(r.precision.index, lessThan(Precision.alta.index));
+      });
+
+      test('un hueco dentro del rango observado en la última semana baja la precisión', () {
+        final completo = _clima(50, DateTime(2026, 6, 1), lluvia: 3);
+        final r = con([for (final d in completo) if (d.fecha != DateTime(2026, 7, 16)) d]);
+        expect(r.diasEstimados, 1);
+        expect(r.precision, Precision.media);
       });
     });
   });
