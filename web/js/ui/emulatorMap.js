@@ -2,7 +2,7 @@
 // con paleta divergente apta para daltonismo centrada en 0 (azul = mejor, rojo = peor, gris = igual).
 import { encodeFeatures } from '../model/emulator.js';
 import { median, clamp01 } from './bestSowing.js';
-import { t, fmtDiff, fmtError, fmtNumber, TARGET_META } from './emulatorStrings.js';
+import { t, fmtDiff, fmtError, fmtNumber, locale, TARGET_META } from './emulatorStrings.js';
 
 /** De "peor" a "mejor": rojo → gris neutro → azul (dos tonos opuestos, mismo número de pasos por brazo). */
 export const DIVERGING_STOPS = ['#a3262a', '#e34948', '#f2aca7', '#f0efec', '#9ec5f4', '#3987e5', '#184f95'];
@@ -67,18 +67,68 @@ export function niceLimit(x) {
 }
 
 /** Límite simétrico de la escala en unidades del objetivo (al menos 2× la banda de "casi igual"). */
-export function scaleLimit(values, targetId) {
+export function scaleLimit(values, targetId, band = TARGET_META[targetId].same) {
   const m = TARGET_META[targetId];
   const maxAbs = Math.max(0, ...values.map((v) => Math.abs(v.median ?? 0)));
-  return niceLimit(Math.max(maxAbs, 2 * m.same) * m.scale) / m.scale;
+  return niceLimit(Math.max(maxAbs, 2 * band) * m.scale) / m.scale;
+}
+
+/**
+ * Banda de "casi igual" del mapa = RMSE medido de la diferencia alternativa − actual (emulator_eval.json → diffError)
+ * para ese modelo, alternativa y objetivo. Si falta, se usa la banda fija del objetivo (measured: false).
+ */
+export function diffBand(evalJson, modelKey, alternative, targetId) {
+  const d = evalJson.diffError?.[modelKey]?.[alternative]?.[targetId];
+  if (d && Number.isFinite(d.rmse)) return { band: d.rmse, signAgreement: d.signAgreement ?? null, measured: true };
+  return { band: TARGET_META[targetId].same, signAgreement: null, measured: false };
+}
+
+/**
+ * Municipios que comparten celda de temperatura de NASA POWER (weatherMates de grid_features.json):
+ * grupos en orden de aparición, los de celda > 1,500 m y los de entradas idénticas (identicalMates).
+ */
+export function cellGroups(points, highM = 1500) {
+  const ids = new Set(points.map((p) => p.id));
+  const groupOf = (p, key) => [p.id, ...(p[key] ?? []).filter((id) => ids.has(id))];
+  const collect = (key) => {
+    const seen = new Set();
+    const out = [];
+    for (const p of points) {
+      if (seen.has(p.id) || !(p[key] ?? []).some((id) => ids.has(id))) continue;
+      const g = groupOf(p, key);
+      g.forEach((id) => seen.add(id));
+      out.push({ ids: g, elevation: p.elevation });
+    }
+    return { out, seen };
+  };
+  const w = collect('weatherMates');
+  return {
+    nShared: w.seen.size,
+    groups: w.out,
+    high: w.out.filter((g) => g.elevation > highM),
+    identical: collect('identicalMates').out.map((g) => g.ids),
+  };
+}
+
+const listNames = (lang, names) => new Intl.ListFormat(locale(lang), { type: 'conjunction' }).format(names);
+
+/** Líneas del tooltip sobre la celda de clima del punto. byId: Map id → punto (para los nombres). */
+export function cellLines(lang, point, byId) {
+  const names = (list) => listNames(lang, (list ?? []).filter((id) => byId.has(id)).map((id) => byId.get(id).name));
+  const elev = fmtNumber(lang, point.elevation, 0);
+  const lines = [];
+  if ((point.weatherMates ?? []).some((id) => byId.has(id))) lines.push(t(lang, 'tipSharedCell', { mates: names(point.weatherMates), elev }));
+  else lines.push(t(lang, 'tipOwnCell', { elev }));
+  if ((point.identicalMates ?? []).some((id) => byId.has(id))) lines.push(t(lang, 'tipIdentical', { mates: names(point.identicalMates) }));
+  return lines;
 }
 
 /** Signo de "mejor": +1 si un valor mayor es mejor, −1 si menor es mejor (suelo desnudo). */
 export const betterSign = (targetId) => (TARGET_META[targetId].higherIsBetter ? 1 : -1);
 
-/** Cuenta mejor / casi igual / peor y los extremos (en sentido de "mejor"). */
-export function summarize(values, targetId) {
-  const sg = betterSign(targetId), band = TARGET_META[targetId].same;
+/** Cuenta mejor / casi igual / peor y los extremos (en sentido de "mejor"); band = mitad del ancho de "casi igual". */
+export function summarize(values, targetId, band = TARGET_META[targetId].same) {
+  const sg = betterSign(targetId);
   const ok = values.filter((v) => v.median != null);
   const sorted = [...ok].sort((a, b) => sg * b.median - sg * a.median);
   return {
@@ -93,6 +143,22 @@ export function summarize(values, targetId) {
 }
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/**
+ * Dirección y desplazamiento del tooltip de un círculo en (x, y) dentro de un mapa w×h, para que no lo recorte la caja.
+ * El tooltip mide hasta ~TIP_H de alto y ~2·TIP_HALF_W de ancho: cerca del borde de arriba o de abajo se abre hacia
+ * el otro lado y se corre en horizontal lo justo para caber; en medio se abre hacia el lado con más espacio.
+ */
+const TIP_H = 170, TIP_HALF_W = 130;
+export function tooltipAim(x, y, w, h) {
+  const vertical = y < TIP_H ? 'bottom' : y > h - TIP_H ? 'top' : null;
+  if (vertical || (x >= TIP_HALF_W && x <= w - TIP_HALF_W)) {
+    const direction = vertical ?? 'top';
+    const dx = x < TIP_HALF_W ? TIP_HALF_W - x : x > w - TIP_HALF_W ? w - TIP_HALF_W - x : 0;
+    return { direction, offset: [Math.round(dx), direction === 'bottom' ? 10 : -10] };
+  }
+  return x < TIP_HALF_W ? { direction: 'right', offset: [12, 0] } : { direction: 'left', offset: [-12, 0] };
+}
 
 /** Crea el mapa Leaflet (base OSM) con un círculo por punto; anillo punteado si el punto quedó fuera del entrenamiento. */
 export function createEmulatorMap(el, points) {
@@ -113,13 +179,11 @@ export function createEmulatorMap(el, points) {
     dots.set(p.id, dot);
   }
   // El mapa recorta lo que sale de su caja: cerca de un borde el tooltip se abre hacia el lado contrario.
-  const AIM = { top: [0, -10], bottom: [0, 10], left: [-12, 0], right: [12, 0] };
   const aimTooltips = () => {
-    const { x: w } = map.getSize();
+    const { x: w, y: h } = map.getSize();
     for (const dot of dots.values()) {
       const { x, y } = map.latLngToContainerPoint(dot.getLatLng());
-      const direction = x > w - 140 ? 'left' : x < 140 ? 'right' : y < 120 ? 'bottom' : 'top';
-      Object.assign(dot.getTooltip().options, { direction, offset: AIM[direction] });
+      Object.assign(dot.getTooltip().options, tooltipAim(x, y, w, h));
     }
   };
   aimTooltips();
@@ -130,6 +194,7 @@ export function createEmulatorMap(el, points) {
 /** Pinta los círculos y sus tooltips. values = null → sin dato (gris), p. ej. alternativa que exige riego. */
 export function paintMap(ctrl, points, values, { lang, targetId, limit }) {
   const byId = new Map((values ?? []).map((v) => [v.point.id, v]));
+  const pointsById = new Map(points.map((p) => [p.id, p]));
   const sg = betterSign(targetId);
   for (const p of points) {
     const v = byId.get(p.id);
@@ -142,13 +207,14 @@ export function paintMap(ctrl, points, values, { lang, targetId, limit }) {
     dot.setTooltipContent(
       `<strong>${esc(p.name)}</strong><span class="tip-dept">${esc(p.department)}</span>`
       + `<span class="tip-target">${esc(t(lang, `target_${targetId}`))}</span>${valueLine}`
-      + `<span class="tip-train">${esc(t(lang, p.heldOut ? 'tipHeldOut' : 'tipTrained'))}</span>`,
+      + `<span class="tip-train">${esc(t(lang, p.heldOut ? 'tipHeldOut' : 'tipTrained'))}</span>`
+      + cellLines(lang, p, pointsById).map((s) => `<span class="tip-cell">${esc(s)}</span>`).join(''),
     );
   }
 }
 
 /** Leyenda: barra divergente con extremos "peor/mejor", ticks con signo y la precisión del modelo elegido. */
-export function renderLegend(el, { lang, targetId, limit, accuracyText, caveatText, likeForLike = true }) {
+export function renderLegend(el, { lang, targetId, limit, accuracyText, bandText = '', caveatText, likeForLike = true }) {
   const sg = betterSign(targetId);
   const left = -sg * limit, right = sg * limit;
   const disp = limit * TARGET_META[targetId].scale;
@@ -161,19 +227,28 @@ export function renderLegend(el, { lang, targetId, limit, accuracyText, caveatTe
     <div class="legend-ends"><span>◀ ${esc(t(lang, likeForLike ? 'legendWorse' : 'legendLower'))}</span><span>${esc(t(lang, likeForLike ? 'legendBetter' : 'legendHigher'))} ▶</span></div>
     <div class="legend-held"><svg width="22" height="22" aria-hidden="true"><circle cx="11" cy="11" r="9" fill="none" stroke="${INK}" stroke-width="2" stroke-dasharray="3 4"/><circle cx="11" cy="11" r="5" fill="${DIVERGING_STOPS[3]}" stroke="${INK}" stroke-width="1.5"/></svg>${esc(t(lang, 'legendHeldOut'))}</div>
     ${accuracyText ? `<p class="legend-acc">${esc(accuracyText)}</p>` : ''}
+    ${bandText ? `<p class="legend-acc legend-band">${esc(bandText)}</p>` : ''}
     ${caveatText ? `<p class="legend-acc caveat">${esc(caveatText)}</p>` : ''}`;
 }
 
-/** Texto de precisión para la leyenda a partir de emulator_eval.json. */
-export function accuracyText(lang, evalJson, modelKey, targetIdx, targetId) {
+/** R² del modelo (todas las pruebas y años nuevos). modelKey: 'mlp', 'elm' o 'elmBrowser' (la ELM de la página). */
+export function accuracyText(lang, evalJson, modelKey, targetIdx) {
   const m = evalJson[modelKey];
-  const y = evalJson.bySplit?.testYears?.[modelKey];
+  const y = m?.bySplit?.testYears ?? evalJson.bySplit?.testYears?.[modelKey];
   return t(lang, 'legendAccuracy', {
     model: t(lang, modelKey === 'mlp' ? 'modelShortMlp' : 'modelShortElm'),
-    r2: fmtNumber(lang, m.r2[targetIdx], 2),
+    r2: m ? fmtNumber(lang, m.r2[targetIdx], 2) : '—',
     r2y: y ? fmtNumber(lang, y.r2[targetIdx], 2) : '—',
-    rmse: fmtError(lang, targetId, m.rmse[targetIdx]).replace(/^±/, ''),
   });
+}
+
+/** Texto de la banda de "casi igual" (error medido de la diferencia) para la leyenda. */
+export function bandText(lang, targetId, { band, signAgreement, measured }) {
+  if (!measured) return '';
+  const rmse = fmtError(lang, targetId, band).replace(/^±/, '');
+  return signAgreement == null
+    ? t(lang, 'legendDiffBandNoSign', { rmse })
+    : t(lang, 'legendDiffBand', { rmse, sign: `${fmtNumber(lang, signAgreement * 100, 0)}%` });
 }
 
 /** Tabla accesible con todos los municipios (mejor primero). */

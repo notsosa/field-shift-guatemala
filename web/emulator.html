@@ -57,9 +57,8 @@
         <label><span data-i18n="ctlAlternative">Alternative</span><select id="map-alternative"></select></label>
         <label><span data-i18n="ctlTarget">Show</span>
           <select id="map-target">
+            <option value="bareFrac" data-i18n="target_bareFrac" selected>Bare soil in the rainy season</option>
             <option value="waterIndex" data-i18n="target_waterIndex">Water index</option>
-            <option value="ksFlowerMain" data-i18n="target_ksFlowerMain">Water at maize flowering</option>
-            <option value="bareFrac" data-i18n="target_bareFrac">Bare soil in the rainy season</option>
           </select></label>
         <label><span data-i18n="ctlModel">Model</span>
           <select id="map-model">
@@ -101,6 +100,8 @@
         <summary data-i18n="mapTableToggle">Show as a table</summary>
         <div class="table-scroll" id="map-table"></div>
       </details>
+      <p class="map-foot" id="map-cells" role="note" hidden></p>
+      <p class="map-foot" id="map-no-flowering" data-i18n="mapNoFlowering"></p>
     </section>
 
     <section id="sowing" class="card" aria-labelledby="sowing-title">
@@ -149,6 +150,7 @@
         <li data-i18n="footWeather"></li>
         <li data-i18n="footRain"></li>
         <li id="foot-training"></li>
+        <li data-i18n="footWater"></li>
         <li data-i18n="footMap"></li>
       </ul>
       <p class="foot-ai" data-i18n="footAi"></p>

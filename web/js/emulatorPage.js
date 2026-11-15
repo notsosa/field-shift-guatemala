@@ -2,14 +2,17 @@
 import { mlpPredict, elmPredict, trainELM, TARGET_NAMES } from './model/emulator.js';
 import { loadCrops } from './model/crops.js';
 import { computeEt0Series, agriculturalYears } from './model/simulate.js';
-import { t, fmtNumber, fmtDiff, locale } from './ui/emulatorStrings.js';
+import { t, fmtNumber, fmtDiff, fmtError, locale } from './ui/emulatorStrings.js';
 import {
-  computeMapValues, createEmulatorMap, paintMap, renderLegend, accuracyText, renderMapTable, scaleLimit, summarize,
-  foodCropIds, compareFoodCrops,
+  computeMapValues, createEmulatorMap, paintMap, renderLegend, accuracyText, bandText, renderMapTable, scaleLimit, summarize,
+  foodCropIds, compareFoodCrops, diffBand, cellGroups,
 } from './ui/emulatorMap.js';
 import { SOW_OFFSETS, yearSlices, findBestSowing, renderSowingResult, renderSowingChart } from './ui/bestSowing.js';
 
 const PILOTS = ['chiquimula', 'jutiapa', 'sanmartin'];
+const HIGH_M = 1500; // arriba de esta elevación aparece el aviso de altitud (spec §6, paso 3)
+/** Clave de emulator_eval.json con los puntajes del modelo que usa la página ('elm' = la ELM entrenada aquí). */
+const evalKey = (model) => (model === 'elm' ? 'elmBrowser' : 'mlp');
 const ALTERNATIVES = ['proteger', 'extra_secano', 'extra_riego'];
 const SEQUENCE_IDS = ['actual', ...ALTERNATIVES];
 
@@ -59,6 +62,8 @@ function applyStatic() {
   $('map').setAttribute('aria-label', tr('navMap'));
 }
 
+const listOf = (names) => new Intl.ListFormat(locale(state.lang), { type: 'conjunction' }).format(names);
+
 const pointById = (id) => state.data.grid.points.find((p) => p.id === id);
 const cropName = (id) => state.data.crops.get(id).name[state.lang] ?? state.data.crops.get(id).name.en;
 /** "maize and beans (ICTA Ligero)" / "maize only" (minúscula inicial, lista del idioma). */
@@ -84,16 +89,31 @@ function renderDataTexts() {
   $('compare-intro').textContent = tr('cmpIntro', { nTrain: num(E.nTrain), nTest: num(E.nTest) });
   const currentChain = state.data.sequences.actual.phases.map((ph) => cropName(ph.cropId)).join(' → ');
   $('map-intro').textContent = tr('mapIntro', { current: currentChain });
+  const e2e = E.endToEnd?.speedupVsSimulator;
   $('hero-stats').innerHTML = [
-    [`${num(E.mlp.speedupVsSimulator)}×`, tr('statSpeed')],
+    [`${num(E.mlp.speedupVsSimulator)}×`, tr('statSpeed'), e2e?.mlp ? tr('statSpeedSub', { x: num(e2e.mlp, e2e.mlp < 10 ? 1 : 0) }) : ''],
     [num(E.bySplit.testYears.mlp.r2[0], 2), tr('statR2'), tr('statR2Sub', { v: num(E.mlp.r2[0], 2) })],
     [num(E.nTrain + E.nTest), tr('statRuns')],
   ].map(([v, label, sub]) => `<div class="stat"><span class="stat-value">${esc(v)}</span><span class="stat-label">${esc(label)}</span>${sub ? `<span class="stat-sub">${esc(sub)}</span>` : ''}</div>`).join('');
   $('sow-intro').textContent = tr('sowIntro', { n: SOW_OFFSETS.length });
   $('foot-simulator').textContent = tr('footSimulator', { n: grid.years.length, first: grid.years[0], last: grid.years.at(-1) });
+  // Municipios de prueba que comparten celda de temperatura con alguno de entrenamiento.
+  const held = grid.points.filter((p) => p.heldOut);
+  const trainIds = new Set(grid.points.filter((p) => !p.heldOut).map((p) => p.id));
+  const kShared = held.filter((p) => (p.weatherMates ?? []).some((id) => trainIds.has(id))).length;
+  const shared = kShared === 0 ? '' : tr(kShared === held.length ? 'footSharedAll' : 'footSharedSome', { k: kShared, n: held.length });
   $('foot-training').textContent = tr('footTraining', {
-    nAll: num(E.nTrain + E.nTest), nPoints: grid.points.length, nYears: grid.years.length, nOffsets: grid.offsets.length, heldOut,
+    nAll: num(E.nTrain + E.nTest), nPoints: grid.points.length, nYears: grid.years.length, nOffsets: grid.offsets.length, heldOut, nHeld: held.length, shared,
   });
+  // Nota del mapa: celdas de clima compartidas, celdas altas e insumos idénticos.
+  const cg = cellGroups(grid.points, HIGH_M);
+  const nameOf = (id) => pointById(id).name;
+  $('map-cells').textContent = cg.nShared === 0 ? '' : [
+    tr('mapCellsNote', { k: cg.nShared, n: grid.points.length }),
+    ...cg.high.map((g) => tr('mapCellsHigh', { names: listOf(g.ids.map(nameOf)), elev: num(g.elevation) })),
+    ...cg.identical.map((ids) => tr('mapCellsIdentical', { names: listOf(ids.map(nameOf)) })),
+  ].join(' ');
+  $('map-cells').hidden = cg.nShared === 0;
 }
 
 function setLang(lang) {
@@ -111,9 +131,10 @@ function setLang(lang) {
 
 // ------------------------------------------------------------------ ELM en el navegador
 
+/** La ELM de la página: la recomendación del barrido de validación (hidden <= 600), igual que elmBrowser en evaluate.mjs. */
 function elmOptions() {
-  const { browserElmRecommendation: rec, elmConfig } = state.data.eval;
-  return { hidden: rec.hidden, lambda: rec.lambda, seed: elmConfig?.seed ?? 42 };
+  const { browserElmRecommendation: rec } = state.data.eval;
+  return { hidden: rec.hidden, inputScale: rec.inputScale ?? 1, lambda: rec.lambda, seed: rec.seed ?? 42 };
 }
 
 function trainInWorker(X, Y, options) {
@@ -187,12 +208,19 @@ function renderElmCell() {
     cell.innerHTML = `<span class="training"><span class="spinner" aria-hidden="true"></span><span>${esc(tr('elmTraining', { s: num(s, 1) }))}</span></span>`;
   } else {
     const { hidden } = elmOptions();
-    cell.innerHTML = `<strong id="elm-time" data-seconds="${elm.seconds.toFixed(3)}">${esc(tr('elmTrained', { s: num(elm.seconds, 2) }))}</strong>
+    cell.innerHTML = `<span id="elm-time" class="elm-time" data-seconds="${elm.seconds.toFixed(3)}">${esc(tr('elmTrained', { s: num(elm.seconds, 2) }))}</span>
       <span class="sub">${esc(tr('elmTrainedDetail', { hidden: num(hidden), rows: num(state.data.subset.X.length) }))}</span>`;
   }
 }
 
 // ------------------------------------------------------------------ comparación MLP vs ELM
+
+/** Dónde se entrenó la MLP: "PyTorch, <GPU> (CUDA) · same training on CPU: Y s" o "PyTorch (compiled), CPU". */
+function mlpTrainLabel(m) {
+  if (m.trainDevice !== 'cuda') return tr('cmpMlpTrain');
+  const gpu = m.trainDeviceName ?? 'GPU';
+  return m.trainSecondsCpu != null ? tr('cmpMlpTrainCuda', { gpu, cpu: num(m.trainSecondsCpu, 1) }) : tr('cmpMlpTrainCudaOnly', { gpu });
+}
 
 function renderCompare() {
   const { eval: E, mlp } = state.data;
@@ -208,31 +236,37 @@ function renderCompare() {
     const a = E[k].r2[i], b = ty[k].r2[i];
     return `<td class="num r2"><span class="${a >= E[o].r2[i] ? 'win' : ''}">${num(a, 3)}</span><span class="sep" aria-hidden="true"> · </span><span class="${b >= ty[o].r2[i] ? 'win' : ''}">${num(b, 3)}</span></td>`;
   };
-  const row = (labelKey, cells, cls = '') => `<tr${cls ? ` class="${cls}"` : ''}><th scope="row">${esc(tr(labelKey))}</th>${cells}</tr>`;
+  const row = (labelKey, cells, cls = '', subKey = '') => `<tr${cls ? ` class="${cls}"` : ''}><th scope="row">${esc(tr(labelKey))}${subKey ? `<span class="sub">${esc(tr(subKey))}</span>` : ''}</th>${cells}</tr>`;
   $('cmp-table').innerHTML = `
     <thead><tr><td></td><th scope="col">MLP<span class="sub">${esc(tr('cmpColMlp'))}</span></th><th scope="col">ELM<span class="sub">${esc(tr('cmpColElm'))}</span></th></tr></thead>
     <tbody>
-      ${row('cmpRowHow', `<td>${esc(tr('cmpMlpHow', { arch: mlp.architecture.join('→') }))}</td><td>${esc(tr('cmpElmHow', { hidden: num(E.elmConfig.hidden) }))}</td>`)}
+      ${row('cmpRowHow', `<td>${esc(tr('cmpMlpHow', { arch: mlp.architecture.join('→') }))}</td><td>${esc(tr('cmpElmHow', { hidden: num(E.elmConfig.hidden), scale: String(E.elmConfig.inputScale ?? 1), lambda: String(E.elmConfig.lambda) }))}</td>`)}
       ${row('cmpRowParams', `<td class="num">${num(E.mlp.params)}</td><td class="num">${num(E.elm.params)}</td>`)}
       <tr class="group"><th scope="rowgroup" colspan="3">${esc(tr('cmpRowR2'))} <span class="sub">${esc(tr('cmpR2Legend'))}</span></th></tr>
       ${TARGET_NAMES.map((id, i) => `<tr class="r2-row"><th scope="row">${esc(tr(`target_${id}`))}</th>${r2('mlp', i)}${r2('elm', i)}</tr>`).join('')}
-      ${row('cmpRowTrain', pair(E.mlp.trainSeconds, E.elm.trainSeconds, (v, k) => `${num(v, 1)} s<span class="sub">${esc(tr(k === 'mlp' ? 'cmpMlpTrain' : 'cmpElmTrain'))}</span>`, lowerWins), 'sep-top')}
+      ${row('cmpRowTrain', ['mlp', 'elm'].map((k) => `<td class="num">${num(E[k].trainSeconds, 1)} s<span class="sub">${esc(k === 'mlp' ? mlpTrainLabel(E.mlp) : tr('cmpElmTrain'))}</span></td>`).join(''), 'sep-top', 'cmpRowTrainSub')}
       ${row('cmpRowBrowser', `<td class="muted">${esc(tr('cmpMlpBrowser'))}</td><td id="elm-cell" class="elm-cell"></td>`)}
       ${row('cmpRowMemory', pair(E.mlp.trainMemoryAnalyticMB, E.elm.trainMemoryAnalyticMB, (v) => `${num(v, v < 1 ? 2 : 1)} MB`, lowerWins))}
       ${row('cmpRowPredict', pair(E.mlp.predictMicros, E.elm.predictMicros, (v) => `${num(v, 1)} µs`, lowerWins))}
-      ${row('cmpRowSpeedup', pair(E.mlp.speedupVsSimulator, E.elm.speedupVsSimulator, (v) => esc(tr('cmpSpeedup', { x: num(v, v < 10 ? 1 : 0) })), higherWins))}
+      ${row('cmpRowSpeedup', pair(E.mlp.speedupVsSimulator, E.elm.speedupVsSimulator, (v) => esc(tr('cmpSpeedup', { x: num(v, v < 10 ? 1 : 0) })), higherWins), '', 'cmpRowSpeedupSub')}
     </tbody>`;
-  const { hidden: hb, lambda: lb } = elmOptions();
-  const sweep = (h, l) => E.elmSweep?.find((s) => s.hidden === h && s.lambda === l)?.valR2Mean;
-  const vb = sweep(hb, lb), vn = sweep(E.elmConfig.hidden, E.elmConfig.lambda);
+  const { hidden: hb } = elmOptions();
+  const B = E.elmBrowser;
+  const r2s = (a) => a.map((v) => num(v, 2)).join(' · ');
   const b = E.baseline.r2;
+  const e2e = E.endToEnd?.speedupVsSimulator;
+  const sd = E.stressDetection;
+  const f1 = (k) => (sd?.[k]?.f1 == null ? '—' : num(sd[k].f1, 2));
   $('cmp-notes').innerHTML = [
     tr('cmpNoteR2', { nTest: num(E.nTest) }),
     tr('cmpNoteBaseline', { a: num(b[0], 2), b: num(b[1], 2), c: num(b[2], 2) }),
-    tr('cmpNoteSpeed', { us: num(E.simulatorMicrosPerYear) }),
-    tr(vb != null && vn != null ? 'elmBrowserNote' : 'elmBrowserNoteShort', {
+    e2e ? tr('cmpNoteSpeed', { us: num(E.simulatorMicrosPerYear), e2eMlp: num(e2e.mlp, 0), e2eElm: num(e2e.elm, 0) }) : '',
+    tr('cmpNoteTrain'),
+    sd ? tr('cmpNoteStress', { base: `${num(sd.baseRate * 100, 1)}%`, mlp: f1('mlp'), elm: f1('elm'), elmB: f1('elmBrowser') }) : '',
+    tr(B ? 'elmBrowserNote' : 'elmBrowserNoteShort', {
       hb: num(hb), hn: E.elmConfig?.hidden != null ? num(E.elmConfig.hidden) : '—', rb: num(state.data.subset.X.length),
-      rn: E.elmConfig?.nFit != null ? num(E.elmConfig.nFit) : '—', vb: vb != null ? num(vb, 2) : '—', vn: vn != null ? num(vn, 2) : '—',
+      rn: E.elmConfig?.nFit != null ? num(E.elmConfig.nFit) : '—',
+      r2: B ? r2s(B.r2) : '—', r2y: B ? r2s(B.bySplit.testYears.r2) : '—',
     }),
   ].filter(Boolean).map((s) => `<p>${esc(s)}</p>`).join('');
   renderElmCell();
@@ -304,14 +338,18 @@ function repaintMap() {
   const note = $('map-note');
   note.hidden = likeForLike;
   note.textContent = likeForLike ? '' : tr('noteNotLike', { alt: seqName(s.alternative), altCrops: cropList(food.alt), curCrops: cropList(food.current) });
-  const limit = scaleLimit(last.values, s.target);
+  // "Casi igual" = error medido de la diferencia (alternativa − actual) de este modelo, alternativa y objetivo.
+  const key = evalKey(s.model);
+  const band = diffBand(state.data.eval, key, s.alternative, s.target);
+  const limit = scaleLimit(last.values, s.target, band.band);
   paintMap(state.map.ctrl, points, last.values, { lang, targetId: s.target, limit });
   renderLegend($('map-legend'), {
     lang, targetId: s.target, limit, likeForLike,
-    accuracyText: accuracyText(lang, state.data.eval, s.model, last.targetIdx, s.target),
-    caveatText: s.model === 'elm' ? tr('legendElmCaveat', { hn: num(state.data.eval.elmConfig.hidden) }) : '',
+    accuracyText: accuracyText(lang, state.data.eval, key, last.targetIdx),
+    bandText: bandText(lang, s.target, band),
+    caveatText: s.model === 'elm' ? tr('legendElmCaveat', { hb: num(elmOptions().hidden), rb: num(state.data.subset.X.length) }) : '',
   });
-  const sm = summarize(last.values, s.target);
+  const sm = summarize(last.values, s.target, band.band);
   $('map-summary').innerHTML = [
     esc(tr(likeForLike ? 'mapSummary' : 'mapSummaryIndex', { better: sm.better, same: sm.same, worse: sm.worse, n: sm.n })),
     sm.top ? esc(tr(likeForLike ? 'mapGain' : 'mapHighest', { name: sm.top.point.name, value: fmtDiff(lang, s.target, sm.top.median) })) : '',
@@ -396,9 +434,20 @@ function rerenderSowing() {
     return;
   }
   $('sow-status').textContent = '';
+  const E = state.data.eval;
+  const key = evalKey(last.s.model);
+  const modelShort = tr(last.s.model === 'elm' ? 'modelShortElm' : 'modelShortMlp');
+  const ty = E[key]?.bySplit?.testYears ?? E.bySplit?.testYears?.[key];
+  const elev = state.sow.sites.get(last.s.pilot)?.bundle.elevation;
+  const sim = last.result.simulator;
   const ctx = {
-    lang: state.lang, modelShort: tr(last.s.model === 'elm' ? 'modelShortElm' : 'modelShortMlp'),
+    lang: state.lang, modelShort,
+    cropName: (id) => cropName(id),
     indexNote: tr('sowIndexCrops', { crops: cropList(foodCropIds(state.data.sequences[last.s.sequence], state.data.crops)) }),
+    accuracyNote: ty ? tr('sowAccuracy', { model: modelShort, r2: num(ty.r2[0], 2), rmse: fmtError(state.lang, 'waterIndex', ty.rmse[0]).replace(/^±/, '') }) : '',
+    altitudeNote: elev > HIGH_M
+      ? tr(sim.incompleteYears > 0 ? 'sowAltitude' : 'sowAltitude0', { elev: num(elev), k: sim.incompleteYears, n: sim.n })
+      : '',
   };
   renderSowingResult($('sow-result'), last.result, ctx);
   renderSowingChart($('sow-chart'), last.result, ctx);

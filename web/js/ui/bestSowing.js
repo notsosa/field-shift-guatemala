@@ -1,10 +1,13 @@
-// Mejor fecha de siembra: el emulador prueba desfases de −20 a +30 días (cada 2) sobre el inicio de lluvias
-// y el simulador (runSequence) confirma el desfase 0 y el propuesto. Cálculo puro + dibujo de resultados.
+// Mejor fecha de siembra: el emulador prueba desfases de −20 a +30 días (cada 2) sobre el inicio de lluvias,
+// propone el mejor desfase >= 0 y el simulador (runSequence) revisa el desfase 0 y el propuesto.
+// Los desfases negativos quedan en la curva como retrospectiva: sembrar antes exige saber cuándo llegará la lluvia.
 import { climateFeatures, phenoFeatures, encodeFeatures, targetsOf } from '../model/emulator.js';
 import { runSequence } from '../model/simulate.js';
 import { t, fmtAbs, fmtDiff, fmtNumber, locale } from './emulatorStrings.js';
 
 export const SOW_OFFSETS = Array.from({ length: 26 }, (_, i) => -20 + 2 * i);
+/** Un mejor desfase a ≤ EDGE_DAYS del borde superior de la búsqueda se marca: el óptimo real puede estar más tarde. */
+export const EDGE_DAYS = 4;
 
 export const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
@@ -70,21 +73,51 @@ export function emulateOffsets({ slices, crops, predict, management, offsets = S
   return { rows, predictions: offsets.length * slices.length, ms: performance.now() - t0 };
 }
 
-/** Mediana del waterIndex del simulador real para un desfase, en los años pedidos. */
+const DAY_MS = 864e5;
+/** Días en que dos cultivos comparten el campo (de la siembra más tardía a la cosecha más temprana; 0 si no se tocan). */
+function overlapDays(a, b) {
+  const from = Math.max(Date.parse(a.sowDate), Date.parse(b.sowDate));
+  const to = Math.min(Date.parse(a.harvestDate), Date.parse(b.harvestDate));
+  return Math.max(0, (to - from) / DAY_MS);
+}
+
+/**
+ * Simulador real en un desfase, en los años pedidos: mediana del waterIndex, mediana del relYield de cada cultivo
+ * de comida (0 si no termina en el año agrícola, como en targetsOf) y mediana de los días de traslape entre cultivos seguidos.
+ */
 export function simulateOffset({ sequence, bundle, et0, crops, years, texture, slopeClass, irrigation, offset }) {
   const t0 = performance.now();
   const res = runSequence({ sequence, bundle, et0, crops, texture, slopeClass, irrigation, sowOffsetDays: offset });
   const ms = performance.now() - t0;
   const want = new Set(years);
-  const w = res.filter((r) => want.has(r.year)).map(targetsOf).filter(Boolean).map((x) => x[0]);
-  return { median: median(w), n: w.length, ms };
+  const yrs = res.filter((r) => want.has(r.year));
+  const w = yrs.map(targetsOf).filter(Boolean).map((x) => x[0]);
+  const phases = sequence.phases.map((ph, k) => ({ cropId: ph.cropId, k }));
+  const cropStats = phases
+    .filter(({ k }) => yrs.length && yrs[0].crops[k].relYield !== null)
+    .map(({ cropId, k }) => ({
+      cropId,
+      median: median(yrs.map((r) => (r.crops[k].cycleIncomplete ? 0 : r.crops[k].relYield))),
+      incomplete: yrs.filter((r) => r.crops[k].cycleIncomplete).length,
+    }));
+  const overlaps = phases.slice(1).map(({ cropId, k }) => ({
+    a: phases[k - 1].cropId, b: cropId, days: median(yrs.map((r) => overlapDays(r.crops[k - 1], r.crops[k]))),
+  }));
+  const incompleteYears = yrs.filter((r) => r.crops.some((c) => c.relYield !== null && c.cycleIncomplete)).length;
+  return { median: median(w), n: w.length, ms, crops: cropStats, overlaps, incompleteYears };
 }
 
-/** Busca el mejor desfase con el emulador y lo confirma con el simulador (desfase 0 y propuesto). */
+/**
+ * Busca el mejor desfase >= 0 con el emulador y lo revisa con el simulador (desfase 0 y propuesto).
+ * hindsight = mejor fila con desfase < 0 si supera a la propuesta (solo informativa); atEdge = propuesta pegada al borde.
+ */
 export function findBestSowing({ bundle, et0, slices, crops, sequence, predict, management, offsets = SOW_OFFSETS }) {
   if (sequence.requiresIrrigation && management.irrigation === 'none') return { notApplicable: true };
   const emu = emulateOffsets({ slices, crops, predict, management, offsets });
-  const best = pickBestOffset(emu.rows);
+  const best = pickBestOffset(emu.rows.filter((r) => r.offset >= 0));
+  const early = pickBestOffset(emu.rows.filter((r) => r.offset < 0));
+  const hindsight = early && early.median > best.median + 1e-12 ? early : null;
+  const maxOffset = Math.max(...offsets);
   const zero = emu.rows.find((r) => r.offset === 0);
   const years = slices.map((s) => s.year);
   const simArgs = {
@@ -95,9 +128,13 @@ export function findBestSowing({ bundle, et0, slices, crops, sequence, predict, 
   const same = best.offset === 0;
   const simB = same ? sim0 : simulateOffset({ ...simArgs, offset: best.offset });
   return {
-    rows: emu.rows, best, zero, years,
+    rows: emu.rows, best, zero, years, hindsight, maxOffset, atEdge: best.offset >= maxOffset - EDGE_DAYS,
     emulator: { zero: zero.median, best: best.median, ms: emu.ms, dates: offsets.length, predictions: emu.predictions },
-    simulator: { zero: sim0.median, best: simB.median, ms: sim0.ms + (same ? 0 : simB.ms), dates: same ? 1 : 2, n: sim0.n },
+    simulator: {
+      zero: sim0.median, best: simB.median, ms: sim0.ms + (same ? 0 : simB.ms), dates: same ? 1 : 2, n: sim0.n,
+      cropsZero: sim0.crops, cropsBest: simB.crops, overlapsZero: sim0.overlaps, overlapsBest: simB.overlaps,
+      incompleteYears: sim0.incompleteYears,
+    },
     verdict: same ? 'same' : compareRanking(sim0.median, simB.median),
   };
 }
@@ -119,30 +156,65 @@ function doyDate(lang, doy) {
 }
 const ms = (lang, v) => fmtNumber(lang, v, v < 10 ? 1 : 0);
 
-/** Propuesta + tabla lado a lado emulador/simulador con sus tiempos + veredicto. */
-export function renderSowingResult(el, r, { lang, modelShort, indexNote = '' }) {
+/** Titular según el veredicto del simulador: solo se propone mover la siembra si el simulador coincide. */
+function sowHeadline(lang, r) {
+  if (r.verdict === 'agree') return t(lang, 'sowProposal', { shift: `<strong>${esc(shiftLong(lang, r.best.offset))}</strong>` });
+  return esc(t(lang, r.verdict === 'tie' ? 'sowNoGain' : 'sowKeep'));
+}
+
+/** Columna del desfase probado: "Propuesta" solo si el simulador coincide; si no, "Probado". */
+const bestColLabel = (lang, r) => t(lang, r.verdict === 'agree' ? 'sowColBest' : 'sowColTested', { shift: shiftShort(lang, r.best.offset) });
+
+/** Tabla del simulador por cultivo (relYield mediano) y días de traslape, en 0 y en el desfase probado. */
+function cropTable(lang, r, cropName, same) {
+  const pct = (v) => (v == null ? '—' : fmtAbs(lang, 'waterIndex', v));
+  const days = (v) => (v == null ? '—' : `${fmtNumber(lang, v, Number.isInteger(v) ? 0 : 1)} ${t(lang, 'unitDays')}`);
+  const name = (id) => (cropName ? cropName(id) : id);
+  const { cropsZero, cropsBest, overlapsZero, overlapsBest } = r.simulator;
+  const cell = (v) => `<td class="num">${esc(v)}</td>`;
+  const cropRows = cropsZero.map((c, i) => `<tr data-crop="${esc(c.cropId)}"><th scope="row">${esc(name(c.cropId))}</th>${cell(pct(c.median))}${same ? '' : cell(pct(cropsBest[i]?.median))}</tr>`).join('');
+  const lower = (n) => n.charAt(0).toLocaleLowerCase(locale(lang)) + n.slice(1);
+  const overlapRows = overlapsZero.map((o, i) => `<tr class="overlap"><th scope="row">${esc(t(lang, 'sowOverlapRow', { a: lower(name(o.a)), b: lower(name(o.b)) }))}</th>${cell(days(o.days))}${same ? '' : cell(days(overlapsBest[i]?.days))}</tr>`).join('');
+  return `
+    <div class="table-scroll">
+      <table class="sow-table sow-crops" data-testid="sow-crops">
+        <caption>${esc(t(lang, 'sowCropsCaption'))}</caption>
+        <thead><tr><td></td><th scope="col">${esc(t(lang, 'sowColZero'))}</th>${same ? '' : `<th scope="col">${esc(bestColLabel(lang, r))}</th>`}</tr></thead>
+        <tbody>${cropRows}${overlapRows}</tbody>
+      </table>
+    </div>`;
+}
+
+/** Titular según el veredicto + tabla emulador/simulador con tiempos + veredicto + tabla por cultivo y avisos. */
+export function renderSowingResult(el, r, { lang, modelShort, indexNote = '', cropName = null, accuracyNote = '', altitudeNote = '' }) {
   const W = (v) => fmtAbs(lang, 'waterIndex', v);
   const same = r.best.offset === 0;
-  const headline = same ? t(lang, 'sowKeep') : t(lang, 'sowProposal', { shift: `<strong>${esc(shiftLong(lang, r.best.offset))}</strong>` });
-  const dates = same
-    ? t(lang, 'sowDates0', { date0: doyDate(lang, r.zero.sowDoy) })
-    : t(lang, 'sowDates', { date: doyDate(lang, r.best.sowDoy), date0: doyDate(lang, r.zero.sowDoy) });
+  const headline = sowHeadline(lang, r);
+  const dates = r.verdict === 'agree'
+    ? t(lang, 'sowDates', { date: doyDate(lang, r.best.sowDoy), date0: doyDate(lang, r.zero.sowDoy) })
+    : t(lang, 'sowDates0', { date0: doyDate(lang, r.zero.sowDoy) });
   const emuDelta = same ? '' : ` <span class="delta">${esc(fmtDiff(lang, 'waterIndex', r.emulator.best - r.emulator.zero))}</span>`;
   const simDelta = same ? '' : ` <span class="delta">${esc(fmtDiff(lang, 'waterIndex', r.simulator.best - r.simulator.zero))}</span>`;
-  const bestCol = same ? '' : `<th scope="col">${esc(t(lang, 'sowColBest', { shift: shiftShort(lang, r.best.offset) }))}</th>`;
+  const bestCol = same ? '' : `<th scope="col">${esc(bestColLabel(lang, r))}</th>`;
   const time = (total, n) => `<span class="sub time">${esc(t(lang, 'sowTime', { ms: ms(lang, total), n, per: fmtNumber(lang, total / n, 2) }))}</span>`;
+  const tested = shiftShort(lang, r.best.offset);
   const verdicts = {
     agree: ['ok', '✓', t(lang, 'sowAgree', { delta: fmtDiff(lang, 'waterIndex', r.simulator.best - r.simulator.zero) })],
-    disagree: ['warn', '⚠', t(lang, 'sowDisagree', { zero: W(r.simulator.zero), best: W(r.simulator.best) })],
-    tie: ['tie', '≈', t(lang, 'sowTie', { zero: W(r.simulator.zero), best: W(r.simulator.best) })],
-    same: ['tie', '=', t(lang, 'sowSame', { zero: W(r.simulator.zero) })],
+    disagree: ['warn', '⚠', t(lang, 'sowDisagree', { shift: tested, zero: W(r.simulator.zero), best: W(r.simulator.best) })],
+    tie: ['tie', '≈', t(lang, 'sowTie', { shift: tested, zero: W(r.simulator.zero), best: W(r.simulator.best) })],
+    same: ['tie', '=', t(lang, 'sowSame', { max: r.maxOffset, zero: W(r.simulator.zero) })],
   };
   const [cls, icon, text] = verdicts[r.verdict];
+  const notes = [
+    r.atEdge && r.verdict !== 'disagree' ? ['edge', t(lang, 'sowEdge', { max: r.maxOffset })] : null,
+    r.hindsight ? ['hindsight', t(lang, 'sowHindsight', { shift: shiftLong(lang, r.hindsight.offset) })] : null,
+    altitudeNote ? ['altitude', altitudeNote] : null,
+  ].filter(Boolean);
   el.innerHTML = `
     <p class="sow-headline">${headline}</p>
     <p class="sow-dates">${esc(dates)}</p>
     <div class="table-scroll">
-      <table class="sow-table" data-testid="sow-table">
+      <table class="sow-table" data-testid="sow-table" data-best-offset="${r.best.offset}">
         <caption>${esc(t(lang, 'sowCaption', { n: r.years.length, first: r.years[0], last: r.years.at(-1) }))}</caption>
         <thead><tr><td></td><th scope="col">${esc(t(lang, 'sowColZero'))}</th>${bestCol}</tr></thead>
         <tbody>
@@ -153,8 +225,13 @@ export function renderSowingResult(el, r, { lang, modelShort, indexNote = '' }) 
         </tbody>
       </table>
     </div>
+    <p class="verdict verdict-${cls}" data-verdict="${r.verdict}"><span class="verdict-icon" aria-hidden="true">${icon}</span> ${esc(text)}</p>
+    ${notes.map(([k, s]) => `<p class="sow-flag sow-flag-${k}" data-flag="${k}" role="note">${esc(s)}</p>`).join('')}
+    ${cropTable(lang, r, cropName, same)}
     ${indexNote ? `<p class="sow-note">${esc(indexNote)}</p>` : ''}
-    <p class="verdict verdict-${cls}" data-verdict="${r.verdict}"><span class="verdict-icon" aria-hidden="true">${icon}</span> ${esc(text)}</p>`;
+    <p class="sow-note" data-note="overlap">${esc(t(lang, 'sowOverlapNote'))}</p>
+    <p class="sow-note sow-water-only" data-note="water-only">${esc(t(lang, 'sowWaterOnly'))}</p>
+    ${accuracyNote ? `<p class="sow-note" data-note="accuracy">${esc(accuracyNote)}</p>` : ''}`;
 }
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -184,14 +261,17 @@ export function renderSowingChart(el, r, { lang, modelShort }) {
   const line = r.rows.map((d, i) => `${i ? 'L' : 'M'}${x(d.offset).toFixed(1)},${y(d.median).toFixed(1)}`).join('');
   const diamond = (cx, cy, s = 6) => `M${cx},${cy - s}L${cx + s},${cy}L${cx},${cy + s}L${cx - s},${cy}Z`;
   const same = r.best.offset === 0;
+  const markLabel = t(lang, r.verdict === 'agree' ? 'chartProposed' : 'chartTested');
 
   el.innerHTML = `
     <div class="chart-legend">
       <span class="key"><span class="swatch-line" aria-hidden="true"></span>${esc(t(lang, 'chartEmu', { model: modelShort, n: r.years.length }))}</span>
       <span class="key"><svg width="14" height="14" aria-hidden="true"><path d="${diamond(7, 7, 5)}" class="sim-mark"/></svg>${esc(t(lang, 'chartSim'))}</span>
+      <span class="key" data-key="hindsight"><span class="swatch-zone" aria-hidden="true"></span>${esc(t(lang, 'chartHindsight'))}</span>
     </div>
     <div class="chart-wrap">
       <svg xmlns="${SVG_NS}" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(t(lang, 'chartAria'))}">
+        <rect class="hindsight-zone" x="${m.l}" y="${m.t}" width="${Math.max(0, x(0) - m.l)}" height="${ih}"/>
         <g class="grid">${yTicks.map((v) => `<line x1="${m.l}" x2="${m.l + iw}" y1="${y(v / 100)}" y2="${y(v / 100)}"/>`).join('')}</g>
         <g class="axis-labels">
           ${yTicks.map((v) => `<text x="${m.l - 8}" y="${y(v / 100) + 4}" text-anchor="end">${pct(v)}</text>`).join('')}
@@ -200,7 +280,7 @@ export function renderSowingChart(el, r, { lang, modelShort }) {
         </g>
         <line class="onset" x1="${x(0)}" x2="${x(0)}" y1="${m.t}" y2="${m.t + ih}"/>
         <text class="mark-label" x="${x(0) + 4}" y="${m.t - 8}" text-anchor="${x(0) > width - 110 ? 'end' : 'start'}">${esc(t(lang, 'chartOnset'))}</text>
-        ${same ? '' : `<text class="mark-label strong" x="${x(r.best.offset)}" y="${m.t - 8}" text-anchor="${x(r.best.offset) > width - 70 ? 'end' : 'middle'}">${esc(t(lang, 'chartProposed'))}</text>`}
+        ${same ? '' : `<text class="mark-label strong" x="${x(r.best.offset)}" y="${m.t - 8}" text-anchor="${x(r.best.offset) > width - 70 ? 'end' : 'middle'}">${esc(markLabel)}</text>`}
         <path class="emu-line" d="${line}"/>
         <circle class="emu-point" cx="${x(0)}" cy="${y(r.emulator.zero)}" r="5"/>
         ${same ? '' : `<circle class="emu-point" cx="${x(r.best.offset)}" cy="${y(r.emulator.best)}" r="5"/>`}
