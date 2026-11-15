@@ -1,0 +1,3639 @@
+{
+ "meta": {
+  "simulatorCommit": "851773c",
+  "simulatorDirty": false,
+  "rainSource": "ERA5",
+  "generated": "2026-11-15",
+  "networks": {
+   "mlp": "web/data/emulator_v2_mlp.json",
+   "elm": {
+    "hidden": 1500,
+    "inputScale": 0.1,
+    "lambda": 0.1,
+    "seed": 42
+   },
+   "elmRows": "samples_v2.json minus test (2019-2024 or held-out points) minus validation years 2017-2018"
+  }
+ },
+ "design": {
+  "cases": "3 pilots (chiquimula, jutiapa, sanmartin) x target years 2019-2024 x main maize lost 30, 45, 60 days after sowing = 54",
+  "soil": "Simulator truth uses the pilot SoilGrids soil; the networks get its nearestTexture.",
+  "timing": "Maize sown at the rain-onset rule; the field is free the day after the loss and the next sowing is 14 days later (offset = lossDay + 1 + 14 = 45, 60, 75 days after the onset rule).",
+  "actions": [
+   "maiz",
+   "frijol",
+   "ajonjoli",
+   "papa",
+   "cebolla",
+   "brocoli",
+   "lechuga",
+   "fallow (leave the field without a crop / cover: relYield 0, always executable)"
+  ],
+  "objective": "relYield of the resown crop in the simulator; 0 if its cycle does not complete inside the agricultural year. No margin: this model has no prices or costs.",
+  "priorities": "typical = median of the past years, cautious = 20th percentile",
+  "informationRule": "The decision for year Y uses only agricultural years before Y at that site (bundle truncated to 31 March of Y, then year filter).",
+  "policies": {
+   "simulator": "simulator on past years",
+   "mlp": "v2 funnel MLP on past years (resown crop as A at its actual sowing date, B = none)",
+   "elm": "v2 ELM on past years (same encoding)",
+   "rule": "simple agronomic rule (Alex): resow maize if at least 120 days remain before 15 November, else beans if at least 70, else leave the field",
+   "oracle": "best action in year Y itself by the simulator"
+  },
+  "tieBreak": "higher summary wins; ties go to leaving the field, then to the order maiz, frijol, ajonjoli, papa, cebolla, brocoli, lechuga",
+  "tolerance": 0.001,
+  "extrapolationNote": "The v2 networks were trained with sowing offsets 0, 15 and 30 days after the onset rule; these cases use 45, 60 and 75, so the networks extrapolate beyond their training range.",
+  "soilWaterNote": "The resown crop is simulated alone from 1 April with a dry soil; water used by the lost maize is not carried over."
+ },
+ "metrics": {
+  "rule": {
+   "n": 54,
+   "chosenMean": 0.8020462955758838,
+   "ruleMean": 0.8020462955758838,
+   "oracleMean": 0.9710735268941889,
+   "meanGainVsRule": 0,
+   "win": 0,
+   "tie": 54,
+   "loss": 0,
+   "meanRegret": 0.16902723131830524,
+   "p10": 0.46611137517075363,
+   "worst": 0,
+   "executable": 49,
+   "executableShare": 0.9074074074074074,
+   "actions": {
+    "maiz": 28,
+    "frijol": 26
+   },
+   "agreesWithSimulator": 24
+  },
+  "simulator": {
+   "typical": {
+    "n": 54,
+    "chosenMean": 0.9252647883208355,
+    "ruleMean": 0.8020462955758838,
+    "oracleMean": 0.9710735268941889,
+    "meanGainVsRule": 0.12321849274495165,
+    "win": 20,
+    "tie": 29,
+    "loss": 5,
+    "meanRegret": 0.045808738573353616,
+    "p10": 0.8092612573680742,
+    "worst": 0.2432990722461264,
+    "executable": 54,
+    "executableShare": 1,
+    "actions": {
+     "maiz": 11,
+     "frijol": 35,
+     "ajonjoli": 6,
+     "lechuga": 2
+    },
+    "agreesWithSimulator": 54
+   },
+   "cautious": {
+    "n": 54,
+    "chosenMean": 0.9445954757366682,
+    "ruleMean": 0.8020462955758838,
+    "oracleMean": 0.9710735268941889,
+    "meanGainVsRule": 0.14254918016078463,
+    "win": 26,
+    "tie": 17,
+    "loss": 11,
+    "meanRegret": 0.026478051157520624,
+    "p10": 0.8374595125018259,
+    "worst": 0.7114215946534104,
+    "executable": 54,
+    "executableShare": 1,
+    "actions": {
+     "ajonjoli": 24,
+     "frijol": 6,
+     "lechuga": 24
+    },
+    "agreesWithSimulator": 54
+   }
+  },
+  "mlp": {
+   "typical": {
+    "n": 54,
+    "chosenMean": 0.9415617896217399,
+    "ruleMean": 0.8020462955758838,
+    "oracleMean": 0.9710735268941889,
+    "meanGainVsRule": 0.13951549404585606,
+    "win": 25,
+    "tie": 19,
+    "loss": 10,
+    "meanRegret": 0.0295117372724492,
+    "p10": 0.8374595125018259,
+    "worst": 0.6399554278120402,
+    "executable": 54,
+    "executableShare": 1,
+    "actions": {
+     "maiz": 7,
+     "frijol": 11,
+     "ajonjoli": 18,
+     "lechuga": 18
+    },
+    "agreesWithSimulator": 22
+   },
+   "cautious": {
+    "n": 54,
+    "chosenMean": 0.9428998225734383,
+    "ruleMean": 0.8020462955758838,
+    "oracleMean": 0.9710735268941889,
+    "meanGainVsRule": 0.14085352699755463,
+    "win": 27,
+    "tie": 16,
+    "loss": 11,
+    "meanRegret": 0.028173704320750646,
+    "p10": 0.8374595125018259,
+    "worst": 0.6399554278120402,
+    "executable": 54,
+    "executableShare": 1,
+    "actions": {
+     "ajonjoli": 36,
+     "lechuga": 18
+    },
+    "agreesWithSimulator": 42
+   }
+  },
+  "elm": {
+   "typical": {
+    "n": 54,
+    "chosenMean": 0.9427804502892508,
+    "ruleMean": 0.8020462955758838,
+    "oracleMean": 0.9710735268941889,
+    "meanGainVsRule": 0.14073415471336737,
+    "win": 24,
+    "tie": 17,
+    "loss": 13,
+    "meanRegret": 0.028293076604937923,
+    "p10": 0.8000890378673031,
+    "worst": 0.6399554278120402,
+    "executable": 54,
+    "executableShare": 1,
+    "actions": {
+     "ajonjoli": 21,
+     "maiz": 15,
+     "frijol": 6,
+     "lechuga": 12
+    },
+    "agreesWithSimulator": 19
+   },
+   "cautious": {
+    "n": 54,
+    "chosenMean": 0.9250775604928054,
+    "ruleMean": 0.8020462955758838,
+    "oracleMean": 0.9710735268941889,
+    "meanGainVsRule": 0.123031264916922,
+    "win": 25,
+    "tie": 16,
+    "loss": 13,
+    "meanRegret": 0.04599596640138325,
+    "p10": 0.818215649852018,
+    "worst": 0.2771573126076425,
+    "executable": 54,
+    "executableShare": 1,
+    "actions": {
+     "ajonjoli": 18,
+     "maiz": 18,
+     "lechuga": 18
+    },
+    "agreesWithSimulator": 36
+   }
+  }
+ },
+ "byLossDay": {
+  "30": {
+   "rule": {
+    "n": 18,
+    "chosenMean": 0.7650219572994936,
+    "ruleMean": 0.7650219572994936,
+    "oracleMean": 0.9763607272121058,
+    "meanGainVsRule": 0,
+    "win": 0,
+    "tie": 18,
+    "loss": 0,
+    "meanRegret": 0.21133876991261202,
+    "p10": 0.3598037297684251,
+    "worst": 0,
+    "executable": 16,
+    "executableShare": 0.8888888888888888,
+    "actions": {
+     "maiz": 15,
+     "frijol": 3
+    },
+    "agreesWithSimulator": 4
+   },
+   "simulator": {
+    "typical": {
+     "n": 18,
+     "chosenMean": 0.973158496131462,
+     "ruleMean": 0.7650219572994936,
+     "oracleMean": 0.9763607272121058,
+     "meanGainVsRule": 0.20813653883196842,
+     "win": 11,
+     "tie": 7,
+     "loss": 0,
+     "meanRegret": 0.003202231080643615,
+     "p10": 0.9096834945732727,
+     "worst": 0.8748743033353225,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "maiz": 6,
+      "ajonjoli": 6,
+      "frijol": 6
+     },
+     "agreesWithSimulator": 18
+    },
+    "cautious": {
+     "n": 18,
+     "chosenMean": 0.9621000586274177,
+     "ruleMean": 0.7650219572994936,
+     "oracleMean": 0.9763607272121058,
+     "meanGainVsRule": 0.1970781013279242,
+     "win": 11,
+     "tie": 7,
+     "loss": 0,
+     "meanRegret": 0.014260668584687866,
+     "p10": 0.8910855290325562,
+     "worst": 0.8109195262097841,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "ajonjoli": 12,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 18
+    }
+   },
+   "mlp": {
+    "typical": {
+     "n": 18,
+     "chosenMean": 0.9621000586274177,
+     "ruleMean": 0.7650219572994936,
+     "oracleMean": 0.9763607272121058,
+     "meanGainVsRule": 0.1970781013279242,
+     "win": 11,
+     "tie": 7,
+     "loss": 0,
+     "meanRegret": 0.014260668584687866,
+     "p10": 0.8910855290325562,
+     "worst": 0.8109195262097841,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "maiz": 6,
+      "ajonjoli": 6,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 12
+    },
+    "cautious": {
+     "n": 18,
+     "chosenMean": 0.9621000586274177,
+     "ruleMean": 0.7650219572994936,
+     "oracleMean": 0.9763607272121058,
+     "meanGainVsRule": 0.1970781013279242,
+     "win": 11,
+     "tie": 7,
+     "loss": 0,
+     "meanRegret": 0.014260668584687866,
+     "p10": 0.8910855290325562,
+     "worst": 0.8109195262097841,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "ajonjoli": 12,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 18
+    }
+   },
+   "elm": {
+    "typical": {
+     "n": 18,
+     "chosenMean": 0.975432659200907,
+     "ruleMean": 0.7650219572994936,
+     "oracleMean": 0.9763607272121058,
+     "meanGainVsRule": 0.21041070190141353,
+     "win": 11,
+     "tie": 7,
+     "loss": 0,
+     "meanRegret": 0.0009280680111985092,
+     "p10": 0.9228586378395661,
+     "worst": 0.8748743033353225,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "ajonjoli": 12,
+      "frijol": 3,
+      "lechuga": 3
+     },
+     "agreesWithSimulator": 9
+    },
+    "cautious": {
+     "n": 18,
+     "chosenMean": 0.9621000586274177,
+     "ruleMean": 0.7650219572994936,
+     "oracleMean": 0.9763607272121058,
+     "meanGainVsRule": 0.1970781013279242,
+     "win": 11,
+     "tie": 7,
+     "loss": 0,
+     "meanRegret": 0.014260668584687866,
+     "p10": 0.8910855290325562,
+     "worst": 0.8109195262097841,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "ajonjoli": 12,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 18
+    }
+   }
+  },
+  "45": {
+   "rule": {
+    "n": 18,
+    "chosenMean": 0.7453745311019824,
+    "ruleMean": 0.7453745311019824,
+    "oracleMean": 0.9730200497463741,
+    "meanGainVsRule": 0,
+    "win": 0,
+    "tie": 18,
+    "loss": 0,
+    "meanRegret": 0.2276455186443917,
+    "p10": 0.3235055709747326,
+    "worst": 0,
+    "executable": 16,
+    "executableShare": 0.8888888888888888,
+    "actions": {
+     "frijol": 7,
+     "maiz": 11
+    },
+    "agreesWithSimulator": 6
+   },
+   "simulator": {
+    "typical": {
+     "n": 18,
+     "chosenMean": 0.8913785335001366,
+     "ruleMean": 0.7453745311019824,
+     "oracleMean": 0.9730200497463741,
+     "meanGainVsRule": 0.1460040023981541,
+     "win": 8,
+     "tie": 8,
+     "loss": 2,
+     "meanRegret": 0.08164151624623764,
+     "p10": 0.6186518064770775,
+     "worst": 0.2432990722461264,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "frijol": 13,
+      "maiz": 5
+     },
+     "agreesWithSimulator": 18
+    },
+    "cautious": {
+     "n": 18,
+     "chosenMean": 0.9512667553848461,
+     "ruleMean": 0.7453745311019824,
+     "oracleMean": 0.9730200497463741,
+     "meanGainVsRule": 0.2058922242828635,
+     "win": 12,
+     "tie": 4,
+     "loss": 2,
+     "meanRegret": 0.0217532943615282,
+     "p10": 0.8600942612109309,
+     "worst": 0.781853546015531,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "ajonjoli": 12,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 18
+    }
+   },
+   "mlp": {
+    "typical": {
+     "n": 18,
+     "chosenMean": 0.9469718709970945,
+     "ruleMean": 0.7453745311019824,
+     "oracleMean": 0.9730200497463741,
+     "meanGainVsRule": 0.20159733989511194,
+     "win": 10,
+     "tie": 6,
+     "loss": 2,
+     "meanRegret": 0.02604817874927977,
+     "p10": 0.8600942612109309,
+     "worst": 0.781853546015531,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "frijol": 5,
+      "maiz": 1,
+      "ajonjoli": 6,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 2
+    },
+    "cautious": {
+     "n": 18,
+     "chosenMean": 0.9512667553848461,
+     "ruleMean": 0.7453745311019824,
+     "oracleMean": 0.9730200497463741,
+     "meanGainVsRule": 0.2058922242828635,
+     "win": 12,
+     "tie": 4,
+     "loss": 2,
+     "meanRegret": 0.0217532943615282,
+     "p10": 0.8600942612109309,
+     "worst": 0.781853546015531,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "ajonjoli": 12,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 18
+    }
+   },
+   "elm": {
+    "typical": {
+     "n": 18,
+     "chosenMean": 0.9435100967332605,
+     "ruleMean": 0.7453745311019824,
+     "oracleMean": 0.9730200497463741,
+     "meanGainVsRule": 0.19813556563127785,
+     "win": 10,
+     "tie": 6,
+     "loss": 2,
+     "meanRegret": 0.029509953013113845,
+     "p10": 0.7720001477425259,
+     "worst": 0.738934156733729,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "maiz": 8,
+      "ajonjoli": 4,
+      "frijol": 3,
+      "lechuga": 3
+     },
+     "agreesWithSimulator": 8
+    },
+    "cautious": {
+     "n": 18,
+     "chosenMean": 0.9511121393704269,
+     "ruleMean": 0.7453745311019824,
+     "oracleMean": 0.9730200497463741,
+     "meanGainVsRule": 0.20573760826844445,
+     "win": 11,
+     "tie": 5,
+     "loss": 2,
+     "meanRegret": 0.021907910375947262,
+     "p10": 0.8600942612109309,
+     "worst": 0.781853546015531,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "maiz": 6,
+      "ajonjoli": 6,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 12
+    }
+   }
+  },
+  "60": {
+   "rule": {
+    "n": 18,
+    "chosenMean": 0.8957423983261753,
+    "ruleMean": 0.8957423983261753,
+    "oracleMean": 0.9638398037240873,
+    "meanGainVsRule": 0,
+    "win": 0,
+    "tie": 18,
+    "loss": 0,
+    "meanRegret": 0.06809740539791201,
+    "p10": 0.7879628227622743,
+    "worst": 0,
+    "executable": 17,
+    "executableShare": 0.9444444444444444,
+    "actions": {
+     "frijol": 16,
+     "maiz": 2
+    },
+    "agreesWithSimulator": 14
+   },
+   "simulator": {
+    "typical": {
+     "n": 18,
+     "chosenMean": 0.9112573353309076,
+     "ruleMean": 0.8957423983261753,
+     "oracleMean": 0.9638398037240873,
+     "meanGainVsRule": 0.015514937004732407,
+     "win": 1,
+     "tie": 14,
+     "loss": 3,
+     "meanRegret": 0.0525824683931796,
+     "p10": 0.7336946605664316,
+     "worst": 0.4910866469861556,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "frijol": 16,
+      "lechuga": 2
+     },
+     "agreesWithSimulator": 18
+    },
+    "cautious": {
+     "n": 18,
+     "chosenMean": 0.9204196131977417,
+     "ruleMean": 0.8957423983261753,
+     "oracleMean": 0.9638398037240873,
+     "meanGainVsRule": 0.02467721487156621,
+     "win": 3,
+     "tie": 6,
+     "loss": 9,
+     "meanRegret": 0.0434201905263458,
+     "p10": 0.7764061313151671,
+     "worst": 0.7114215946534104,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "frijol": 6,
+      "lechuga": 12
+     },
+     "agreesWithSimulator": 18
+    }
+   },
+   "mlp": {
+    "typical": {
+     "n": 18,
+     "chosenMean": 0.9156134392407073,
+     "ruleMean": 0.8957423983261753,
+     "oracleMean": 0.9638398037240873,
+     "meanGainVsRule": 0.01987104091453206,
+     "win": 4,
+     "tie": 6,
+     "loss": 8,
+     "meanRegret": 0.04822636448337994,
+     "p10": 0.740002799543041,
+     "worst": 0.6399554278120402,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "frijol": 6,
+      "ajonjoli": 6,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 8
+    },
+    "cautious": {
+     "n": 18,
+     "chosenMean": 0.9153326537080514,
+     "ruleMean": 0.8957423983261753,
+     "oracleMean": 0.9638398037240873,
+     "meanGainVsRule": 0.019590255381876125,
+     "win": 4,
+     "tie": 5,
+     "loss": 9,
+     "meanRegret": 0.04850715001603588,
+     "p10": 0.740002799543041,
+     "worst": 0.6399554278120402,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "ajonjoli": 12,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 6
+    }
+   },
+   "elm": {
+    "typical": {
+     "n": 18,
+     "chosenMean": 0.9093985949335859,
+     "ruleMean": 0.8957423983261753,
+     "oracleMean": 0.9638398037240873,
+     "meanGainVsRule": 0.0136561966074106,
+     "win": 3,
+     "tie": 4,
+     "loss": 11,
+     "meanRegret": 0.054441208790501405,
+     "p10": 0.740002799543041,
+     "worst": 0.6399554278120402,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "maiz": 7,
+      "ajonjoli": 5,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 2
+    },
+    "cautious": {
+     "n": 18,
+     "chosenMean": 0.8620204834805725,
+     "ruleMean": 0.8957423983261753,
+     "oracleMean": 0.9638398037240873,
+     "meanGainVsRule": -0.03372191484560266,
+     "win": 3,
+     "tie": 4,
+     "loss": 11,
+     "meanRegret": 0.10181932024351467,
+     "p10": 0.5980081893646684,
+     "worst": 0.2771573126076425,
+     "executable": 18,
+     "executableShare": 1,
+     "actions": {
+      "maiz": 12,
+      "lechuga": 6
+     },
+     "agreesWithSimulator": 6
+    }
+   }
+  }
+ },
+ "ruleVsSimulatorSameAction": {
+  "typical": 24,
+  "cautious": 6
+ },
+ "oracle": {
+  "chosenMean": 0.9710735268941889,
+  "executableShare": 1
+ },
+ "cases": [
+  {
+   "site": "chiquimula",
+   "year": 2019,
+   "lossDay": 30,
+   "resowDate": "2019-07-06",
+   "daysBeforeNov15": 132,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.6474319398108421,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9295116743901193,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.853069816286651,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.9352382585001634,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.8186783836226518,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2019,
+   "lossDay": 45,
+   "resowDate": "2019-07-21",
+   "daysBeforeNov15": 117,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.9874345119155465,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9748096939943524,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.8008570390639982,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.8745776588046323,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.8662536345797138,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2019,
+   "lossDay": 60,
+   "resowDate": "2019-08-05",
+   "daysBeforeNov15": 102,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9410089308033183,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.7685331952565825,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.826293856595208,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9659513364400953,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "frijol"
+    },
+    "mlp": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2020,
+   "lossDay": 30,
+   "resowDate": "2020-06-23",
+   "daysBeforeNov15": 145,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 1,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.9999093695003651,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9975410439063999,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2020,
+   "lossDay": 45,
+   "resowDate": "2020-07-08",
+   "daysBeforeNov15": 130,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 1,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.9967458034792825,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9979166193235633,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2020,
+   "lossDay": 60,
+   "resowDate": "2020-07-23",
+   "daysBeforeNov15": 115,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9988052867883647,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.9498306303504505,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.9982854365632114,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.999595566265733,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "frijol"
+    },
+    "mlp": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2021,
+   "lossDay": 30,
+   "resowDate": "2021-06-20",
+   "daysBeforeNov15": 148,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.91811094642164,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9441375065427573,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.8446690296399878,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.9201900535257964,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9326861497718186,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2021,
+   "lossDay": 45,
+   "resowDate": "2021-07-05",
+   "daysBeforeNov15": 133,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.9972169117404569,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.8837592243099047,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.7704935697348783,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.8474810522263794,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9430301550678648,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2021,
+   "lossDay": 60,
+   "resowDate": "2021-07-20",
+   "daysBeforeNov15": 118,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.9600593697332674,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.9949458604121931,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.8074974851022139,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.6836070139687852,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.7683688572444046,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.945677863947236,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "frijol"
+    },
+    "mlp": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2022,
+   "lossDay": 30,
+   "resowDate": "2022-07-07",
+   "daysBeforeNov15": 131,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9985579818286434,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.9124411455706488,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.9377357462770511,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9976025674965681,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2022,
+   "lossDay": 45,
+   "resowDate": "2022-07-22",
+   "daysBeforeNov15": 116,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9452035290911627,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.8482810228336034,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.8987009023469578,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 1,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2022,
+   "lossDay": 60,
+   "resowDate": "2022-08-06",
+   "daysBeforeNov15": 101,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.9994618941470533,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.8586109431904986,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.7605265671608099,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.8298091791086915,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9981260073457817,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "frijol"
+    },
+    "mlp": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2023,
+   "lossDay": 30,
+   "resowDate": "2023-07-30",
+   "daysBeforeNov15": 108,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.9998776000485889,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9222444638039039,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.8269741544762389,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.9346630414657516,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.8922036271087893,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2023,
+   "lossDay": 45,
+   "resowDate": "2023-08-14",
+   "daysBeforeNov15": 93,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.9352575691049252,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9525127736425653,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.7372734562272648,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.8501798603531799,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9447858359180141,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2023,
+   "lossDay": 60,
+   "resowDate": "2023-08-29",
+   "daysBeforeNov15": 78,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.9839600871995924,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.8274358739608927,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.6477644685427812,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.7365339704487501,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9796637303440142,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "frijol"
+    },
+    "mlp": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2024,
+   "lossDay": 30,
+   "resowDate": "2024-07-26",
+   "daysBeforeNov15": 112,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9570241177965583,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.9233065508447933,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.9608249352765842,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 1,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2024,
+   "lossDay": 45,
+   "resowDate": "2024-08-10",
+   "daysBeforeNov15": 97,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9146032186838036,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.8487960578690488,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.9147134029273571,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9935495583586225,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "chiquimula",
+   "year": 2024,
+   "lossDay": 60,
+   "resowDate": "2024-08-25",
+   "daysBeforeNov15": 82,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.9986283980589343,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.8641625458805207,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.7464953447405949,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.8522811079580381,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9649812652399242,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "frijol"
+    },
+    "mlp": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2019,
+   "lossDay": 30,
+   "resowDate": "2019-06-17",
+   "daysBeforeNov15": 151,
+   "oracle": "ajonjoli",
+   "truth": {
+    "maiz": {
+     "relYield": 0.7036728215850703,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.08297172533230635,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.8748743033353225,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.703591450440863,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.5841809588630746,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.7340742465488749,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.5459576974104292,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2019,
+   "lossDay": 45,
+   "resowDate": "2019-07-02",
+   "daysBeforeNov15": 136,
+   "oracle": "ajonjoli",
+   "truth": {
+    "maiz": {
+     "relYield": 0.7490088851055139,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.2432990722461264,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.9500722828038423,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.7758056328669242,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.5543242528327748,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.6765312833932994,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.6185161221353873,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2019,
+   "lossDay": 60,
+   "resowDate": "2019-07-17",
+   "daysBeforeNov15": 121,
+   "oracle": "ajonjoli",
+   "truth": {
+    "maiz": {
+     "relYield": 0.8835528822522574,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.4910866469861556,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.9375298289192912,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.7551112256325899,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.5128107599056766,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.6273256618929366,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.7306333413346052,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2020,
+   "lossDay": 30,
+   "resowDate": "2020-06-23",
+   "daysBeforeNov15": 145,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.86370349956495,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9563558010980948,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.8212513879061466,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.9287116459488497,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.8540010917353145,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2020,
+   "lossDay": 45,
+   "resowDate": "2020-07-08",
+   "daysBeforeNov15": 130,
+   "oracle": "maiz",
+   "truth": {
+    "maiz": {
+     "relYield": 1,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.8168080066244557,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9648325279881649,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.7625870786545313,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.8523996678985369,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9069674168591871,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2020,
+   "lossDay": 60,
+   "resowDate": "2020-07-23",
+   "daysBeforeNov15": 115,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.9475377887227775,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.9970909019926122,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.9843255874241896,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9174968085589945,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.6789791101066043,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.7641541451101079,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9344894990907106,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2021,
+   "lossDay": 30,
+   "resowDate": "2021-06-20",
+   "daysBeforeNov15": 148,
+   "oracle": "ajonjoli",
+   "truth": {
+    "maiz": {
+     "relYield": 0.7936868559290192,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.36960298279973935,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.8980331971885136,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.7470895119636356,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.5643438028557297,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.6727160432549812,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.7927992243889027,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2021,
+   "lossDay": 45,
+   "resowDate": "2021-07-05",
+   "daysBeforeNov15": 133,
+   "oracle": "ajonjoli",
+   "truth": {
+    "maiz": {
+     "relYield": 0.627482880985324,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.685723659676601,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.781853546015531,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.6464811548105008,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.49242286305116933,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.580515580133989,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.755288201617672,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2021,
+   "lossDay": 60,
+   "resowDate": "2021-07-20",
+   "daysBeforeNov15": 118,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.2771573126076425,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.9029474965631039,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.6399554278120402,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.5317071360321868,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.4227676552706946,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.5274028490750833,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.7114215946534104,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2022,
+   "lossDay": 30,
+   "resowDate": "2022-06-19",
+   "daysBeforeNov15": 149,
+   "oracle": "ajonjoli",
+   "truth": {
+    "maiz": {
+     "relYield": 0.9937277248168999,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.40919523098686517,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 1,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.9026522112154576,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.725734034960534,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.7972633235140033,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.8433602380374652,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2022,
+   "lossDay": 45,
+   "resowDate": "2022-07-04",
+   "daysBeforeNov15": 134,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.9057159582692367,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.9557724259672523,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.9473305970138839,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.8622828364577539,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.6691608391452859,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.7588296344980063,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.899629853531707,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2022,
+   "lossDay": 60,
+   "resowDate": "2022-07-19",
+   "daysBeforeNov15": 119,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.7756424677589376,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.8609380498574452,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.771319482317382,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.6023103235115705,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.682321919809511,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9334082379997134,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2023,
+   "lossDay": 30,
+   "resowDate": "2023-07-14",
+   "daysBeforeNov15": 124,
+   "oracle": "ajonjoli",
+   "truth": {
+    "maiz": {
+     "relYield": 0.7189592624502504,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.3591408297953498,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.9513229906646796,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.8138322406857155,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.5632959902674027,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.720747651875569,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.7368879338152264,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2023,
+   "lossDay": 45,
+   "resowDate": "2023-07-29",
+   "daysBeforeNov15": 109,
+   "oracle": "ajonjoli",
+   "truth": {
+    "maiz": {
+     "relYield": 0.8695478495337741,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.46215081567818933,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.93025444149428,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.753123609626331,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.5008169858999,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.6366509688926485,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.8324745826960134,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2023,
+   "lossDay": 60,
+   "resowDate": "2023-08-13",
+   "daysBeforeNov15": 94,
+   "oracle": "lechuga",
+   "truth": {
+    "maiz": {
+     "relYield": 0.6732936171370116,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.5649193506189801,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.7523367599705024,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.6199134564148074,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.4227983602543247,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.5399393385259703,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.8668446293704384,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2024,
+   "lossDay": 30,
+   "resowDate": "2024-07-26",
+   "daysBeforeNov15": 112,
+   "oracle": "ajonjoli",
+   "truth": {
+    "maiz": {
+     "relYield": 0.8620550989933919,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.9062154006286074,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.9334981124043029,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.8136849453543828,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.6172865801629777,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.6957632542215952,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9016688475113511,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2024,
+   "lossDay": 45,
+   "resowDate": "2024-08-10",
+   "daysBeforeNov15": 97,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.738934156733729,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.9981036533866754,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.8352399383505635,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.6659463874458995,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.5111982077281063,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.616287607072416,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.8813448647696811,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "ajonjoli"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "maiz",
+     "cautious": "ajonjoli"
+    }
+   }
+  },
+  {
+   "site": "jutiapa",
+   "year": 2024,
+   "lossDay": 60,
+   "resowDate": "2024-08-25",
+   "daysBeforeNov15": 82,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.4223421912292005,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.8947117687368153,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.7112235585456311,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.5392987957625219,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.40305619992020947,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.519133089123953,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.7960230413068364,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "ajonjoli",
+     "cautious": "ajonjoli"
+    },
+    "elm": {
+     "typical": "ajonjoli",
+     "cautious": "maiz"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2019,
+   "lossDay": 30,
+   "resowDate": "2019-06-24",
+   "daysBeforeNov15": 144,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.6050337725369072,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.9614221114115937,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.7441203536382972,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.5001746641719704,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.6095669009889744,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.8109195262097841,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2019,
+   "lossDay": 45,
+   "resowDate": "2019-07-09",
+   "daysBeforeNov15": 129,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.47535268065340364,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.9966130482010087,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.6531648580305056,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.44753001630042855,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.546090982898463,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.870746113865374,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2019,
+   "lossDay": 60,
+   "resowDate": "2019-07-24",
+   "daysBeforeNov15": 114,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0,
+     "executable": false
+    },
+    "frijol": {
+     "relYield": 0.9639240959235877,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.5401277758365326,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0,
+     "executable": false
+    },
+    "brocoli": {
+     "relYield": 0.4778609672775491,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.8502617882844627,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2020,
+   "lossDay": 30,
+   "resowDate": "2020-06-23",
+   "daysBeforeNov15": 145,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0,
+     "executable": false
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.8994334802179221,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.6572219616563673,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.7433808353201055,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9917846973056137,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2020,
+   "lossDay": 45,
+   "resowDate": "2020-07-08",
+   "daysBeforeNov15": 130,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0,
+     "executable": false
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.7956216494812514,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0,
+     "executable": false
+    },
+    "brocoli": {
+     "relYield": 0.6597106839906915,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9891501729765088,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2020,
+   "lossDay": 60,
+   "resowDate": "2020-07-23",
+   "daysBeforeNov15": 115,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0,
+     "executable": false
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.6679185360818471,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0,
+     "executable": false
+    },
+    "brocoli": {
+     "relYield": 0.5802361568321381,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9971008459332668,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2021,
+   "lossDay": 30,
+   "resowDate": "2021-06-18",
+   "daysBeforeNov15": 150,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.5140053282406072,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.983025736195163,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.7282919821878868,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.5704217261627518,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.670537674675517,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9017568137685504,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2021,
+   "lossDay": 45,
+   "resowDate": "2021-07-03",
+   "daysBeforeNov15": 135,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0,
+     "executable": false
+    },
+    "frijol": {
+     "relYield": 0.9062438702689595,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.6330258616199258,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.49598792307066697,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.5994685140481552,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.882428219781921,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2021,
+   "lossDay": 60,
+   "resowDate": "2021-07-18",
+   "daysBeforeNov15": 120,
+   "oracle": "lechuga",
+   "truth": {
+    "maiz": {
+     "relYield": 0,
+     "executable": false
+    },
+    "frijol": {
+     "relYield": 0.8060269362581964,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.5521782924469638,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0,
+     "executable": false
+    },
+    "brocoli": {
+     "relYield": 0.5429656368055027,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.8426385188547714,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2022,
+   "lossDay": 30,
+   "resowDate": "2022-07-04",
+   "daysBeforeNov15": 134,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0,
+     "executable": false
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.7730093707118216,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.6048999697426751,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.6570131912355665,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9835839599620922,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2022,
+   "lossDay": 45,
+   "resowDate": "2022-07-19",
+   "daysBeforeNov15": 119,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0,
+     "executable": false
+    },
+    "frijol": {
+     "relYield": 0.9954476272971854,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.6485618776996065,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0,
+     "executable": false
+    },
+    "brocoli": {
+     "relYield": 0.6048895335269653,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9596926352678812,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2022,
+   "lossDay": 60,
+   "resowDate": "2022-08-03",
+   "daysBeforeNov15": 104,
+   "oracle": "lechuga",
+   "truth": {
+    "maiz": {
+     "relYield": 0,
+     "executable": false
+    },
+    "frijol": {
+     "relYield": 0.9162166737837989,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.5325171632677601,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0,
+     "executable": false
+    },
+    "brocoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "lechuga": {
+     "relYield": 0.9434292266729516,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2023,
+   "lossDay": 30,
+   "resowDate": "2023-06-26",
+   "daysBeforeNov15": 142,
+   "oracle": "lechuga",
+   "truth": {
+    "maiz": {
+     "relYield": 0.7777764951710869,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 0.9146764791667409,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.6883538772840289,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.8863403793330742,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.6316869139148495,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.7485484209220445,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.972316638618326,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2023,
+   "lossDay": 45,
+   "resowDate": "2023-07-11",
+   "daysBeforeNov15": 127,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.6490768852737973,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.5963116711578748,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.779572522232097,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.5607844086666747,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.6518797554840456,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9814682494076954,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2023,
+   "lossDay": 60,
+   "resowDate": "2023-07-26",
+   "daysBeforeNov15": 112,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.5066626051739533,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.6467096112991689,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.47969565957419713,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.5644116485129738,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.981931841325967,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2024,
+   "lossDay": 30,
+   "resowDate": "2024-07-03",
+   "daysBeforeNov15": 135,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.7574399699838471,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0.6866681284742626,
+     "executable": true
+    },
+    "papa": {
+     "relYield": 0.8819048767013923,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.6716121614438464,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.7492651938428959,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9997108158363346,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2024,
+   "lossDay": 45,
+   "resowDate": "2024-07-18",
+   "daysBeforeNov15": 120,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0.6344931804254295,
+     "executable": true
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.7761954096112046,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0.5862515210401558,
+     "executable": true
+    },
+    "brocoli": {
+     "relYield": 0.6790793437755803,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9945653999497459,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "maiz"
+    },
+    "simulator": {
+     "typical": "frijol",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  },
+  {
+   "site": "sanmartin",
+   "year": 2024,
+   "lossDay": 60,
+   "resowDate": "2024-08-02",
+   "daysBeforeNov15": 105,
+   "oracle": "frijol",
+   "truth": {
+    "maiz": {
+     "relYield": 0,
+     "executable": false
+    },
+    "frijol": {
+     "relYield": 1,
+     "executable": true
+    },
+    "ajonjoli": {
+     "relYield": 0,
+     "executable": false
+    },
+    "papa": {
+     "relYield": 0.6510558480936386,
+     "executable": true
+    },
+    "cebolla": {
+     "relYield": 0,
+     "executable": false
+    },
+    "brocoli": {
+     "relYield": 0.5974626907732721,
+     "executable": true
+    },
+    "lechuga": {
+     "relYield": 0.9793704727322136,
+     "executable": true
+    }
+   },
+   "decisions": {
+    "rule": {
+     "none": "frijol"
+    },
+    "simulator": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "mlp": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    },
+    "elm": {
+     "typical": "lechuga",
+     "cautious": "lechuga"
+    }
+   }
+  }
+ ]
+}
