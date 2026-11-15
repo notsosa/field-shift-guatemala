@@ -7,3 +7,6 @@ scripts/referee/out/
 scripts/emulator/cache_rain/
 scripts/emulator/cache_raw/
 scripts/emulator/screening_superset.json
+
+# Scratch work of the decision comparison (the committed result is web/data/decision_eval.json)
+scripts/compare/out/
