@@ -1,0 +1,50 @@
+{
+  "fecha": "2026-11-15",
+  "suites_con_salida_completa": [
+    {
+      "carpeta": "tests",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_empty_soil_without_inputs_cannot_evaporate_water (test_simular_chiquimula_2025.BalanceLimits.test_empty_soil_without_inputs_cannot_evaporate_water) ... ok\ntest_no_flux_preserves_storage_across_crop_changes (test_simular_chiquimula_2025.BalanceLimits.test_no_flux_preserves_storage_across_crop_changes) ... ok\ntest_rain_above_capacity_becomes_drainage (test_simular_chiquimula_2025.BalanceLimits.test_rain_above_capacity_becomes_drainage) ... ok\ntest_supplemental_water_has_finite_accounted_volume (test_simular_chiquimula_2025.BalanceLimits.test_supplemental_water_has_finite_accounted_volume) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.011s\n\nOK\n"
+    },
+    {
+      "carpeta": "auditorias/prueba ajonjoli maiz 2025/tests",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_complete_gap_and_no_double_drying (test_auditoria.AuditChecks.test_complete_gap_and_no_double_drying) ... ok\ntest_direct_order_matches_published_four_rains_and_irrigation_modes (test_auditoria.AuditChecks.test_direct_order_matches_published_four_rains_and_irrigation_modes) ... ok\ntest_each_gap_changes_maize_start_by_seven_days (test_auditoria.AuditChecks.test_each_gap_changes_maize_start_by_seven_days) ... ok\ntest_excess_water_has_no_unaccounted_sink (test_auditoria.AuditChecks.test_excess_water_has_no_unaccounted_sink) ... ok\ntest_long_cycle_is_calendar_only_and_engine_rejects_it (test_auditoria.AuditChecks.test_long_cycle_is_calendar_only_and_engine_rejects_it) ... ok\ntest_no_flux_keeps_reserve_across_harvest_gap_and_new_crop (test_auditoria.AuditChecks.test_no_flux_keeps_reserve_across_harvest_gap_and_new_crop) ... ok\ntest_no_water_cannot_supply_et (test_auditoria.AuditChecks.test_no_water_cannot_supply_et) ... ok\ntest_paired_comparison_uses_identical_conditions (test_auditoria.AuditChecks.test_paired_comparison_uses_identical_conditions) ... ok\ntest_paired_programs_have_same_end_and_active_duration (test_auditoria.AuditChecks.test_paired_programs_have_same_end_and_active_duration) ... ok\ntest_source_duration_discrepancy_stays_explicit (test_auditoria.AuditChecks.test_source_duration_discrepancy_stays_explicit) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.592s\n\nOK\n"
+    },
+    {
+      "carpeta": "auditorias/prueba brocoli lechuga 2025/tests",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_astronomical_daylength_equator_and_seasons (test_auditoria.AuditChecks.test_astronomical_daylength_equator_and_seasons) ... ok\ntest_daily_mean_and_maximum_are_not_confused (test_auditoria.AuditChecks.test_daily_mean_and_maximum_are_not_confused) ... ok\ntest_excess_rain_is_accounted_in_drainage (test_auditoria.AuditChecks.test_excess_rain_is_accounted_in_drainage) ... ok\ntest_legacy_published_balance_four_rains_two_modes (test_auditoria.AuditChecks.test_legacy_published_balance_four_rains_two_modes) ... ok\ntest_model_calendar_matches_report_and_has_complete_gap (test_auditoria.AuditChecks.test_model_calendar_matches_report_and_has_complete_gap) ... ok\ntest_no_flux_preserves_water_across_crop_change (test_auditoria.AuditChecks.test_no_flux_preserves_water_across_crop_change) ... ok\ntest_no_incomplete_program_can_enter_engine (test_auditoria.AuditChecks.test_no_incomplete_program_can_enter_engine) ... ok\ntest_no_water_means_zero_actual_et (test_auditoria.AuditChecks.test_no_water_means_zero_actual_et) ... ok\ntest_opposite_orders_have_equal_end_dates (test_auditoria.AuditChecks.test_opposite_orders_have_equal_end_dates) ... ok\ntest_parameters_fit_documented_ranges_and_stage_lengths (test_auditoria.AuditChecks.test_parameters_fit_documented_ranges_and_stage_lengths) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.546s\n\nOK\n"
+    },
+    {
+      "carpeta": "auditorias/prueba frijol maiz 2025/tests",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_empty_soil_without_inputs_cannot_evaporate_water (test_simular_chiquimula_2025.BalanceLimits.test_empty_soil_without_inputs_cannot_evaporate_water) ... ok\ntest_no_flux_preserves_storage_across_crop_changes (test_simular_chiquimula_2025.BalanceLimits.test_no_flux_preserves_storage_across_crop_changes) ... ok\ntest_rain_above_capacity_becomes_drainage (test_simular_chiquimula_2025.BalanceLimits.test_rain_above_capacity_becomes_drainage) ... ok\ntest_supplemental_water_has_finite_accounted_volume (test_simular_chiquimula_2025.BalanceLimits.test_supplemental_water_has_finite_accounted_volume) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.012s\n\nOK\n"
+    },
+    {
+      "carpeta": "auditorias/prueba maiz ajonjoli 2025/tests",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_bean_comparator_matches_published_run (test_auditoria.AuditChecks.test_bean_comparator_matches_published_run) ... ok\ntest_excess_water_is_accounted_for (test_auditoria.AuditChecks.test_excess_water_is_accounted_for) ... ok\ntest_gap_has_seven_complete_days (test_auditoria.AuditChecks.test_gap_has_seven_complete_days) ... ok\ntest_growth_completion_and_dry_margin_are_separate (test_auditoria.AuditChecks.test_growth_completion_and_dry_margin_are_separate) ... ok\ntest_long_calendar_is_not_a_complete_2025_trial (test_auditoria.AuditChecks.test_long_calendar_is_not_a_complete_2025_trial) ... ok\ntest_no_flux_preserves_water_through_change (test_auditoria.AuditChecks.test_no_flux_preserves_water_through_change) ... ok\ntest_no_water_cannot_meet_demand (test_auditoria.AuditChecks.test_no_water_cannot_meet_demand) ... ok\ntest_stage_lengths_and_fao_discrepancy_are_explicit (test_auditoria.AuditChecks.test_stage_lengths_and_fao_discrepancy_are_explicit) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.554s\n\nOK\n"
+    },
+    {
+      "carpeta": "auditorias/prueba papa cebolla 2025/tests",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_astronomical_daylength_equator_and_seasons (test_auditoria.AuditChecks.test_astronomical_daylength_equator_and_seasons) ... ok\ntest_daily_mean_and_maximum_are_not_confused (test_auditoria.AuditChecks.test_daily_mean_and_maximum_are_not_confused) ... ok\ntest_excess_rain_is_accounted_in_drainage (test_auditoria.AuditChecks.test_excess_rain_is_accounted_in_drainage) ... ok\ntest_legacy_published_balance_four_rains_two_modes (test_auditoria.AuditChecks.test_legacy_published_balance_four_rains_two_modes) ... ok\ntest_model_calendar_matches_report_and_has_complete_gap (test_auditoria.AuditChecks.test_model_calendar_matches_report_and_has_complete_gap) ... ok\ntest_no_flux_preserves_water_across_crop_change (test_auditoria.AuditChecks.test_no_flux_preserves_water_across_crop_change) ... ok\ntest_no_incomplete_program_can_enter_engine (test_auditoria.AuditChecks.test_no_incomplete_program_can_enter_engine) ... ok\ntest_no_water_means_zero_actual_et (test_auditoria.AuditChecks.test_no_water_means_zero_actual_et) ... ok\ntest_opposite_orders_have_equal_end_dates (test_auditoria.AuditChecks.test_opposite_orders_have_equal_end_dates) ... ok\ntest_parameters_fit_documented_ranges_and_stage_lengths (test_auditoria.AuditChecks.test_parameters_fit_documented_ranges_and_stage_lengths) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.563s\n\nOK\n"
+    }
+  ],
+  "suite_adicional": {
+    "carpeta": "auditorias/combinaciones pendientes 7 cultivos 2025/tests",
+    "comando": "python -m unittest discover -s \"auditorias/combinaciones pendientes 7 cultivos 2025/tests\" -v",
+    "resultado_observado": "Ran 12 tests in 2.839s; OK; exit_code0",
+    "evidencia": "Salida observada en la herramienta durante esta revisión; no se archivó aquí una transcripción íntegra de esa salida."
+  },
+  "pruebas_ejecutadas": 58,
+  "pruebas_fallidas": 0,
+  "limite": "Pruebas de implementación, equivalencia y contabilidad; no ensayos agronómicos."
+}

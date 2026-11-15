@@ -1,35 +1,41 @@
 {
   "fecha": "2026-11-15",
-  "resultado": "correcto",
-  "relaciones": 12,
+  "resultado": "integridad_documental_correcta",
+  "relaciones": 13,
   "por_cultivo": {
-    "Maíz": 1,
+    "Maíz": 2,
     "Frijol común": 3,
     "Cebolla de bulbo": 2,
     "Brócoli": 3,
     "Lechuga": 3
   },
   "por_resolucion": {
-    "especie": 10,
+    "especie": 11,
     "grupo": 2
   },
   "fuentes": 11,
   "fuentes_de_registros_directos": 9,
   "fuentes_de_contexto_documental": 2,
   "todos_evidencia_directa": true,
+  "cobertura_documental_cultivos": 7,
+  "validacion_experimental_agronomica": false,
   "sin_frecuencias_ni_presencias_de_parcela_inferidas": true,
   "archivos": [
     {
       "ruta": "plagas_confirmadas.json",
-      "sha256": "d6b77c1a07f4908d7b877fe1b1d9381bd33b46005a06c6406cb1c0361b1944fd"
+      "sha256": "d18557169a7be258ada15f98e6a256a5a610317706e9ce30135e1727cdefb872"
     },
     {
       "ruta": "fuentes.json",
-      "sha256": "78d47f8e9972342d488a5599aeceddad3e84437ee279836aee978ede12676af4"
+      "sha256": "97492fdeded4c676b0b684b405108cae16b647d906dbbd417c10b980f6bdce09"
+    },
+    {
+      "ruta": "cobertura_por_cultivo.json",
+      "sha256": "defaef010d0199248f90a0f6d7144f62e542cf7b1f602e28ee9b65931b1d1915"
     },
     {
       "ruta": "README.md",
-      "sha256": "0251898ec42c5e93495ecca54a0809190e0d0fe410e85b41597158078e210a77"
+      "sha256": "59e2208d886fd59aa24639bea32a37f3766a0cd9aa9c98fd082fafe4e4ac600f"
     }
   ]
 }

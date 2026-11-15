@@ -1,0 +1,150 @@
+{
+  "fecha": "2026-11-15",
+  "unidad": "Conteos de la revisión documental, no prevalencia ni riesgo.",
+  "cultivos": [
+    {
+      "cultivo_id": "maiz",
+      "cultivo": "Maíz",
+      "entradas_documentales_en_inventario_de_trabajo": 16,
+      "registros_directos_en_esta_tabla": 2,
+      "estado": "hay_antecedentes_documentales",
+      "fuentes_referencia": [
+        {
+          "id": "S05",
+          "url": "https://www.icta.gob.gt/publicaciones/Memoriasicta/Memoria%20de%20Labores%20ICTA%202023.pdf",
+          "tipo": "registro_local"
+        }
+      ],
+      "ausencia_de_plagas": null,
+      "presencia_en_parcela_chiquimula": null,
+      "riesgo_fitosanitario_estimado": null
+    },
+    {
+      "cultivo_id": "frijol",
+      "cultivo": "Frijol común",
+      "entradas_documentales_en_inventario_de_trabajo": 20,
+      "registros_directos_en_esta_tabla": 3,
+      "estado": "hay_antecedentes_documentales",
+      "fuentes_referencia": [
+        {
+          "id": "S09",
+          "url": "https://icta.gob.gt/plagacultivofrijolGuatemala.html",
+          "tipo": "registro_local"
+        },
+        {
+          "id": "S20",
+          "url": "https://repositorio.uvg.edu.gt/server/api/core/bitstreams/bbee17fe-bceb-41e7-b960-e7e1e383b219/content",
+          "tipo": "registro_local"
+        }
+      ],
+      "ausencia_de_plagas": null,
+      "presencia_en_parcela_chiquimula": null,
+      "riesgo_fitosanitario_estimado": null
+    },
+    {
+      "cultivo_id": "ajonjoli",
+      "cultivo": "Ajonjolí",
+      "entradas_documentales_en_inventario_de_trabajo": 7,
+      "registros_directos_en_esta_tabla": 0,
+      "estado": "hay_antecedentes_documentales",
+      "fuentes_referencia": [
+        {
+          "id": "S11",
+          "url": "https://biblioteca.usac.edu.gt/tesis/22/22_0252.pdf",
+          "tipo": "reporte_de_productores"
+        }
+      ],
+      "ausencia_de_plagas": null,
+      "presencia_en_parcela_chiquimula": null,
+      "riesgo_fitosanitario_estimado": null
+    },
+    {
+      "cultivo_id": "papa",
+      "cultivo": "Papa",
+      "entradas_documentales_en_inventario_de_trabajo": 11,
+      "registros_directos_en_esta_tabla": 0,
+      "estado": "hay_antecedentes_documentales",
+      "fuentes_referencia": [
+        {
+          "id": "S13",
+          "url": "https://www.icta.gob.gt/publicaciones/Papa/El%20cultivo%20de%20la%20papa%20en%20Guatemala%2C%202002.pdf",
+          "tipo": "guia_institucional"
+        }
+      ],
+      "ausencia_de_plagas": null,
+      "presencia_en_parcela_chiquimula": null,
+      "riesgo_fitosanitario_estimado": null
+    },
+    {
+      "cultivo_id": "cebolla",
+      "cultivo": "Cebolla de bulbo",
+      "entradas_documentales_en_inventario_de_trabajo": 7,
+      "registros_directos_en_esta_tabla": 2,
+      "estado": "hay_antecedentes_documentales",
+      "fuentes_referencia": [
+        {
+          "id": "S16",
+          "url": "https://www.icta.gob.gt/publicaciones/Plaguicidas/Manual%20de%20ensayos%20eficacia%20plaguicidas%20ICTA%20JICA%20Dardon-Sagayama%202001.pdf",
+          "tipo": "registro_local"
+        },
+        {
+          "id": "S17",
+          "url": "https://www.repositorio.usac.edu.gt/8989/1/Edgar%20Arturo%20Garc%C3%ADa%20Salas%20Cord%C3%B3n.pdf",
+          "tipo": "registro_local"
+        }
+      ],
+      "ausencia_de_plagas": null,
+      "presencia_en_parcela_chiquimula": null,
+      "riesgo_fitosanitario_estimado": null
+    },
+    {
+      "cultivo_id": "brocoli",
+      "cultivo": "Brócoli",
+      "entradas_documentales_en_inventario_de_trabajo": 8,
+      "registros_directos_en_esta_tabla": 3,
+      "estado": "hay_antecedentes_documentales",
+      "fuentes_referencia": [
+        {
+          "id": "S21",
+          "url": "https://arcasavi.com/wp-content/uploads/2020/05/revistaagricultura2_23.pdf",
+          "tipo": "registro_local"
+        },
+        {
+          "id": "S22",
+          "url": "https://www.repositorio.usac.edu.gt/6251/1/ELMER%20TOMAS%20ALDANA%20AVILA.pdf",
+          "tipo": "registro_local"
+        }
+      ],
+      "ausencia_de_plagas": null,
+      "presencia_en_parcela_chiquimula": null,
+      "riesgo_fitosanitario_estimado": null
+    },
+    {
+      "cultivo_id": "lechuga",
+      "cultivo": "Lechuga",
+      "entradas_documentales_en_inventario_de_trabajo": 3,
+      "registros_directos_en_esta_tabla": 3,
+      "estado": "hay_antecedentes_documentales",
+      "fuentes_referencia": [
+        {
+          "id": "S24",
+          "url": "https://biblioteca.usac.edu.gt/tesis/01/01_2071.pdf",
+          "tipo": "registro_local"
+        },
+        {
+          "id": "S25",
+          "url": "https://biblioteca.usac.edu.gt/tesis/01/01_3159.pdf",
+          "tipo": "registro_local"
+        },
+        {
+          "id": "S20",
+          "url": "https://repositorio.uvg.edu.gt/server/api/core/bitstreams/bbee17fe-bceb-41e7-b960-e7e1e383b219/content",
+          "tipo": "registro_local"
+        }
+      ],
+      "ausencia_de_plagas": null,
+      "presencia_en_parcela_chiquimula": null,
+      "riesgo_fitosanitario_estimado": null
+    }
+  ]
+}

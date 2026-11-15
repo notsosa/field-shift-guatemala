@@ -3,9 +3,37 @@
   "fecha": "2026-11-15",
   "criterio": "Solo observaciones, muestreos, ensayos o diagnósticos locales directos, al nivel taxonómico realmente identificado.",
   "unidad": "Relación cultivo–taxón; no especies únicas, ranking de frecuencia ni presencia actual en una parcela.",
-  "alcance": "12 relaciones, 10 a nivel de especie y 2 de género. Incluye registros históricos y un estudio con precisión geográfica regional.",
+  "alcance": "13 relaciones: 11 a nivel de especie y 2 de género. Incluye diagnósticos, ensayos, observaciones y capturas; el tipo se indica en cada registro.",
   "exclusiones": "Guías generales, reportes comunitarios, bibliografía mezclada, inventarios citados no revisados directamente y diez menciones pendientes.",
   "registros": [
+    {
+      "id": "maiz-05",
+      "taxon": "Dalbulus maidis",
+      "resolucion": "especie",
+      "nombre_comun": "Chicharrita del maíz",
+      "organo_o_dano": "Succión; vector",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S05",
+          "localizador": "p.6/PDF 10, ensayo poblacional en maíz ICTA B-7, CEPSUR"
+        }
+      ],
+      "lugar": "CEPSUR, La Máquina, Suchitepéquez",
+      "periodo_documentado": "Memoria2023; fecha individual del ensayo no especificada en el pasaje",
+      "notas": "El informe describe evaluaciones poblacionales en un ensayo de maíz. Se normaliza la errata D.maydis; no se usa como infestación actual en Chiquimula.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Maíz",
+      "cultivo_id": "maiz",
+      "nombre_botanico_cultivo": "Zea mays",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "ensayo_poblacional_en_cultivo",
+      "fecha_evento_reportada": null
+    },
     {
       "id": "maiz-06",
       "taxon": "Oligonychus pratensis",
@@ -18,19 +46,21 @@
       "referencias": [
         {
           "fuente": "S05",
-          "localizador": "Diagnóstico del daño ocasionado por el ácaro del maíz"
+          "localizador": "p.7/PDF 11, diagnóstico; p.53/PDF 57, servicios diagnósticos"
         }
       ],
       "lugar": "Quetzaltenango y Totonicapán",
-      "periodo_documentado": "2023",
-      "notas": "Diagnóstico ICTA/VISAR; no inferir presencia en Chiquimula.",
+      "periodo_documentado": "Memoria2023; fecha individual de muestreo no especificada en el pasaje",
+      "notas": "Diagnóstico ICTA/VISAR. El año del informe no se convierte en fecha precisa de colecta; no inferir presencia en Chiquimula.",
       "frecuencia_nacional": null,
       "presencia_en_parcela_chiquimula": null,
       "cultivo": "Maíz",
       "cultivo_id": "maiz",
       "nombre_botanico_cultivo": "Zea mays",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "diagnostico_de_material_del_cultivo",
+      "fecha_evento_reportada": null
     },
     {
       "id": "frijol-01",
@@ -56,7 +86,9 @@
       "cultivo_id": "frijol",
       "nombre_botanico_cultivo": "Phaseolus vulgaris",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "muestreo_institucional_del_cultivo",
+      "fecha_evento_reportada": "2022"
     },
     {
       "id": "frijol-08",
@@ -82,7 +114,9 @@
       "cultivo_id": "frijol",
       "nombre_botanico_cultivo": "Phaseolus vulgaris",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "crianza_e_identificacion_de_minadores",
+      "fecha_evento_reportada": "1996, período general del estudio"
     },
     {
       "id": "frijol-20",
@@ -108,7 +142,9 @@
       "cultivo_id": "frijol",
       "nombre_botanico_cultivo": "Phaseolus vulgaris",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "crianza_e_identificacion_de_minadores",
+      "fecha_evento_reportada": "1996, período general del estudio"
     },
     {
       "id": "cebolla-01",
@@ -134,7 +170,9 @@
       "cultivo_id": "cebolla",
       "nombre_botanico_cultivo": "Allium cepa",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "diagnostico_de_muestras_del_cultivo",
+      "fecha_evento_reportada": "2007-01"
     },
     {
       "id": "cebolla-02",
@@ -164,7 +202,9 @@
       "cultivo_id": "cebolla",
       "nombre_botanico_cultivo": "Allium cepa",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "ensayo_y_registro_taxonomico",
+      "fecha_evento_reportada": "1996, período general del estudio; ensayo 2000"
     },
     {
       "id": "brocoli-01",
@@ -190,7 +230,9 @@
       "cultivo_id": "brocoli",
       "nombre_botanico_cultivo": "Brassica oleracea, grupo Italica",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "ensayo_de_control_resumen_original",
+      "fecha_evento_reportada": "2006, período del EPS"
     },
     {
       "id": "brocoli-02",
@@ -216,7 +258,9 @@
       "cultivo_id": "brocoli",
       "nombre_botanico_cultivo": "Brassica oleracea, grupo Italica",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "muestreo_de_larvas_en_cultivo",
+      "fecha_evento_reportada": "1998-08 a 1998-11"
     },
     {
       "id": "brocoli-04",
@@ -242,7 +286,9 @@
       "cultivo_id": "brocoli",
       "nombre_botanico_cultivo": "Brassica oleracea, grupo Italica",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "crianza_e_identificacion_de_minadores",
+      "fecha_evento_reportada": "1996, período general del estudio"
     },
     {
       "id": "lechuga-01",
@@ -260,41 +306,45 @@
         }
       ],
       "lugar": "Pachalí, San Juan Sacatepéquez",
-      "periodo_documentado": "2004",
-      "notas": "Observación durante ensayo hidropónico; sin identificación a especie.",
+      "periodo_documentado": "Tesis publicada en 2004; fecha del ensayo no fijada en el pasaje",
+      "notas": "Infestación observada en plantas durante ensayo hidropónico. El año2004 es editorial; no se inventa una fecha de colecta. Identificación a género.",
       "frecuencia_nacional": null,
       "presencia_en_parcela_chiquimula": null,
       "cultivo": "Lechuga",
       "cultivo_id": "lechuga",
       "nombre_botanico_cultivo": "Lactuca sativa",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "observacion_de_infestacion_en_plantas",
+      "fecha_evento_reportada": null
     },
     {
       "id": "lechuga-02",
       "taxon": "Frankliniella occidentalis",
       "resolucion": "especie",
       "nombre_comun": "Trips",
-      "organo_o_dano": "Capturas en monitoreo de lechuga",
+      "organo_o_dano": "Capturas en trampas dentro de parcela",
       "etapa": "campo",
       "sistema": "Cultivo comercial",
       "evidencia": "D",
       "referencias": [
         {
           "fuente": "S25",
-          "localizador": "3.3, pp.148–156/PDF 174–182"
+          "localizador": "3.3.3–3.3.4, pp.153–156/PDF 179–182; método p.154/PDF 180"
         }
       ],
       "lugar": "Finca Bejo, Parramos, Chimaltenango",
       "periodo_documentado": "Trabajo de campo 2016; tesis 2017",
-      "notas": "Resultados de monitoreo; el autor asigna especie, sin detalle localizado de claves ni ejemplares de referencia.",
+      "notas": "Capturas en platos y trampas dentro de la parcela, asignadas a esta especie por el autor. No se documentó en el pasaje una determinación taxonómica independiente ni crianza/alimentación sobre lechuga; la asociación conserva ese límite.",
       "frecuencia_nacional": null,
       "presencia_en_parcela_chiquimula": null,
       "cultivo": "Lechuga",
       "cultivo_id": "lechuga",
       "nombre_botanico_cultivo": "Lactuca sativa",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "captura_en_trampas_en_parcela",
+      "fecha_evento_reportada": "2016"
     },
     {
       "id": "lechuga-03",
@@ -320,12 +370,14 @@
       "cultivo_id": "lechuga",
       "nombre_botanico_cultivo": "Lactuca sativa",
       "estado": "registro_local_directo_documentado",
-      "fecha_revision": "2026-11-15"
+      "fecha_revision": "2026-11-15",
+      "tipo_vinculo_documentado": "crianza_e_identificacion_de_minadores",
+      "fecha_evento_reportada": "1996, período general del estudio"
     }
   ],
   "alcance_entrega_space_apps": {
     "fecha_corte": "2026-11-15",
-    "base": "Evidencia pública ya corroborada y disponible en la fecha de corte.",
+    "base": "Evidencia pública disponible, conservando la diferencia entre diagnóstico, observación, captura, guía y reporte. El subconjunto directo no sustituye la cobertura documental de los siete cultivos.",
     "contactos_institucionales": "fuera_del_alcance_no_autorizados",
     "muestreos_nuevos": "fuera_del_alcance_de_la_entrega",
     "menciones_pendientes": "excluidas_de_recomendaciones_y_etiquetas_de_presencia",
@@ -333,7 +385,7 @@
     "infestacion_actual_chiquimula": "no_determinada"
   },
   "cobertura_documental": {
-    "alcance": "Parcial: la tabla de 12 relaciones directas cubre cinco de los siete cultivos.",
+    "alcance": "Parcial: la tabla de 13 relaciones directas cubre cinco de los siete cultivos.",
     "interpretacion": "Papa y ajonjolí tienen plagas documentadas. Su omisión de esta tabla no representa ausencia de plagas ni riesgo cero.",
     "cultivos_con_plagas_documentadas_fuera_de_tabla": [
       {

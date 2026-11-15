@@ -1,0 +1,113 @@
+{
+  "fecha": "2026-11-15",
+  "entrega_plagas": {
+    "resultado": "controles_documentales_correctos",
+    "relaciones_locales": 13,
+    "cultivos_con_cobertura": 7,
+    "pendientes_publicados": 0,
+    "limite": "Comprueba coherencia y previene las regresiones identificadas; no sustituye lectura crítica, diagnóstico ni ensayo agronómico."
+  },
+  "inventario_plagas": {
+    "fecha": "2026-11-15",
+    "resultado": "correcto",
+    "cultivos": 7,
+    "registros_totales": 82,
+    "incluidos": 72,
+    "por_etapa": {
+      "campo": 66,
+      "poscosecha_campo_almacen": 2,
+      "almacen": 4,
+      "pendientes": 10
+    },
+    "fuentes": 29,
+    "fuentes_con_copia_y_hash_comprobados": [
+      "S01",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S08",
+      "S10",
+      "S11",
+      "S13",
+      "S14",
+      "S15",
+      "S16",
+      "S18",
+      "S19",
+      "S20",
+      "S21",
+      "S24",
+      "S25"
+    ],
+    "comprobaciones": [
+      "JSON legible y sin IDs duplicados",
+      "Taxones no duplicados dentro de cada cultivo",
+      "Todos los registros tienen fuente, localizador, lugar y período",
+      "Pendientes excluidos del inventario principal",
+      "Presencia de parcela y frecuencia nacional no inventadas",
+      "Conteos y selección inicial coherentes",
+      "Hashes de copias disponibles verificados",
+      "Informe UTF-8 con siete apartados de cultivo"
+    ],
+    "limite": "Comprobación de integridad; no reproduce diagnósticos ni certifica prevalencia o exhaustividad."
+  },
+  "cobertura_sucesiones": {
+    "resultado": "correcto",
+    "errores": [],
+    "conteos": {
+      "corridas": 271296,
+      "programas": 4200,
+      "completos_2025": 1884
+    },
+    "sucesiones_nuevas": 34,
+    "anteriores": 8,
+    "total": 42,
+    "fuentes_con_hash_verificado": 49,
+    "alcance": "Coherencia de salidas y pruebas de software; no validación experimental agronómica."
+  },
+  "matriz_botanica": {
+    "fecha_utc": "2026-11-15T21:37:48.915Z",
+    "archivo": "datos/cultivos/compatibilidad_sucesiones.json",
+    "schema_version": "1.1.0",
+    "sha256": "8a6d7dfdccdbaf2867747cdb36b8b6686228521fa795667b051d2c02bbc9e116",
+    "resultado": "integridad_documental_correcta",
+    "errores": [],
+    "cobertura_recalculada": {
+      "cultivos": 18,
+      "familias": 10,
+      "celdas": 324,
+      "repeticiones": 18,
+      "cambios": 306,
+      "celdas_con_alerta_hospedantes": 45,
+      "alertas_en_repeticiones": 9,
+      "alertas_en_cambios": 36,
+      "celdas_sin_alerta_en_este_alcance": 279,
+      "celdas_con_evidencia_contextual": 3,
+      "evidencia_en_repeticiones": 1,
+      "celdas_sin_evidencia_especifica": 321,
+      "celdas_con_alerta_o_evidencia": 47,
+      "celdas_sin_alerta_ni_evidencia": 277,
+      "celdas_aprobadas_para_parcela": 0,
+      "celdas_con_ensayo_local_validado_en_esta_seleccion": 0,
+      "celdas_por_regla_hospedantes": {
+        "H01": 25,
+        "H02": 9,
+        "H03": 16
+      }
+    },
+    "limite": "Comprueba estructura, referencias y conteos. No prueba veracidad biológica, eficacia ni adaptación local."
+  },
+  "pruebas_software": {
+    "ejecutadas": 58,
+    "fallidas": 0,
+    "detalle": "pruebas_software.json"
+  },
+  "alcance": "Control documental y computacional. No se repitieron los99,023,040 pasos diarios ni se validaron resultados en campo.",
+  "propagacion_plagas": {
+    "motores_hidricos_consumen_inventario_plagas": false,
+    "observacion": "La búsqueda de referencias y la lectura del método no detectan consumo de los JSON de plagas por los motores auditados. No se encontró cambio numérico del balance atribuible a esta omisión.",
+    "limite": "No es una auditoría de la aplicación móvil añadida por otro trabajo ni garantía sobre futuros consumidores de datos."
+  }
+}

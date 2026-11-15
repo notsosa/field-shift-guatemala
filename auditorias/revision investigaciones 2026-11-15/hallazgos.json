@@ -1,0 +1,139 @@
+{
+  "fecha": "2026-11-15",
+  "autor_revision": "Asistente principal; contraste del expediente y fuentes, sin encargar esta revisión al asesor autor.",
+  "hallazgos": [
+    {
+      "id": "H01",
+      "prioridad": "alta",
+      "tema": "Cobertura y selección",
+      "antes": "El subconjunto de doce registros locales se convirtió en la única base operativa. Papa y ajonjolí quedaron fuera, con riesgo de interpretar la omisión como ausencia de plagas.",
+      "despues": "Se conserva la tabla local y se añade cobertura de los siete cultivos con fuentes y tipo de evidencia. Ausencia, infestación actual y riesgo son null.",
+      "respaldo": [
+        "S11 p.31/PDF50: reporte de agricultores de ajonjolí",
+        "S13 sección5.5.2 pp.24–27: guía ICTA de papa"
+      ],
+      "estado": "corregido_en_entrega_publica",
+      "limite": "No constituye diagnóstico actual ni inventario exhaustivo."
+    },
+    {
+      "id": "H02",
+      "prioridad": "alta",
+      "tema": "Captura no equivale a alimentación sobre el cultivo",
+      "registros": [
+        "lechuga-02"
+      ],
+      "antes": "La categoría directa podía leerse como diagnóstico de infestación de Frankliniella occidentalis en lechuga.",
+      "despues": "Se indica captura en platos/trampas en parcela; identificación atribuida al autor. No se afirma crianza o alimentación demostrada sobre Lactuca.",
+      "respaldo": [
+        "S25 pp.153–156/PDF179–182, método p.154/PDF180"
+      ],
+      "estado": "corregido_en_entrega_publica",
+      "limite": "No se revisaron ejemplares ni se encontró en el pasaje un protocolo taxonómico independiente."
+    },
+    {
+      "id": "H03",
+      "prioridad": "media",
+      "tema": "Fecha de publicación y fecha de campo",
+      "registros": [
+        "lechuga-01",
+        "maiz-05",
+        "maiz-06"
+      ],
+      "antes": "El año de tesis o memoria podía interpretarse como fecha individual del ensayo o colecta.",
+      "despues": "Se separa el período editorial; fecha_evento_reportada permanece null cuando el pasaje no fija la fecha individual. Se conserva 1996 como período general del estudio UVG, publicado en1997.",
+      "respaldo": [
+        "S24 pp.32,36/PDF45,49 y portada agosto2004",
+        "S05 p.6/PDF10 y pp.7,53/PDF11,57",
+        "S20 métodos p.13, publicación noviembre1997"
+      ],
+      "estado": "corregido_en_entrega_publica",
+      "limite": "El año del informe contextualiza la actividad, sin crear un día o intervalo de colecta."
+    },
+    {
+      "id": "H04",
+      "prioridad": "media",
+      "tema": "Tipo de fuente mal clasificado",
+      "registros": [
+        "maiz-13",
+        "maiz-14"
+      ],
+      "antes": "Elasmopalpus lignosellus y Coptotermes spp. figuraban con G, como guía institucional.",
+      "despues": "Se clasifican M: menciones en informe de investigación de micotoxinas, sin diagnóstico individual del insecto. Se mantiene la fase literal desde dobla hasta almacén.",
+      "respaldo": [
+        "S08 §7.2.4 p.36/PDF36; Cuadro7 agrupa daño por insectos"
+      ],
+      "estado": "corregido_en_inventario_de_trabajo",
+      "limite": "No usar para inferir daño en plántulas ni persistencia en suelo; estos registros no se publican como diagnósticos locales."
+    },
+    {
+      "id": "H05",
+      "prioridad": "media",
+      "tema": "Precisión de selección de registros locales",
+      "registros": [
+        "maiz-02",
+        "maiz-05"
+      ],
+      "antes": "La clasificación D de Phyllophaga en maíz no estaba sustentada por un diagnóstico del cultivo en la referencia taxonómica citada; el ensayo local de Dalbulus estaba omitido de la selección.",
+      "despues": "Phyllophaga queda E, por reporte comunitario S03; S02 deja de usarse como prueba directa. Dalbulus pasa a D por el ensayo ICTA B-7 de CEPSUR descrito en S05. La tabla pública pasa de12 a13 relaciones.",
+      "respaldo": [
+        "S03 Cuadro1.5 p.27/PDF42",
+        "S05 p.6/PDF10: cuatro evaluaciones poblacionales en ensayo de maíz en La Máquina, Suchitepéquez"
+      ],
+      "estado": "corregido_en_inventario_y_entrega",
+      "limite": "El ensayo no demuestra infestación actual de la parcela de Chiquimula."
+    },
+    {
+      "id": "H06",
+      "prioridad": "media",
+      "tema": "Trazabilidad bibliográfica y alcance de lectura",
+      "antes": "Localizadores y títulos descriptivos podían hacer pensar que se consultó una obra distinta o su texto íntegro.",
+      "despues": "Se añaden títulos originales de S24/S25, páginas precisas y límites de acceso de S02,S12,S17,S22,S23. Se distinguen19 PDF disponibles con hash, cinco páginas web y cinco accesos limitados.",
+      "respaldo": [
+        "fuentes_verificadas.json",
+        "S04: Dalbulus en10.4.2 p.38/PDF44; S25: capítulo de servicios en tesis cuyo tema principal es col de Bruselas"
+      ],
+      "estado": "corregido_en_metadatos_y_auditoria",
+      "limite": "Disponibilidad del PDF no significa relectura exhaustiva de todas sus páginas."
+    },
+    {
+      "id": "H07",
+      "prioridad": "alta",
+      "tema": "Integridad informática y validez científica",
+      "antes": "Un resultado de verificación de archivos podía producir una garantía injustificada de veracidad biológica.",
+      "despues": "Los manifiestos y la entrega declaran el alcance de integridad. La auditoría documental aporta fuentes/pasajes y los controles de software se informan por separado.",
+      "respaldo": [
+        "controles.json",
+        "README.md"
+      ],
+      "estado": "corregido_en_presentacion_y_controles",
+      "limite": "Ningún hash o prueba de software certifica identificación, frecuencia, rendimiento o compatibilidad agronómica."
+    },
+    {
+      "id": "H08",
+      "prioridad": "media",
+      "tema": "Registros pendientes y uso de ausencia",
+      "antes": "La búsqueda sin resultados o una lista bibliográfica no permiten promover especie–cultivo–localidad.",
+      "despues": "Las diez menciones siguen excluidas: cuatro conflictos con el listado MAGA2024, un hospedante histórico atípico y cinco vínculos locales no corroborados. Se conserva desconocido en la parcela.",
+      "respaldo": [
+        "corroboracion/resultados.json del expediente",
+        "MAGA03-2024 PDF3 filas33/36 y PDF14 filas400/403",
+        "S20 Cuadro2 p.14/PDF5"
+      ],
+      "estado": "exclusion_ratificada",
+      "limite": "No se interpreta la omisión de GBIF/EPPO como ausencia; no se solicita nueva información a instituciones."
+    },
+    {
+      "id": "H09",
+      "prioridad": "media",
+      "tema": "Huellas del manifiesto y saltos de línea",
+      "antes": "Las tres huellas SHA-256 del manifiesto publicado se calcularon sobre texto LF, pero los archivos guardados y publicados desde Windows contenían CRLF. No coincidían con los bytes descargados.",
+      "despues": "La escritura de la entrega fija LF y un control independiente calcula las huellas sobre bytes realmente guardados. Se comprueban además los objetos Git después de publicar.",
+      "respaldo": [
+        "huellas_publicacion_anterior.json; consulta al commit f978adc54758fe524e7899112eb45db1e4ee375b"
+      ],
+      "estado": "corregido_en_generador_y_entrega",
+      "limite": "Era un error de integridad del manifiesto; no cambia los valores biológicos o los resultados del agua."
+    }
+  ],
+  "dictamen": "Correcciones de criterio, clasificación y trazabilidad necesarias; la revisión no certifica exhaustividad ni presencia actual."
+}

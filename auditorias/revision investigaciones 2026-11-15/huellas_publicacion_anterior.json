@@ -1,0 +1,27 @@
+{
+  "commit": "f978adc54758fe524e7899112eb45db1e4ee375b",
+  "metodo": "Contenido original recuperado desde raw.githubusercontent.com; SHA-256 de UTF-8 con CRLF y comparación con LF. Los tres SHA anunciados coincidían solo tras normalizar LF.",
+  "archivos": [
+    {
+      "ruta": "plagas_confirmadas.json",
+      "sha256_bytes": "510e8a913fc97ab828718f6c2fe64febb94584c36069a7807a39bfef8737233a",
+      "sha256_LF": "d6b77c1a07f4908d7b877fe1b1d9381bd33b46005a06c6406cb1c0361b1944fd",
+      "sha256_anunciado": "d6b77c1a07f4908d7b877fe1b1d9381bd33b46005a06c6406cb1c0361b1944fd",
+      "coincide": false
+    },
+    {
+      "ruta": "fuentes.json",
+      "sha256_bytes": "6f208cc085479c541af54fccacf0a7205448cb2da118b908b7fc8ac96b58545b",
+      "sha256_LF": "78d47f8e9972342d488a5599aeceddad3e84437ee279836aee978ede12676af4",
+      "sha256_anunciado": "78d47f8e9972342d488a5599aeceddad3e84437ee279836aee978ede12676af4",
+      "coincide": false
+    },
+    {
+      "ruta": "README.md",
+      "sha256_bytes": "5530a55b551f5380c91f8919ffbd7efc991e8456bb551bd0665086c7c3ba6663",
+      "sha256_LF": "0251898ec42c5e93495ecca54a0809190e0d0fe410e85b41597158078e210a77",
+      "sha256_anunciado": "0251898ec42c5e93495ecca54a0809190e0d0fe410e85b41597158078e210a77",
+      "coincide": false
+    }
+  ]
+}

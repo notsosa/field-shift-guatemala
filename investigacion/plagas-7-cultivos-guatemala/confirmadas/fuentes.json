@@ -5,9 +5,10 @@
     "institucion": "ICTA",
     "fecha_documento": "2023",
     "url": "https://www.icta.gob.gt/publicaciones/Memoriasicta/Memoria%20de%20Labores%20ICTA%202023.pdf",
-    "alcance": "Diagnóstico del ácaro del maíz con VISAR en Quetzaltenango y Totonicapán.",
-    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "alcance": "Ensayo de Dalbulus maidis en maíz del CEPSUR y diagnóstico del ácaro del maíz con VISAR en Quetzaltenango y Totonicapán.",
+    "acceso": "PDF original descargado; pasajes y páginas pertinentes comprobados, sin afirmar lectura exhaustiva de toda la obra.",
     "consulta": "2026-11-15",
+    "sha256": "a673b8e557a9be7ea906deb4a86ded57b8f48386662f91b82ed2fc2d686889f0",
     "uso_en_entrega": "registro_local_directo"
   },
   {
@@ -28,8 +29,9 @@
     "fecha_documento": "2014",
     "url": "https://biblioteca.usac.edu.gt/tesis/22/22_0252.pdf",
     "alcance": "Entrevistas de productores de ajonjolí, p.31/PDF 50.",
-    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "acceso": "PDF original descargado; pasajes y páginas pertinentes comprobados, sin afirmar lectura exhaustiva de toda la obra.",
     "consulta": "2026-11-15",
+    "sha256": "c7e75ddf5473cffdbec9aa3566294376df3172251cd63ed92f3e51d78b241433",
     "uso_en_entrega": "contexto_documental_fuera_de_tabla_directa"
   },
   {
@@ -105,12 +107,14 @@
   {
     "id": "S24",
     "titulo": "Ensayo de lechuga hidropónica en Pachalí, trabajo de graduación",
-    "institucion": "USAC, Nidia Barrios",
-    "fecha_documento": "2004",
+    "institucion": "USAC, Nidia Esperanza Barrios Arreaga",
+    "fecha_documento": "Agosto de 2004, publicación; fecha individual del ensayo no fijada",
     "url": "https://biblioteca.usac.edu.gt/tesis/01/01_2071.pdf",
     "alcance": "6.7.3, p.32/PDF 45 y p.36/PDF 49: revisión diaria e infestación de Aphis sp. en el ensayo.",
-    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "acceso": "PDF original descargado; pasajes y páginas pertinentes comprobados, sin afirmar lectura exhaustiva de toda la obra.",
     "consulta": "2026-11-15",
+    "sha256": "35327d79e7cac75be48dbe25d03b60c4274c13f2f2acd776b1a127ad35b7e1ff",
+    "titulo_en_documento": "Evaluación del cultivo de la lechuga, Lactuca sativa L., bajo condiciones hidropónicas en Pachalí, San Juan Sacatepéquez, Guatemala",
     "uso_en_entrega": "registro_local_directo"
   },
   {
@@ -120,8 +124,10 @@
     "fecha_documento": "2017; trabajo de campo 2016",
     "url": "https://biblioteca.usac.edu.gt/tesis/01/01_3159.pdf",
     "alcance": "3.3, pp.148–156/PDF 174–182: monitoreo y resultados de capturas, finca Bejo, Parramos.",
-    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "acceso": "PDF original descargado; pasajes y páginas pertinentes comprobados, sin afirmar lectura exhaustiva de toda la obra.",
     "consulta": "2026-11-15",
+    "sha256": "6d48f50f1492ce59e993dc1e0c39c1c0bac6924c7439258bc8e230aaf9b1782b",
+    "titulo_en_documento": "Evaluación del rendimiento y la calidad de 15 híbridos de col de Bruselas bajo las condiciones de manejo de los agricultores de San Lorenzo, San Marcos y Patzún, Chimaltenango, diagnóstico y servicios en la finca experimental Bejo S.A. Parramos, Chimaltenango, Guatemala, C.A.",
     "uso_en_entrega": "registro_local_directo"
   }
 ]
