@@ -1,0 +1,303 @@
+{
+ "meta": {
+  "simulatorCommit": "d6dee66",
+  "simulatorDirty": true,
+  "rainSource": "ERA5",
+  "generated": "2026-11-15",
+  "candidates": 211680,
+  "kept": 60000,
+  "simulatorMicrosPerSample": 123.35389833333343,
+  "evaluated": "2026-11-15"
+ },
+ "description": "Emulator v2: successions of seven crops (A then B or none), 20 points, years 2001-2024, soil sand/loam/clay, flat, rainfed, sowing offset 0/15/30 days. Truth = the JS simulator (simulateSuccessionYear). relYield of an incomplete cycle = 0; fit = 1 if every sown crop completes inside the agricultural year.",
+ "features": [
+  "rainMJJ",
+  "rainASO",
+  "rainYear",
+  "caniculaDays",
+  "et0MeanMO",
+  "tmeanMO",
+  "elevation",
+  "sowDoyA",
+  "rain0to60",
+  "et0_0to60",
+  "rain61to150",
+  "et0_61to150",
+  "A_maiz",
+  "A_frijol",
+  "A_ajonjoli",
+  "A_papa",
+  "A_cebolla",
+  "A_brocoli",
+  "A_lechuga",
+  "B_maiz",
+  "B_frijol",
+  "B_ajonjoli",
+  "B_papa",
+  "B_cebolla",
+  "B_brocoli",
+  "B_lechuga",
+  "B_none",
+  "soil_sand",
+  "soil_loam",
+  "soil_clay",
+  "offset30"
+ ],
+ "targets": [
+  "relYieldA",
+  "relYieldB",
+  "fit"
+ ],
+ "split": "test = year 2019-2024 OR pointId heldOut (asuncionmita, gualan, rabinal, sanarate); validation (early stopping, ELM excluded from fit) = 2017-2018; train = rest",
+ "nTrain": 36055,
+ "nFitElm": 32131,
+ "nTest": 23945,
+ "bySplit": {
+  "all": {
+   "n": 23945,
+   "mlp": {
+    "r2": [
+     0.7517397577160375,
+     0.8956030509609885,
+     0.8902472718765382
+    ],
+    "rmse": [
+     0.10399818215951853,
+     0.11373178643952656,
+     0.14527931789898144
+    ],
+    "fitClassification": {
+     "accuracy": 0.9722697849237837,
+     "precision": 0.9789444132509826,
+     "recall": 0.9836944256375536,
+     "f1": 0.9813136714132944,
+     "tp": 17435,
+     "fp": 375,
+     "fn": 289,
+     "tn": 5846
+    }
+   },
+   "elm": {
+    "r2": [
+     0.689345432701902,
+     0.8411524553285255,
+     0.7146225578370562
+    ],
+    "rmse": [
+     0.11633517090356787,
+     0.14029048305949526,
+     0.23426421361698607
+    ],
+    "fitClassification": {
+     "accuracy": 0.9565253706410524,
+     "precision": 0.9671277370218961,
+     "recall": 0.9743850146693749,
+     "f1": 0.9707428121750373,
+     "tp": 17270,
+     "fp": 587,
+     "fn": 454,
+     "tn": 5634
+    }
+   },
+   "baseline": {
+    "r2": [
+     0.0340332790583775,
+     0.2679610130056922,
+     0.32751957202895554
+    ],
+    "rmse": [
+     0.20514136592722237,
+     0.3011653913902437,
+     0.3596134731576429
+    ],
+    "fitClassification": {
+     "accuracy": 0.8108582167467112,
+     "precision": 0.8952255436410471,
+     "recall": 0.8431505303543219,
+     "f1": 0.8684080541592817,
+     "tp": 14944,
+     "fp": 1749,
+     "fn": 2780,
+     "tn": 4472
+    }
+   }
+  },
+  "newYears": {
+   "n": 12107,
+   "mlp": {
+    "r2": [
+     0.6066021053521485,
+     0.902587719000912,
+     0.897084550724314
+    ],
+    "rmse": [
+     0.09192335443556633,
+     0.09975707317392765,
+     0.14580042920953512
+    ],
+    "fitClassification": {
+     "accuracy": 0.9726604443710251,
+     "precision": 0.9805361305361305,
+     "recall": 0.980879095254751,
+     "f1": 0.9807075829107652,
+     "tp": 8413,
+     "fp": 167,
+     "fn": 164,
+     "tn": 3363
+    }
+   },
+   "elm": {
+    "r2": [
+     0.5007496423883309,
+     0.8522068652854455,
+     0.7367846981881089
+    ],
+    "rmse": [
+     0.10355451541589464,
+     0.1228751249772152,
+     0.2331707565570961
+    ],
+    "fitClassification": {
+     "accuracy": 0.9596101428925415,
+     "precision": 0.9767743456731903,
+     "recall": 0.9659554622828495,
+     "f1": 0.9713347792953866,
+     "tp": 8285,
+     "fp": 197,
+     "fn": 292,
+     "tn": 3333
+    }
+   },
+   "baseline": {
+    "r2": [
+     -0.039572491092384254,
+     0.44117262439473925,
+     0.3315134842300276
+    ],
+    "rmse": [
+     0.1494298077831426,
+     0.2389327483935796,
+     0.37159070418341034
+    ],
+    "fitClassification": {
+     "accuracy": 0.799537457669117,
+     "precision": 0.8653754752851711,
+     "recall": 0.8491313979246823,
+     "f1": 0.8571764844347672,
+     "tp": 7283,
+     "fp": 1133,
+     "fn": 1294,
+     "tn": 2397
+    }
+   }
+  },
+  "newPoints": {
+   "n": 8824,
+   "mlp": {
+    "r2": [
+     0.8071976885427293,
+     0.8980798761436357,
+     0.8832818843593513
+    ],
+    "rmse": [
+     0.10789265702655787,
+     0.12103059370078778,
+     0.14422990222860074
+    ],
+    "fitClassification": {
+     "accuracy": 0.970988213961922,
+     "precision": 0.9770266315481416,
+     "recall": 0.9853896103896104,
+     "f1": 0.9811903012490816,
+     "tp": 6677,
+     "fp": 157,
+     "fn": 99,
+     "tn": 1891
+    }
+   },
+   "elm": {
+    "r2": [
+     0.7496639041759638,
+     0.8386389734579824,
+     0.6981168506773522
+    ],
+    "rmse": [
+     0.1229412169409965,
+     0.1522875908626114,
+     0.23195600026918137
+    ],
+    "fitClassification": {
+     "accuracy": 0.9539891205802358,
+     "precision": 0.9559118236472945,
+     "recall": 0.9855371900826446,
+     "f1": 0.970498474059003,
+     "tp": 6678,
+     "fp": 308,
+     "fn": 98,
+     "tn": 1740
+    }
+   },
+   "baseline": {
+    "r2": [
+     -0.14321495348025226,
+     0.14395098517786065,
+     0.3340811451817284
+    ],
+    "rmse": [
+     0.2627239823746559,
+     0.35076359148733643,
+     0.3445060326275591
+    ],
+    "fitClassification": {
+     "accuracy": 0.825815956482321,
+     "precision": 0.9233877485049297,
+     "recall": 0.8431227863046045,
+     "f1": 0.8814317673378075,
+     "tp": 5713,
+     "fp": 474,
+     "fn": 1063,
+     "tn": 1574
+    }
+   }
+  }
+ },
+ "fitThreshold": 0.5,
+ "mlp": {
+  "architecture": [
+   31,
+   64,
+   32,
+   16,
+   3
+  ],
+  "params": 4707,
+  "trainSeconds": 7.74,
+  "device": "cuda",
+  "deviceName": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "epochs": 29,
+  "bestValLoss": 0.15905077755451202,
+  "predictMicros": 10.529181457506793,
+  "jsVsTorchMaxDiff": 3.805998016748191e-7
+ },
+ "elm": {
+  "hidden": 1500,
+  "inputScale": 0.1,
+  "lambda": 0.1,
+  "seed": 42,
+  "params": 52500,
+  "trainableParams": 4500,
+  "trainSeconds": 56.613381999999994,
+  "predictMicros": 68.72530799749435,
+  "note": "No backpropagation: random hidden layer, output weights by ridge least squares (trainELM); configuration selected for v1, not re-swept."
+ },
+ "baseline": {
+  "description": "Mean of the training rows within the same A x B x soil group (no climate); global train mean for an empty group.",
+  "groupFallbacks": 0,
+  "nGroups": 147
+ },
+ "simulatorMicrosPerSample": 123.35389833333343,
+ "speedupVsSimulator": {
+  "mlp": 11.715430950749559,
+  "elm": 1.7948831649882278
+ }
+}

@@ -58,7 +58,7 @@ export function cropWindowMetrics(sim, tmax, phase) {
  * Mismo balance (simulateDays) y Ky (stageYield) que runSequence, sin traslape. Un ciclo incompleto (o un B que ya no se
  * puede sembrar dentro del año) cuenta relYield 0. Devuelve { year, fit, a, b } con b = null si no se sembró.
  */
-export function simulateSuccessionYear({ idA, idB, bundle, et0, crops, texture, year, startIdx, endIdx, gapDays = GAP_DAYS }) {
+export function simulateSuccessionYear({ idA, idB, bundle, et0, crops, texture, year, startIdx, endIdx, gapDays = GAP_DAYS, offsetDays = 0 }) {
   const end = endIdx + 1;
   const dates = bundle.dates.slice(startIdx, end);
   const rain = bundle.rain.slice(startIdx, end);
@@ -67,10 +67,10 @@ export function simulateSuccessionYear({ idA, idB, bundle, et0, crops, texture, 
   const tmean = tmax.map((t, i) => (t + bundle.tmin[startIdx + i]) / 2);
   const last = dates.length - 1;
   const cropA = crops.get(idA);
-  const cropB = crops.get(idB);
-  const phaseA = buildPhase(cropA, resolveMainSowIdx(bundle, year, 0).idx, tmean);
+  const cropB = idB == null ? null : crops.get(idB); // idB null = sin sucesor (emulador v2)
+  const phaseA = buildPhase(cropA, resolveMainSowIdx(bundle, year, offsetDays).idx, tmean); // offsetDays por defecto 0: la matriz no cambia
   const sowB = sowAfterHarvest(phaseA.harvestIdx, gapDays);
-  const phaseB = !phaseA.cycleIncomplete && sowB <= last ? buildPhase(cropB, sowB, tmean) : null;
+  const phaseB = cropB && !phaseA.cycleIncomplete && sowB <= last ? buildPhase(cropB, sowB, tmean) : null;
   const phases = phaseB ? [phaseA, phaseB] : [phaseA];
   const sim = simulateDays({ rain, et0: e0, phases, crops, texture, slopeClass: 'flat', irrigation: 'none', residueMask: Array(dates.length).fill(false) });
   const one = (crop, phase) => {
