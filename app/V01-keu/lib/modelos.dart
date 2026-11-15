@@ -77,9 +77,11 @@ class Cultivo {
   bool get perenne => parametros.perenne;
 }
 
-/// Catálogo inicial. Maíz y frijol salen de `datos/cultivos/maiz_frijol.json`
-/// del repositorio del equipo (FAO-56 e ICTA). Café y tomate usan valores de
-/// FAO-56 citados de memoria: verificar antes de publicar.
+/// Catálogo. Maíz y frijol salen de `datos/cultivos/maiz_frijol.json` del
+/// repositorio del equipo (FAO-56 e ICTA). Ajonjolí, papa, cebolla, brócoli y
+/// lechuga salen de `web/data/crops.json` (rama modelo-keu); los valores que ahí
+/// están marcados como proxy se indican en cada cultivo. Café y tomate usan
+/// valores de FAO-56 citados de memoria: verificar antes de publicar.
 const catalogo = <Cultivo>[
   Cultivo(
     id: 'maiz',
@@ -95,6 +97,51 @@ const catalogo = <Cultivo>[
     parametros: ParametrosCultivo(
       kcInicial: 0.40, kcMedio: 1.15, kcFinal: 0.35,
       etapas: [15, 25, 35, 20], raizMaxima: 0.6, p: 0.45, perenne: false, ky: 1.15,
+    ),
+  ),
+  // Ajonjolí: FAO-56 (Kc, raíz, p) y etapas de la tabla 11 ajustadas a tierras bajas (web/data/crops.json). PROXY: Ky (se usa 1.0).
+  Cultivo(
+    id: 'ajonjoli',
+    ciclos: [110],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.35, kcMedio: 1.1, kcFinal: 0.25,
+      etapas: [20, 30, 40, 20], raizMaxima: 1.0, p: 0.6, perenne: false, ky: 1.0,
+    ),
+  ),
+  // Papa: FAO-56 con los valores auditados del equipo (commit a0d0690); ciclo de referencia de 115 días. Sin proxies en estos valores (el de la web es la temperatura base, que la app no usa).
+  Cultivo(
+    id: 'papa',
+    ciclos: [115],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.5, kcMedio: 1.15, kcFinal: 0.75,
+      etapas: [25, 30, 30, 30], raizMaxima: 0.5, p: 0.35, perenne: false, ky: 1.1,
+    ),
+  ),
+  // Cebolla: FAO-56 con los valores auditados del equipo (commit a0d0690); ciclo de referencia de 150 días (bulbo seco). Sin proxies en estos valores.
+  Cultivo(
+    id: 'cebolla',
+    ciclos: [150],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.7, kcMedio: 1.05, kcFinal: 0.75,
+      etapas: [15, 25, 70, 40], raizMaxima: 0.5, p: 0.3, perenne: false, ky: 1.1,
+    ),
+  ),
+  // Brócoli: FAO-56 con los valores auditados del equipo (commit a0d0690); ciclo FAO de 135 días. PROXY: Ky.
+  Cultivo(
+    id: 'brocoli',
+    ciclos: [135],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.7, kcMedio: 1.05, kcFinal: 0.95,
+      etapas: [35, 45, 40, 15], raizMaxima: 0.5, p: 0.45, perenne: false, ky: 0.95,
+    ),
+  ),
+  // Lechuga: FAO-56 con los valores auditados del equipo (commit a0d0690); ciclo de referencia de 75 días. PROXY: Ky.
+  Cultivo(
+    id: 'lechuga',
+    ciclos: [75],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.7, kcMedio: 1.0, kcFinal: 0.95,
+      etapas: [20, 30, 15, 10], raizMaxima: 0.4, p: 0.3, perenne: false, ky: 1.0,
     ),
   ),
   Cultivo(

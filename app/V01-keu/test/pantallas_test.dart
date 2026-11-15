@@ -123,7 +123,7 @@ void main() {
     await tester.tap(find.text('Frijol'));
     await tester.pumpAndSettle();
     await _captura(tester, '03_plantacion');
-    await tester.ensureVisible(find.text('Goteo'));
+    await tester.scrollUntilVisible(find.text('Goteo'), 200, scrollable: find.byType(Scrollable).first);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Goteo'));
     await tester.pumpAndSettle();
