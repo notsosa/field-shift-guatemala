@@ -1,4 +1,5 @@
-// Descarga POWER + ERA5 para los puntos del Corredor Seco y arma un ClimateBundle por punto.
+// Descarga POWER + ERA5 para los puntos del Corredor Seco y arma un ClimateBundle por punto, con la temperatura de la
+// celda de POWER llevada a la elevación de la parcela (siteElevation de points.json; ver correctToSiteElevation).
 // Lluvia del entrenamiento: UNA sola fuente para todo el conjunto. Si IMERG (caché de
 // scripts/data/fetch_rain_climateserv.py) está completo —sin años inválidos 2001–2024— en los 20 puntos, los bundles
 // usan IMERG (conjunto 26 de ClimateSERV); si no, ERA5. En ambos casos los 3 pilotos guardan las series alternas en
@@ -34,6 +35,8 @@ const rainDoc = (id, ds) => {
   const f = new URL(`${id}_${ds}.json`, RAIN_CACHE);
   return existsSync(f) ? JSON.parse(readFileSync(f, 'utf8')) : null;
 };
+// Elevación de la parcela (scripts/data/fetch_site_elevation.mjs): sin ella buildBundle falla, no hay valor de respaldo.
+const siteOpts = (p) => ({ lat: p.lat, lon: p.lon, siteElevation: p.siteElevation, siteElevationSource: p.siteElevationSource });
 const inTrainYears = (years) => years.filter((y) => y >= 2001 && y <= 2024);
 
 for (const p of points) {
@@ -77,7 +80,7 @@ for (const p of points) {
   if (!raw.has(p.id)) { imergReport.push(`${p.id}: sin POWER/ERA5`); continue; }
   const rain = imergRain(p);
   if (!rain) { imergReport.push(`${p.id}: sin caché IMERG`); continue; }
-  const b = buildBundle(raw.get(p.id).power, rain, { lat: p.lat, lon: p.lon });
+  const b = buildBundle(raw.get(p.id).power, rain, siteOpts(p));
   const bad = inTrainYears(b.invalidYears);
   imergReport.push(`${p.id}: ${bad.length ? `años inválidos ${bad.join(',')}` : 'completo'}`);
 }
@@ -91,7 +94,7 @@ for (const [n, p] of points.entries()) {
   if (!raw.has(p.id)) continue;
   const { power, era5 } = raw.get(p.id);
   const rain = useImerg ? imergRain(p) : { ...era5, source: 'ERA5' };
-  const b = buildBundle(power, rain, { lat: p.lat, lon: p.lon });
+  const b = buildBundle(power, rain, siteOpts(p));
   for (const k of SERIES) b[k] = round(b[k], 2);
   if (PILOTS.includes(p.id)) {
     const align = (dates, vals) => { const m = new Map(dates.map((d, i) => [d, vals[i]])); return round(b.dates.map((d) => (m.get(d) ?? null)), 1); };
@@ -107,7 +110,7 @@ for (const [n, p] of points.entries()) {
   }
   const file = new URL(`${p.id}.json`, CACHE);
   writeFileSync(file, JSON.stringify(b));
-  console.log(`[${n + 1}/${points.length}] ${p.id}: rain=${b.rainSource}, days=${b.dates.length}, elev=${b.elevation}, invalidYears=${JSON.stringify(b.invalidYears)}${b.rainAlt ? `, rainAlt=${Object.keys(b.rainAlt).join('+')}` : ''}`);
+  console.log(`[${n + 1}/${points.length}] ${p.id}: rain=${b.rainSource}, days=${b.dates.length}, elev=${b.elevation} (celda ${b.cellElevation}, ΔT ${b.temperatureCorrection.deltaT.toFixed(2)} °C), invalidYears=${JSON.stringify(b.invalidYears)}${b.rainAlt ? `, rainAlt=${Object.keys(b.rainAlt).join('+')}` : ''}`);
   if (PILOTS.includes(p.id)) copyFileSync(file, new URL(`${p.id}.json`, SNAP));
   ok.push(p.id);
 }

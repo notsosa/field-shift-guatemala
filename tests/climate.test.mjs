@@ -1,5 +1,5 @@
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { isInsideGuatemala, fetchPowerDaily, fetchEra5Rain, buildBundle, climateservRain, rainCoverage } from '../web/js/data/climate.js';
+import { isInsideGuatemala, fetchPowerDaily, fetchEra5Rain, buildBundle, climateservRain, rainCoverage, correctToSiteElevation, LAPSE_RATE } from '../web/js/data/climate.js';
 
 const compact = (d) => d.replace(/-/g, '');
 function isoRange(start, n) {
@@ -59,7 +59,7 @@ test('fetchEra5Rain: parametros y nulls, error HTTP', async () => {
 async function bundleFrom(dates, powerOver, rain) {
   const power = await fetchPowerDaily(14.8, -89.5, jsonFetch(fakePowerJson(dates, powerOver)));
   const era5 = await fetchEra5Rain(14.8, -89.5, jsonFetch({ daily: { time: dates, precipitation_sum: rain ?? dates.map(() => 1) } }));
-  return buildBundle(power, era5, { lat: 14.8, lon: -89.5 });
+  return buildBundle(power, era5, { lat: 14.8, lon: -89.5, siteElevation: 423 });
 }
 
 test('buildBundle: campos, ERA5 y fuentes', async () => {
@@ -116,7 +116,7 @@ test('buildBundle: objeto de lluvia con source IMERG fija rainSource, fuente y d
   const dates = isoRange('2010-01-01', 5);
   const power = await fetchPowerDaily(14.8, -89.5, jsonFetch(fakePowerJson(dates)));
   const rain = { dates, rain: dates.map(() => 3), source: 'IMERG', sourceDetail: 'caja +-0.03 deg, 2010' };
-  const b = buildBundle(power, rain, { lat: 14.8, lon: -89.5 });
+  const b = buildBundle(power, rain, { lat: 14.8, lon: -89.5, siteElevation: 423 });
   assert.equal(b.rainSource, 'IMERG');
   assert.equal(b.sources.length, 2);
   assert.match(b.sources[0], /NASA POWER.*power\.larc\.nasa\.gov/);
@@ -128,9 +128,9 @@ test('buildBundle: objeto de lluvia con source IMERG fija rainSource, fuente y d
 test('buildBundle: CHIRPS tambien se anuncia; fuente de lluvia desconocida lanza error', async () => {
   const dates = isoRange('2010-01-01', 3);
   const power = await fetchPowerDaily(14.8, -89.5, jsonFetch(fakePowerJson(dates)));
-  const b = buildBundle(power, { dates, rain: [1, 1, 1], source: 'CHIRPS' }, { lat: 14.8, lon: -89.5 });
+  const b = buildBundle(power, { dates, rain: [1, 1, 1], source: 'CHIRPS' }, { lat: 14.8, lon: -89.5, siteElevation: 423 });
   assert.equal(b.rainSource, 'CHIRPS'); assert.match(b.sources[1], /CHIRPS/);
-  assert.throws(() => buildBundle(power, { dates, rain: [1, 1, 1], source: 'POWER' }, { lat: 14.8, lon: -89.5 }), /POWER|fuente de lluvia/i);
+  assert.throws(() => buildBundle(power, { dates, rain: [1, 1, 1], source: 'POWER' }, { lat: 14.8, lon: -89.5, siteElevation: 423 }), /POWER|fuente de lluvia/i);
 });
 
 test('climateservRain: alinea con las fechas pedidas; lo que ClimateSERV no devolvio queda null', () => {
@@ -151,7 +151,7 @@ test('fetchPowerDaily: PRECTOTCORR opcional -> rainPower (no es parte del bundle
   const q = await fetchPowerDaily(14.8, -89.5, jsonFetch(fakePowerJson(dates)));
   assert.equal(q.rainPower, undefined);
   const power = await fetchPowerDaily(14.8, -89.5, jsonFetch(body));
-  const b = buildBundle(power, { dates, rain: [1, 1, 1] }, { lat: 14.8, lon: -89.5 });
+  const b = buildBundle(power, { dates, rain: [1, 1, 1] }, { lat: 14.8, lon: -89.5, siteElevation: 423 });
   assert.equal('rainPower' in b, false);
 });
 
@@ -160,7 +160,7 @@ test('buildBundle: fechas desalineadas se recortan a la interseccion', async () 
   const dRain = isoRange('2010-01-04', 10);  // 04..13 ene
   const power = await fetchPowerDaily(14.8, -89.5, jsonFetch(fakePowerJson(dPower)));
   const era5 = await fetchEra5Rain(14.8, -89.5, jsonFetch(rainJson(dRain)));
-  const b = buildBundle(power, era5, { lat: 14.8, lon: -89.5 });
+  const b = buildBundle(power, era5, { lat: 14.8, lon: -89.5, siteElevation: 423 });
   assert.deepEqual(b.dates, isoRange('2010-01-04', 7));
   assert.equal(b.tmax.length, 7); assert.equal(b.rain.length, 7);
 });
@@ -173,5 +173,87 @@ test('rainCoverage: cuenta dias ausentes y vacios de la serie alineada con POWER
 test('buildBundle: una fuente heredada (constructor) lanza error', async () => {
   const dates = isoRange('2010-01-01', 3);
   const power = await fetchPowerDaily(14.8, -89.5, jsonFetch(fakePowerJson(dates)));
-  assert.throws(() => buildBundle(power, { dates, rain: [1, 1, 1], source: 'constructor' }, { lat: 14.8, lon: -89.5 }), /constructor/);
+  assert.throws(() => buildBundle(power, { dates, rain: [1, 1, 1], source: 'constructor' }, { lat: 14.8, lon: -89.5, siteElevation: 423 }), /constructor/);
+});
+
+// --- Corrección de la temperatura a la elevación de la parcela (gradiente térmico) ---
+const es = (t) => 0.6108 * Math.exp((17.27 * t) / (t + 237.3));
+const pAt = (z) => 101.3 * Math.pow((293 - 0.0065 * z) / 293, 5.26);
+const cellPower = (over = {}) => ({
+  dates: ['2010-06-01', '2010-06-02'], elevation: 762.46,
+  tmax: [30, 31], tmin: [18, 19], tdew: [16, 17.5], rs: [20, 21], u2: [2, 2.5], pressure: [93.2, 93.1], ...over,
+});
+
+test('correctToSiteElevation: ΔT a mano (Chiquimula, celda 762.46 m, parcela 403 m) = -0.0065 x (403 - 762.46) = +2.336 °C', () => {
+  const c = correctToSiteElevation(cellPower(), 403);
+  assert.equal(LAPSE_RATE, -0.0065);
+  assert.ok(Math.abs(c.temperatureCorrection.deltaT - 2.336490) < 1e-9);
+  assert.ok(Math.abs(c.tmax[0] - 32.33649) < 1e-9 && Math.abs(c.tmax[1] - 33.33649) < 1e-9);
+  assert.ok(Math.abs(c.tmin[0] - 20.33649) < 1e-9);
+  assert.equal(c.elevation, 403); assert.equal(c.cellElevation, 762.46);
+  assert.equal(c.temperatureCorrection.lapseRate, -0.0065);
+  assert.match(c.temperatureCorrection.method, /relative humidity/);
+});
+
+test('correctToSiteElevation: parcela más alta que la celda enfría (San Martín 1787 m sobre celda 1515.75 m)', () => {
+  const c = correctToSiteElevation(cellPower({ elevation: 1515.75 }), 1787);
+  assert.ok(Math.abs(c.temperatureCorrection.deltaT - (-0.0065 * (1787 - 1515.75))) < 1e-12);
+  assert.ok(c.temperatureCorrection.deltaT < 0 && c.tmax[0] < 30);
+});
+
+test('correctToSiteElevation: la humedad relativa se conserva (ea / es(Tmedia)) y el punto de rocío se mueve en consecuencia', () => {
+  const p = cellPower();
+  const c = correctToSiteElevation(p, 403);
+  const dT = c.temperatureCorrection.deltaT;
+  for (let i = 0; i < 2; i++) {
+    const rhCell = es(p.tdew[i]) / es((p.tmax[i] + p.tmin[i]) / 2);
+    const rhSite = es(c.tdew[i]) / es((c.tmax[i] + c.tmin[i]) / 2);
+    assert.ok(Math.abs(rhCell - rhSite) < 1e-12, `RH día ${i}`);
+    assert.ok(c.tdew[i] > p.tdew[i]); // más cálido y misma humedad relativa: rocío más alto
+    assert.ok(c.tdew[i] - p.tdew[i] < dT + 1e-9); // pero sube menos que la temperatura (ea crece menos que es)
+  }
+});
+
+test('correctToSiteElevation: presión escalada con la barométrica de FAO-56; radiación, viento y lluvia no cambian', () => {
+  const p = cellPower();
+  const c = correctToSiteElevation(p, 403);
+  const ratio = pAt(403) / pAt(762.46);
+  assert.ok(Math.abs(c.pressure[0] - 93.2 * ratio) < 1e-9);
+  assert.ok(c.pressure[0] > 93.2); // parcela más baja: más presión
+  assert.equal('rs' in c, false); assert.equal('u2' in c, false); assert.equal('rain' in c, false);
+  assert.deepEqual(p.tmax, [30, 31]); // función pura: no muta la entrada
+});
+
+test('correctToSiteElevation: elevaciones iguales -> corrección cero', () => {
+  const p = cellPower();
+  const c = correctToSiteElevation(p, 762.46);
+  assert.equal(c.temperatureCorrection.deltaT, 0);
+  assert.deepEqual(c.tmax, p.tmax); assert.deepEqual(c.tmin, p.tmin); assert.deepEqual(c.pressure, p.pressure);
+  for (let i = 0; i < 2; i++) assert.ok(Math.abs(c.tdew[i] - p.tdew[i]) < 1e-9);
+});
+
+test('correctToSiteElevation: sin elevación de la parcela falla (sin valor de respaldo); null pasa como null', () => {
+  assert.throws(() => correctToSiteElevation(cellPower(), undefined), /siteElevation/);
+  assert.throws(() => correctToSiteElevation(cellPower(), NaN), /siteElevation/);
+  assert.throws(() => correctToSiteElevation(cellPower(), null), /siteElevation/);
+  assert.throws(() => correctToSiteElevation(cellPower({ elevation: undefined }), 400), /celda/);
+  const c = correctToSiteElevation(cellPower({ tmax: [null, 31], tdew: [16, null], pressure: [null, 93.1] }), 403);
+  assert.equal(c.tmax[0], null); assert.equal(c.tdew[0], null); assert.equal(c.pressure[0], null); assert.equal(c.tdew[1], null);
+  assert.notEqual(c.tmin[0], null);
+});
+
+test('buildBundle: elevation = parcela, cellElevation = celda, temperatureCorrection y fuente de elevación; sin elevación de la parcela falla', async () => {
+  const dates = isoRange('2010-01-01', 4);
+  const power = await fetchPowerDaily(14.8, -89.5, jsonFetch(fakePowerJson(dates)));
+  const rain = { dates, rain: [1, 1, 1, 1] };
+  const src = 'Open-Meteo Elevation API (Copernicus DEM GLO-90)';
+  const b = buildBundle(power, rain, { lat: 14.8, lon: -89.5, siteElevation: 223, siteElevationSource: src });
+  assert.equal(b.elevation, 223); assert.equal(b.cellElevation, 423);
+  assert.ok(Math.abs(b.temperatureCorrection.deltaT - 1.3) < 1e-12);
+  assert.equal(b.temperatureCorrection.source, src);
+  assert.ok(Math.abs(b.tmax[0] - 31.3) < 1e-12 && Math.abs(b.tmin[3] - 19.3) < 1e-12);
+  assert.deepEqual(b.rs, [20, 20, 20, 20]); assert.deepEqual(b.u2, [2, 2, 2, 2]); assert.deepEqual(b.rain, [1, 1, 1, 1]);
+  assert.ok(b.pressure[0] > 95);
+  assert.equal(b.sources.length, 3); assert.equal(b.sources[2], src);
+  assert.throws(() => buildBundle(power, rain, { lat: 14.8, lon: -89.5 }), /siteElevation/);
 });

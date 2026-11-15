@@ -25,6 +25,7 @@ for (const irr of ['limited', 'full']) COMBOS.push(['extra_riego', irr]);
 
 const r4 = (v) => Math.round(v * 1e4) / 1e4;
 const r5 = (v) => Math.round(v * 1e5) / 1e5;
+const round2 = (v) => Math.round(v * 100) / 100;
 const finite = (a, what) => { if (!a.every(Number.isFinite)) throw new Error(`Valor no finito en ${what}`); };
 
 const t0 = Date.now();
@@ -50,7 +51,7 @@ for (const p of points) {
   }
   climate[p.id] = climFeats;
   pheno[p.id] = phenoFeats;
-  gridPoints.push({ id: p.id, name: p.name, department: p.department, lat: p.lat, lon: p.lon, elevation: bundle.elevation, heldOut: p.heldOut });
+  gridPoints.push({ id: p.id, name: p.name, department: p.department, lat: p.lat, lon: p.lon, elevation: bundle.elevation, cellElevation: bundle.cellElevation, deltaT: round2(bundle.temperatureCorrection.deltaT), heldOut: p.heldOut });
 
   for (const [seqId, irrigation] of COMBOS) for (const texture of TEXTURES) for (const slopeClass of SLOPES) for (const sowOffsetDays of OFFSETS) {
     const results = runSequence({ sequence: sequences[seqId], bundle, et0, crops, texture, slopeClass, irrigation, sowOffsetDays });
@@ -72,7 +73,7 @@ for (const p of points) {
   console.log(`${p.id}: ${years.length} años, candidatos acumulados ${seen}`);
 }
 
-// Celda de clima compartida: la elevación del punto es la de la celda POWER (puede no ser la del pueblo).
+// Celda de clima compartida: `elevation` es la de la parcela (la temperatura se corrige a ella) y `cellElevation` la de la celda POWER.
 const cells = sharedCells(bundles);
 for (const gp of gridPoints) Object.assign(gp, cells[gp.id]);
 

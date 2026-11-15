@@ -1,0 +1,106 @@
+{
+ "source": "Open-Meteo Elevation API (agregador de Copernicus DEM GLO-90, ~90 m) — https://open-meteo.com/en/docs/elevation-api",
+ "fetched": "2026-11-15",
+ "points": {
+  "chiquimula": {
+   "lat": 14.8,
+   "lon": -89.54,
+   "elevation": 403
+  },
+  "jutiapa": {
+   "lat": 14.29,
+   "lon": -89.9,
+   "elevation": 903
+  },
+  "sanmartin": {
+   "lat": 14.78,
+   "lon": -90.79,
+   "elevation": 1787
+  },
+  "esquipulas": {
+   "lat": 14.57,
+   "lon": -89.35,
+   "elevation": 933
+  },
+  "jocotan": {
+   "lat": 14.82,
+   "lon": -89.39,
+   "elevation": 459
+  },
+  "quetzaltepeque": {
+   "lat": 14.65,
+   "lon": -89.45,
+   "elevation": 757
+  },
+  "olopa": {
+   "lat": 14.68,
+   "lon": -89.34,
+   "elevation": 1240
+  },
+  "zacapa": {
+   "lat": 14.97,
+   "lon": -89.53,
+   "elevation": 222
+  },
+  "gualan": {
+   "lat": 15.13,
+   "lon": -89.36,
+   "elevation": 155
+  },
+  "guastatoya": {
+   "lat": 14.85,
+   "lon": -90.07,
+   "elevation": 527
+  },
+  "sanarate": {
+   "lat": 14.79,
+   "lon": -90.2,
+   "elevation": 849
+  },
+  "asuncionmita": {
+   "lat": 14.33,
+   "lon": -89.71,
+   "elevation": 472
+  },
+  "jalpatagua": {
+   "lat": 14.13,
+   "lon": -90.01,
+   "elevation": 545
+  },
+  "santacatarinamita": {
+   "lat": 14.46,
+   "lon": -89.74,
+   "elevation": 670
+  },
+  "jalapa": {
+   "lat": 14.63,
+   "lon": -89.99,
+   "elevation": 1374
+  },
+  "monjas": {
+   "lat": 14.49,
+   "lon": -89.88,
+   "elevation": 961
+  },
+  "salama": {
+   "lat": 15.1,
+   "lon": -90.32,
+   "elevation": 946
+  },
+  "rabinal": {
+   "lat": 15.08,
+   "lon": -90.49,
+   "elevation": 967
+  },
+  "cubulco": {
+   "lat": 15.11,
+   "lon": -90.63,
+   "elevation": 997
+  },
+  "cuilapa": {
+   "lat": 14.28,
+   "lon": -90.3,
+   "elevation": 929
+  }
+ }
+}

@@ -1,5 +1,6 @@
 // Descarga de clima (NASA POWER + lluvia ERA5 vía Open-Meteo, o IMERG/CHIRPS vía ClimateSERV) y armado del ClimateBundle.
-// Sin dependencias; corre en Node 20+ y navegadores (fetch global).
+// Sin dependencias externas; corre en Node 20+ y navegadores (fetch global).
+import { satVaporPressure, pressureFromElevation } from '../model/et0.js';
 
 const POWER_URL = 'https://power.larc.nasa.gov/api/temporal/daily/point';
 const ERA5_URL = 'https://archive-api.open-meteo.com/v1/archive';
@@ -14,6 +15,11 @@ export const RAIN_SOURCES = {
   CHIRPS: 'CHIRPS v2.0 daily rainfall (UCSB Climate Hazards Center) via ClimateSERV (NASA-USAID SERVIR) — https://climateserv.servirglobal.net/',
 };
 export const CLIMATE_SOURCES = [POWER_SOURCE, RAIN_SOURCES.ERA5];
+
+// Corrección de la temperatura de la celda de POWER (elevación media de la celda) a la elevación de la parcela.
+// Gradiente fijo del manual FAO-56 / atmósfera estándar; no es un parámetro de calibración.
+export const LAPSE_RATE = -0.0065; // °C por metro
+export const TEMPERATURE_CORRECTION_METHOD = 'Tmax and Tmin of the NASA POWER cell shifted by -0.0065 °C/m x (site elevation - cell elevation); relative humidity (actual vapour pressure over saturation at the cell mean temperature) held constant to get the site dew point; pressure scaled with the FAO-56 barometric formula; radiation, wind and rain unchanged';
 
 export function isInsideGuatemala(lat, lon) {
   return lat >= 13.6 && lat <= 17.9 && lon >= -92.3 && lon <= -88.1;
@@ -93,14 +99,54 @@ function interpolateShortGaps(arr) {
   }
 }
 
+/**
+ * Mueve la temperatura de la celda de POWER a la elevación de la parcela. Función pura: no modifica `power`.
+ * tmax y tmin suman ΔT = LAPSE_RATE × (zParcela − zCelda); la humedad relativa se conserva (ea de la celda con su punto de
+ * rocío, contra la saturación a la temperatura media de la celda; el punto de rocío de la parcela sale de esa misma
+ * humedad relativa a la temperatura media de la parcela); la presión se escala con la fórmula barométrica de FAO-56
+ * (cociente entre las dos elevaciones). Radiación, viento y lluvia no cambian. Los null pasan como null.
+ * Sin elevación de la parcela (o de la celda) falla: no hay valor de respaldo.
+ */
+export function correctToSiteElevation(power, siteElevation, { siteElevationSource } = {}) {
+  if (!Number.isFinite(siteElevation)) throw new Error('correctToSiteElevation: falta la elevación de la parcela (siteElevation); no se usa un valor de respaldo');
+  const cellElevation = power.elevation;
+  if (!Number.isFinite(cellElevation)) throw new Error('correctToSiteElevation: la celda de POWER no trae elevación');
+  const deltaT = LAPSE_RATE * (siteElevation - cellElevation) + 0; // + 0: evita -0
+  const pRatio = pressureFromElevation(siteElevation) / pressureFromElevation(cellElevation);
+  const n = power.tmax.length;
+  const tmax = new Array(n); const tmin = new Array(n); const tdew = new Array(n); const pressure = new Array(n);
+  for (let i = 0; i < n; i++) {
+    const a = power.tmax[i]; const b = power.tmin[i]; const d = power.tdew[i]; const p = power.pressure[i];
+    tmax[i] = a === null ? null : a + deltaT;
+    tmin[i] = b === null ? null : b + deltaT;
+    pressure[i] = p === null ? null : p * pRatio;
+    if (d === null || a === null || b === null) { tdew[i] = null; continue; }
+    const tmeanCell = (a + b) / 2;
+    const rh = satVaporPressure(d) / satVaporPressure(tmeanCell);
+    const eaSite = rh * satVaporPressure(tmeanCell + deltaT);
+    const x = Math.log(eaSite / 0.6108); // inversa de la ecuación 11 de FAO-56
+    tdew[i] = (237.3 * x) / (17.27 - x);
+  }
+  return {
+    tmax, tmin, tdew, pressure, elevation: siteElevation, cellElevation,
+    temperatureCorrection: {
+      lapseRate: LAPSE_RATE, deltaT, method: TEMPERATURE_CORRECTION_METHOD,
+      source: siteElevationSource ?? 'site elevation supplied by the caller',
+    },
+  };
+}
+
 const agriYear = (iso) => (Number(iso.slice(5, 7)) >= 4 ? Number(iso.slice(0, 4)) : Number(iso.slice(0, 4)) - 1);
 
 /**
  * Arma el ClimateBundle. `rain` = {dates, rain, source?: 'ERA5'|'IMERG'|'CHIRPS', sourceDetail?}.
+ * La temperatura, el punto de rocío y la presión de POWER se llevan antes a `siteElevation` (ver correctToSiteElevation);
+ * `elevation` del bundle es la de la parcela y `cellElevation` la de la celda.
  * Los huecos <= 3 días se interpolan solo en las series que no son lluvia; un día de lluvia null
  * se queda null y su año agrícola va a invalidYears (no se inventa lluvia).
  */
-export function buildBundle(power, rain, { lat, lon }) {
+export function buildBundle(power, rain, { lat, lon, siteElevation, siteElevationSource }) {
+  const site = correctToSiteElevation(power, siteElevation, { siteElevationSource });
   const source = rain.source ?? 'ERA5';
   if (!Object.hasOwn(RAIN_SOURCES, source)) throw new Error(`Fuente de lluvia desconocida: ${source}`);
   const rainByDate = new Map(rain.dates.map((d, i) => [d, rain.rain[i]]));
@@ -108,7 +154,8 @@ export function buildBundle(power, rain, { lat, lon }) {
   power.dates.forEach((d, i) => { if (rainByDate.has(d)) idx.push(i); });
   const dates = idx.map((i) => power.dates[i]);
   const bundle = { dates };
-  for (const k of ['tmax', 'tmin', 'tdew', 'rs', 'u2', 'pressure']) bundle[k] = idx.map((i) => power[k][i]);
+  for (const k of ['tmax', 'tmin', 'tdew', 'pressure']) bundle[k] = idx.map((i) => site[k][i]);
+  for (const k of ['rs', 'u2']) bundle[k] = idx.map((i) => power[k][i]);
   bundle.rain = dates.map((d) => rainByDate.get(d));
   for (const k of SERIES) if (k !== 'rain') interpolateShortGaps(bundle[k]);
 
@@ -118,8 +165,9 @@ export function buildBundle(power, rain, { lat, lon }) {
   const rainLine = rain.sourceDetail ? `${RAIN_SOURCES[source]} (${rain.sourceDetail})` : RAIN_SOURCES[source];
   return {
     ...bundle,
-    rainSource: source, elevation: power.elevation, lat, lon,
-    sources: [POWER_SOURCE, rainLine], fallback: false,
+    rainSource: source, elevation: site.elevation, cellElevation: site.cellElevation, lat, lon,
+    temperatureCorrection: site.temperatureCorrection,
+    sources: [POWER_SOURCE, rainLine, ...(siteElevationSource ? [siteElevationSource] : [])], fallback: false,
     invalidYears: [...invalid].sort((a, b) => a - b),
   };
 }
