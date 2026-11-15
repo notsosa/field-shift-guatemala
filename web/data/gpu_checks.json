@@ -1,0 +1,19 @@
+{
+ "elm": {
+  "fitRows": 4000,
+  "probeRows": 300,
+  "config": {
+   "hidden": 1500,
+   "inputScale": 0.1,
+   "lambda": 0.1,
+   "seed": 42
+  },
+  "maxAbsPredictionDiff": 4.950262422198648e-12,
+  "tolerance": 0.0001,
+  "jsSeconds": 11.9745896,
+  "gpuSeconds": 0.3073939000023529,
+  "device": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "torchVersion": "2.11.0+cu128",
+  "note": "same hidden weights (mulberry32 port), ridge solved with torch.linalg.cholesky in float64; fit on a sample of the v2 fit rows"
+ }
+}

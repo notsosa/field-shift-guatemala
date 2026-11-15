@@ -3,8 +3,8 @@
   "generated": "2026-11-15",
   "network": {
    "file": "web/data/recommender_mlp.json",
-   "seed": 17,
-   "generation": 61
+   "seed": 29,
+   "generation": 146
   },
   "lossDays": [
    30,
@@ -95,12 +95,12 @@
      },
      "network": {
       "typical": {
-       "action": "maiz",
-       "relYield": 0.995
+       "action": "ajonjoli",
+       "relYield": 1
       },
       "cautious": {
-       "action": "lechuga",
-       "relYield": 0.845
+       "action": "ajonjoli",
+       "relYield": 1
       }
      },
      "oracle": {
@@ -141,8 +141,8 @@
        "relYield": 1
       },
       "cautious": {
-       "action": "lechuga",
-       "relYield": 0.892
+       "action": "ajonjoli",
+       "relYield": 1
       }
      },
      "oracle": {
@@ -263,8 +263,8 @@
      },
      "network": {
       "typical": {
-       "action": "lechuga",
-       "relYield": 0.672
+       "action": "frijol",
+       "relYield": 0.43
       },
       "cautious": {
        "action": "ajonjoli",
@@ -515,12 +515,12 @@
      },
      "network": {
       "typical": {
-       "action": "ajonjoli",
-       "relYield": 0.806
+       "action": "frijol",
+       "relYield": 0.755
       },
       "cautious": {
-       "action": "brocoli",
-       "relYield": 0.68
+       "action": "frijol",
+       "relYield": 0.755
       }
      },
      "oracle": {
@@ -699,11 +699,11 @@
      },
      "network": {
       "typical": {
-       "action": "ajonjoli",
+       "action": "lechuga",
        "relYield": 1
       },
       "cautious": {
-       "action": "maiz",
+       "action": "frijol",
        "relYield": 1
       }
      },
@@ -741,11 +741,11 @@
      },
      "network": {
       "typical": {
-       "action": "frijol",
+       "action": "ajonjoli",
        "relYield": 1
       },
       "cautious": {
-       "action": "frijol",
+       "action": "ajonjoli",
        "relYield": 1
       }
      },

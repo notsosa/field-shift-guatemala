@@ -1,17 +1,19 @@
 // Evaluación alineada a las condiciones de Alex: semillas 17, 29 y 43; años reservados 2022-2025 (medibles 2022-2024).
-// Uso: node scripts/compare/aligned_eval.mjs  (requiere samples_v2.json y web/data/emulator_v2_mlp_seed{17,29,43}.json; entrena 3 ELM, ~3 min)
+// Uso: C:/Users/velas/venv_lab4/Scripts/python.exe scripts/gpu/elm_gpu.py v2 ; node scripts/compare/aligned_eval.mjs
+// (requiere samples_v2.json, web/data/emulator_v2_mlp_seed{17,29,43}.json y los ELM de la GPU scripts/compare/out/elm_v2_seed{S}.json; desde la Tarea 33 el ELM se ajusta en GPU, antes en JS ~50 s por semilla)
 // No reajusta las redes con 2019-2021: siguen entrenadas sin 2019-2024. No compara con ningún otro modelo.
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { performance } from 'node:perf_hooks';
 import { elmPredict, mlpPredict, r2, rmse } from '../../web/js/model/emulator.js';
 import { summarizeSeeds, summarizeObjects, outcomeCounts } from './aligned_lib.mjs';
 import {
-  root, readJson, loadContext, trainElmV2, buildRows, addNetworkPolicy, filterYears, metricsFor, ELM_CFG, PRIORITIES, TARGET_YEARS,
+  root, readJson, loadContext, buildRows, addNetworkPolicy, filterYears, metricsFor, ELM_CFG, PRIORITIES, TARGET_YEARS,
 } from './loss_decision_core.mjs';
 
+const TAG = 'v2';
 const SEEDS = [17, 29, 43];
+const elmSeconds = {};
 const YEAR_SETS = { years2019_2024: TARGET_YEARS, reserved2022_2024: [2022, 2023, 2024] };
 const ctx = loadContext();
 const { featureNames, targetNames, X, Y, meta } = ctx.samples;
@@ -44,9 +46,10 @@ const emulator = { perSeed: {}, summary: {} };
 for (const seed of SEEDS) {
   const net = readJson(path.join(root, `web/data/emulator_v2_mlp_seed${seed}.json`));
   if (net.seed !== seed) throw new Error(`seed del archivo ${net.seed} != ${seed}`);
-  const t0 = performance.now();
-  const elm = trainElmV2(ctx, seed);
-  console.log(`seed ${seed}: ELM entrenada en ${((performance.now() - t0) / 1000).toFixed(1)} s`);
+  const elmFile = readJson(path.join(root, `scripts/compare/out/elm_${TAG}_seed${seed}.json`));
+  const elm = elmFile.model;
+  elmSeconds[seed] = elmFile.trainSeconds;
+  console.log(`seed ${seed}: ELM (GPU) ajustada en ${elmFile.trainSeconds.toFixed(2)} s`);
   const mlpP = (x) => mlpPredict(net, x), elmP = (x) => elmPredict(elm, x);
   emulator.perSeed[seed] = { mlp: accuracy(mlpP), elm: accuracy(elmP), mlpEpochs: net.epochs, mlpBestValLoss: net.bestValLoss };
   addNetworkPolicy(rows, ctx, `mlp${seed}`, mlpP);
@@ -93,7 +96,7 @@ const out = {
   meta: {
     simulatorCommit: git('rev-parse', '--short', 'HEAD'), simulatorDirty: git('status', '--porcelain', '--', 'web/js/model', 'web/data/crops.json') !== '',
     generated: new Date().toISOString().slice(0, 10), seeds: SEEDS, targets: targetNames, features: featureNames.length,
-    networks: { mlp: SEEDS.map((s) => `web/data/emulator_v2_mlp_seed${s}.json`), mlpRecipe: 'base, same data and splits as the seed-42 model', elm: { ...ELM_CFG, seed: 'per seed (random hidden layer)' } },
+    networks: { mlp: SEEDS.map((s) => `web/data/emulator_v2_mlp_seed${s}.json`), mlpRecipe: 'base, same data and splits as the seed-42 model', elm: { ...ELM_CFG, seed: 'per seed (random hidden layer)', fit: 'GPU, torch.linalg Cholesky ridge (scripts/gpu/elm_gpu.py); same hidden weights as trainELM', trainSecondsGpu: elmSeconds } },
     yearSets: { years2019_2024: '54 cases: 3 pilots x agricultural years 2019-2024 x loss day 30/45/60', reserved2022_2024: '27 cases: 3 pilots x agricultural years 2022-2024 x loss day 30/45/60' },
     reservedYearsRequested: '2022-2025 (years reserved by the teammate)',
     note2025: 'Agricultural year 2025 (April 2025 - March 2026) cannot be scored: the weather series ends on 2025-12-31. No data was invented; 2022-2024 is what can be measured.',

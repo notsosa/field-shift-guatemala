@@ -2,17 +2,20 @@
 // embudo 32 -> 64 -> 32 -> 16 -> 1, estrategia de evolución (mu, lambda): población 32, padres 8, sigma 0.05 en todos los pesos, elitismo 1, 150 generaciones,
 // 512 escenarios de entrenamiento por generación (los mismos para todos los individuos, sorteados con la semilla de la generación), cada uno con las dos prioridades.
 // Aptitud = promedio de [media de y (prioridad 0), media de y - max(0, 0.5 - y) (prioridad 1)]. El mejor de cada generación se puntúa con todo el conjunto de validación; se guarda el mejor.
-// Uso: node scripts/compare/train_recommender.mjs            (entrena las semillas 17, 29 y 43 en paralelo y evalúa; escribe web/data/recommender_{mlp,eval}.json)
-//      node scripts/compare/train_recommender.mjs --seed 17 --work DIR   (solo una semilla; escribe DIR/seed17.json)
+// Desde la Tarea 33 el entrenamiento corre en GPU (scripts/gpu/train_recommender.py, núcleo compartido scripts/gpu/es_core.py); este archivo arma la tabla, evalúa y escribe los artefactos.
+// El entrenamiento en JS (trainSeed) se conserva como implementación de referencia (--seed) y es el que midió los tiempos "antes" (en web/data/recommender_eval.json de la Tarea 31).
+// Uso (en orden): node scripts/compare/train_recommender.mjs --dump                  (escribe scripts/compare/out/recommender_table.json)
+//      C:/Users/velas/venv_lab4/Scripts/python.exe scripts/gpu/train_recommender.py   (escribe scripts/compare/out/recommender_es_seed{S}.json)
+//      node scripts/compare/train_recommender.mjs                                      (evalúa y escribe web/data/recommender_{mlp,eval}.json y web/data/gpu_checks.json recomendador)
+//      node scripts/compare/train_recommender.mjs --seed 17 --work DIR   (solo una semilla, en JS; escribe DIR/seed17.json)
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
-import { spawn, execFileSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import { performance } from 'node:perf_hooks';
 import { fileURLToPath } from 'node:url';
 import { mulberry32 } from '../../web/js/model/emulator.js';
 import {
-  ACTION_IDS, INPUT_NAMES, N_INPUTS, LAYER_SIZES, paramCount, initParams, standardize, pickAction, recommend, forward, inputRows, outcomeValue, esNext,
+  ACTION_IDS, INPUT_NAMES, N_INPUTS, LAYER_SIZES, paramCount, initParams, standardize, pickAction, recommend, forward, inputRows, outcomeValue, esNext, scoreActions,
 } from '../../web/js/model/recommender.js';
 import { lossMetrics } from './loss_decision_lib.mjs';
 import { outcomeCounts, summarizeObjects } from './aligned_lib.mjs';
@@ -93,21 +96,36 @@ function metricsOf(params, list, p) {
 }
 const FIELDS = ['chosenMean', 'meanGainVsRule', 'win', 'tie', 'loss', 'meanRegret', 'p10', 'worst', 'executable', 'below05', 'departsFromRule'];
 
+const OUT_DIR = path.join(root, 'scripts/compare/out');
+const sameTop = (a, b) => ACTION_IDS[a.indexOf(Math.max(...a))] === ACTION_IDS[b.indexOf(Math.max(...b))];
+
 async function runAll() {
-  const work = fs.mkdtempSync(path.join(os.tmpdir(), 'recommender_'));
-  const me = fileURLToPath(import.meta.url);
-  const wall0 = performance.now();
-  await Promise.all(DESIGN.seeds.map((s) => new Promise((res, rej) => {
-    const ch = spawn(process.execPath, [me, '--seed', String(s), '--work', work], { stdio: 'inherit' });
-    ch.on('exit', (c) => (c === 0 ? res() : rej(new Error(`seed ${s} exited ${c}`))));
-  })));
-  const wallSeconds = (performance.now() - wall0) / 1000;
   const { table, seconds: tableSeconds } = buildTable();
-  const runs = DESIGN.seeds.map((s) => readJson(path.join(work, `seed${s}.json`)));
+  const OLD_COMMIT = '4778afc'; // Tarea 31/32: artefacto con el entrenamiento en JS, para los tiempos "antes" y los números anteriores
+  const oldEval = JSON.parse(execFileSync('git', ['-C', root, 'show', `${OLD_COMMIT}:web/data/recommender_eval.json`], { encoding: 'utf8', maxBuffer: 1 << 28 }));
+  const gpu = DESIGN.seeds.map((s) => readJson(path.join(OUT_DIR, `recommender_es_seed${s}.json`)));
+  const runs = gpu.map((g) => ({
+    seed: g.seed, seconds: g.seconds, scenarioEvals: g.scenarioEvals, mean: g.mean, std: g.std, ruleVal: g.valFitness.rule, initVal: g.valFitness.initialIdentity,
+    best: { gen: g.bestGen, val: g.valFitness.best, params: g.params }, curve: g.curve,
+  }));
   const aligned = readJson(path.join(root, 'web/data/aligned_eval.json'));
   const YEARS = { years2019_2024: [2019, 2020, 2021, 2022, 2023, 2024], reserved2022_2024: [2022, 2023, 2024] };
   const nets = {};
   for (const run of runs) { const test = table.test.map((s) => ({ ...s })); withInputs(test, run.mean, run.std); nets[run.seed] = { params: run.best.params, test }; }
+  // Comprobación cruzada JS vs PyTorch: los puntajes de las 8 acciones (con la regla) de una muestra de escenarios de validación y prueba, calculados aquí con recommender.js.
+  const crossCheck = {};
+  for (const g of gpu) {
+    let maxDiff = 0, same = 0, n = 0;
+    for (const c of g.check) {
+      const sc = table[c.split][c.index];
+      const js = scoreActions({ params: Float64Array.from(g.params), mean: g.mean, std: g.std }, inputRows(sc.state, c.priority, sc.actionRows), sc.rule);
+      js.forEach((v, i) => { maxDiff = Math.max(maxDiff, Math.abs(v - c.scores[i])); });
+      if (pickAction(js, sc.rule) === c.action) same++;
+      n++;
+    }
+    crossCheck[g.seed] = { rows: n, maxScoreDiff: maxDiff, sameRecommendation: same };
+    if (!(maxDiff < 1e-5) || same !== n) throw new Error(`JS y PyTorch discrepan (semilla ${g.seed}): ${maxDiff}, ${same}/${n}`);
+  }
   const decision = { perSeed: {}, summary: {}, reference: {} };
   for (const [setName, years] of Object.entries(YEARS)) {
     const sub = (list) => list.filter((s) => years.includes(s.year));
@@ -137,7 +155,7 @@ async function runAll() {
   const out = {
     meta: {
       simulatorCommit: git('rev-parse', '--short', 'HEAD'), generated: new Date().toISOString().slice(0, 10), design: DESIGN, parameterCount: paramCount(), inputNames: INPUT_NAMES,
-      scenarios: { train: table.train.length, val: table.val.length, test: table.test.length }, tableSeconds, wallSecondsAllSeeds: wallSeconds, msPerRecommendation,
+      scenarios: { train: table.train.length, val: table.val.length, test: table.test.length }, tableSeconds, gpu: { device: gpu[0].deviceName, torch: gpu[0].torchVersion, secondsPerSeed: Object.fromEntries(gpu.map((g) => [g.seed, g.seconds])), randomStream: 'torch CUDA generator seeded per seed (not mulberry32): same design and distributions as the JS run, other numbers', jsReference: `training.* of the Task 31 artifact (commit ${OLD_COMMIT}; JS, one process per seed, 3 in parallel) is kept in meta.jsBaseline` }, jsBaseline: oldEval.training ? Object.fromEntries(Object.entries(oldEval.training).map(([k, v]) => [k, { seconds: v.seconds, scenarioEvalsPerSecond: v.scenarioEvalsPerSecond, bestGen: v.bestGen, valBest: v.valFitness.best }])) : null, msPerRecommendation,
       priorityMap: { 0: 'typical (rendir más en un año típico)', 1: 'cautious (no perder en un año malo)' },
       referenceNote: 'oracle, simulator-policy and predict-then-choose rows are copied from web/data/aligned_eval.json (same seeds), not recomputed; the rule row is recomputed here as a check.',
       noMargin: 'Margin is not computed: the judge has no prices or costs.',
@@ -149,6 +167,7 @@ async function runAll() {
       trainBest: { first: r.curve[0].trainBest, last: r.curve.at(-1).trainBest },
       curve: r.curve.map((c) => ({ gen: c.gen, trainBest: c.trainBest, val: c.val })),
     }])),
+    jsVsTorchCheck: crossCheck,
     decision,
   };
   fs.writeFileSync(path.join(root, 'web/data/recommender_eval.json'), JSON.stringify(out, null, 1));
@@ -157,13 +176,18 @@ async function runAll() {
     activation: 'tanh hidden, linear output; score = rule score + tanh(output)', mean: best.mean, std: best.std, params: best.best.params,
     standardisation: 'mean and std over training rows only (scenario x priority x action)',
   }));
-  fs.rmSync(work, { recursive: true, force: true });
   for (const r of runs) console.log(`seed ${r.seed}: val first/best/last ${r.curve[0].val.toFixed(4)}/${r.best.val.toFixed(4)}/${r.curve.at(-1).val.toFixed(4)} (best gen ${r.best.gen}; identity ${r.initVal.toFixed(4)})`);
 }
 
 const arg = (k) => { const i = process.argv.indexOf(k); return i < 0 ? null : process.argv[i + 1]; };
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  if (arg('--seed')) {
+  if (process.argv.includes('--dump')) {
+    const { table, seconds } = buildTable();
+    fs.mkdirSync(OUT_DIR, { recursive: true });
+    const slim = (list) => list.map((s) => ({ state: s.state, actionRows: s.actionRows, y: s.y, ruleIdx: s.ruleIdx }));
+    fs.writeFileSync(path.join(OUT_DIR, 'recommender_table.json'), JSON.stringify({ design: DESIGN, actions: ACTION_IDS, inputNames: INPUT_NAMES, train: slim(table.train), val: slim(table.val), test: slim(table.test) }));
+    console.log(`tabla escrita (${table.train.length}/${table.val.length}/${table.test.length}) en ${seconds.toFixed(1)} s`);
+  } else if (arg('--seed')) {
     const seed = Number(arg('--seed'));
     const { table, seconds } = buildTable();
     console.log(`seed ${seed}: tabla en ${seconds.toFixed(1)} s (${table.train.length}/${table.val.length}/${table.test.length})`);

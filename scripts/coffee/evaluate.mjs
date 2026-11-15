@@ -1,12 +1,12 @@
 // Evalúa las políticas de riego del café en validación y prueba y escribe web/data/coffee_eval.json y web/data/coffee_recommender.json (Tarea 32).
-// Requiere: node scripts/coffee/scenarios.mjs, train_es.py, ptc_mlp.py (y opcionalmente bench_js.mjs). El ELM (1500 ocultas, escala 0.1, lambda 0.1) se ajusta aquí, en JS, una vez por semilla.
+// Requiere: node scripts/coffee/scenarios.mjs, train_es.py, ptc_mlp.py (y opcionalmente bench_js.mjs). El ELM (1500 ocultas, escala 0.1, lambda 0.1) se ajusta en GPU, una vez por semilla (python scripts/gpu/elm_gpu.py coffee; antes, en JS dentro de este archivo: tiempos en meta.timing.elmSecondsJs, del commit 4778afc).
 // Uso: node scripts/coffee/evaluate.mjs
 import fs from 'node:fs';
 import path from 'node:path';
 import { performance } from 'node:perf_hooks';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { trainELM, elmPredict, r2, rmse } from '../../web/js/model/emulator.js';
+import { r2, rmse } from '../../web/js/model/emulator.js';
 import { forward, standardize } from '../../web/js/model/recommender.js';
 import { STATE_NAMES, PRICE, IRRIGATION_MM, HORIZON_DAYS, DECISION_DAYS } from '../../web/js/model/coffee.js';
 import { summarizeObjects } from '../compare/aligned_lib.mjs';
@@ -90,12 +90,13 @@ for (const c of crossCheck) if (c.maxAbsScoreDiff > 1e-5 || c.sameRecommendation
 const trainIdx = idxOf((s) => s.split === 'train');
 const elmPred = [], elmSeconds = [];
 for (const seed of SEEDS) {
-  const t0 = performance.now();
-  const model = trainELM(trainIdx.map((i) => S[i].state), trainIdx.map((i) => [S[i].avoided]), { ...ELM_CFG, seed });
-  elmSeconds.push((performance.now() - t0) / 1000);
-  elmPred.push(S.map((s) => elmPredict(model, s.state)[0]));
-  console.log(`ELM seed ${seed}: ${elmSeconds.at(-1).toFixed(1)} s`);
+  const f = readJson(cache(`elm_seed${seed}.json`)); // predicción de todos los escenarios (ajuste en GPU con las filas train)
+  if (f.seed !== seed || f.pred.length !== S.length) throw new Error(`elm_seed${seed}.json no coincide con la tabla`);
+  elmPred.push(f.pred); elmSeconds.push(f.trainSeconds);
+  console.log(`ELM seed ${seed} (GPU): ${f.trainSeconds.toFixed(2)} s`);
 }
+const OLD_COMMIT = '4778afc';
+const elmSecondsJs = JSON.parse(execFileSync('git', ['-C', root, 'show', `${OLD_COMMIT}:web/data/coffee_eval.json`], { encoding: 'utf8', maxBuffer: 1 << 28 })).meta.timing.elmSeconds;
 
 const regr = (pred) => Object.fromEntries(Object.entries(SET).map(([k, idx]) => [k, { n: idx.length, r2: r2(idx.map((i) => S[i].avoided), idx.map((i) => pred[i])), rmse: rmse(idx.map((i) => S[i].avoided), idx.map((i) => pred[i])) }]));
 
@@ -143,7 +144,7 @@ const out = {
     timing: {
       gpuEs: Object.fromEntries(es.map((r) => [r.seed, { seconds: r.seconds, scenarioEvals: r.scenarioEvals, scenarioEvalsPerSecond: r.scenarioEvalsPerSecond }])),
       jsEsBenchmark: jsBench, device: es[0].deviceName, torchVersion: es[0].torchVersion,
-      ptcMlpSeconds: Object.fromEntries(mlp.map((r) => [r.seed, { seconds: r.trainSeconds, epochs: r.epochs }])), elmSeconds: Object.fromEntries(SEEDS.map((s, k) => [s, elmSeconds[k]])), msPerRecommendation,
+      ptcMlpSeconds: Object.fromEntries(mlp.map((r) => [r.seed, { seconds: r.trainSeconds, epochs: r.epochs }])), elmSeconds: Object.fromEntries(SEEDS.map((s, k) => [s, elmSeconds[k]])), elmSecondsJs, elmFit: 'GPU (scripts/gpu/elm_gpu.py); elmSecondsJs = the JS fit of the previous commit', msPerRecommendation,
     },
     selected: { seed: best.seed, generation: best.bestGen, valFitness: best.valFitness.best },
     noMargin: 'No yield and no money: coffee has no FAO Ky. The judge is our simulator.',
