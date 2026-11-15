@@ -49,11 +49,13 @@ def fit_elm(X, Y, seed, dev, hidden=1500, input_scale=0.1, lam=0.1):
         torch.cuda.synchronize()
     t0 = time.perf_counter()
     f = lambda a: torch.tensor(a, dtype=torch.float64, device=dev)
-    Z = (f(X) - f(mu)) / f(sd)
-    Wt, bt = f(W).reshape(hidden, n_in), f(b)
-    H = torch.tanh(Z @ Wt.T + bt)
-    A = H.T @ H + lam * torch.eye(hidden, dtype=torch.float64, device=dev)
-    B = H.T @ ((f(Y) - f(ym)) / f(ys))
+    Wt, bt, mut, sdt, ymt, yst = f(W).reshape(hidden, n_in), f(b), f(mu), f(sd), f(ym), f(ys)
+    A = lam * torch.eye(hidden, dtype=torch.float64, device=dev)
+    B = torch.zeros(hidden, n_out, dtype=torch.float64, device=dev)
+    for lo in range(0, N, 16384):  # por bloques de filas: H nunca se guarda entera (con ~120 mil filas ocuparía varios GB)
+        H = torch.tanh(((f(X[lo:lo + 16384]) - mut) / sdt) @ Wt.T + bt)
+        A += H.T @ H
+        B += H.T @ ((f(Y[lo:lo + 16384]) - ymt) / yst)
     beta = torch.cholesky_solve(B, torch.linalg.cholesky(A))
     beta = beta.cpu().numpy()
     seconds = time.perf_counter() - t0  # incluye subir los datos y traer beta a la CPU

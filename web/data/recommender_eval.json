@@ -1,6 +1,6 @@
 {
  "meta": {
-  "simulatorCommit": "4778afc",
+  "simulatorCommit": "929a05e",
   "generated": "2026-11-15",
   "design": {
    "popSize": 32,
@@ -62,7 +62,7 @@
    "val": 324,
    "test": 54
   },
-  "tableSeconds": 19.625836500000002,
+  "tableSeconds": 17.5237523,
   "gpu": {
    "device": "NVIDIA GeForce RTX 4050 Laptop GPU",
    "torch": "2.11.0+cu128",
@@ -94,7 +94,7 @@
     "valBest": 0.9578661500561215
    }
   },
-  "msPerRecommendation": 0.10774453703703599,
+  "msPerRecommendation": 0.13396712962962906,
   "priorityMap": {
    "0": "typical (rendir más en un año típico)",
    "1": "cautious (no perder en un año malo)"

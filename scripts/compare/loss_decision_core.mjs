@@ -57,9 +57,9 @@ export function buildRows(ctx) {
 }
 
 // Agrega la política de una red (predict) a todos los casos: decisiones por prioridad.
-export function addNetworkPolicy(rows, ctx, name, predict) {
+export function addNetworkPolicy(rows, ctx, name, predict, { v3 = false } = {}) {
   for (const r of rows) {
-    const outcomes = networkOutcomes({ emuTexture: ctx.siteSoil[r.site].nearestTexture, predict }, r._past, r._offsetDays);
+    const outcomes = networkOutcomes({ emuTexture: ctx.siteSoil[r.site].nearestTexture, predict, crops: v3 ? ctx.crops : null }, r._past, r._offsetDays);
     r.decisions[name] = Object.fromEntries(PRIORITIES.map((p) => [p, decideAction({ outcomes, targetYear: r.year, priority: p })]));
   }
 }

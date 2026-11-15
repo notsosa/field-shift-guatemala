@@ -5,6 +5,7 @@
 import { computeEt0Series, agriculturalYears, resolveMainSowIdx } from '../../web/js/model/simulate.js';
 import { climateFeatures } from '../../web/js/model/emulator.js';
 import { featuresV2 } from '../../web/js/model/emulatorV2.js';
+import { featuresV3 } from '../../web/js/model/emulatorV3.js';
 import { summarize, truncateBundle, pastYears, winTieLoss, mean, quantile, TOLERANCE } from '../../web/js/model/decision.js';
 import { simulateSuccessionYear } from './succession_lib.mjs';
 
@@ -80,14 +81,14 @@ export const simulatorOutcomes = ({ crops, simSoil }, past, offsetDays) => past.
 })));
 
 /** predict(x) → [relYieldA, relYieldB, fit]; la entrada codifica el cultivo como A con su fecha de siembra real y B = ninguno. */
-export function networkOutcomes({ emuTexture, predict }, past, offsetDays) {
+export function networkOutcomes({ emuTexture, predict, crops = null }, past, offsetDays) { // crops dado = entradas v3 (Tarea 33); sin crops, las de v2
   const clamp01 = (v) => Math.min(1, Math.max(0, v));
   return past.years.flatMap((year) => {
     const climFeats = climateFeatures(past.bundle, year, past.et0);
     const sowLocal = resolveMainSowIdx(past.bundle, year, offsetDays).idx;
     return RESOW_CROPS.map((cropId) => ({
       action: cropId, year,
-      value: clamp01(predict(featuresV2({ bundle: past.bundle, et0: past.et0, year, climFeats, sowLocal, offsetDays, idA: cropId, idB: null, soil: emuTexture }))[0]),
+      value: clamp01(predict((crops ? featuresV3 : featuresV2)({ bundle: past.bundle, et0: past.et0, year, climFeats, sowLocal, offsetDays, idA: cropId, idB: null, soil: emuTexture, crops }))[0]),
     }));
   });
 }
