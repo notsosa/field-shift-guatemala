@@ -1,0 +1,362 @@
+{
+ "meta": {
+  "description": "Task 33 part B screening: more data and more inputs for emulator v2, validation years 2017-2018 only, three seeds each.",
+  "candidates": [
+   "base",
+   "data",
+   "inputs",
+   "data+inputs"
+  ],
+  "seeds": [
+   17,
+   29,
+   43
+  ],
+  "recipe": "fit_network of scripts/emulator/train_mlp.py: funnel n->64->32->16->3, ReLU, Adam 1e-3, batch 256, early stopping (patience 10) on 2017-2018 rows",
+  "metric": "MSE of the standardised outputs (std of base training rows) on the same validation rows for every candidate: the 2017-2018 rows of the 60,000 reservoir (n = 3924)",
+  "rule": "lowest mean validation MSE over the three seeds wins; adopt only if it improves base by >= 2 % and no output's mean validation R2 gets worse than base by more than 0.01; otherwise keep base",
+  "device": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "torchVersion": "2.11.0+cu128",
+  "generated": "2026-11-15",
+  "samples": {
+   "candidates": 211680,
+   "reservoir": 60000,
+   "featureNames": [
+    "rainMJJ",
+    "rainASO",
+    "rainYear",
+    "caniculaDays",
+    "et0MeanMO",
+    "tmeanMO",
+    "elevation",
+    "sowDoyA",
+    "rain0to60",
+    "et0_0to60",
+    "rain61to150",
+    "et0_61to150",
+    "A_maiz",
+    "A_frijol",
+    "A_ajonjoli",
+    "A_papa",
+    "A_cebolla",
+    "A_brocoli",
+    "A_lechuga",
+    "B_maiz",
+    "B_frijol",
+    "B_ajonjoli",
+    "B_papa",
+    "B_cebolla",
+    "B_brocoli",
+    "B_lechuga",
+    "B_none",
+    "soil_sand",
+    "soil_loam",
+    "soil_clay",
+    "offset30",
+    "A_rainPre30",
+    "A_et0Pre30",
+    "A_apiFlower",
+    "A_storeProxy",
+    "A_rainFlower",
+    "A_deficitFlower",
+    "A_cycleDays",
+    "A_daysLeft",
+    "B_rainPre30",
+    "B_et0Pre30",
+    "B_apiFlower",
+    "B_storeProxy",
+    "B_rainFlower",
+    "B_deficitFlower",
+    "B_cycleDays",
+    "B_daysLeft"
+   ],
+   "provenance": {
+    "simulatorCommit": "5780355",
+    "simulatorDirty": false,
+    "rainSource": "ERA5",
+    "generated": "2026-11-15",
+    "candidates": 211680,
+    "kept": 211680,
+    "reservoirSize": 60000,
+    "simulatorMicrosPerSample": 160.84955026455916
+   }
+  },
+  "testRowsUsed": false
+ },
+ "runs": [
+  {
+   "variant": "base",
+   "seed": 17,
+   "inputs": 31,
+   "nTrainRows": 36055,
+   "nFit": 32131,
+   "nVal": 3924,
+   "epochs": 30,
+   "trainSeconds": 12.05,
+   "ownBestValLoss": 0.15764792263507843,
+   "commonValMSE": 0.1576479106013114,
+   "valR2": [
+    0.733391287672666,
+    0.9343493619792332,
+    0.8909881905558886
+   ]
+  },
+  {
+   "variant": "base",
+   "seed": 29,
+   "inputs": 31,
+   "nTrainRows": 36055,
+   "nFit": 32131,
+   "nVal": 3924,
+   "epochs": 29,
+   "trainSeconds": 10.96,
+   "ownBestValLoss": 0.15882368385791779,
+   "commonValMSE": 0.15882366802397907,
+   "valR2": [
+    0.730542679537608,
+    0.9342694545712398,
+    0.8907824307894395
+   ]
+  },
+  {
+   "variant": "base",
+   "seed": 43,
+   "inputs": 31,
+   "nTrainRows": 36055,
+   "nFit": 32131,
+   "nVal": 3924,
+   "epochs": 32,
+   "trainSeconds": 11.04,
+   "ownBestValLoss": 0.15933279693126678,
+   "commonValMSE": 0.15933279679443801,
+   "valR2": [
+    0.7299137373225298,
+    0.9357422988219757,
+    0.8884890970895188
+   ]
+  },
+  {
+   "variant": "data",
+   "seed": 17,
+   "inputs": 31,
+   "nTrainRows": 127008,
+   "nFit": 112896,
+   "nVal": 14112,
+   "epochs": 17,
+   "trainSeconds": 21.78,
+   "ownBestValLoss": 0.15389825403690338,
+   "commonValMSE": 0.16071548139494352,
+   "valR2": [
+    0.7226980238455862,
+    0.9349217497106189,
+    0.8935183371940699
+   ]
+  },
+  {
+   "variant": "data",
+   "seed": 29,
+   "inputs": 31,
+   "nTrainRows": 127008,
+   "nFit": 112896,
+   "nVal": 14112,
+   "epochs": 16,
+   "trainSeconds": 24.16,
+   "ownBestValLoss": 0.15357792377471924,
+   "commonValMSE": 0.1566829714144914,
+   "valR2": [
+    0.7188322647939689,
+    0.9381634327290275,
+    0.907341981546183
+   ]
+  },
+  {
+   "variant": "data",
+   "seed": 43,
+   "inputs": 31,
+   "nTrainRows": 127008,
+   "nFit": 112896,
+   "nVal": 14112,
+   "epochs": 23,
+   "trainSeconds": 30.8,
+   "ownBestValLoss": 0.1528739035129547,
+   "commonValMSE": 0.155921548263,
+   "valR2": [
+    0.7329868893833702,
+    0.9373489842108295,
+    0.8938380104377475
+   ]
+  },
+  {
+   "variant": "inputs",
+   "seed": 17,
+   "inputs": 47,
+   "nTrainRows": 36055,
+   "nFit": 32131,
+   "nVal": 3924,
+   "epochs": 24,
+   "trainSeconds": 10.06,
+   "ownBestValLoss": 0.07352468371391296,
+   "commonValMSE": 0.07352467674843195,
+   "valR2": [
+    0.9029306104438873,
+    0.964442315211462,
+    0.9219345269346361
+   ]
+  },
+  {
+   "variant": "inputs",
+   "seed": 29,
+   "inputs": 47,
+   "nTrainRows": 36055,
+   "nFit": 32131,
+   "nVal": 3924,
+   "epochs": 26,
+   "trainSeconds": 10.93,
+   "ownBestValLoss": 0.07263465970754623,
+   "commonValMSE": 0.07263465251463729,
+   "valR2": [
+    0.8976811067987661,
+    0.96775258460929,
+    0.9275933326457937
+   ]
+  },
+  {
+   "variant": "inputs",
+   "seed": 43,
+   "inputs": 47,
+   "nTrainRows": 36055,
+   "nFit": 32131,
+   "nVal": 3924,
+   "epochs": 38,
+   "trainSeconds": 15.61,
+   "ownBestValLoss": 0.07159430533647537,
+   "commonValMSE": 0.07159430168291195,
+   "valR2": [
+    0.9068135906895477,
+    0.9679652008817832,
+    0.9198494072024858
+   ]
+  },
+  {
+   "variant": "data+inputs",
+   "seed": 17,
+   "inputs": 47,
+   "nTrainRows": 127008,
+   "nFit": 112896,
+   "nVal": 14112,
+   "epochs": 22,
+   "trainSeconds": 37.12,
+   "ownBestValLoss": 0.05786353349685669,
+   "commonValMSE": 0.06008266295980765,
+   "valR2": [
+    0.9240362454788448,
+    0.9723962876541509,
+    0.9308127268592614
+   ]
+  },
+  {
+   "variant": "data+inputs",
+   "seed": 29,
+   "inputs": 47,
+   "nTrainRows": 127008,
+   "nFit": 112896,
+   "nVal": 14112,
+   "epochs": 28,
+   "trainSeconds": 43.95,
+   "ownBestValLoss": 0.05910224840044975,
+   "commonValMSE": 0.06216244595478243,
+   "valR2": [
+    0.9177765719539667,
+    0.9745388518429781,
+    0.9296251901153469
+   ]
+  },
+  {
+   "variant": "data+inputs",
+   "seed": 43,
+   "inputs": 47,
+   "nTrainRows": 127008,
+   "nFit": 112896,
+   "nVal": 14112,
+   "epochs": 26,
+   "trainSeconds": 29.61,
+   "ownBestValLoss": 0.06075407564640045,
+   "commonValMSE": 0.06228910987191217,
+   "valR2": [
+    0.9149935766150954,
+    0.9742116513039026,
+    0.9328340324870884
+   ]
+  }
+ ],
+ "summary": {
+  "base": {
+   "meanMSE": 0.15860145847324283,
+   "mseBySeed": [
+    0.1576479106013114,
+    0.15882366802397907,
+    0.15933279679443801
+   ],
+   "meanR2": [
+    0.7312825681776013,
+    0.9347870384574829,
+    0.8900865728116156
+   ],
+   "inputs": 31,
+   "nTrainRows": 36055
+  },
+  "data": {
+   "meanMSE": 0.15777333369081162,
+   "mseBySeed": [
+    0.16071548139494352,
+    0.1566829714144914,
+    0.155921548263
+   ],
+   "meanR2": [
+    0.724839059340975,
+    0.936811388883492,
+    0.8982327763926667
+   ],
+   "inputs": 31,
+   "nTrainRows": 127008
+  },
+  "inputs": {
+   "meanMSE": 0.07258454364866039,
+   "mseBySeed": [
+    0.07352467674843195,
+    0.07263465251463729,
+    0.07159430168291195
+   ],
+   "meanR2": [
+    0.902475102644067,
+    0.9667200335675118,
+    0.9231257555943051
+   ],
+   "inputs": 47,
+   "nTrainRows": 36055
+  },
+  "data+inputs": {
+   "meanMSE": 0.06151140626216742,
+   "mseBySeed": [
+    0.06008266295980765,
+    0.06216244595478243,
+    0.06228910987191217
+   ],
+   "meanR2": [
+    0.9189354646826356,
+    0.9737155969336772,
+    0.9310906498205656
+   ],
+   "inputs": 47,
+   "nTrainRows": 127008
+  }
+ },
+ "decision": {
+  "winner": "data+inputs",
+  "meanMSEBase": 0.15860145847324283,
+  "meanMSEWinner": 0.06151140626216742,
+  "improvementOverBase": 0.6121636783526501,
+  "worstR2ChangeVsBase": 0.03892855847619425,
+  "adopt": true
+ }
+}

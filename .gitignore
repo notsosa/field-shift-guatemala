@@ -14,3 +14,4 @@ scripts/emulator/samples_v2.json
 
 # café: tabla de escenarios y salidas intermedias (se regeneran)
 scripts/coffee/cache/
+scripts/emulator/samples_v3_all.json
