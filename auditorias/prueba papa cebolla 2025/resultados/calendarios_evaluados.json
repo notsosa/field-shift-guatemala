@@ -1,0 +1,4538 @@
+[
+  {
+    "programa": "papa115_cebolla150_gap7_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-05-10",
+    "intervalo_fin": "2025-05-16",
+    "fin_ciclo": "2025-10-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-17",
+        "fin": "2025-10-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap7_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-06-14",
+    "intervalo_fin": "2025-06-20",
+    "fin_ciclo": "2025-10-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-06-13"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-21",
+        "fin": "2025-10-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap14_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-05-10",
+    "intervalo_fin": "2025-05-23",
+    "fin_ciclo": "2025-10-20",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-24",
+        "fin": "2025-10-20"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap14_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-06-14",
+    "intervalo_fin": "2025-06-27",
+    "fin_ciclo": "2025-10-20",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-06-13"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-28",
+        "fin": "2025-10-20"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap21_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-05-10",
+    "intervalo_fin": "2025-05-30",
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-31",
+        "fin": "2025-10-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap21_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-06-14",
+    "intervalo_fin": "2025-07-04",
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-06-13"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-07-05",
+        "fin": "2025-10-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap7_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-05-10",
+    "intervalo_fin": "2025-05-16",
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-17",
+        "fin": "2025-12-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap7_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-19",
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-20",
+        "fin": "2025-12-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap14_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-05-10",
+    "intervalo_fin": "2025-05-23",
+    "fin_ciclo": "2025-12-19",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-24",
+        "fin": "2025-12-19"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap14_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-26",
+    "fin_ciclo": "2025-12-19",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-27",
+        "fin": "2025-12-19"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap21_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-05-10",
+    "intervalo_fin": "2025-05-30",
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-09"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-31",
+        "fin": "2025-12-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap21_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-09-02",
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-03",
+        "fin": "2025-12-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap7_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-05-25",
+    "intervalo_fin": "2025-05-31",
+    "fin_ciclo": "2025-10-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap7_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-06-14",
+    "intervalo_fin": "2025-06-20",
+    "fin_ciclo": "2025-10-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-06-13"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-21",
+        "fin": "2025-10-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap14_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-05-25",
+    "intervalo_fin": "2025-06-07",
+    "fin_ciclo": "2025-11-04",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-08",
+        "fin": "2025-11-04"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap14_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-06-14",
+    "intervalo_fin": "2025-06-27",
+    "fin_ciclo": "2025-11-04",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-06-13"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-28",
+        "fin": "2025-11-04"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap21_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-05-25",
+    "intervalo_fin": "2025-06-14",
+    "fin_ciclo": "2025-11-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap21_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-06-14",
+    "intervalo_fin": "2025-07-04",
+    "fin_ciclo": "2025-11-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-06-13"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-07-05",
+        "fin": "2025-11-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap7_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-05-25",
+    "intervalo_fin": "2025-05-31",
+    "fin_ciclo": "2025-12-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-12-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap7_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-19",
+    "fin_ciclo": "2025-12-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-20",
+        "fin": "2025-12-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap14_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-05-25",
+    "intervalo_fin": "2025-06-07",
+    "fin_ciclo": "2026-01-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-08",
+        "fin": "2026-01-03"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap14_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-26",
+    "fin_ciclo": "2026-01-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-27",
+        "fin": "2026-01-03"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap21_2025-01-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-05-25",
+    "intervalo_fin": "2025-06-14",
+    "fin_ciclo": "2026-01-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-01-15",
+        "fin": "2025-05-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2026-01-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap21_2025-01-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-01-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-09-02",
+    "fin_ciclo": "2026-01-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-01-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-03",
+        "fin": "2026-01-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap7_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-06-24",
+    "intervalo_fin": "2025-06-30",
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-01",
+        "fin": "2025-11-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap7_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-07-29",
+    "intervalo_fin": "2025-08-04",
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-05",
+        "fin": "2025-11-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap14_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-06-24",
+    "intervalo_fin": "2025-07-07",
+    "fin_ciclo": "2025-12-04",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-08",
+        "fin": "2025-12-04"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap14_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-07-29",
+    "intervalo_fin": "2025-08-11",
+    "fin_ciclo": "2025-12-04",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-12",
+        "fin": "2025-12-04"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap21_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-06-24",
+    "intervalo_fin": "2025-07-14",
+    "fin_ciclo": "2025-12-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-15",
+        "fin": "2025-12-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap21_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-07-29",
+    "intervalo_fin": "2025-08-18",
+    "fin_ciclo": "2025-12-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-19",
+        "fin": "2025-12-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap7_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-06-24",
+    "intervalo_fin": "2025-06-30",
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-01",
+        "fin": "2026-01-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap7_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-27",
+    "intervalo_fin": "2025-10-03",
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-04",
+        "fin": "2026-01-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap14_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-06-24",
+    "intervalo_fin": "2025-07-07",
+    "fin_ciclo": "2026-02-02",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-08",
+        "fin": "2026-02-02"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap14_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-27",
+    "intervalo_fin": "2025-10-10",
+    "fin_ciclo": "2026-02-02",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-11",
+        "fin": "2026-02-02"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap21_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-06-24",
+    "intervalo_fin": "2025-07-14",
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-06-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-15",
+        "fin": "2026-02-09"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap21_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-27",
+    "intervalo_fin": "2025-10-17",
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-18",
+        "fin": "2026-02-09"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap7_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-07-09",
+    "intervalo_fin": "2025-07-15",
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-16",
+        "fin": "2025-12-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap7_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-07-29",
+    "intervalo_fin": "2025-08-04",
+    "fin_ciclo": "2025-12-12",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-05",
+        "fin": "2025-12-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap14_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-07-09",
+    "intervalo_fin": "2025-07-22",
+    "fin_ciclo": "2025-12-19",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-23",
+        "fin": "2025-12-19"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap14_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-07-29",
+    "intervalo_fin": "2025-08-11",
+    "fin_ciclo": "2025-12-19",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-12",
+        "fin": "2025-12-19"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap21_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-07-09",
+    "intervalo_fin": "2025-07-29",
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-30",
+        "fin": "2025-12-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap21_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-07-29",
+    "intervalo_fin": "2025-08-18",
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-08-19",
+        "fin": "2025-12-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap7_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-07-09",
+    "intervalo_fin": "2025-07-15",
+    "fin_ciclo": "2026-02-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-16",
+        "fin": "2026-02-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap7_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-27",
+    "intervalo_fin": "2025-10-03",
+    "fin_ciclo": "2026-02-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-04",
+        "fin": "2026-02-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap14_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-07-09",
+    "intervalo_fin": "2025-07-22",
+    "fin_ciclo": "2026-02-17",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-23",
+        "fin": "2026-02-17"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap14_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-27",
+    "intervalo_fin": "2025-10-10",
+    "fin_ciclo": "2026-02-17",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-11",
+        "fin": "2026-02-17"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap21_2025-03-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-07-09",
+    "intervalo_fin": "2025-07-29",
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-03-01",
+        "fin": "2025-07-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-07-30",
+        "fin": "2026-02-24"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap21_2025-03-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-03-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-27",
+    "intervalo_fin": "2025-10-17",
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-03-01",
+        "fin": "2025-09-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-18",
+        "fin": "2026-02-24"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap7_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-24",
+    "intervalo_fin": "2025-08-30",
+    "fin_ciclo": "2026-01-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-08-31",
+        "fin": "2026-01-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap7_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-04",
+    "fin_ciclo": "2026-01-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-05",
+        "fin": "2026-01-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap14_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-24",
+    "intervalo_fin": "2025-09-06",
+    "fin_ciclo": "2026-02-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-07",
+        "fin": "2026-02-03"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap14_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-11",
+    "fin_ciclo": "2026-02-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-12",
+        "fin": "2026-02-03"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap21_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-24",
+    "intervalo_fin": "2025-09-13",
+    "fin_ciclo": "2026-02-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-14",
+        "fin": "2026-02-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap21_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-18",
+    "fin_ciclo": "2026-02-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-19",
+        "fin": "2026-02-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap7_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-24",
+    "intervalo_fin": "2025-08-30",
+    "fin_ciclo": "2026-03-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-08-31",
+        "fin": "2026-03-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap7_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-11-27",
+    "intervalo_fin": "2025-12-03",
+    "fin_ciclo": "2026-03-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-11-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-04",
+        "fin": "2026-03-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap14_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-24",
+    "intervalo_fin": "2025-09-06",
+    "fin_ciclo": "2026-04-04",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-07",
+        "fin": "2026-04-04"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap14_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-11-27",
+    "intervalo_fin": "2025-12-10",
+    "fin_ciclo": "2026-04-04",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-11-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-11",
+        "fin": "2026-04-04"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap21_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-24",
+    "intervalo_fin": "2025-09-13",
+    "fin_ciclo": "2026-04-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-14",
+        "fin": "2026-04-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap21_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-11-27",
+    "intervalo_fin": "2025-12-17",
+    "fin_ciclo": "2026-04-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-11-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-18",
+        "fin": "2026-04-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap7_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-08",
+    "intervalo_fin": "2025-09-14",
+    "fin_ciclo": "2026-02-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-15",
+        "fin": "2026-02-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap7_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-04",
+    "fin_ciclo": "2026-02-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-05",
+        "fin": "2026-02-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap14_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-08",
+    "intervalo_fin": "2025-09-21",
+    "fin_ciclo": "2026-02-18",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-22",
+        "fin": "2026-02-18"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap14_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-11",
+    "fin_ciclo": "2026-02-18",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-12",
+        "fin": "2026-02-18"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap21_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-08",
+    "intervalo_fin": "2025-09-28",
+    "fin_ciclo": "2026-02-25",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-29",
+        "fin": "2026-02-25"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap21_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-18",
+    "fin_ciclo": "2026-02-25",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-19",
+        "fin": "2026-02-25"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap7_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-08",
+    "intervalo_fin": "2025-09-14",
+    "fin_ciclo": "2026-04-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-15",
+        "fin": "2026-04-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap7_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-11-27",
+    "intervalo_fin": "2025-12-03",
+    "fin_ciclo": "2026-04-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-11-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-04",
+        "fin": "2026-04-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap14_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-08",
+    "intervalo_fin": "2025-09-21",
+    "fin_ciclo": "2026-04-19",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-22",
+        "fin": "2026-04-19"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap14_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-11-27",
+    "intervalo_fin": "2025-12-10",
+    "fin_ciclo": "2026-04-19",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-11-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-11",
+        "fin": "2026-04-19"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap21_2025-05-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-08",
+    "intervalo_fin": "2025-09-28",
+    "fin_ciclo": "2026-04-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-29",
+        "fin": "2026-04-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap21_2025-05-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-11-27",
+    "intervalo_fin": "2025-12-17",
+    "fin_ciclo": "2026-04-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-01",
+        "fin": "2025-11-26"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-18",
+        "fin": "2026-04-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap7_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-07",
+    "intervalo_fin": "2025-09-13",
+    "fin_ciclo": "2026-02-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-14",
+        "fin": "2026-02-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap7_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-10-18",
+    "fin_ciclo": "2026-02-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-19",
+        "fin": "2026-02-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap14_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-07",
+    "intervalo_fin": "2025-09-20",
+    "fin_ciclo": "2026-02-17",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-21",
+        "fin": "2026-02-17"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap14_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-10-25",
+    "fin_ciclo": "2026-02-17",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-26",
+        "fin": "2026-02-17"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap21_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-07",
+    "intervalo_fin": "2025-09-27",
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-28",
+        "fin": "2026-02-24"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap21_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-11-01",
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-02",
+        "fin": "2026-02-24"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap7_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-07",
+    "intervalo_fin": "2025-09-13",
+    "fin_ciclo": "2026-04-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-14",
+        "fin": "2026-04-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap7_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-12-11",
+    "intervalo_fin": "2025-12-17",
+    "fin_ciclo": "2026-04-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-12-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-18",
+        "fin": "2026-04-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap14_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-07",
+    "intervalo_fin": "2025-09-20",
+    "fin_ciclo": "2026-04-18",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-21",
+        "fin": "2026-04-18"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap14_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-12-11",
+    "intervalo_fin": "2025-12-24",
+    "fin_ciclo": "2026-04-18",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-12-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-25",
+        "fin": "2026-04-18"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap21_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-07",
+    "intervalo_fin": "2025-09-27",
+    "fin_ciclo": "2026-04-25",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-06"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-28",
+        "fin": "2026-04-25"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap21_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-12-11",
+    "intervalo_fin": "2025-12-31",
+    "fin_ciclo": "2026-04-25",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-12-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-01",
+        "fin": "2026-04-25"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap7_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-22",
+    "intervalo_fin": "2025-09-28",
+    "fin_ciclo": "2026-02-25",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-29",
+        "fin": "2026-02-25"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap7_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-10-18",
+    "fin_ciclo": "2026-02-25",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-19",
+        "fin": "2026-02-25"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap14_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-22",
+    "intervalo_fin": "2025-10-05",
+    "fin_ciclo": "2026-03-04",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-06",
+        "fin": "2026-03-04"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap14_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-10-25",
+    "fin_ciclo": "2026-03-04",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-10-26",
+        "fin": "2026-03-04"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap21_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-22",
+    "intervalo_fin": "2025-10-12",
+    "fin_ciclo": "2026-03-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-13",
+        "fin": "2026-03-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap21_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-11-01",
+    "fin_ciclo": "2026-03-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-02",
+        "fin": "2026-03-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap7_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-22",
+    "intervalo_fin": "2025-09-28",
+    "fin_ciclo": "2026-04-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-29",
+        "fin": "2026-04-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap7_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-12-11",
+    "intervalo_fin": "2025-12-17",
+    "fin_ciclo": "2026-04-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-12-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-18",
+        "fin": "2026-04-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap14_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-22",
+    "intervalo_fin": "2025-10-05",
+    "fin_ciclo": "2026-05-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-06",
+        "fin": "2026-05-03"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap14_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-12-11",
+    "intervalo_fin": "2025-12-24",
+    "fin_ciclo": "2026-05-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-12-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-25",
+        "fin": "2026-05-03"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap21_2025-05-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-22",
+    "intervalo_fin": "2025-10-12",
+    "fin_ciclo": "2026-05-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-21"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-13",
+        "fin": "2026-05-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap21_2025-05-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-05-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-12-11",
+    "intervalo_fin": "2025-12-31",
+    "fin_ciclo": "2026-05-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-05-15",
+        "fin": "2025-12-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-01",
+        "fin": "2026-05-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap7_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-24",
+    "intervalo_fin": "2025-09-30",
+    "fin_ciclo": "2026-02-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-01",
+        "fin": "2026-02-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap7_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-04",
+    "fin_ciclo": "2026-02-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-05",
+        "fin": "2026-02-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap14_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-24",
+    "intervalo_fin": "2025-10-07",
+    "fin_ciclo": "2026-03-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-08",
+        "fin": "2026-03-06"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap14_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-11",
+    "fin_ciclo": "2026-03-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-12",
+        "fin": "2026-03-06"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap21_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-24",
+    "intervalo_fin": "2025-10-14",
+    "fin_ciclo": "2026-03-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-15",
+        "fin": "2026-03-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap21_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-18",
+    "fin_ciclo": "2026-03-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-19",
+        "fin": "2026-03-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap7_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-24",
+    "intervalo_fin": "2025-09-30",
+    "fin_ciclo": "2026-04-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-01",
+        "fin": "2026-04-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap7_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-12-28",
+    "intervalo_fin": "2026-01-03",
+    "fin_ciclo": "2026-04-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-12-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-04",
+        "fin": "2026-04-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap14_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-24",
+    "intervalo_fin": "2025-10-07",
+    "fin_ciclo": "2026-05-05",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-08",
+        "fin": "2026-05-05"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap14_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-12-28",
+    "intervalo_fin": "2026-01-10",
+    "fin_ciclo": "2026-05-05",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-12-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-11",
+        "fin": "2026-05-05"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap21_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-24",
+    "intervalo_fin": "2025-10-14",
+    "fin_ciclo": "2026-05-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-23"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-15",
+        "fin": "2026-05-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap21_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-12-28",
+    "intervalo_fin": "2026-01-17",
+    "fin_ciclo": "2026-05-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-12-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-18",
+        "fin": "2026-05-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap7_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-09",
+    "intervalo_fin": "2025-10-15",
+    "fin_ciclo": "2026-03-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-16",
+        "fin": "2026-03-14"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap7_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-04",
+    "fin_ciclo": "2026-03-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-05",
+        "fin": "2026-03-14"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap14_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-09",
+    "intervalo_fin": "2025-10-22",
+    "fin_ciclo": "2026-03-21",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-23",
+        "fin": "2026-03-21"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap14_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-11",
+    "fin_ciclo": "2026-03-21",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-12",
+        "fin": "2026-03-21"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap21_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-09",
+    "intervalo_fin": "2025-10-29",
+    "fin_ciclo": "2026-03-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-30",
+        "fin": "2026-03-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap21_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-18",
+    "fin_ciclo": "2026-03-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-19",
+        "fin": "2026-03-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap7_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-09",
+    "intervalo_fin": "2025-10-15",
+    "fin_ciclo": "2026-05-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-16",
+        "fin": "2026-05-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap7_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-12-28",
+    "intervalo_fin": "2026-01-03",
+    "fin_ciclo": "2026-05-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-12-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-04",
+        "fin": "2026-05-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap14_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-09",
+    "intervalo_fin": "2025-10-22",
+    "fin_ciclo": "2026-05-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-23",
+        "fin": "2026-05-20"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap14_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-12-28",
+    "intervalo_fin": "2026-01-10",
+    "fin_ciclo": "2026-05-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-12-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-11",
+        "fin": "2026-05-20"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap21_2025-06-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-09",
+    "intervalo_fin": "2025-10-29",
+    "fin_ciclo": "2026-05-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-30",
+        "fin": "2026-05-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap21_2025-06-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-12-28",
+    "intervalo_fin": "2026-01-17",
+    "fin_ciclo": "2026-05-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-01",
+        "fin": "2025-12-27"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-18",
+        "fin": "2026-05-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap7_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-08",
+    "intervalo_fin": "2025-10-14",
+    "fin_ciclo": "2026-03-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-15",
+        "fin": "2026-03-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap7_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-11-18",
+    "fin_ciclo": "2026-03-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-19",
+        "fin": "2026-03-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap14_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-08",
+    "intervalo_fin": "2025-10-21",
+    "fin_ciclo": "2026-03-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-22",
+        "fin": "2026-03-20"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap14_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-11-25",
+    "fin_ciclo": "2026-03-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-26",
+        "fin": "2026-03-20"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap21_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-08",
+    "intervalo_fin": "2025-10-28",
+    "fin_ciclo": "2026-03-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-29",
+        "fin": "2026-03-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap21_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-12-02",
+    "fin_ciclo": "2026-03-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-03",
+        "fin": "2026-03-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap7_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-08",
+    "intervalo_fin": "2025-10-14",
+    "fin_ciclo": "2026-05-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-15",
+        "fin": "2026-05-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap7_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2026-01-11",
+    "intervalo_fin": "2026-01-17",
+    "fin_ciclo": "2026-05-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2026-01-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-18",
+        "fin": "2026-05-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap14_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-08",
+    "intervalo_fin": "2025-10-21",
+    "fin_ciclo": "2026-05-19",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-22",
+        "fin": "2026-05-19"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap14_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2026-01-11",
+    "intervalo_fin": "2026-01-24",
+    "fin_ciclo": "2026-05-19",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2026-01-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-25",
+        "fin": "2026-05-19"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap21_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-08",
+    "intervalo_fin": "2025-10-28",
+    "fin_ciclo": "2026-05-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-07"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-29",
+        "fin": "2026-05-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap21_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2026-01-11",
+    "intervalo_fin": "2026-01-31",
+    "fin_ciclo": "2026-05-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2026-01-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-02-01",
+        "fin": "2026-05-26"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap7_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-23",
+    "intervalo_fin": "2025-10-29",
+    "fin_ciclo": "2026-03-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-30",
+        "fin": "2026-03-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap7_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-11-18",
+    "fin_ciclo": "2026-03-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-19",
+        "fin": "2026-03-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap14_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-23",
+    "intervalo_fin": "2025-11-05",
+    "fin_ciclo": "2026-04-04",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-11-06",
+        "fin": "2026-04-04"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap14_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-11-25",
+    "fin_ciclo": "2026-04-04",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-11-26",
+        "fin": "2026-04-04"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap21_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-23",
+    "intervalo_fin": "2025-11-12",
+    "fin_ciclo": "2026-04-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-11-13",
+        "fin": "2026-04-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap21_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-12-02",
+    "fin_ciclo": "2026-04-11",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2025-12-03",
+        "fin": "2026-04-11"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap7_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-23",
+    "intervalo_fin": "2025-10-29",
+    "fin_ciclo": "2026-05-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-10-30",
+        "fin": "2026-05-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap7_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2026-01-11",
+    "intervalo_fin": "2026-01-17",
+    "fin_ciclo": "2026-05-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2026-01-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-18",
+        "fin": "2026-05-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap14_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-23",
+    "intervalo_fin": "2025-11-05",
+    "fin_ciclo": "2026-06-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-11-06",
+        "fin": "2026-06-03"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap14_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2026-01-11",
+    "intervalo_fin": "2026-01-24",
+    "fin_ciclo": "2026-06-03",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2026-01-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-01-25",
+        "fin": "2026-06-03"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap21_2025-06-15",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-23",
+    "intervalo_fin": "2025-11-12",
+    "fin_ciclo": "2026-06-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-22"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-11-13",
+        "fin": "2026-06-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap21_2025-06-15",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-06-15",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2026-01-11",
+    "intervalo_fin": "2026-01-31",
+    "fin_ciclo": "2026-06-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-06-15",
+        "fin": "2026-01-10"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-02-01",
+        "fin": "2026-06-10"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap7_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-12-25",
+    "intervalo_fin": "2025-12-31",
+    "fin_ciclo": "2026-05-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-01",
+        "fin": "2026-05-30"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap7_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2026-01-29",
+    "intervalo_fin": "2026-02-04",
+    "fin_ciclo": "2026-05-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-02-05",
+        "fin": "2026-05-30"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap14_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-12-25",
+    "intervalo_fin": "2026-01-07",
+    "fin_ciclo": "2026-06-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-08",
+        "fin": "2026-06-06"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap14_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2026-01-29",
+    "intervalo_fin": "2026-02-11",
+    "fin_ciclo": "2026-06-06",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-02-12",
+        "fin": "2026-06-06"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla150_gap21_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-12-25",
+    "intervalo_fin": "2026-01-14",
+    "fin_ciclo": "2026-06-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-15",
+        "fin": "2026-06-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa115_gap21_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2026-01-29",
+    "intervalo_fin": "2026-02-18",
+    "fin_ciclo": "2026-06-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-02-19",
+        "fin": "2026-06-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap7_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-12-25",
+    "intervalo_fin": "2025-12-31",
+    "fin_ciclo": "2026-07-29",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-01",
+        "fin": "2026-07-29"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap7_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2026-03-30",
+    "intervalo_fin": "2026-04-05",
+    "fin_ciclo": "2026-07-29",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-03-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-04-06",
+        "fin": "2026-07-29"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap14_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-12-25",
+    "intervalo_fin": "2026-01-07",
+    "fin_ciclo": "2026-08-05",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-08",
+        "fin": "2026-08-05"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap14_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2026-03-30",
+    "intervalo_fin": "2026-04-12",
+    "fin_ciclo": "2026-08-05",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-03-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-04-13",
+        "fin": "2026-08-05"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa115_cebolla210_gap21_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-12-25",
+    "intervalo_fin": "2026-01-14",
+    "fin_ciclo": "2026-08-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2025-12-24"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-15",
+        "fin": "2026-08-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa115_gap21_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 115,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2026-03-30",
+    "intervalo_fin": "2026-04-19",
+    "fin_ciclo": "2026-08-12",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-03-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-04-20",
+        "fin": "2026-08-12"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap7_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2026-01-09",
+    "intervalo_fin": "2026-01-15",
+    "fin_ciclo": "2026-06-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-16",
+        "fin": "2026-06-14"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap7_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2026-01-29",
+    "intervalo_fin": "2026-02-04",
+    "fin_ciclo": "2026-06-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-02-05",
+        "fin": "2026-06-14"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap14_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2026-01-09",
+    "intervalo_fin": "2026-01-22",
+    "fin_ciclo": "2026-06-21",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-23",
+        "fin": "2026-06-21"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap14_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2026-01-29",
+    "intervalo_fin": "2026-02-11",
+    "fin_ciclo": "2026-06-21",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-02-12",
+        "fin": "2026-06-21"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla150_gap21_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2026-01-09",
+    "intervalo_fin": "2026-01-29",
+    "fin_ciclo": "2026-06-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-30",
+        "fin": "2026-06-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla150_papa130_gap21_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 150,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2026-01-29",
+    "intervalo_fin": "2026-02-18",
+    "fin_ciclo": "2026-06-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-28"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-02-19",
+        "fin": "2026-06-28"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap7_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2026-01-09",
+    "intervalo_fin": "2026-01-15",
+    "fin_ciclo": "2026-08-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-16",
+        "fin": "2026-08-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap7_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2026-03-30",
+    "intervalo_fin": "2026-04-05",
+    "fin_ciclo": "2026-08-13",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-03-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-04-06",
+        "fin": "2026-08-13"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap14_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2026-01-09",
+    "intervalo_fin": "2026-01-22",
+    "fin_ciclo": "2026-08-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-23",
+        "fin": "2026-08-20"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap14_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2026-03-30",
+    "intervalo_fin": "2026-04-12",
+    "fin_ciclo": "2026-08-20",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-03-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-04-13",
+        "fin": "2026-08-20"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "papa130_cebolla210_gap21_2025-09-01",
+    "secuencia": "papa_cebolla",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2026-01-09",
+    "intervalo_fin": "2026-01-29",
+    "fin_ciclo": "2026-08-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "papa",
+        "inicio": "2025-09-01",
+        "fin": "2026-01-08"
+      },
+      {
+        "cultivo": "cebolla",
+        "inicio": "2026-01-30",
+        "fin": "2026-08-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  },
+  {
+    "programa": "cebolla210_papa130_gap21_2025-09-01",
+    "secuencia": "cebolla_papa",
+    "inicio": "2025-09-01",
+    "duracion_papa_dias": 130,
+    "duracion_cebolla_dias": 210,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2026-03-30",
+    "intervalo_fin": "2026-04-19",
+    "fin_ciclo": "2026-08-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cebolla",
+        "inicio": "2025-09-01",
+        "fin": "2026-03-29"
+      },
+      {
+        "cultivo": "papa",
+        "inicio": "2026-04-20",
+        "fin": "2026-08-27"
+      }
+    ],
+    "liberacion_parcela": "sin_verificar",
+    "almacigo": "externo_excluido_del_balance_y_ocupacion",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_o_adaptacion"
+  }
+]

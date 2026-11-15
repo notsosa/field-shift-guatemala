@@ -1,0 +1,74 @@
+{
+  "estado": "referencias_y_sensibilidades_sin_calibracion_local",
+  "cultivos": {
+    "papa": {
+      "especie": "Solanum tuberosum L.",
+      "familia": "Solanaceae",
+      "producto": "tuberculo para consumo",
+      "kc": [
+        0.5,
+        1.15,
+        0.75
+      ],
+      "zr": 0.5,
+      "p": 0.35,
+      "rango_zr_fao": [
+        0.4,
+        0.6
+      ],
+      "etapas": {
+        "115": [
+          25,
+          30,
+          30,
+          30
+        ],
+        "130": [
+          25,
+          30,
+          45,
+          30
+        ]
+      },
+      "nota": "FAO tabla 11, clima semiárido; fechas y duración no calibradas localmente. Kc inicial heredado de raíces/tubérculos. Cosecha y retiro sin verificar.",
+      "kew": "https://powo.science.kew.org/taxon/821337-1"
+    },
+    "cebolla": {
+      "especie": "Allium cepa L.",
+      "familia": "Amaryllidaceae",
+      "producto": "bulbo seco; no verdeo ni semilla",
+      "kc": [
+        0.7,
+        1.05,
+        0.75
+      ],
+      "zr": 0.5,
+      "p": 0.3,
+      "rango_zr_fao": [
+        0.3,
+        0.6
+      ],
+      "etapas": {
+        "150": [
+          15,
+          25,
+          70,
+          40
+        ],
+        "210": [
+          20,
+          35,
+          110,
+          45
+        ]
+      },
+      "nota": "FAO tabla 11, mediterráneo/árido. Ocupación de campo supuesta; almácigo externo no consume esta parcela. Verificar sistema, fotoperíodo, edad del trasplante, curado y retiro.",
+      "kew": "https://powo.science.kew.org/taxon/527795-1"
+    }
+  },
+  "fuentes": {
+    "etapas_kc": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+    "raices_p": "https://www.fao.org/4/x0490e/x0490e0e.htm"
+  },
+  "limites": "Se heredan Kc iniciales del grupo. Raíz escogida dentro del rango FAO, no medida. No ajuste climático de Kc ni modelación de plagas, nutrientes, fotoperíodo o temperatura sobre desarrollo."
+}

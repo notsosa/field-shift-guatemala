@@ -1,0 +1,67 @@
+{
+  "alternativa": "papa→cebolla",
+  "comparador": "cebolla→papa",
+  "programas": 168,
+  "completos_2025": 32,
+  "inconclusos_sin_simular": 136,
+  "corridas": 4608,
+  "pares": 2304,
+  "pares_secano": 1152,
+  "inverso_mayor_deficit": 767,
+  "inverso_menor_deficit": 385,
+  "pares_en_tolerancia": 0,
+  "tolerancia_mm": 0.0001,
+  "pasos_diarios": 1681920,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "referencia": [
+    {
+      "secuencia": "papa_cebolla",
+      "fuente": "imerg",
+      "deficit_mm": 258.60534,
+      "dias_estres": 136
+    },
+    {
+      "secuencia": "papa_cebolla",
+      "fuente": "chirps",
+      "deficit_mm": 427.96106,
+      "dias_estres": 168
+    },
+    {
+      "secuencia": "papa_cebolla",
+      "fuente": "era5",
+      "deficit_mm": 450.2018,
+      "dias_estres": 178
+    },
+    {
+      "secuencia": "papa_cebolla",
+      "fuente": "power",
+      "deficit_mm": 436.47094,
+      "dias_estres": 210
+    },
+    {
+      "secuencia": "cebolla_papa",
+      "fuente": "imerg",
+      "deficit_mm": 253.24303,
+      "dias_estres": 113
+    },
+    {
+      "secuencia": "cebolla_papa",
+      "fuente": "chirps",
+      "deficit_mm": 445.228,
+      "dias_estres": 143
+    },
+    {
+      "secuencia": "cebolla_papa",
+      "fuente": "era5",
+      "deficit_mm": 470.4134,
+      "dias_estres": 148
+    },
+    {
+      "secuencia": "cebolla_papa",
+      "fuente": "power",
+      "deficit_mm": 390.45772,
+      "dias_estres": 143
+    }
+  ],
+  "nota": "Malla de sensibilidades; sin probabilidades, aprobación térmica/sanitaria, rendimiento ni beneficio económico."
+}

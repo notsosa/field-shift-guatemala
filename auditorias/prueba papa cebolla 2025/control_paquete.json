@@ -1,0 +1,18 @@
+{
+  "fecha_utc": "2026-11-15T18:06:45.334739+00:00",
+  "alternativa": "papa→cebolla",
+  "programas": 168,
+  "completos_2025": 32,
+  "inconclusos_sin_simular": 136,
+  "corridas": 4608,
+  "pares": 2304,
+  "pasos_diarios": 1681920,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "pruebas": 10,
+  "resultado_pruebas": "OK",
+  "fuentes_sha_comprobadas": 48,
+  "balances_referencia": 17520,
+  "regresion": "4 lluvias y 2 modos de riego del comparador publicado; coincide a 4 decimales.",
+  "malla_csv_json_y_enlaces": "comprobados",
+  "errores": []
+}

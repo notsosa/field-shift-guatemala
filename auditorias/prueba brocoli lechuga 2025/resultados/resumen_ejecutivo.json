@@ -1,0 +1,67 @@
+{
+  "alternativa": "brocoli→lechuga",
+  "comparador": "lechuga→brocoli",
+  "programas": 252,
+  "completos_2025": 170,
+  "inconclusos_sin_simular": 82,
+  "corridas": 24480,
+  "pares": 12240,
+  "pares_secano": 6120,
+  "inverso_mayor_deficit": 2490,
+  "inverso_menor_deficit": 3630,
+  "pares_en_tolerancia": 0,
+  "tolerancia_mm": 0.0001,
+  "pasos_diarios": 8935200,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "referencia": [
+    {
+      "secuencia": "brocoli_lechuga",
+      "fuente": "imerg",
+      "deficit_mm": 236.2374,
+      "dias_estres": 96
+    },
+    {
+      "secuencia": "brocoli_lechuga",
+      "fuente": "chirps",
+      "deficit_mm": 382.87846,
+      "dias_estres": 127
+    },
+    {
+      "secuencia": "brocoli_lechuga",
+      "fuente": "era5",
+      "deficit_mm": 420.31811,
+      "dias_estres": 135
+    },
+    {
+      "secuencia": "brocoli_lechuga",
+      "fuente": "power",
+      "deficit_mm": 354.01541,
+      "dias_estres": 125
+    },
+    {
+      "secuencia": "lechuga_brocoli",
+      "fuente": "imerg",
+      "deficit_mm": 249.83774,
+      "dias_estres": 92
+    },
+    {
+      "secuencia": "lechuga_brocoli",
+      "fuente": "chirps",
+      "deficit_mm": 341.94212,
+      "dias_estres": 113
+    },
+    {
+      "secuencia": "lechuga_brocoli",
+      "fuente": "era5",
+      "deficit_mm": 376.2277,
+      "dias_estres": 118
+    },
+    {
+      "secuencia": "lechuga_brocoli",
+      "fuente": "power",
+      "deficit_mm": 310.74071,
+      "dias_estres": 116
+    }
+  ],
+  "nota": "Malla de sensibilidades; sin probabilidades, aprobación térmica/sanitaria, rendimiento ni beneficio económico."
+}

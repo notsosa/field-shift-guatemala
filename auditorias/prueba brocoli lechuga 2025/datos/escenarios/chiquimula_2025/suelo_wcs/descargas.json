@@ -1,0 +1,191 @@
+[
+  {
+    "file": "wv0033_0-5cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fwv0033.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=wv0033_0-5cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 619,
+    "sha256": "2fc6aa900201f067f93400ba4d0e85687cd365893d6595857a879ad162f73877",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:49.652Z"
+  },
+  {
+    "file": "cfvo_0-5cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fcfvo.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=cfvo_0-5cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 624,
+    "sha256": "2cb78718152bf9233cf3ce0c2bdc69a7f618da0c7b9656a21cdd13c0b80157b5",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:49.685Z"
+  },
+  {
+    "file": "wv1500_0-5cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fwv1500.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=wv1500_0-5cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 615,
+    "sha256": "5c7815a996b313c06e93e8ab5ead58099fadd50191554828793c4c638f2400ad",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:49.781Z"
+  },
+  {
+    "file": "wv1500_5-15cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fwv1500.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=wv1500_5-15cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 615,
+    "sha256": "b8a128ba0c9d3415deda8fcce5e6c4b3b4ac5c478493b602fa253171fb68e669",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:49.982Z"
+  },
+  {
+    "file": "cfvo_5-15cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fcfvo.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=cfvo_5-15cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 624,
+    "sha256": "558611db9e3abe52619ea8c9ea7d37c7ff27243d1d8b870f16af03c1910833d8",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:50.118Z"
+  },
+  {
+    "file": "wv0033_5-15cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fwv0033.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=wv0033_5-15cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 617,
+    "sha256": "921af4fe1aec221dd631e1916a4d6923116292a39b56f3cb84140d5ee25f47cd",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:50.243Z"
+  },
+  {
+    "file": "wv0033_15-30cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fwv0033.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=wv0033_15-30cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 622,
+    "sha256": "265583176fe30a07341a5cd951a4351fc54a6235606f6237dc43ce4a3c36f6a7",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:50.319Z"
+  },
+  {
+    "file": "wv1500_15-30cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fwv1500.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=wv1500_15-30cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 617,
+    "sha256": "168ce5598be893a2e2bb5aa1cac9b742251a7543847f62aa9fdce02afd549ca0",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:50.451Z"
+  },
+  {
+    "file": "cfvo_15-30cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fcfvo.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=cfvo_15-30cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 623,
+    "sha256": "004f47940e7f7d5a2e37f78f55f5d2af40fe8f7cc92f8a6332fd1476132cd6c7",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:50.559Z"
+  },
+  {
+    "file": "wv0033_30-60cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fwv0033.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=wv0033_30-60cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 621,
+    "sha256": "388a59fe3a10ff9b1173dfe1a908f696e35d03c3713f7fd46987bd9611ea6c4d",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:50.637Z"
+  },
+  {
+    "file": "wv1500_30-60cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fwv1500.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=wv1500_30-60cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 618,
+    "sha256": "cb6862a2d43e7a475d915897774a87514febffd024eff51788dccddbcd12bee3",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:50.787Z"
+  },
+  {
+    "file": "cfvo_30-60cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fcfvo.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=cfvo_30-60cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 624,
+    "sha256": "0e18ef47e27da0a212278197c514c4be40be91a66ca3b9704e55f12de129efc0",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:50.849Z"
+  },
+  {
+    "file": "wv0033_60-100cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fwv0033.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=wv0033_60-100cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 622,
+    "sha256": "68eb2dc4534a63c41efad3dbdb2e90b807b3c57019e0ea672fc15004b5fb8d57",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:51.005Z"
+  },
+  {
+    "file": "wv1500_60-100cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fwv1500.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=wv1500_60-100cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 614,
+    "sha256": "08db68f543e5f82bc197e857739674434478f50fa75f3db0b1b13963aa018865",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:51.173Z"
+  },
+  {
+    "file": "cfvo_60-100cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fcfvo.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=cfvo_60-100cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 621,
+    "sha256": "f857e221e91e82eecb2e55533f49b099d57da29f64a8dded9c70f72b3042ac9b",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:51.175Z"
+  },
+  {
+    "file": "clay_0-5cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=clay_0-5cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 619,
+    "sha256": "5936b01d3a47d51185fbc415da36a4b8ba3e60fe03be32c5a435c39ab056c569",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:51.260Z"
+  },
+  {
+    "file": "silt_0-5cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=silt_0-5cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 618,
+    "sha256": "06ee04ffd53a7daa040b05bbacb957e178924fc133f059fec63fa05ef983fb6f",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:51.406Z"
+  },
+  {
+    "file": "sand_0-5cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=sand_0-5cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 622,
+    "sha256": "5149b13860ab1c713e9b689de88a89aaf0e938843ccb9a7542d031354536076a",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:51.428Z"
+  },
+  {
+    "file": "soc_0-5cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=soc_0-5cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 621,
+    "sha256": "ebaf5a9e768856d08714f1c92762662f9ce33de09c6ddb7c206dcca67be2afc6",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:51.646Z"
+  },
+  {
+    "file": "bdod_0-5cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=bdod_0-5cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 611,
+    "sha256": "b514698857fa349ac6278a45a98c53b0c20debe44a5468c85c78a33c9dd9101e",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:51.703Z"
+  },
+  {
+    "file": "phh2o_0-5cm.tif",
+    "url": "https://maps.isric.org/mapserv?map=%2Fmap%2Fphh2o.map&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=phh2o_0-5cm_mean&FORMAT=image%2Ftiff&SUBSET=long%28-89.5342%2C-89.5282%29&SUBSET=lat%2814.822%2C14.828%29&SUBSETTINGCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&OUTPUTCRS=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326",
+    "status": 200,
+    "bytes": 605,
+    "sha256": "fd58066d2d7eb18de9dbf4b873bd998dc8b8d4750406246128bbc1f59ef6c75b",
+    "tiff": true,
+    "fecha_utc": "2026-11-15T02:50:52.488Z"
+  }
+]

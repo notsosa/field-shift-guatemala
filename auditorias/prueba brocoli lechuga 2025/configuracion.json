@@ -1,0 +1,48 @@
+{
+  "fecha_auditoria": "2026-11-15",
+  "cultivos": [
+    "brocoli",
+    "lechuga"
+  ],
+  "alternativa_solicitada": "brocoli→lechuga",
+  "comparador": "lechuga→brocoli",
+  "inicios": [
+    "2025-01-15",
+    "2025-03-01",
+    "2025-05-01",
+    "2025-05-15",
+    "2025-06-01",
+    "2025-06-15",
+    "2025-09-01"
+  ],
+  "intervalos_dias": [
+    7,
+    14,
+    21
+  ],
+  "referencia_inicio": "2025-03-01",
+  "referencia_duraciones": {
+    "brocoli": 90,
+    "lechuga": 75
+  },
+  "referencia_intervalo_dias": 14,
+  "suelo_escenarios": [
+    [
+      "perfil_referencia",
+      1.0,
+      1.0
+    ],
+    [
+      "raiz_limitada_30cm",
+      0.3,
+      1.0
+    ],
+    [
+      "almacenamiento_menos25pct",
+      1.0,
+      0.75
+    ]
+  ],
+  "nota_fechas": "Se conservan las cuatro fechas mayo/junio anteriores y se añaden enero/marzo para ciclos largos y septiembre como calendario fuera de cobertura. Son escenarios, no ventanas recomendadas.",
+  "fuente_motor_commit": "0633f2f2d47562a4860c2904ef23049dd35bd9fa"
+}

@@ -1,0 +1,80 @@
+{
+  "estado": "referencias_y_sensibilidades_sin_calibracion_local",
+  "cultivos": {
+    "brocoli": {
+      "especie": "Brassica oleracea L. (grupo brócoli)",
+      "familia": "Brassicaceae",
+      "producto": "inflorescencia fresca; sin cortes laterales prolongados",
+      "kc": [
+        0.7,
+        1.05,
+        0.95
+      ],
+      "zr": 0.5,
+      "p": 0.45,
+      "rango_zr_fao": [
+        0.4,
+        0.6
+      ],
+      "etapas": {
+        "75": [
+          19,
+          25,
+          23,
+          8
+        ],
+        "90": [
+          23,
+          30,
+          27,
+          10
+        ],
+        "135": [
+          35,
+          45,
+          40,
+          15
+        ]
+      },
+      "nota": "MAGA página 3 indica cosecha principal 75–90 días después del trasplante; etapas 75/90 prorrateadas como sensibilidad, sin calibración. La misma página muestra ciclo general 90–120, laterales/semilla en 100–120: no se adopta ese tramo como cosecha principal. 135 días FAO de California es referencia extranjera separada. Raíz FAO 0.4–0.6 m frente a 30 cm MAGA: se prueban ambas hipótesis. Almácigo externo excluido.",
+      "kew": "https://powo.science.kew.org/taxon/279435-1"
+    },
+    "lechuga": {
+      "especie": "Lactuca sativa L.",
+      "familia": "Asteraceae",
+      "producto": "hoja/cabeza fresca, una cosecha",
+      "kc": [
+        0.7,
+        1.0,
+        0.95
+      ],
+      "zr": 0.4,
+      "p": 0.3,
+      "rango_zr_fao": [
+        0.3,
+        0.5
+      ],
+      "etapas": {
+        "75": [
+          20,
+          30,
+          15,
+          10
+        ],
+        "105": [
+          30,
+          40,
+          25,
+          10
+        ]
+      },
+      "nota": "FAO tabla 11, referencias mediterráneas; ocupación de campo supuesta, sin almácigo externo. No equivale a todos los tipos comerciales ni contempla cortes sucesivos.",
+      "kew": "https://powo.science.kew.org/taxon/228239-1"
+    }
+  },
+  "fuentes": {
+    "etapas_kc": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+    "raices_p": "https://www.fao.org/4/x0490e/x0490e0e.htm"
+  },
+  "limites": "Se heredan Kc iniciales del grupo. Raíz escogida dentro del rango FAO, no medida. No ajuste climático de Kc ni modelación de plagas, nutrientes, fotoperíodo o temperatura sobre desarrollo."
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "papa_icta_2013.pdf",
+    "url": "https://www.icta.gob.gt/publicaciones/Papa/manualpapaconsumo2013.pdf",
+    "consulta_utc": "2026-11-15T17:55:47.845120+00:00",
+    "http": 200,
+    "bytes": 1934656,
+    "sha256": "e3edd9fd71811ca6a8d6b87b8cd8e61f62b735ff4193693d5c454295022be618"
+  },
+  {
+    "nombre": "brocoli_maga.pdf",
+    "url": "https://guatemalanosedetiene.gt/wp-content/uploads/2024/06/FICHA-TECNICA-AGROCLIMATICA-BROCOLI.pdf",
+    "consulta_utc": "2026-11-15T17:55:49.733341+00:00",
+    "http": 200,
+    "bytes": 3358855,
+    "sha256": "63189553d6d5601a650857a34d746edef5fc62e3559c2c123d1343262b754104"
+  },
+  {
+    "nombre": "brocoli_lechuga_hao2003.pdf",
+    "url": "https://apsjournals.apsnet.org/doi/pdf/10.1094/PDIS.2003.87.2.159",
+    "consulta_utc": "2026-11-15T17:55:50.443537+00:00",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "nombre": "cebolla_guia.pdf",
+    "url": "https://platicar.go.cr/images/buscador/documents/pdf/2021/Cebolla_Edit.pdf",
+    "consulta_utc": "2026-11-15T17:55:50.599336+00:00",
+    "error": "HTTP Error 502: Bad Gateway"
+  }
+]
