@@ -31,6 +31,21 @@ def expected_params(n_in):
     return (n_in * h1 + h1) + (h1 * h2 + h2) + (h2 * h3 + h3) + (h3 * N_OUT + N_OUT)
 
 
+V1_MGMT = ("sequence_", "irrigation_", "texture_", "slope_", "sowOffset30")
+V2_MGMT = ("A_", "B_", "soil_")  # igual que la linea base de evaluate.mjs / evaluate_v2.mjs (v2 no agrupa por desfase)
+
+
+def mgmt_cols(names, prefixes):
+    return [i for i, n in enumerate(names) if n.startswith(prefixes)]
+
+
+def recipe_kwargs(recipe, names, prefixes, seed):
+    """Argumentos de fit_network para una receta: base | sched | resid | sched+resid."""
+    parts = set(recipe.split("+")) if recipe != "base" else set()
+    assert parts <= {"sched", "resid"}, recipe
+    return {"seed": seed, "sched": "sched" in parts, "resid_cols": mgmt_cols(names, prefixes) if "resid" in parts else None}
+
+
 def resolve_device(choice):
     if choice == "cuda" and not torch.cuda.is_available():
         raise SystemExit("--device cuda pedido pero torch.cuda.is_available() es False")
@@ -39,9 +54,30 @@ def resolve_device(choice):
     return dev, name
 
 
-def fit_network(Xtr, Ytr, tr_years, device, val_years=VAL_YEARS):
+def group_keys(X, cols):
+    """Clave de grupo de manejo de cada fila: las columnas `cols` formateadas a 6 decimales (igual que emulator.js)."""
+    return ["|".join(f"{v + 0.0:.6f}" for v in row) for row in X[:, cols]]
+
+
+def make_baseline(Xfit, Yfit, cols):
+    """Media de cada salida por grupo de manejo, solo con las filas de ajuste; `fallback` = media global (grupo no visto)."""
+    keys = group_keys(Xfit, cols)
+    table = {}
+    for k in sorted(set(keys)):
+        table[k] = Yfit[np.array([kk == k for kk in keys])].mean(0).tolist()
+    return {"cols": list(cols), "table": table, "fallback": Yfit.mean(0).tolist()}
+
+
+def baseline_rows(base, X):
+    return np.array([base["table"].get(k, base["fallback"]) for k in group_keys(X, base["cols"])], dtype=np.float64)
+
+
+def fit_network(Xtr, Ytr, tr_years, device, val_years=VAL_YEARS, seed=42, sched=False, resid_cols=None):
     """Receta unica de la red embudo: estandariza con la media/desv. de Xtr/Ytr, Adam 1e-3, lotes de 256,
     parada temprana (paciencia 10) sobre las filas de tr_years en val_years (fuera de los pasos de gradiente).
+    sched: reduce el lr a la mitad tras 5 epocas sin mejora en validacion y paciencia 13 (en vez de 10).
+    resid_cols: indices de las columnas de manejo; si se dan, la red aprende y - media_por_grupo (calculada solo con las filas de
+    ajuste) con la capa de salida en cero. La validacion (`best`) siempre es el MSE de y estandarizado con la desv. de Ytr.
     Devuelve el estado entrenado (net en eval, normalizacion, tiempos, memoria)."""
     n_in = Xtr.shape[1]
     mean, std = Xtr.mean(0), Xtr.std(0)
@@ -49,24 +85,35 @@ def fit_network(Xtr, Ytr, tr_years, device, val_years=VAL_YEARS):
     ymean, ystd = Ytr.mean(0), Ytr.std(0)
     ystd = np.where(ystd == 0, 1.0, ystd)
     Xs = ((Xtr - mean) / std).astype(np.float32)
-    Ys = ((Ytr - ymean) / ystd).astype(np.float32)
+    is_val = np.isin(np.asarray(tr_years), val_years)
+    base = None
+    if resid_cols is not None:
+        base = make_baseline(Xtr[~is_val], Ytr[~is_val], resid_cols)
+        ymean = np.zeros(N_OUT)  # la red predice (y - base) / ystd: sin desplazamiento
+        Ys = ((Ytr - baseline_rows(base, Xtr)) / ystd).astype(np.float32)
+    else:
+        Ys = ((Ytr - ymean) / ystd).astype(np.float32)
 
-    torch.manual_seed(42)
-    torch.cuda.manual_seed_all(42)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
     h1, h2, h3 = HIDDEN
     net = nn.Sequential(nn.Linear(n_in, h1), nn.ReLU(), nn.Linear(h1, h2), nn.ReLU(), nn.Linear(h2, h3), nn.ReLU(), nn.Linear(h3, N_OUT))
     params = sum(p.numel() for p in net.parameters())
     assert params == expected_params(n_in), (params, expected_params(n_in))
+    if resid_cols is not None:
+        nn.init.zeros_(net[6].weight)
+        nn.init.zeros_(net[6].bias)
     net = net.to(device)
 
-    g = torch.Generator().manual_seed(42)  # orden de lotes en CPU: el mismo en cualquier dispositivo
-    is_val = np.isin(np.asarray(tr_years), val_years)
+    g = torch.Generator().manual_seed(seed)  # orden de lotes en CPU: el mismo en cualquier dispositivo
     vi, ti = torch.from_numpy(np.where(is_val)[0]), torch.from_numpy(np.where(~is_val)[0])
     Xt, Yt = torch.from_numpy(Xs)[ti].to(device), torch.from_numpy(Ys)[ti].to(device)
     Xv, Yv = torch.from_numpy(Xs)[vi].to(device), torch.from_numpy(Ys)[vi].to(device)
     print(f"fit {len(ti)}  val {len(vi)} (years {val_years}, grouped by year)")
 
     opt = torch.optim.Adam(net.parameters(), lr=1e-3)
+    patience = 13 if sched else PATIENCE
+    plateau = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, factor=0.5, patience=5, threshold=1e-7, threshold_mode="abs") if sched else None
     lossf = nn.MSELoss()
     proc = psutil.Process(os.getpid()) if psutil else None
     rss0 = peak = proc.memory_info().rss if proc else 0
@@ -85,17 +132,19 @@ def fit_network(Xtr, Ytr, tr_years, device, val_years=VAL_YEARS):
             opt.zero_grad()
             lossf(net(Xt[b]), Yt[b]).backward()
             opt.step()
-            if proc:
-                peak = max(peak, proc.memory_info().rss)
+        if proc:  # una medicion por epoca (no por lote: era el mayor costo de CPU del bucle)
+            peak = max(peak, proc.memory_info().rss)
         net.eval()
         with torch.no_grad():
             vl = lossf(net(Xv), Yv).item()  # .item() sincroniza con la GPU en cada época
+        if plateau:
+            plateau.step(vl)
         if vl < best - 1e-7:
             best, bad = vl, 0
             best_state = {k: v.clone() for k, v in net.state_dict().items()}
         else:
             bad += 1
-            if bad >= PATIENCE:
+            if bad >= patience:
                 break
     if device.type == "cuda":
         torch.cuda.synchronize()
@@ -114,14 +163,15 @@ def fit_network(Xtr, Ytr, tr_years, device, val_years=VAL_YEARS):
         memory_measured = "trainMemoryMeasuredMB = null: psutil not installed and the run was on CPU."
     return {"net": net, "device": device, "mean": mean, "std": std, "ymean": ymean, "ystd": ystd, "n_in": n_in, "params": params,
             "train_seconds": train_seconds, "epochs": epochs, "best": best, "n_fit": int(len(ti)), "n_val": int(len(vi)),
-            "measured_mb": measured_mb, "memory_measured": memory_measured}
+            "measured_mb": measured_mb, "memory_measured": memory_measured, "baseline": base}
 
 
 def predict_network(fit, X):
     """Predicciones en la escala original de Y para filas X sin estandarizar."""
     with torch.no_grad():
         xin = torch.from_numpy(((X - fit["mean"]) / fit["std"]).astype(np.float32)).to(fit["device"])
-        return fit["net"](xin).cpu().numpy().astype(np.float64) * fit["ystd"] + fit["ymean"]
+        out = fit["net"](xin).cpu().numpy().astype(np.float64) * fit["ystd"] + fit["ymean"]
+    return out + baseline_rows(fit["baseline"], X) if fit.get("baseline") else out
 
 
 def main():
@@ -129,6 +179,8 @@ def main():
     ap.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
     ap.add_argument("--out", type=Path, default=DEFAULT_OUT)
     ap.add_argument("--cpu-timing", type=Path, default=None)
+    ap.add_argument("--recipe", choices=["base", "sched", "resid", "sched+resid"], default="base")
+    ap.add_argument("--seed", type=int, default=42)
     args = ap.parse_args()
     device, device_name = resolve_device(args.device)
     print(f"device {device} ({device_name}), torch {torch.__version__}")
@@ -146,7 +198,7 @@ def main():
     print(f"train {len(Xtr)}  test {len(Xte)}  heldOut {sorted(held)}  inputs {X.shape[1]}")
     tr_years = [m["year"] for m, t in zip(meta, is_test) if not t]
 
-    fit = fit_network(Xtr, Ytr, tr_years, device)
+    fit = fit_network(Xtr, Ytr, tr_years, device, **recipe_kwargs(args.recipe, samples["featureNames"], V1_MGMT, args.seed))
     net, params, n_in = fit["net"], fit["params"], fit["n_in"]
     mean, std, ymean, ystd = fit["mean"], fit["std"], fit["ymean"], fit["ystd"]
     train_seconds, epochs, best = fit["train_seconds"], fit["epochs"], fit["best"]
@@ -183,8 +235,10 @@ def main():
         "timingNote": "trainSeconds = this run (the exported weights). trainSecondsCpu / trainSecondsCuda = the same script, data and hyperparameters (batch 256, Adam 1e-3, patience 10) on each device; the CPU figure comes from a separate run whose weights are not exported, and its early stopping may end at a different epoch.",
         "trainMemoryAnalyticMB": round(analytic, 3), "trainMemoryMeasuredMB": fit["measured_mb"],
         "memoryMethod": fit["memory_measured"] + f" trainMemoryAnalyticMB = analytical estimate (the like-for-like figure): params x 4 B x (weights + grad + 2 Adam states) + 2 x batch(256) x activations({n_in} + 64 + 32 + 16 + 3) x 4 B.",
-        "epochs": epochs, "bestValLoss": best, "valYears": VAL_YEARS, "nFit": fit["n_fit"], "nVal": fit["n_val"], "checkPredictions": check, "checkInputs": check_inputs,
+        "recipe": args.recipe, "seed": args.seed, "epochs": epochs, "bestValLoss": best, "valYears": VAL_YEARS, "nFit": fit["n_fit"], "nVal": fit["n_val"], "checkPredictions": check, "checkInputs": check_inputs,
     }
+    if fit["baseline"]:
+        out["baseline"] = fit["baseline"]
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(out), encoding="utf8")
     print(f"params {params}; memoria analitica {analytic:.3f} MB; medida {fit['measured_mb']} MB; escrito {args.out}")

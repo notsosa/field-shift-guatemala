@@ -598,6 +598,45 @@ Cultivos elegidos (de 54): la regla, maíz 28 y frijol 26; el simulador típico,
 - **Muestra pequeña:** 54 casos (3 sitios × 6 años × 3 momentos de pérdida), con los conteos junto a cada cifra y sin significancia estadística.
 - **El v1 sigue siendo el modelo de la página.** El v2 se reproduce con `node scripts/emulator/generate_v2.mjs`, `python scripts/emulator/train_mlp_v2.py`, `node scripts/emulator/evaluate_v2.mjs` y `node scripts/compare/loss_decision.mjs`.
 
+## Optimizaciones de entrenamiento (notas de Alex)
+
+Alex listó lo que mejoró el entrenamiento de su CNN. Aplicamos a nuestra red embudo (unos 4,500 parámetros, entrena en segundos) lo que le cabe, eligiendo solo con validación (filas de entrenamiento de los años 2017-2018; ninguna fila de prueba se leyó: `nTestRowsRead` = 0 en `scripts/emulator/recipe_screening.json`).
+
+| Ítem de las notas | Estado |
+|---|---|
+| Reducir la tasa de aprendizaje en meseta, paciencia 13 (`sched`) | Probado, no ganó (tabla abajo) |
+| Residual sobre una estimación previa, capa de salida en cero (`resid`) | Probado, empeoró (tabla abajo) |
+| Varias semillas, elegir en validación | Aplicado: semillas 42 y 43 por receta |
+| No medir memoria del proceso dentro del bucle de lotes | Aplicado: ahora una vez por época (el ahorro medido es despreciable: 4,000 lecturas cuestan 0.01 s) |
+| Precisión mixta (AMP) | No aplica: en esta red fue más lenta, 1.90 s contra 1.11 s por 5 épocas en CUDA |
+| `channels_last`, `cudnn.benchmark` | No aplican: la red no tiene convoluciones |
+| Datos ya en memoria del dispositivo | Ya era así (todo el conjunto de ajuste se sube a la GPU una vez) |
+| Optimizador fusionado | No aplica: cuatro capas lineales; el cuello de botella son los lanzamientos de kernels pequeños (en CUDA entrena en 7.8 s contra 4.1 s en CPU) |
+
+Las 8 corridas (v1, 27 entradas; MSE de validación con salidas estandarizadas, CUDA; el tiempo en CPU es de la misma corrida):
+
+| Receta | Semilla | Épocas | s CUDA | s CPU | MSE validación |
+|---|---|---|---|---|---|
+| base | 42 | 38 | 7.84 | 4.05 | 0.0622 |
+| base | 43 | 41 | 7.76 | 4.16 | 0.0616 |
+| sched | 42 | 48 | 11.06 | 4.78 | 0.0637 |
+| sched | 43 | 44 | 8.61 | 4.37 | 0.0616 |
+| resid | 42 | 45 | 8.38 | 4.36 | 0.0870 |
+| resid | 43 | 41 | 7.65 | 5.63 | 0.0889 |
+| sched+resid | 42 | 48 | 9.38 | 4.88 | 0.0870 |
+| sched+resid | 43 | 54 | 10.12 | 6.54 | 0.0878 |
+
+Promedio de las dos semillas:
+
+| Receta | MSE validación medio | Cambio frente a `base` |
+|---|---|---|
+| base | 0.0619 | +0.0 % |
+| sched | 0.0627 | -1.2 % |
+| resid | 0.0879 | -42.0 % |
+| sched+resid | 0.0874 | -41.1 % |
+
+Resultado: **ninguna receta mejora a `base` en 2 % o más, así que se queda `base` sin cambios** (la regla fijada de antemano). `sched` queda 1.2 % peor en promedio: con la semilla 43 la mejor época llega antes de la primera reducción y da el mismo número que `base`; con la 42 reduce la tasa y no mejora. `resid` empeora 42 %: la media por grupo de manejo sola da un MSE de validación de 0.605 y la red parte de ahí, pero termina en 0.088, peor que los 0.062 de la red entrenada desde cero (el clima explica casi todo lo que la media por grupo no explica y la red con cabeza en cero lo aprende más lento dentro de la misma paciencia). Por eso no se reentrenó ni se reevaluó v1 ni v2, y todas las tablas de este documento se mantienen. El código de `resid` (tabla `baseline` en el JSON y suma en `mlpPredict`, compatible con modelos sin tabla) queda probado por `tests/emulator.test.mjs` pero ningún modelo publicado lo usa.
+
 ## Limitaciones conocidas
 
 - El modelo solo simula agua. No incluye plagas, fertilización, sombra, precios ni mano de obra.

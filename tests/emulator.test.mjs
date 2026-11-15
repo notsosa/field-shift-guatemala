@@ -320,3 +320,16 @@ test('phenoFeatures: la longitud sigue a PHENO_FEATURE_NAMES y las entradas eleg
   const v = encodeFeatures(Array(7).fill(0), f, { texture: 'loam', slopeClass: 'flat', irrigation: 'none', sequenceId: 'actual', sowOffsetDays: 0 });
   assert.equal(v.length, FEATURE_NAMES.length);
 });
+
+test('mlpPredict con tabla base (red residual): suma la media del grupo; grupo no visto usa el fallback; sin tabla no cambia', () => {
+  // red 2->1 con capa de salida en cero: la salida de la red es 0, asi que la prediccion es exactamente la base
+  const net = { mean: [0, 0], std: [1, 1], layers: [{ W: [[0, 0]], b: [0] }], yMean: [0], yStd: [2] };
+  const withBase = { ...net, baseline: { cols: [1], table: { '1.000000': [5], '0.000000': [7] }, fallback: [9] } };
+  assert.equal(mlpPredict(withBase, [3, 1])[0], 5);
+  assert.equal(mlpPredict(withBase, [3, 0])[0], 7);
+  assert.equal(mlpPredict(withBase, [3, -0])[0], 7);
+  assert.equal(mlpPredict(withBase, [3, 2])[0], 9); // grupo no visto -> media global
+  assert.equal(mlpPredict(net, [3, 1])[0], 0); // modelo sin tabla: compatible hacia atras
+  const live = { ...withBase, layers: [{ W: [[1, 0]], b: [0.5] }] }; // la red suma su correccion: (3 + 0.5) * 2 + 5 con ReLU de salida lineal
+  assert.ok(Math.abs(mlpPredict(live, [3, 1])[0] - (3.5 * 2 + 5)) < 1e-12);
+});

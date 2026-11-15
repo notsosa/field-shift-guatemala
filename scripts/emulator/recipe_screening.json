@@ -1,0 +1,151 @@
+{
+ "rule": "Tarea 28: cribado en VALIDACION de recetas de entrenamiento (de las notas de Alex) para la red embudo v1.\nCuatro recetas fijadas de antemano x semillas 42 y 43: base | sched | resid | sched+resid (ver fit_network).\nLee solo samples.json y usa solo las filas de entrenamiento (no hay metrica de prueba aqui); mide en CUDA y en CPU.\nRegla: gana el MSE de validacion (y estandarizado) medio de las 2 semillas mas bajo; si ninguna mejora a base en >= 2 %, se queda base.\nDentro de la receta ganadora se exporta la semilla con menor MSE de validacion. Escribe scripts/emulator/recipe_screening.json.\nUso: PYTHONPATH=scripts/emulator python scripts/emulator/screen_recipes.py",
+ "device": "NVIDIA GeForce RTX 4050 Laptop GPU",
+ "torch": "2.11.0+cu128",
+ "nFit": 29974,
+ "nTestRowsRead": 0,
+ "runs": [
+  {
+   "recipe": "base",
+   "seed": 42,
+   "cuda": {
+    "epochs": 38,
+    "seconds": 7.84,
+    "valMse": 0.0622222013771534
+   },
+   "cpu": {
+    "epochs": 38,
+    "seconds": 4.05,
+    "valMse": 0.06219954043626785
+   },
+   "valMse": 0.0622222013771534
+  },
+  {
+   "recipe": "base",
+   "seed": 43,
+   "cuda": {
+    "epochs": 41,
+    "seconds": 7.76,
+    "valMse": 0.0616188570857048
+   },
+   "cpu": {
+    "epochs": 41,
+    "seconds": 4.16,
+    "valMse": 0.06131195276975632
+   },
+   "valMse": 0.0616188570857048
+  },
+  {
+   "recipe": "sched",
+   "seed": 42,
+   "cuda": {
+    "epochs": 48,
+    "seconds": 11.06,
+    "valMse": 0.06372855603694916
+   },
+   "cpu": {
+    "epochs": 41,
+    "seconds": 4.78,
+    "valMse": 0.06219954043626785
+   },
+   "valMse": 0.06372855603694916
+  },
+  {
+   "recipe": "sched",
+   "seed": 43,
+   "cuda": {
+    "epochs": 44,
+    "seconds": 8.61,
+    "valMse": 0.0616188570857048
+   },
+   "cpu": {
+    "epochs": 44,
+    "seconds": 4.37,
+    "valMse": 0.06131195276975632
+   },
+   "valMse": 0.0616188570857048
+  },
+  {
+   "recipe": "resid",
+   "seed": 42,
+   "cuda": {
+    "epochs": 45,
+    "seconds": 8.38,
+    "valMse": 0.0869922786951065
+   },
+   "cpu": {
+    "epochs": 45,
+    "seconds": 4.36,
+    "valMse": 0.08686190098524094
+   },
+   "valMse": 0.0869922786951065
+  },
+  {
+   "recipe": "resid",
+   "seed": 43,
+   "cuda": {
+    "epochs": 41,
+    "seconds": 7.65,
+    "valMse": 0.08885899931192398
+   },
+   "cpu": {
+    "epochs": 56,
+    "seconds": 5.63,
+    "valMse": 0.08793419599533081
+   },
+   "valMse": 0.08885899931192398
+  },
+  {
+   "recipe": "sched+resid",
+   "seed": 42,
+   "cuda": {
+    "epochs": 48,
+    "seconds": 9.38,
+    "valMse": 0.0869922786951065
+   },
+   "cpu": {
+    "epochs": 48,
+    "seconds": 4.88,
+    "valMse": 0.08686190098524094
+   },
+   "valMse": 0.0869922786951065
+  },
+  {
+   "recipe": "sched+resid",
+   "seed": 43,
+   "cuda": {
+    "epochs": 54,
+    "seconds": 10.12,
+    "valMse": 0.0877973735332489
+   },
+   "cpu": {
+    "epochs": 54,
+    "seconds": 6.54,
+    "valMse": 0.08725038915872574
+   },
+   "valMse": 0.0877973735332489
+  }
+ ],
+ "meanValMse": {
+  "base": 0.0619205292314291,
+  "sched": 0.06267370656132698,
+  "resid": 0.08792563900351524,
+  "sched+resid": 0.0873948261141777
+ },
+ "gainVsBase": {
+  "base": 0.0,
+  "sched": -0.012163612605487595,
+  "resid": -0.419975573446596,
+  "sched+resid": -0.4114030871334764
+ },
+ "lowestMeanRecipe": "base",
+ "selected": "base",
+ "selectedSeed": 43,
+ "baselineOnlyValMse": 0.6050368888992139,
+ "speedMeasurements": {
+  "ampFp16_5epochs_cuda_seconds": 1.9,
+  "fp32_5epochs_cuda_seconds": 1.11,
+  "psutil_4000_memory_info_calls_seconds": 0.01,
+  "note": "Measured once, ad hoc, same data and net as v1 (RTX 4050). AMP is slower (scaler/cast overhead on a 4.5k-parameter net); polling RSS per batch cost about 0.01 s per 4,000 calls (about one training run's batches), negligible, but it now runs once per epoch anyway; venv_lab4 has no psutil so the exported runs measure GPU memory instead."
+ }
+}

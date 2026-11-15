@@ -283,6 +283,13 @@ export function mlpPredict(net, x) {
     });
   });
   if (net.yMean && net.yStd) a = a.map((v, o) => v * net.yStd[o] + net.yMean[o]);
+  if (net.baseline) {
+    // Red residual: el valor de la red es y menos la media del grupo de manejo (tabla de entrenamiento); se suma de vuelta.
+    // Clave = columnas de manejo a 6 decimales (+ 0 evita "-0"); un grupo no visto usa la media global (fallback).
+    const key = net.baseline.cols.map((j) => (x[j] + 0).toFixed(6)).join('|');
+    const base = net.baseline.table[key] ?? net.baseline.fallback;
+    a = a.map((v, o) => v + base[o]);
+  }
   return a;
 }
 
