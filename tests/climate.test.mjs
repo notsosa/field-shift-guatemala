@@ -1,5 +1,5 @@
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { isInsideGuatemala, fetchPowerDaily, fetchEra5Rain, buildBundle, climateservRain } from '../web/js/data/climate.js';
+import { isInsideGuatemala, fetchPowerDaily, fetchEra5Rain, buildBundle, climateservRain, rainCoverage } from '../web/js/data/climate.js';
 
 const compact = (d) => d.replace(/-/g, '');
 function isoRange(start, n) {
@@ -163,4 +163,15 @@ test('buildBundle: fechas desalineadas se recortan a la interseccion', async () 
   const b = buildBundle(power, era5, { lat: 14.8, lon: -89.5 });
   assert.deepEqual(b.dates, isoRange('2010-01-04', 7));
   assert.equal(b.tmax.length, 7); assert.equal(b.rain.length, 7);
+});
+
+test('rainCoverage: cuenta dias ausentes y vacios de la serie alineada con POWER, sin confiar en el cache', () => {
+  const doc = { missingDays: 0, days: { '2010-01-02': 1, '2010-01-03': null, '2010-01-04': 2 } }; // 01-01 ausente, 01-03 null, 01-05 ausente
+  const r = climateservRain(doc, isoRange('2010-01-01', 5), 'IMERG');
+  assert.deepEqual(rainCoverage(r), { missingDays: 3, first: '2010-01-02', last: '2010-01-04' });
+});
+test('buildBundle: una fuente heredada (constructor) lanza error', async () => {
+  const dates = isoRange('2010-01-01', 3);
+  const power = await fetchPowerDaily(14.8, -89.5, jsonFetch(fakePowerJson(dates)));
+  assert.throws(() => buildBundle(power, { dates, rain: [1, 1, 1], source: 'constructor' }, { lat: 14.8, lon: -89.5 }), /constructor/);
 });

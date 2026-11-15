@@ -63,6 +63,20 @@ export function climateservRain(doc, dates, source, sourceDetail) {
   return out;
 }
 
+/**
+ * Cobertura real de una serie de lluvia ya alineada con las fechas de POWER: días null (ausentes o vacíos) y
+ * primer/último día con dato. No confía en el conteo que traiga el caché.
+ */
+export function rainCoverage(rain) {
+  let missingDays = 0; let first = null; let last = null;
+  rain.rain.forEach((v, i) => {
+    if (v == null) { missingDays++; return; }
+    if (first === null) first = rain.dates[i];
+    last = rain.dates[i];
+  });
+  return { missingDays, first, last };
+}
+
 // Interpola linealmente tramos de null de <= MAX_GAP_DAYS con valor a ambos lados. Modifica el arreglo.
 function interpolateShortGaps(arr) {
   let i = 0;
@@ -88,7 +102,7 @@ const agriYear = (iso) => (Number(iso.slice(5, 7)) >= 4 ? Number(iso.slice(0, 4)
  */
 export function buildBundle(power, rain, { lat, lon }) {
   const source = rain.source ?? 'ERA5';
-  if (!(source in RAIN_SOURCES)) throw new Error(`Fuente de lluvia desconocida: ${source}`);
+  if (!Object.hasOwn(RAIN_SOURCES, source)) throw new Error(`Fuente de lluvia desconocida: ${source}`);
   const rainByDate = new Map(rain.dates.map((d, i) => [d, rain.rain[i]]));
   const idx = [];
   power.dates.forEach((d, i) => { if (rainByDate.has(d)) idx.push(i); });

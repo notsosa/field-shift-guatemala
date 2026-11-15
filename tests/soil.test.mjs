@@ -1,5 +1,5 @@
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { SOILS, SLOPE_CLASSES, totalAvailableWater, scsRunoff, curveNumber, resolveSoil, usdaTextureClass, hydrologicGroupOf, cnForGroup, nearestTexture } from '../web/js/model/soil.js';
+import { SOILS, SLOPE_CLASSES, totalAvailableWater, scsRunoff, curveNumber, resolveSoil, usdaTextureClass, hydrologicGroupOf, cnForGroup, nearestTexture, nearestTextureInfo, HYDROLOGIC_GROUP_SOURCE } from '../web/js/model/soil.js';
 test('TAW manual del equipo', () => { assert.equal(Math.round(totalAvailableWater(0.30, 0.15, 0.40)), 60); assert.equal(Math.round(totalAvailableWater(0.30, 0.15, 0.20)), 30); });
 test('SCS: P=50, CN=80 -> 13.8 mm', () => assert.ok(Math.abs(scsRunoff(50, 80) - 13.80) < 0.05));
 test('SCS: P menor que Ia -> 0', () => assert.equal(scsRunoff(10, 80), 0));
@@ -74,4 +74,26 @@ test('nearestTexture: la clase del simulador con agua disponible (thetaFC - thet
   assert.equal(nearestTexture(0.36, 0.22), 'clay');
   assert.equal(nearestTexture(0.3594, 0.3037), 'sand'); // 0.056 de agua disponible: mas cerca de arena (0.075)
   assert.equal(nearestTexture(0.3418, 0.2113), 'loam'); // 0.1305 -> loam (0.13)
+});
+
+test('nearestTextureInfo: clase cercana con regla y aviso de escurrimiento (los 3 pilotos)', () => {
+  const c = nearestTextureInfo(0.3296, 0.1795, 'D');
+  assert.equal(c.nearestTexture, 'clay'); assert.equal(c.runoffMismatch, false);
+  assert.match(c.nearestTextureRule, /closest available water/); assert.match(c.nearestTextureRule, /ignores runoff/);
+  const j = nearestTextureInfo(0.3594, 0.3037, 'D');
+  assert.equal(j.nearestTexture, 'sand'); assert.equal(j.runoffMismatch, true);
+  const s = nearestTextureInfo(0.3418, 0.2113, 'D');
+  assert.equal(s.nearestTexture, 'loam'); assert.equal(s.runoffMismatch, true);
+});
+test('claves heredadas (constructor, toString) no son texturas ni clases', () => {
+  assert.throws(() => resolveSoil('constructor'), /constructor/);
+  assert.throws(() => curveNumber('toString', 'crop', 'flat'), /toString/);
+  assert.throws(() => hydrologicGroupOf('constructor'), /constructor/);
+});
+test('resolveSoil: cada cn debe estar en (0, 100]', () => {
+  for (const bad of [0, -5, 101]) assert.throws(() => resolveSoil({ ...siteSoil, cn: { ...siteSoil.cn, bare: bad } }), /cn/);
+  assert.equal(resolveSoil({ ...siteSoil, cn: { crop: 100, residue: 1, bare: 94 } }).cn.crop, 100);
+});
+test('HYDROLOGIC_GROUP_SOURCE cita TR-55 apendice A y la analogia de silt', () => {
+  assert.match(HYDROLOGIC_GROUP_SOURCE, /TR-55/); assert.match(HYDROLOGIC_GROUP_SOURCE, /silt loam/);
 });

@@ -6,7 +6,7 @@ the raw result in scripts/emulator/cache_rain/{id}_{dataset}.json (gitignored). 
 every year, so an interrupted run resumes where it stopped. Nothing is invented: a day ClimateSERV does not return
 (or returns negative / null) is stored as null and counted as missing.
 
-Usage (from the repo root, inside the data venv):
+Usage (from the repo root, inside the data venv; `python -m doctest scripts/data/fetch_rain_climateserv.py` checks the counting helpers):
     python scripts/data/fetch_rain_climateserv.py                      # all points, pilots first
     python scripts/data/fetch_rain_climateserv.py --workers 12 --budget-minutes 30
     python scripts/data/fetch_rain_climateserv.py --points chiquimula --datasets imerg
@@ -22,7 +22,7 @@ import sys
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import truststore
@@ -56,7 +56,8 @@ def request_year(dataset_id, year, polygon, tries=4):
             last = RuntimeError("empty response")
         except Exception as e:  # network / server errors: back off and retry
             last = e
-        time.sleep(10 * attempt)
+        if attempt < tries:
+            time.sleep(10 * attempt)
     raise RuntimeError(f"{dataset_id} {year}: {last}")
 
 
@@ -70,12 +71,53 @@ def load(path, point, dataset, r, y0, y1):
     }
 
 
+def calendar_days(start, end):
+    """ISO dates from start to end inclusive."""
+    a, b = date.fromisoformat(start), date.fromisoformat(end)
+    return [(a + timedelta(n)).isoformat() for n in range((b - a).days + 1)]
+
+
+def missing_days(days, start, end):
+    """Calendar days in [start, end] with no numeric value, whether absent from `days` or stored as None.
+
+    >>> missing_days({"2019-06-29": 1.0, "2019-07-01": None}, "2019-06-29", "2019-07-02")
+    ['2019-06-30', '2019-07-01', '2019-07-02']
+    >>> missing_days({"2020-01-01": 0.0, "2020-01-02": 2.5}, "2020-01-01", "2020-01-02")
+    []
+    """
+    return [d for d in calendar_days(start, end) if not isinstance(days.get(d), (int, float))]
+
+
+def year_complete(days, year, start, end):
+    """True when every calendar day of `year` that lies inside [start, end] has a value.
+
+    >>> year_complete({"2001-01-01": 0.0, "2001-01-02": 1.0}, 2001, "2001-01-01", "2001-01-02")
+    True
+    >>> year_complete({"2001-01-01": 0.0}, 2001, "2001-01-01", "2001-01-02")
+    False
+    """
+    lo, hi = max(f"{year}-01-01", start), min(f"{year}-12-31", end)
+    return lo <= hi and not missing_days(days, lo, hi)
+
+
+def recompute_meta(doc):
+    """Rebuild obtained / missing-day metadata from the stored days (no network)."""
+    start, end = doc["requested"]
+    gaps = missing_days(doc["days"], start, end)
+    y0, y1 = int(start[:4]), int(end[:4])
+    dates = sorted(d for d, v in doc["days"].items() if v is not None)
+    doc["obtained"] = [dates[0], dates[-1]] if dates else None
+    doc["missingDays"] = len(gaps)
+    doc["missingDates"] = gaps if len(gaps) <= 400 else gaps[:200] + ["..."] + gaps[-200:]
+    doc["yearsIncomplete"] = [y for y in range(y0, y1 + 1) if not year_complete(doc["days"], y, start, end)]
+    doc["complete"] = not gaps
+    doc.setdefault("duplicates", 0)
+    doc.setdefault("nonNumeric", 0)
+
+
 def save(path, doc, y0, y1):
     doc["downloadedUtc"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    doc["complete"] = all(y in doc["yearsDone"] for y in range(y0, y1 + 1))
-    dates = sorted(doc["days"])
-    doc["obtained"] = [dates[0], dates[-1]] if dates else None
-    doc["missingDays"] = sum(1 for v in doc["days"].values() if v is None)
+    recompute_meta(doc)
     text = json.dumps(doc)
     # The repo may live in a synced folder (OneDrive) that briefly locks files: retry the atomic replace,
     # then fall back to a plain write.
@@ -101,7 +143,16 @@ def main():
     ap.add_argument("--radius", type=float, default=0.03, help="half side of the box, degrees")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--budget-minutes", type=float, default=30.0)
+    ap.add_argument("--recompute-meta", action="store_true", help="rebuild the metadata of the existing caches from their stored days; no network")
     args = ap.parse_args()
+
+    if args.recompute_meta:
+        for f in sorted(CACHE.glob("*_*.json")):
+            doc = json.loads(f.read_text(encoding="utf-8"))
+            recompute_meta(doc)
+            f.write_text(json.dumps(doc), encoding="utf-8")
+            print(f"{f.name}: missing days {doc['missingDays']}, incomplete years {doc['yearsIncomplete']}, obtained {doc['obtained']}")
+        return
 
     pts = json.loads(POINTS.read_text(encoding="utf-8"))
     pts.sort(key=lambda p: (p["id"] not in PILOTS, PILOTS.index(p["id"]) if p["id"] in PILOTS else 0))
@@ -139,7 +190,13 @@ def main():
         with LOCK:
             for row in rows:
                 v = row.get("value", {}).get("avg")
-                doc["days"][f"{row['year']:04d}-{row['month']:02d}-{row['day']:02d}"] = None if v is None or v < 0 else round(v, 3)
+                if v is not None and (isinstance(v, bool) or not isinstance(v, (int, float))):
+                    doc["nonNumeric"] = doc.get("nonNumeric", 0) + 1  # not a number: treated as no data
+                    v = None
+                key = f"{row['year']:04d}-{row['month']:02d}-{row['day']:02d}"
+                if key in doc["days"]:
+                    doc["duplicates"] = doc.get("duplicates", 0) + 1
+                doc["days"][key] = None if v is None or v < 0 else round(v, 3)
             doc["response"] = info
             doc["yearsDone"].append(y)
             doc["yearsFailed"].pop(str(y), None)

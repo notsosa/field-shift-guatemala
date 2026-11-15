@@ -5,7 +5,7 @@
 // Uso: node scripts/emulator/fetch_points.mjs [--refresh]   (secuencial, con caché y reintentos)
 //   --refresh vuelve a descargar POWER/ERA5 aunque exista scripts/emulator/cache_raw/{id}.json
 import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync } from 'node:fs';
-import { fetchPowerDaily, fetchEra5Rain, buildBundle, climateservRain, isInsideGuatemala } from '../../web/js/data/climate.js';
+import { fetchPowerDaily, fetchEra5Rain, buildBundle, climateservRain, rainCoverage, isInsideGuatemala } from '../../web/js/data/climate.js';
 
 const here = (p) => new URL(p, import.meta.url);
 const points = JSON.parse(readFileSync(here('./points.json'), 'utf8'));
@@ -66,8 +66,10 @@ for (const [n, p] of points.entries()) {
 const imergRain = (p) => {
   const doc = rainDoc(p.id, 'imerg');
   if (!doc) return null;
-  const detail = `caja ±0.03°, ${doc.obtained?.[0]}..${doc.obtained?.[1]}, ${doc.missingDays} días sin dato`;
-  return climateservRain(doc, raw.get(p.id).power.dates, 'IMERG', detail);
+  const rain = climateservRain(doc, raw.get(p.id).power.dates, 'IMERG');
+  const cov = rainCoverage(rain); // conteo propio, sobre la serie alineada con POWER (no el del caché)
+  rain.sourceDetail = `caja ±0.03°, ${cov.first}..${cov.last}, ${cov.missingDays} días sin dato`;
+  return rain;
 };
 const imergReport = [];
 for (const p of points) {

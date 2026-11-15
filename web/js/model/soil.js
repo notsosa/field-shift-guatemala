@@ -39,7 +39,7 @@ const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
  */
 export function resolveSoil(texture) {
   if (typeof texture === 'string') {
-    const soil = SOILS[texture];
+    const soil = Object.hasOwn(SOILS, texture) ? SOILS[texture] : null;
     if (!soil) throw new Error(`Textura desconocida: ${texture}`);
     return soil;
   }
@@ -48,6 +48,7 @@ export function resolveSoil(texture) {
   if (!isNum(thetaFC) || !isNum(thetaWP)) throw new Error('Suelo inválido: thetaFC y thetaWP deben ser números');
   if (!(thetaWP > 0 && thetaFC > thetaWP && thetaFC < 1)) throw new Error(`Suelo inválido: se exige 0 < thetaWP < thetaFC < 1 (${thetaWP}, ${thetaFC})`);
   if (!cn || !['crop', 'residue', 'bare'].every((k) => isNum(cn[k]))) throw new Error('Suelo inválido: cn debe tener crop, residue y bare numéricos');
+  if (!['crop', 'residue', 'bare'].every((k) => cn[k] > 0 && cn[k] <= 100)) throw new Error('Suelo inválido: cada cn debe estar en (0, 100]');
   if (typeof source !== 'string' || !source) throw new Error('Suelo inválido: falta source (un parámetro sin fuente no se usa)');
   return texture;
 }
@@ -92,10 +93,10 @@ const HYDROLOGIC_GROUP = {
   'sandy clay loam': 'C',
   'clay loam': 'D', 'silty clay loam': 'D', 'sandy clay': 'D', 'silty clay': 'D', clay: 'D',
 };
-export const HYDROLOGIC_GROUP_SOURCE = 'Grupo hidrológico por la textura del suelo superficial: USDA-SCS TR-55 (1986), apéndice A, "Disturbed soil profiles" (Brakensiek y Rawls, 1983)';
+export const HYDROLOGIC_GROUP_SOURCE = 'Grupo hidrológico por la textura del suelo superficial: USDA-SCS TR-55 (1986), apéndice A, "Disturbed soil profiles" (Brakensiek y Rawls, 1983); silt no está en esa tabla y se asigna B por analogía con silt loam';
 
 export function hydrologicGroupOf(usdaClass) {
-  const g = HYDROLOGIC_GROUP[usdaClass];
+  const g = Object.hasOwn(HYDROLOGIC_GROUP, usdaClass) ? HYDROLOGIC_GROUP[usdaClass] : null;
   if (!g) throw new Error(`Clase de textura sin grupo hidrológico: ${usdaClass}`);
   return g;
 }
@@ -125,4 +126,15 @@ export function nearestTexture(thetaFC, thetaWP) {
     if (diff < bestDiff) { best = key; bestDiff = diff; }
   }
   return best;
+}
+
+export const NEAREST_TEXTURE_RULE = 'Simulator class with the closest available water (thetaFC - thetaWP); it ignores runoff behaviour (hydrologic group / CN).';
+
+/**
+ * Clase cercana del simulador con su aviso: `runoffMismatch` es true cuando el grupo hidrológico de esa clase
+ * (SOILS[...].hydrologicGroup) difiere del grupo del sitio, es decir, la clase no representa su escurrimiento.
+ */
+export function nearestTextureInfo(thetaFC, thetaWP, hydrologicGroup) {
+  const nearest = nearestTexture(thetaFC, thetaWP);
+  return { nearestTexture: nearest, nearestTextureRule: NEAREST_TEXTURE_RULE, runoffMismatch: SOILS[nearest].hydrologicGroup !== hydrologicGroup };
 }

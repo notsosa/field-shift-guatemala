@@ -2,7 +2,7 @@
 // Uso: node scripts/data/build_pilot_soil.mjs
 // El objeto `soil` se pasa tal cual a simulateDays/runSequence como `texture` (ver resolveSoil en web/js/model/soil.js).
 import { readFileSync, writeFileSync } from 'node:fs';
-import { usdaTextureClass, hydrologicGroupOf, cnForGroup, nearestTexture, HYDROLOGIC_GROUP_SOURCE, CN_TABLE_SOURCE } from '../../web/js/model/soil.js';
+import { usdaTextureClass, hydrologicGroupOf, cnForGroup, nearestTextureInfo, HYDROLOGIC_GROUP_SOURCE, CN_TABLE_SOURCE } from '../../web/js/model/soil.js';
 
 const here = (p) => new URL(p, import.meta.url);
 const sg = JSON.parse(readFileSync(here('./soilgrids_pilots.json'), 'utf8'));
@@ -22,7 +22,7 @@ export function pilotSoil(entry) {
   return {
     thetaFC, thetaWP, clayPct, sandPct, usdaClass, hydrologicGroup,
     cn: cnForGroup(hydrologicGroup),
-    nearestTexture: nearestTexture(thetaFC, thetaWP),
+    ...nearestTextureInfo(thetaFC, thetaWP, hydrologicGroup),
     label: `SoilGrids 0–100 cm: ${usdaClass}, group ${hydrologicGroup}`,
     source: `ISRIC SoilGrids 2.0 WCS, mean prediction, thickness-weighted 0–100 cm (clay/sand g/kg÷10, wv0033 = θFC and wv1500 = θWP in 10⁻³ cm³/cm³÷1000; sampling: ${methods.join('; ')}); `
       + `${HYDROLOGIC_GROUP_SOURCE}; CN: ${CN_TABLE_SOURCE} (row crops straight row good / SR+CR good / fallow bare, group ${hydrologicGroup})`,
@@ -35,7 +35,7 @@ for (const [id, entry] of Object.entries(sg.points)) {
   const re = new RegExp(`^(  \{"id": "${id}",.*?)(, "soil": \{.*\})?\}(,?)$`, 'm');
   if (!re.test(text)) throw new Error(`punto ${id} no encontrado en points.json`);
   text = text.replace(re, (_, head, _old, comma) => `${head}, "soil": ${JSON.stringify(soil)}}${comma}`);
-  console.log(`${id}: ${soil.usdaClass} (${soil.hydrologicGroup}) θFC ${soil.thetaFC} θWP ${soil.thetaWP} AW ${r4(soil.thetaFC - soil.thetaWP)} -> nearestTexture ${soil.nearestTexture}`);
+  console.log(`${id}: ${soil.usdaClass} (${soil.hydrologicGroup}) θFC ${soil.thetaFC} θWP ${soil.thetaWP} AW ${r4(soil.thetaFC - soil.thetaWP)} -> nearestTexture ${soil.nearestTexture} (runoffMismatch ${soil.runoffMismatch})`);
 }
 writeFileSync(pointsPath, text);
 JSON.parse(text); // valida
