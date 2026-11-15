@@ -200,6 +200,18 @@ void main() {
       expect(teselas.map((t) => t.$1), contains(((-89.5312 + 180) / 360 * (1 << 18)).floor()));
     });
 
+    test('los planos en manzanas miden lo que dicen', () {
+      final areas = [for (final l in ladosDe(Unidad.manzanas)) l * l / metrosPorManzana];
+      for (final (i, mz) in [10, 50, 200, 1000, 5000, 20000].indexed) {
+        expect(areas[i], closeTo(mz, mz * 1e-6));
+      }
+      expect(ladosDe(Unidad.metrico).last, 10000);
+      // El plano más grande sigue usando un zoom válido y pocas teselas.
+      final v = Ventana.centrada(14.8250, -89.5312, ladosDe(Unidad.manzanas).last);
+      expect(v.zoom(19), inInclusiveRange(12, 15));
+      expect(v.teselas(v.zoom(19)).length, inInclusiveRange(4, 25));
+    });
+
     test('el área de un cuadrado y el reescalado conservan el terreno', () {
       const c = [Punto(0.25, 0.25), Punto(0.75, 0.25), Punto(0.75, 0.75), Punto(0.25, 0.75)];
       expect(areaDe(c, 500), closeTo(250 * 250, 1e-6)); // medio lienzo de 500 m

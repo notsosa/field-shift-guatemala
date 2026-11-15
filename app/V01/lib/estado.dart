@@ -17,6 +17,8 @@ class AppEstado extends ChangeNotifier {
       : _servicio = servicioClima ?? ServicioClima(),
         _reloj = reloj ?? DateTime.now {
     mapa = servicioMapa ?? ServicioMapa(_almacen, hayWifi: _servicio.hayWifi);
+    final unidadGuardada = _almacen.leerUnidad();
+    unidad = Unidad.values.firstWhere((u) => u.name == unidadGuardada, orElse: () => Unidad.manzanas);
     final capaGuardada = _almacen.leerCapa();
     capa = CapaMapa.values.firstWhere((c) => c.name == capaGuardada, orElse: () => CapaMapa.mapa);
     parcela = _almacen.leerParcela();
@@ -50,6 +52,9 @@ class AppEstado extends ChangeNotifier {
   /// Fondo elegido para el plano de la finca.
   CapaMapa capa = CapaMapa.mapa;
 
+  /// Unidades en que se muestran las áreas y la escala del plano.
+  Unidad unidad = Unidad.manzanas;
+
   Parcela? parcela;
   List<Plantacion> plantaciones = [];
 
@@ -62,7 +67,7 @@ class AppEstado extends ChangeNotifier {
   String? _seleccionada;
   final _recomendaciones = <String, Recomendacion>{};
 
-  Txt get txt => Txt(idioma == 'en');
+  Txt get txt => Txt(idioma == 'en', manzanas: unidad == Unidad.manzanas);
   DateTime get hoy => _reloj();
   bool get configurada => parcela != null && plantaciones.isNotEmpty;
 
@@ -132,6 +137,12 @@ class AppEstado extends ChangeNotifier {
     _cambio();
   }
 
+  Future<void> cambiarUnidad(Unidad nueva) async {
+    unidad = nueva;
+    await _almacen.guardarUnidad(nueva.name);
+    notifyListeners();
+  }
+
   Future<void> cambiarCapa(CapaMapa nueva) async {
     capa = nueva;
     await _almacen.guardarCapa(nueva.name);
@@ -148,6 +159,13 @@ class AppEstado extends ChangeNotifier {
     await _almacen.guardarParcela(parcela!);
     await _almacen.guardarPlantaciones(plantaciones);
     _cambio();
+  }
+
+  /// Guarda de una vez el ancho del plano y el contorno de la finca. Un
+  /// contorno con menos de tres puntos deja el que ya había.
+  Future<void> guardarFinca({required List<Punto> contorno, required double lado}) async {
+    await cambiarLado(lado);
+    if (contorno.length >= 3) await guardarContornoFinca(contorno);
   }
 
   /// Agrega una plantación nueva (sin identificador) o actualiza una existente,

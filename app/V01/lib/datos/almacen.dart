@@ -88,6 +88,10 @@ class Almacen {
     await _prefs.setStringList('teselas', indice);
   }
 
+  String? leerUnidad() => _prefs.getString('unidad');
+
+  Future<void> guardarUnidad(String nombre) => _prefs.setString('unidad', nombre);
+
   String? leerCapa() => _prefs.getString('capa');
 
   Future<void> guardarCapa(String nombre) => _prefs.setString('capa', nombre);

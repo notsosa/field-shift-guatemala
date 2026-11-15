@@ -14,6 +14,19 @@ import 'almacen.dart';
 /// Qué se dibuja detrás de los contornos.
 enum CapaMapa { mapa, satelite, croquis }
 
+/// Posición en Web Mercator (x, y de 0 a 1) de una latitud y longitud.
+(double, double) mundoDe(double latitud, double longitud) {
+  final lat = latitud.clamp(-85.0, 85.0) * math.pi / 180;
+  return ((longitud + 180) / 360, (1 - math.log(math.tan(lat) + 1 / math.cos(lat)) / math.pi) / 2);
+}
+
+/// Latitud y longitud de una posición en Web Mercator.
+(double, double) latLonDe(double x, double y) {
+  final n = math.pi * (1 - 2 * y);
+  final latitud = math.atan((math.exp(n) - math.exp(-n)) / 2) * 180 / math.pi;
+  return (latitud, x * 360 - 180);
+}
+
 /// Ventana cuadrada del mapa en coordenadas Web Mercator (de 0 a 1), centrada
 /// en el punto de la finca.
 class Ventana {
@@ -25,10 +38,8 @@ class Ventana {
 
   /// Ventana de [lado] metros de ancho centrada en la latitud y longitud dadas.
   factory Ventana.centrada(double latitud, double longitud, double lado) {
-    final lat = latitud.clamp(-85.0, 85.0) * math.pi / 180;
-    final x = (longitud + 180) / 360;
-    final y = (1 - math.log(math.tan(lat) + 1 / math.cos(lat)) / math.pi) / 2;
-    final ancho = lado / (40075016.686 * math.cos(lat));
+    final (x, y) = mundoDe(latitud, longitud);
+    final ancho = lado / (40075016.686 * math.cos(latitud.clamp(-85.0, 85.0) * math.pi / 180));
     return Ventana(x - ancho / 2, y - ancho / 2, ancho);
   }
 
@@ -88,22 +99,32 @@ class ServicioMapa {
   }
 
   /// Imagen de una tesela: de la memoria, del teléfono o, con wifi, de internet.
-  /// Devuelve nulo si no está guardada y no se puede descargar.
-  Future<Uint8List?> tesela(CapaMapa capa, int z, int x, int y) {
+  /// Devuelve nulo si no está guardada y no se puede descargar. Con [guardar]
+  /// en falso no se escribe en el teléfono: sirve para explorar el mapa sin
+  /// desplazar las teselas guardadas de la finca.
+  Future<Uint8List?> tesela(CapaMapa capa, int z, int x, int y, {bool guardar = true}) {
     if (capa == CapaMapa.croquis) return Future.value();
     final clave = '${capa.name}/$z/$x/$y';
     final enMemoria = _memoria[clave];
     if (enMemoria != null) return Future.value(enMemoria);
     // Ojo: el cierre no debe devolver el futuro quitado, o `whenComplete` se
     // quedaría esperándolo para siempre.
-    return _enCurso[clave] ??= _traer(clave, capa, z, x, y).whenComplete(() {
+    return _enCurso[clave] ??= _traer(clave, capa, z, x, y, guardar).whenComplete(() {
       _enCurso.remove(clave);
     });
   }
 
-  Future<Uint8List?> _traer(String clave, CapaMapa capa, int z, int x, int y) async {
+  Uint8List _recordar(String clave, Uint8List bytes) {
+    _memoria[clave] = bytes;
+    while (_memoria.length > 400) {
+      _memoria.remove(_memoria.keys.first);
+    }
+    return bytes;
+  }
+
+  Future<Uint8List?> _traer(String clave, CapaMapa capa, int z, int x, int y, bool guardar) async {
     final guardada = _almacen?.leerTesela(clave);
-    if (guardada != null) return _memoria[clave] = guardada;
+    if (guardada != null) return _recordar(clave, guardada);
     try {
       if (!await _conWifi()) return null;
       final r = await _cliente.get(
@@ -112,8 +133,8 @@ class ServicioMapa {
         headers: const {'User-Agent': 'gt.fieldshift.field_shift/1.0'},
       ).timeout(const Duration(seconds: 12));
       if (r.statusCode != 200 || r.bodyBytes.isEmpty) return null;
-      await _almacen?.guardarTesela(clave, r.bodyBytes);
-      return _memoria[clave] = r.bodyBytes;
+      if (guardar) await _almacen?.guardarTesela(clave, r.bodyBytes);
+      return _recordar(clave, r.bodyBytes);
     } catch (_) {
       return null;
     }

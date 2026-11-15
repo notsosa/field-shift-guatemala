@@ -9,7 +9,7 @@ import 'tema.dart';
 /// Registro de la plantación: siembra, plaga reciente, fertilizante, suelo y
 /// riego. La plaga y el fertilizante son cajas que se despliegan al activarlas.
 class PantallaPlantacion extends StatefulWidget {
-  const PantallaPlantacion({super.key, this.primeraVez = false, this.id, this.contornoNuevo});
+  const PantallaPlantacion({super.key, this.primeraVez = false, this.id, this.contornoNuevo, this.fincaNueva});
 
   final bool primeraVez;
 
@@ -18,6 +18,10 @@ class PantallaPlantacion extends StatefulWidget {
 
   /// Perímetro recién dibujado para una plantación nueva.
   final List<Punto>? contornoNuevo;
+
+  /// Contorno de la finca y ancho del plano dibujados en este mismo flujo.
+  /// Se guardan junto con la plantación, al pulsar «Guardar».
+  final Trazo? fincaNueva;
 
   @override
   State<PantallaPlantacion> createState() => _EstadoPlantacion();
@@ -138,6 +142,10 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
     final estado = Alcance.leer(context);
     final navegador = Navigator.of(context);
     final c = cultivoPorId(_cultivo);
+    // Lo dibujado en los pasos anteriores se guarda aquí, no antes, para que
+    // abandonar el flujo no deje nada a medias.
+    final finca = widget.fincaNueva;
+    if (finca != null) await estado.guardarFinca(contorno: finca.puntos, lado: finca.lado);
     await estado.guardarPlantacion(Plantacion(
       id: widget.id ?? '',
       nombre: _nombre.text.trim(),
@@ -160,7 +168,8 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
       fechaFertilizante: _fertilizo ? _fechaFertilizante : null,
     ));
     estado.sincronizar();
-    if (widget.primeraVez) {
+    if (widget.id == null) {
+      // Plantación nueva: se cierran de una vez todos los pasos del flujo.
       navegador.popUntil((r) => r.isFirst);
     } else {
       navegador.pop();
@@ -170,7 +179,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
   Future<void> _redibujar() async {
     final estado = Alcance.leer(context);
     final t = estado.txt;
-    final nuevo = await Navigator.of(context).push<List<Punto>>(CupertinoPageRoute(
+    final nuevo = await Navigator.of(context).push<Trazo>(CupertinoPageRoute(
       builder: (_) => PantallaTrazo(
         titulo: t.perimetro,
         ayuda: t.ayudaTrazoPlantacion,
@@ -178,7 +187,8 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
         inicial: _contorno,
       ),
     ));
-    if (nuevo != null && nuevo.length >= 3 && mounted) setState(() => _contorno = nuevo);
+    // Queda en el formulario; se guarda con el resto al pulsar «Guardar».
+    if (nuevo != null && nuevo.puntos.length >= 3 && mounted) setState(() => _contorno = nuevo.puntos);
   }
 
   void _borrar() {

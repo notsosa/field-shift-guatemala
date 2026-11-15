@@ -1,6 +1,7 @@
 import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../estado.dart';
+import '../modelos.dart';
 import 'parcela.dart';
 import 'plantacion.dart';
 import 'tema.dart';
@@ -48,6 +49,15 @@ class PestanaAjustes extends StatelessWidget {
                 opciones: const {'es': 'Español', 'en': 'English'},
                 valor: estado.idioma,
                 alCambiar: (v) => Alcance.leer(context).cambiarIdioma(v),
+              ),
+            ),
+            Rotulo(t.unidades),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Espacio.m),
+              child: Selector<Unidad>(
+                opciones: {for (final u in Unidad.values) u: t.nombreUnidad(u)},
+                valor: estado.unidad,
+                alCambiar: (v) => Alcance.leer(context).cambiarUnidad(v),
               ),
             ),
             Rotulo(t.datos),

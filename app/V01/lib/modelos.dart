@@ -10,6 +10,28 @@ String _iso(DateTime f) =>
 
 DateTime _deIso(String s) => DateTime.parse(s);
 
+/// Unidades para áreas y para la escala del plano. En Guatemala el productor
+/// suele medir en manzanas (1 mz = 6 989 m²).
+enum Unidad { manzanas, metrico }
+
+/// Metros cuadrados de una manzana.
+const metrosPorManzana = 6989.0;
+
+/// Tamaños del plano de la finca que se ofrecen, como ancho en metros. En
+/// manzanas son cuadrados de 10, 50, 200, 1 000, 5 000 y 20 000 mz; en métrico,
+/// anchos de 200 m a 10 km.
+List<double> ladosDe(Unidad u) => switch (u) {
+      Unidad.metrico => const [200, 500, 1000, 2000, 5000, 10000],
+      Unidad.manzanas => const [
+          264.36717, // 10 mz
+          591.14296, // 50 mz
+          1182.28592, // 200 mz
+          2643.67169, // 1 000 mz
+          5911.42961, // 5 000 mz
+          11822.85921, // 20 000 mz
+        ],
+    };
+
 /// Punto del plano de la finca, en fracciones de 0 a 1 del lienzo cuadrado. El
 /// lienzo representa un cuadrado de `Parcela.lado` metros centrado en el punto
 /// de la finca, con el norte arriba.

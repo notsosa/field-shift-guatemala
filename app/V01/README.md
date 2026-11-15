@@ -4,7 +4,7 @@ App Android (Flutter) para decidir riego y manejo de una parcela sin depender de
 
 ## Qué hace
 
-1. El productor fija el punto de su finca (GPS o coordenadas) y dibuja sobre un mapa el contorno de la finca y el perímetro de cada plantación.
+1. El productor fija el punto de su finca (GPS, coordenadas o buscándola en un mapa que se arrastra) y dibuja sobre un mapa el contorno de la finca y el perímetro de cada plantación.
    Cada plantación guarda su cultivo, fecha, suelo, tipo y temporada de riego, plaga reciente y fertilización. Puede haber varias.
    Los pasos siguientes se numeran a partir de este.
 2. Con wifi, la app descarga el clima diario de NASA POWER para ese punto y lo guarda en el teléfono.
@@ -19,7 +19,7 @@ Todo funciona sin conexión salvo la descarga del clima y del mapa de fondo, que
 |---|---|
 | `lib/motor/` | Cálculo en Dart puro: ET₀ Penman-Monteith, balance diario de agua y recomendador |
 | `lib/datos/` | Almacenamiento local, descarga de NASA POWER y mapa de fondo (`mapa.dart`) |
-| `lib/ui/` | Sistema de diseño (`tema.dart`), gráficos, croquis de la finca (`finca.dart`) y pantallas |
+| `lib/ui/` | Sistema de diseño (`tema.dart`), gráficos, plano de la finca (`finca.dart`), mapa para ubicarla (`ubicar.dart`) y pantallas |
 | `lib/modelos.dart` | Parcela, plantación, registro semanal, clima y catálogo de cultivos |
 | `lib/textos.dart` | Textos en español e inglés |
 | `test/` | Pruebas del motor y de las pantallas; `test/capturas/` guarda una imagen de cada pantalla |
@@ -58,7 +58,8 @@ flutter test test/pantallas_test.dart --update-goldens
 
 ## Supuestos y límites
 
-- **Plano de la finca.** Es un cuadrado centrado en el punto de la finca, con el norte arriba y un ancho elegible de 200 m a 2 km; no se puede desplazar. El productor dibuja los contornos tocando esquinas, así que las áreas son aproximadas. Todas las plantaciones comparten el punto y el clima de la finca.
+- **Unidades.** En Ajustes se elige entre manzanas (1 mz = 6 989 m², por omisión) y hectáreas con kilómetros.
+- **Plano de la finca.** Es un cuadrado centrado en el punto de la finca, con el norte arriba y un tamaño elegible de 10 a 20 000 mz (o de 200 m a 10 km de ancho); no se puede desplazar ni acercar, así que en planos grandes los lotes pequeños se dibujan con poca precisión. El productor dibuja los contornos tocando esquinas, así que las áreas son aproximadas. Todas las plantaciones comparten el punto y el clima de la finca.
 - **Mapa de fondo.** Teselas de OpenStreetMap (mapa) o Esri World Imagery (satélite), descargadas solo con wifi y guardadas en el almacén local (hasta 100). Hay que revisar las condiciones de uso de ambos servicios antes de publicar la app; la petición lleva un `User-Agent` con el identificador de la app, que OpenStreetMap exige.
 - **Lámina por riego.** Cada riego registrado se convierte en milímetros según el tipo: manual 4, goteo 6, aspersión 12, surcos 30. Son supuestos de trabajo, no mediciones.
 - **Suelo.** Agua disponible por textura de FAO-56: arenoso 100, franco 150 y arcilloso 180 mm por metro.

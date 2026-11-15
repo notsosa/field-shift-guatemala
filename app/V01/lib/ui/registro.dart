@@ -15,6 +15,9 @@ class PantallaRegistro extends StatefulWidget {
 }
 
 class _EstadoRegistro extends State<PantallaRegistro> {
+  /// Plantación a la que pertenece el registro. Arranca en la que se estaba
+  /// viendo y se puede cambiar en el formulario.
+  String? _plantacionId;
   int _riegos = 0;
   NivelPlaga _plaga = NivelPlaga.ninguna;
   bool _fertilizo = false;
@@ -31,8 +34,9 @@ class _EstadoRegistro extends State<PantallaRegistro> {
   Future<void> _guardar() async {
     final estado = Alcance.leer(context);
     final navegador = Navigator.of(context);
+    final plantacion = estado.plantacionPorId(_plantacionId) ?? estado.plantacion!;
     await estado.guardarRegistro(RegistroSemanal(
-      plantacionId: estado.plantacion!.id,
+      plantacionId: plantacion.id,
       fecha: soloFecha(estado.hoy),
       riegos: _riegos,
       plaga: _plaga,
@@ -40,6 +44,8 @@ class _EstadoRegistro extends State<PantallaRegistro> {
       fertilizo: _fertilizo,
       notaFertilizante: _fertilizo ? _notaFertilizante.text.trim() : '',
     ));
+    // Al volver se muestra la plantación a la que se le acaba de registrar.
+    await estado.seleccionar(plantacion.id);
     navegador.pop();
   }
 
@@ -48,7 +54,8 @@ class _EstadoRegistro extends State<PantallaRegistro> {
     final estado = Alcance.de(context);
     final t = estado.txt;
     final verde = Paleta.de(context, Paleta.verde);
-    final tieneRiego = estado.plantacion?.riego != TipoRiego.ninguno;
+    final plantacion = estado.plantacionPorId(_plantacionId) ?? estado.plantacion!;
+    final tieneRiego = plantacion.riego != TipoRiego.ninguno;
 
     Widget paso(IconData icono, VoidCallback? alPulsar) => CupertinoButton(
           padding: EdgeInsets.zero,
@@ -78,7 +85,27 @@ class _EstadoRegistro extends State<PantallaRegistro> {
             Expanded(
               child: ListView(
                 children: [
-                  Rotulo('${t.nombrePlantacion(estado.plantacion!)} · ${t.ultimaSemana}'),
+                  if (estado.plantaciones.length > 1) ...[
+                    Rotulo(t.paraCualPlantacion),
+                    Grupo(children: [
+                      for (final p in estado.plantaciones)
+                        Fila(
+                          key: Key('registro-${p.id}'),
+                          titulo: t.nombrePlantacion(p),
+                          detalle: t.fechaLarga(p.fecha),
+                          final_: Icon(
+                            p.id == plantacion.id ? CupertinoIcons.checkmark_circle_fill : CupertinoIcons.circle,
+                            size: 24,
+                            color: p.id == plantacion.id ? verde : Paleta.de(context, Paleta.tenue),
+                          ),
+                          alPulsar: () => setState(() {
+                            _plantacionId = p.id;
+                            if (p.riego == TipoRiego.ninguno) _riegos = 0;
+                          }),
+                        ),
+                    ]),
+                  ],
+                  Rotulo('${t.nombrePlantacion(plantacion)} · ${t.ultimaSemana}'),
                   if (tieneRiego) ...[
                     Grupo(children: [
                       Fila(

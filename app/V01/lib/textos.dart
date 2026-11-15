@@ -8,10 +8,14 @@ import 'motor/fao56.dart';
 import 'motor/recomendador.dart';
 
 class Txt {
-  const Txt(this.en);
+  const Txt(this.en, {this.manzanas = true});
 
   /// Verdadero si la interfaz está en inglés.
   final bool en;
+
+  /// Verdadero si las áreas y la escala del plano van en manzanas; si no, en
+  /// hectáreas y kilómetros.
+  final bool manzanas;
 
   String _(String es, String ingles) => en ? ingles : es;
 
@@ -42,8 +46,15 @@ class Txt {
 
   // Parcela
   String get tuParcela => _('Tu parcela', 'Your plot');
-  String get parcelaAyuda => _('Fija el punto de tu parcela. Sirve para traer el clima de ese lugar.',
-      'Set your plot location. It is used to fetch the weather for that place.');
+  String get parcelaAyuda => _('Fija el punto de tu finca: con tu ubicación si estás en ella, o buscándola en el mapa. Sirve para traer el clima de ese lugar.',
+      'Set your farm location: with your position if you are there, or by finding it on the map. It is used to fetch the weather for that place.');
+  String get elegirEnMapa => _('Elegir en el mapa', 'Choose on the map');
+  String get ubicarFinca => _('Ubicar la finca', 'Locate the farm');
+  String get ayudaUbicar => _('Arrastra el mapa hasta dejar la marca sobre tu finca. Acerca con dos dedos o con los botones.',
+      'Drag the map until the marker is over your farm. Zoom with two fingers or the buttons.');
+  String get usarEstePunto => _('Usar este punto', 'Use this location');
+  String get sinWifiMapa => _('Sin wifi no se puede cargar el mapa. Conéctate o escribe las coordenadas.',
+      'The map cannot load without Wi-Fi. Connect or enter the coordinates.');
   String get nombre => _('Nombre', 'Name');
   String get nombreEjemplo => _('La Vega', 'North field');
   String get usarUbicacion => _('Usar mi ubicación', 'Use my location');
@@ -86,8 +97,8 @@ class Txt {
   String get perimetro => _('Perímetro', 'Perimeter');
   String get sinDibujar => _('Sin dibujar', 'Not drawn');
   String get dibujado => _('Dibujado', 'Drawn');
-  String get ayudaTrazoFinca => _('Toca las esquinas de tu finca, una por una, para dibujar su contorno. Si no cabe, aumenta el ancho del mapa.',
-      'Tap the corners of your farm, one by one, to draw its outline. If it does not fit, increase the map width.');
+  String get ayudaTrazoFinca => _('Toca las esquinas de tu finca, una por una, para dibujar su contorno. Si no cabe, agranda el mapa con el botón +.',
+      'Tap the corners of your farm, one by one, to draw its outline. If it does not fit, enlarge the map with the + button.');
   String get ayudaTrazoPlantacion => _('Toca las esquinas del área sembrada para marcar su perímetro dentro de la finca.',
       'Tap the corners of the planted area to mark its perimeter inside the farm.');
   String puntosMarcados(int n) => n < 3
@@ -103,16 +114,31 @@ class Txt {
         CapaMapa.satelite => _('Satélite', 'Satellite'),
         CapaMapa.croquis => _('Croquis', 'Sketch'),
       };
-  String get anchoMapa => _('Ancho', 'Width');
-  String nombreLado(double m) => m >= 1000 ? '${(m / 1000).round()} km' : '${m.round()} m';
+  String _numero(double v) => v >= 10
+      ? v.round().toString()
+      : v >= 1
+          ? v.toStringAsFixed(1)
+          : v.toStringAsFixed(2);
+
+  /// Rótulo del control de escala del plano.
+  String get escalaMapa => manzanas ? _('Área del mapa', 'Map area') : _('Ancho del mapa', 'Map width');
+
+  /// Tamaño del plano: en manzanas, el área del cuadrado; en métrico, su ancho.
+  String nombreLado(double m) {
+    if (manzanas) return '${_numero(m * m / metrosPorManzana)} mz';
+    return m >= 1000 ? '${_numero(m / 1000).replaceAll('.0', '')} km' : '${m.round()} m';
+  }
+
+  String get unidades => _('Unidades', 'Units');
+  String nombreUnidad(Unidad u) => switch (u) {
+        Unidad.manzanas => _('Manzanas', 'Manzanas'),
+        Unidad.metrico => _('Hectáreas y km', 'Hectares and km'),
+      };
+  String get paraCualPlantacion => _('¿Para cuál plantación?', 'Which planting is it for?');
   String get sinMapa => _('Sin mapa guardado. Conéctate a wifi para descargarlo.',
       'No saved map. Connect to Wi-Fi to download it.');
-  String area(double m2) {
-    final ha = m2 / 10000;
-    final mz = m2 / 6989;
-    String n(double v) => v >= 10 ? v.round().toString() : v.toStringAsFixed(1);
-    return '${n(ha)} ha · ${n(mz)} mz';
-  }
+  String area(double m2) =>
+      manzanas ? '${_numero(m2 / metrosPorManzana)} mz' : '${_numero(m2 / 10000)} ha';
   String get tocaParaElegir => _('Toca una plantación en el mapa para elegirla.', 'Tap a planting on the map to select it.');
   String porcentajeAgua(int n) => _('$n % de agua', '$n % water');
   String get nombreLote => _('Nombre', 'Name');

@@ -62,7 +62,7 @@ class MapaFalso extends ServicioMapa {
   MapaFalso() : super(null);
 
   @override
-  Future<Uint8List?> tesela(CapaMapa capa, int z, int x, int y) async => null;
+  Future<Uint8List?> tesela(CapaMapa capa, int z, int x, int y, {bool guardar = true}) async => null;
 }
 
 Future<void> _cargarFuentes() async {
@@ -153,7 +153,7 @@ void main() {
     await _captura(tester, '02b_contorno_finca');
     await tester.tap(find.text('Continuar'));
     await tester.pumpAndSettle();
-    expect(estado.parcela!.contorno.length, 4);
+    expect(estado.parcela!.contorno, isEmpty); // aún no se guarda: falta terminar
 
     // Perímetro de la plantación dentro de la finca.
     expect(find.text('Perímetro'), findsOneWidget);
@@ -205,6 +205,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(estado.configurada, isTrue);
     expect(estado.plantaciones.length, 1);
+    expect(estado.parcela!.contorno.length, 4); // el contorno se guardó junto con la plantación
     expect(estado.plantacion!.contorno.length, 4);
     expect(estado.plantacion!.cultivoId, 'frijol');
     expect(estado.plantacion!.plagaReciente, isTrue);
@@ -346,6 +347,222 @@ void main() {
     expect(segundo.registros.length, 1);
     expect(segundo.clima.length, primero.clima.length);
     expect(find.text('agua disponible'), findsOneWidget);
+  });
+
+  testWidgets('al abandonar la configuración inicial no queda nada dibujado', (tester) async {
+    final estado = await _abrir(tester);
+    await tester.tap(find.text('Empezar'));
+    await tester.pumpAndSettle();
+    final campos = find.byType(CupertinoTextField);
+    await tester.enterText(campos.at(1), '14.8250');
+    await tester.enterText(campos.at(2), '-89.5312');
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
+
+    // Dibuja el contorno, cambia el ancho del plano y sigue al perímetro.
+    await _marcar(tester, const Key('lienzo'), const [Offset(0.2, 0.2), Offset(0.8, 0.2), Offset(0.5, 0.8)]);
+    await tester.tap(find.byIcon(CupertinoIcons.plus)); // agranda el plano
+    await tester.pumpAndSettle();
+    expect(find.text('50 mz'), findsOneWidget);
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Perímetro'), findsOneWidget);
+    await _marcar(tester, const Key('lienzo'), const [Offset(0.4, 0.4), Offset(0.6, 0.4), Offset(0.5, 0.6)]);
+
+    // «Atrás» vuelve al contorno con sus tres puntos, sin haber guardado nada.
+    await tester.tap(find.text('Atrás'));
+    await tester.pumpAndSettle();
+    expect(find.text('Contorno de la finca'), findsOneWidget);
+    expect(find.textContaining('3 puntos ·'), findsOneWidget);
+    expect(estado.parcela!.contorno, isEmpty);
+    expect(estado.parcela!.lado, 500);
+
+    // Se sale del todo: ni contorno, ni ancho, ni plantación.
+    await tester.tap(find.text('Atrás'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Atrás'));
+    await tester.pumpAndSettle();
+    expect(find.text('Empezar'), findsOneWidget);
+    expect(estado.parcela!.contorno, isEmpty);
+    expect(estado.parcela!.lado, 500);
+    expect(estado.plantaciones, isEmpty);
+    expect(estado.configurada, isFalse);
+
+    // Al volver a entrar se ofrece otra vez dibujar el contorno, vacío.
+    await tester.tap(find.text('Empezar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Contorno de la finca'), findsOneWidget);
+    expect(find.text('Marca 3 puntos o más'), findsOneWidget);
+  });
+
+  testWidgets('cancelar una plantación nueva o un cambio de contorno no altera la finca', (tester) async {
+    final estado = await _abrir(tester);
+    await tester.tap(find.text('Ver un ejemplo'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Finca'));
+    await tester.pumpAndSettle();
+    final contorno = estado.parcela!.contorno;
+    final perimetros = [for (final p in estado.plantaciones) p.contorno];
+    final lista = find.descendant(of: find.byType(PestanaFinca), matching: find.byType(Scrollable)).first;
+
+    // Plantación nueva: se marca el perímetro, se llega al formulario y se abandona.
+    await tester.scrollUntilVisible(find.text('Nueva plantación'), 200, scrollable: lista);
+    await tester.tap(find.text('Nueva plantación'));
+    await tester.pumpAndSettle();
+    await _marcar(tester, const Key('lienzo'), const [Offset(0.2, 0.6), Offset(0.4, 0.6), Offset(0.3, 0.8)]);
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Tomate'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Atrás')); // del formulario al perímetro
+    await tester.pumpAndSettle();
+    expect(find.textContaining('3 puntos ·'), findsOneWidget); // el trazo sigue ahí para corregirlo
+    await tester.tap(find.text('Atrás')); // del perímetro a la finca
+    await tester.pumpAndSettle();
+    expect(estado.plantaciones.length, 2);
+
+    // Cambio de contorno: se añaden puntos, se cambia el ancho y se sale con «Atrás».
+    await tester.scrollUntilVisible(find.text('Cambiar el contorno de la finca'), -200, scrollable: lista);
+    await tester.tap(find.text('Cambiar el contorno de la finca'));
+    await tester.pumpAndSettle();
+    await _marcar(tester, const Key('lienzo'), const [Offset(0.5, 0.5)]);
+    await tester.tap(find.byIcon(CupertinoIcons.plus));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('7 puntos ·'), findsOneWidget);
+    await tester.tap(find.text('Atrás'));
+    await tester.pumpAndSettle();
+    expect(estado.parcela!.contorno, same(contorno));
+    expect(estado.parcela!.lado, 500);
+    expect([for (final p in estado.plantaciones) p.contorno], perimetros);
+
+    // El mismo cambio, confirmado con «Continuar», sí se guarda y conserva las áreas.
+    final areaAntes = areaDe(estado.plantaciones.first.contorno, 500);
+    await tester.tap(find.text('Cambiar el contorno de la finca'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(CupertinoIcons.plus));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
+    expect(estado.parcela!.lado, ladosDe(Unidad.manzanas)[1]); // de 500 m al plano de 50 mz
+    expect(estado.parcela!.contorno.length, 6);
+    expect(areaDe(estado.plantaciones.first.contorno, estado.parcela!.lado), closeTo(areaAntes, 1e-6));
+  });
+
+  testWidgets('finca sin contorno: abandonar una plantación nueva no guarda el contorno', (tester) async {
+    final vieja = Plantacion(
+      cultivoId: 'maiz',
+      fecha: DateTime(2026, 9, 20),
+      ciclo: 120,
+      suelo: Suelo.franco,
+      riego: TipoRiego.goteo,
+      temporadaRiego: TemporadaRiego.auxilio,
+      plagaReciente: false,
+      fertilizo: false,
+    ).aJson();
+    final estado = await _abrir(tester, guardado: {
+      'parcela': jsonEncode({'nombre': 'La Vega', 'latitud': 14.8, 'longitud': -89.5}),
+      'plantaciones': jsonEncode([vieja]),
+    });
+    await tester.tap(find.text('Finca'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(CupertinoIcons.add));
+    await tester.pumpAndSettle();
+    expect(find.text('Contorno de la finca'), findsOneWidget);
+    await _marcar(tester, const Key('lienzo'), const [Offset(0.2, 0.2), Offset(0.8, 0.2), Offset(0.5, 0.8)]);
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Perímetro'), findsOneWidget);
+    await tester.tap(find.text('Atrás'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Atrás'));
+    await tester.pumpAndSettle();
+    expect(estado.parcela!.contorno, isEmpty);
+    expect(estado.plantaciones.length, 1);
+
+    // Omitiendo el contorno y guardando, la plantación entra y la finca sigue sin contorno.
+    await tester.tap(find.byIcon(CupertinoIcons.add));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Omitir'));
+    await tester.pumpAndSettle();
+    await _marcar(tester, const Key('lienzo'), const [Offset(0.4, 0.4), Offset(0.6, 0.4), Offset(0.5, 0.6)]);
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Guardar'));
+    await tester.pumpAndSettle();
+    expect(estado.plantaciones.length, 2);
+    expect(estado.parcela!.contorno, isEmpty);
+    expect(estado.plantacion!.contorno.length, 3);
+    expect(find.text('Finca'), findsWidgets); // volvió a la pestaña, no quedó en el flujo
+  });
+
+  testWidgets('el registro semanal se guarda en la plantación que se elige', (tester) async {
+    final estado = await _abrir(tester);
+    await tester.tap(find.text('Ver un ejemplo'));
+    await tester.pumpAndSettle();
+    final maiz = estado.plantaciones.firstWhere((p) => p.cultivoId == 'maiz');
+    final frijol = estado.plantaciones.firstWhere((p) => p.cultivoId == 'frijol');
+    expect(estado.plantacion!.id, frijol.id);
+
+    await tester.tap(find.text('Registros'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(CupertinoIcons.add));
+    await tester.pumpAndSettle();
+    expect(find.text('¿PARA CUÁL PLANTACIÓN?'), findsOneWidget); // los rótulos van en mayúsculas
+    expect(find.text('Veces que regaste'), findsOneWidget); // el frijol tiene goteo
+
+    // Se cambia al maíz, que no tiene riego: desaparece la pregunta de riegos.
+    await tester.tap(find.byKey(Key('registro-${maiz.id}')));
+    await tester.pumpAndSettle();
+    expect(find.text('Veces que regaste'), findsNothing);
+    await tester.ensureVisible(find.text('Fuerte'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Fuerte'));
+    await tester.pumpAndSettle();
+    await _captura(tester, '06b_registro_plantacion');
+    await tester.tap(find.text('Guardar'));
+    await tester.pumpAndSettle();
+
+    expect(estado.registrosDe(maiz.id).single.plaga, NivelPlaga.fuerte);
+    expect(estado.registrosDe(frijol.id).length, 1); // el del frijol no cambió
+    expect(estado.plantacion!.id, maiz.id); // se queda viendo la plantación registrada
+  });
+
+  testWidgets('unidades: manzanas por omisión y métrico al cambiar en Ajustes', (tester) async {
+    final estado = await _abrir(tester);
+    await tester.tap(find.text('Ver un ejemplo'));
+    await tester.pumpAndSettle();
+    expect(estado.unidad, Unidad.manzanas);
+    await tester.tap(find.text('Finca'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining(' mz'), findsWidgets);
+    expect(find.textContaining(' ha'), findsNothing);
+
+    await tester.tap(find.text('Ajustes'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Hectáreas y km'));
+    await tester.pumpAndSettle();
+    expect(estado.unidad, Unidad.metrico);
+    await tester.tap(find.text('Finca'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining(' ha'), findsWidgets);
+    expect(find.textContaining(' mz'), findsNothing);
+
+    // En métrico el plano se agranda por anchos: de 500 m a 1 km y hasta 10 km.
+    await tester.tap(find.text('Cambiar el contorno de la finca'));
+    await tester.pumpAndSettle();
+    expect(find.text('500 m'), findsOneWidget);
+    for (final esperado in ['1 km', '2 km', '5 km', '10 km']) {
+      await tester.tap(find.byIcon(CupertinoIcons.plus));
+      await tester.pumpAndSettle();
+      expect(find.text(esperado), findsOneWidget);
+    }
+    await _captura(tester, '15_contorno_10km');
+    await tester.tap(find.text('Atrás'));
+    await tester.pumpAndSettle();
+    expect(estado.parcela!.lado, 500); // se salió sin continuar: no cambia
   });
 
   testWidgets('los datos de la versión con una sola plantación se conservan', (tester) async {

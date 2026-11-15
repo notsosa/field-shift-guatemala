@@ -17,9 +17,6 @@ import 'hoy.dart';
 import 'plantacion.dart';
 import 'tema.dart';
 
-/// Anchos del plano que se ofrecen, en metros.
-const ladosMapa = <double>[200, 500, 1000, 2000];
-
 /// Un área dibujada sobre el plano: el perímetro de una plantación.
 class Zona {
   const Zona({required this.id, required this.contorno, required this.color, required this.rotulo, this.destacada = false});
@@ -32,12 +29,18 @@ class Zona {
 }
 
 /// Zonas de todas las plantaciones con perímetro, coloreadas según su agua.
-List<Zona> zonasDe(BuildContext context, AppEstado estado, {String? excepto, bool destacar = true}) => [
+///
+/// Los contornos están guardados para el ancho del plano de la finca. Si se
+/// van a mostrar con otro [lado] (mientras se prueba un ancho sin guardarlo),
+/// se ajustan para quedar en el mismo lugar del terreno.
+List<Zona> zonasDe(BuildContext context, AppEstado estado, {String? excepto, bool destacar = true, double? lado}) => [
       for (final p in estado.plantaciones)
         if (p.contorno.length >= 3 && p.id != excepto)
           Zona(
             id: p.id,
-            contorno: p.contorno,
+            contorno: lado == null || lado == estado.parcela!.lado
+                ? p.contorno
+                : reescalar(p.contorno, estado.parcela!.lado, lado),
             color: PestanaHoy.colorNivel(context, estado.recomendacionDe(p).nivel),
             rotulo: estado.txt.nombrePlantacion(p),
             destacada: destacar && p.id == estado.plantacion?.id,
@@ -168,11 +171,15 @@ class LienzoFinca extends StatelessWidget {
     this.zonas = const [],
     this.trazo = const [],
     this.trazoEsFinca = false,
+    this.lado,
     this.alTocar,
   });
 
   final List<Punto> finca;
   final List<Zona> zonas;
+
+  /// Ancho del plano que se muestra. Si falta, es el guardado en la finca.
+  final double? lado;
 
   /// Puntos que el usuario lleva marcados.
   final List<Punto> trazo;
@@ -218,7 +225,7 @@ class LienzoFinca extends StatelessWidget {
                       capa: estado.capa,
                       latitud: parcela.latitud,
                       longitud: parcela.longitud,
-                      lado: parcela.lado,
+                      lado: lado ?? parcela.lado,
                       aviso: estado.txt.sinMapa,
                     ),
                   CustomPaint(
@@ -403,9 +410,21 @@ class SelectorCapa extends StatelessWidget {
   }
 }
 
+/// Lo que sale de [PantallaTrazo]: los puntos marcados y el ancho del plano
+/// con el que se marcaron.
+class Trazo {
+  const Trazo(this.puntos, this.lado);
+
+  final List<Punto> puntos;
+  final double lado;
+}
+
 /// Pantalla para dibujar un contorno tocando sus esquinas sobre el mapa.
-/// Devuelve la lista de puntos, una lista vacía si se omite, o nada si se
-/// cancela.
+///
+/// No guarda nada por sí misma: ni los puntos ni el ancho del plano. Al
+/// continuar entrega un [Trazo] (con [alContinuar] si forma parte de un flujo
+/// de varios pasos, o como resultado de la ruta si no). Si se sale con
+/// «Atrás», no cambia nada.
 class PantallaTrazo extends StatefulWidget {
   const PantallaTrazo({
     super.key,
@@ -415,11 +434,24 @@ class PantallaTrazo extends StatefulWidget {
     this.excepto,
     this.dibujaFinca = false,
     this.permiteOmitir = false,
+    this.fincaPendiente,
+    this.lado,
+    this.alContinuar,
   });
 
   final String titulo;
   final String ayuda;
   final List<Punto> inicial;
+
+  /// Contorno de la finca dibujado en un paso anterior y aún sin guardar.
+  final List<Punto>? fincaPendiente;
+
+  /// Ancho del plano elegido en un paso anterior y aún sin guardar.
+  final double? lado;
+
+  /// Paso siguiente del flujo. Recibe el trazo (sin puntos si se omitió). Si
+  /// falta, la pantalla se cierra y devuelve el trazo.
+  final void Function(BuildContext context, Trazo trazo)? alContinuar;
 
   /// Plantación que no se dibuja de fondo porque es la que se está trazando.
   final String? excepto;
@@ -435,12 +467,22 @@ class PantallaTrazo extends StatefulWidget {
 class _EstadoTrazo extends State<PantallaTrazo> {
   late List<Punto> _puntos = [...widget.inicial];
 
-  Future<void> _cambiarLado(double nuevo) async {
-    final estado = Alcance.leer(context);
-    final viejo = estado.parcela!.lado;
-    await estado.cambiarLado(nuevo);
-    // Lo que ya se marcó se queda en el mismo lugar del terreno.
-    if (mounted) setState(() => _puntos = reescalar(_puntos, viejo, nuevo));
+  /// Ancho del plano mientras se dibuja. Solo se guarda al terminar el flujo.
+  double? _lado;
+
+  void _cambiarLado(double actual, double nuevo) => setState(() {
+        // Lo que ya se marcó se queda en el mismo lugar del terreno.
+        _puntos = reescalar(_puntos, actual, nuevo);
+        _lado = nuevo;
+      });
+
+  void _entregar(List<Punto> puntos, double lado) {
+    final trazo = Trazo(puntos, lado);
+    if (widget.alContinuar != null) {
+      widget.alContinuar!(context, trazo);
+    } else {
+      Navigator.of(context).pop(trazo);
+    }
   }
 
   @override
@@ -450,6 +492,10 @@ class _EstadoTrazo extends State<PantallaTrazo> {
     final parcela = estado.parcela!;
     final verde = Paleta.de(context, Paleta.verde);
     final listo = _puntos.length >= 3;
+    final lado = _lado ?? widget.lado ?? parcela.lado;
+    final finca = widget.dibujaFinca
+        ? const <Punto>[]
+        : widget.fincaPendiente ?? reescalar(parcela.contorno, parcela.lado, lado);
 
     Widget accion(String texto, VoidCallback? alPulsar) => CupertinoButton(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -457,6 +503,26 @@ class _EstadoTrazo extends State<PantallaTrazo> {
           child: Text(
             texto,
             style: letra(15, peso: 500, color: alPulsar == null ? Paleta.de(context, Paleta.secundario) : verde),
+          ),
+        );
+
+    // Escala del plano: se sube o baja por pasos entre los tamaños de la
+    // unidad elegida en Ajustes.
+    final tamanos = ladosDe(estado.unidad);
+    final menores = tamanos.where((l) => l < lado - 0.5);
+    final mayores = tamanos.where((l) => l > lado + 0.5);
+    final menor = menores.isEmpty ? null : menores.last;
+    final mayor = mayores.isEmpty ? null : mayores.first;
+
+    Widget paso(IconData icono, VoidCallback? alPulsar) => CupertinoButton(
+          padding: EdgeInsets.zero,
+          minimumSize: const Size(40, 40),
+          onPressed: alPulsar,
+          child: Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(color: Paleta.de(context, Paleta.tenue), shape: BoxShape.circle),
+            child: Icon(icono, size: 18, color: alPulsar == null ? Paleta.de(context, Paleta.secundario) : verde),
           ),
         );
 
@@ -468,7 +534,7 @@ class _EstadoTrazo extends State<PantallaTrazo> {
         trailing: widget.permiteOmitir
             ? CupertinoButton(
                 padding: EdgeInsets.zero,
-                onPressed: () => Navigator.of(context).pop(const <Punto>[]),
+                onPressed: () => _entregar(const [], lado),
                 child: Text(t.omitir),
               )
             : null,
@@ -489,19 +555,23 @@ class _EstadoTrazo extends State<PantallaTrazo> {
                 padding: const EdgeInsets.fromLTRB(Espacio.m, Espacio.s, Espacio.m, 0),
                 child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: Espacio.s, right: Espacio.m),
-                      child: Text(t.anchoMapa, style: Texto.nota(context)),
-                    ),
                     Expanded(
-                      child: Selector<double>(
-                        opciones: {
-                          for (final l in {...ladosMapa, parcela.lado}.toList()..sort()) l: t.nombreLado(l),
-                        },
-                        valor: parcela.lado,
-                        alCambiar: _cambiarLado,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: Espacio.s),
+                        child: Text(t.escalaMapa, style: Texto.nota(context)),
                       ),
                     ),
+                    paso(CupertinoIcons.minus, menor == null ? null : () => _cambiarLado(lado, menor)),
+                    SizedBox(
+                      width: 96,
+                      child: Text(
+                        t.nombreLado(lado),
+                        key: const Key('escala'),
+                        textAlign: TextAlign.center,
+                        style: letra(16, peso: 600, color: Paleta.de(context, Paleta.texto)),
+                      ),
+                    ),
+                    paso(CupertinoIcons.plus, mayor == null ? null : () => _cambiarLado(lado, mayor)),
                   ],
                 ),
               ),
@@ -511,10 +581,11 @@ class _EstadoTrazo extends State<PantallaTrazo> {
                 child: Center(
                   child: LienzoFinca(
                     key: const Key('lienzo'),
-                    finca: widget.dibujaFinca ? const [] : parcela.contorno,
-                    zonas: zonasDe(context, estado, excepto: widget.excepto, destacar: false),
+                    finca: finca,
+                    zonas: zonasDe(context, estado, excepto: widget.excepto, destacar: false, lado: lado),
                     trazo: _puntos,
                     trazoEsFinca: widget.dibujaFinca,
+                    lado: lado,
                     alTocar: (p) => setState(() => _puntos = [..._puntos, p]),
                   ),
                 ),
@@ -528,7 +599,7 @@ class _EstadoTrazo extends State<PantallaTrazo> {
                   Expanded(
                     child: Text(
                       listo
-                          ? '${t.puntosMarcados(_puntos.length)} · ${t.area(areaDe(_puntos, parcela.lado))}'
+                          ? '${t.puntosMarcados(_puntos.length)} · ${t.area(areaDe(_puntos, lado))}'
                           : t.puntosMarcados(_puntos.length),
                       style: Texto.nota(context),
                     ),
@@ -545,7 +616,7 @@ class _EstadoTrazo extends State<PantallaTrazo> {
               padding: const EdgeInsets.fromLTRB(Espacio.l, Espacio.s, Espacio.l, Espacio.m),
               child: BotonPrincipal(
                 texto: t.continuar,
-                alPulsar: listo ? () => Navigator.of(context).pop(_puntos) : null,
+                alPulsar: listo ? () => _entregar(_puntos, lado) : null,
               ),
             ),
           ],
@@ -558,31 +629,42 @@ class _EstadoTrazo extends State<PantallaTrazo> {
 /// Flujo para ingresar una plantación nueva: si la finca aún no tiene
 /// contorno, se ofrece dibujarlo; luego se marca el perímetro de la plantación
 /// y al final se llenan sus datos.
-Future<void> agregarPlantacion(BuildContext context, {bool primeraVez = false}) async {
+///
+/// Cada paso abre el siguiente encima, sin cerrarse, de modo que «Atrás»
+/// vuelve al paso anterior con lo que se había marcado. Nada se guarda hasta
+/// pulsar «Guardar» en el último paso: si se abandona antes, la finca queda
+/// como estaba.
+Future<void> agregarPlantacion(BuildContext context, {bool primeraVez = false}) {
   final estado = Alcance.leer(context);
   final navegador = Navigator.of(context, rootNavigator: true);
   final t = estado.txt;
 
-  if (estado.parcela!.contorno.length < 3) {
-    final finca = await navegador.push<List<Punto>>(CupertinoPageRoute(
-      builder: (_) => PantallaTrazo(
-        titulo: t.contornoFinca,
-        ayuda: t.ayudaTrazoFinca,
-        dibujaFinca: true,
-        permiteOmitir: true,
-      ),
-    ));
-    if (finca == null) return;
-    if (finca.length >= 3) await estado.guardarContornoFinca(finca);
-  }
+  // Paso 2: perímetro de la plantación. [finca] es el contorno recién dibujado
+  // en el paso 1, todavía sin guardar.
+  CupertinoPageRoute<void> perimetro({Trazo? finca}) => CupertinoPageRoute(
+        builder: (_) => PantallaTrazo(
+          titulo: t.perimetro,
+          ayuda: t.ayudaTrazoPlantacion,
+          fincaPendiente: finca != null && finca.puntos.length >= 3 ? finca.puntos : null,
+          lado: finca?.lado,
+          // Paso 3: datos de la plantación; ahí se guarda todo.
+          alContinuar: (ctx, trazo) => Navigator.of(ctx).push<void>(CupertinoPageRoute(
+            builder: (_) => PantallaPlantacion(primeraVez: primeraVez, contornoNuevo: trazo.puntos, fincaNueva: finca),
+          )),
+        ),
+      );
 
-  final perimetro = await navegador.push<List<Punto>>(CupertinoPageRoute(
-    builder: (_) => PantallaTrazo(titulo: t.perimetro, ayuda: t.ayudaTrazoPlantacion),
-  ));
-  if (perimetro == null) return;
+  if (estado.parcela!.contorno.length >= 3) return navegador.push<void>(perimetro());
 
-  await navegador.push<void>(CupertinoPageRoute(
-    builder: (_) => PantallaPlantacion(primeraVez: primeraVez, contornoNuevo: perimetro),
+  // Paso 1: contorno de la finca, que se puede omitir.
+  return navegador.push<void>(CupertinoPageRoute(
+    builder: (_) => PantallaTrazo(
+      titulo: t.contornoFinca,
+      ayuda: t.ayudaTrazoFinca,
+      dibujaFinca: true,
+      permiteOmitir: true,
+      alContinuar: (ctx, trazo) => Navigator.of(ctx).push<void>(perimetro(finca: trazo)),
+    ),
   ));
 }
 
@@ -649,7 +731,7 @@ class PestanaFinca extends StatelessWidget {
   Future<void> _editarContorno(BuildContext context) async {
     final estado = Alcance.leer(context);
     final t = estado.txt;
-    final nuevo = await Navigator.of(context, rootNavigator: true).push<List<Punto>>(CupertinoPageRoute(
+    final nuevo = await Navigator.of(context, rootNavigator: true).push<Trazo>(CupertinoPageRoute(
       builder: (_) => PantallaTrazo(
         titulo: t.contornoFinca,
         ayuda: t.ayudaTrazoFinca,
@@ -657,7 +739,8 @@ class PestanaFinca extends StatelessWidget {
         inicial: estado.parcela!.contorno,
       ),
     ));
-    if (nuevo != null && nuevo.length >= 3) await estado.guardarContornoFinca(nuevo);
+    // Solo llega un trazo si se pulsó «Continuar»; con «Atrás» no cambia nada.
+    if (nuevo != null) await estado.guardarFinca(contorno: nuevo.puntos, lado: nuevo.lado);
   }
 
   @override

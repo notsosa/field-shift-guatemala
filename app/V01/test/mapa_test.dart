@@ -6,7 +6,9 @@ import 'dart:typed_data';
 import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:field_shift/datos/almacen.dart';
 import 'package:field_shift/datos/mapa.dart';
+import 'package:field_shift/estado.dart';
 import 'package:field_shift/ui/finca.dart';
+import 'package:field_shift/ui/ubicar.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
@@ -23,7 +25,7 @@ class _MapaFijo extends ServicioMapa {
   int pedidas = 0;
 
   @override
-  Future<Uint8List?> tesela(CapaMapa capa, int z, int x, int y) async {
+  Future<Uint8List?> tesela(CapaMapa capa, int z, int x, int y, {bool guardar = true}) async {
     pedidas++;
     return imagen;
   }
@@ -72,6 +74,72 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byType(Image), findsNothing);
     expect(find.text('Sin mapa guardado'), findsOneWidget);
+  });
+
+  test('latitud y longitud van y vuelven de la proyección del mapa', () {
+    final (x, y) = mundoDe(14.8250, -89.5312);
+    final (lat, lon) = latLonDe(x, y);
+    expect(lat, closeTo(14.8250, 1e-9));
+    expect(lon, closeTo(-89.5312, 1e-9));
+    expect(latLonDe(0.5, 0.5), (0.0, 0.0));
+  });
+
+  testWidgets('ubicar la finca: al arrastrar el mapa cambia el punto elegido', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final estado = AppEstado(await Almacen.abrir(), servicioMapa: _MapaFijo(_png));
+    (double, double)? elegido;
+    await tester.pumpWidget(Alcance(
+      estado: estado,
+      child: CupertinoApp(
+        home: Builder(
+          builder: (context) => Center(
+            child: CupertinoButton(
+              onPressed: () async => elegido = await Navigator.of(context).push<(double, double)>(
+                CupertinoPageRoute(builder: (_) => const PantallaUbicar(latitud: 14.6, longitud: -90.5)),
+              ),
+              child: const Text('abrir'),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.tap(find.text('abrir'));
+    await tester.pumpAndSettle();
+    expect(find.text('14.60000, -90.50000'), findsOneWidget);
+    expect(find.byType(Image), findsWidgets);
+
+    // Arrastrar el mapa hacia la izquierda y hacia arriba lleva el centro al
+    // este y al sur.
+    await tester.drag(find.byKey(const Key('mapa-explorable')), const Offset(-120, -80));
+    await tester.pumpAndSettle();
+    expect(find.text('14.60000, -90.50000'), findsNothing);
+
+    // Acercar con el botón no mueve el centro.
+    await tester.tap(find.byIcon(CupertinoIcons.plus));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Usar este punto'));
+    await tester.pumpAndSettle();
+    expect(elegido, isNotNull);
+    expect(elegido!.$2, greaterThan(-90.5)); // más al este
+    expect(elegido!.$1, lessThan(14.6)); // más al sur
+    // A zoom 15, 120 px son unos 550 m: el punto se movió poco, no saltó.
+    expect(elegido!.$2, closeTo(-90.5, 0.02));
+    expect(elegido!.$1, closeTo(14.6, 0.02));
+  });
+
+  test('explorar el mapa no escribe teselas en el teléfono', () async {
+    SharedPreferences.setMockInitialValues({});
+    final almacen = await Almacen.abrir();
+    final servicio = ServicioMapa(
+      almacen,
+      cliente: MockClient((_) async => http.Response.bytes(_png, 200)),
+      hayWifi: () async => true,
+    );
+    expect(await servicio.tesela(CapaMapa.mapa, 10, 3, 4, guardar: false), _png);
+    expect(almacen.leerTesela('mapa/10/3/4'), isNull);
+    expect(await servicio.tesela(CapaMapa.mapa, 10, 5, 6), _png);
+    expect(almacen.leerTesela('mapa/10/5/6'), _png);
   });
 
   test('descarga con wifi, guarda en el teléfono y luego no vuelve a pedir', () async {

@@ -5,6 +5,7 @@ import '../estado.dart';
 import '../modelos.dart';
 import 'finca.dart';
 import 'tema.dart';
+import 'ubicar.dart';
 
 /// Fija el punto de la parcela, con el GPS o escribiendo las coordenadas.
 class PantallaParcela extends StatefulWidget {
@@ -81,6 +82,19 @@ class _EstadoParcela extends State<PantallaParcela> {
     }
   }
 
+  /// Abre el mapa para buscar la finca cuando no se está en ella.
+  Future<void> _elegirEnMapa() async {
+    final punto = await Navigator.of(context).push<(double, double)>(CupertinoPageRoute(
+      builder: (_) => PantallaUbicar(latitud: _valida ? _latitud : null, longitud: _valida ? _longitud : null),
+    ));
+    if (punto == null || !mounted) return;
+    setState(() {
+      _lat.text = punto.$1.toStringAsFixed(5);
+      _lon.text = punto.$2.toStringAsFixed(5);
+      _error = null;
+    });
+  }
+
   Future<void> _guardar() async {
     final estado = Alcance.leer(context);
     final t = estado.txt;
@@ -139,6 +153,7 @@ class _EstadoParcela extends State<PantallaParcela> {
                       final_: _buscando ? const CupertinoActivityIndicator() : null,
                       alPulsar: _buscando ? null : _ubicar,
                     ),
+                    Fila(titulo: t.elegirEnMapa, icono: CupertinoIcons.map, alPulsar: _elegirEnMapa),
                     Campo(
                       titulo: t.latitud,
                       controlador: _lat,
