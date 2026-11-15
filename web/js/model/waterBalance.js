@@ -33,24 +33,31 @@ function rootDepth(crop, phase, idx) {
  * Kc y Zr = máximo de las activas; p = el del cultivo activo con mayor Kc ese día.
  * residueMask (opcional): día sin fase activa con residuo de abono verde → cobertura 'residue' (CN menor; Kc sigue 0.15).
  * El riego se aplica al final del día, después de calcular Dr.
- * Supuesto: drInit por defecto = TAW del primer día, es decir, solo la capa superior de
- * 0.15 m (zona sin cultivo) arranca seca al inicio del año agrícola, fin de la estación seca.
- * Con riego 'full' el predio arranca a capacidad de campo (drInit = 0), porque un predio
- * regado no empieza el ciclo en marchitez.
- * Supuesto (simplificación, revisar en la Tarea 8): cuando las raíces crecen y TAW aumenta,
- * Dr no cambia, así que el suelo nuevo que alcanzan las raíces se supone a capacidad de campo
- * (agotamiento 0) aunque venga de la estación seca. Esto agrega agua al crecer las raíces.
+ *
+ * Dos almacenes sobre un perfil de profundidad fija Zp (= mayor zrMax de las fases; 1.0 m si no hay fases):
+ *  - zona radicular: agotamiento Dr, capacidad TAWr = 1000·(θFC − θWP)·Zr(t);
+ *  - subsuelo (bajo las raíces): agotamiento Ds, capacidad TAWs = 1000·(θFC − θWP)·(Zp − Zr(t)).
+ * Cuando Zr cambia, el agotamiento viaja con la capa de suelo que cambia de almacén (se supone uniforme
+ * dentro de cada almacén): al crecer, las raíces entran al suelo con el agotamiento del subsuelo (no con
+ * agua gratis) y al acortarse (cosecha) la capa que sale conserva su agotamiento. La percolación profunda
+ * de la zona radicular rellena primero el subsuelo; solo lo que sobra sale del perfil (drainOut).
+ * Condición inicial: con riego 'none'/'limited' todo el perfil arranca seco (Dr = TAWr, Ds = TAWs: fin de
+ * la estación seca, 1 de abril); con 'full' ambos arrancan en 0. drInit fija solo Dr; dsInit fija Ds.
+ * Conservación: Σrain − Σrunoff + Σirr − Σeta − ΣdrainOut = (Dr0 + Ds0) − (Dr_fin + Ds_fin).
  */
-export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, irrigation, drInit, residueMask }) {
+export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, irrigation, drInit, dsInit, residueMask }) {
   if (!IRRIGATION_MODES.includes(irrigation)) throw new Error(`Riego desconocido: ${irrigation}`);
   const soil = SOILS[texture];
   if (!soil) throw new Error(`Textura desconocida: ${texture}`);
   const n = rain.length;
   const last = n - 1;
   const tawOf = (zr) => totalAvailableWater(soil.thetaFC, soil.thetaWP, zr);
-  const out = { dr: [], ks: [], kc: [], etc: [], eta: [], irr: [], runoff: [], cover: [], taw: [] };
+  const out = { dr: [], ks: [], kc: [], etc: [], eta: [], irr: [], runoff: [], cover: [], taw: [], ds: [], zr: [], drainOut: [] };
 
+  const zp = phases.length ? Math.max(BARE_ZR, ...phases.map((ph) => crops.get(ph.cropId).zrMax)) : 1.0;
   let dr = 0;
+  let ds = 0;
+  let zrPrev = BARE_ZR;
   for (let i = 0; i < n; i++) {
     const active = phases.filter((ph) => ph.sowIdx <= i && i <= ph.harvestIdx);
     let kc = BARE_KC;
@@ -66,17 +73,31 @@ export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, ir
       }
     }
     const taw = tawOf(zr);
-    if (i === 0) dr = drInit ?? (irrigation === 'full' ? 0 : taw);
-    // Dr se conserva cuando TAW crece: el suelo recién alcanzado por las raíces entra a capacidad de campo.
-    // Cuando TAW baja (fase nueva con raíz corta), Dr se acota a TAW.
-    dr = Math.min(taw, Math.max(0, dr));
+    if (i === 0) {
+      const full = irrigation === 'full';
+      dr = Math.min(taw, drInit ?? (full ? 0 : taw));
+      ds = dsInit ?? (full ? 0 : tawOf(zp - zr));
+    } else if (zr > zrPrev && zp > zrPrev) {
+      // Raíces crecen: la capa nueva trae el agotamiento del subsuelo.
+      const moved = ds * (zr - zrPrev) / (zp - zrPrev);
+      dr += moved; ds -= moved;
+    } else if (zr < zrPrev) {
+      // Raíces se acortan: la capa que sale conserva su agotamiento.
+      const moved = dr * (zrPrev - zr) / zrPrev;
+      dr -= moved; ds += moved;
+    }
+    zrPrev = zr;
 
     const ks = stressCoefficient(dr, taw, p);
     const etc = kc * et0[i];
     const eta = ks * etc;
     const cover = active.length ? 'crop' : (residueMask?.[i] ? 'residue' : 'bare');
     const runoff = scsRunoff(rain[i], curveNumber(texture, cover, slopeClass));
-    dr = stepDepletion({ drPrev: dr, rain: rain[i], runoff, irr: 0, etcAdj: eta, taw }).dr;
+    const step = stepDepletion({ drPrev: dr, rain: rain[i], runoff, irr: 0, etcAdj: eta, taw });
+    dr = step.dr;
+    const refill = Math.min(step.deepPerc, ds);
+    ds -= refill;
+    const drainOut = step.deepPerc - refill;
 
     let irr = 0;
     if (irrigation !== 'none' && active.length && dr > p * taw) {
@@ -90,6 +111,7 @@ export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, ir
 
     out.dr.push(dr); out.ks.push(ks); out.kc.push(kc); out.etc.push(etc); out.eta.push(eta);
     out.irr.push(irr); out.runoff.push(runoff); out.cover.push(cover); out.taw.push(taw);
+    out.ds.push(ds); out.zr.push(zr); out.drainOut.push(drainOut);
   }
   return out;
 }

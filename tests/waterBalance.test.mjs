@@ -61,7 +61,7 @@ test('fases traslapadas: Kc, Zr (TAW) y p siguen al cultivo activo de mayor Kc',
   const phM = buildPhase(maiz, 30, t); // maíz en ini el día 40
   const i = 40;
   assert.ok(i > phF.endIdx.dev && i <= phF.endIdx.mid && i <= phM.endIdx.ini);
-  const base = { ...same, et0: Array(N).fill(1.5), phases: [phF, phM], irrigation: 'none', drInit: 0 };
+  const base = { ...same, et0: Array(N).fill(1.5), phases: [phF, phM], irrigation: 'none', drInit: 0, dsInit: 0 }; // perfil entero a capacidad de campo: el Dr de las aserciones no depende del subsuelo seco
   const d = simulateDays(base);
   assert.equal(d.kc[i], Math.max(kcOnDay(frijol, phF, i), kcOnDay(maiz, phM, i)));
   assert.equal(d.kc[i], kcOnDay(frijol, phF, i));
@@ -89,4 +89,75 @@ test('residueMask: día sin fase con residuo usa cobertura residue y menos escor
   assert.equal(res.cover[1], 'residue');
   assert.equal(res.kc[1], 0.15);
   assert.ok(res.runoff[1] < bare.runoff[1]);
+});
+
+// --- Reserva de agua del subsuelo (Tarea 15) ---
+const sum = (a, from = 0, to = a.length - 1) => { let s = 0; for (let i = from; i <= to; i++) s += a[i]; return s; };
+
+test('subsuelo: sin agua almacenada las raíces no crean agua (sin lluvia ni riego, eta ≈ 0)', () => {
+  const d = simulateDays({ ...same, rain: Array(120).fill(0), et0: Array(120).fill(5), irrigation: 'none' });
+  assert.ok(sum(d.eta, 0, ph.harvestIdx) < 1, `eta total = ${sum(d.eta, 0, ph.harvestIdx)}`);
+});
+
+test('subsuelo: el agua guardada en el subsuelo (dsInit 0) la usan las raíces al crecer', () => {
+  const d = simulateDays({ ...same, rain: Array(120).fill(0), et0: Array(120).fill(5), irrigation: 'none', dsInit: 0 });
+  const grow = d.ks.slice(1, ph.endIdx.dev + 1);
+  assert.ok(Math.max(...grow) > 0.5, `Ks máx = ${Math.max(...grow)}`);
+  assert.ok(sum(d.eta, 0, ph.harvestIdx) > 20);
+});
+
+function lcg(seed) { let s = seed; return () => { s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296; }; }
+
+for (const irrigation of ['none', 'limited', 'full']) {
+  test(`subsuelo: conservación de agua (${irrigation})`, () => {
+    const M = 300;
+    const rnd = lcg(42);
+    const rain = Array.from({ length: M }, () => (rnd() < 0.35 ? rnd() * 60 : 0));
+    const et0 = Array.from({ length: M }, () => 2 + rnd() * 4);
+    const phase = buildPhase(maiz, 20, Array(M).fill(26));
+    const d = simulateDays({ rain, et0, phases: [phase], crops, texture: 'loam', slopeClass: 'moderate', irrigation });
+    const soil = SOILS.loam;
+    const zp = maiz.zrMax;
+    const tawProfile = totalAvailableWater(soil.thetaFC, soil.thetaWP, zp);
+    const dr0 = irrigation === 'full' ? 0 : d.taw[0];
+    const ds0 = irrigation === 'full' ? 0 : totalAvailableWater(soil.thetaFC, soil.thetaWP, zp - d.zr[0]);
+    assert.ok(dr0 + ds0 <= tawProfile + 1e-9);
+    const inflow = sum(rain) - sum(d.runoff) + sum(d.irr);
+    const outflow = sum(d.eta) + sum(d.drainOut);
+    const last = M - 1;
+    const stored0 = dr0 + ds0;
+    const storedEnd = d.dr[last] + d.ds[last];
+    assert.ok(Math.abs((inflow - outflow) - (stored0 - storedEnd)) < 1e-6, `balance = ${(inflow - outflow) - (stored0 - storedEnd)}`);
+  });
+}
+
+test('subsuelo: la percolación profunda recarga el subsuelo antes de salir del perfil', () => {
+  const M = 40;
+  const rain = Array(M).fill(0); rain[3] = 40; rain[4] = 40; rain[5] = 40; rain[6] = 40;
+  const d = simulateDays({ rain, et0: Array(M).fill(0), phases: [buildPhase(maiz, 0, Array(M).fill(26))], crops, texture: 'loam', slopeClass: 'flat', irrigation: 'none' });
+  assert.ok(d.ds[2] > d.ds[6], `ds ${d.ds[2]} -> ${d.ds[6]}`);
+  for (let i = 0; i < M; i++) {
+    if (d.drainOut[i] > 0) assert.ok(d.ds[i] === 0, `drainOut ${d.drainOut[i]} con ds ${d.ds[i]} en ${i}`);
+  }
+});
+
+test('subsuelo: al cosechar las raíces se acortan y dr + ds no salta', () => {
+  const M = 200;
+  const phase = buildPhase(maiz, 0, Array(M).fill(26));
+  const rnd = lcg(7);
+  const rain = Array.from({ length: M }, () => (rnd() < 0.3 ? rnd() * 30 : 0));
+  const et0 = Array(M).fill(3);
+  const d = simulateDays({ rain, et0, phases: [phase], crops, texture: 'loam', slopeClass: 'flat', irrigation: 'none', drInit: 30, dsInit: 20 });
+  const h = phase.harvestIdx + 1;
+  assert.ok(h < M);
+  assert.ok(d.zr[h] < d.zr[h - 1]);
+  const dayFlux = rain[h] - d.runoff[h] - d.eta[h] - d.drainOut[h];
+  const expected = (d.dr[h - 1] + d.ds[h - 1]) - dayFlux;
+  assert.ok(Math.abs((d.dr[h] + d.ds[h]) - expected) < 1e-9, `dr+ds ${d.dr[h] + d.ds[h]} vs ${expected}`);
+});
+
+test('subsuelo: salidas ds, zr y drainOut tienen un valor por día', () => {
+  const d = simulateDays({ ...same, irrigation: 'none' });
+  for (const k of ['ds', 'zr', 'drainOut']) assert.equal(d[k].length, N);
+  assert.equal(d.zr[0], 0.15);
 });
