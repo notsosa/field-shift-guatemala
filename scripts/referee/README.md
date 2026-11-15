@@ -7,7 +7,7 @@ An independent crop model (AquaCrop-OSPy 3.1.0) run on the same daily weather an
 - It tests logic and robustness (year ranking, dynamic range, response to sowing date). It is **not** field truth: AquaCrop runs with its default crop parameters and no local calibration. Do not quote its absolute yields (default maize potential is about 14.5 t/ha).
 - One crop per run: no relay, no intercropping, no cover-crop effect. A rotation becomes separate runs with the water reset.
 - Crops with parameters: `Maize`, `DryBean`, `Sorghum`. There are none for sesame, watermelon or velvet bean.
-- It shares the team's weather and ET0, so input errors are not tested.
+- It shares the team's weather and ET0, so input errors are not tested. Since Task 22 that weather is the NASA POWER cell's temperature moved to the plot's elevation (lapse rate -0.0065 C/m, `temperatureCorrection` in the bundle); AquaCrop reads the corrected `tmax`/`tmin` and the ET0 computed from the corrected bundle. The correction lives in the data layer (`web/js/data/climate.js`), not in `web/js/model/`, so an old model revision scored on the new bundle gives the same numbers as the current one; to see the effect of the correction, compare the artifact before and after regenerating the bundles.
 - Results depend on conventions. Default `initial: 'dry'` = soil at wilting point on 1 April, matching the simulator's dry start. With `'fc'` (field capacity) AquaCrop gives almost the same yield every year, so state the convention whenever you quote a number. Seasons run 1 April to 31 March of the next year.
 
 ## Setup
@@ -26,7 +26,7 @@ node scripts/referee/compare.mjs --aquacrop scripts/referee/out/aquacrop_results
 ```
 About 10 cases x 24 seasons, 5 s per 24-season run per core. `--jobs N` sets the number of worker processes.
 
-Scoring several model revisions against the same AquaCrop run: export each old revision outside the repo (`git archive <rev> web/js/model web/js/data web/data/crops.json | tar -x -C <tmp>`) and pass one repeatable `--stage <label>=<root>` per revision, in the order you want them (`--stage pre-subsoil=<tmp1> --stage subsoil=<tmp2> --stage final=.`). The AquaCrop run and the weather are shared, so only the model differs. The output has `stages: [{label, cases, sowingCurve}]`; a case that a revision cannot take (site soil objects before Task 17) is listed under that stage's `skipped`, and a stage that cannot run is `{label, available: false, reason}`.
+Scoring several model revisions against the same AquaCrop run: export each old revision outside the repo (`git archive <rev> web/js/model web/js/data web/data/crops.json | tar -x -C <tmp>`) and pass one repeatable `--stage <label>=<root>` per revision, in the order you want them (`--stage pre-subsoil=<tmp1> --stage subsoil=<tmp2> --stage final=.`). The AquaCrop run and the weather are shared, so only the model differs. The output has `stages: [{label, cases, sowingCurve}]`; a case that a revision cannot take (site soil objects before Task 17) is listed under that stage's `skipped`, and a stage that cannot run is `{label, available: false, reason}`. An exported old revision that must run the `soil: "site"` case also needs `scripts/emulator/points.json` in its root (the pilot soils are read from there).
 
 The simulator's `relYield` is on a 0-1 scale relative to no water stress: the product of the stage factors `1 - Ky_i (1 - ETa_i/ETm_i)` for maize and beans, the seasonal Ky formula for the other crops. It is not a yield in t/ha.
 

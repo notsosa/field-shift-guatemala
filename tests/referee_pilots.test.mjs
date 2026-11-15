@@ -82,10 +82,10 @@ test('referee_aquacrop.json: the four-product block adds IMERG_LATE (dataset 226
   assert.deepEqual(Object.keys(sc.vsAquacrop), ['ERA5', 'CHIRPS']); // neither IMERG series is gap-free over the 24 years
   assert.equal(sc.nYears, 24);
   for (const p of Object.values(sc.excludedYears)) assert.deepEqual(p, []);
-  // the original three-product numbers are unchanged (checked against the values published before IMERG_LATE existed)
+  // The rain numbers (years, mean rain) are the ones published before IMERG_LATE existed; the Spearman moved from 0.8462 to 0.8865 in Task 22 because the weather files now carry the temperature at the plot's elevation.
   assert.equal(artifact.rainSensitivity.nYears, 22);
   assert.deepEqual(artifact.rainSensitivity.meanRainMm, { ERA5: 1098.9, IMERG: 1164.1, CHIRPS: 1307.9 });
-  assert.equal(artifact.rainSensitivity.vsAquacrop.ERA5.spearman, 0.8462);
+  assert.equal(artifact.rainSensitivity.vsAquacrop.ERA5.spearman, 0.8865);
 });
 
 test('requireYields: a missing AquaCrop yield fails loudly naming the case and years instead of giving NaN later', () => {
