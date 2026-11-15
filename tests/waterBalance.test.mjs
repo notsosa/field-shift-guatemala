@@ -161,3 +161,24 @@ test('subsuelo: salidas ds, zr y drainOut tienen un valor por día', () => {
   for (const k of ['ds', 'zr', 'drainOut']) assert.equal(d[k].length, N);
   assert.equal(d.zr[0], 0.15);
 });
+
+test('simulateDays con objeto de suelo == con la clase equivalente cuando theta y CN coinciden', () => {
+  const rain = Array.from({ length: N }, (_, i) => (i % 9 === 0 ? 22 : 0));
+  const args = { ...same, rain, irrigation: 'none', slopeClass: 'moderate' };
+  const asKey = simulateDays({ ...args, texture: 'loam' });
+  const asObject = simulateDays({ ...args, texture: { ...SOILS.loam, label: 'equivalent loam' } });
+  assert.deepEqual(asObject, asKey);
+  assert.ok(asKey.runoff.some((r) => r > 0));
+});
+test('simulateDays con suelo propio usa su theta y su CN', () => {
+  const rain = Array.from({ length: N }, (_, i) => (i % 9 === 0 ? 22 : 0));
+  const site = { thetaFC: 0.34, thetaWP: 0.19, cn: { crop: 89, residue: 87, bare: 94 }, label: 'site', source: 'test fixture' };
+  const d = simulateDays({ ...same, rain, texture: site, irrigation: 'none', slopeClass: 'moderate' });
+  assert.ok(Math.abs(d.taw[0] - totalAvailableWater(0.34, 0.19, 0.15)) < 1e-9);
+  const cn89 = simulateDays({ ...same, rain, texture: 'clay', irrigation: 'none', slopeClass: 'moderate' });
+  assert.deepEqual(d.runoff, cn89.runoff);
+});
+test('simulateDays: suelo de forma desconocida lanza error', () => {
+  assert.throws(() => simulateDays({ ...same, irrigation: 'none', texture: { thetaFC: 0.3 } }), /suelo/i);
+  assert.throws(() => simulateDays({ ...same, irrigation: 'none', texture: 42 }), /suelo|Textura/i);
+});

@@ -110,12 +110,19 @@ async function loadSimulator(root) {
   const { computeEt0Series, runSequence } = await import(url('web/js/model/simulate.js'));
   const { loadCrops } = await import(url('web/js/model/crops.js'));
   const crops = loadCrops(JSON.parse(fs.readFileSync(path.join(root, 'web/data/crops.json'), 'utf8')));
-  return { computeEt0Series, runSequence, crops };
+  return { computeEt0Series, runSequence, crops, pilotSoils: pilotSoils(root) };
+}
+
+// Cases from resolve_site_cases.mjs carry `site`: the simulator runs with that pilot's soil object, AquaCrop with the same thetaFC/thetaWP.
+function pilotSoils(root) {
+  const file = path.join(root, 'scripts/emulator/points.json');
+  if (!fs.existsSync(file)) return new Map();
+  return new Map(JSON.parse(fs.readFileSync(file, 'utf8')).filter((p) => p.soil).map((p) => [p.id, p.soil]));
 }
 
 function simulate(sim, bundle, et0, c) {
   const cropId = CROP_IDS[c.crop];
-  const texture = typeof c.soil === 'string' ? SOIL_TEXTURES[c.soil] : null;
+  const texture = c.site ? sim.pilotSoils.get(c.site) : (typeof c.soil === 'string' ? SOIL_TEXTURES[c.soil] : null);
   if (!cropId || !texture) throw new Error(`case ${c.id}: simulator mapping not available for crop ${c.crop} / soil ${JSON.stringify(c.soil)}`);
   const sequence = { id: c.id, name: { en: c.id, es: c.id }, phases: [{ cropId, sow: c.sowDate }], requiresIrrigation: false };
   return sim.runSequence({ sequence, bundle, et0, crops: sim.crops, texture, slopeClass: 'flat', irrigation: 'none' })
@@ -182,7 +189,7 @@ async function main(argv) {
       aquacropConvention: aq.convention,
       initialCondition: [...new Set(aq.cases.map((c) => c.initial))].join(','),
       soil: [...new Set(aq.cases.map((c) => JSON.stringify(c.soil)))].map((s) => JSON.parse(s)),
-      simulatorSetup: 'texture loam, flat slope, rainfed, dry start on 1 April, single crop with fixed sowing date',
+      simulatorSetup: 'texture loam (cases with a site field: the SoilGrids soil of that pilot, same thetaFC/thetaWP as AquaCrop), flat slope, rainfed, dry start on 1 April, single crop with fixed sowing date',
       note: 'AquaCrop uses default crop parameters (no local calibration): this tests logic and robustness, not field truth. Do not quote AquaCrop absolute yields. AquaCrop relYield = yield / max over the case years.',
     },
   };

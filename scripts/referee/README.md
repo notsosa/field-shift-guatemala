@@ -19,7 +19,8 @@ python -m venv .venv-referee
 ## Run
 ```
 node scripts/referee/export_weather.mjs --bundle web/data/snapshots/chiquimula.json --out scripts/referee/out/weather_chiquimula
-.venv-referee/Scripts/python scripts/referee/aquacrop_referee.py --weather scripts/referee/out/weather_chiquimula.txt --cases scripts/referee/cases_chiquimula.json --out scripts/referee/out/aquacrop_results.json
+node scripts/referee/resolve_site_cases.mjs --cases scripts/referee/cases_chiquimula.json --out scripts/referee/out/cases_resolved.json
+.venv-referee/Scripts/python scripts/referee/aquacrop_referee.py --weather scripts/referee/out/weather_chiquimula.txt --cases scripts/referee/out/cases_resolved.json --out scripts/referee/out/aquacrop_results.json
 node scripts/referee/compare.mjs --aquacrop scripts/referee/out/aquacrop_results.json --bundle web/data/snapshots/chiquimula.json --out web/data/referee_aquacrop.json
 ```
 About 10 cases x 24 seasons, 5 s per 24-season run per core. `--jobs N` sets the number of worker processes.
@@ -29,7 +30,7 @@ Before/after for a model change: export the old model next to the repo (`git arc
 `web/data/referee_aquacrop.json` holds, per case: Spearman of AquaCrop vs simulator `relYield`, overlap of the 5 worst years, ranks (1 = worst) of 2014/2015/2018/2019, CV of both indices, number of simulator years at exactly 1.0, and the per-year table. It also holds the maize sowing-date curve (median and mean of both models).
 
 ## Case format
-`cases.json` is `{"cases": [...]}` or a bare list. A case: `{id, crop: 'Maize'|'DryBean'|'Sorghum', sowDate: 'MM-DD', years: [2001, ...] or "2001-2024", soil: 'Loam' | {thetaFC, thetaWP, thetaSat?, ksat?}, initial: 'dry'|'fc'}`. Extra fields (such as `group`) pass through. `compare.mjs` maps `Maize/DryBean/Sorghum` to `maiz/frijol/sorgo` and `Loam/Sand/Clay` to the simulator textures; object soils run in AquaCrop only.
+`cases.json` is `{"cases": [...]}` or a bare list. A case: `{id, crop: 'Maize'|'DryBean'|'Sorghum', sowDate: 'MM-DD', years: [2001, ...] or "2001-2024", soil: 'Loam' | {thetaFC, thetaWP, thetaSat?, ksat?}, initial: 'dry'|'fc'}`. Extra fields (such as `group`) pass through. `compare.mjs` maps `Maize/DryBean/Sorghum` to `maiz/frijol/sorgo` and `Loam/Sand/Clay` to the simulator textures; object soils run in AquaCrop only, except `soil: "site"` with `"site": "<pilot id>"`: run `node scripts/referee/resolve_site_cases.mjs --cases <cases.json> --out scripts/referee/out/cases_resolved.json` first and give the resolved file to `aquacrop_referee.py`; AquaCrop then uses a custom soil with the pilot's SoilGrids thetaFC/thetaWP and `compare.mjs` runs the simulator with the pilot's full soil object from `scripts/emulator/points.json` (CN included).
 
 ## Protocol (3 levels)
 1. **Emulator fidelity**: emulator vs the JS simulator on held-out years and sowing offsets (R2, MAE of `relYield`, rank correlation, error by sowing date). It shows only that the network reproduces the simulator, shortcuts included.

@@ -56,3 +56,24 @@ test('caseMetrics assembles the agreement numbers', () => {
   assert.deepEqual(m.droughtRanks[2018], { aquacrop: 4, simulator: 4 });
   assert.equal(m.droughtRanks[2013], undefined);
 });
+
+import { resolveSiteCases } from '../scripts/referee/resolve_site_cases.mjs';
+
+test('resolveSiteCases: soil "site" becomes the pilot theta pair for AquaCrop and keeps the site id for the simulator', () => {
+  const points = [{ id: 'chiquimula', soil: { thetaFC: 0.3296, thetaWP: 0.1795, label: 'x', source: 's', cn: { crop: 89, residue: 87, bare: 94 } } }, { id: 'zacapa' }];
+  const cases = [
+    { id: 'a', crop: 'Maize', sowDate: '05-20', years: '2001-2024', soil: 'Loam', initial: 'dry' },
+    { id: 'a_site', crop: 'Maize', sowDate: '05-20', years: '2001-2024', soil: 'site', site: 'chiquimula', initial: 'dry' },
+  ];
+  const out = resolveSiteCases(cases, points);
+  assert.deepEqual(out[0], cases[0]);
+  assert.deepEqual(out[1].soil, { thetaFC: 0.3296, thetaWP: 0.1795 });
+  assert.equal(out[1].site, 'chiquimula');
+  assert.equal(cases[1].soil, 'site'); // the input is not mutated
+});
+
+test('resolveSiteCases: a pilot without soil, or a site case without site, throws', () => {
+  const points = [{ id: 'zacapa' }];
+  assert.throws(() => resolveSiteCases([{ id: 'b', soil: 'site', site: 'zacapa' }], points), /zacapa/);
+  assert.throws(() => resolveSiteCases([{ id: 'c', soil: 'site' }], points), /site/);
+});

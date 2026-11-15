@@ -1,5 +1,5 @@
 // Balance hídrico diario en la zona radicular (FAO-56 ecs. 84-85). Unidades: mm, m.
-import { SOILS, totalAvailableWater, scsRunoff, curveNumber } from './soil.js';
+import { resolveSoil, totalAvailableWater, scsRunoff, curveNumber } from './soil.js';
 import { kcOnDay } from './phenology.js';
 
 const BARE_KC = 0.15;
@@ -29,6 +29,7 @@ function rootDepth(crop, phase, idx) {
 }
 
 /**
+ * `texture` = clave de SOILS o un objeto de suelo {thetaFC, thetaWP, cn, source} (ver resolveSoil).
  * Simula el balance diario. Fases activas el día i: sowIdx ≤ i ≤ harvestIdx.
  * Kc y Zr = máximo de las activas; p = el del cultivo activo con mayor Kc ese día.
  * residueMask (opcional): día sin fase activa con residuo de abono verde → cobertura 'residue' (CN menor; Kc sigue 0.15).
@@ -47,8 +48,7 @@ function rootDepth(crop, phase, idx) {
  */
 export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, irrigation, drInit, dsInit, residueMask }) {
   if (!IRRIGATION_MODES.includes(irrigation)) throw new Error(`Riego desconocido: ${irrigation}`);
-  const soil = SOILS[texture];
-  if (!soil) throw new Error(`Textura desconocida: ${texture}`);
+  const soil = resolveSoil(texture); // clave 'sand'|'loam'|'clay' u objeto de suelo
   const n = rain.length;
   const last = n - 1;
   const tawOf = (zr) => totalAvailableWater(soil.thetaFC, soil.thetaWP, zr);
