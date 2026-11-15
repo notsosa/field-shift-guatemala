@@ -3,7 +3,7 @@
 // (longest run of days < 1 mm between 1 Jul and 31 Aug). A year with any missing day has null figures.
 // Uso: node scripts/data/build_rain_compare.mjs
 import { readFileSync, writeFileSync } from 'node:fs';
-import { compareSources } from '../../web/js/data/rainCompare.js';
+import { compareSources, coverageOf } from '../../web/js/data/rainCompare.js';
 
 const here = (p) => new URL(p, import.meta.url);
 const PILOTS = ['chiquimula', 'jutiapa', 'sanmartin'];
@@ -28,6 +28,7 @@ for (const id of PILOTS) {
     withoutImergLate: ['ERA5', 'IMERG', 'CHIRPS', 'POWER'],
     withoutImerg: ['ERA5', 'CHIRPS', 'POWER', 'IMERG_LATE'],
   });
+  for (const [name, s] of Object.entries(sources)) s.coverage = coverageOf(b.dates, b.rainAlt[name]); // from the snapshot's rainAlt, no gap filled
   out.pilots[id] = { name: meta.name, lat: meta.lat, lon: meta.lon, modelRainSource: b.rainSource, sources, common, commonSets };
 }
 writeFileSync(here('../../web/data/rain_compare.json'), JSON.stringify(out, null, 1) + '\n');

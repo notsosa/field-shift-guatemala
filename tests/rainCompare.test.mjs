@@ -1,5 +1,5 @@
 import test from 'node:test'; import assert from 'node:assert/strict';
-import { annualRainStats, compareSources } from '../web/js/data/rainCompare.js';
+import { annualRainStats, compareSources, coverageOf } from '../web/js/data/rainCompare.js';
 
 function isoRange(start, n) {
   const out = []; const t = new Date(start + 'T00:00:00Z');
@@ -82,4 +82,19 @@ test('rain_compare.json: IMERG_LATE (dataset 226) is in every pilot, with the th
     assert.ok(!p.common.years.includes(2014) && !p.common.years.includes(2023), id);
   }
   assert.equal(j.pilots.chiquimula.commonSets.withoutImergLate.meanAnnualMm.ERA5, 1098.9);
+});
+
+test('coverageOf: primer/ultimo dia con dato, dias sin dato y sus rangos, y total del anio calendario solo si esta completo (a mano)', () => {
+  const ds = isoRange('2024-12-25', 7 + 365); // 25 dic 2024 .. 31 dic 2025 (2025 completo en fechas)
+  const rain = ds.map(() => 1);
+  rain[0] = null; rain[1] = null;                       // 25-26 dic 2024
+  const a = coverageOf(ds, rain, 2025);
+  assert.equal(a.first, '2024-12-27'); assert.equal(a.last, '2025-12-31');
+  assert.equal(a.missingDays, 2); assert.deepEqual(a.missingRanges, [['2024-12-25', '2024-12-26']]);
+  assert.equal(a.calendarYearTotalMm, 365);             // 365 dias de 1 mm
+  const g = rain.slice(); g[10] = null; g[40] = null; g[41] = null; // 4 ene 2025, 3-4 feb 2025
+  const b = coverageOf(ds, g, 2025);
+  assert.deepEqual(b.missingRanges, [['2024-12-25', '2024-12-26'], ['2025-01-04', '2025-01-04'], ['2025-02-03', '2025-02-04']]);
+  assert.equal(b.missingDays, 5); assert.equal(b.calendarYearTotalMm, null);  // 2025 tiene huecos: sin total
+  assert.equal(coverageOf(ds.slice(0, 100), rain.slice(0, 100), 2025).calendarYearTotalMm, null); // 2025 incompleto en fechas
 });

@@ -147,7 +147,15 @@
      "meanAnnualMm": 1094.9,
      "meanMayOctMm": 983.5,
      "meanCaniculaDays": 4.4,
-     "validYears": 24
+     "validYears": 24,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 0,
+      "missingRanges": [],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 1020.5
+     }
     },
     "IMERG": {
      "label": "ClimateSERV dataset 26, \"NASA-IMERG-V06-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
@@ -258,7 +266,24 @@
      "meanAnnualMm": 1164.1,
      "meanMayOctMm": 1049,
      "meanCaniculaDays": 7.7,
-     "validYears": 22
+     "validYears": 22,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2024-06-01",
+      "missingDays": 579,
+      "missingRanges": [
+       [
+        "2019-06-30",
+        "2019-06-30"
+       ],
+       [
+        "2024-06-02",
+        "2025-12-31"
+       ]
+      ],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": null
+     }
     },
     "CHIRPS": {
      "label": "CHIRPS v2.0 via ClimateSERV (box ±0.03°)",
@@ -369,7 +394,15 @@
      "meanAnnualMm": 1297.4,
      "meanMayOctMm": 1205.9,
      "meanCaniculaDays": 6.3,
-     "validYears": 24
+     "validYears": 24,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 0,
+      "missingRanges": [],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 1299.9
+     }
     },
     "IMERG_LATE": {
      "label": "ClimateSERV dataset 226, \"NASA-IMERG-V07-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
@@ -480,7 +513,28 @@
      "meanAnnualMm": 1565.9,
      "meanMayOctMm": 1421.2,
      "meanCaniculaDays": 6.6,
-     "validYears": 21
+     "validYears": 21,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 40,
+      "missingRanges": [
+       [
+        "2014-06-01",
+        "2014-06-07"
+       ],
+       [
+        "2023-12-31",
+        "2024-01-01"
+       ],
+       [
+        "2024-05-01",
+        "2024-05-31"
+       ]
+      ],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 2389
+     }
     },
     "POWER": {
      "label": "NASA POWER PRECTOTCORR (MERRA-2 corrected; comparison only, never used by the model)",
@@ -591,7 +645,15 @@
      "meanAnnualMm": 1543.5,
      "meanMayOctMm": 1132.4,
      "meanCaniculaDays": 3.5,
-     "validYears": 24
+     "validYears": 24,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 0,
+      "missingRanges": [],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 910.6
+     }
     }
    },
    "common": {
@@ -856,7 +918,15 @@
      "meanAnnualMm": 1092.9,
      "meanMayOctMm": 1014,
      "meanCaniculaDays": 5.5,
-     "validYears": 24
+     "validYears": 24,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 0,
+      "missingRanges": [],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 1001.7
+     }
     },
     "IMERG": {
      "label": "ClimateSERV dataset 26, \"NASA-IMERG-V06-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
@@ -967,7 +1037,24 @@
      "meanAnnualMm": 1313.1,
      "meanMayOctMm": 1195.7,
      "meanCaniculaDays": 5.4,
-     "validYears": 22
+     "validYears": 22,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2024-06-01",
+      "missingDays": 579,
+      "missingRanges": [
+       [
+        "2019-06-30",
+        "2019-06-30"
+       ],
+       [
+        "2024-06-02",
+        "2025-12-31"
+       ]
+      ],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": null
+     }
     },
     "CHIRPS": {
      "label": "CHIRPS v2.0 via ClimateSERV (box ±0.03°)",
@@ -1078,7 +1165,15 @@
      "meanAnnualMm": 1313,
      "meanMayOctMm": 1242.6,
      "meanCaniculaDays": 4.5,
-     "validYears": 24
+     "validYears": 24,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 0,
+      "missingRanges": [],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 1329.1
+     }
     },
     "IMERG_LATE": {
      "label": "ClimateSERV dataset 226, \"NASA-IMERG-V07-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
@@ -1189,7 +1284,28 @@
      "meanAnnualMm": 1507.9,
      "meanMayOctMm": 1389.8,
      "meanCaniculaDays": 4.4,
-     "validYears": 21
+     "validYears": 21,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 40,
+      "missingRanges": [
+       [
+        "2014-06-01",
+        "2014-06-07"
+       ],
+       [
+        "2023-12-31",
+        "2024-01-01"
+       ],
+       [
+        "2024-05-01",
+        "2024-05-31"
+       ]
+      ],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 2241.2
+     }
     },
     "POWER": {
      "label": "NASA POWER PRECTOTCORR (MERRA-2 corrected; comparison only, never used by the model)",
@@ -1300,7 +1416,15 @@
      "meanAnnualMm": 1250.4,
      "meanMayOctMm": 1080.1,
      "meanCaniculaDays": 3.4,
-     "validYears": 24
+     "validYears": 24,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 0,
+      "missingRanges": [],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 1243.9
+     }
     }
    },
    "common": {
@@ -1565,7 +1689,15 @@
      "meanAnnualMm": 1101.6,
      "meanMayOctMm": 972.8,
      "meanCaniculaDays": 5.4,
-     "validYears": 24
+     "validYears": 24,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 0,
+      "missingRanges": [],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 970.6
+     }
     },
     "IMERG": {
      "label": "ClimateSERV dataset 26, \"NASA-IMERG-V06-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
@@ -1676,7 +1808,24 @@
      "meanAnnualMm": 1224.5,
      "meanMayOctMm": 1026.9,
      "meanCaniculaDays": 5.7,
-     "validYears": 22
+     "validYears": 22,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2024-06-01",
+      "missingDays": 579,
+      "missingRanges": [
+       [
+        "2019-06-30",
+        "2019-06-30"
+       ],
+       [
+        "2024-06-02",
+        "2025-12-31"
+       ]
+      ],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": null
+     }
     },
     "CHIRPS": {
      "label": "CHIRPS v2.0 via ClimateSERV (box ±0.03°)",
@@ -1787,7 +1936,15 @@
      "meanAnnualMm": 1154.5,
      "meanMayOctMm": 1075.6,
      "meanCaniculaDays": 6.5,
-     "validYears": 24
+     "validYears": 24,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 0,
+      "missingRanges": [],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 969.5
+     }
     },
     "IMERG_LATE": {
      "label": "ClimateSERV dataset 226, \"NASA-IMERG-V07-Late 1 Day\" per the ClimateSERV documentation (box ±0.03°)",
@@ -1898,7 +2055,28 @@
      "meanAnnualMm": 1701.9,
      "meanMayOctMm": 1468.3,
      "meanCaniculaDays": 4.7,
-     "validYears": 21
+     "validYears": 21,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 40,
+      "missingRanges": [
+       [
+        "2014-06-01",
+        "2014-06-07"
+       ],
+       [
+        "2023-12-31",
+        "2024-01-01"
+       ],
+       [
+        "2024-05-01",
+        "2024-05-31"
+       ]
+      ],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 1536.4
+     }
     },
     "POWER": {
      "label": "NASA POWER PRECTOTCORR (MERRA-2 corrected; comparison only, never used by the model)",
@@ -2009,7 +2187,15 @@
      "meanAnnualMm": 1413.4,
      "meanMayOctMm": 1234.1,
      "meanCaniculaDays": 3,
-     "validYears": 24
+     "validYears": 24,
+     "coverage": {
+      "first": "2001-01-01",
+      "last": "2025-12-31",
+      "missingDays": 0,
+      "missingRanges": [],
+      "calendarYear": 2025,
+      "calendarYearTotalMm": 1861
+     }
     }
    },
    "common": {

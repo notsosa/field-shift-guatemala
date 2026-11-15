@@ -83,3 +83,29 @@ export function compareSources(dates, rainAlt, years, labels = {}, sets = {}) {
   const commonSets = Object.fromEntries(Object.entries(sets).map(([k, names]) => [k, commonOf(names)]));
   return { sources, common, commonSets };
 }
+
+const addDay = (iso, n) => new Date(Date.parse(`${iso}T00:00:00Z`) + n * 86400000).toISOString().slice(0, 10);
+
+/**
+ * Cobertura de una serie alineada con `dates` (día sin dato = null): primer y último día con valor, días sin dato,
+ * rangos consecutivos de días sin dato y total (mm) del año calendario `year` si ese año está completo (todas sus
+ * fechas presentes y con valor), si no null. No rellena nada.
+ * @returns {{first:string|null,last:string|null,missingDays:number,missingRanges:string[][],calendarYear:number,calendarYearTotalMm:number|null}}
+ */
+export function coverageOf(dates, rain, year = 2025) {
+  let first = null; let last = null; let missingDays = 0;
+  const missingRanges = [];
+  let total = 0; let yearDays = 0; let yearGap = false;
+  dates.forEach((d, i) => {
+    const v = rain[i];
+    if (v == null) {
+      missingDays++;
+      const open = missingRanges.at(-1);
+      if (open && addDay(open[1], 1) === d) open[1] = d; else missingRanges.push([d, d]);
+    } else { first ??= d; last = d; }
+    if (Number(d.slice(0, 4)) === year) { yearDays++; if (v == null) yearGap = true; else total += v; }
+  });
+  const expected = (Date.UTC(year + 1, 0, 1) - Date.UTC(year, 0, 1)) / 86400000;
+  const complete = yearDays === expected && !yearGap;
+  return { first, last, missingDays, missingRanges, calendarYear: year, calendarYearTotalMm: complete ? Math.round(total * 10) / 10 : null };
+}
