@@ -14,26 +14,46 @@ const tiposPlagaPorCultivo = <String, List<TipoPlaga>>{
   ...plagasInvestigacion,
   'cafe': [
     TipoPlaga('roya', 'Roya', 'Rust', origen: OrigenPlaga.caficultor),
-    TipoPlaga('minador', 'Minador', 'Leaf miner', origen: OrigenPlaga.caficultor),
-    TipoPlaga('antracnosis', 'Antracnosis', 'Anthracnose', origen: OrigenPlaga.caficultor),
+    TipoPlaga(
+      'minador',
+      'Minador',
+      'Leaf miner',
+      origen: OrigenPlaga.caficultor,
+    ),
+    TipoPlaga(
+      'antracnosis',
+      'Antracnosis',
+      'Anthracnose',
+      origen: OrigenPlaga.caficultor,
+    ),
     otraPlaga,
   ],
 };
 
 /// Ids de los tipos de plaga de un cultivo; los que no tienen lista propia solo
 /// ofrecen 'otra'.
-List<String> tiposPlaga(String cultivoId) =>
-    [for (final t in tiposPlagaPorCultivo[cultivoId] ?? const [otraPlaga]) t.id];
+List<String> tiposPlaga(String cultivoId) => [
+  for (final t in tiposPlagaPorCultivo[cultivoId] ?? const [otraPlaga]) t.id,
+];
 
 /// Los tipos de plaga de un cultivo, con nombres y registros.
-List<TipoPlaga> tiposPlagaDe(String cultivoId) => tiposPlagaPorCultivo[cultivoId] ?? const [otraPlaga];
+List<TipoPlaga> tiposPlagaDe(String cultivoId) =>
+    tiposPlagaPorCultivo[cultivoId] ?? const [otraPlaga];
 
 /// Verdadero si el equipo aún no tiene una lista de plagas para este cultivo.
-bool sinRegistroConfirmado(String cultivoId) => !tiposPlagaPorCultivo.containsKey(cultivoId);
+bool sinRegistroConfirmado(String cultivoId) =>
+    !tiposPlagaPorCultivo.containsKey(cultivoId);
+
+/// Cobertura documental de un cultivo sin registros confirmados; nulo si no hay.
+CoberturaPlaga? coberturaDocumental(String cultivoId) =>
+    plagasCobertura[cultivoId];
 
 /// Busca un tipo de plaga por id en todas las listas; nulo si no existe.
 TipoPlaga? tipoPlagaPorId(String id) {
-  for (final lista in [...tiposPlagaPorCultivo.values, const [otraPlaga]]) {
+  for (final lista in [
+    ...tiposPlagaPorCultivo.values,
+    const [otraPlaga],
+  ]) {
     for (final t in lista) {
       if (t.id == id) return t;
     }

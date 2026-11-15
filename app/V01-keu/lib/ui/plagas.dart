@@ -94,7 +94,9 @@ class ListaPlagas extends StatelessWidget {
                           ? CupertinoIcons.checkmark_circle_fill
                           : CupertinoIcons.circle,
                       size: 24,
-                      color: elegido ? verde : Paleta.de(context, Paleta.secundario),
+                      color: elegido
+                          ? verde
+                          : Paleta.de(context, Paleta.secundario),
                     ),
                     const SizedBox(width: 14),
                     Expanded(
@@ -167,7 +169,7 @@ class ListaPlagas extends StatelessWidget {
                   hayRegistros
                       ? t.notaRegistroNoPresencia
                       : (sinRegistroConfirmado(cultivoId)
-                            ? t.sinRegistroLocal
+                            ? t.sinRegistroLocal(coberturaDocumental(cultivoId))
                             : t.notaListaCaficultor),
                   style: Texto.nota(context),
                 ),

@@ -1,6 +1,8 @@
 {
   "_nota": "Traducción al inglés, hecha a mano, de los textos de plagas_confirmadas.json. Una entrada por id de registro. Los nombres de taxón no se traducen. Si un registro nuevo no tiene entrada aquí, el generador deja el texto en español y lo avisa.",
-  "etapa": { "campo": "field" },
+  "etapa": {
+    "campo": "field"
+  },
   "registros": {
     "maiz-06": {
       "nombre": "Maize mite",
@@ -20,14 +22,14 @@
       "nombre": "Leaf miner fly",
       "danio": "Leaf mines",
       "lugar": "Guatemala department",
-      "periodo": "1997",
+      "periodo": "Sampling described in 1996; published 1997",
       "limite": "Historical taxonomic record on Phaseolus vulgaris; Guatemala department. The name from the identification of that time is kept."
     },
     "frijol-20": {
       "nombre": "Leaf miner fly",
       "danio": "Leaf mines",
       "lugar": "Guatemala department",
-      "periodo": "1997",
+      "periodo": "Sampling described in 1996; published 1997",
       "limite": "Historical record on Phaseolus vulgaris; name used in the article, without current molecular review."
     },
     "cebolla-01": {
@@ -41,7 +43,7 @@
       "nombre": "Leaf miner fly",
       "danio": "Leaf mines",
       "lugar": "Chimaltenango (2000 trial); Chimaltenango, Sololá and Quetzaltenango (UVG table, 1997)",
-      "periodo": "1997 and 2000",
+      "periodo": "UVG sampling described in 1996, published 1997; ICTA trial 2000",
       "limite": "Two local sources: a historical UVG identification and an ICTA/JICA trial. One crop–taxon relationship, without duplicating records."
     },
     "brocoli-01": {
@@ -62,7 +64,7 @@
       "nombre": "Leaf miner fly",
       "danio": "Leaf mines",
       "lugar": "Chimaltenango",
-      "periodo": "1997",
+      "periodo": "Sampling described in 1996; published 1997",
       "limite": "Historical record; name from the identification of that time. Original table inspected visually."
     },
     "lechuga-01": {
@@ -83,8 +85,17 @@
       "nombre": "Leaf miner fly",
       "danio": "Leaf mines",
       "lugar": "Chimaltenango",
-      "periodo": "1997",
+      "periodo": "Sampling described in 1996; published 1997",
       "limite": "Historical record with taxonomic identification; it does not show current frequency or presence in Chiquimula."
+    }
+  },
+  "cobertura": {
+    "interpretacion": "Potato and sesame have documented pests. Their omission from this table does not mean an absence of pests or zero risk.",
+    "tipos": {
+      "guías ICTA": "ICTA guides",
+      "reporte mixto": "mixed report",
+      "reportes de productores": "producer reports",
+      "inventario histórico": "historical inventory"
     }
   }
 }

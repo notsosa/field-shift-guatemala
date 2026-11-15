@@ -1,20 +1,20 @@
 // GENERADO por tool/generar_plagas.dart. No editar a mano: edita la investigación y regenera.
 // Fuente: investigacion/plagas-7-cultivos-guatemala/confirmadas/ del repositorio del equipo,
-// commit b56e052, revisión 2026-11-15.
+// commit f978adc, revisión 2026-11-15.
 library;
 
 import '../plagas_tipos.dart';
 
 /// Commit del repositorio del equipo del que salen estos datos.
-const plagasFuenteCommit = 'b56e052';
+const plagasFuenteCommit = 'f978adc';
 
 /// Fecha de revisión de la investigación.
 const plagasFechaRevision = '2026-11-15';
 
 /// SHA-256 de los archivos de la investigación (según su verificacion.json).
 const plagasFuenteSha256 = <String, String>{
-  'plagas_confirmadas.json': '7a6efabc33c6e547a763fbc6192cf03534094f2beb65ca4211225d3d9654ccb9',
-  'fuentes.json': 'd47e382060320b9801d5d50a7ae5c6f224187476f98fa1dfd7e8e6cd97126455',
+  'plagas_confirmadas.json': 'd6b77c1a07f4908d7b877fe1b1d9381bd33b46005a06c6406cb1c0361b1944fd',
+  'fuentes.json': '78d47f8e9972342d488a5599aeceddad3e84437ee279836aee978ede12676af4',
 };
 
 const _s05 = FuentePlaga(
@@ -141,7 +141,7 @@ const plagasInvestigacion = <String, List<TipoPlaga>>{
           danio: TextoBi('Minas foliares', 'Leaf mines'),
           etapa: TextoBi('campo', 'field'),
           lugar: TextoBi('Departamento de Guatemala', 'Guatemala department'),
-          periodo: TextoBi('1997', '1997'),
+          periodo: TextoBi('Muestreo descrito en 1996; publicación 1997', 'Sampling described in 1996; published 1997'),
           limite: TextoBi('Registro taxonómico histórico en Phaseolus vulgaris; departamento de Guatemala. Se conserva el nombre de la identificación de la época.', 'Historical taxonomic record on Phaseolus vulgaris; Guatemala department. The name from the identification of that time is kept.'),
           referencias: [
             ReferenciaPlaga(_s20, 'p.13 y Cuadro 1, p.14/PDF 5'),
@@ -154,7 +154,7 @@ const plagasInvestigacion = <String, List<TipoPlaga>>{
           danio: TextoBi('Minas foliares', 'Leaf mines'),
           etapa: TextoBi('campo', 'field'),
           lugar: TextoBi('Departamento de Guatemala', 'Guatemala department'),
-          periodo: TextoBi('1997', '1997'),
+          periodo: TextoBi('Muestreo descrito en 1996; publicación 1997', 'Sampling described in 1996; published 1997'),
           limite: TextoBi('Registro histórico en Phaseolus vulgaris; nombre usado en el artículo, sin revisión molecular actual.', 'Historical record on Phaseolus vulgaris; name used in the article, without current molecular review.'),
           referencias: [
             ReferenciaPlaga(_s20, 'Cuadro 2, p.14/PDF 5, bloqueC'),
@@ -193,7 +193,7 @@ const plagasInvestigacion = <String, List<TipoPlaga>>{
           danio: TextoBi('Minas foliares', 'Leaf mines'),
           etapa: TextoBi('campo', 'field'),
           lugar: TextoBi('Chimaltenango (ensayo 2000); Chimaltenango, Sololá y Quetzaltenango (tablaUVG 1997)', 'Chimaltenango (2000 trial); Chimaltenango, Sololá and Quetzaltenango (UVG table, 1997)'),
-          periodo: TextoBi('1997 y 2000', '1997 and 2000'),
+          periodo: TextoBi('Muestreo UVG descrito en 1996, publicación 1997; ensayo ICTA 2000', 'UVG sampling described in 1996, published 1997; ICTA trial 2000'),
           limite: TextoBi('Dos fuentes locales: identificación histórica UVG y ensayo ICTA/JICA. Una relación cultivo–taxón, sin duplicar registros.', 'Two local sources: a historical UVG identification and an ICTA/JICA trial. One crop–taxon relationship, without duplicating records.'),
           referencias: [
             ReferenciaPlaga(_s16, 'pp.34–35/PDF 39–40'),
@@ -251,7 +251,7 @@ const plagasInvestigacion = <String, List<TipoPlaga>>{
           danio: TextoBi('Minas foliares', 'Leaf mines'),
           etapa: TextoBi('campo', 'field'),
           lugar: TextoBi('Chimaltenango', 'Chimaltenango'),
-          periodo: TextoBi('1997', '1997'),
+          periodo: TextoBi('Muestreo descrito en 1996; publicación 1997', 'Sampling described in 1996; published 1997'),
           limite: TextoBi('Registro histórico; nombre de la identificación de la época. Tabla original inspeccionada visualmente.', 'Historical record; name from the identification of that time. Original table inspected visually.'),
           referencias: [
             ReferenciaPlaga(_s20, 'p.13 y Cuadro 1, p.14/PDF 5'),
@@ -308,7 +308,7 @@ const plagasInvestigacion = <String, List<TipoPlaga>>{
           danio: TextoBi('Minas foliares', 'Leaf mines'),
           etapa: TextoBi('campo', 'field'),
           lugar: TextoBi('Chimaltenango', 'Chimaltenango'),
-          periodo: TextoBi('1997', '1997'),
+          periodo: TextoBi('Muestreo descrito en 1996; publicación 1997', 'Sampling described in 1996; published 1997'),
           limite: TextoBi('Registro histórico con identificación taxonómica; no demuestra frecuencia actual ni presencia en Chiquimula.', 'Historical record with taxonomic identification; it does not show current frequency or presence in Chiquimula.'),
           referencias: [
             ReferenciaPlaga(_s20, 'p.13 y Cuadro 1, p.14/PDF 5'),
@@ -318,4 +318,26 @@ const plagasInvestigacion = <String, List<TipoPlaga>>{
     ),
     otraPlaga,
   ],
+};
+
+/// Cultivos con plagas documentadas por la revisión del equipo fuera de la tabla de
+/// registros confirmados. No son registros ni plagas elegibles.
+const plagasCobertura = <String, CoberturaPlaga>{
+  'papa': CoberturaPlaga(
+    entradas: 11,
+    tipos: [
+      TextoBi('guías ICTA', 'ICTA guides'),
+      TextoBi('reporte mixto', 'mixed report'),
+    ],
+    interpretacion: TextoBi('Papa y ajonjolí tienen plagas documentadas. Su omisión de esta tabla no representa ausencia de plagas ni riesgo cero.', 'Potato and sesame have documented pests. Their omission from this table does not mean an absence of pests or zero risk.'),
+  ),
+  'ajonjoli': CoberturaPlaga(
+    entradas: 7,
+    tipos: [
+      TextoBi('reportes de productores', 'producer reports'),
+      TextoBi('reporte mixto', 'mixed report'),
+      TextoBi('inventario histórico', 'historical inventory'),
+    ],
+    interpretacion: TextoBi('Papa y ajonjolí tienen plagas documentadas. Su omisión de esta tabla no representa ausencia de plagas ni riesgo cero.', 'Potato and sesame have documented pests. Their omission from this table does not mean an absence of pests or zero risk.'),
+  ),
 };

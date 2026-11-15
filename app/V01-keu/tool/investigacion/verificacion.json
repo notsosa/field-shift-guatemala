@@ -13,21 +13,23 @@
     "especie": 10,
     "grupo": 2
   },
-  "fuentes": 9,
+  "fuentes": 11,
+  "fuentes_de_registros_directos": 9,
+  "fuentes_de_contexto_documental": 2,
   "todos_evidencia_directa": true,
   "sin_frecuencias_ni_presencias_de_parcela_inferidas": true,
   "archivos": [
     {
       "ruta": "plagas_confirmadas.json",
-      "sha256": "7a6efabc33c6e547a763fbc6192cf03534094f2beb65ca4211225d3d9654ccb9"
+      "sha256": "d6b77c1a07f4908d7b877fe1b1d9381bd33b46005a06c6406cb1c0361b1944fd"
     },
     {
       "ruta": "fuentes.json",
-      "sha256": "d47e382060320b9801d5d50a7ae5c6f224187476f98fa1dfd7e8e6cd97126455"
+      "sha256": "78d47f8e9972342d488a5599aeceddad3e84437ee279836aee978ede12676af4"
     },
     {
       "ruta": "README.md",
-      "sha256": "08bf3ddea67ce4644dc2330fb5dec454e91533289e1784f3d4c8605b970d51b4"
+      "sha256": "0251898ec42c5e93495ecca54a0809190e0d0fe410e85b41597158078e210a77"
     }
   ]
 }

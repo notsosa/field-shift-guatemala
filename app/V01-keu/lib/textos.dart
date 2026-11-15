@@ -128,9 +128,18 @@ class Txt {
   String get notaRegistroNoPresencia => _(
       'Un registro documentado en Guatemala no significa que la plaga esté presente en esta parcela.',
       'A documented record in Guatemala does not mean the pest is present in this plot.');
-  String get sinRegistroLocal => _(
-      'El equipo aún no tiene un registro local confirmado de plagas para este cultivo.',
-      'The team has no confirmed local pest record for this crop yet.');
+  /// Línea para un cultivo sin registro confirmado. Si la investigación documenta
+  /// plagas fuera de su tabla (papa, ajonjolí), dice cuántas entradas y qué evidencia,
+  /// y que la omisión no es ausencia, con las palabras de la investigación.
+  String sinRegistroLocal(CoberturaPlaga? c) {
+    final base = _('El equipo aún no tiene un registro local confirmado de plagas para este cultivo.',
+        'The team has no confirmed local pest record for this crop yet.');
+    if (c == null) return base;
+    final tipos = c.tipos.map((x) => x.de(en)).join(', ');
+    final revision = _('La revisión documental del equipo reunió ${c.entradas} entradas ($tipos); no son registros locales confirmados.',
+        'The team’s document review gathered ${c.entradas} entries ($tipos); they are not confirmed local records.');
+    return '$base $revision ${c.interpretacion.de(en)}';
+  }
   String get notaListaCaficultor => _(
       'Lista reportada por un caficultor; no son registros con fuente.',
       'List reported by a coffee grower; these are not sourced records.');

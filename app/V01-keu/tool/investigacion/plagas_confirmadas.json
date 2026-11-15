@@ -3,7 +3,7 @@
   "fecha": "2026-11-15",
   "criterio": "Solo observaciones, muestreos, ensayos o diagnósticos locales directos, al nivel taxonómico realmente identificado.",
   "unidad": "Relación cultivo–taxón; no especies únicas, ranking de frecuencia ni presencia actual en una parcela.",
-  "alcance": "12 relaciones, 10 a nivel de especie y2 de género. Incluye registros históricos y un estudio con precisión geográfica regional.",
+  "alcance": "12 relaciones, 10 a nivel de especie y 2 de género. Incluye registros históricos y un estudio con precisión geográfica regional.",
   "exclusiones": "Guías generales, reportes comunitarios, bibliografía mezclada, inventarios citados no revisados directamente y diez menciones pendientes.",
   "registros": [
     {
@@ -74,7 +74,7 @@
         }
       ],
       "lugar": "Departamento de Guatemala",
-      "periodo_documentado": "1997",
+      "periodo_documentado": "Muestreo descrito en 1996; publicación 1997",
       "notas": "Registro taxonómico histórico en Phaseolus vulgaris; departamento de Guatemala. Se conserva el nombre de la identificación de la época.",
       "frecuencia_nacional": null,
       "presencia_en_parcela_chiquimula": null,
@@ -100,7 +100,7 @@
         }
       ],
       "lugar": "Departamento de Guatemala",
-      "periodo_documentado": "1997",
+      "periodo_documentado": "Muestreo descrito en 1996; publicación 1997",
       "notas": "Registro histórico en Phaseolus vulgaris; nombre usado en el artículo, sin revisión molecular actual.",
       "frecuencia_nacional": null,
       "presencia_en_parcela_chiquimula": null,
@@ -156,7 +156,7 @@
         }
       ],
       "lugar": "Chimaltenango (ensayo 2000); Chimaltenango, Sololá y Quetzaltenango (tablaUVG 1997)",
-      "periodo_documentado": "1997 y 2000",
+      "periodo_documentado": "Muestreo UVG descrito en 1996, publicación 1997; ensayo ICTA 2000",
       "notas": "Dos fuentes locales: identificación histórica UVG y ensayo ICTA/JICA. Una relación cultivo–taxón, sin duplicar registros.",
       "frecuencia_nacional": null,
       "presencia_en_parcela_chiquimula": null,
@@ -234,7 +234,7 @@
         }
       ],
       "lugar": "Chimaltenango",
-      "periodo_documentado": "1997",
+      "periodo_documentado": "Muestreo descrito en 1996; publicación 1997",
       "notas": "Registro histórico; nombre de la identificación de la época. Tabla original inspeccionada visualmente.",
       "frecuencia_nacional": null,
       "presencia_en_parcela_chiquimula": null,
@@ -312,7 +312,7 @@
         }
       ],
       "lugar": "Chimaltenango",
-      "periodo_documentado": "1997",
+      "periodo_documentado": "Muestreo descrito en 1996; publicación 1997",
       "notas": "Registro histórico con identificación taxonómica; no demuestra frecuencia actual ni presencia en Chiquimula.",
       "frecuencia_nacional": null,
       "presencia_en_parcela_chiquimula": null,
@@ -322,5 +322,43 @@
       "estado": "registro_local_directo_documentado",
       "fecha_revision": "2026-11-15"
     }
-  ]
+  ],
+  "alcance_entrega_space_apps": {
+    "fecha_corte": "2026-11-15",
+    "base": "Evidencia pública ya corroborada y disponible en la fecha de corte.",
+    "contactos_institucionales": "fuera_del_alcance_no_autorizados",
+    "muestreos_nuevos": "fuera_del_alcance_de_la_entrega",
+    "menciones_pendientes": "excluidas_de_recomendaciones_y_etiquetas_de_presencia",
+    "falta_de_registro": "desconocido_no_equivale_a_ausencia",
+    "infestacion_actual_chiquimula": "no_determinada"
+  },
+  "cobertura_documental": {
+    "alcance": "Parcial: la tabla de 12 relaciones directas cubre cinco de los siete cultivos.",
+    "interpretacion": "Papa y ajonjolí tienen plagas documentadas. Su omisión de esta tabla no representa ausencia de plagas ni riesgo cero.",
+    "cultivos_con_plagas_documentadas_fuera_de_tabla": [
+      {
+        "cultivo": "Papa",
+        "entradas_en_revision_documental": 11,
+        "tipos_evidencia": [
+          "guías ICTA",
+          "reporte mixto"
+        ],
+        "ejemplo_fuente": "https://www.icta.gob.gt/publicaciones/Papa/El%20cultivo%20de%20la%20papa%20en%20Guatemala%2C%202002.pdf",
+        "ausencia_de_plagas": null,
+        "riesgo_fitosanitario_estimado": null
+      },
+      {
+        "cultivo": "Ajonjolí",
+        "entradas_en_revision_documental": 7,
+        "tipos_evidencia": [
+          "reportes de productores",
+          "reporte mixto",
+          "inventario histórico"
+        ],
+        "ejemplo_fuente": "https://biblioteca.usac.edu.gt/tesis/22/22_0252.pdf",
+        "ausencia_de_plagas": null,
+        "riesgo_fitosanitario_estimado": null
+      }
+    ]
+  }
 }

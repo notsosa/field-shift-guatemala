@@ -106,3 +106,19 @@ class TipoPlaga {
 }
 
 const otraPlaga = TipoPlaga('otra', 'Otra', 'Other', origen: OrigenPlaga.otra);
+
+/// Plagas documentadas por la revisión del equipo para un cultivo que no tiene
+/// registros confirmados en la tabla (papa y ajonjolí). Solo el conteo, el tipo
+/// de evidencia y lo que la investigación dice de esa omisión; no son plagas
+/// elegibles ni registros.
+class CoberturaPlaga {
+  const CoberturaPlaga({
+    required this.entradas,
+    required this.tipos,
+    required this.interpretacion,
+  });
+
+  final int entradas;
+  final List<TextoBi> tipos;
+  final TextoBi interpretacion;
+}

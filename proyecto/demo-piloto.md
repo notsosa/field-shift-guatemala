@@ -44,7 +44,7 @@ El aviso depende del clima real del día, así que no se puede forzar en vivo. C
 1. Con el ejemplo cargado (frijol en Chiquimula), abre **Registros**, el **+**, y toca **Media** en Plaga. Aparece "Tipo de plaga": Trips de las flores (*Megalurothrips usitatus*), Mosca minadora (*Liriomyza huidobrensis*, *Liriomyza sabaziae*) y Otra, con la nota fija de que un registro documentado no significa presencia en la parcela.
 2. Elige **Trips de las flores** y **Guardar**. En la lista sale "plaga media (trips de las flores)" con un botón (i). Tócalo: se ve la tarjeta de la fuente. Daña flores y vainas; muestreos 2022 en Petén, El Progreso, Zacapa y Chimaltenango y un estudio en San Jerónimo, Baja Verapaz; fuente ICTA ("Una nueva plaga en el cultivo de frijol en Guatemala"), con su dirección; y el límite del propio registro: no se extrapolan sus porcentajes de daño a otras localidades.
 3. Di: "estas plagas no son una predicción ni una lista de lo que hay en tu parcela: son los registros locales que nuestro equipo encontró con fuente, con su lugar y su fecha, y cada uno dice hasta dónde vale".
-4. Qué son y qué no son las listas: salen de 12 registros cultivo-taxón del equipo (maíz 1, frijol 3, cebolla 2, brócoli 3, lechuga 3). Ajonjolí y papa no tienen ninguno en este conjunto estricto y por eso solo ofrecen "Otra". El café conserva roya, minador y antracnosis, marcados como "reportado por un caficultor", no como registro con fuente. No hay umbrales, ni recomendación de tratamiento, ni frecuencia.
+4. Qué son y qué no son las listas: salen de 12 registros cultivo-taxón del equipo (maíz 1, frijol 3, cebolla 2, brócoli 3, lechuga 3). Ajonjolí y papa no tienen ninguno en este conjunto estricto y por eso solo ofrecen "Otra"; la app dice, con las palabras de la investigación, que sí tienen plagas documentadas (11 entradas en papa y 7 en ajonjolí, sin ser registros confirmados) y que su omisión no es ausencia de plagas ni riesgo cero. El café conserva roya, minador y antracnosis, marcados como "reportado por un caficultor", no como registro con fuente. No hay umbrales, ni recomendación de tratamiento, ni frecuencia.
 
 ## Lista de pruebas
 
@@ -55,7 +55,7 @@ El aviso depende del clima real del día, así que no se puede forzar en vivo. C
 | Coordenadas fuera de rango (`95`, `-89`) | Mensaje de coordenadas inválidas y no avanza |
 | Cultivo Café, Plaga reciente encendida | Aparece "Tipo de plaga" con Roya, Minador, Antracnosis y Otra |
 | Cultivo Frijol, Plaga reciente encendida | "Tipo de plaga" con Trips de las flores, Mosca minadora y Otra; cada plaga con su botón (i) de fuente y la nota "Un registro documentado en Guatemala no significa que la plaga esté presente en esta parcela" |
-| Cultivo Ajonjolí o Papa, Plaga reciente encendida | Solo "Otra" y la línea "El equipo aún no tiene un registro local confirmado de plagas para este cultivo" (sin botón de fuente) |
+| Cultivo Ajonjolí o Papa, Plaga reciente encendida | Solo "Otra", la línea "El equipo aún no tiene un registro local confirmado de plagas para este cultivo" y el conteo de la revisión documental (papa 11 entradas, ajonjolí 7) con "su omisión no representa ausencia de plagas ni riesgo cero"; sin botón de fuente |
 | Brócoli o Lechuga en English | Nombres como "Diamondback moth", "White grub", "Aphid", "Thrips" sin cortarse |
 | Registro con plaga y tipo (café) | La lista muestra "plaga media (roya)" |
 | Cambiar a English en Ajustes | Los textos cambian, incluidos los tipos de plaga ("Rust", "Leaf miner", "Anthracnose", "Other") |

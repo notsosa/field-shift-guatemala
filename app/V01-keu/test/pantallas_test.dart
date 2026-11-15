@@ -297,6 +297,8 @@ void main() {
     // una sola fila (Otra) y sin botón de detalle
     expect(find.descendant(of: find.byType(ListaPlagas), matching: find.byType(CupertinoButton)), findsOneWidget);
     expect(find.textContaining('aún no tiene un registro local confirmado'), findsOneWidget);
+    expect(find.textContaining('7 entradas'), findsOneWidget);
+    expect(find.textContaining('no representa ausencia de plagas ni riesgo cero'), findsOneWidget);
     expect(find.textContaining('no significa que la plaga esté presente'), findsNothing);
     await tester.tap(find.text('Guardar'));
     await tester.pumpAndSettle();
