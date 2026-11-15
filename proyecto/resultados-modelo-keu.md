@@ -495,6 +495,55 @@ Son 13 temporadas con rendimiento casi nulo en total (antes 10):
 - En San Martín (1,787 m) el modelo ya no distingue entre desfases (ver la tabla por piloto), así que la política no aporta nada ahí.
 - Tiempos: la evaluación de las políticas (72 casos, 3 políticas, 2 prioridades) tarda unos 5 s en Node, más 1 s para entrenar la ELM; AquaCrop tarda unos 13 s de reloj para las 126 temporadas en esta corrida.
 
+## Siete cultivos y matriz de sucesiones (Tarea 23)
+
+**Qué se hizo.** El equipo (Carlos) publicó en `main` auditorías de siete cultivos (maíz, frijol, ajonjolí, papa, cebolla, brócoli, lechuga) y de las 42 sucesiones entre ellos, con parámetros FAO-56 por cultivo (`auditorias/combinaciones pendientes 7 cultivos 2025/datos/cultivos/parametros_auditados.json`, commit `a0d0690`). Con eso agregamos al simulador los cuatro cultivos que faltaban y corrimos las 42 sucesiones con nuestro simulador y 24 años. Es un **cribado de agua y calendario, no una recomendación**: sin precios, plagas, adaptación al calor ni mercado. **El emulador no se reentrenó**: sus cuatro rotaciones no cambian y no conoce estos cultivos (no hubo tiempo antes de la evaluación de hoy). Los archivos existentes (`emulator_*.json`, `grid_features.json`, `referee_aquacrop.json`, `decision_eval.json`, `cycle_lengths.json`, snapshots) no cambiaron, y una prueba comprueba que las cuatro rotaciones dan los mismos resultados anuales con 8 o con 12 cultivos en el catálogo.
+
+### Los cuatro cultivos nuevos (`web/data/crops.json`)
+
+| | Papa | Cebolla | Brócoli | Lechuga |
+|---|---|---|---|---|
+| Etapas ini/dev/mid/late (días) | 25/30/30/30 = 115 | 15/25/70/40 = 150 | 35/45/40/15 = 135 | 20/30/15/10 = 75 |
+| Kc ini / mid / end | 0.5 / 1.15 / 0.75 | 0.7 / 1.05 / 0.75 | 0.7 / 1.05 / 0.95 | 0.7 / 1.0 / 0.95 |
+| Raíz máxima (m) / p | 0.5 / 0.35 | 0.5 / 0.30 | 0.5 / 0.45 | 0.4 / 0.30 |
+| Ky estacional | 1.1 (FAO-56 cuadro 24) | 1.1 (FAO-56 cuadro 24) | 0.95, **proxy** (Ky de la col) | 1.0, **proxy** |
+| tbase | 5 °C, **proxy** | 5 °C, **proxy** | 5 °C, **proxy** | 5 °C, **proxy** |
+| Familia | Solanaceae | Amaryllidaceae | Brassicaceae | Asteraceae |
+
+- **Fuente de Kc, raíz, p y etapas:** FAO-56 cuadros 11, 12 y 22, con los valores del archivo auditado del equipo (ruta y commit `a0d0690` en `sources`). Se usó el ciclo de referencia FAO de cada cultivo, no las variantes prorrateadas de sensibilidad. Para el brócoli el archivo marca los 75 y 90 días como prorrateados y los 135 días como la referencia FAO, así que usamos 135; **la corrida de referencia del equipo usa 90**, no es el mismo ciclo.
+- **Ky (FAO-33):** papa 1.1 y cebolla 1.1 se leyeron en FAO-56 cuadro 24 (https://www.fao.org/4/x0490e/x0490e0e.htm). Brócoli y lechuga **no están** en esa tabla. El brócoli usa el Ky de la col (0.95, misma especie) y la lechuga usa 1.0 (rendimiento proporcional al agua, igual que el ajonjolí); ambos figuran en `proxy: ['ky', 'tbase']` con el motivo en `sources.ky`. No encontramos una fuente legible de Ky de lechuga. `kyStages` es `null` en los cuatro.
+- **tbase:** el modelo la necesita para los grados-día y **no tiene fuente legible** (FAO-56 no da temperatura base y el archivo del equipo tampoco): 5 °C es un supuesto para hortalizas de clima templado, rotulado como proxy en los cuatro. No se presenta como verificado.
+- **`needsIrrigation: true` y `harvestRainSensitive: true`:** el archivo del equipo no los indica; se tomó el valor más conservador y se anotó en `sources`. `econ` es `null` (sin costos MAGA para estos cultivos).
+- `scripts/compare/score_actions.mjs` ya acepta los cuatro en acciones de un solo cultivo (prueba incluida).
+
+### La matriz (`web/data/succession_matrix.json`)
+
+Generada con `node scripts/compare/succession_matrix.mjs` (sin red ni AquaCrop). Para cada una de las 42 parejas ordenadas A→B, en los tres pilotos, años agrícolas 2001–2024 (24), secano, pendiente plana y dos suelos (el de SoilGrids del piloto y franco): A se siembra con la regla de inicio de lluvias; B el día siguiente a la cosecha simulada de A más 14 días (el intervalo de referencia del equipo), sin relevo ni traslape. Los ciclos son los de grados-día del propio simulador. Por pareja, piloto y suelo el archivo guarda: años en que caben los dos ciclos (de 24), ciclo mediano de A y de B, fechas medianas de siembra y cosecha, `relYield` (mediana, percentil 10 y peor año; un ciclo incompleto cuenta 0), déficit de ET (ETc − ETa, en mm, como la métrica del equipo) y temperatura máxima media del ciclo. Los ciclos, fechas, déficits y temperaturas son medianas solo de los años en que cabe la sucesión.
+
+**Cuántas de las 42 caben (dos ciclos completos en al menos 20 de 24 años), suelo de SoilGrids; con franco sale igual:**
+
+| Piloto | Caben | No caben |
+|---|---:|---:|
+| Chiquimula | 40 de 42 | 2 |
+| Jutiapa | 27 de 42 | 15 |
+| San Martín | 2 de 42 | 40 |
+
+- **Chiquimula.** No caben cebolla→brócoli (15 de 24 años) y brócoli→cebolla (14 de 24). Arriba, ordenadas por el menor de los dos `relYield` medianos: frijol→ajonjolí 0.961, frijol→lechuga 0.960, frijol→maíz 0.948, lechuga→frijol 0.922, lechuga→ajonjolí 0.921. Abajo: cebolla→frijol 0.321, cebolla→maíz 0.301 (21 de 24 años) y cebolla→papa 0.258 (23 de 24). En esas el segundo cultivo se siembra ya tarde, tras el ciclo largo de la cebolla (mediana de 148 a 166.5 días según la pareja).
+- **Jutiapa.** Arriba: lechuga→frijol 0.683, frijol→lechuga 0.647, frijol→ajonjolí 0.507. Abajo, con mínimo 0: brócoli→frijol, cebolla→frijol y papa→maíz (22 de 24 años). Los ciclos son más largos (maíz 139 a 163 días, cebolla 169 a 186.5).
+- **San Martín.** Solo caben frijol→lechuga (24 de 24 años, pero la lechuga tiene `relYield` mediano 0.372) y lechuga→frijol (21 de 24, `relYield` del frijol 0.066). En las otras el segundo cultivo ya no cabe en el año agrícola. Los ciclos de papa y de frijol son de 167 a 193.5 y de 116.5 a 169 días según la pareja: es el piloto frío.
+
+**Comparación con las direcciones del equipo (Chiquimula, suelo SoilGrids).** Para las 21 parejas leímos de sus archivos de resultados el déficit de ET de la corrida de referencia en cada orden (2025, IMERG, secano, escorrentía 15%, intervalo 14 días; maíz↔frijol, maíz↔ajonjolí, papa↔cebolla y brócoli↔lechuga usan el calendario de referencia de su propia carpeta) y vimos qué orden tiene el menor déficit. De nuestro lado contamos los años en que cada orden tiene el menor déficit total (suma de los dos cultivos), entre los años en que caben ambos órdenes, y el mayor `relYield` medio de la pareja. **Coinciden 7 de 21 en el déficit y 7 de 21 en el `relYield`**; en dos parejas (frijol↔papa y frijol↔lechuga) nuestros conteos empatan 12 a 12. No es una prueba de error de ninguno de los dos: él evalúa un solo año (2025) con duraciones fijas (maíz 90, frijol 70, brócoli 90 días) y calendario fijo, y nosotros 24 años con ciclos por grados-día, siembra con el inicio de lluvias y un balance distinto, así que miden cosas distintas. Está en `comparison` del JSON, pareja por pareja.
+
+### Límites, dichos sin rodeos
+
+- **Los cuatro cultivos nuevos son hortalizas de estación fresca y el modelo no tiene respuesta al calor ni al fotoperíodo.** La temperatura máxima media durante el ciclo, en las sucesiones que caben, va de 27.1 a 30.3 °C en Chiquimula y de 25.9 a 28.6 °C en Jutiapa (papa 27.5–29.8 y 26.1–28.1; cebolla 28–29.8 y 26.6–28.2; brócoli 27.7–29.9 y 26.3–27.7; lechuga 27.1–30.2 y 25.9–27.8). El modelo solo usa la temperatura para alargar o acortar las etapas; no baja el rendimiento por calor, bulbificación, espigado ni fotoperíodo. Un `relYield` alto en este cribado **no** dice que el cultivo se adapte.
+- El propio índice del equipo advierte que cobertura de evaluación no equivale a rotaciones aprobadas y que la adaptación de variedad, la sanidad y la viabilidad comercial deben validarse localmente.
+- **No se corrió AquaCrop para estos cultivos**: ningún número de esta sección tiene juez independiente. El emulador no los conoce.
+- **Una sola variante de etapas por cultivo** (la de referencia FAO); no se probó la sensibilidad a la duración.
+- `tbase` de los cuatro y Ky de brócoli y lechuga son proxies (arriba); los resultados dependen de ellos.
+- Intervalo fijo de 14 días entre cultivos; sin almácigo, curado, retiro ni traslape.
+- La comparación con el equipo es de direcciones (un orden contra el otro) y no de valores: sus déficits son de un año y no son nuestros.
+
 ## Limitaciones conocidas
 
 - El modelo solo simula agua. No incluye plagas, fertilización, sombra, precios ni mano de obra.

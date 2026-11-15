@@ -56,7 +56,7 @@ Cada modelo entrega un archivo JSON con la lista `actions`. Cada acción lleva:
 Y además, **una** de estas dos formas:
 
 - **Rotación:** `sequenceId` (`actual`, `proteger`, `extra_secano` o `extra_riego`) y `sowOffsetDays` (entero: días después del inicio de lluvias; negativo es antes). El desfase mueve la siembra del maíz principal. La siembra resultante debe caer dentro del año agrícola (1 de abril a 31 de marzo); si no, la acción se rechaza en vez de recortarse en silencio. El rango depende del sitio y del año (por ejemplo, Chiquimula 2021: de −35 a 329 días) y el mensaje de error lo indica. `extra_riego` exige `irrigation` distinto de `none`.
-- **Un cultivo con fecha fija:** `crop` (`maiz`, `frijol` o `sorgo`) y `sowDate` (`"MM-DD"`, una fecha real del calendario).
+- **Un cultivo con fecha fija:** `crop` (`maiz`, `frijol`, `sorgo`, `papa`, `cebolla`, `brocoli` o `lechuga`) y `sowDate` (`"MM-DD"`, una fecha real del calendario).
 
 Cualquier otro campo se rechaza, para que un error de escritura no pase en silencio. Solo se admite `note` como texto libre.
 
@@ -118,7 +118,7 @@ Con eso corremos `score_actions.mjs` sobre las dos listas y calculamos las medid
 | **Continuar** | Sí | Es la acción de la línea base: `sequenceId: "actual"` con `sowOffsetDays: 0`, o el plan que ya estaba en marcha. |
 | **Esperar** | Sí, si es esperar a sembrar | `sowOffsetDays` positivo (días después del inicio de lluvias). Esperar a mitad de temporada, con el cultivo ya sembrado, no se puede representar. |
 | **Resembrar una variedad** | **No** | El simulador tiene un solo conjunto de parámetros por cultivo, sin variedades, y no tiene evento de resiembra. Solo se puede puntuar la segunda siembra como un cultivo nuevo (`crop` y `sowDate`) desde suelo seco, sin la pérdida de la primera. Eso no es lo mismo y hay que decirlo al leer el resultado. |
-| **Cambiar de cultivo** | En parte | Para maíz, frijol o sorgo: `crop` y `sowDate`. Ajonjolí, sandía, melón y tomate solo existen dentro de las rotaciones `extra_secano` y `extra_riego`, no como cultivo suelto. Solo se mide el agua: sin precios ni márgenes no se puede decir si el cambio conviene. |
+| **Cambiar de cultivo** | En parte | Para maíz, frijol, sorgo, papa, cebolla, brócoli o lechuga: `crop` y `sowDate` (en papa, cebolla, brócoli y lechuga la `tbase`, y en brócoli y lechuga el Ky, son proxies; ver `proyecto/resultados-modelo-keu.md`). Ajonjolí, sandía, melón y tomate solo existen dentro de las rotaciones `extra_secano` y `extra_riego`, no como cultivo suelto. Solo se mide el agua: sin precios ni márgenes no se puede decir si el cambio conviene. |
 | **Dejar cobertura** | En parte | La única cobertura que simula el modelo es la mucuna en relevo de la rotación `proteger`, más el rastrojo después de la cosecha. Dejar el lote con cobertura en una fecha cualquiera no se puede representar. |
 
 En resumen, **no se pueden representar**: resiembra de una variedad, cualquier acción en medio de la temporada, el estado que pasa de un ciclo a otro, los sublotes, la caja y el flujo de dinero, la fertilización y las plagas. Esas partes de la red solo pueden evaluarse con sus propios indicadores, no con nuestro simulador.
