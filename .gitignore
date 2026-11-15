@@ -6,3 +6,4 @@ scripts/emulator/samples.json
 scripts/referee/out/
 scripts/emulator/cache_rain/
 scripts/emulator/cache_raw/
+scripts/emulator/screening_superset.json

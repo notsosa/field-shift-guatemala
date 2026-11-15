@@ -33,10 +33,20 @@ test('emulator_eval.json: R2 en años nuevos (bySplit.testYears) de waterIndex y
   }
 });
 
-test('la red embudo tiene 4,323 parametros', () => {
+test('la red embudo tiene 27 entradas y 4,451 parametros, y su tamaño de entrada es el de FEATURE_NAMES', async () => {
+  const { FEATURE_NAMES } = await import('../web/js/model/emulator.js');
   const ev = load('emulator_eval.json');
-  assert.equal(ev.mlp.params, 4323);
-  assert.equal(load('emulator_mlp.json').params, 4323);
+  const net = load('emulator_mlp.json');
+  const nIn = FEATURE_NAMES.length;
+  assert.equal(nIn, 27);
+  const expected = (nIn * 64 + 64) + (64 * 32 + 32) + (32 * 16 + 16) + (16 * 3 + 3);
+  assert.equal(expected, 4451);
+  assert.equal(ev.mlp.params, expected);
+  assert.equal(net.params, expected);
+  assert.deepEqual(net.architecture, [nIn, 64, 32, 16, 3]);
+  assert.equal(net.layers[0].W[0].length, nIn);
+  assert.equal(net.mean.length, nIn);
+  assert.equal(net.checkInputs[0].length, nIn);
 });
 
 test('bySplit trae testYears, testPoints y testBoth para ambos modelos', () => {
@@ -62,11 +72,13 @@ test('el forward JS coincide con PyTorch en las 100 filas de prueba (1e-4)', asy
   }
 });
 
-test('emulator_train_subset.json trae 5,000 filas de entrenamiento', () => {
+test('emulator_train_subset.json trae 5,000 filas de entrenamiento', async () => {
   const s = load('emulator_train_subset.json');
   assert.equal(s.X.length, 5000);
   assert.equal(s.Y.length, 5000);
-  assert.equal(s.featureNames.length, 25);
+  const { FEATURE_NAMES } = await import('../web/js/model/emulator.js');
+  assert.deepEqual(s.featureNames, FEATURE_NAMES);
+  assert.equal(s.X[0].length, FEATURE_NAMES.length);
   assert.equal(s.targetNames.length, 3);
   assert.ok(existsSync(new URL('../web/data/emulator_mlp.json', import.meta.url)));
 });

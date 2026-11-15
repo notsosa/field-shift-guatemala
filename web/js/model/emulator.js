@@ -1,11 +1,17 @@
 // Núcleo del emulador: features, ELM (sin backprop), forward de la red embudo y métricas.
 // Sin dependencias externas (solo el propio modelo); corre en Node y en el navegador.
-import { buildPhase } from './phenology.js';
-import { resolveMainSowIdx, agriculturalYears, dayOfYear } from './simulate.js';
+import { buildPhase, kcOnDay } from './phenology.js';
+import { resolveMainSowIdx, agriculturalYears, dayOfYear, floweringWindow } from './simulate.js';
 
 export const CLIMATE_FEATURE_NAMES = ['rainMJJ', 'rainASO', 'rainYear', 'caniculaDays', 'et0MeanMO', 'tmeanMO', 'elevation'];
+// Candidatas de agua antecedente a la floración (Tarea 19); solo las de ANTECEDENT_SELECTED entran a la red.
+export const ANTECEDENT_CANDIDATES = ['rainPre30', 'drySpellPre20', 'balancePre30', 'balanceSeason', 'rainPreSow30', 'apiFlower', 'storeProxy'];
+export const API_DECAY = 0.9;
+export const STORE_PROXY_CAP_MM = 150;
+// Elegidas con el cribado en validación (scripts/emulator/feature_screening.json).
+export const ANTECEDENT_SELECTED = ['apiFlower', 'storeProxy'];
 // Fenología del cultivo principal (maíz, fase 0 de toda secuencia) sembrado con la regla de inicio + desfase.
-export const PHENO_FEATURE_NAMES = ['sowDoy', 'rainFlower', 'drySpellFlower', 'deficitFlower'];
+export const PHENO_FEATURE_NAMES = ['sowDoy', 'rainFlower', 'drySpellFlower', 'deficitFlower', ...ANTECEDENT_SELECTED];
 
 const TEXTURES = ['sand', 'loam', 'clay'];
 const SLOPES = ['flat', 'moderate', 'steep'];
@@ -63,22 +69,63 @@ export function climateFeatures(bundle, year, et0) {
   ];
 }
 
-/** [sowDoy, rainFlower, drySpellFlower, deficitFlower] del maíz (fase 0) con la misma siembra y ventana que runSequence. */
-export function phenoFeatures(bundle, year, et0, crops, sowOffsetDays) {
+// Contexto del maíz (fase 0) con la misma siembra y ventana de floración que runSequence (índices locales al año agrícola).
+function mainMaizeContext(bundle, year, crops, sowOffsetDays, who) {
   const ag = agriculturalYears(bundle.dates).find((a) => a.year === year);
-  if (!ag) throw new Error(`phenoFeatures: agricultural year ${year} is not complete in bundle.dates`);
+  if (!ag) throw new Error(`${who}: agricultural year ${year} is not complete in bundle.dates`);
   const { startIdx, endIdx } = ag;
   const maize = crops.get('maiz');
   const tmean = [];
   for (let i = startIdx; i <= endIdx; i++) tmean.push((bundle.tmax[i] + bundle.tmin[i]) / 2);
   const { idx: sowIdx } = resolveMainSowIdx(bundle, year, sowOffsetDays);
   const phase = buildPhase(maize, sowIdx, tmean);
-  const last = tmean.length - 1;
-  const lo = startIdx + Math.min(phase.floweringIdx[0], last);
-  const hi = startIdx + Math.min(phase.floweringIdx[1], last);
+  const [fa, fb] = floweringWindow(phase, tmean.length - 1);
+  return { startIdx, endIdx, maize, sowIdx, phase, fa, fb };
+}
+
+/** [sowDoy, rainFlower, drySpellFlower, deficitFlower, ...ANTECEDENT_SELECTED] del maíz (fase 0) con la misma siembra y ventana que runSequence. */
+export function phenoFeatures(bundle, year, et0, crops, sowOffsetDays) {
+  const { startIdx, maize, sowIdx, fa, fb } = mainMaizeContext(bundle, year, crops, sowOffsetDays, 'phenoFeatures');
+  const lo = startIdx + fa;
+  const hi = startIdx + fb;
   let deficit = 0;
   for (let i = lo; i <= hi; i++) deficit += Math.max(0, maize.kc.mid * et0[i] - bundle.rain[i]);
-  return [dayOfYear(bundle.dates[startIdx + sowIdx]), sum(bundle.rain, [lo, hi]), maxDry(bundle.rain, [lo, hi]), deficit];
+  const base = [dayOfYear(bundle.dates[startIdx + sowIdx]), sum(bundle.rain, [lo, hi]), maxDry(bundle.rain, [lo, hi]), deficit];
+  if (ANTECEDENT_SELECTED.length === 0) return base;
+  const cand = antecedentFeatures(bundle, year, et0, crops, sowOffsetDays);
+  return [...base, ...ANTECEDENT_SELECTED.map((n) => cand[n])];
+}
+
+/**
+ * Las siete candidatas de agua antecedente de la Tarea 19 (maíz, fase 0), solo desde el clima, ET0 y los parámetros del maíz:
+ * sin balance hídrico simulado y sin suelo, pendiente, riego ni rotación. f0 = primer día de la ventana de floración acotada
+ * (la de phenoFeatures), s = día de siembra; las ventanas se recortan al 1 de abril, cuando el simulador arranca con suelo seco.
+ * kc_t = kcOnDay desde la siembra y kc.ini antes. storeProxy NO es el simulador: balance corrido con un tope fijo de 150 mm
+ * para todo suelo, un indicador del agua almacenada que no conoce el suelo.
+ */
+export function antecedentFeatures(bundle, year, et0, crops, sowOffsetDays) {
+  const { startIdx, endIdx, maize, sowIdx, phase, fa: f0 } = mainMaizeContext(bundle, year, crops, sowOffsetDays, 'antecedentFeatures');
+  const rain = bundle.rain.slice(startIdx, endIdx + 1);
+  const e = et0.slice(startIdx, endIdx + 1);
+  const kc = (t) => (t < sowIdx ? maize.kc.ini : kcOnDay(maize, phase, t));
+  const win = (a, b) => [Math.max(0, a), b]; // [a, b] recortado al día 0; vacío si b < a
+  const sumW = (a, b, f) => { const [lo, hi] = win(a, b); let t = 0; for (let i = lo; i <= hi; i++) t += f(i); return t; };
+  const bal = (i) => rain[i] - kc(i) * e[i];
+  const [dlo, dhi] = win(f0 - 20, f0 - 1);
+  let api = 0, store = 0;
+  for (let t = 0; t <= f0 - 1; t++) {
+    api = API_DECAY * api + rain[t];
+    store = Math.min(STORE_PROXY_CAP_MM, Math.max(0, store + bal(t)));
+  }
+  return {
+    rainPre30: sumW(f0 - 30, f0 - 1, (i) => rain[i]),
+    drySpellPre20: dhi < dlo ? 0 : maxDry(rain, [dlo, dhi]),
+    balancePre30: sumW(f0 - 30, f0 - 1, bal),
+    balanceSeason: sumW(sowIdx, f0 - 1, bal),
+    rainPreSow30: sumW(sowIdx - 30, sowIdx - 1, (i) => rain[i]),
+    apiFlower: api,
+    storeProxy: store,
+  };
 }
 
 function oneHot(list, value, what) {

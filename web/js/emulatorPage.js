@@ -86,7 +86,7 @@ function renderDataTexts() {
   fillOptions($('sow-sequence'), SEQUENCE_IDS.map((id) => [id, seqName(id)]));
   fillOptions($('sow-pilot'), PILOTS.map((id) => [id, pointById(id).name]));
   const heldOut = grid.points.filter((p) => p.heldOut).map((p) => p.name).join(', ');
-  $('compare-intro').textContent = tr('cmpIntro', { nTrain: num(E.nTrain), nTest: num(E.nTest) });
+  $('compare-intro').textContent = tr('cmpIntro', { nIn: num(state.data.mlp.architecture[0]), nTrain: num(E.nTrain), nTest: num(E.nTest) });
   const currentChain = state.data.sequences.actual.phases.map((ph) => cropName(ph.cropId)).join(' → ');
   $('map-intro').textContent = tr('mapIntro', { current: currentChain });
   const e2e = E.endToEnd?.speedupVsSimulator;

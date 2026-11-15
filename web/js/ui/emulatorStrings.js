@@ -22,7 +22,7 @@ export const STRINGS = {
     loadError: 'Could not load the data files ({msg}). Serve the web/ folder over HTTP, for example: python -m http.server 8765 -d web',
 
     cmpTitle: 'Two ways to learn the simulator',
-    cmpIntro: 'Both networks read the same 25 inputs (the year’s climate, the maize flowering window, soil, slope, irrigation, rotation and sowing shift) and predict 3 outputs. They learned from {nTrain} simulator runs and were tested on {nTest} runs they never saw: the years 2019–2024 and 4 municipalities left out of training.',
+    cmpIntro: 'Both networks read the same {nIn} inputs (the year’s climate, the maize flowering window, soil, slope, irrigation, rotation and sowing shift) and predict 3 outputs. Two of the inputs describe the water the soil had before flowering, from weather alone: a decaying tally of recent rain (API) and a rough running water balance capped at 150 mm for every soil, a proxy that is not the simulator. They were chosen on the validation years 2017–2018, among five candidate sets, after earlier test results were known. They learned from {nTrain} simulator runs and were tested on {nTest} runs they never saw: the years 2019–2024 and 4 municipalities left out of training.',
     cmpColMlp: 'Funnel network',
     cmpColElm: 'Extreme Learning Machine',
     cmpRowHow: 'How it learns',
@@ -205,7 +205,7 @@ export const STRINGS = {
     loadError: 'No se pudieron cargar los datos ({msg}). Sirve la carpeta web/ por HTTP, por ejemplo: python -m http.server 8765 -d web',
 
     cmpTitle: 'Dos formas de aprender el simulador',
-    cmpIntro: 'Las dos redes leen las mismas 25 entradas (clima del año, ventana de floración del maíz, suelo, pendiente, riego, rotación y desfase de siembra) y predicen 3 salidas. Aprendieron de {nTrain} corridas del simulador y se probaron en {nTest} corridas que nunca vieron: los años 2019–2024 y 4 municipios fuera del entrenamiento.',
+    cmpIntro: 'Las dos redes leen las mismas {nIn} entradas (clima del año, ventana de floración del maíz, suelo, pendiente, riego, rotación y desfase de siembra) y predicen 3 salidas. Dos de las entradas describen el agua que tenía el suelo antes de la floración, solo con el clima: un acumulado de la lluvia reciente que va decayendo (API) y un balance de agua corrido y aproximado, con tope de 150 mm para todo suelo, un indicador que no es el simulador. Se eligieron con los años de validación 2017–2018, entre cinco conjuntos candidatos, después de conocer resultados de prueba anteriores. Aprendieron de {nTrain} corridas del simulador y se probaron en {nTest} corridas que nunca vieron: los años 2019–2024 y 4 municipios fuera del entrenamiento.',
     cmpColMlp: 'Red embudo',
     cmpColElm: 'Máquina de Aprendizaje Extremo',
     cmpRowHow: 'Cómo aprende',
