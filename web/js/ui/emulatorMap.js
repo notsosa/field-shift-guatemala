@@ -85,7 +85,8 @@ export function diffBand(evalJson, modelKey, alternative, targetId) {
 
 /**
  * Municipios que comparten celda de temperatura de NASA POWER (weatherMates de grid_features.json):
- * grupos en orden de aparición, los de celda > 1,500 m y los de entradas idénticas (identicalMates).
+ * grupos en orden de aparición (con la elevación de la celda), los municipios a más de 1,500 m (elevación del pueblo, la de la
+ * temperatura corregida) y los de lluvia, radiación y viento idénticos (identicalMates).
  */
 export function cellGroups(points, highM = 1500) {
   const ids = new Set(points.map((p) => p.id));
@@ -97,7 +98,7 @@ export function cellGroups(points, highM = 1500) {
       if (seen.has(p.id) || !(p[key] ?? []).some((id) => ids.has(id))) continue;
       const g = groupOf(p, key);
       g.forEach((id) => seen.add(id));
-      out.push({ ids: g, elevation: p.elevation });
+      out.push({ ids: g, elevation: p.cellElevation ?? p.elevation });
     }
     return { out, seen };
   };
@@ -105,7 +106,7 @@ export function cellGroups(points, highM = 1500) {
   return {
     nShared: w.seen.size,
     groups: w.out,
-    high: w.out.filter((g) => g.elevation > highM),
+    high: points.filter((p) => p.elevation > highM).map((p) => ({ ids: [p.id], elevation: p.elevation })),
     identical: collect('identicalMates').out.map((g) => g.ids),
   };
 }
@@ -115,10 +116,11 @@ const listNames = (lang, names) => new Intl.ListFormat(locale(lang), { type: 'co
 /** Líneas del tooltip sobre la celda de clima del punto. byId: Map id → punto (para los nombres). */
 export function cellLines(lang, point, byId) {
   const names = (list) => listNames(lang, (list ?? []).filter((id) => byId.has(id)).map((id) => byId.get(id).name));
-  const elev = fmtNumber(lang, point.elevation, 0);
+  const elev = fmtNumber(lang, point.cellElevation ?? point.elevation, 0);
+  const site = fmtNumber(lang, point.elevation, 0);
   const lines = [];
-  if ((point.weatherMates ?? []).some((id) => byId.has(id))) lines.push(t(lang, 'tipSharedCell', { mates: names(point.weatherMates), elev }));
-  else lines.push(t(lang, 'tipOwnCell', { elev }));
+  if ((point.weatherMates ?? []).some((id) => byId.has(id))) lines.push(t(lang, 'tipSharedCell', { mates: names(point.weatherMates), elev, site }));
+  else lines.push(t(lang, 'tipOwnCell', { elev, site }));
   if ((point.identicalMates ?? []).some((id) => byId.has(id))) lines.push(t(lang, 'tipIdentical', { mates: names(point.identicalMates) }));
   return lines;
 }

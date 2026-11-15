@@ -101,29 +101,30 @@ test('diffBand: RMSE de la diferencia por modelo, alternativa y objetivo, con re
 });
 
 const cellPts = [
-  { id: 'a', name: 'A', elevation: 762.46, weatherMates: ['b', 'c'], identicalMates: ['b'] },
-  { id: 'b', name: 'B', elevation: 762.46, weatherMates: ['a', 'c'], identicalMates: ['a'] },
-  { id: 'c', name: 'C', elevation: 762.46, weatherMates: ['a', 'b'], identicalMates: [] },
-  { id: 'd', name: 'D', elevation: 1515.75, weatherMates: ['e'], identicalMates: [] },
-  { id: 'e', name: 'E', elevation: 1515.75, weatherMates: ['d'], identicalMates: [] },
-  { id: 'f', name: 'F', elevation: 607.66, weatherMates: [], identicalMates: [] },
+  { id: 'a', name: 'A', elevation: 403, cellElevation: 762.46, weatherMates: ['b', 'c'], identicalMates: ['b'] },
+  { id: 'b', name: 'B', elevation: 459, cellElevation: 762.46, weatherMates: ['a', 'c'], identicalMates: ['a'] },
+  { id: 'c', name: 'C', elevation: 222, cellElevation: 762.46, weatherMates: ['a', 'b'], identicalMates: [] },
+  { id: 'd', name: 'D', elevation: 1787, cellElevation: 1515.75, weatherMates: ['e'], identicalMates: [] },
+  { id: 'e', name: 'E', elevation: 946, cellElevation: 1515.75, weatherMates: ['d'], identicalMates: [] },
+  { id: 'f', name: 'F', elevation: 545, cellElevation: 607.66, weatherMates: [], identicalMates: [] },
 ];
 
-test('cellGroups: municipios que comparten celda de temperatura, celdas altas e insumos idénticos', () => {
+test('cellGroups: municipios que comparten celda (con la elevación de la celda), pueblos arriba de 1,500 m e insumos idénticos', () => {
   const g = cellGroups(cellPts);
   assert.equal(g.nShared, 5);
   assert.deepEqual(g.groups.map((x) => x.ids), [['a', 'b', 'c'], ['d', 'e']]);
-  assert.deepEqual(g.high.map((x) => x.ids), [['d', 'e']]);
+  assert.deepEqual(g.groups.map((x) => x.elevation), [762.46, 1515.75]);
+  assert.deepEqual(g.high, [{ ids: ['d'], elevation: 1787 }]); // E comparte la celda de 1,516 m pero el pueblo está a 946 m
   assert.deepEqual(g.identical, [['a', 'b']]);
 });
 
-test('cellLines: banderas del tooltip con la celda compartida y su elevación', () => {
+test('cellLines: banderas del tooltip con la celda compartida, su elevación y la del pueblo', () => {
   const byId = new Map(cellPts.map((p) => [p.id, p]));
   const [shared, same] = cellLines('en', cellPts[0], byId);
-  assert.equal(shared, 'Coarse weather cell shared with B and C; elevation of the cell 762 m');
-  assert.equal(same, 'Identical weather and rain inputs to B');
-  assert.deepEqual(cellLines('en', cellPts[3], byId), ['Coarse weather cell shared with E; elevation of the cell 1,516 m']);
-  assert.deepEqual(cellLines('en', cellPts[5], byId), ['Own weather cell; elevation of the cell 608 m']);
+  assert.equal(shared, 'Coarse weather cell shared with B and C; cell elevation 762 m, town 403 m (temperature moved to the town)');
+  assert.equal(same, 'Identical rain, radiation and wind inputs to B');
+  assert.deepEqual(cellLines('en', cellPts[3], byId), ['Coarse weather cell shared with E; cell elevation 1,516 m, town 1,787 m (temperature moved to the town)']);
+  assert.deepEqual(cellLines('en', cellPts[5], byId), ['Own weather cell; cell elevation 608 m, town 545 m (temperature moved to the town)']);
 });
 
 test('accuracyText: con la ELM usa los puntajes de la ELM del navegador (elmBrowser)', () => {
