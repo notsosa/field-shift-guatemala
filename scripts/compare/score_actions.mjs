@@ -7,7 +7,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { computeEt0Series, runSequence, agriculturalYears } from '../../web/js/model/simulate.js';
+import { computeEt0Series, runSequence, agriculturalYears, resolveMainSowIdx } from '../../web/js/model/simulate.js';
 import { loadCrops } from '../../web/js/model/crops.js';
 import { targetsOf } from '../../web/js/model/emulator.js';
 import { overlapDays } from '../../web/js/model/decision.js';
@@ -67,6 +67,13 @@ function problems(a, ctx) {
     if (!has('sequenceId') || !Object.hasOwn(ctx.sequences, a.sequenceId)) bad.push(`sequenceId must be ${Object.keys(ctx.sequences).join('|')}, got ${JSON.stringify(a.sequenceId)}`);
     else if (ctx.sequences[a.sequenceId].requiresIrrigation && a.irrigation === 'none') bad.push(`sequenceId "${a.sequenceId}" needs irrigation (limited or full), but irrigation is "none"`);
     if (!Number.isInteger(a.sowOffsetDays)) bad.push(`sowOffsetDays must be an integer (days after the rain-onset rule; negative = before), got ${JSON.stringify(a.sowOffsetDays)}`);
+    else if (siteOk && Number.isInteger(a.year) && ctx.years[a.site].includes(a.year)) {
+      // El simulador acota la siembra al año agrícola sin avisar: un desfase que la saca del año se rechaza aquí.
+      const { idx: onset } = resolveMainSowIdx(ctx.bundles[a.site], a.year, 0);
+      const { startIdx, endIdx } = agriculturalYears(ctx.bundles[a.site].dates).find((y) => y.year === a.year);
+      const lo = -onset, hi = endIdx - startIdx - onset;
+      if (a.sowOffsetDays < lo || a.sowOffsetDays > hi) bad.push(`sowOffsetDays ${a.sowOffsetDays} puts the sowing outside the agricultural year (1 April to 31 March); for ${a.site} ${a.year} the accepted range is ${lo} to ${hi} days`);
+    }
   } else {
     if (!SINGLE_CROPS.includes(a.crop)) bad.push(`crop must be ${SINGLE_CROPS.join('|')}, got ${JSON.stringify(a.crop)}`);
     if (!isMmDd(a.sowDate)) bad.push(`sowDate must be a real calendar date "MM-DD", got ${JSON.stringify(a.sowDate)}`);

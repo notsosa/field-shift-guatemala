@@ -1,8 +1,8 @@
 {
  "meta": {
   "generated": "2026-11-15",
-  "repoCommit": "6f36af8",
-  "simulatorCommit": "337c803",
+  "repoCommit": "452e7a2",
+  "simulatorCommit": "ae84a95",
   "simulatorDirty": false,
   "rule": "For target year Y, use only agricultural years before Y at that site (all complete years from 2001 to Y-1). For each delay in {0,5,...,30} days after the rain-onset rule, collect the rotation water index (first emulator output) of those past years; summarise it with the priority (typical = median, cautious = 20th percentile); choose the delay with the highest summary, ties to the delay closest to 0. Baseline = delay 0. Oracle = the feasible delay with the best simulator water index in year Y itself.",
   "sites": [
@@ -56,7 +56,7 @@
    "cautious": "20th percentile over past years (linear interpolation)"
   },
   "tolerance": 0.001,
-  "toleranceNote": "win/tie/loss on the water index and the maize relYield; also used on AquaCrop yields in t/ha. Simulator-only win = simulator maize gain > 0 and AquaCrop gain <= 0, no tolerance.",
+  "toleranceNote": "The tolerance 0.001 (water index and maize relYield) is part of the fixed design. Implementer conventions, not fixed by the design: the same 0.001 applied to AquaCrop yields in t/ha; the tie epsilon 1e-12 of chooseOffset; the hindsight offsets; AquaCrop gain % = mean gain / mean baseline yield (ratio of means). Simulator-only win = simulator maize gain > 0 and AquaCrop gain <= 0, exact, no tolerance (so a simulator gain of 0.001 counts).",
   "policies": {
    "simulator": "the simulator (runSequence) on the past years",
    "mlp": "web/data/emulator_mlp.json (funnel network 27-64-32-16-3, backpropagation) via mlpPredict; waterIndex clamped to [0,1] as the page does",
@@ -86,7 +86,7 @@
     "seed": 42,
     "rows": "web/data/emulator_train_subset.json",
     "nRows": 5000,
-    "trainSecondsHere": 1.045
+    "trainSecondsHere": 1.051
    },
    "trainedOn": "test = year 2019-2024 OR pointId heldOut (asuncionmita, gualan, rabinal, sanarate); train = rest",
    "evalMeta": {
@@ -96,7 +96,17 @@
     "generated": "2026-11-15",
     "evaluated": "2026-11-15"
    },
-   "note": "Both emulators were trained on rows of 20 municipalities (the 3 pilots among them) for agricultural years before 2019; the target years 2019-2024 were never used to train them."
+   "municipalities": {
+    "total": 20,
+    "heldOut": [
+     "gualan",
+     "sanarate",
+     "asuncionmita",
+     "rabinal"
+    ],
+    "training": 16
+   },
+   "note": "Both emulators were trained on agricultural years before 2019 of 16 of the 20 municipalities (held out: gualan, sanarate, asuncionmita, rabinal); the 3 pilots are in the training set; the funnel network used 2017-2018 (valYears) for validation and not for fitting; the target years 2019-2024 were never used to train either emulator."
   },
   "truth": "simulator with the case soil (site soil object for site cases); relYield of the maize counts 0 if its cycle is incomplete; overlap = days from the later sowing to the earlier harvest of maize and beans",
   "aquacrop": {
@@ -107,7 +117,7 @@
   "runtime": {
    "contextSeconds": 1.07,
    "elmTrainSeconds": 1.05,
-   "policyEvaluationSeconds": 4.65,
+   "policyEvaluationSeconds": 4.69,
    "policyEvaluationNote": "truth tables for 12 site-soil combinations x 11 delays plus 3 policies x 2 priorities x 72 cases (each simulator decision re-runs the simulator on the past years)",
    "aquacropSeconds": 30,
    "aquacropSeasons": 126
@@ -3237,6 +3247,43 @@
     "20": 0,
     "25": 0,
     "30": 0
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-22",
+     "harvestDate": "2019-08-14",
+     "yieldTHa": 0.027737
+    },
+    "5": {
+     "sowDate": "05-27",
+     "harvestDate": "2019-08-14",
+     "yieldTHa": 0.027847
+    },
+    "10": {
+     "sowDate": "06-01",
+     "harvestDate": "2019-08-13",
+     "yieldTHa": 0
+    },
+    "15": {
+     "sowDate": "06-06",
+     "harvestDate": "2019-08-13",
+     "yieldTHa": 0
+    },
+    "20": {
+     "sowDate": "06-11",
+     "harvestDate": "2019-08-12",
+     "yieldTHa": 0
+    },
+    "25": {
+     "sowDate": "06-16",
+     "harvestDate": "2019-08-11",
+     "yieldTHa": 0
+    },
+    "30": {
+     "sowDate": "06-21",
+     "harvestDate": "2019-08-11",
+     "yieldTHa": 0
+    }
    }
   },
   {
@@ -3410,6 +3457,43 @@
     "20": 14.784017,
     "25": 14.639214,
     "30": 13.037406
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-09",
+     "harvestDate": "2020-09-18",
+     "yieldTHa": 14.730458
+    },
+    "5": {
+     "sowDate": "05-14",
+     "harvestDate": "2020-09-23",
+     "yieldTHa": 13.42879
+    },
+    "10": {
+     "sowDate": "05-19",
+     "harvestDate": "2020-09-28",
+     "yieldTHa": 14.769637
+    },
+    "15": {
+     "sowDate": "05-24",
+     "harvestDate": "2020-10-03",
+     "yieldTHa": 14.766968
+    },
+    "20": {
+     "sowDate": "05-29",
+     "harvestDate": "2020-10-08",
+     "yieldTHa": 14.784017
+    },
+    "25": {
+     "sowDate": "06-03",
+     "harvestDate": "2020-10-13",
+     "yieldTHa": 14.639214
+    },
+    "30": {
+     "sowDate": "06-08",
+     "harvestDate": "2020-10-18",
+     "yieldTHa": 13.037406
+    }
    }
   },
   {
@@ -3583,6 +3667,43 @@
     "20": 11.70533,
     "25": 13.478769,
     "30": 14.823879
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-06",
+     "harvestDate": "2021-09-15",
+     "yieldTHa": 11.343212
+    },
+    "5": {
+     "sowDate": "05-11",
+     "harvestDate": "2021-09-20",
+     "yieldTHa": 11.500725
+    },
+    "10": {
+     "sowDate": "05-16",
+     "harvestDate": "2021-09-25",
+     "yieldTHa": 13.031128
+    },
+    "15": {
+     "sowDate": "05-21",
+     "harvestDate": "2021-09-30",
+     "yieldTHa": 9.907262
+    },
+    "20": {
+     "sowDate": "05-26",
+     "harvestDate": "2021-10-05",
+     "yieldTHa": 11.70533
+    },
+    "25": {
+     "sowDate": "05-31",
+     "harvestDate": "2021-10-10",
+     "yieldTHa": 13.478769
+    },
+    "30": {
+     "sowDate": "06-05",
+     "harvestDate": "2021-10-15",
+     "yieldTHa": 14.823879
+    }
    }
   },
   {
@@ -3756,6 +3877,43 @@
     "20": 14.827998,
     "25": 14.820946,
     "30": 14.705905
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-23",
+     "harvestDate": "2022-10-02",
+     "yieldTHa": 14.822896
+    },
+    "5": {
+     "sowDate": "05-28",
+     "harvestDate": "2022-10-07",
+     "yieldTHa": 14.822896
+    },
+    "10": {
+     "sowDate": "06-02",
+     "harvestDate": "2022-10-12",
+     "yieldTHa": 14.822315
+    },
+    "15": {
+     "sowDate": "06-07",
+     "harvestDate": "2022-10-17",
+     "yieldTHa": 14.822283
+    },
+    "20": {
+     "sowDate": "06-12",
+     "harvestDate": "2022-10-22",
+     "yieldTHa": 14.827998
+    },
+    "25": {
+     "sowDate": "06-17",
+     "harvestDate": "2022-10-27",
+     "yieldTHa": 14.820946
+    },
+    "30": {
+     "sowDate": "06-22",
+     "harvestDate": "2022-11-01",
+     "yieldTHa": 14.705905
+    }
    }
   },
   {
@@ -3929,6 +4087,43 @@
     "20": 12.686203,
     "25": 10.469894,
     "30": 12.165001
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "06-15",
+     "harvestDate": "2023-10-25",
+     "yieldTHa": 14.784066
+    },
+    "5": {
+     "sowDate": "06-20",
+     "harvestDate": "2023-10-30",
+     "yieldTHa": 14.818796
+    },
+    "10": {
+     "sowDate": "06-25",
+     "harvestDate": "2023-11-04",
+     "yieldTHa": 14.729841
+    },
+    "15": {
+     "sowDate": "06-30",
+     "harvestDate": "2023-11-09",
+     "yieldTHa": 14.599932
+    },
+    "20": {
+     "sowDate": "07-05",
+     "harvestDate": "2023-11-14",
+     "yieldTHa": 12.686203
+    },
+    "25": {
+     "sowDate": "07-10",
+     "harvestDate": "2023-11-19",
+     "yieldTHa": 10.469894
+    },
+    "30": {
+     "sowDate": "07-15",
+     "harvestDate": "2023-11-24",
+     "yieldTHa": 12.165001
+    }
    }
   },
   {
@@ -4102,6 +4297,43 @@
     "20": 14.828028,
     "25": 14.805213,
     "30": 12.582203
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "06-11",
+     "harvestDate": "2024-10-21",
+     "yieldTHa": 14.854413
+    },
+    "5": {
+     "sowDate": "06-16",
+     "harvestDate": "2024-10-26",
+     "yieldTHa": 14.854413
+    },
+    "10": {
+     "sowDate": "06-21",
+     "harvestDate": "2024-10-31",
+     "yieldTHa": 14.851083
+    },
+    "15": {
+     "sowDate": "06-26",
+     "harvestDate": "2024-11-05",
+     "yieldTHa": 14.850141
+    },
+    "20": {
+     "sowDate": "07-01",
+     "harvestDate": "2024-11-10",
+     "yieldTHa": 14.828028
+    },
+    "25": {
+     "sowDate": "07-06",
+     "harvestDate": "2024-11-15",
+     "yieldTHa": 14.805213
+    },
+    "30": {
+     "sowDate": "07-11",
+     "harvestDate": "2024-11-20",
+     "yieldTHa": 12.582203
+    }
    }
   },
   {
@@ -7227,6 +7459,43 @@
     "20": 0,
     "25": 0,
     "30": 0
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-03",
+     "harvestDate": "2019-09-12",
+     "yieldTHa": 5.788304
+    },
+    "5": {
+     "sowDate": "05-08",
+     "harvestDate": "2019-09-17",
+     "yieldTHa": 4.595472
+    },
+    "10": {
+     "sowDate": "05-13",
+     "harvestDate": "2019-08-10",
+     "yieldTHa": 0.63885
+    },
+    "15": {
+     "sowDate": "05-18",
+     "harvestDate": "2019-09-27",
+     "yieldTHa": 0.084982
+    },
+    "20": {
+     "sowDate": "05-23",
+     "harvestDate": "2019-07-22",
+     "yieldTHa": 0
+    },
+    "25": {
+     "sowDate": "05-28",
+     "harvestDate": "2019-07-22",
+     "yieldTHa": 0
+    },
+    "30": {
+     "sowDate": "06-02",
+     "harvestDate": "2019-07-18",
+     "yieldTHa": 0
+    }
    }
   },
   {
@@ -7400,6 +7669,43 @@
     "20": 14.188855,
     "25": 13.468259,
     "30": 0
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-09",
+     "harvestDate": "2020-09-18",
+     "yieldTHa": 13.32032
+    },
+    "5": {
+     "sowDate": "05-14",
+     "harvestDate": "2020-09-23",
+     "yieldTHa": 13.994479
+    },
+    "10": {
+     "sowDate": "05-19",
+     "harvestDate": "2020-09-28",
+     "yieldTHa": 14.113786
+    },
+    "15": {
+     "sowDate": "05-24",
+     "harvestDate": "2020-10-03",
+     "yieldTHa": 13.739081
+    },
+    "20": {
+     "sowDate": "05-29",
+     "harvestDate": "2020-10-08",
+     "yieldTHa": 14.188855
+    },
+    "25": {
+     "sowDate": "06-03",
+     "harvestDate": "2020-10-13",
+     "yieldTHa": 13.468259
+    },
+    "30": {
+     "sowDate": "06-08",
+     "harvestDate": "2020-07-09",
+     "yieldTHa": 0
+    }
    }
   },
   {
@@ -7573,6 +7879,43 @@
     "20": 12.238967,
     "25": 13.813367,
     "30": 13.798539
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-06",
+     "harvestDate": "2021-09-15",
+     "yieldTHa": 10.123425
+    },
+    "5": {
+     "sowDate": "05-11",
+     "harvestDate": "2021-09-20",
+     "yieldTHa": 7.216857
+    },
+    "10": {
+     "sowDate": "05-16",
+     "harvestDate": "2021-09-25",
+     "yieldTHa": 8.837185
+    },
+    "15": {
+     "sowDate": "05-21",
+     "harvestDate": "2021-09-30",
+     "yieldTHa": 12.226912
+    },
+    "20": {
+     "sowDate": "05-26",
+     "harvestDate": "2021-10-05",
+     "yieldTHa": 12.238967
+    },
+    "25": {
+     "sowDate": "05-31",
+     "harvestDate": "2021-10-10",
+     "yieldTHa": 13.813367
+    },
+    "30": {
+     "sowDate": "06-05",
+     "harvestDate": "2021-10-15",
+     "yieldTHa": 13.798539
+    }
    }
   },
   {
@@ -7746,6 +8089,43 @@
     "20": 14.769925,
     "25": 14.174825,
     "30": 14.447128
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-05",
+     "harvestDate": "2022-09-14",
+     "yieldTHa": 12.904046
+    },
+    "5": {
+     "sowDate": "05-10",
+     "harvestDate": "2022-09-19",
+     "yieldTHa": 12.059921
+    },
+    "10": {
+     "sowDate": "05-15",
+     "harvestDate": "2022-09-24",
+     "yieldTHa": 13.814489
+    },
+    "15": {
+     "sowDate": "05-20",
+     "harvestDate": "2022-09-29",
+     "yieldTHa": 14.861057
+    },
+    "20": {
+     "sowDate": "05-25",
+     "harvestDate": "2022-10-04",
+     "yieldTHa": 14.769925
+    },
+    "25": {
+     "sowDate": "05-30",
+     "harvestDate": "2022-10-09",
+     "yieldTHa": 14.174825
+    },
+    "30": {
+     "sowDate": "06-04",
+     "harvestDate": "2022-10-14",
+     "yieldTHa": 14.447128
+    }
    }
   },
   {
@@ -7919,6 +8299,43 @@
     "20": 10.805553,
     "25": 4.026097,
     "30": 0.766709
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-30",
+     "harvestDate": "2023-10-09",
+     "yieldTHa": 11.399482
+    },
+    "5": {
+     "sowDate": "06-04",
+     "harvestDate": "2023-10-14",
+     "yieldTHa": 10.3914
+    },
+    "10": {
+     "sowDate": "06-09",
+     "harvestDate": "2023-10-19",
+     "yieldTHa": 8.640035
+    },
+    "15": {
+     "sowDate": "06-14",
+     "harvestDate": "2023-10-24",
+     "yieldTHa": 10.768304
+    },
+    "20": {
+     "sowDate": "06-19",
+     "harvestDate": "2023-10-29",
+     "yieldTHa": 10.805553
+    },
+    "25": {
+     "sowDate": "06-24",
+     "harvestDate": "2023-11-03",
+     "yieldTHa": 4.026097
+    },
+    "30": {
+     "sowDate": "06-29",
+     "harvestDate": "2023-11-08",
+     "yieldTHa": 0.766709
+    }
    }
   },
   {
@@ -8092,6 +8509,43 @@
     "20": 13.46709,
     "25": 13.186758,
     "30": 5.009941
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "06-11",
+     "harvestDate": "2024-10-21",
+     "yieldTHa": 14.864607
+    },
+    "5": {
+     "sowDate": "06-16",
+     "harvestDate": "2024-10-26",
+     "yieldTHa": 14.883989
+    },
+    "10": {
+     "sowDate": "06-21",
+     "harvestDate": "2024-10-31",
+     "yieldTHa": 14.832572
+    },
+    "15": {
+     "sowDate": "06-26",
+     "harvestDate": "2024-11-05",
+     "yieldTHa": 14.703118
+    },
+    "20": {
+     "sowDate": "07-01",
+     "harvestDate": "2024-11-10",
+     "yieldTHa": 13.46709
+    },
+    "25": {
+     "sowDate": "07-06",
+     "harvestDate": "2024-11-15",
+     "yieldTHa": 13.186758
+    },
+    "30": {
+     "sowDate": "07-11",
+     "harvestDate": "2024-11-20",
+     "yieldTHa": 5.009941
+    }
    }
   },
   {
@@ -11217,6 +11671,43 @@
     "20": 1.342262,
     "25": 1.827441,
     "30": 0
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-10",
+     "harvestDate": "2019-09-19",
+     "yieldTHa": 5.456932
+    },
+    "5": {
+     "sowDate": "05-15",
+     "harvestDate": "2019-09-24",
+     "yieldTHa": 1.535559
+    },
+    "10": {
+     "sowDate": "05-20",
+     "harvestDate": "2019-09-29",
+     "yieldTHa": 1.372578
+    },
+    "15": {
+     "sowDate": "05-25",
+     "harvestDate": "2019-10-04",
+     "yieldTHa": 1.435345
+    },
+    "20": {
+     "sowDate": "05-30",
+     "harvestDate": "2019-10-09",
+     "yieldTHa": 1.342262
+    },
+    "25": {
+     "sowDate": "06-04",
+     "harvestDate": "2019-10-14",
+     "yieldTHa": 1.827441
+    },
+    "30": {
+     "sowDate": "06-09",
+     "harvestDate": "2019-08-14",
+     "yieldTHa": 0
+    }
    }
   },
   {
@@ -11390,6 +11881,43 @@
     "20": 14.399715,
     "25": 14.39044,
     "30": 11.235145
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-09",
+     "harvestDate": "2020-09-18",
+     "yieldTHa": 14.414993
+    },
+    "5": {
+     "sowDate": "05-14",
+     "harvestDate": "2020-09-23",
+     "yieldTHa": 14.388387
+    },
+    "10": {
+     "sowDate": "05-19",
+     "harvestDate": "2020-09-28",
+     "yieldTHa": 14.40633
+    },
+    "15": {
+     "sowDate": "05-24",
+     "harvestDate": "2020-10-03",
+     "yieldTHa": 14.402049
+    },
+    "20": {
+     "sowDate": "05-29",
+     "harvestDate": "2020-10-08",
+     "yieldTHa": 14.399715
+    },
+    "25": {
+     "sowDate": "06-03",
+     "harvestDate": "2020-10-13",
+     "yieldTHa": 14.39044
+    },
+    "30": {
+     "sowDate": "06-08",
+     "harvestDate": "2020-10-18",
+     "yieldTHa": 11.235145
+    }
    }
   },
   {
@@ -11563,6 +12091,43 @@
     "20": 13.315331,
     "25": 12.465459,
     "30": 14.128943
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-04",
+     "harvestDate": "2021-09-13",
+     "yieldTHa": 14.256444
+    },
+    "5": {
+     "sowDate": "05-09",
+     "harvestDate": "2021-09-18",
+     "yieldTHa": 12.752401
+    },
+    "10": {
+     "sowDate": "05-14",
+     "harvestDate": "2021-09-23",
+     "yieldTHa": 13.307248
+    },
+    "15": {
+     "sowDate": "05-19",
+     "harvestDate": "2021-09-28",
+     "yieldTHa": 13.295311
+    },
+    "20": {
+     "sowDate": "05-24",
+     "harvestDate": "2021-10-03",
+     "yieldTHa": 13.315331
+    },
+    "25": {
+     "sowDate": "05-29",
+     "harvestDate": "2021-10-08",
+     "yieldTHa": 12.465459
+    },
+    "30": {
+     "sowDate": "06-03",
+     "harvestDate": "2021-10-13",
+     "yieldTHa": 14.128943
+    }
    }
   },
   {
@@ -11736,6 +12301,43 @@
     "20": 14.345509,
     "25": 14.342538,
     "30": 14.175958
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-20",
+     "harvestDate": "2022-09-29",
+     "yieldTHa": 14.337965
+    },
+    "5": {
+     "sowDate": "05-25",
+     "harvestDate": "2022-10-04",
+     "yieldTHa": 14.360378
+    },
+    "10": {
+     "sowDate": "05-30",
+     "harvestDate": "2022-10-09",
+     "yieldTHa": 14.315037
+    },
+    "15": {
+     "sowDate": "06-04",
+     "harvestDate": "2022-10-14",
+     "yieldTHa": 14.353646
+    },
+    "20": {
+     "sowDate": "06-09",
+     "harvestDate": "2022-10-19",
+     "yieldTHa": 14.345509
+    },
+    "25": {
+     "sowDate": "06-14",
+     "harvestDate": "2022-10-24",
+     "yieldTHa": 14.342538
+    },
+    "30": {
+     "sowDate": "06-19",
+     "harvestDate": "2022-10-29",
+     "yieldTHa": 14.175958
+    }
    }
   },
   {
@@ -11909,6 +12511,43 @@
     "20": 13.126989,
     "25": 13.556196,
     "30": 12.694811
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-12",
+     "harvestDate": "2023-09-21",
+     "yieldTHa": 11.019894
+    },
+    "5": {
+     "sowDate": "05-17",
+     "harvestDate": "2023-09-26",
+     "yieldTHa": 10.164062
+    },
+    "10": {
+     "sowDate": "05-22",
+     "harvestDate": "2023-10-01",
+     "yieldTHa": 12.0716
+    },
+    "15": {
+     "sowDate": "05-27",
+     "harvestDate": "2023-10-06",
+     "yieldTHa": 13.023724
+    },
+    "20": {
+     "sowDate": "06-01",
+     "harvestDate": "2023-10-11",
+     "yieldTHa": 13.126989
+    },
+    "25": {
+     "sowDate": "06-06",
+     "harvestDate": "2023-10-16",
+     "yieldTHa": 13.556196
+    },
+    "30": {
+     "sowDate": "06-11",
+     "harvestDate": "2023-10-21",
+     "yieldTHa": 12.694811
+    }
    }
   },
   {
@@ -12082,6 +12721,43 @@
     "20": 14.751584,
     "25": 14.742289,
     "30": 14.726881
+   },
+   "aquacropSeasons": {
+    "0": {
+     "sowDate": "05-19",
+     "harvestDate": "2024-09-28",
+     "yieldTHa": 12.434094
+    },
+    "5": {
+     "sowDate": "05-24",
+     "harvestDate": "2024-10-03",
+     "yieldTHa": 11.285975
+    },
+    "10": {
+     "sowDate": "05-29",
+     "harvestDate": "2024-10-08",
+     "yieldTHa": 13.062392
+    },
+    "15": {
+     "sowDate": "06-03",
+     "harvestDate": "2024-10-13",
+     "yieldTHa": 14.714613
+    },
+    "20": {
+     "sowDate": "06-08",
+     "harvestDate": "2024-10-18",
+     "yieldTHa": 14.751584
+    },
+    "25": {
+     "sowDate": "06-13",
+     "harvestDate": "2024-10-23",
+     "yieldTHa": 14.742289
+    },
+    "30": {
+     "sowDate": "06-18",
+     "harvestDate": "2024-10-28",
+     "yieldTHa": 14.726881
+    }
    }
   }
  ],
@@ -14240,6 +14916,297 @@
     "hindsightNegative": {
      "count": 5,
      "meanGainOverOracle": 0.020303599999999977
+    }
+   }
+  }
+ },
+ "posthocAquacrop": {
+  "label": "post-hoc analysis, outside the fixed design (analisis posterior, no forma parte del diseño fijado); the tables in `aggregates` are unchanged",
+  "threshold": 0.01,
+  "perDelay": {
+   "0": {
+    "n": 18,
+    "zeroSeasons": 0,
+    "meanTHa": 11.715738222222221,
+    "medianTHa": 13.112183
+   },
+   "5": {
+    "n": 18,
+    "zeroSeasons": 0,
+    "meanTHa": 10.949019277777778,
+    "medianTHa": 12.406161
+   },
+   "10": {
+    "n": 18,
+    "zeroSeasons": 1,
+    "meanTHa": 11.200894777777776,
+    "medianTHa": 13.5608685
+   },
+   "15": {
+    "n": 18,
+    "zeroSeasons": 1,
+    "meanTHa": 11.475262666666667,
+    "medianTHa": 14.0463635
+   },
+   "20": {
+    "n": 18,
+    "zeroSeasons": 2,
+    "meanTHa": 11.421297555555558,
+    "medianTHa": 13.3912105
+   },
+   "25": {
+    "n": 18,
+    "zeroSeasons": 2,
+    "meanTHa": 11.011539166666667,
+    "medianTHa": 13.5174825
+   },
+   "30": {
+    "n": 18,
+    "zeroSeasons": 4,
+    "meanTHa": 9.349913833333332,
+    "medianTHa": 12.638507
+   }
+  },
+  "zeroSeasons": [
+   {
+    "site": "chiquimula",
+    "year": 2019,
+    "offset": 10,
+    "sowDate": "06-01",
+    "harvestDate": "2019-08-13",
+    "yieldTHa": 0,
+    "daysSowToHarvest": 73
+   },
+   {
+    "site": "chiquimula",
+    "year": 2019,
+    "offset": 15,
+    "sowDate": "06-06",
+    "harvestDate": "2019-08-13",
+    "yieldTHa": 0,
+    "daysSowToHarvest": 68
+   },
+   {
+    "site": "chiquimula",
+    "year": 2019,
+    "offset": 20,
+    "sowDate": "06-11",
+    "harvestDate": "2019-08-12",
+    "yieldTHa": 0,
+    "daysSowToHarvest": 62
+   },
+   {
+    "site": "chiquimula",
+    "year": 2019,
+    "offset": 25,
+    "sowDate": "06-16",
+    "harvestDate": "2019-08-11",
+    "yieldTHa": 0,
+    "daysSowToHarvest": 56
+   },
+   {
+    "site": "chiquimula",
+    "year": 2019,
+    "offset": 30,
+    "sowDate": "06-21",
+    "harvestDate": "2019-08-11",
+    "yieldTHa": 0,
+    "daysSowToHarvest": 51
+   },
+   {
+    "site": "jutiapa",
+    "year": 2019,
+    "offset": 20,
+    "sowDate": "05-23",
+    "harvestDate": "2019-07-22",
+    "yieldTHa": 0,
+    "daysSowToHarvest": 60
+   },
+   {
+    "site": "jutiapa",
+    "year": 2019,
+    "offset": 25,
+    "sowDate": "05-28",
+    "harvestDate": "2019-07-22",
+    "yieldTHa": 0,
+    "daysSowToHarvest": 55
+   },
+   {
+    "site": "jutiapa",
+    "year": 2019,
+    "offset": 30,
+    "sowDate": "06-02",
+    "harvestDate": "2019-07-18",
+    "yieldTHa": 0,
+    "daysSowToHarvest": 46
+   },
+   {
+    "site": "jutiapa",
+    "year": 2020,
+    "offset": 30,
+    "sowDate": "06-08",
+    "harvestDate": "2020-07-09",
+    "yieldTHa": 0,
+    "daysSowToHarvest": 31
+   },
+   {
+    "site": "sanmartin",
+    "year": 2019,
+    "offset": 30,
+    "sowDate": "06-09",
+    "harvestDate": "2019-08-14",
+    "yieldTHa": 0,
+    "daysSowToHarvest": 66
+   }
+  ],
+  "daysSowToHarvestOtherSeasons": {
+   "n": 116,
+   "min": 79,
+   "median": 132,
+   "max": 132
+  },
+  "byPolicy": {
+   "simulator": {
+    "typical": {
+     "simulatorOnlyWins": 7,
+     "simulatorOnlyWinsWithChosenYieldBelowThreshold": 3,
+     "gainWithoutZeroSeasons": {
+      "n": 15,
+      "meanGainTHa": -1.2683514666666662,
+      "meanGainPct": -9.922074005389405,
+      "win": 6,
+      "tie": 0,
+      "loss": 9,
+      "simulatorOnlyWins": {
+       "count": 4,
+       "ids": [
+        "chiquimula_2020_site",
+        "chiquimula_2023_site",
+        "jutiapa_2024_site",
+        "sanmartin_2019_site"
+       ]
+      }
+     },
+     "casesKept": 15,
+     "casesDropped": 3
+    },
+    "cautious": {
+     "simulatorOnlyWins": 7,
+     "simulatorOnlyWinsWithChosenYieldBelowThreshold": 3,
+     "gainWithoutZeroSeasons": {
+      "n": 15,
+      "meanGainTHa": -1.3983592666666667,
+      "meanGainPct": -10.939100473824023,
+      "win": 5,
+      "tie": 0,
+      "loss": 10,
+      "simulatorOnlyWins": {
+       "count": 4,
+       "ids": [
+        "chiquimula_2020_site",
+        "chiquimula_2023_site",
+        "jutiapa_2024_site",
+        "sanmartin_2019_site"
+       ]
+      }
+     },
+     "casesKept": 15,
+     "casesDropped": 3
+    }
+   },
+   "mlp": {
+    "typical": {
+     "simulatorOnlyWins": 7,
+     "simulatorOnlyWinsWithChosenYieldBelowThreshold": 3,
+     "gainWithoutZeroSeasons": {
+      "n": 15,
+      "meanGainTHa": -1.5956247999999997,
+      "meanGainPct": -12.482271489023654,
+      "win": 4,
+      "tie": 2,
+      "loss": 9,
+      "simulatorOnlyWins": {
+       "count": 4,
+       "ids": [
+        "chiquimula_2020_site",
+        "chiquimula_2023_site",
+        "jutiapa_2024_site",
+        "sanmartin_2019_site"
+       ]
+      }
+     },
+     "casesKept": 15,
+     "casesDropped": 3
+    },
+    "cautious": {
+     "simulatorOnlyWins": 5,
+     "simulatorOnlyWinsWithChosenYieldBelowThreshold": 2,
+     "gainWithoutZeroSeasons": {
+      "n": 16,
+      "meanGainTHa": -0.5611726875,
+      "meanGainPct": -4.37844810975592,
+      "win": 4,
+      "tie": 4,
+      "loss": 8,
+      "simulatorOnlyWins": {
+       "count": 3,
+       "ids": [
+        "chiquimula_2020_site",
+        "chiquimula_2023_site",
+        "jutiapa_2024_site"
+       ]
+      }
+     },
+     "casesKept": 16,
+     "casesDropped": 2
+    }
+   },
+   "elmBrowser": {
+    "typical": {
+     "simulatorOnlyWins": 8,
+     "simulatorOnlyWinsWithChosenYieldBelowThreshold": 3,
+     "gainWithoutZeroSeasons": {
+      "n": 15,
+      "meanGainTHa": -1.7282302666666667,
+      "meanGainPct": -13.519619013242389,
+      "win": 4,
+      "tie": 0,
+      "loss": 11,
+      "simulatorOnlyWins": {
+       "count": 5,
+       "ids": [
+        "chiquimula_2020_site",
+        "chiquimula_2023_site",
+        "jutiapa_2024_site",
+        "sanmartin_2019_site",
+        "sanmartin_2024_site"
+       ]
+      }
+     },
+     "casesKept": 15,
+     "casesDropped": 3
+    },
+    "cautious": {
+     "simulatorOnlyWins": 7,
+     "simulatorOnlyWinsWithChosenYieldBelowThreshold": 4,
+     "gainWithoutZeroSeasons": {
+      "n": 14,
+      "meanGainTHa": -1.2851104285714288,
+      "meanGainPct": -9.657816567121603,
+      "win": 5,
+      "tie": 0,
+      "loss": 9,
+      "simulatorOnlyWins": {
+       "count": 3,
+       "ids": [
+        "chiquimula_2020_site",
+        "chiquimula_2023_site",
+        "jutiapa_2024_site"
+       ]
+      }
+     },
+     "casesKept": 14,
+     "casesDropped": 4
     }
    }
   }

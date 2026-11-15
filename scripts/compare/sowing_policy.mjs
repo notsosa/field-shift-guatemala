@@ -16,7 +16,7 @@ import {
 } from '../../web/js/model/emulator.js';
 import { yearSlices, clamp01 } from '../../web/js/ui/bestSowing.js';
 import {
-  DECISION_OFFSETS, PRIORITIES, TOLERANCE, truncateBundle, pastYears, decideOffset, chooseOffset, overlapDays,
+  DECISION_OFFSETS, PRIORITIES, TOLERANCE, mean, median, truncateBundle, pastYears, decideOffset, chooseOffset, overlapDays,
   aggregateMetrics, aquacropMetrics,
 } from '../../web/js/model/decision.js';
 import { weatherRows, WEATHER_COLUMNS } from '../referee/export_weather.mjs';
@@ -54,7 +54,10 @@ export function loadContext() {
   const elmTrainSeconds = (performance.now() - t0) / 1000;
   const mlp = dataJson('emulator_mlp.json');
   const siteSoil = Object.fromEntries(SITES.map((s) => [s, points.find((p) => p.id === s).soil]));
-  return { crops, sequence, bundles, siteSoil, mlp, elm, elmOptions, elmTrainSeconds, subsetRows: subset.X.length, evalJson };
+  // Municipios de entrenamiento: los de points.json que no están dejados fuera (heldOut), igual que la división de emulator_eval.json.
+  const heldOut = points.filter((p) => p.heldOut).map((p) => p.id);
+  const municipalities = { total: points.length, heldOut, training: points.length - heldOut.length };
+  return { crops, sequence, bundles, siteSoil, mlp, elm, elmOptions, elmTrainSeconds, subsetRows: subset.X.length, evalJson, municipalities };
 }
 
 /** Suelo del simulador y textura para los emuladores de un caso: 'site' → objeto SoilGrids y la clase más cercana del piloto. */
@@ -262,8 +265,55 @@ export function mergeAquacrop(cases, aqBySite, ctx) {
       if (found.sowDate !== expected) throw new Error(`AquaCrop case ${id} sowed on ${found.sowDate}, expected ${expected}`);
       if (c.truth[offset].maizeSowDate.slice(5) !== expected) throw new Error(`simulator sowing date of ${id} differs from resolveMainSowIdx (${c.truth[offset].maizeSowDate} vs ${expected})`);
       c.aquacrop[offset] = round(found.results[0].yieldTHa);
+      // Lo que AquaCrop devolvió por temporada (el referee escribe rendimiento y fecha de cosecha), para el análisis posterior.
+      (c.aquacropSeasons ??= {})[offset] = { sowDate: found.sowDate, harvestDate: found.results[0].harvestDate, yieldTHa: round(found.results[0].yieldTHa) };
     }
   }
+}
+
+export const ZERO_YIELD_THA = 0.01;
+const DAY = 864e5;
+
+/**
+ * ANÁLISIS POSTERIOR, fuera del diseño fijado: cómo pesan en la revisión de AquaCrop las temporadas con rendimiento casi cero.
+ * No reemplaza ni cambia las tablas de `aggregates`. cases = filas con `aquacrop` y `aquacropSeasons` (solo suelo del piloto).
+ */
+export function posthocAquacrop(cases, threshold = ZERO_YIELD_THA) {
+  const sc = cases.filter((c) => c.aquacrop);
+  const perDelay = Object.fromEntries(DECISION_OFFSETS.map((o) => {
+    const ys = sc.map((c) => c.aquacrop[o]);
+    return [o, { n: ys.length, zeroSeasons: ys.filter((y) => y < threshold).length, meanTHa: mean(ys), medianTHa: median(ys) }];
+  }));
+  const daysOf = (c, o) => {
+    const s = c.aquacropSeasons[o];
+    return Math.round((Date.parse(s.harvestDate) - Date.parse(`${c.year + (Number(s.sowDate.slice(0, 2)) >= 4 ? 0 : 1)}-${s.sowDate}`)) / DAY);
+  };
+  const zeroSeasons = sc.flatMap((c) => DECISION_OFFSETS.filter((o) => c.aquacrop[o] < threshold).map((o) => {
+    const s = c.aquacropSeasons[o];
+    return { site: c.site, year: c.year, offset: o, sowDate: s.sowDate, harvestDate: s.harvestDate, yieldTHa: s.yieldTHa, daysSowToHarvest: daysOf(c, o) };
+  }));
+  const okDays = sc.flatMap((c) => DECISION_OFFSETS.filter((o) => c.aquacrop[o] >= threshold).map((o) => daysOf(c, o)));
+  const daysSowToHarvestOtherSeasons = { n: okDays.length, min: Math.min(...okDays), median: median(okDays), max: Math.max(...okDays) };
+  const byPolicy = {};
+  for (const policy of POLICIES) {
+    byPolicy[policy] = {};
+    for (const priority of PRIORITIES) {
+      const rows = sc.map((c) => ({ c, row: aqRow(c, policy, priority) }));
+      const only = rows.filter(({ row }) => row.simMaizeGain > 0 && row.aq - row.aqBase <= 0);
+      const kept = rows.filter(({ row }) => row.aq >= threshold && row.aqBase >= threshold).map(({ row }) => row);
+      byPolicy[policy][priority] = {
+        simulatorOnlyWins: only.length,
+        simulatorOnlyWinsWithChosenYieldBelowThreshold: only.filter(({ row }) => row.aq < threshold).length,
+        gainWithoutZeroSeasons: kept.length ? aquacropMetrics(kept) : null,
+        casesKept: kept.length,
+        casesDropped: rows.length - kept.length,
+      };
+    }
+  }
+  return {
+    label: 'post-hoc analysis, outside the fixed design (analisis posterior, no forma parte del diseño fijado); the tables in `aggregates` are unchanged',
+    threshold, perDelay, zeroSeasons, daysSowToHarvestOtherSeasons, byPolicy,
+  };
 }
 
 function score(dir, outPath) {
@@ -295,7 +345,7 @@ function score(dir, outPath) {
       soils: { classes: CLASS_SOILS, site: 'SoilGrids soil of the pilot (scripts/emulator/points.json); emulators receive the pilot nearestTexture', nearestTexture: Object.fromEntries(SITES.map((s) => [s, ctx.siteSoil[s].nearestTexture])) },
       feasibleOffsets: DECISION_OFFSETS, hindsightOffsets: HINDSIGHT_OFFSETS,
       priorities: { typical: 'median over past years', cautious: '20th percentile over past years (linear interpolation)' },
-      tolerance: TOLERANCE, toleranceNote: 'win/tie/loss on the water index and the maize relYield; also used on AquaCrop yields in t/ha. Simulator-only win = simulator maize gain > 0 and AquaCrop gain <= 0, no tolerance.',
+      tolerance: TOLERANCE, toleranceNote: 'The tolerance 0.001 (water index and maize relYield) is part of the fixed design. Implementer conventions, not fixed by the design: the same 0.001 applied to AquaCrop yields in t/ha; the tie epsilon 1e-12 of chooseOffset; the hindsight offsets; AquaCrop gain % = mean gain / mean baseline yield (ratio of means). Simulator-only win = simulator maize gain > 0 and AquaCrop gain <= 0, exact, no tolerance (so a simulator gain of 0.001 counts).',
       policies: {
         simulator: 'the simulator (runSequence) on the past years',
         mlp: 'web/data/emulator_mlp.json (funnel network 27-64-32-16-3, backpropagation) via mlpPredict; waterIndex clamped to [0,1] as the page does',
@@ -306,7 +356,8 @@ function score(dir, outPath) {
         elmBrowser: { ...ctx.elmOptions, rows: 'web/data/emulator_train_subset.json', nRows: ctx.subsetRows, trainSecondsHere: round(ctx.elmTrainSeconds, 3) },
         trainedOn: ev.split,
         evalMeta: ev.meta,
-        note: 'Both emulators were trained on rows of 20 municipalities (the 3 pilots among them) for agricultural years before 2019; the target years 2019-2024 were never used to train them.',
+        municipalities: ctx.municipalities,
+        note: `Both emulators were trained on agricultural years before 2019 of ${ctx.municipalities.training} of the ${ctx.municipalities.total} municipalities (held out: ${ctx.municipalities.heldOut.join(', ')}); the 3 pilots are in the training set; the funnel network used 2017-2018 (valYears) for validation and not for fitting; the target years 2019-2024 were never used to train either emulator.`,
       },
       truth: 'simulator with the case soil (site soil object for site cases); relYield of the maize counts 0 if its cycle is incomplete; overlap = days from the later sowing to the earlier harvest of maize and beans',
       aquacrop: { version: aq0.aquacropVersion, convention: aq0.convention, scope: 'site-soil cases only, maize only, one season per case, same thetaFC/thetaWP as the simulator, dry start; sowing date from resolveMainSowIdx' },
@@ -319,6 +370,7 @@ function score(dir, outPath) {
     },
     cases,
     aggregates: aggregates(cases),
+    posthocAquacrop: posthocAquacrop(cases),
   };
   fs.writeFileSync(outPath, JSON.stringify(artifact, null, 1) + '\n');
   console.log(`Wrote ${outPath} (${cases.length} cases; policy evaluation ${((t2 - t1) / 1000).toFixed(1)} s)`);

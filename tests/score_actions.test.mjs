@@ -5,7 +5,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { scoreActions, loadScorerContext } from '../scripts/compare/score_actions.mjs';
 import { loadSimulator, simulate } from '../scripts/referee/compare.mjs';
-import { computeEt0Series, runSequence } from '../web/js/model/simulate.js';
+import { computeEt0Series, runSequence, resolveMainSowIdx, agriculturalYears } from '../web/js/model/simulate.js';
 import { targetsOf } from '../web/js/model/emulator.js';
 
 const here = (p) => fileURLToPath(new URL(p, import.meta.url));
@@ -111,4 +111,17 @@ test('the CLI scores the example file and prints JSON', () => {
 
 test('the CLI fails with a message when the input file does not exist', () => {
   assert.throws(() => execFileSync(process.execPath, [here('../scripts/compare/score_actions.mjs'), '--in', here('./no_such_actions.json')], { encoding: 'utf8', stdio: 'pipe' }), /no_such_actions/);
+});
+
+test('an offset that would push the sowing outside the agricultural year is rejected (no silent clamping); the range edges are accepted', () => {
+  const b = ctx.bundles.chiquimula;
+  const onset = resolveMainSowIdx(b, 2021, 0).idx;
+  const hi = agriculturalYears(b.dates).find((y) => y.year === 2021).endIdx - agriculturalYears(b.dates).find((y) => y.year === 2021).startIdx - onset;
+  const at = (n) => ({ ...base, year: 2021, sowOffsetDays: n });
+  rejects(at(400), /outside the agricultural year.*range is -\d+ to \d+/);
+  rejects(at(hi + 1), /outside the agricultural year/);
+  rejects(at(-onset - 1), /outside the agricultural year/);
+  const edge = scoreActions({ actions: [at(hi), { ...at(-onset), id: 'a2' }] }, ctx).results;
+  assert.equal(edge[0].crops[0].sowDate, '2022-03-31');
+  assert.equal(edge[1].crops[0].sowDate, '2021-04-01');
 });

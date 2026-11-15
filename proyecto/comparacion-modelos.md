@@ -31,7 +31,7 @@ Dentro del año Y, la red de política puede usar lo que se sepa hasta la fecha 
 
 **Sí puede:** el desfase de siembra del maíz principal de la rotación actual, medido solo por agua. El desfase es de 0, 5, 10, 15, 20, 25 o 30 días después de la regla de inicio de lluvias (20 mm en 3 días después del 1 de mayo).
 
-Los desfases negativos (sembrar antes del inicio) no son acciones posibles: exigen saber cuándo llegará la lluvia. Solo los reportamos como información de retrospectiva.
+Los desfases negativos (sembrar antes del inicio) no son acciones posibles: exigen saber cuándo llegará la lluvia. Solo los reportamos como información de retrospectiva (con −20, −15, −10 y −5 días; esos valores son una convención nuestra, el diseño no los fija).
 
 **No puede:**
 
@@ -55,7 +55,7 @@ Cada modelo entrega un archivo JSON con la lista `actions`. Cada acción lleva:
 
 Y además, **una** de estas dos formas:
 
-- **Rotación:** `sequenceId` (`actual`, `proteger`, `extra_secano` o `extra_riego`) y `sowOffsetDays` (entero: días después del inicio de lluvias; negativo es antes). El desfase mueve la siembra del maíz principal. `extra_riego` exige `irrigation` distinto de `none`.
+- **Rotación:** `sequenceId` (`actual`, `proteger`, `extra_secano` o `extra_riego`) y `sowOffsetDays` (entero: días después del inicio de lluvias; negativo es antes). El desfase mueve la siembra del maíz principal. La siembra resultante debe caer dentro del año agrícola (1 de abril a 31 de marzo); si no, la acción se rechaza en vez de recortarse en silencio. El rango depende del sitio y del año (por ejemplo, Chiquimula 2021: de −35 a 329 días) y el mensaje de error lo indica. `extra_riego` exige `irrigation` distinto de `none`.
 - **Un cultivo con fecha fija:** `crop` (`maiz`, `frijol` o `sorgo`) y `sowDate` (`"MM-DD"`, una fecha real del calendario).
 
 Cualquier otro campo se rechaza, para que un error de escritura no pase en silencio. Solo se admite `note` como texto libre.
@@ -92,11 +92,11 @@ Por cada modelo (y prioridad), sobre todos los casos, por piloto, y por separado
 
 - **Línea base:** sembrar en el inicio de lluvias (desfase 0). **Oráculo:** el mejor desfase posible de ese año, que solo se conoce al final.
 - Índice de agua medio de la acción, de la línea base y del oráculo; ganancia media sobre la línea base; **arrepentimiento** medio (oráculo menos lo elegido).
-- **Gana, empata, pierde** contra la línea base, con tolerancia de 0.001, siempre con el conteo de casos.
+- **Gana, empata, pierde** contra la línea base, con tolerancia de 0.001, siempre con el conteo de casos. (La misma tolerancia aplicada a t/ha de AquaCrop es una convención nuestra.)
 - Peor caso y percentil 10 de la acción y de la línea base.
 - Lo mismo para el rendimiento relativo del **maíz** solo. Un índice de rotación que sube mientras el maíz baja debe verse, no quedar escondido.
 - Días de traslape entre maíz y frijol (mediana). Sembrar tarde hace que los dos cultivos compartan el campo.
-- Para suelos del piloto, con AquaCrop: ganancia media en t/ha y en %, gana/empata/pierde, y **ganancias solo del simulador** (el simulador dice que el maíz mejora y AquaCrop dice que no).
+- Para suelos del piloto, con AquaCrop: ganancia media en t/ha y en % (el % es la ganancia media entre el rendimiento medio de la línea base, no un promedio de porcentajes por caso), gana/empata/pierde, y **ganancias solo del simulador** (el simulador dice que el maíz mejora y AquaCrop dice que no).
 
 Con 18 a 72 casos no se calcula significancia. Se dan los conteos al lado de cada porcentaje.
 

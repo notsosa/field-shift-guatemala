@@ -320,7 +320,8 @@ Nuestro modelo no decide nada por sí solo. Para poder compararlo con la red de 
 - **Línea base:** sembrar en el inicio de lluvias (desfase 0). **Oráculo:** el mejor desfase posible según el simulador en el propio año Y.
 - Verdad para puntuar: el simulador con el suelo del caso. Se reporta el índice de agua de la rotación, el rendimiento relativo del maíz (0 si su ciclo no termina) y los días de traslape entre maíz y frijol.
 - Revisión independiente: AquaCrop 3.1.0 solo en los 18 casos con suelo del piloto, solo maíz, con las mismas θFC y θWP, suelo seco al inicio y la fecha de siembra que da la regla de inicio más el desfase (126 temporadas).
-- Tolerancia de 0.001 para ganar, empatar o perder (también 0.001 t/ha en AquaCrop).
+- Tolerancia de 0.001 para ganar, empatar o perder el índice de agua y el rendimiento relativo del maíz (parte del diseño fijado).
+- **Convenciones nuestras, no fijadas por el diseño** (se eligieron al programar, antes de correr): la misma tolerancia de 0.001 aplicada a los rendimientos de AquaCrop en t/ha; el porcentaje de AquaCrop es la **razón de medias** (ganancia media dividida entre el rendimiento medio de la línea base), no el promedio de porcentajes por caso; los desfases negativos de la retrospectiva (−20, −15, −10 y −5 días); y la tolerancia numérica de 1e-12 con la que dos resúmenes cuentan como empate al elegir el desfase.
 
 **Suelos de clase (54 casos).** Línea base (desfase 0): índice medio 0.858, percentil 10 de 0.634, peor caso 0.454, maíz medio 0.868, traslape mediano 48 días. Oráculo: índice medio 0.931.
 
@@ -386,10 +387,52 @@ Para el simulador, cuanto más tarde se siembra, mejor. Para AquaCrop, la siembr
 
 Las listas de las otras cinco combinaciones están en `decision_eval.json` (`aggregates.siteSoil.aquacrop.<política>.<prioridad>.simulatorOnlyWins`).
 
+*Nota.* "Gana solo el simulador" sigue la definición exacta del diseño (ganancia del maíz en el simulador > 0 y ganancia de AquaCrop ≤ 0, sin tolerancia). Por eso `chiquimula_2020_site` cuenta aunque su ganancia en el simulador es de solo 0.0005 (0.999 → 1.000), que bajo la tolerancia de 0.001 sería un empate.
+
+**Retrospectiva (solo informativa).** En 11 de los 72 casos el mejor desfase de todos, contando −20, −15, −10 y −5 días, fue negativo, y en ellos el índice supera al del oráculo factible en 0.034 en promedio (`aggregates.all.hindsightNegative`). Sembrar antes del inicio exige saber cuándo llegará la lluvia, así que no es una acción posible.
+
+**Análisis posterior, no forma parte del diseño fijado: las temporadas de AquaCrop con rendimiento casi cero.** Las tablas de arriba no cambian. Esto se añadió después de ver los resultados, para saber cuánto pesan unas temporadas en que AquaCrop da 0 t/ha. Todo sale de `posthocAquacrop` en `decision_eval.json` (rendimiento menor de 0.01 t/ha cuenta como casi cero). AquaCrop se volvió a correr con los mismos casos y dio rendimientos y fechas de cosecha idénticos.
+
+| Desfase (días) | 0 | 5 | 10 | 15 | 20 | 25 | 30 |
+|---|---|---|---|---|---|---|---|
+| Temporadas con rendimiento < 0.01 t/ha (de 18) | 0 | 0 | 1 | 1 | 2 | 2 | 4 |
+| Rendimiento medio (t/ha) | 11.72 | 10.95 | 11.20 | 11.48 | 11.42 | 11.01 | 9.35 |
+| Rendimiento mediano (t/ha) | 13.11 | 12.41 | 13.56 | 14.05 | 13.39 | 13.52 | 12.64 |
+
+Son 10 temporadas con rendimiento 0 en total:
+
+| Piloto | Año | Desfase | Siembra | Cosecha de AquaCrop | Días de siembra a cosecha |
+|---|---|---|---|---|---|
+| Chiquimula | 2019 | 10 | 1 jun | 13 ago 2019 | 73 |
+| Chiquimula | 2019 | 15 | 6 jun | 13 ago 2019 | 68 |
+| Chiquimula | 2019 | 20 | 11 jun | 12 ago 2019 | 62 |
+| Chiquimula | 2019 | 25 | 16 jun | 11 ago 2019 | 56 |
+| Chiquimula | 2019 | 30 | 21 jun | 11 ago 2019 | 51 |
+| Jutiapa | 2019 | 20 | 23 may | 22 jul 2019 | 60 |
+| Jutiapa | 2019 | 25 | 28 may | 22 jul 2019 | 55 |
+| Jutiapa | 2019 | 30 | 2 jun | 18 jul 2019 | 46 |
+| Jutiapa | 2020 | 30 | 8 jun | 9 jul 2020 | 31 |
+| San Martín | 2019 | 30 | 9 jun | 14 ago 2019 | 66 |
+
+- **Qué muestran las salidas sobre esos ceros:** en las 10, la fecha de cosecha que da AquaCrop cae entre 31 y 73 días después de la siembra y mucho antes del fin de la ventana de la corrida (31 de marzo). En las otras 116 temporadas la cosecha cae entre 79 y 132 días después de la siembra (mediana 132). No es, por lo tanto, un corte por la longitud de la ventana de la temporada. Las salidas que guardamos (rendimiento y fecha de cosecha) **no dicen por qué** el cultivo termina tan pronto; no permiten distinguir una pérdida real por falta de agua de otro mecanismo interno de AquaCrop, y no lo investigamos más. Chiquimula 2019 da 0.028 t/ha con desfases de 0 y de 5 días, también casi nulo pero sobre el umbral.
+- **Ganancias solo del simulador que descansan en un cero:** de 5 a 8 por fila, 2 a 4 tienen un rendimiento de AquaCrop menor de 0.01 t/ha con el desfase elegido (simulador típica 3 de 7, simulador cauta 3 de 7, red embudo típica 3 de 7, red embudo cauta 2 de 5, ELM típica 3 de 8, ELM cauta 4 de 7).
+- **Ganancia de AquaCrop sin las temporadas con cero** (solo casos donde la línea base y el desfase elegido rinden ≥ 0.01 t/ha):
+
+  | Política | Prioridad | Casos que quedan (de 18) | Ganancia media | Gana / empata / pierde | Gana solo el simulador |
+  |---|---|---|---|---|---|
+  | Simulador | típica | 15 | −1.27 t/ha (−9.9 %) | 6 / 0 / 9 | 4 |
+  | Simulador | cauta | 15 | −1.40 t/ha (−10.9 %) | 5 / 0 / 10 | 4 |
+  | Red embudo | típica | 15 | −1.60 t/ha (−12.5 %) | 4 / 2 / 9 | 4 |
+  | Red embudo | cauta | 16 | −0.56 t/ha (−4.4 %) | 4 / 4 / 8 | 3 |
+  | ELM navegador | típica | 15 | −1.73 t/ha (−13.5 %) | 4 / 0 / 11 | 5 |
+  | ELM navegador | cauta | 14 | −1.29 t/ha (−9.7 %) | 5 / 0 / 9 | 3 |
+
+- **Conclusión de este análisis:** la contradicción se debilita en tamaño (de −0.82 a −2.50 t/ha pasa a −0.56 a −1.73 t/ha), pero no desaparece. Sin los ceros, las seis filas siguen perdiendo en promedio contra la siembra en el inicio y ganan 4 a 6 de los 14 a 16 casos restantes. Siguen quedando 3 a 5 ganancias solo del simulador por fila.
+
 **Límites de esta evaluación.**
 
 - La muestra es pequeña: 18 casos con suelo del piloto, 54 con clases. Los 4 suelos de un mismo sitio y año comparten el mismo clima, así que los 72 casos **no son independientes**. Se dan los conteos y no se calcula significancia.
-- Los emuladores se entrenaron con los años anteriores a 2019 de 20 municipios (los 3 pilotos entre ellos); los años 2019–2024 no se usaron para entrenarlos. Con el suelo del piloto, el emulador solo recibe la textura más cercana (en Jutiapa, `sand`, aunque el suelo del piloto es una arcilla de agua disponible muy baja).
+- Los emuladores se entrenaron con los años anteriores a 2019 de 16 de los 20 municipios (se dejaron fuera gualan, sanarate, asuncionmita y rabinal; `meta.emulators.municipalities` en `decision_eval.json`). Los 3 pilotos están entre los 16. La red embudo usó 2017–2018 solo para validar. Los años 2019–2024 no se usaron para entrenar ninguno de los dos. Con el suelo del piloto, el emulador solo recibe la textura más cercana (en Jutiapa, `sand`, aunque el suelo del piloto es una arcilla de agua disponible muy baja).
 - Solo se decide un desfase de siembra y solo por agua: no hay precios, márgenes, plagas ni fertilización. Detalle en el protocolo.
 - Tiempos: la evaluación de las políticas (72 casos, 3 políticas, 2 prioridades) tarda unos 5 s en Node, más 1 s para entrenar la ELM; AquaCrop tarda unos 30 s de reloj para las 126 temporadas.
 
@@ -412,7 +455,7 @@ Las listas de las otras cinco combinaciones están en `decision_eval.json` (`agg
 ## Cómo reproducir
 
 ```bash
-npm test                                             # 219 pruebas (1 pendiente: la meta de R² de la ELM)
+npm test                                             # 221 pruebas (1 pendiente: la meta de R² de la ELM)
 node scripts/emulator/fetch_points.mjs               # descarga clima de los 20 puntos (NASA POWER + ERA5); ya hecho, usa cachés
 node scripts/emulator/generate.mjs                   # genera los 50,000 ejemplos (guarda commit, lluvia y fecha)
 node scripts/emulator/build_screening_superset.mjs && python scripts/emulator/screen_features.py   # cribado en validación de las entradas de agua antecedente (sin filas de prueba)

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
-  SITES, TARGET_YEARS, POLICIES, ENGINES, loadContext, pastData, decideAll, maizeSowDate, aquacropCases, mergeAquacrop,
+  SITES, TARGET_YEARS, POLICIES, ENGINES, loadContext, pastData, decideAll, maizeSowDate, aquacropCases, mergeAquacrop, posthocAquacrop,
 } from '../scripts/compare/sowing_policy.mjs';
 import { DECISION_OFFSETS } from '../web/js/model/decision.js';
 import { resolveMainSowIdx } from '../web/js/model/simulate.js';
@@ -82,4 +82,25 @@ test('mergeAquacrop fails loudly on a missing case, a missing yield or a differe
 test('the sites and years are the fixed design', () => {
   assert.deepEqual(SITES, ['chiquimula', 'jutiapa', 'sanmartin']);
   assert.deepEqual(TARGET_YEARS, [2019, 2020, 2021, 2022, 2023, 2024]);
+});
+
+test('posthocAquacrop by hand: zero seasons per delay, their list, simulator-only wins on zeros, gain without zeros', () => {
+  const dec = Object.fromEntries(POLICIES.map((p) => [p, { typical: 10, cautious: 10 }]));
+  const truth = { 0: { maizeRelYield: 0.5 }, 10: { maizeRelYield: 0.6 } };
+  const season = (y, h) => ({ sowDate: '06-01', harvestDate: h, yieldTHa: y });
+  const mk = (site, year, y10, h10) => ({
+    site, year, truth, decisions: dec,
+    aquacrop: Object.fromEntries(DECISION_OFFSETS.map((o) => [o, o === 10 ? y10 : (site === 'a' ? 5 : 4)])),
+    aquacropSeasons: Object.fromEntries(DECISION_OFFSETS.map((o) => [o, season(o === 10 ? y10 : (site === 'a' ? 5 : 4), o === 10 ? h10 : '2019-10-01')])),
+  });
+  const p = posthocAquacrop([mk('a', 2019, 0, '2019-07-12'), mk('b', 2019, 6, '2019-10-01')]);
+  assert.match(p.label, /post-hoc/);
+  assert.deepEqual([p.perDelay[10].n, p.perDelay[10].zeroSeasons, p.perDelay[10].meanTHa, p.perDelay[10].medianTHa], [2, 1, 3, 3]);
+  assert.deepEqual([p.perDelay[0].zeroSeasons, p.perDelay[0].meanTHa], [0, 4.5]);
+  assert.deepEqual(p.zeroSeasons, [{ site: 'a', year: 2019, offset: 10, sowDate: '06-01', harvestDate: '2019-07-12', yieldTHa: 0, daysSowToHarvest: 41 }]);
+  const s = p.byPolicy.simulator.typical;
+  assert.deepEqual([s.simulatorOnlyWins, s.simulatorOnlyWinsWithChosenYieldBelowThreshold, s.casesKept, s.casesDropped], [1, 1, 1, 1]);
+  assert.equal(s.gainWithoutZeroSeasons.n, 1);
+  assert.equal(s.gainWithoutZeroSeasons.meanGainTHa, 2);
+  assert.deepEqual([s.gainWithoutZeroSeasons.win, s.gainWithoutZeroSeasons.loss], [1, 0]);
 });
