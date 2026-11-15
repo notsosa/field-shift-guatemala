@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validYearsOf, rainVariant } from '../scripts/referee/pilots.mjs';
+import { validYearsOf, rainVariant, requireYields } from '../scripts/referee/pilots.mjs';
 
 const dates = [];
 for (let t = Date.UTC(2001, 0, 1); t <= Date.UTC(2003, 11, 31); t += 864e5) dates.push(new Date(t).toISOString().slice(0, 10));
@@ -58,4 +58,20 @@ test('referee_aquacrop.json: rain sensitivity uses only years complete in every 
   for (const p of Object.values(s.excludedYears)) for (const y of p) assert.ok(!s.years.includes(y));
   assert.ok(s.excludedYears.IMERG.includes(2019) && s.excludedYears.IMERG.includes(2024));
   assert.equal(s.nYears, s.years.length);
+});
+
+test('requireYields: a missing AquaCrop yield fails loudly naming the case and years instead of giving NaN later', () => {
+  const ok = { id: 'c', results: [{ year: 2001, yieldTHa: 3 }, { year: 2002, yieldTHa: 0 }] };
+  assert.equal(requireYields(ok, 'pilot x'), ok);
+  const bad = { id: 'site', results: [{ year: 2001, yieldTHa: 3 }, { year: 2005, yieldTHa: null, error: 'boom' }] };
+  assert.throws(() => requireYields(bad, 'pilot jutiapa'), /pilot jutiapa case site, years 2005: boom/);
+});
+
+test('referee_aquacrop.json: soilComparison lists the AquaCrop default Loam, Sand and Clay next to the simulator classes, with the not-the-same-soil note', () => {
+  const sc = artifact.soilComparison;
+  const byName = Object.fromEntries(sc.aquacrop.filter((p) => typeof p.soil === 'string').map((p) => [p.soil, p.layers[0]]));
+  for (const k of ['Loam', 'Sand', 'Clay']) assert.ok(byName[k].thetaFC > byName[k].thetaWP, k);
+  for (const k of ['sand', 'loam', 'clay']) assert.ok(sc.simulator[k].thetaFC > sc.simulator[k].thetaWP, k);
+  assert.match(sc.note, /NOT the same soil/);
+  assert.match(artifact.meta.classSoilNote, /NOT the same soil/);
 });

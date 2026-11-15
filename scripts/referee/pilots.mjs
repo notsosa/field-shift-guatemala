@@ -13,6 +13,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spearman, worstK, overlap, caseMetrics, meanAbsDiff, loadSimulator, simulate, SOIL_NAMES } from './compare.mjs';
 import { weatherRows, WEATHER_COLUMNS } from './export_weather.mjs';
+import { SOILS } from '../../web/js/model/soil.js';
 import { agriculturalYears } from '../../web/js/model/simulate.js';
 
 export const PILOTS = ['chiquimula', 'jutiapa', 'sanmartin'];
@@ -68,9 +69,16 @@ async function prepare(dir) {
   console.log(`Prepared ${manifest.length} runs in ${dir}; rain comparison years: ${common.length} (${common[0]}..${common.at(-1)})`);
 }
 
+/** Fails loudly (case and year) when AquaCrop gave no yield: a silent null would turn every Spearman into NaN. */
+export function requireYields(aqCase, label) {
+  const bad = aqCase.results.filter((r) => !Number.isFinite(r.yieldTHa));
+  if (bad.length) throw new Error(`AquaCrop gave no yield in ${label} case ${aqCase.id}, years ${bad.map((r) => r.year).join(', ')}${bad[0].error ? `: ${bad[0].error}` : ''}`);
+  return aqCase;
+}
+
 const metricsOf = (aqCase, simRows) => {
   const bySim = new Map(simRows.map((r) => [r.year, r]));
-  const rows = aqCase.results.filter((r) => r.yieldTHa != null && bySim.has(r.year)).map((r) => ({ year: r.year, aq: r.yieldTHa, sim: bySim.get(r.year).relYield, ks: bySim.get(r.year).ks }));
+  const rows = aqCase.results.filter((r) => bySim.has(r.year)).map((r) => ({ year: r.year, aq: r.yieldTHa, sim: bySim.get(r.year).relYield, ks: bySim.get(r.year).ks }));
   return {
     ...caseMetrics(rows),
     simulatorIncompleteYears: simRows.filter((r) => r.incomplete).map((r) => r.year),
@@ -83,10 +91,13 @@ async function score(dir, artifactPath) {
   const { common, manifest } = readJson(path.join(dir, 'manifest.json'));
   const artifact = readJson(artifactPath);
   artifact.pilots = {};
+  const profiles = [];
   for (const id of PILOTS) {
     const bundle = snap(id);
     const et0 = sim.computeEt0Series(bundle);
-    const aqCase = Object.fromEntries(readJson(path.join(dir, `aq_pilot_${id}.json`)).cases.map((c) => [c.id, c]));
+    const aqFile = readJson(path.join(dir, `aq_pilot_${id}.json`));
+    profiles.push(...aqFile.soilProfiles);
+    const aqCase = Object.fromEntries(aqFile.cases.map((c) => [c.id, requireYields(c, `pilot ${id}`)]));
     const pt = pointOf(id);
     const nearestTexture = pt.soil.nearestTexture;
     const run = (soil) => simulate(sim, bundle, et0, { id: 'x', crop: 'Maize', sowDate: '05-20', ...soil });
@@ -111,7 +122,9 @@ async function score(dir, artifactPath) {
   const per = {};
   for (const p of RAIN_PRODUCTS) {
     const variant = rainVariant(chi, chi.rainAlt[p]);
-    const aq = readJson(path.join(dir, `aq_rain_${p}.json`)).cases[0];
+    const aqFile = readJson(path.join(dir, `aq_rain_${p}.json`));
+    profiles.push(...aqFile.soilProfiles);
+    const aq = requireYields(aqFile.cases[0], `rain ${p}`);
     const simRows = simulate(sim, variant, sim.computeEt0Series(variant), { id: 'x', crop: 'Maize', sowDate: '05-20', soil: 'Loam' }).filter((r) => common.includes(r.year));
     per[p] = { aq, simRows, metrics: metricsOf(aq, simRows) };
   }
@@ -141,6 +154,12 @@ async function score(dir, artifactPath) {
     meanRainMm: Object.fromEntries(RAIN_PRODUCTS.map((p) => [p, round(meanRain(p), 1)])),
     vsAquacrop: Object.fromEntries(RAIN_PRODUCTS.map((p) => [p, { spearman: per[p].metrics.spearman, worst5: per[p].metrics.worst5, cv: per[p].metrics.cv, simYearsAtOne: per[p].metrics.simYearsAtOne }])),
     betweenProducts,
+  };
+  const seen = new Set();
+  artifact.soilComparison = {
+    note: 'Class soils (Loam, Sand, Clay) are NOT the same soil in AquaCrop and in the simulator: AquaCrop uses its own default profile (read from the aquacrop package), the simulator its own class. Only the site-soil cases give both models the same thetaFC and thetaWP (thetaSat and Ksat of a site soil are the harness defaults: thetaFC + 0.15 capped at 0.6, Ksat 500 mm/day).',
+    aquacrop: profiles.filter((p) => { const k = JSON.stringify(p.soil); return seen.has(k) ? false : seen.add(k); }),
+    simulator: Object.fromEntries(Object.entries(SOILS).map(([k, v]) => [k, { thetaFC: v.thetaFC, thetaWP: v.thetaWP, hydrologicGroup: v.hydrologicGroup, cn: v.cn }])),
   };
   fs.writeFileSync(artifactPath, JSON.stringify(artifact, null, 1) + '\n');
   console.log(`Updated ${artifactPath} with pilots and rainSensitivity (${manifest.length} AquaCrop runs read)`);

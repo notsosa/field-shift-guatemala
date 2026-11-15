@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { averageRanks, spearman, worstK, overlap, cv, rankOf, countAtOne, quantile, caseMetrics, parseStage, meanAbsDiff } from '../scripts/referee/compare.mjs';
+import { averageRanks, spearman, worstK, overlap, cv, rankOf, countAtOne, quantile, caseMetrics, parseStage, meanAbsDiff, preserveForeignKeys } from '../scripts/referee/compare.mjs';
 
 const near = (a, b, tol = 1e-9) => assert.ok(Math.abs(a - b) < tol, `${a} != ${b}`);
 
@@ -89,4 +89,11 @@ test('parseStage: label=root, the first "=" splits and Windows drive letters sur
 test('meanAbsDiff: hand-computed (|1-2| + |4-1| + |0.5-0.5|) / 3 = 4/3', () => {
   near(meanAbsDiff([1, 4, 0.5], [2, 1, 0.5]), 4 / 3);
   assert.throws(() => meanAbsDiff([1], [1, 2]), /equal length/);
+});
+
+test('preserveForeignKeys: a rewrite keeps keys it does not own (pilots, rainSensitivity, soilComparison) and replaces meta and stages', () => {
+  const existing = { meta: { a: 1 }, stages: [1], before: { x: 1 }, pilots: { p: 1 }, rainSensitivity: { r: 1 }, soilComparison: { s: 1 } };
+  const fresh = { meta: { a: 2 }, stages: [2, 3] };
+  assert.deepEqual(preserveForeignKeys(existing, fresh), { meta: { a: 2 }, stages: [2, 3], pilots: { p: 1 }, rainSensitivity: { r: 1 }, soilComparison: { s: 1 } });
+  assert.deepEqual(preserveForeignKeys(undefined, fresh), fresh);
 });

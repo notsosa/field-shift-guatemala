@@ -18,7 +18,8 @@
     "thetaWP": 0.1795
    }
   ],
-  "simulatorSetup": "texture loam (cases with a site field: the SoilGrids soil of that pilot, same thetaFC/thetaWP as AquaCrop), flat slope, rainfed, dry start on 1 April, single crop with fixed sowing date",
+  "simulatorSetup": "texture loam of the simulator (AquaCrop: its own default Loam, a different profile; cases with a site field: the SoilGrids soil of that pilot, same thetaFC/thetaWP in both models), flat slope, rainfed, dry start on 1 April, single crop with fixed sowing date",
+  "classSoilNote": "Cases with soil Loam, Sand or Clay are NOT the same soil in both models: AquaCrop uses its own default class profile and the simulator its own class (see soilComparison). Only the site-soil cases (soil \"site\" / SoilGrids) give both models the same thetaFC and thetaWP. The headline maiz_0520 compares each model with its own loam.",
   "relYieldScale": "simulator relYield: 0-1, relative to no water stress (stage-multiplicative for maize and beans, seasonal Ky for the other crops)",
   "note": "AquaCrop uses default crop parameters (no local calibration): this tests logic and robustness, not field truth. Do not quote AquaCrop absolute yields. AquaCrop relYield = yield / max over the case years."
  },
@@ -3781,7 +3782,7 @@
      "bare": 94
     },
     "nearestTexture": "clay",
-    "source": "ISRIC SoilGrids 2.0 WCS, mean prediction, thickness-weighted 0–100 cm (clay/sand g/kg÷10, wv0033 = θFC and wv1500 = θWP in 10⁻³ cm³/cm³÷1000; sampling: mean of N valid pixels in +-0.01 deg); Grupo hidrológico por la textura del suelo superficial: USDA-SCS TR-55 (1986), apéndice A, \"Disturbed soil profiles\" (Brakensiek y Rawls, 1983); CN: USDA-NRCS TR-55, cuadro 2-2b (row crops straight row good / SR+CR good / fallow bare, group D)"
+    "source": "ISRIC SoilGrids 2.0 WCS, mean prediction, thickness-weighted 0–100 cm (clay/sand g/kg÷10, wv0033 = θFC and wv1500 = θWP in 10⁻³ cm³/cm³÷1000; sampling: mean of N valid pixels in +-0.01 deg); Grupo hidrológico por la textura del suelo superficial: USDA-SCS TR-55 (1986), apéndice A, \"Disturbed soil profiles\" (Brakensiek y Rawls, 1983); silt no está en esa tabla y se asigna B por analogía con silt loam; CN: USDA-NRCS TR-55, cuadro 2-2b (row crops straight row good / SR+CR good / fallow bare, group D)"
    },
    "loam": {
     "n": 24,
@@ -3945,7 +3946,7 @@
      "bare": 94
     },
     "nearestTexture": "sand",
-    "source": "ISRIC SoilGrids 2.0 WCS, mean prediction, thickness-weighted 0–100 cm (clay/sand g/kg÷10, wv0033 = θFC and wv1500 = θWP in 10⁻³ cm³/cm³÷1000; sampling: point pixel); Grupo hidrológico por la textura del suelo superficial: USDA-SCS TR-55 (1986), apéndice A, \"Disturbed soil profiles\" (Brakensiek y Rawls, 1983); CN: USDA-NRCS TR-55, cuadro 2-2b (row crops straight row good / SR+CR good / fallow bare, group D)"
+    "source": "ISRIC SoilGrids 2.0 WCS, mean prediction, thickness-weighted 0–100 cm (clay/sand g/kg÷10, wv0033 = θFC and wv1500 = θWP in 10⁻³ cm³/cm³÷1000; sampling: point pixel); Grupo hidrológico por la textura del suelo superficial: USDA-SCS TR-55 (1986), apéndice A, \"Disturbed soil profiles\" (Brakensiek y Rawls, 1983); silt no está en esa tabla y se asigna B por analogía con silt loam; CN: USDA-NRCS TR-55, cuadro 2-2b (row crops straight row good / SR+CR good / fallow bare, group D)"
    },
    "loam": {
     "n": 24,
@@ -4109,7 +4110,7 @@
      "bare": 94
     },
     "nearestTexture": "loam",
-    "source": "ISRIC SoilGrids 2.0 WCS, mean prediction, thickness-weighted 0–100 cm (clay/sand g/kg÷10, wv0033 = θFC and wv1500 = θWP in 10⁻³ cm³/cm³÷1000; sampling: mean of N valid pixels in +-0.01 deg); Grupo hidrológico por la textura del suelo superficial: USDA-SCS TR-55 (1986), apéndice A, \"Disturbed soil profiles\" (Brakensiek y Rawls, 1983); CN: USDA-NRCS TR-55, cuadro 2-2b (row crops straight row good / SR+CR good / fallow bare, group D)"
+    "source": "ISRIC SoilGrids 2.0 WCS, mean prediction, thickness-weighted 0–100 cm (clay/sand g/kg÷10, wv0033 = θFC and wv1500 = θWP in 10⁻³ cm³/cm³÷1000; sampling: mean of N valid pixels in +-0.01 deg); Grupo hidrológico por la textura del suelo superficial: USDA-SCS TR-55 (1986), apéndice A, \"Disturbed soil profiles\" (Brakensiek y Rawls, 1983); silt no está en esa tabla y se asigna B por analogía con silt loam; CN: USDA-NRCS TR-55, cuadro 2-2b (row crops straight row good / SR+CR good / fallow bare, group D)"
    },
    "loam": {
     "n": 24,
@@ -4399,6 +4400,130 @@
     "simulatorWorst5Overlap": 3,
     "aquacropSpearman": 0.7911,
     "meanAbsDiffRelYield": 0.0958
+   }
+  }
+ },
+ "soilComparison": {
+  "note": "Class soils (Loam, Sand, Clay) are NOT the same soil in AquaCrop and in the simulator: AquaCrop uses its own default profile (read from the aquacrop package), the simulator its own class. Only the site-soil cases give both models the same thetaFC and thetaWP (thetaSat and Ksat of a site soil are the harness defaults: thetaFC + 0.15 capped at 0.6, Ksat 500 mm/day).",
+  "aquacrop": [
+   {
+    "soil": "Loam",
+    "layers": [
+     {
+      "layer": 1,
+      "thicknessM": 1.2,
+      "thetaWP": 0.15,
+      "thetaFC": 0.31,
+      "thetaSat": 0.46,
+      "ksatMmDay": 500
+     }
+    ]
+   },
+   {
+    "soil": {
+     "thetaFC": 0.3296,
+     "thetaWP": 0.1795
+    },
+    "layers": [
+     {
+      "layer": 1,
+      "thicknessM": 1.2,
+      "thetaWP": 0.1795,
+      "thetaFC": 0.3296,
+      "thetaSat": 0.4796,
+      "ksatMmDay": 500
+     }
+    ]
+   },
+   {
+    "soil": "Clay",
+    "layers": [
+     {
+      "layer": 1,
+      "thicknessM": 1.2,
+      "thetaWP": 0.39,
+      "thetaFC": 0.54,
+      "thetaSat": 0.55,
+      "ksatMmDay": 35
+     }
+    ]
+   },
+   {
+    "soil": {
+     "thetaFC": 0.3594,
+     "thetaWP": 0.3037
+    },
+    "layers": [
+     {
+      "layer": 1,
+      "thicknessM": 1.2,
+      "thetaWP": 0.3037,
+      "thetaFC": 0.3594,
+      "thetaSat": 0.5094,
+      "ksatMmDay": 500
+     }
+    ]
+   },
+   {
+    "soil": "Sand",
+    "layers": [
+     {
+      "layer": 1,
+      "thicknessM": 1.2,
+      "thetaWP": 0.06,
+      "thetaFC": 0.13,
+      "thetaSat": 0.36,
+      "ksatMmDay": 3000
+     }
+    ]
+   },
+   {
+    "soil": {
+     "thetaFC": 0.3418,
+     "thetaWP": 0.2113
+    },
+    "layers": [
+     {
+      "layer": 1,
+      "thicknessM": 1.2,
+      "thetaWP": 0.2113,
+      "thetaFC": 0.3418,
+      "thetaSat": 0.4918,
+      "ksatMmDay": 500
+     }
+    ]
+   }
+  ],
+  "simulator": {
+   "sand": {
+    "thetaFC": 0.12,
+    "thetaWP": 0.045,
+    "hydrologicGroup": "A",
+    "cn": {
+     "crop": 67,
+     "residue": 64,
+     "bare": 77
+    }
+   },
+   "loam": {
+    "thetaFC": 0.25,
+    "thetaWP": 0.12,
+    "hydrologicGroup": "B",
+    "cn": {
+     "crop": 78,
+     "residue": 75,
+     "bare": 86
+    }
+   },
+   "clay": {
+    "thetaFC": 0.36,
+    "thetaWP": 0.22,
+    "hydrologicGroup": "D",
+    "cn": {
+     "crop": 89,
+     "residue": 85,
+     "bare": 94
+    }
    }
   }
  }

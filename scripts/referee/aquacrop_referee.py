@@ -49,6 +49,25 @@ def make_soil(spec):
     return soil
 
 
+def soil_profiles(cases):
+    """Profile AquaCrop actually uses for each distinct soil of the cases (read from the package, never typed):
+    one entry per layer with thickness (m), theta at wilting point / field capacity / saturation and Ksat (mm/day)."""
+    seen, out = set(), []
+    for c in cases:
+        key = json.dumps(c['soil'], sort_keys=True)
+        if key in seen:
+            continue
+        seen.add(key)
+        prof = make_soil(c['soil']).profile
+        layers = []
+        for lid, g in prof.groupby('Layer', sort=True):
+            r = g.iloc[0]
+            layers.append({'layer': int(lid), 'thicknessM': round(float(g['dz'].sum()), 4), 'thetaWP': float(r['th_wp']), 'thetaFC': float(r['th_fc']),
+                           'thetaSat': float(r['th_s']), 'ksatMmDay': float(r['Ksat'])})
+        out.append({'soil': c['soil'], 'layers': layers})
+    return out
+
+
 def run_one(args):
     weather_path, case, year = args
     from aquacrop import AquaCropModel, Crop, InitialWaterContent
@@ -104,7 +123,7 @@ def main():
 
     json.dump({'aquacropVersion': version, 'generated': datetime.date.today().isoformat(),
                'convention': 'season 1 Apr Y .. 31 Mar Y+1; initial water at wilting point (dry) or field capacity (fc) on 1 Apr; default crop parameters',
-               'cases': out_cases}, open(a.out, 'w', encoding='utf-8'), indent=1)
+               'soilProfiles': soil_profiles(cases), 'cases': out_cases}, open(a.out, 'w', encoding='utf-8'), indent=1)
     failed = sum(1 for r in results if r['yieldTHa'] is None)
     print(f'AquaCrop {version}: {len(results)} seasons, {failed} failed -> {a.out}')
 

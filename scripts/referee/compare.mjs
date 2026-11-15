@@ -87,6 +87,12 @@ export function parseStage(text) {
   return { label: text.slice(0, i), root: text.slice(i + 1) };
 }
 
+/** Keys of `existing` that `fresh` does not own (pilots, rainSensitivity, soilComparison, ...) survive a rewrite; `fresh` wins elsewhere. */
+export function preserveForeignKeys(existing, fresh) {
+  const owned = new Set([...Object.keys(fresh), 'before', 'after']);
+  return { ...fresh, ...Object.fromEntries(Object.entries(existing ?? {}).filter(([k]) => !owned.has(k))) };
+}
+
 /** Mean absolute difference between two equally long numeric series. */
 export function meanAbsDiff(a, b) {
   if (a.length !== b.length || a.length === 0) throw new Error('meanAbsDiff: need two arrays of equal length >= 1');
@@ -216,13 +222,16 @@ async function main(argv) {
       aquacropConvention: aq.convention,
       initialCondition: [...new Set(aq.cases.map((c) => c.initial))].join(','),
       soil: [...new Set(aq.cases.map((c) => JSON.stringify(c.soil)))].map((s) => JSON.parse(s)),
-      simulatorSetup: 'texture loam (cases with a site field: the SoilGrids soil of that pilot, same thetaFC/thetaWP as AquaCrop), flat slope, rainfed, dry start on 1 April, single crop with fixed sowing date',
+      simulatorSetup: 'texture loam of the simulator (AquaCrop: its own default Loam, a different profile; cases with a site field: the SoilGrids soil of that pilot, same thetaFC/thetaWP in both models), flat slope, rainfed, dry start on 1 April, single crop with fixed sowing date',
+      classSoilNote: 'Cases with soil Loam, Sand or Clay are NOT the same soil in both models: AquaCrop uses its own default class profile and the simulator its own class (see soilComparison). Only the site-soil cases (soil "site" / SoilGrids) give both models the same thetaFC and thetaWP. The headline maiz_0520 compares each model with its own loam.',
       relYieldScale: 'simulator relYield: 0-1, relative to no water stress (stage-multiplicative for maize and beans, seasonal Ky for the other crops)',
       note: 'AquaCrop uses default crop parameters (no local calibration): this tests logic and robustness, not field truth. Do not quote AquaCrop absolute yields. AquaCrop relYield = yield / max over the case years.',
     },
     stages: [],
   };
   for (const { label, root } of stageSpecs) {
+    // A failure of the repo-root stage is a bug in the current model and fails the run; only an exported old revision may be "not available".
+    if (path.resolve(root) === repoRoot) { result.stages.push(await block(root, label, bundle, aq.cases)); continue; }
     try {
       result.stages.push(await block(root, label, bundle, aq.cases));
     } catch (e) {
@@ -230,7 +239,8 @@ async function main(argv) {
     }
   }
   fs.mkdirSync(path.dirname(out), { recursive: true });
-  fs.writeFileSync(out, JSON.stringify(result, null, 1) + '\n');
+  const existing = fs.existsSync(out) ? JSON.parse(fs.readFileSync(out, 'utf8')) : {};
+  fs.writeFileSync(out, JSON.stringify(preserveForeignKeys(existing, result), null, 1) + '\n');
   console.log(`Wrote ${out}`);
 }
 

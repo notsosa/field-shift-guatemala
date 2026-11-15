@@ -3,6 +3,7 @@
 An independent crop model (AquaCrop-OSPy 3.1.0) run on the same daily weather and ET0 as the team simulator. Use it to check whether a model change improves agreement, and to score the recommendations of competing models (this simulator + emulator, or a policy network).
 
 ## What it is and is not
+- **Class soils are not the same soil in both models.** A case with soil `Loam`, `Sand` or `Clay` runs AquaCrop with its own default class profile and the simulator with its own class (different theta values; the profiles AquaCrop used are exported in its results as `soilProfiles` and copied to `soilComparison` in the artifact). Only `soil: "site"` cases (or an object soil) give both models the same thetaFC and thetaWP.
 - It tests logic and robustness (year ranking, dynamic range, response to sowing date). It is **not** field truth: AquaCrop runs with its default crop parameters and no local calibration. Do not quote its absolute yields (default maize potential is about 14.5 t/ha).
 - One crop per run: no relay, no intercropping, no cover-crop effect. A rotation becomes separate runs with the water reset.
 - Crops with parameters: `Maize`, `DryBean`, `Sorghum`. There are none for sesame, watermelon or velvet bean.

@@ -49,7 +49,7 @@ Salidas: índice de agua / agua en floración del maíz (Ks) / suelo desnudo en 
 | ELM, 1,500 neuronas | 0.759 / 0.514 | 0.715 / 0.550 |
 | ELM del navegador | 0.734 / 0.349 | 0.693 / 0.450 |
 
-- **El índice de agua se volvió más difícil de imitar** en todos los modelos (la red embudo bajó de 0.847 a 0.815; la ELM, de 0.759 a 0.715). El simulador ahora tiene más variación entre años y más interacción entre etapas, y las redes la siguen peor. **El agua en floración mejoró** en todos (la red embudo subió de 0.665 a 0.705).
+- **El índice de agua se volvió más difícil de imitar** en todos los modelos (la red embudo bajó de 0.847 a 0.815; la ELM, de 0.759 a 0.715). Una causa probable (no medida): el simulador ahora varía más entre años y combina las etapas por producto, y las redes lo siguen peor. **El agua en floración mejoró** en todos (la red embudo subió de 0.665 a 0.705).
 - La ELM se eligió con un barrido en validación (neuronas, escala de los pesos aleatorios y regularización). Ganó otra vez 1,500 neuronas, escala 0.1 y λ 0.1, en el borde de la rejilla. Con 5 semillas distintas el R² casi no cambia (desviación ≤ 0.006).
 - **Meta pendiente:** el equipo fijó R² > 0.8 en años nuevos para el índice de agua y el agua en floración.
   - La red embudo ahora cumple el índice de agua (0.815) y no la floración (0.705).
@@ -91,7 +91,15 @@ Salidas: índice de agua / agua en floración del maíz (Ks) / suelo desnudo en 
 
 ## Juez independiente (AquaCrop)
 
-AquaCrop-OSPy 3.1.0 en Chiquimula, mismo clima (ERA5 del bundle actual) y suelo seco al inicio, 2001–2024. **Una sola corrida de AquaCrop** se compara con cuatro versiones del simulador, así que solo cambia el modelo. Maíz sembrado el 20 de mayo (`maiz_0520`, suelo franco) y frijol el 1 de septiembre (`frijol_0901`).
+AquaCrop-OSPy 3.1.0 en Chiquimula, mismo clima (ERA5 del bundle actual) y suelo seco al inicio, 2001–2024. **Una sola corrida de AquaCrop** se compara con cuatro versiones del simulador, así que solo cambia el modelo. **Ojo con el suelo:** los casos con suelo por clase (franco, arena, arcilla) **no usan el mismo suelo** en los dos modelos: AquaCrop usa su propio perfil por defecto y el simulador el suyo (tabla siguiente). El 0.85 del titular compara el franco de cada modelo con el suyo; solo los casos con el suelo de SoilGrids dan los mismos θFC y θWP a los dos modelos. Maíz sembrado el 20 de mayo (`maiz_0520`) y frijol el 1 de septiembre (`frijol_0901`).
+
+| Clase | AquaCrop (por defecto): θWP / θFC / θs, Ksat (mm/día) | Simulador: θWP / θFC |
+|---|---|---|
+| Franco | 0.15 / 0.31 / 0.46, 500 | 0.12 / 0.25 |
+| Arena | 0.06 / 0.13 / 0.36, 3000 | 0.045 / 0.12 |
+| Arcilla | 0.39 / 0.54 / 0.55, 35 | 0.22 / 0.36 |
+
+Los perfiles de AquaCrop se leen del paquete `aquacrop` (`soilComparison` en `web/data/referee_aquacrop.json`), no se escribieron a mano. La arena es la clase más parecida entre los dos modelos; la arcilla es la menos comparable (en AquaCrop θs casi igual a θFC y Ksat muy baja).
 
 | Versión del simulador | Spearman maíz | Coincidencia en 5 peores (maíz) | CV maíz (AquaCrop 0.40) | Años en 1.0 (maíz) | Spearman frijol | CV frijol (AquaCrop 0.35) | Años en 1.0 (frijol) |
 |---|---|---|---|---|---|---|---|
@@ -134,7 +142,7 @@ AquaCrop usa parámetros de cultivo sin calibrar para Guatemala: mide si la lóg
 
 ### Los 3 pilotos con el modelo final
 
-Maíz sembrado el 20 de mayo, 2001–2024, clima propio de cada piloto (ERA5), tres suelos: franco, el suelo de SoilGrids del piloto (mismo θ en los dos modelos, CN del piloto en el simulador) y la clase `nearestTexture` del piloto, que es lo que recibiría el emulador.
+Maíz sembrado el 20 de mayo, 2001–2024, clima propio de cada piloto (ERA5), tres suelos: franco (el de cada modelo, **no** el mismo), el suelo de SoilGrids del piloto (**la única comparación con el mismo suelo**: mismos θFC y θWP en los dos modelos, CN del piloto en el simulador) y la clase `nearestTexture` del piloto (la de cada modelo, tampoco es el mismo suelo), que es lo que recibiría el emulador.
 
 | Piloto | Suelo | Spearman | Coincidencia 5 peores | CV AquaCrop / simulador | Años en 1.0 |
 |---|---|---|---|---|---|
@@ -150,7 +158,7 @@ Maíz sembrado el 20 de mayo, 2001–2024, clima propio de cada piloto (ERA5), t
 
 En los 3 pilotos ningún ciclo de maíz quedó incompleto en el simulador y AquaCrop dio rendimiento en todos los años.
 
-(*) En las filas de arcilla y arena, AquaCrop usa **su propia** clase de suelo, que no tiene los mismos θ que la clase del simulador. Son comparaciones menos confiables; la de Chiquimula con arcilla (CV de AquaCrop de 1.15) no se debe leer como un fallo del simulador.
+(*) Todas las filas con suelo por clase (franco, arena, arcilla) comparan el perfil de AquaCrop con el del simulador, que son distintos (tabla de suelos arriba). La fila de arcilla es la menos comparable: en AquaCrop la arcilla tiene θs casi igual a θFC y Ksat muy baja, y por eso el CV de AquaCrop en Chiquimula llega a 1.15; no se debe leer como un fallo del simulador. Con el suelo de SoilGrids (mismos θFC y θWP) la comparación sí es del mismo suelo: Chiquimula 0.888, Jutiapa 0.792, San Martín 0.550.
 
 **Suelos de los pilotos (SoilGrids, 0–100 cm).** Son una predicción global, no una medición de campo, y **necesitan verificación local**.
 
@@ -172,13 +180,13 @@ En estos 3 pilotos `nearestTexture` sí es la clase más cercana en resultado, p
 
 ### Sensibilidad a la lluvia (Chiquimula)
 
-Maíz el 20 de mayo, suelo franco, modelo final, con cada producto de lluvia en el simulador **y** en AquaCrop. Solo los 22 años agrícolas completos en los tres productos (se excluyen 2019 y 2024, donde IMERG tiene huecos; no se rellenó ningún hueco). POWER no se usa nunca como lluvia. El modelo sigue usando ERA5: esto mide una brecha de información, no elige un producto.
+Maíz el 20 de mayo, franco de cada modelo (no es el mismo suelo; ver la tabla de suelos), modelo final, con cada producto de lluvia en el simulador **y** en AquaCrop. Solo los 22 años agrícolas completos en los tres productos (se excluyen 2019 y 2024, donde IMERG tiene huecos; no se rellenó ningún hueco). POWER no se usa nunca como lluvia. El modelo sigue usando ERA5: esto mide una brecha de información, no elige un producto.
 
 | Producto | Lluvia media (mm por año agrícola) | Spearman simulador vs AquaCrop | Coincidencia 5 peores | CV del simulador | Años en 1.0 |
 |---|---|---|---|---|---|
-| ERA5 | 1,099 | 0.846 | 3 | 0.24 | 9 |
-| IMERG | 1,164 | 0.602 | 4 | 0.21 | 6 |
-| CHIRPS | 1,308 | 0.632 | 2 | 0.07 | 14 |
+| ERA5 | 1,098.9 | 0.846 | 3 | 0.24 | 9 |
+| IMERG | 1,164.1 | 0.602 | 4 | 0.21 | 6 |
+| CHIRPS | 1,307.9 | 0.632 | 2 | 0.07 | 14 |
 
 Acuerdo entre productos:
 
@@ -195,7 +203,7 @@ Con otro producto de lluvia el orden de los años del simulador cambia mucho (Sp
 - El modelo solo simula agua. No incluye plagas, fertilización, sombra, precios ni mano de obra.
 - **Subsuelo corregido:** las raíces que crecen ya solo alcanzan el agua que la lluvia percoló hasta ahí (commit `4ea12c1`). Ya no "regala" agua.
 - **Ky por etapa solo para maíz y frijol** (verificados en FAO-66 cap. 2 y en IAEA/FAO Water Reports 22). Sorgo, sandía y tomate usan el Ky estacional porque su Ky por etapa no se pudo verificar; ajonjolí y melón no tienen. La regla de multiplicar las fracciones de rendimiento de cada etapa está documentada en una fuente secundaria (ayuda de WEAP/SEI); no se pudo confirmar que sea la forma de Rao, Sarma y Chander (1988), así que no se cita como su fuente.
-- **Lluvia:** el modelo usa ERA5 (Copernicus, por Open-Meteo). IMERG de NASA (ClimateSERV) termina el 1 de junio de 2024 y le falta el 30 de junio de 2019, así que cubre 22 de los 24 años agrícolas y no puede ser la única fuente; no se rellenó ningún hueco. CHIRPS está completo, pero no se cambió de fuente. En los 3 pilotos ERA5 es el producto más seco (promedio de los 22 años comunes: Chiquimula 1,099 / 1,164 / 1,308 mm por año agrícola con ERA5 / IMERG / CHIRPS; Jutiapa 1,084 / 1,313 / 1,303; San Martín 1,101 / 1,224 / 1,158). La lluvia de NASA POWER no se usa. Ver la sensibilidad a la lluvia arriba.
+- **Lluvia:** el modelo usa ERA5 (Copernicus, por Open-Meteo). IMERG de NASA (ClimateSERV) termina el 1 de junio de 2024 y le falta el 30 de junio de 2019, así que cubre 22 de los 24 años agrícolas y no puede ser la única fuente; no se rellenó ningún hueco. CHIRPS está completo, pero no se cambió de fuente. En los 3 pilotos ERA5 es el producto más seco (promedio de los 22 años comunes: Chiquimula 1,098.9 / 1,164.1 / 1,307.9 mm por año agrícola con ERA5 / IMERG / CHIRPS; Jutiapa 1,084.2 / 1,313.1 / 1,302.5; San Martín 1,100.7 / 1,224.5 / 1,158.3). La lluvia de NASA POWER no se usa. Ver la sensibilidad a la lluvia arriba.
 - **Suelo:** el simulador y el emulador usan 3 clases (arena, franco, arcilla). Los suelos de SoilGrids de los 3 pilotos solo entran en el simulador y en las pruebas de AquaCrop de arriba, no en el emulador. SoilGrids es una predicción global y necesita verificación local; en Jutiapa el agua disponible (0.056) es muy baja para una arcilla. `nearestTexture` se elige solo por el agua disponible y puede no coincidir con la clase más cercana en resultado (ver arriba).
 - El número de curva del grupo hidrológico D con residuo es 85; la asignación de grupo según la textura es una aproximación.
 - En cultivos traslapados (relevo) se usa el Kc mayor y la raíz mayor, sin competencia entre cultivos.
@@ -207,7 +215,7 @@ Con otro producto de lluvia el orden de los años del simulador cambia mucho (Sp
 ## Cómo reproducir
 
 ```bash
-npm test                                             # 169 pruebas (1 pendiente: la meta de R²)
+npm test                                             # 178 pruebas (1 pendiente: la meta de R²)
 node scripts/emulator/fetch_points.mjs               # descarga clima de los 20 puntos (NASA POWER + ERA5); ya hecho, usa cachés
 node scripts/emulator/generate.mjs                   # genera los 50,000 ejemplos (guarda commit, lluvia y fecha)
 python scripts/emulator/train_mlp.py --device cpu --out <tmp>/mlp_cpu.json                     # tiempo de CPU
