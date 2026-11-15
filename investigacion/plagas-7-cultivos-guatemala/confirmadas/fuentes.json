@@ -1,0 +1,95 @@
+[
+  {
+    "id": "S05",
+    "titulo": "Memoria de Labores ICTA 2023",
+    "institucion": "ICTA",
+    "fecha_documento": "2023",
+    "url": "https://www.icta.gob.gt/publicaciones/Memoriasicta/Memoria%20de%20Labores%20ICTA%202023.pdf",
+    "alcance": "Diagnóstico del ácaro del maíz con VISAR en Quetzaltenango y Totonicapán.",
+    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "consulta": "2026-11-15"
+  },
+  {
+    "id": "S09",
+    "titulo": "Una nueva plaga en el cultivo de frijol en Guatemala: Megalurothrips usitatus",
+    "institucion": "ICTA",
+    "fecha_documento": "Muestreo 2022; página consultada 2026",
+    "url": "https://icta.gob.gt/plagacultivofrijolGuatemala.html",
+    "alcance": "Diagnóstico de trips de flores en frijol, secciones distribución y síntomas.",
+    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "consulta": "2026-11-15"
+  },
+  {
+    "id": "S16",
+    "titulo": "Manual de ensayos de eficacia de plaguicidas",
+    "institucion": "ICTA/JICA, Dardón y Sagayama",
+    "fecha_documento": "2001; ensayo 2000",
+    "url": "https://www.icta.gob.gt/publicaciones/Plaguicidas/Manual%20de%20ensayos%20eficacia%20plaguicidas%20ICTA%20JICA%20Dardon-Sagayama%202001.pdf",
+    "alcance": "pp.34–35/PDF 39–40: ensayo de minador en cebolla, Chimaltenango; fotos de cortadores.",
+    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "consulta": "2026-11-15",
+    "sha256": "80f75efefbcb9edb1a4a433e57518d376311a0cd245351b42e3ad0ae9809551c"
+  },
+  {
+    "id": "S17",
+    "titulo": "Diagnóstico entomológico y semilla de malezas como plagas endémicas y cuarentenarias para Guatemala",
+    "institucion": "USAC, Edgar Arturo García Salas Cordón",
+    "fecha_documento": "Mayo 2009; muestras 2007",
+    "url": "https://www.repositorio.usac.edu.gt/8989/1/Edgar%20Arturo%20Garc%C3%ADa%20Salas%20Cord%C3%B3n.pdf",
+    "alcance": "p.65: diagnóstico de Thrips tabaci en muestras de cebolla de Jutiapa, Jalapa y Huehuetenango.",
+    "acceso": "Pasaje original indexado; descarga directa agotó tiempo de conexión; copia alternativa USAC 01_2488 no accesible por web",
+    "consulta": "2026-11-15"
+  },
+  {
+    "id": "S20",
+    "titulo": "La mosca que frena las exportaciones hortícolas del altiplano de Guatemala",
+    "institucion": "UVG, Ronaldo Pérez, Arturo Méndez y Charles MacVean",
+    "fecha_documento": "Noviembre 1997, Revista UVG 7:10–16",
+    "url": "https://repositorio.uvg.edu.gt/server/api/core/bitstreams/bbee17fe-bceb-41e7-b960-e7e1e383b219/content",
+    "alcance": "Métodos/resultados p.13, Cuadros1–2 p.14/PDF 5: hospedantes y departamentos; tabla original revisada visualmente. Nombres según identificación de la época.",
+    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "consulta": "2026-11-15",
+    "sha256": "e40ea380a76b11493493c545bc92c649561824bc94db3c64a06250cb4d6c3436"
+  },
+  {
+    "id": "S21",
+    "titulo": "Control de gallina ciega en el cultivo de brocoli",
+    "institucion": "ICTA/IPM-CRSP, Carranza, Dardón, Calderón y Weller; Revista Agricultura",
+    "fecha_documento": "Ensayo agosto–noviembre 1998; fecha editorial no fijada",
+    "url": "https://arcasavi.com/wp-content/uploads/2020/05/revistaagricultura2_23.pdf",
+    "alcance": "PDF 20–22: Xecoíl, Santa Apolonia, Chimaltenango; muestreo de Phyllophaga. Anomala se vincula a un trabajo previo citado, no consultado directamente.",
+    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "consulta": "2026-11-15",
+    "sha256": "c931372a23eab134a3cb84ae67a9a8c48beb0842808a4e822388d935d10b84c7"
+  },
+  {
+    "id": "S22",
+    "titulo": "Evaluación de productos contra Plutella xylostella en brócoli, trabajo de graduación",
+    "institucion": "USAC, Elmer Tomás Aldana Ávila",
+    "fecha_documento": "EPS febrero–noviembre 2006; fecha editorial no fijada",
+    "url": "https://www.repositorio.usac.edu.gt/6251/1/ELMER%20TOMAS%20ALDANA%20AVILA.pdf",
+    "alcance": "Resumen p.xxiii, investigación dirigida a P.xylostella en brócoli del altiplano central y occidental.",
+    "acceso": "Resumen original indexado; descarga del PDF completo agotó tiempo de conexión",
+    "consulta": "2026-11-15"
+  },
+  {
+    "id": "S24",
+    "titulo": "Ensayo de lechuga hidropónica en Pachalí, trabajo de graduación",
+    "institucion": "USAC, Nidia Barrios",
+    "fecha_documento": "2004",
+    "url": "https://biblioteca.usac.edu.gt/tesis/01/01_2071.pdf",
+    "alcance": "6.7.3, p.32/PDF 45 y p.36/PDF 49: revisión diaria e infestación de Aphis sp. en el ensayo.",
+    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "consulta": "2026-11-15"
+  },
+  {
+    "id": "S25",
+    "titulo": "Servicios de monitoreo de trips en lechuga en finca Bejo, trabajo de graduación",
+    "institucion": "USAC, Mucía Sipac",
+    "fecha_documento": "2017; trabajo de campo 2016",
+    "url": "https://biblioteca.usac.edu.gt/tesis/01/01_3159.pdf",
+    "alcance": "3.3, pp.148–156/PDF 174–182: monitoreo y resultados de capturas, finca Bejo, Parramos.",
+    "acceso": "Texto o pasaje pertinente consultado en fuente original",
+    "consulta": "2026-11-15"
+  }
+]

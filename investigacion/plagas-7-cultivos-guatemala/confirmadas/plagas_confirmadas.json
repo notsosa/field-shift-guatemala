@@ -1,0 +1,326 @@
+{
+  "titulo": "Registros locales directos de plagas en cultivos de Guatemala",
+  "fecha": "2026-11-15",
+  "criterio": "Solo observaciones, muestreos, ensayos o diagnósticos locales directos, al nivel taxonómico realmente identificado.",
+  "unidad": "Relación cultivo–taxón; no especies únicas, ranking de frecuencia ni presencia actual en una parcela.",
+  "alcance": "12 relaciones, 10 a nivel de especie y2 de género. Incluye registros históricos y un estudio con precisión geográfica regional.",
+  "exclusiones": "Guías generales, reportes comunitarios, bibliografía mezclada, inventarios citados no revisados directamente y diez menciones pendientes.",
+  "registros": [
+    {
+      "id": "maiz-06",
+      "taxon": "Oligonychus pratensis",
+      "resolucion": "especie",
+      "nombre_comun": "Ácaro del maíz",
+      "organo_o_dano": "Hojas",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S05",
+          "localizador": "Diagnóstico del daño ocasionado por el ácaro del maíz"
+        }
+      ],
+      "lugar": "Quetzaltenango y Totonicapán",
+      "periodo_documentado": "2023",
+      "notas": "Diagnóstico ICTA/VISAR; no inferir presencia en Chiquimula.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Maíz",
+      "cultivo_id": "maiz",
+      "nombre_botanico_cultivo": "Zea mays",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    },
+    {
+      "id": "frijol-01",
+      "taxon": "Megalurothrips usitatus",
+      "resolucion": "especie",
+      "nombre_comun": "Trips de las flores",
+      "organo_o_dano": "Flores y vainas",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S09",
+          "localizador": "Distribución y síntomas"
+        }
+      ],
+      "lugar": "Petén, El Progreso, Zacapa y Chimaltenango (muestreos 2022); San Jerónimo, Baja Verapaz (estudio descrito por ICTA)",
+      "periodo_documentado": "2022",
+      "notas": "La página ICTA describe muestreos 2022 y observaciones en frijol. No se extrapolan sus porcentajes de daño a otras localidades.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Frijol común",
+      "cultivo_id": "frijol",
+      "nombre_botanico_cultivo": "Phaseolus vulgaris",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    },
+    {
+      "id": "frijol-08",
+      "taxon": "Liriomyza huidobrensis",
+      "resolucion": "especie",
+      "nombre_comun": "Mosca minadora",
+      "organo_o_dano": "Minas foliares",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S20",
+          "localizador": "p.13 y Cuadro 1, p.14/PDF 5"
+        }
+      ],
+      "lugar": "Departamento de Guatemala",
+      "periodo_documentado": "1997",
+      "notas": "Registro taxonómico histórico en Phaseolus vulgaris; departamento de Guatemala. Se conserva el nombre de la identificación de la época.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Frijol común",
+      "cultivo_id": "frijol",
+      "nombre_botanico_cultivo": "Phaseolus vulgaris",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    },
+    {
+      "id": "frijol-20",
+      "taxon": "Liriomyza sabaziae",
+      "resolucion": "especie",
+      "nombre_comun": "Mosca minadora",
+      "organo_o_dano": "Minas foliares",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S20",
+          "localizador": "Cuadro 2, p.14/PDF 5, bloqueC"
+        }
+      ],
+      "lugar": "Departamento de Guatemala",
+      "periodo_documentado": "1997",
+      "notas": "Registro histórico en Phaseolus vulgaris; nombre usado en el artículo, sin revisión molecular actual.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Frijol común",
+      "cultivo_id": "frijol",
+      "nombre_botanico_cultivo": "Phaseolus vulgaris",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    },
+    {
+      "id": "cebolla-01",
+      "taxon": "Thrips tabaci",
+      "resolucion": "especie",
+      "nombre_comun": "Trips de la cebolla",
+      "organo_o_dano": "Hojas",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S17",
+          "localizador": "p.65, cultivo de cebolla"
+        }
+      ],
+      "lugar": "Jutiapa, Jalapa y Huehuetenango",
+      "periodo_documentado": "Enero de 2007",
+      "notas": "19 muestras de cebolla, 11 destinadas a entomología. No equivale a 11 fincas ni estima prevalencia.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Cebolla de bulbo",
+      "cultivo_id": "cebolla",
+      "nombre_botanico_cultivo": "Allium cepa",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    },
+    {
+      "id": "cebolla-02",
+      "taxon": "Liriomyza huidobrensis",
+      "resolucion": "especie",
+      "nombre_comun": "Mosca minadora",
+      "organo_o_dano": "Minas foliares",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S16",
+          "localizador": "pp.34–35/PDF 39–40"
+        },
+        {
+          "fuente": "S20",
+          "localizador": "p.13 y Cuadro 1, p.14/PDF 5"
+        }
+      ],
+      "lugar": "Chimaltenango (ensayo 2000); Chimaltenango, Sololá y Quetzaltenango (tablaUVG 1997)",
+      "periodo_documentado": "1997 y 2000",
+      "notas": "Dos fuentes locales: identificación histórica UVG y ensayo ICTA/JICA. Una relación cultivo–taxón, sin duplicar registros.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Cebolla de bulbo",
+      "cultivo_id": "cebolla",
+      "nombre_botanico_cultivo": "Allium cepa",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    },
+    {
+      "id": "brocoli-01",
+      "taxon": "Plutella xylostella",
+      "resolucion": "especie",
+      "nombre_comun": "Palomilla dorso de diamante",
+      "organo_o_dano": "Hojas e inflorescencia",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S22",
+          "localizador": "Resumen, p.xxiii"
+        }
+      ],
+      "lugar": "Altiplano central y occidental de Guatemala; precisión regional, sin fijar aquí el sitio individual del ensayo",
+      "periodo_documentado": "Febrero–noviembre de 2006, período del EPS",
+      "notas": "Resumen original describe evaluación contra esta especie en brócoli. Acceso al texto íntegro limitado; no se asigna cada localidad del EPS al ensayo.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Brócoli",
+      "cultivo_id": "brocoli",
+      "nombre_botanico_cultivo": "Brassica oleracea, grupo Italica",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    },
+    {
+      "id": "brocoli-02",
+      "taxon": "Phyllophaga spp.",
+      "resolucion": "grupo",
+      "nombre_comun": "Gallina ciega",
+      "organo_o_dano": "Raíces",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S21",
+          "localizador": "PDF 20–22, métodos PDF 21"
+        }
+      ],
+      "lugar": "Xecoíl, Santa Apolonia, Chimaltenango",
+      "periodo_documentado": "Agosto–noviembre 1998",
+      "notas": "Registro histórico con muestreo previo en las parcelas. P.obsoleta y P.menetriesi quedan como detalle del complejo, sin sumar entradas.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Brócoli",
+      "cultivo_id": "brocoli",
+      "nombre_botanico_cultivo": "Brassica oleracea, grupo Italica",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    },
+    {
+      "id": "brocoli-04",
+      "taxon": "Liriomyza huidobrensis",
+      "resolucion": "especie",
+      "nombre_comun": "Mosca minadora",
+      "organo_o_dano": "Minas foliares",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S20",
+          "localizador": "p.13 y Cuadro 1, p.14/PDF 5"
+        }
+      ],
+      "lugar": "Chimaltenango",
+      "periodo_documentado": "1997",
+      "notas": "Registro histórico; nombre de la identificación de la época. Tabla original inspeccionada visualmente.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Brócoli",
+      "cultivo_id": "brocoli",
+      "nombre_botanico_cultivo": "Brassica oleracea, grupo Italica",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    },
+    {
+      "id": "lechuga-01",
+      "taxon": "Aphis sp.",
+      "resolucion": "grupo",
+      "nombre_comun": "Pulgón",
+      "organo_o_dano": "Plantas del ensayo",
+      "etapa": "campo",
+      "sistema": "Hidroponía",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S24",
+          "localizador": "6.7.3, p.32/PDF 45 y p.36/PDF 49"
+        }
+      ],
+      "lugar": "Pachalí, San Juan Sacatepéquez",
+      "periodo_documentado": "2004",
+      "notas": "Observación durante ensayo hidropónico; sin identificación a especie.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Lechuga",
+      "cultivo_id": "lechuga",
+      "nombre_botanico_cultivo": "Lactuca sativa",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    },
+    {
+      "id": "lechuga-02",
+      "taxon": "Frankliniella occidentalis",
+      "resolucion": "especie",
+      "nombre_comun": "Trips",
+      "organo_o_dano": "Capturas en monitoreo de lechuga",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S25",
+          "localizador": "3.3, pp.148–156/PDF 174–182"
+        }
+      ],
+      "lugar": "Finca Bejo, Parramos, Chimaltenango",
+      "periodo_documentado": "Trabajo de campo 2016; tesis 2017",
+      "notas": "Resultados de monitoreo; el autor asigna especie, sin detalle localizado de claves ni ejemplares de referencia.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Lechuga",
+      "cultivo_id": "lechuga",
+      "nombre_botanico_cultivo": "Lactuca sativa",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    },
+    {
+      "id": "lechuga-03",
+      "taxon": "Liriomyza huidobrensis",
+      "resolucion": "especie",
+      "nombre_comun": "Mosca minadora",
+      "organo_o_dano": "Minas foliares",
+      "etapa": "campo",
+      "sistema": "Cultivo comercial",
+      "evidencia": "D",
+      "referencias": [
+        {
+          "fuente": "S20",
+          "localizador": "p.13 y Cuadro 1, p.14/PDF 5"
+        }
+      ],
+      "lugar": "Chimaltenango",
+      "periodo_documentado": "1997",
+      "notas": "Registro histórico con identificación taxonómica; no demuestra frecuencia actual ni presencia en Chiquimula.",
+      "frecuencia_nacional": null,
+      "presencia_en_parcela_chiquimula": null,
+      "cultivo": "Lechuga",
+      "cultivo_id": "lechuga",
+      "nombre_botanico_cultivo": "Lactuca sativa",
+      "estado": "registro_local_directo_documentado",
+      "fecha_revision": "2026-11-15"
+    }
+  ]
+}
