@@ -66,3 +66,79 @@ export function coffeeYearMeasures({ sim, dates, rain, year }) {
   const dry = stressOver(sim, dates.indexOf(`${year}-11-01`), dates.indexOf(`${year + 1}-04-30`));
   return { year, floweringDate: dates[fl.idx], noTrigger: fl.noTrigger, fruitSet: win(WINDOWS.fruitSet), grainFill: win(WINDOWS.grainFill), drySeason: dry };
 }
+
+// --- Parte B: avisos con fuente (no son predicciones ni porcentajes de daño). Cada aviso devuelve nivel, los números que lo activaron, la clave de fuente y la confianza.
+// Los textos de las fuentes viven en web/data/coffee_sources.json (clave = sourceKey).
+export const ROYA = { favorableC: [21, 25], possibleC: [16, 28], days: 14, months: [6, 12], latentDays: [31, 37] };
+export const MINADOR = { days: 28, dryMm: 10 };
+export const ANTRACNOSIS = { days: 28, stressShare: 0.5, royaLookback: 60 };
+export const ABONO = { months: [5, 6, 8, 9, 10, 11], rainDays: 7, rainMm: 10 };
+
+const sum = (a, lo, hi) => { let s = 0; for (let i = lo; i <= hi; i++) s += a[i]; return s; };
+const median = (v) => { const s = [...v].sort((a, b) => a - b); const m = s.length >> 1; return s.length === 0 ? null : s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+
+/** Mediana por mes calendario (1..12) de los días de años ANTERIORES a beforeYear; el sitio contra sí mismo. */
+export function monthMedians(dates, values, beforeYear) {
+  const by = Array.from({ length: 13 }, () => []);
+  dates.forEach((d, i) => { if (Number(d.slice(0, 4)) < beforeYear) by[month(d)].push(values[i]); });
+  return by.map(median);
+}
+/** Referencias del sitio hasta antes del año de hoy: mediana mensual del rango diurno (tmax − tmin) y de tmax. */
+export function siteHistory(dates, tmax, tmin, beforeYear) {
+  return { dtrMedian: monthMedians(dates, tmax.map((v, i) => v - tmin[i]), beforeYear), tmaxMedian: monthMedians(dates, tmax, beforeYear), beforeYear };
+}
+
+/** Roya: junio–diciembre; media de los últimos 14 días en 21–25 °C y rango diurno bajo la mediana del mes del sitio → "condiciones favorables"; 16–28 °C → "posible". */
+export function royaNotice({ dates, tmax, tmin, t, history }) {
+  const m = month(dates[t]);
+  const inSeason = m >= ROYA.months[0] && m <= ROYA.months[1];
+  const lo = t - ROYA.days + 1;
+  if (lo < 0) throw new Error('royaNotice: fewer than 14 days of weather up to today');
+  const meanT = (sum(tmax, lo, t) + sum(tmin, lo, t)) / (2 * ROYA.days);
+  const dtr = (sum(tmax, lo, t) - sum(tmin, lo, t)) / ROYA.days;
+  const dtrMedian = history.dtrMedian[m];
+  const inFav = meanT >= ROYA.favorableC[0] && meanT <= ROYA.favorableC[1];
+  const dtrLow = dtrMedian != null && dtr < dtrMedian;
+  let level = 'none';
+  if (inSeason && inFav && dtrLow) level = 'favorable';
+  else if (inSeason && meanT >= ROYA.possibleC[0] && meanT <= ROYA.possibleC[1]) level = 'possible';
+  return {
+    notice: 'roya', level, inSeason, triggers: { meanTemp14: meanT, dtr14: dtr, dtrMedianMonth: dtrMedian, month: m },
+    latent: level === 'favorable' ? { days: ROYA.latentDays, text: 'los síntomas aparecerían en unas 5 semanas' } : null,
+    sourceKey: level === 'possible' ? 'roya_posible' : 'roya_favorable', latentSourceKey: 'roya_latencia', confidence: level === 'favorable' ? 'media-alta (correlación de campo, no un modelo)' : 'orientativa',
+  };
+}
+
+/** Minador: últimos 28 días con lluvia total < 10 mm y tmax media sobre la mediana del mes del sitio → "condiciones probables" (la evidencia se contradice entre sitios). */
+export function minadorNotice({ dates, tmax, rain, t, history }) {
+  const lo = t - MINADOR.days + 1;
+  if (lo < 0) throw new Error('minadorNotice: fewer than 28 days of weather up to today');
+  const rain28 = sum(rain, lo, t), tmax28 = sum(tmax, lo, t) / MINADOR.days, med = history.tmaxMedian[month(dates[t])];
+  const level = rain28 < MINADOR.dryMm && med != null && tmax28 > med ? 'probable' : 'none';
+  return { notice: 'minador', level, triggers: { rain28, tmax28, tmaxMedianMonth: med }, sourceKey: 'minador', confidence: 'baja-media (probable; Costa Rica y Anacafe 2026 a favor, Chiapas en contra)' };
+}
+
+/** Antracnosis: Ks < 1 en más de la mitad de los últimos 28 días, o un aviso de roya "favorable" en los 60 días previos (días t−60..t−1). */
+export function antracnosisNotice({ dates, tmax, tmin, ks, t, history }) {
+  const lo = t - ANTRACNOSIS.days + 1;
+  if (lo < 0) throw new Error('antracnosisNotice: fewer than 28 days of weather up to today');
+  let stress = 0;
+  for (let i = lo; i <= t; i++) if (ks[i] < KS_FREE) stress++;
+  const share = stress / ANTRACNOSIS.days;
+  let royaDay = null;
+  for (let i = Math.max(ROYA.days - 1, t - ANTRACNOSIS.royaLookback); i < t; i++) {
+    if (royaNotice({ dates, tmax, tmin, t: i, history }).level === 'favorable') { royaDay = dates[i]; break; }
+  }
+  const byStress = share > ANTRACNOSIS.stressShare;
+  return { notice: 'antracnosis', level: byStress || royaDay ? 'notice' : 'none', triggers: { stressShare28: share, stressDays28: stress, royaFavorableDay: royaDay, byStress, byRoya: royaDay != null }, sourceKey: 'antracnosis', confidence: 'baja-media (referencia de una finca, Patulul)' };
+}
+
+/** Abono: "abonar ahora" solo en las ventanas de Anacafe (may–jun, ago–sep, oct–nov) con suelo húmedo (Dr < RAW y ≥ 10 mm de lluvia en 7 días); si no, "en espera". */
+export function abonoNotice({ dates, rain, t, dr, taw, p }) {
+  const m = month(dates[t]);
+  const inWindow = ABONO.months.includes(m);
+  const rain7 = sum(rain, Math.max(0, t - ABONO.rainDays + 1), t);
+  const raw = p * taw;
+  const moist = dr < raw && rain7 >= ABONO.rainMm;
+  return { notice: 'abono', level: inWindow && moist ? 'apply_now' : 'wait', triggers: { month: m, inWindow, dr, raw, rain7, moist }, sourceKey: inWindow && moist ? 'abono_ventanas' : 'abono_suelo_seco', confidence: 'alta (Anacafe)' };
+}

@@ -75,3 +75,85 @@ test('medidas del año cafetalero: ventanas 0–90 y 91–120 tras la floración
   assert.equal(r.grainFill.stressDays, 2); assert.equal(r.grainFill.n, 30); assert.equal(r.drySeason.stressDays, 1); assert.equal(r.drySeason.n, 181);
   near(r.fruitSet.etaOverEtc, 0.5);
 });
+
+// --- Parte B: avisos ---
+import { siteHistory, royaNotice, minadorNotice, antracnosisNotice, abonoNotice, monthMedians } from '../web/js/model/coffee.js';
+const src = read('../web/data/coffee_sources.json').sources;
+const mk = () => {
+  const dates = isoDays([2019, 0, 1], 1095); // 2019-01-01 .. 2021-12-31
+  const n = dates.length;
+  return { dates, n, tmax: Array(n).fill(30), tmin: Array(n).fill(18), rain: Array(n).fill(0) };
+};
+const setRange = (w, from, to, f) => { for (let i = w.dates.indexOf(from); i <= w.dates.indexOf(to); i++) f(i); };
+
+test('mediana mensual del sitio solo con años anteriores', () => {
+  const w = mk();
+  w.tmax[w.dates.indexOf('2021-08-05')] = 99; // 2021 no entra
+  const h = siteHistory(w.dates, w.tmax, w.tmin, 2021);
+  assert.equal(h.dtrMedian[8], 12); assert.equal(h.tmaxMedian[8], 30);
+  assert.equal(monthMedians([ '2019-03-01', '2019-03-02', '2020-03-01', '2020-03-02'], [1, 2, 3, 10], 2021)[3], 2.5);
+});
+test('roya: favorable con media 23 °C y rango 10 < mediana 12; latencia de unas 5 semanas; fuente existente', () => {
+  const w = mk(); const h = siteHistory(w.dates, w.tmax, w.tmin, 2021);
+  setRange(w, '2021-08-01', '2021-08-14', (i) => { w.tmax[i] = 28; w.tmin[i] = 18; });
+  const r = royaNotice({ ...w, t: w.dates.indexOf('2021-08-14'), history: h });
+  assert.equal(r.level, 'favorable'); near(r.triggers.meanTemp14, 23); near(r.triggers.dtr14, 10); near(r.triggers.dtrMedianMonth, 12);
+  assert.equal(r.latent.text, 'los síntomas aparecerían en unas 5 semanas'); assert.deepEqual(r.latent.days, [31, 37]);
+  assert.ok(src[r.sourceKey] && src[r.latentSourceKey]);
+});
+test('roya: rango diurno normal → solo posible; media fuera de 16–28 o fuera de jun–dic → ninguno', () => {
+  const w = mk(); const h = siteHistory(w.dates, w.tmax, w.tmin, 2021);
+  setRange(w, '2021-08-01', '2021-08-14', (i) => { w.tmax[i] = 30; w.tmin[i] = 16; }); // media 23, rango 14 > 12
+  assert.equal(royaNotice({ ...w, t: w.dates.indexOf('2021-08-14'), history: h }).level, 'possible');
+  setRange(w, '2021-08-01', '2021-08-14', (i) => { w.tmax[i] = 36; w.tmin[i] = 24; }); // media 30
+  assert.equal(royaNotice({ ...w, t: w.dates.indexOf('2021-08-14'), history: h }).level, 'none');
+  setRange(w, '2021-04-18', '2021-05-01', (i) => { w.tmax[i] = 28; w.tmin[i] = 18; });
+  assert.equal(royaNotice({ ...w, t: w.dates.indexOf('2021-05-01'), history: h }).level, 'none');
+});
+test('minador: 28 días con < 10 mm y tmax sobre la mediana → probable; 10 mm o tmax normal → ninguno', () => {
+  const w = mk(); const h = siteHistory(w.dates, w.tmax, w.tmin, 2021);
+  setRange(w, '2021-02-01', '2021-02-28', (i) => { w.tmax[i] = 33; });
+  const t = w.dates.indexOf('2021-02-28');
+  const a = minadorNotice({ ...w, t, history: h });
+  assert.equal(a.level, 'probable'); near(a.triggers.tmax28, 33); near(a.triggers.rain28, 0);
+  w.rain[t - 3] = 10;
+  assert.equal(minadorNotice({ ...w, t, history: h }).level, 'none');
+  w.rain[t - 3] = 9.9; setRange(w, '2021-02-01', '2021-02-28', (i) => { w.tmax[i] = 30; });
+  assert.equal(minadorNotice({ ...w, t, history: h }).level, 'none'); // tmax igual a la mediana, no mayor
+});
+test('antracnosis: más de la mitad de 28 días con Ks<1, o roya favorable en los 60 días previos', () => {
+  const w = mk(); const h = siteHistory(w.dates, w.tmax, w.tmin, 2021);
+  const t = w.dates.indexOf('2021-08-20'); const ks = Array(w.n).fill(1);
+  assert.equal(antracnosisNotice({ ...w, ks, t, history: h }).level, 'none');
+  for (let i = t - 13; i <= t; i++) ks[i] = 0.9; // 14 de 28 = la mitad exacta: no es "más de la mitad"
+  assert.equal(antracnosisNotice({ ...w, ks, t, history: h }).level, 'none');
+  ks[t - 14] = 0.9; // 15 de 28
+  const a = antracnosisNotice({ ...w, ks, t, history: h });
+  assert.equal(a.level, 'notice'); assert.equal(a.triggers.stressDays28, 15); assert.equal(a.triggers.byStress, true);
+  const ks2 = Array(w.n).fill(1);
+  setRange(w, '2021-07-10', '2021-07-23', (i) => { w.tmax[i] = 28; w.tmin[i] = 18; }); // primer día favorable: 10 de julio (13 días de 24 °C y rango 12 más uno de 23 °C y 10: 11.86 < 12)
+  const b = antracnosisNotice({ ...w, ks: ks2, t, history: h });
+  assert.equal(b.level, 'notice'); assert.equal(b.triggers.byRoya, true); assert.equal(b.triggers.royaFavorableDay, '2021-07-10');
+  assert.ok(src[b.sourceKey].confidence.includes('Patulul'));
+});
+test('abono: ahora solo en ventana y con suelo húmedo (Dr < RAW y ≥ 10 mm en 7 días); si no, en espera', () => {
+  const w = mk(); const t = w.dates.indexOf('2021-06-15'); w.rain[t - 2] = 10;
+  const base = { dates: w.dates, rain: w.rain, t, taw: 156, p: 0.4 }; // RAW = 62.4
+  assert.equal(abonoNotice({ ...base, dr: 62.3 }).level, 'apply_now');
+  assert.equal(abonoNotice({ ...base, dr: 62.5 }).level, 'wait'); // sobre RAW (62.4)
+  const dry = abonoNotice({ ...base, dr: 10, rain: Array(w.n).fill(0) });
+  assert.equal(dry.level, 'wait'); assert.equal(dry.sourceKey, 'abono_suelo_seco'); assert.equal(dry.triggers.moist, false);
+  const t2 = w.dates.indexOf('2021-07-15'); w.rain[t2 - 1] = 30; // julio: fuera de ventana
+  const out = abonoNotice({ dates: w.dates, rain: w.rain, t: t2, dr: 0, taw: 156, p: 0.4 });
+  assert.equal(out.level, 'wait'); assert.equal(out.triggers.inWindow, false);
+  assert.equal(src.abono_suelo_seco.text, 'No aplique abono si el suelo está completamente seco, porque la planta no lo absorbe.');
+});
+test('avisos: alterar datos posteriores a hoy no cambia nada', () => {
+  const w = mk(); const t = w.dates.indexOf('2021-08-14'); const h = siteHistory(w.dates, w.tmax, w.tmin, 2021);
+  setRange(w, '2021-08-01', '2021-08-14', (i) => { w.tmax[i] = 28; w.tmin[i] = 18; });
+  const ks = Array(w.n).fill(1);
+  const all = (x) => JSON.stringify([royaNotice({ ...x, t, history: h }), minadorNotice({ ...x, t, history: h }), antracnosisNotice({ ...x, ks: x.ks ?? ks, t, history: h }), abonoNotice({ dates: x.dates, rain: x.rain, t, dr: 5, taw: 156, p: 0.4 })]);
+  const before = all(w);
+  const w2 = { ...w, tmax: w.tmax.map((v, i) => (i > t ? 99 : v)), tmin: w.tmin.map((v, i) => (i > t ? -9 : v)), rain: w.rain.map((v, i) => (i > t ? 500 : v)), ks: ks.map((v, i) => (i > t ? 0 : v)) };
+  assert.equal(all(w2), before);
+});
