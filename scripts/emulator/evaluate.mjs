@@ -56,7 +56,7 @@ const valIdx = trIdx.filter((i) => VAL_YEARS.includes(meta[i].year));
 const Xfit = pick(fitIdx, X), Yfit = pick(fitIdx, Y), Xval = pick(valIdx, X);
 const nIn = X[0].length;
 const elmBytesOf = (hid) => 8 * (hid * hid + hid * T + hid * nIn + hid + hid * T); // A + B + W + b + beta (Float64)
-// Barrido v2 (solo validación): tamaño x escala de los pesos de entrada x ridge. Con W ~ U(-1, 1) sobre 25 entradas
+// Barrido v2 (solo validación): tamaño x escala de los pesos de entrada x ridge. Con W ~ U(-1, 1) sobre las entradas (25 al diseñarse el barrido; ahora 27)
 // estandarizadas ~la mitad de las neuronas tanh quedan saturadas, y lambda 1e-3–1e-1 es ~1e-5 de diag(HᵀH) (≈ N·E[h²]).
 const SWEEP = { hidden: [600, 1500], inputScale: [1, 0.5, 0.25, 0.1], lambda: [0.1, 10, 1000] };
 const elmSweep = [];
