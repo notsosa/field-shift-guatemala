@@ -33,9 +33,13 @@ function rootDepth(crop, phase, idx) {
  * Kc y Zr = máximo de las activas; p = el del cultivo activo con mayor Kc ese día.
  * residueMask (opcional): día sin fase activa con residuo de abono verde → cobertura 'residue' (CN menor; Kc sigue 0.15).
  * El riego se aplica al final del día, después de calcular Dr.
- * Supuesto: drInit por defecto = TAW del primer día (suelo seco al inicio del año
- * agrícola, fin de la estación seca). Con riego 'full' el predio arranca a capacidad
- * de campo (drInit = 0), porque un predio regado no empieza el ciclo en marchitez.
+ * Supuesto: drInit por defecto = TAW del primer día, es decir, solo la capa superior de
+ * 0.15 m (zona sin cultivo) arranca seca al inicio del año agrícola, fin de la estación seca.
+ * Con riego 'full' el predio arranca a capacidad de campo (drInit = 0), porque un predio
+ * regado no empieza el ciclo en marchitez.
+ * Supuesto (simplificación, revisar en la Tarea 8): cuando las raíces crecen y TAW aumenta,
+ * Dr no cambia, así que el suelo nuevo que alcanzan las raíces se supone a capacidad de campo
+ * (agotamiento 0) aunque venga de la estación seca. Esto agrega agua al crecer las raíces.
  */
 export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, irrigation, drInit, residueMask }) {
   if (!IRRIGATION_MODES.includes(irrigation)) throw new Error(`Riego desconocido: ${irrigation}`);
@@ -63,6 +67,8 @@ export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, ir
     }
     const taw = tawOf(zr);
     if (i === 0) dr = drInit ?? (irrigation === 'full' ? 0 : taw);
+    // Dr se conserva cuando TAW crece: el suelo recién alcanzado por las raíces entra a capacidad de campo.
+    // Cuando TAW baja (fase nueva con raíz corta), Dr se acota a TAW.
     dr = Math.min(taw, Math.max(0, dr));
 
     const ks = stressCoefficient(dr, taw, p);

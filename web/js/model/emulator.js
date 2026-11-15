@@ -99,8 +99,18 @@ export function encodeFeatures(climFeats, phenoFeats, { texture, slopeClass, irr
   ];
 }
 
+/**
+ * relYield efectivo de cada cultivo de comida (ky ≠ null), en orden: un cultivo que no termina
+ * dentro del año agrícola (cycleIncomplete) no se cosecha y cuenta como 0. Abonos verdes (null) fuera.
+ */
+export function cropRelYields(yearResult) {
+  return yearResult.crops
+    .filter((c) => c.relYield !== null && c.relYield !== undefined)
+    .map((c) => (c.cycleIncomplete ? 0 : c.relYield));
+}
+
 export function targetsOf(yearResult) {
-  const ys = yearResult.crops.map((c) => c.relYield).filter((v) => v !== null && v !== undefined);
+  const ys = cropRelYields(yearResult);
   if (ys.length === 0) return null;
   return [ys.reduce((a, b) => a + b, 0) / ys.length, yearResult.crops[0].ksFlowerMean, yearResult.bareDaysRainy / 214];
 }
@@ -145,7 +155,11 @@ function choleskySolve(A, B, n, m) {
   return B;
 }
 
-export function trainELM(X, Y, { hidden = 300, lambda = 1e-2, seed = 42 } = {}) {
+/**
+ * ELM: capa oculta tanh con W y b fijos ~ U(−inputScale, inputScale) sobre entradas estandarizadas,
+ * y β por mínimos cuadrados con ridge λ. inputScale < 1 deja menos neuronas saturadas.
+ */
+export function trainELM(X, Y, { hidden = 300, lambda = 1e-2, seed = 42, inputScale = 1 } = {}) {
   const N = X.length, nIn = X[0].length, nOut = Y[0].length;
   const mu = new Float64Array(nIn), sd = new Float64Array(nIn);
   for (let j = 0; j < nIn; j++) {
@@ -170,9 +184,9 @@ export function trainELM(X, Y, { hidden = 300, lambda = 1e-2, seed = 42 } = {}) 
   }
   const rnd = mulberry32(seed);
   const W = new Float64Array(hidden * nIn);
-  for (let i = 0; i < W.length; i++) W[i] = rnd() * 2 - 1;
+  for (let i = 0; i < W.length; i++) W[i] = (rnd() * 2 - 1) * inputScale;
   const b = new Float64Array(hidden);
-  for (let i = 0; i < hidden; i++) b[i] = rnd() * 2 - 1;
+  for (let i = 0; i < hidden; i++) b[i] = (rnd() * 2 - 1) * inputScale;
 
   const A = new Float64Array(hidden * hidden);
   const B = new Float64Array(hidden * nOut);
@@ -193,7 +207,7 @@ export function trainELM(X, Y, { hidden = 300, lambda = 1e-2, seed = 42 } = {}) 
   }
   for (let p = 0; p < hidden; p++) A[p * hidden + p] += lambda;
   const beta = choleskySolve(A, B, hidden, nOut);
-  return { nIn, nOut, hidden, lambda, seed, mean: mu, std: sd, yMean, yStd, W, b, beta };
+  return { nIn, nOut, hidden, lambda, seed, inputScale, mean: mu, std: sd, yMean, yStd, W, b, beta };
 }
 
 export function elmPredict(model, x) {

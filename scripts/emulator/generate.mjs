@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { loadCrops } from '../../web/js/model/crops.js';
 import { computeEt0Series, agriculturalYears, runSequence } from '../../web/js/model/simulate.js';
 import { climateFeatures, phenoFeatures, encodeFeatures, targetsOf, mulberry32, FEATURE_NAMES, CLIMATE_FEATURE_NAMES, PHENO_FEATURE_NAMES, TARGET_NAMES } from '../../web/js/model/emulator.js';
+import { sharedCells } from './cells.mjs';
 
 const here = (p) => new URL(p, import.meta.url);
 const readJson = (u) => JSON.parse(readFileSync(u, 'utf8'));
@@ -28,12 +29,13 @@ const t0 = Date.now();
 const rng = mulberry32(42);
 const X = []; const Y = []; const meta = [];
 let seen = 0;
-const gridPoints = []; const climate = {}; const pheno = {}; const yearSet = new Set();
+const gridPoints = []; const climate = {}; const pheno = {}; const yearSet = new Set(); const bundles = {};
 
 for (const p of points) {
   const file = here(`./cache/${p.id}.json`);
   if (!existsSync(file)) { console.log(`${p.id}: sin caché, se omite`); continue; }
   const bundle = readJson(file);
+  bundles[p.id] = bundle;
   const invalid = new Set(bundle.invalidYears ?? []);
   const years = agriculturalYears(bundle.dates).filter((y) => !invalid.has(y.year)).map((y) => y.year);
   const et0 = computeEt0Series(bundle);
@@ -67,6 +69,10 @@ for (const p of points) {
   }
   console.log(`${p.id}: ${years.length} años, candidatos acumulados ${seen}`);
 }
+
+// Celda de clima compartida: la elevación del punto es la de la celda POWER (puede no ser la del pueblo).
+const cells = sharedCells(bundles);
+for (const gp of gridPoints) Object.assign(gp, cells[gp.id]);
 
 const heldOut = new Set(points.filter((p) => p.heldOut).map((p) => p.id));
 const isTest = (m) => (m.year >= 2019 && m.year <= 2024) || heldOut.has(m.pointId);

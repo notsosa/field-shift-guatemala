@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
   CLIMATE_FEATURE_NAMES, PHENO_FEATURE_NAMES, FEATURE_NAMES, TARGET_NAMES, climateFeatures, phenoFeatures, encodeFeatures,
-  targetsOf, mulberry32, trainELM, elmPredict, mlpPredict, r2, rmse,
+  targetsOf, cropRelYields, mulberry32, trainELM, elmPredict, mlpPredict, r2, rmse,
 } from '../web/js/model/emulator.js';
 import { loadCrops } from '../web/js/model/crops.js';
 import { buildPhase } from '../web/js/model/phenology.js';
@@ -130,6 +130,29 @@ test('targetsOf: media de relYield, ks del primer cultivo, bareFrac', () => {
   assert.equal(t[1], 0.9);
   assert.equal(t[2], 0.5);
   assert.equal(targetsOf({ crops: [{ relYield: null, ksFlowerMean: 1 }], bareDaysRainy: 0 }), null);
+});
+
+test('targetsOf: un cultivo que no termina en el año agrícola (cycleIncomplete) cuenta como relYield 0', () => {
+  const yr = { crops: [{ relYield: 0.9, ksFlowerMean: 0.8, cycleIncomplete: false }, { relYield: 0.4, ksFlowerMean: 1, cycleIncomplete: true }], bareDaysRainy: 0 };
+  const t = targetsOf(yr);
+  assert.ok(Math.abs(t[0] - 0.45) < 1e-12, `waterIndex ${t[0]}`);
+  assert.equal(t[1], 0.8);
+  // Un cultivo sin ky (abono verde) sigue fuera del promedio aunque no termine.
+  const g = targetsOf({ crops: [{ relYield: 0.6, ksFlowerMean: 1 }, { relYield: null, ksFlowerMean: 1, cycleIncomplete: true }], bareDaysRainy: 0 });
+  assert.equal(g[0], 0.6);
+  assert.deepEqual(cropRelYields(yr), [0.9, 0]);
+});
+
+test('trainELM: inputScale acota W y b a U(−s, s), se guarda en el modelo y 1 es el valor por defecto', () => {
+  const { X, Y } = linearData(200);
+  const a = trainELM(X, Y, { hidden: 30, seed: 4 });
+  const q = trainELM(X, Y, { hidden: 30, seed: 4, inputScale: 0.25 });
+  assert.equal(a.inputScale, 1);
+  assert.equal(q.inputScale, 0.25);
+  assert.ok(a.W.some((w) => Math.abs(w) > 0.25));
+  for (let i = 0; i < a.W.length; i++) assert.ok(Math.abs(q.W[i] - 0.25 * a.W[i]) < 1e-15);
+  for (let i = 0; i < a.b.length; i++) assert.ok(Math.abs(q.b[i] - 0.25 * a.b[i]) < 1e-15);
+  assert.ok(r2(Y.map((y) => y[0]), X.map((x) => elmPredict(q, x)[0])) > 0.99);
 });
 
 test('mulberry32 en [0,1) y determinista', () => {
