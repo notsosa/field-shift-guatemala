@@ -207,7 +207,7 @@ Con otro producto de lluvia el orden de los años del simulador cambia mucho (Sp
 ## Cómo reproducir
 
 ```bash
-npm test                                             # 166 pruebas (1 pendiente: la meta de R²)
+npm test                                             # 169 pruebas (1 pendiente: la meta de R²)
 node scripts/emulator/fetch_points.mjs               # descarga clima de los 20 puntos (NASA POWER + ERA5); ya hecho, usa cachés
 node scripts/emulator/generate.mjs                   # genera los 50,000 ejemplos (guarda commit, lluvia y fecha)
 python scripts/emulator/train_mlp.py --device cpu --out <tmp>/mlp_cpu.json                     # tiempo de CPU
