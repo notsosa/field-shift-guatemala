@@ -895,6 +895,246 @@ Promedio de las dos semillas:
 
 Resultado: **ninguna receta mejora a `base` en 2 % o más, así que se queda `base` sin cambios** (la regla fijada de antemano). `sched` queda 1.2 % peor en promedio: con la semilla 43 la mejor época llega antes de la primera reducción y da el mismo número que `base`; con la 42 reduce la tasa y no mejora. `resid` empeora 42 %: la media por grupo de manejo sola da un MSE de validación de 0.605 y la red parte de ahí, pero termina en 0.088, peor que los 0.062 de la red entrenada desde cero (no medimos la causa). Por eso no se reentrenó ni se reevaluó v1 ni v2, y todas las tablas de este documento se mantienen. El código de `resid` (tabla `baseline` en el JSON y suma en `mlpPredict`, compatible con modelos sin tabla) queda probado por `tests/emulator.test.mjs` pero ningún modelo publicado lo usa.
 
+## Café: cultivo perenne, sombra, avisos y recomendación de riego
+
+Tarea 32. Simulador en el commit `41070c2` (más los cambios de esta tarea), 2026-11-15. Todo lo de abajo sale de `web/data/coffee_eval.json`, `web/data/coffee_recommender.json`, `web/data/coffee_sources.json` y `web/data/crops.json`. Nada cambia en los demás cultivos, redes o artefactos: una prueba fija el resultado de las cuatro rotaciones en un piloto (Jutiapa, 3 niveles de riego) y comprueba que sale igual que antes.
+
+### Qué entró al modelo con número y fuente
+
+| Parte | Valor | Fuente |
+|---|---|---|
+| Kc del café | 0.9 / 0.95 / 0.95 (suelo desnudo). Se usa un solo Kc todo el año, 0.95 (el de la etapa media). Alternativa documentada, no usada: con malezas 1.05 / 1.1 / 1.1 | FAO-56, cuadro 12 |
+| Raíz y agotamiento | profundidad 1.2 m constante (rango FAO 0.9–1.5 m); p = 0.4 | FAO-56, cuadro 22 |
+| Ky | ninguno (null): **FAO no da Ky para café, así que no hay estimación de rendimiento**; solo medidas de estrés hídrico | FAO-56 (el cuadro 24 no incluye café) |
+| Floración | primer día entre el 15 de febrero y el 30 de abril con lluvia ≥ 10 mm, más 9 días; si no hay, 09 de mayo con la marca `noTrigger` | Anacafe (guía 2014 vía Pons; guía de variedades 2020). El 9 es el centro de "8 a 10 días"; el 9 de mayo es una convención nuestra |
+| Ventanas sensibles | días 0–90 tras la floración (cuajado y expansión del fruto) y 91–120 (llenado del grano) | Anzueto, El Cafetal 44 (2016), Anacafe |
+| Sombra, efecto 1 | la evaporación del suelo baja: se resta 0.52 mm/día a la demanda del lote de mayo a octubre (no por debajo de cero) y nada en la estación seca | Padovan et al. 2018 (Nicaragua, 455 m, 57 % de copa; un solo sitio): 1.98 contra 2.50 mm/día en lo húmedo, sin diferencia en lo seco |
+| Sombra, efecto 2 | transpiración de los árboles sumada al uso de agua: siempreverde 0.2 mm/día todo el año; decidua 1.2 mm/día en lluvias y 0.06 en seca | Padovan et al. 2018, el mismo sitio |
+| Riego | 20 mm; efecto medido en los 30 días siguientes | Duarte-Canales et al. 2016 (Carazo, Nicaragua; una finca): la única lámina con ensayo centroamericano en las notas |
+
+Todos los textos y enlaces están en `web/data/coffee_sources.json`. Entrada "sombra": `shade` ∈ {ninguna, árboles} y `treeType` ∈ {siempreverde, decidua}. No se cambia el Kc del café por la sombra ni se modela temperatura (no hay número con fuente para ninguna de las dos cosas).
+
+### Lo que solo se registra, sin número en el modelo
+
+- Fracción de sombra óptima: la nota solo trae citas secundarias o resultados de buscador (48–55 % sin penalidad); no se usa. Anacafe da un indicador de campo (al menos 8 nudos productivos en la primera bandola), no un porcentaje.
+- Efecto de la sombra sobre la temperatura del aire o de la hoja y sobre la intercepción de lluvia: las fuentes no se pudieron abrir o no dan número.
+- Ky del café, pérdida porcentual por déficit en el llenado del fruto, bienalidad, umbral de humedad para abonar en mm: no encontrados.
+- Lluvia de más de 40 mm en floración y la frase sobre pérdida de rendimiento: sin verificar, no se usa.
+- Umbrales de plaga con porcentaje de daño: no existen en las fuentes leídas; por eso los avisos no predicen ni dan porcentajes.
+
+### Avisos con fuente (funciones puras en `web/js/model/coffee.js`)
+
+Cada aviso devuelve su nivel, los números que lo activaron, la clave de su fuente y su confianza. El "normal" del sitio es la mediana del mes calendario en los años anteriores al de hoy.
+
+| Aviso | Condición | Fuente y confianza |
+|---|---|---|
+| Roya, "condiciones favorables" | de junio a diciembre, media de los últimos 14 días entre 21 y 25 °C y rango diurno (tmax − tmin) menor que la mediana del sitio para ese mes. Añade "los síntomas aparecerían en unas 5 semanas" (latencia 31–37 días) | Avelino et al. 2015; latencia, Anacafe/Cedicafe 2015. Media-alta: correlación de campo, no un modelo |
+| Roya, "posible" | de junio a diciembre, media de 14 días entre 16 y 28 °C sin cumplir lo anterior | Anacafe/Cedicafe 2015. Orientativa |
+| Minador, "condiciones probables" | últimos 28 días con lluvia total menor que 10 mm y tmax media sobre la mediana del mes del sitio | Costa Rica 2019 y Anacafe ENOS 2026 a favor; Chiapas en contra: por eso "probable". Baja-media |
+| Antracnosis | Ks < 1 en más de la mitad de los últimos 28 días, o un aviso de roya "favorable" en los 60 días previos | "Referencia de una finca (Patulul)". Baja-media |
+| Abono | "abonar ahora" solo en mayo–junio, agosto–septiembre u octubre–noviembre y con suelo húmedo (agotamiento menor que la lámina fácilmente disponible y al menos 10 mm de lluvia en 7 días); si no, "abono en espera: suelo seco" | Ventanas y frase de Anacafe; la regla de humedad es una convención nuestra |
+
+Una prueba por aviso fija cada umbral con casos hechos a mano y comprueba que alterar los datos posteriores a hoy no cambia nada. Los avisos no se evalúan contra lo ocurrido en fincas (no hay datos de parcela); solo se comprueba que cumplen la regla.
+
+### Medidas de estrés por año cafetalero, con y sin sombra
+
+Año cafetalero Y = del 1 de noviembre de Y al 31 de octubre de Y+1 (la floración cae en febrero–mayo de Y+1). Sin lluvia disparadora entre el 15 de febrero y el 30 de abril, la floración se fija el 9 de mayo y se marca: pasó en 100 de 240 años de sitio y suelo franco (42 %). Medias sobre los 10 sitios, 3 suelos y 24 años (n = 720 por fila); días con Ks < 1 y ETa/ETc:
+
+| Sombra | Días con estrés, cuajado (0–90 d) | ETa/ETc cuajado | Días con estrés, llenado (91–120 d) | ETa/ETc llenado | Días con estrés, estación seca (nov–abr) | ETa/ETc seca |
+|---|---|---|---|---|---|---|
+| ninguna | 41.3 | 0.741 | 6.6 | 0.934 | 153.9 | 0.334 |
+| árboles siempreverdes | 39.3 | 0.742 | 5.3 | 0.951 | 155.0 | 0.323 |
+| árboles deciduos | 46.0 | 0.725 | 9.6 | 0.893 | 157.3 | 0.319 |
+
+Con los dos efectos de Padovan, la sombra siempreverde baja un poco el estrés en lluvias y la decidua lo sube (su transpiración de 1.2 mm/día pesa más que los 0.52 mm/día que ahorra). En la estación seca la sombra no cambia nada de importancia, porque ahí solo suma la transpiración de los árboles. Son efectos de un solo sitio de Nicaragua trasladados a Guatemala; no son una medida de campo.
+
+### Sitios de café
+
+Los puntos de `scripts/emulator/points.json` con `siteElevation` ≥ 900 m (10 de 20). Temperatura media de la serie 2001–2025 contra el óptimo del arábica, 18–21 °C (DaMatta et al. 2007, en las notas):
+
+| Sitio | Altitud (m) | Temperatura media (°C) | ¿En 18–21 °C? | Lluvia (mm/año) |
+|---|---|---|---|---|
+| San Martín Jilotepeque | 1787 | 17.6 | no, más frío | 1096 |
+| Jalapa | 1374 | 20.1 | sí | 1056 |
+| Olopa | 1240 | 20.7 | sí | 1706 |
+| Cubulco | 997 | 22.8 | no, más cálido | 1100 |
+| Rabinal | 967 | 23.0 | no, más cálido | 819 |
+| Monjas | 961 | 22.8 | no, más cálido | 1418 |
+| Salamá | 946 | 23.1 | no, más cálido | 1111 |
+| Esquipulas | 933 | 22.7 | no, más cálido | 2017 |
+| Cuilapa | 929 | 23.0 | no, más cálido | 1776 |
+| Jutiapa | 903 | 23.1 | no, más cálido | 1089 |
+
+Solo Olopa y Jalapa caen dentro del óptimo. Los demás están más cálidos (arriba de 21 °C) o, en el caso de San Martín Jilotepeque, más fríos. **La mayoría de los puntos del Corredor Seco son tierra donde el café no es lo habitual**; sirven para probar el método, no para decir dónde sembrar café.
+
+### La recomendación de riego
+
+**Decisión.** A 30, 60, 90 días de la floración: regar 20 mm ahora o no. Las dos acciones se simulan desde el mismo estado y se puntúan en los 30 días siguientes. Verdad = días de estrés (Ks < 1) sin riego menos con riego (`stressDaysAvoided`). Utilidad de regar = evitados − precio; de no regar = 0. Precio: 3 días de estrés con la prioridad "ahorrar agua y trabajo" y 1 día con "proteger el cultivo". El monto de 20 mm y el precio son convenciones.
+
+**Casos.** Un caso = sitio × suelo (arena, franco, arcilla) × año cafetalero × día de decisión × configuración de sombra (ninguna, siempreverde, decidua). Entrenamiento 2001–2016 (4320 casos), validación 2017–2018 (540), prueba 2019–2024 (1620); subconjunto reservado 2022–2024 (810). Los casos con distinta sombra o suelo del mismo sitio y año comparten el clima, así que no son independientes. Entradas del día de la decisión (16): daysSinceFlowering, doy, rain7, et0_7, rain28, et0_28, rainSinceNov1, et0SinceNov1, dryspell28, tmean28, tmaxMax28, runningDepletion, soilAWmm, elevation, shadeTrees, deciduous; más la prioridad. Una prueba corrompe los datos posteriores al día de la decisión y comprueba que nada cambia.
+
+**Balance corrido de la regla.** D = 0 el 1 de noviembre (suelo a capacidad de campo) y cada día D ← mín(TAW, máx(0, D + 0.95·ET₀ − lluvia)); sin escorrentía, sin sombra, sin riego pasado. **La regla** riega si D > p·TAW con p = 0.40 (FAO-56).
+
+**Políticas.** (1) la regla; (2) la red que recomienda, embudo 18 → 64 → 32 → 16 → 1, puntaje = regla + tanh(corrección) con la capa de salida en cero (al inicio recomienda exactamente la regla), entrenada por estrategia de evolución sin retropropagación (población 32, 8 padres, σ 0.05, elitismo 1, 150 generaciones, 512 escenarios por generación, mejor punto de validación); (3) predecir y luego elegir: una red embudo 16 → 64 → 32 → 16 → 1 entrenada con retropropagación en PyTorch y un ELM (1500 ocultas, escala 0.1, λ 0.1) predicen `stressDaysAvoided`; se riega si la predicción supera el precio; (4) el oráculo (riega si evitados > precio). Se añaden "nunca regar" y "siempre regar" como referencias. Semillas 17, 29 y 43.
+
+**Flujo aleatorio.** La red que recomienda se entrenó con la estrategia de evolución escrita en PyTorch en GPU (`scripts/coffee/train_es.py`, NVIDIA GeForce RTX 4050 Laptop GPU). Su flujo aleatorio es el generador CUDA de torch con las semillas 17, 29 y 43, no el mulberry32 de la versión en JS: el diseño y las distribuciones son los mismos, los números no. El ELM se ajustó en JS (no en GPU).
+
+#### Prueba 2019–2024, todas las configuraciones (n = 1620)
+
+Prioridad "ahorrar agua y trabajo" (precio 3 días de estrés). Sin riego quedan en promedio 6.29 días de estrés en los 30 días.
+
+| Política | Utilidad media | Ganancia sobre la regla (ganados/empates/perdidos) | Arrepentimiento | Riegos desperdiciados | Riegos necesarios omitidos | Días de estrés que quedan | Riegos | Se aparta de la regla |
+|---|---|---|---|---|---|---|---|---|
+| regla | 0.036 | 0.000 (0/1620/0) | 1.009 | 70 % (444/633) | 35 % (104/293) | 5.08 | 633 | 0 |
+| nunca regar | 0.000 | -0.036 (400/1031/189) | 1.046 | — (0/0) | 100 % (293/293) | 6.29 | 0 | 633 |
+| siempre regar | -1.110 | -1.147 (104/642/874) | 2.156 | 82 % (1327/1620) | 0 % (0/293) | 4.40 | 1620 | 987 |
+| oráculo | 1.046 | 1.009 (504/1116/0) | 0.000 | 0 % (0/293) | 0 % (0/293) | 4.70 | 293 | 548 |
+| red que recomienda, semilla 17 | 0.155 | 0.119 (69/1491/60) | 0.891 | 68 % (470/694) | 24 % (69/293) | 4.85 | 694 | 131 |
+| red que recomienda, semilla 29 | 0.118 | 0.081 (108/1478/34) | 0.928 | 68 % (330/486) | 47 % (137/293) | 5.27 | 486 | 149 |
+| red que recomienda, semilla 43 | 0.032 | -0.004 (7/1591/22) | 1.014 | 71 % (464/658) | 34 % (99/293) | 5.04 | 658 | 29 |
+| predecir y elegir, MLP, semilla 17 | 0.479 | 0.443 (267/1251/102) | 0.567 | 58 % (302/517) | 27 % (78/293) | 4.85 | 517 | 382 |
+| predecir y elegir, MLP, semilla 29 | 0.523 | 0.487 (313/1195/112) | 0.522 | 55 % (253/457) | 30 % (89/293) | 4.92 | 457 | 440 |
+| predecir y elegir, MLP, semilla 43 | 0.420 | 0.383 (297/1218/105) | 0.626 | 56 % (198/355) | 46 % (136/293) | 5.21 | 355 | 430 |
+| predecir y elegir, ELM, semilla 17 | 0.275 | 0.239 (221/1224/175) | 0.770 | 66 % (409/618) | 29 % (84/293) | 4.87 | 618 | 413 |
+| predecir y elegir, ELM, semilla 29 | 0.256 | 0.219 (220/1225/175) | 0.790 | 67 % (411/618) | 29 % (86/293) | 4.89 | 618 | 409 |
+| predecir y elegir, ELM, semilla 43 | 0.307 | 0.270 (230/1226/164) | 0.739 | 65 % (393/604) | 28 % (82/293) | 4.87 | 604 | 411 |
+
+Prioridad "proteger el cultivo" (precio 1 día de estrés).
+
+| Política | Utilidad media | Ganancia sobre la regla (ganados/empates/perdidos) | Arrepentimiento | Riegos desperdiciados | Riegos necesarios omitidos | Días de estrés que quedan | Riegos | Se aparta de la regla |
+|---|---|---|---|---|---|---|---|---|
+| regla | 0.818 | 0.000 (0/1620/0) | 0.720 | 49 % (312/633) | 29 % (130/451) | 5.08 | 633 | 0 |
+| nunca regar | 0.000 | -0.818 (213/1086/321) | 1.538 | — (0/0) | 100 % (451/451) | 6.29 | 0 | 633 |
+| siempre regar | 0.890 | 0.072 (130/653/837) | 0.648 | 72 % (1169/1620) | 0 % (0/451) | 4.40 | 1620 | 987 |
+| oráculo | 1.538 | 0.720 (343/1277/0) | 0.000 | 0 % (0/451) | 0 % (0/451) | 4.48 | 451 | 442 |
+| red que recomienda, semilla 17 | 1.104 | 0.286 (77/1414/129) | 0.434 | 53 % (436/826) | 14 % (61/451) | 4.68 | 826 | 219 |
+| red que recomienda, semilla 29 | 0.785 | -0.033 (36/1564/20) | 0.753 | 47 % (266/567) | 33 % (150/451) | 5.16 | 567 | 66 |
+| red que recomienda, semilla 43 | 0.864 | 0.046 (11/1600/9) | 0.674 | 49 % (320/651) | 27 % (120/451) | 5.03 | 651 | 20 |
+| predecir y elegir, MLP, semilla 17 | 1.276 | 0.458 (152/1329/139) | 0.262 | 49 % (407/826) | 7 % (32/451) | 4.51 | 826 | 305 |
+| predecir y elegir, MLP, semilla 29 | 1.223 | 0.405 (177/1286/157) | 0.315 | 48 % (352/739) | 14 % (64/451) | 4.61 | 739 | 360 |
+| predecir y elegir, MLP, semilla 43 | 1.022 | 0.204 (139/855/626) | 0.515 | 68 % (940/1386) | 1 % (5/451) | 4.41 | 1386 | 785 |
+| predecir y elegir, ELM, semilla 17 | 1.142 | 0.324 (156/1107/357) | 0.396 | 60 % (626/1048) | 6 % (29/451) | 4.50 | 1048 | 533 |
+| predecir y elegir, ELM, semilla 29 | 1.178 | 0.360 (158/1127/335) | 0.360 | 59 % (609/1038) | 5 % (22/451) | 4.47 | 1038 | 511 |
+| predecir y elegir, ELM, semilla 43 | 1.136 | 0.318 (163/1094/363) | 0.402 | 60 % (621/1040) | 7 % (32/451) | 4.51 | 1040 | 545 |
+
+"Riegos desperdiciados" = riegos recomendados que evitaron menos días que el precio (o los mismos). "Omitidos" = casos en que el oráculo riega y la política no. Conteos entre paréntesis; no se hace ninguna afirmación de significancia.
+
+#### Subconjunto reservado 2022–2024 (n = 810), todas las configuraciones
+
+Prioridad "ahorrar agua y trabajo".
+
+| Política | Utilidad media | Ganancia sobre la regla (ganados/empates/perdidos) | Arrepentimiento | Riegos desperdiciados | Riegos necesarios omitidos | Días de estrés que quedan | Riegos | Se aparta de la regla |
+|---|---|---|---|---|---|---|---|---|
+| regla | -0.177 | 0.000 (0/810/0) | 1.288 | 76 % (301/396) | 39 % (60/155) | 6.92 | 396 | 0 |
+| nunca regar | 0.000 | 0.177 (264/451/95) | 1.111 | — (0/0) | 100 % (155/155) | 8.21 | 0 | 396 |
+| siempre regar | -0.943 | -0.767 (60/400/350) | 2.054 | 81 % (655/810) | 0 % (0/155) | 6.16 | 810 | 414 |
+| oráculo | 1.111 | 1.288 (324/486/0) | 0.000 | 0 % (0/155) | 0 % (0/155) | 6.53 | 155 | 361 |
+| red que recomienda, semilla 17 | -0.059 | 0.117 (35/747/28) | 1.170 | 74 % (311/423) | 28 % (43/155) | 6.71 | 423 | 65 |
+| red que recomienda, semilla 29 | 0.011 | 0.188 (74/720/16) | 1.100 | 74 % (223/303) | 48 % (75/155) | 7.08 | 303 | 95 |
+| red que recomienda, semilla 43 | -0.200 | -0.023 (3/790/17) | 1.311 | 77 % (316/412) | 38 % (59/155) | 6.89 | 412 | 20 |
+| predecir y elegir, MLP, semilla 17 | 0.520 | 0.696 (175/603/32) | 0.591 | 60 % (174/289) | 26 % (40/155) | 6.62 | 289 | 217 |
+| predecir y elegir, MLP, semilla 29 | 0.565 | 0.742 (203/568/39) | 0.546 | 58 % (137/238) | 35 % (54/155) | 6.77 | 238 | 254 |
+| predecir y elegir, MLP, semilla 43 | 0.415 | 0.591 (197/564/49) | 0.696 | 60 % (118/198) | 48 % (75/155) | 7.07 | 198 | 272 |
+| predecir y elegir, ELM, semilla 17 | 0.381 | 0.558 (145/624/41) | 0.730 | 65 % (203/314) | 28 % (44/155) | 6.67 | 314 | 200 |
+| predecir y elegir, ELM, semilla 29 | 0.351 | 0.527 (144/624/42) | 0.760 | 65 % (207/318) | 28 % (44/155) | 6.69 | 318 | 198 |
+| predecir y elegir, ELM, semilla 43 | 0.383 | 0.559 (152/613/45) | 0.728 | 64 % (203/315) | 28 % (43/155) | 6.67 | 315 | 211 |
+
+Prioridad "proteger el cultivo".
+
+| Política | Utilidad media | Ganancia sobre la regla (ganados/empates/perdidos) | Arrepentimiento | Riegos desperdiciados | Riegos necesarios omitidos | Días de estrés que quedan | Riegos | Se aparta de la regla |
+|---|---|---|---|---|---|---|---|---|
+| regla | 0.801 | 0.000 (0/810/0) | 0.860 | 54 % (214/396) | 27 % (68/250) | 6.92 | 396 | 0 |
+| nunca regar | 0.000 | -0.801 (150/478/182) | 1.662 | — (0/0) | 100 % (250/250) | 8.21 | 0 | 396 |
+| siempre regar | 1.057 | 0.256 (68/402/340) | 0.605 | 69 % (560/810) | 0 % (0/250) | 6.16 | 810 | 414 |
+| oráculo | 1.662 | 0.860 (218/592/0) | 0.000 | 0 % (0/250) | 0 % (0/250) | 6.24 | 250 | 282 |
+| red que recomienda, semilla 17 | 1.168 | 0.367 (44/713/53) | 0.494 | 54 % (260/480) | 12 % (30/250) | 6.45 | 480 | 102 |
+| red que recomienda, semilla 29 | 0.775 | -0.026 (26/770/14) | 0.886 | 52 % (181/349) | 33 % (82/250) | 7.01 | 349 | 47 |
+| red que recomienda, semilla 43 | 0.817 | 0.016 (3/801/6) | 0.844 | 54 % (219/403) | 26 % (66/250) | 6.90 | 403 | 9 |
+| predecir y elegir, MLP, semilla 17 | 1.393 | 0.591 (97/669/44) | 0.269 | 48 % (220/460) | 4 % (10/250) | 6.25 | 460 | 146 |
+| predecir y elegir, MLP, semilla 29 | 1.367 | 0.565 (117/645/48) | 0.295 | 45 % (184/411) | 9 % (23/250) | 6.34 | 411 | 175 |
+| predecir y elegir, MLP, semilla 43 | 1.173 | 0.372 (79/474/257) | 0.489 | 65 % (463/712) | 0 % (1/250) | 6.16 | 712 | 344 |
+| predecir y elegir, ELM, semilla 17 | 1.302 | 0.501 (93/581/136) | 0.359 | 57 % (316/557) | 4 % (9/250) | 6.22 | 557 | 237 |
+| predecir y elegir, ELM, semilla 29 | 1.363 | 0.562 (97/598/115) | 0.299 | 55 % (295/539) | 2 % (6/250) | 6.19 | 539 | 219 |
+| predecir y elegir, ELM, semilla 43 | 1.309 | 0.507 (104/566/140) | 0.353 | 56 % (309/549) | 4 % (10/250) | 6.23 | 549 | 253 |
+
+#### Con y sin sombra (prueba 2019–2024), media de las tres semillas
+
+| Política | Prioridad | Sin sombra: utilidad (ganancia sobre la regla) | Con árboles: utilidad (ganancia sobre la regla) |
+|---|---|---|---|
+| regla | ahorrar | 0.096 (0) | 0.006 (0) |
+| oráculo | ahorrar | 0.943 (0.846) | 1.097 (1.091) |
+| red que recomienda | ahorrar | 0.123 (0.027) | 0.091 (0.085) |
+| predecir y elegir, MLP | ahorrar | 0.419 (0.322) | 0.502 (0.495) |
+| predecir y elegir, ELM | ahorrar | 0.199 (0.103) | 0.319 (0.313) |
+| regla | proteger | 0.878 (0) | 0.788 (0) |
+| oráculo | proteger | 1.411 (0.533) | 1.601 (0.813) |
+| red que recomienda | proteger | 0.917 (0.040) | 0.917 (0.129) |
+| predecir y elegir, MLP | proteger | 1.066 (0.188) | 1.227 (0.440) |
+| predecir y elegir, ELM | proteger | 1.010 (0.132) | 1.223 (0.435) |
+
+Sin sombra 540 casos de prueba; con árboles 1080 (siempreverde y decidua juntas; por separado están en `coffee_eval.json`, grupos `evergreen` y `deciduous`).
+
+#### Regresión de predecir y luego elegir (días de estrés evitados)
+
+| Red | Semilla | R² validación 2017–2018 | R² prueba 2019–2024 | R² 2022–2024 | RMSE prueba (días) |
+|---|---|---|---|---|---|
+| MLP embudo | 17 | 0.125 | 0.277 | 0.250 | 3.21 |
+| MLP embudo | 29 | 0.152 | 0.240 | 0.246 | 3.29 |
+| MLP embudo | 43 | 0.047 | 0.165 | 0.143 | 3.45 |
+| ELM | 17 | -0.038 | 0.096 | 0.136 | 3.59 |
+| ELM | 29 | -0.022 | 0.084 | 0.148 | 3.61 |
+| ELM | 43 | -0.020 | 0.097 | 0.137 | 3.59 |
+
+#### Tiempos
+
+| Qué | Tiempo | Evaluaciones de escenario por segundo |
+|---|---|---|
+| Evolución en GPU, semilla 17 (150 generaciones) | 1.7 s | 2,966,694 |
+| Evolución en GPU, semilla 29 (150 generaciones) | 1.5 s | 3,246,666 |
+| Evolución en GPU, semilla 43 (150 generaciones) | 1.5 s | 3,221,983 |
+| Evolución en JS (recommender.js), medida con 5 generaciones y proyectada a 150 | 76 s | 64,619 |
+| Predecir y elegir, MLP, semilla 17 (GPU) | 0.9 s (22 épocas) | |
+| Predecir y elegir, MLP, semilla 29 (GPU) | 1.0 s (31 épocas) | |
+| Predecir y elegir, MLP, semilla 43 (GPU) | 0.4 s (13 épocas) | |
+| Predecir y elegir, ELM, semilla 17 (JS) | 8.3 s | |
+| Predecir y elegir, ELM, semilla 29 (JS) | 8.3 s | |
+| Predecir y elegir, ELM, semilla 43 (JS) | 11.1 s | |
+| Una recomendación de la red (4 filas, JS) | 0.020 ms | |
+
+La versión por lotes en GPU evalúa los 32 individuos en los 512 escenarios, con las dos prioridades y las dos acciones, en una sola operación por generación: unas 46 veces más evaluaciones por segundo que el JS en un hilo (misma tabla, mismo diseño). Equipo: NVIDIA GeForce RTX 4050 Laptop GPU, PyTorch 2.11.0+cu128.
+Comprobación cruzada: el pase hacia adelante en JS y en PyTorch dan los mismos puntajes (diferencia máxima 2.6e-15) y la misma recomendación en 1290 de 1290 filas muestreadas (3 semillas).
+
+#### Lectura, sin rodeos
+
+- **La regla no es superada de forma consistente por la red que recomienda.** Ganancia media sobre la regla en la prueba: 0.065 (de -0.004 a 0.119) con precio 3 y 0.099 (de -0.033 a 0.286) con precio 1 (media y rango de las tres semillas). No todas las semillas ganan con precio 3 y no todas ganan con precio 1. La red se aparta de la regla en pocos casos (103 (de 29 a 149) de 1620 con precio 3): con el diseño fijado de antemano (150 generaciones, nada ajustado tras ver la prueba) la evolución encontró poco que corregir en la regla.
+- **Predecir y luego elegir gana más que la red evolutiva** en este problema: MLP 0.438 (de 0.383 a 0.487) y ELM 0.243 (de 0.219 a 0.270) con precio 3; MLP 0.356 (de 0.204 a 0.458) y ELM 0.334 (de 0.318 a 0.360) con precio 1. El MLP supera a la red evolutiva de su misma semilla en las dos prioridades. Una explicación posible es que la red evolutiva parte de la regla y muta a ciegas mientras que la regresión usa la verdad numérica de cada caso; no se probó.
+- **Nadie alcanza al oráculo:** ganancia del oráculo sobre la regla 1.009 (precio 3) y 0.720 (precio 1). La mejor semilla de predecir y elegir con MLP deja un arrepentimiento de 0.522 con precio 3.
+- **Regar de más es lo común:** con precio 3 la regla riega 633 veces y 70 % (444/633) de esos riegos evitaron 3 días de estrés o menos; 35 % (104/293) de los riegos necesarios se omiten. "Siempre regar" tiene utilidad media -1.110 con precio 3 y 0.890 con precio 1, que es **mayor que la de la regla (0.818)**: con el precio bajo, la regla es peor que regar siempre.
+- **Regresión débil.** R² en años nuevos (prueba): MLP 0.277, 0.240, 0.165 y ELM 0.096, 0.084, 0.097 (semillas 17, 29, 43). Predicen mal el valor exacto de los días evitados; elegir con el precio funciona mejor que predecir el valor. En validación 2017–2018 el R² es menor aún (0.125, 0.152, 0.047 para el MLP). No hay compuerta de R² para esta tarea.
+- **Sombra.** En el estrés por año (tabla de arriba) la sombra siempreverde cambia poco y la decidua lo empeora en lluvias. En la decisión de riego, con precio 3 el oráculo gana 0.846 sobre la regla sin sombra y 1.091 con árboles; la red evolutiva gana 0.027 sin sombra y 0.085 con árboles, y el MLP 0.322 y 0.495. La regla no sabe de la sombra; que las políticas con la sombra como entrada ganen más o menos con ella no demuestra un efecto real de la sombra, solo cómo reacciona nuestro simulador a los dos efectos de un solo sitio.
+
+#### Límites
+
+- **No hay rendimiento de café.** FAO no da Ky para café; las medidas son días de estrés y ETa/ETc, no kilos. Un día de estrés evitado no se traduce a dinero ni a cosecha.
+- **Los efectos de la sombra vienen de un solo sitio de Nicaragua** (Padovan et al. 2018, 455 m, 57 % de copa, dos especies de árbol). No hay efecto de temperatura ni del Kc.
+- **El juez es nuestro simulador.** "Mejor riego" quiere decir "evita más días con Ks < 1 en el simulador", no "da más cosecha". El simulador no se ha comparado con un balance medido en una finca.
+- **Casi todos los puntos del Corredor Seco no son tierra de café** (tabla de sitios): el análisis prueba el método con clima de esos puntos, no dice dónde sembrar café.
+- **No hay datos de parcelas** de café en Guatemala (manejo, plagas, rendimiento) para validar nada de esto. Los avisos solo se comprueban contra la regla escrita.
+- **Las plagas son avisos, no predicciones.** No hay umbral ni porcentaje de daño con fuente; el aviso de minador es "probable" porque la evidencia se contradice, y el de antracnosis se apoya en una finca de Patulul.
+- **Convenciones nuestras:** la lámina de 20 mm (una finca, Nicaragua), el precio de 3 y 1 días de estrés, los días 30/60/90, el 9 de mayo sin lluvia disparadora (100 de 240 años de franco sin disparo), el Kc de 0.95 todo el año, el balance corrido desde el 1 de noviembre con suelo lleno, el año cafetalero del 1 de noviembre al 31 de octubre y que el estado del lote es la historia sin riegos pasados.
+- **Los casos no son independientes** (mismo clima en los tres suelos y las tres configuraciones de sombra) y los sitios de entrenamiento y prueba son los mismos: la prueba separa años, no sitios.
+- **La red evolutiva se entrenó en GPU con otro flujo aleatorio** que el de la versión en JS; solo se comprobó que el pase hacia adelante coincide, no que un entrenamiento en JS daría los mismos pesos.
+
+Comandos para reproducir el café:
+
+```
+node scripts/coffee/scenarios.mjs                                  # tabla de escenarios (1 s)
+C:/Users/velas/venv_lab4/Scripts/python.exe scripts/coffee/train_es.py          # red que recomienda, 3 semillas, GPU
+PYTHONPATH=scripts/emulator C:/Users/velas/venv_lab4/Scripts/python.exe scripts/coffee/ptc_mlp.py   # predecir y elegir, MLP, 3 semillas, GPU
+node scripts/coffee/bench_js.mjs 5 17                             # velocidad de la evolución en JS
+node scripts/coffee/evaluate.mjs                                  # ELM, métricas y artefactos
+```
+
 ## Limitaciones conocidas
 
 - El modelo solo simula agua. No incluye plagas, fertilización, sombra, precios ni mano de obra.

@@ -78,6 +78,10 @@ El aviso depende del clima real del día, así que no se puede forzar en vivo. C
 - Un registro por día y una sola plantación por parcela. No hay red neuronal.
 - Sin validar en campo: apoya, no reemplaza, el criterio del finquero.
 
+## Café en el modelo (no en la app)
+
+El modelo de la rama `modelo-keu` ya incluye café como cultivo perenne, con sombra como entrada, avisos con fuente (roya, minador, antracnosis, abono) y una recomendación de riego medida contra una regla. La app no cambió: sus textos, su café y sus avisos siguen como están descritos arriba. Resultados y límites en `proyecto/resultados-modelo-keu.md`, sección "Café: cultivo perenne, sombra, avisos y recomendación de riego".
+
 ## Cómo se conecta con nuestro modelo
 
 La app es el asesor del día a día de una plantación: balance de agua FAO-56 con aviso de riego, plaga y abono. Nuestro modelo de la rama `modelo-keu` responde la pregunta de antes de sembrar: qué rotación y qué fecha de siembra convienen, con 24 años de historia (`proyecto/resultados-modelo-keu.md`, con la matriz de las 42 sucesiones entre siete cultivos). Para ver si la red de política del equipo decide mejor que nuestro simulador, se usa el protocolo de `proyecto/comparacion-modelos.md`: mismos sitios, años y juez, con la regla de información fijada de antemano.
