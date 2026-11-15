@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { averageRanks, spearman, worstK, overlap, cv, rankOf, countAtOne, quantile, caseMetrics } from '../scripts/referee/compare.mjs';
+import { averageRanks, spearman, worstK, overlap, cv, rankOf, countAtOne, quantile, caseMetrics, parseStage, meanAbsDiff } from '../scripts/referee/compare.mjs';
 
 const near = (a, b, tol = 1e-9) => assert.ok(Math.abs(a - b) < tol, `${a} != ${b}`);
 
@@ -76,4 +76,17 @@ test('resolveSiteCases: a pilot without soil, or a site case without site, throw
   const points = [{ id: 'zacapa' }];
   assert.throws(() => resolveSiteCases([{ id: 'b', soil: 'site', site: 'zacapa' }], points), /zacapa/);
   assert.throws(() => resolveSiteCases([{ id: 'c', soil: 'site' }], points), /site/);
+});
+
+test('parseStage: label=root, the first "=" splits and Windows drive letters survive', () => {
+  assert.deepEqual(parseStage('final=C:/tmp/x'), { label: 'final', root: 'C:/tmp/x' });
+  assert.deepEqual(parseStage('a=b=c'), { label: 'a', root: 'b=c' });
+  assert.throws(() => parseStage('nolabel'), /label/);
+  assert.throws(() => parseStage('=root'), /label/);
+  assert.throws(() => parseStage('x='), /label/);
+});
+
+test('meanAbsDiff: hand-computed (|1-2| + |4-1| + |0.5-0.5|) / 3 = 4/3', () => {
+  near(meanAbsDiff([1, 4, 0.5], [2, 1, 0.5]), 4 / 3);
+  assert.throws(() => meanAbsDiff([1], [1, 2]), /equal length/);
 });

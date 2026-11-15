@@ -1,9 +1,13 @@
 // Compares the team simulator with AquaCrop results and writes web/data/referee_aquacrop.json.
 // Usage:
 //   node scripts/referee/compare.mjs --aquacrop <aquacrop_results.json> --bundle <bundle.json> --out web/data/referee_aquacrop.json
-//        [--before-root <dir holding web/js/model + web/data/crops.json> --before-label d02febe]
-//        [--after-root <repo root> --after-label <label>]
-// Without --before-root only the "after" block is written. The AquaCrop results come from aquacrop_referee.py.
+//        --stage <label>=<root> [--stage <label>=<root> ...]
+// Each --stage scores one model revision (root = a directory holding web/js/model + web/data/crops.json, e.g. made with
+// `git archive <rev> web/js/model web/js/data web/data/crops.json | tar -x -C <tmp>`; the repo root itself is a valid root)
+// against the SAME AquaCrop results and the SAME weather, so only the model differs. Output: stages: [{label, cases, sowingCurve}]
+// in the order given. A stage that cannot run on the current bundle is written as {label, available: false, reason}; a case that a
+// revision cannot take (site soil objects on a revision without them) is listed in that stage's `skipped`.
+// Without --stage the repo working tree is the single stage. The AquaCrop results come from aquacrop_referee.py.
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -11,6 +15,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 export const DROUGHT_YEARS = [2014, 2015, 2018, 2019];
 export const CROP_IDS = { Maize: 'maiz', DryBean: 'frijol', Sorghum: 'sorgo' };
+export const SOIL_NAMES = { sand: 'Sand', loam: 'Loam', clay: 'Clay' };
 export const SOIL_TEXTURES = { Loam: 'loam', Sand: 'sand', Clay: 'clay' };
 
 const mean = (a) => a.reduce((s, x) => s + x, 0) / a.length;
@@ -75,6 +80,19 @@ export function rankOf(values, labels, label) {
   return 1 + values.filter((x) => x < v).length;
 }
 
+/** Parses "label=root" (the first "=" splits, so Windows drive letters in the root are fine). */
+export function parseStage(text) {
+  const i = text.indexOf('=');
+  if (i <= 0 || i === text.length - 1) throw new Error(`--stage expects <label>=<root>, got "${text}"`);
+  return { label: text.slice(0, i), root: text.slice(i + 1) };
+}
+
+/** Mean absolute difference between two equally long numeric series. */
+export function meanAbsDiff(a, b) {
+  if (a.length !== b.length || a.length === 0) throw new Error('meanAbsDiff: need two arrays of equal length >= 1');
+  return a.reduce((s, x, i) => s + Math.abs(x - b[i]), 0) / a.length;
+}
+
 export function countAtOne(values, tol = 1e-4) {
   return values.filter((x) => x >= 1 - tol).length;
 }
@@ -105,12 +123,16 @@ export function caseMetrics(rows) {
   };
 }
 
-async function loadSimulator(root) {
+class SkipCase extends Error {}
+
+export async function loadSimulator(root) {
   const url = (rel) => pathToFileURL(path.join(root, rel)).href;
   const { computeEt0Series, runSequence } = await import(url('web/js/model/simulate.js'));
   const { loadCrops } = await import(url('web/js/model/crops.js'));
   const crops = loadCrops(JSON.parse(fs.readFileSync(path.join(root, 'web/data/crops.json'), 'utf8')));
-  return { computeEt0Series, runSequence, crops, pilotSoils: pilotSoils(root) };
+  // Soil objects exist from soil.js `resolveSoil` (Task 17); older revisions only know the class keys.
+  const supportsSoilObjects = fs.existsSync(path.join(root, 'web/js/model/soil.js')) && /export function resolveSoil/.test(fs.readFileSync(path.join(root, 'web/js/model/soil.js'), 'utf8'));
+  return { computeEt0Series, runSequence, crops, pilotSoils: pilotSoils(root), supportsSoilObjects };
 }
 
 // Cases from resolve_site_cases.mjs carry `site`: the simulator runs with that pilot's soil object, AquaCrop with the same thetaFC/thetaWP.
@@ -120,22 +142,26 @@ function pilotSoils(root) {
   return new Map(JSON.parse(fs.readFileSync(file, 'utf8')).filter((p) => p.soil).map((p) => [p.id, p.soil]));
 }
 
-function simulate(sim, bundle, et0, c) {
+export function simulate(sim, bundle, et0, c) {
   const cropId = CROP_IDS[c.crop];
   const texture = c.site ? sim.pilotSoils.get(c.site) : (typeof c.soil === 'string' ? SOIL_TEXTURES[c.soil] : null);
+  if (c.site && !sim.supportsSoilObjects) throw new SkipCase(`revision cannot take a soil object (case ${c.id})`);
   if (!cropId || !texture) throw new Error(`case ${c.id}: simulator mapping not available for crop ${c.crop} / soil ${JSON.stringify(c.soil)}`);
   const sequence = { id: c.id, name: { en: c.id, es: c.id }, phases: [{ cropId, sow: c.sowDate }], requiresIrrigation: false };
   return sim.runSequence({ sequence, bundle, et0, crops: sim.crops, texture, slopeClass: 'flat', irrigation: 'none' })
-    .map((r) => ({ year: r.year, relYield: r.crops[0].relYield, ks: r.crops[0].ksFlowerMean }));
+    .map((r) => ({ year: r.year, relYield: r.crops[0].relYield, ks: r.crops[0].ksFlowerMean, incomplete: r.crops[0].cycleIncomplete }));
 }
 
 async function block(root, label, bundle, aqCases) {
   const sim = await loadSimulator(root);
   const et0 = sim.computeEt0Series(bundle);
   const cases = {};
+  const skipped = {};
   const sweepRaw = [];
   for (const c of aqCases) {
-    const simByYear = new Map(simulate(sim, bundle, et0, c).map((r) => [r.year, r]));
+    let simRows;
+    try { simRows = simulate(sim, bundle, et0, c); } catch (e) { if (e instanceof SkipCase) { skipped[c.id] = e.message; continue; } throw e; }
+    const simByYear = new Map(simRows.map((r) => [r.year, r]));
     const rows = c.results.filter((r) => r.yieldTHa != null && simByYear.has(r.year)).map((r) => {
       const s = simByYear.get(r.year);
       return { year: r.year, aq: r.yieldTHa, aqRel: r.relYield, sim: s.relYield, ks: s.ks };
@@ -160,7 +186,11 @@ async function block(root, label, bundle, aqCases) {
       simulator: { medianRel: round(quantile(sm, 0.5)), meanRel: round(mean(sm)), p10Rel: round(quantile(sm, 0.1)) },
     };
   });
-  return { label, cases, sowingCurve: { crop: sweepRaw[0]?.c.crop ?? null, aquacropRelativeTo: 'best yield over all sweep dates and years', points } };
+  return { label, cases, ...(Object.keys(skipped).length ? { skipped } : {}), sowingCurve: { crop: sweepRaw[0]?.c.crop ?? null, aquacropRelativeTo: 'best yield over all sweep dates and years', points } };
+}
+
+function gitHead(root) {
+  try { return execFileSync('git', ['-C', root, 'rev-parse', '--short', 'HEAD'], { encoding: 'utf8' }).trim(); } catch { return 'working tree'; }
 }
 
 function arg(name, argv) {
@@ -173,29 +203,32 @@ async function main(argv) {
   const aqPath = arg('aquacrop', argv);
   const bundlePath = arg('bundle', argv);
   const out = arg('out', argv) ?? path.join(repoRoot, 'web/data/referee_aquacrop.json');
-  if (!aqPath || !bundlePath) throw new Error('Usage: compare.mjs --aquacrop <results.json> --bundle <bundle.json> [--out f] [--before-root d --before-label l] [--after-root d --after-label l]');
+  if (!aqPath || !bundlePath) throw new Error('Usage: compare.mjs --aquacrop <results.json> --bundle <bundle.json> [--out f] --stage <label>=<root> [--stage ...]');
   const aq = JSON.parse(fs.readFileSync(aqPath, 'utf8'));
   const bundle = JSON.parse(fs.readFileSync(bundlePath, 'utf8'));
-  const afterRoot = arg('after-root', argv) ?? repoRoot;
-  let afterLabel = arg('after-label', argv);
-  if (!afterLabel) {
-    try { afterLabel = execFileSync('git', ['-C', afterRoot, 'rev-parse', '--short', 'HEAD'], { encoding: 'utf8' }).trim(); } catch { afterLabel = 'working tree'; }
-  }
+  const stageArgs = argv.flatMap((x, i) => (x === '--stage' ? [argv[i + 1]] : []));
+  const stageSpecs = stageArgs.length ? stageArgs.map(parseStage) : [{ label: gitHead(repoRoot), root: repoRoot }];
   const result = {
     meta: {
       aquacropVersion: aq.aquacropVersion,
       generated: new Date().toISOString().slice(0, 10),
-      weatherSource: { bundle: path.relative(repoRoot, path.resolve(bundlePath)).replace(/\\/g, '/'), rainSource: bundle.rainSource, lat: bundle.lat, lon: bundle.lon, elevation: bundle.elevation },
+      weatherSource: { bundle: path.relative(repoRoot, path.resolve(bundlePath)).split(path.sep).join('/'), rainSource: bundle.rainSource, lat: bundle.lat, lon: bundle.lon, elevation: bundle.elevation },
       aquacropConvention: aq.convention,
       initialCondition: [...new Set(aq.cases.map((c) => c.initial))].join(','),
       soil: [...new Set(aq.cases.map((c) => JSON.stringify(c.soil)))].map((s) => JSON.parse(s)),
       simulatorSetup: 'texture loam (cases with a site field: the SoilGrids soil of that pilot, same thetaFC/thetaWP as AquaCrop), flat slope, rainfed, dry start on 1 April, single crop with fixed sowing date',
+      relYieldScale: 'simulator relYield: 0-1, relative to no water stress (stage-multiplicative for maize and beans, seasonal Ky for the other crops)',
       note: 'AquaCrop uses default crop parameters (no local calibration): this tests logic and robustness, not field truth. Do not quote AquaCrop absolute yields. AquaCrop relYield = yield / max over the case years.',
     },
+    stages: [],
   };
-  const beforeRoot = arg('before-root', argv);
-  if (beforeRoot) result.before = await block(beforeRoot, arg('before-label', argv) ?? 'before', bundle, aq.cases);
-  result.after = await block(afterRoot, afterLabel, bundle, aq.cases);
+  for (const { label, root } of stageSpecs) {
+    try {
+      result.stages.push(await block(root, label, bundle, aq.cases));
+    } catch (e) {
+      result.stages.push({ label, available: false, reason: String(e.message ?? e).split(/\r?\n/)[0] });
+    }
+  }
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, JSON.stringify(result, null, 1) + '\n');
   console.log(`Wrote ${out}`);
