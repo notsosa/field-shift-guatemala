@@ -236,6 +236,8 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Megalurothrips usitatus'), findsOneWidget);
     expect(find.text('Flores y vainas'), findsOneWidget);
+    expect(find.text('OBSERVADO EN'), findsOneWidget);
+    expect(find.text('ETAPA'), findsNothing);
     expect(find.textContaining('Petén, El Progreso, Zacapa y Chimaltenango'), findsOneWidget);
     expect(find.text('2022'), findsOneWidget);
     expect(find.textContaining('ICTA · Una nueva plaga en el cultivo de frijol'), findsOneWidget);
@@ -271,6 +273,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Plutella xylostella'), findsOneWidget);
     expect(find.text('Leaves and inflorescence'), findsOneWidget);
+    expect(find.text('OBSERVED IN'), findsOneWidget);
     expect(find.textContaining('A documented record in Guatemala does not mean'), findsOneWidget);
     await _captura(tester, '12b_plaga_detalle_oscuro');
   });

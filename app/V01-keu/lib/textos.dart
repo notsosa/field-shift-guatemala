@@ -146,6 +146,10 @@ class Txt {
   String resolucionTaxon(String r) => r == 'grupo'
       ? _('Identificado solo a nivel de género', 'Identified only to genus level')
       : _('Identificado a nivel de especie', 'Identified to species level');
+  /// Etiqueta del campo `etapa` de la investigación. Ese campo dice dónde se
+  /// observó ("campo"), no una etapa del cultivo; solo un valor distinto sería una etapa.
+  String etiquetaEtapa(String etapaEs) =>
+      etapaEs.trim().toLowerCase() == 'campo' ? _('Observado en', 'Observed in') : etapa;
   String get danio => _('Daño', 'Damage');
   String get dondeDocumentado => _('Dónde se documentó', 'Where it was documented');
   String get cuandoDocumentado => _('Cuándo', 'When');

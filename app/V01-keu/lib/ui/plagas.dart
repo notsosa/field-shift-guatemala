@@ -299,7 +299,7 @@ class PantallaPlaga extends StatelessWidget {
                   ),
                 ),
                 dato(t.danio, r.danio.de(t.en)),
-                dato(t.etapa, r.etapa.de(t.en)),
+                dato(t.etiquetaEtapa(r.etapa.es), r.etapa.de(t.en)),
                 dato(t.dondeDocumentado, r.lugar.de(t.en)),
                 dato(t.cuandoDocumentado, r.periodo.de(t.en)),
                 for (final ref in r.referencias)

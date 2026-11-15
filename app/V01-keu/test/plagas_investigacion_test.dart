@@ -89,6 +89,20 @@ void main() {
       expect(r.resolucion, 'grupo');
     });
 
+    test('el campo etapa "campo" se rotula como dónde se observó, no como etapa del cultivo', () {
+      expect(const Txt(false).etiquetaEtapa('campo'), 'Observado en');
+      expect(const Txt(true).etiquetaEtapa('campo'), 'Observed in');
+      expect(const Txt(false).etiquetaEtapa('floración'), 'Etapa');
+      expect(const Txt(true).etiquetaEtapa('flowering'), 'Stage');
+      for (final c in plagasInvestigacion.keys) {
+        for (final t in plagasInvestigacion[c]!) {
+          for (final r in t.registros) {
+            expect(const Txt(false).etiquetaEtapa(r.etapa.es), 'Observado en', reason: r.id);
+          }
+        }
+      }
+    });
+
     test('un id desconocido o un cultivo sin ese id devuelve nulo; "otra" no tiene detalle', () {
       expect(detallePlaga('frijol', 'broca'), isNull);
       expect(detallePlaga('maiz', 'pulgon'), isNull);
