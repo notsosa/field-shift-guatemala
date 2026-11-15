@@ -1,0 +1,322 @@
+{
+ "meta": {
+  "description": "Crop cycle lengths in calendar days at the 3 pilots (loam, rainfed, sowing at the rain onset, 2001-2024); second crop sown on 1 September. Cited: maize ~120 d (ICTA), beans 64-70 d (ICTA, Manual de produccion de frijol 2022, cuadro 1 p. 8), sesame 110 d (FAO-56 cuadro 11), as in web/data/crops.json.",
+  "cited": {
+   "maiz": 120,
+   "frijol": "64-70",
+   "ajonjoli": 110
+  },
+  "secondHarvestWindowNote": "Dates are ordered by day of the agricultural year (1 April = day 1), so the window crosses the new year correctly; the year used to print them is not meaningful.",
+  "beforeLabel": "e5a3d49"
+ },
+ "before": {
+  "chiquimula": {
+   "elevation": 762.46,
+   "cellElevation": 762.46,
+   "deltaT": 0,
+   "meanTempMayAug": 24.45,
+   "meanTempSepDec": 22.13,
+   "actual": {
+    "n": 24,
+    "maize": {
+     "median": 138.5,
+     "min": 131,
+     "max": 151
+    },
+    "second": {
+     "crop": "frijol",
+     "median": 85,
+     "min": 76,
+     "max": 94
+    },
+    "maizeStandingAtSecondSowing": 24,
+    "overlapMedianDays": 34.5,
+    "secondHarvestWindow": {
+     "first": "11-15",
+     "median": "11-24",
+     "last": "12-03"
+    },
+    "incompleteCycleYears": 0
+   },
+   "extra_secano": {
+    "n": 24,
+    "maize": {
+     "median": 138.5,
+     "min": 131,
+     "max": 151
+    },
+    "second": {
+     "crop": "ajonjoli",
+     "median": 157.5,
+     "min": 142,
+     "max": 180
+    },
+    "maizeStandingAtSecondSowing": 24,
+    "overlapMedianDays": 34.5,
+    "secondHarvestWindow": {
+     "first": "01-20",
+     "median": "02-04",
+     "last": "02-27"
+    },
+    "incompleteCycleYears": 0
+   }
+  },
+  "jutiapa": {
+   "elevation": 1040.48,
+   "cellElevation": 1040.48,
+   "deltaT": 0,
+   "meanTempMayAug": 23.03,
+   "meanTempSepDec": 20.92,
+   "actual": {
+    "n": 24,
+    "maize": {
+     "median": 155.5,
+     "min": 141,
+     "max": 169
+    },
+    "second": {
+     "crop": "frijol",
+     "median": 96.5,
+     "min": 87,
+     "max": 111
+    },
+    "maizeStandingAtSecondSowing": 24,
+    "overlapMedianDays": 51.5,
+    "secondHarvestWindow": {
+     "first": "11-26",
+     "median": "12-05",
+     "last": "12-20"
+    },
+    "incompleteCycleYears": 0
+   },
+   "extra_secano": {
+    "n": 24,
+    "maize": {
+     "median": 155.5,
+     "min": 141,
+     "max": 169
+    },
+    "second": {
+     "crop": "ajonjoli",
+     "median": 174,
+     "min": 156,
+     "max": 198
+    },
+    "maizeStandingAtSecondSowing": 24,
+    "overlapMedianDays": 51.5,
+    "secondHarvestWindow": {
+     "first": "02-03",
+     "median": "02-21",
+     "last": "03-17"
+    },
+    "incompleteCycleYears": 0
+   }
+  },
+  "sanmartin": {
+   "elevation": 1515.75,
+   "cellElevation": 1515.75,
+   "deltaT": 0,
+   "meanTempMayAug": 20.37,
+   "meanTempSepDec": 18.34,
+   "actual": {
+    "n": 24,
+    "maize": {
+     "median": 205.5,
+     "min": 172,
+     "max": 231
+    },
+    "second": {
+     "crop": "frijol",
+     "median": 130,
+     "min": 114,
+     "max": 150
+    },
+    "maizeStandingAtSecondSowing": 24,
+    "overlapMedianDays": 94.5,
+    "secondHarvestWindow": {
+     "first": "12-23",
+     "median": "01-08",
+     "last": "01-28"
+    },
+    "incompleteCycleYears": 0
+   },
+   "extra_secano": {
+    "n": 24,
+    "maize": {
+     "median": 205.5,
+     "min": 172,
+     "max": 231
+    },
+    "second": {
+     "crop": "ajonjoli",
+     "median": 212,
+     "min": 205,
+     "max": 213
+    },
+    "maizeStandingAtSecondSowing": 24,
+    "overlapMedianDays": 94.5,
+    "secondHarvestWindow": {
+     "first": "03-24",
+     "median": "03-31",
+     "last": "04-01"
+    },
+    "incompleteCycleYears": 19
+   }
+  }
+ },
+ "after": {
+  "chiquimula": {
+   "elevation": 403,
+   "cellElevation": 762.46,
+   "deltaT": 2.33649,
+   "meanTempMayAug": 26.79,
+   "meanTempSepDec": 24.47,
+   "actual": {
+    "n": 24,
+    "maize": {
+     "median": 118,
+     "min": 112,
+     "max": 124
+    },
+    "second": {
+     "crop": "frijol",
+     "median": 70,
+     "min": 66,
+     "max": 77
+    },
+    "maizeStandingAtSecondSowing": 18,
+    "overlapMedianDays": 14,
+    "secondHarvestWindow": {
+     "first": "11-05",
+     "median": "11-09",
+     "last": "11-16"
+    },
+    "incompleteCycleYears": 0
+   },
+   "extra_secano": {
+    "n": 24,
+    "maize": {
+     "median": 118,
+     "min": 112,
+     "max": 124
+    },
+    "second": {
+     "crop": "ajonjoli",
+     "median": 124,
+     "min": 115,
+     "max": 140
+    },
+    "maizeStandingAtSecondSowing": 18,
+    "overlapMedianDays": 14,
+    "secondHarvestWindow": {
+     "first": "12-24",
+     "median": "01-02",
+     "last": "01-18"
+    },
+    "incompleteCycleYears": 0
+   }
+  },
+  "jutiapa": {
+   "elevation": 903,
+   "cellElevation": 1040.48,
+   "deltaT": 0.8936200000000001,
+   "meanTempMayAug": 23.92,
+   "meanTempSepDec": 21.81,
+   "actual": {
+    "n": 24,
+    "maize": {
+     "median": 144,
+     "min": 132,
+     "max": 154
+    },
+    "second": {
+     "crop": "frijol",
+     "median": 88,
+     "min": 80,
+     "max": 98
+    },
+    "maizeStandingAtSecondSowing": 24,
+    "overlapMedianDays": 40,
+    "secondHarvestWindow": {
+     "first": "11-19",
+     "median": "11-27",
+     "last": "12-07"
+    },
+    "incompleteCycleYears": 0
+   },
+   "extra_secano": {
+    "n": 24,
+    "maize": {
+     "median": 144,
+     "min": 132,
+     "max": 154
+    },
+    "second": {
+     "crop": "ajonjoli",
+     "median": 159.5,
+     "min": 143,
+     "max": 179
+    },
+    "maizeStandingAtSecondSowing": 24,
+    "overlapMedianDays": 40,
+    "secondHarvestWindow": {
+     "first": "01-21",
+     "median": "02-06",
+     "last": "02-26"
+    },
+    "incompleteCycleYears": 0
+   }
+  },
+  "sanmartin": {
+   "elevation": 1787,
+   "cellElevation": 1515.75,
+   "deltaT": -1.7631249999999998,
+   "meanTempMayAug": 18.61,
+   "meanTempSepDec": 16.58,
+   "actual": {
+    "n": 24,
+    "maize": {
+     "median": 273,
+     "min": 215,
+     "max": 309
+    },
+    "second": {
+     "crop": "frijol",
+     "median": 172.5,
+     "min": 144,
+     "max": 198
+    },
+    "maizeStandingAtSecondSowing": 24,
+    "overlapMedianDays": 161,
+    "secondHarvestWindow": {
+     "first": "01-22",
+     "median": "02-19",
+     "last": "03-17"
+    },
+    "incompleteCycleYears": 0
+   },
+   "extra_secano": {
+    "n": 24,
+    "maize": {
+     "median": 273,
+     "min": 215,
+     "max": 309
+    },
+    "second": {
+     "crop": "ajonjoli",
+     "median": 212,
+     "min": 212,
+     "max": 213
+    },
+    "maizeStandingAtSecondSowing": 24,
+    "overlapMedianDays": 161,
+    "secondHarvestWindow": {
+     "first": "03-31",
+     "median": "03-31",
+     "last": "04-01"
+    },
+    "incompleteCycleYears": 24
+   }
+  }
+ }
+}
