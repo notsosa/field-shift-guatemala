@@ -14,7 +14,6 @@ const days = (a, b) => Math.round((Date.parse(b) - Date.parse(a)) / DAY) + 1;
 const median = (a) => { const s = [...a].sort((x, y) => x - y); const h = s.length >> 1; return s.length % 2 ? s[h] : (s[h - 1] + s[h]) / 2; };
 const agriYear = (iso) => (Number(iso.slice(5, 7)) >= 4 ? Number(iso.slice(0, 4)) : Number(iso.slice(0, 4)) - 1);
 const dayOfAgriYear = (iso) => days(`${agriYear(iso)}-04-01`, iso);
-const mmdd = (year, k) => { const d = new Date(Date.UTC(year, 3, 1) + (k - 1) * DAY); return d.toISOString().slice(5, 10); };
 
 /** Estadísticas de ciclo de una raíz (debe contener web/js/model, web/data/crops.json, sequences.json y snapshots/). */
 export async function cycleStats(root) {
@@ -37,7 +36,7 @@ export async function cycleStats(root) {
       const c0 = res.map((r) => days(r.crops[0].sowDate, r.crops[0].harvestDate));
       const c1 = res.map((r) => days(r.crops[1].sowDate, r.crops[1].harvestDate));
       const ov = res.map((r) => Math.max(0, days(r.crops[1].sowDate, r.crops[0].harvestDate)));
-      const h1 = res.map((r) => dayOfAgriYear(r.crops[1].harvestDate)).sort((x, y) => x - y);
+      const h1 = res.map((r) => r.crops[1].harvestDate).sort((x, y) => dayOfAgriYear(x) - dayOfAgriYear(y)); // fechas reales, ordenadas por día del año agrícola
       const stat = (a) => ({ median: median(a), min: Math.min(...a), max: Math.max(...a) });
       o[id] = {
         n: res.length,
@@ -45,7 +44,7 @@ export async function cycleStats(root) {
         second: { crop: seqs[id].phases[1].cropId, ...stat(c1) },
         maizeStandingAtSecondSowing: res.filter((r) => r.crops[0].harvestDate >= r.crops[1].sowDate).length,
         overlapMedianDays: median(ov),
-        secondHarvestWindow: { first: mmdd(2001, h1[0]), median: mmdd(2001, median(h1)), last: mmdd(2001, h1[h1.length - 1]) },
+        secondHarvestWindow: { first: h1[0].slice(5), upperMedian: h1[h1.length >> 1].slice(5), last: h1[h1.length - 1].slice(5) },
         incompleteCycleYears: res.filter((r) => r.crops.some((c) => c.cycleIncomplete)).length,
       };
     }
@@ -60,7 +59,7 @@ async function main(argv) {
     meta: {
       description: 'Crop cycle lengths in calendar days at the 3 pilots (loam, rainfed, sowing at the rain onset, 2001-2024); second crop sown on 1 September. Cited: maize ~120 d (ICTA), beans 64-70 d (ICTA, Manual de produccion de frijol 2022, cuadro 1 p. 8), sesame 110 d (FAO-56 cuadro 11), as in web/data/crops.json.',
       cited: { maiz: 120, frijol: '64-70', ajonjoli: 110 },
-      secondHarvestWindowNote: 'Dates are ordered by day of the agricultural year (1 April = day 1), so the window crosses the new year correctly; the year used to print them is not meaningful.',
+      secondHarvestWindowNote: 'Dates (MM-DD) are the real harvest dates ordered by day of the agricultural year (1 April = day 1), so the window crosses the new year correctly; upperMedian is the element at index n/2 of that order.',
     },
   };
   if (arg('before')) { result.meta.beforeLabel = arg('before-label') ?? 'before'; result.before = await cycleStats(path.resolve(arg('before'))); }

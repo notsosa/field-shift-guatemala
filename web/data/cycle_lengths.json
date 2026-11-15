@@ -6,7 +6,7 @@
    "frijol": "64-70",
    "ajonjoli": 110
   },
-  "secondHarvestWindowNote": "Dates are ordered by day of the agricultural year (1 April = day 1), so the window crosses the new year correctly; the year used to print them is not meaningful.",
+  "secondHarvestWindowNote": "Dates (MM-DD) are the real harvest dates ordered by day of the agricultural year (1 April = day 1), so the window crosses the new year correctly; upperMedian is the element at index n/2 of that order.",
   "beforeLabel": "e5a3d49"
  },
  "before": {
@@ -33,7 +33,7 @@
     "overlapMedianDays": 34.5,
     "secondHarvestWindow": {
      "first": "11-15",
-     "median": "11-24",
+     "upperMedian": "11-24",
      "last": "12-03"
     },
     "incompleteCycleYears": 0
@@ -55,7 +55,7 @@
     "overlapMedianDays": 34.5,
     "secondHarvestWindow": {
      "first": "01-20",
-     "median": "02-04",
+     "upperMedian": "02-05",
      "last": "02-27"
     },
     "incompleteCycleYears": 0
@@ -84,7 +84,7 @@
     "overlapMedianDays": 51.5,
     "secondHarvestWindow": {
      "first": "11-26",
-     "median": "12-05",
+     "upperMedian": "12-06",
      "last": "12-20"
     },
     "incompleteCycleYears": 0
@@ -106,7 +106,7 @@
     "overlapMedianDays": 51.5,
     "secondHarvestWindow": {
      "first": "02-03",
-     "median": "02-21",
+     "upperMedian": "02-22",
      "last": "03-17"
     },
     "incompleteCycleYears": 0
@@ -135,7 +135,7 @@
     "overlapMedianDays": 94.5,
     "secondHarvestWindow": {
      "first": "12-23",
-     "median": "01-08",
+     "upperMedian": "01-08",
      "last": "01-28"
     },
     "incompleteCycleYears": 0
@@ -156,9 +156,9 @@
     "maizeStandingAtSecondSowing": 24,
     "overlapMedianDays": 94.5,
     "secondHarvestWindow": {
-     "first": "03-24",
-     "median": "03-31",
-     "last": "04-01"
+     "first": "03-23",
+     "upperMedian": "03-31",
+     "last": "03-31"
     },
     "incompleteCycleYears": 19
    }
@@ -188,7 +188,7 @@
     "overlapMedianDays": 14,
     "secondHarvestWindow": {
      "first": "11-05",
-     "median": "11-09",
+     "upperMedian": "11-09",
      "last": "11-16"
     },
     "incompleteCycleYears": 0
@@ -210,7 +210,7 @@
     "overlapMedianDays": 14,
     "secondHarvestWindow": {
      "first": "12-24",
-     "median": "01-02",
+     "upperMedian": "01-02",
      "last": "01-18"
     },
     "incompleteCycleYears": 0
@@ -239,7 +239,7 @@
     "overlapMedianDays": 40,
     "secondHarvestWindow": {
      "first": "11-19",
-     "median": "11-27",
+     "upperMedian": "11-27",
      "last": "12-07"
     },
     "incompleteCycleYears": 0
@@ -261,7 +261,7 @@
     "overlapMedianDays": 40,
     "secondHarvestWindow": {
      "first": "01-21",
-     "median": "02-06",
+     "upperMedian": "02-07",
      "last": "02-26"
     },
     "incompleteCycleYears": 0
@@ -290,7 +290,7 @@
     "overlapMedianDays": 161,
     "secondHarvestWindow": {
      "first": "01-22",
-     "median": "02-19",
+     "upperMedian": "02-21",
      "last": "03-17"
     },
     "incompleteCycleYears": 0
@@ -312,8 +312,8 @@
     "overlapMedianDays": 161,
     "secondHarvestWindow": {
      "first": "03-31",
-     "median": "03-31",
-     "last": "04-01"
+     "upperMedian": "03-31",
+     "last": "03-31"
     },
     "incompleteCycleYears": 24
    }
