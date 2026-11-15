@@ -2,6 +2,7 @@
 /// de archivos de traducción para poder añadir idiomas mayas con poco esfuerzo.
 library;
 
+import 'datos/mapa.dart';
 import 'modelos.dart';
 import 'motor/fao56.dart';
 import 'motor/recomendador.dart';
@@ -73,6 +74,72 @@ class Txt {
   String get cualPlaga => _('¿Cuál?', 'Which one?');
   String get fertilizacion => _('Ya fertilizaste', 'Already fertilized');
   String get manejo => _('Manejo', 'Management');
+  // Finca y croquis
+  String get finca => _('Finca', 'Farm');
+  String get plantaciones => _('Plantaciones', 'Plantings');
+  String cuantasPlantaciones(int n) =>
+      _('$n ${n == 1 ? 'plantación' : 'plantaciones'}', '$n ${n == 1 ? 'planting' : 'plantings'}');
+  String get nuevaPlantacion => _('Nueva plantación', 'New planting');
+  String get contornoFinca => _('Contorno de la finca', 'Farm outline');
+  String get dibujarContorno => _('Dibujar el contorno de la finca', 'Draw the farm outline');
+  String get editarContorno => _('Cambiar el contorno de la finca', 'Change the farm outline');
+  String get perimetro => _('Perímetro', 'Perimeter');
+  String get sinDibujar => _('Sin dibujar', 'Not drawn');
+  String get dibujado => _('Dibujado', 'Drawn');
+  String get ayudaTrazoFinca => _('Toca las esquinas de tu finca, una por una, para dibujar su contorno. Si no cabe, aumenta el ancho del mapa.',
+      'Tap the corners of your farm, one by one, to draw its outline. If it does not fit, increase the map width.');
+  String get ayudaTrazoPlantacion => _('Toca las esquinas del área sembrada para marcar su perímetro dentro de la finca.',
+      'Tap the corners of the planted area to mark its perimeter inside the farm.');
+  String puntosMarcados(int n) => n < 3
+      ? _('Marca 3 puntos o más', 'Mark 3 or more points')
+      : _('$n puntos', '$n points');
+  String get deshacer => _('Deshacer', 'Undo');
+  String get borrarTrazo => _('Borrar todo', 'Clear');
+  String get omitir => _('Omitir', 'Skip');
+  String get croquisNota => _('El mapa se descarga con wifi y queda guardado en el teléfono para usarlo sin conexión.',
+      'The map downloads over Wi-Fi and stays on the phone for offline use.');
+  String nombreCapa(CapaMapa c) => switch (c) {
+        CapaMapa.mapa => _('Mapa', 'Map'),
+        CapaMapa.satelite => _('Satélite', 'Satellite'),
+        CapaMapa.croquis => _('Croquis', 'Sketch'),
+      };
+  String get anchoMapa => _('Ancho', 'Width');
+  String nombreLado(double m) => m >= 1000 ? '${(m / 1000).round()} km' : '${m.round()} m';
+  String get sinMapa => _('Sin mapa guardado. Conéctate a wifi para descargarlo.',
+      'No saved map. Connect to Wi-Fi to download it.');
+  String area(double m2) {
+    final ha = m2 / 10000;
+    final mz = m2 / 6989;
+    String n(double v) => v >= 10 ? v.round().toString() : v.toStringAsFixed(1);
+    return '${n(ha)} ha · ${n(mz)} mz';
+  }
+  String get tocaParaElegir => _('Toca una plantación en el mapa para elegirla.', 'Tap a planting on the map to select it.');
+  String porcentajeAgua(int n) => _('$n % de agua', '$n % water');
+  String get nombreLote => _('Nombre', 'Name');
+  String get ejemploLote => _('Lote norte (opcional)', 'North lot (optional)');
+  String get borrarPlantacion => _('Borrar plantación', 'Delete planting');
+  String get borrarPlantacionPregunta => _('Se borrará esta plantación con sus registros semanales.',
+      'This planting and its weekly logs will be erased.');
+  String nombrePlantacion(Plantacion p) => p.nombre.isNotEmpty ? p.nombre : nombreCultivo(p.cultivoId);
+
+  String get siembra => _('Siembra', 'Planting');
+  String get sueloYRiego => _('Suelo y riego', 'Soil and irrigation');
+  String get plagaAyuda => _('Insectos o enfermedad', 'Insects or disease');
+  String get ejemploPlaga => _('Gusano cogollero', 'Fall armyworm');
+  String get desdeCuando => _('Desde cuándo', 'Since');
+  String get danio => _('Daño', 'Damage');
+  String get yaTratada => _('Ya la trataste', 'Already treated');
+  String get conQue => _('¿Con qué?', 'With what?');
+  String get fertilizanteAyuda => _('Abono de esta siembra', 'For this planting');
+  String get claseFertilizante => _('Tipo', 'Type');
+  String get producto => _('Producto', 'Product');
+  String get ejemploFertilizante => _('Urea, 15-15-15…', 'Urea, 15-15-15…');
+  String get fechaAplicacion => _('Fecha de aplicación', 'Date applied');
+  String nombreFertilizante(TipoFertilizante f) => switch (f) {
+        TipoFertilizante.quimico => _('Químico', 'Chemical'),
+        TipoFertilizante.organico => _('Orgánico', 'Organic'),
+        TipoFertilizante.ambos => _('Ambos', 'Both'),
+      };
 
   String nombreCultivo(String id) => switch (id) {
         'maiz' => _('Maíz', 'Maize'),
@@ -259,6 +326,11 @@ class Txt {
           _('Clima', 'Weather'),
           _('Temperatura, humedad, viento, radiación y lluvia diarios de NASA POWER para el punto de la parcela. Representa una celda de unos 50 km, no la parcela exacta. La lluvia de esta fuente puede estar sobreestimada en el oriente de Guatemala.',
               'Daily temperature, humidity, wind, radiation and rain from NASA POWER for the plot location. It represents a cell of about 50 km, not the exact plot. Rain from this source may be overestimated in eastern Guatemala.')
+        ),
+        (
+          _('Mapa de la finca', 'Farm map'),
+          _('El plano muestra un cuadrado centrado en el punto de la finca, con el norte arriba. El fondo viene de OpenStreetMap (mapa) o de Esri World Imagery (satélite); se descarga solo con wifi y se guarda en el teléfono. Las áreas se calculan a partir de lo que dibujas, así que son aproximadas.',
+              'The plan shows a square centred on the farm location, north up. The background comes from OpenStreetMap (map) or Esri World Imagery (satellite); it downloads only over Wi-Fi and is stored on the phone. Areas are computed from what you draw, so they are approximate.')
         ),
         (
           _('Días estimados', 'Estimated days'),

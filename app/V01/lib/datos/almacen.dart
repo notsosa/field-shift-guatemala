@@ -4,6 +4,7 @@
 library;
 
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,12 +24,23 @@ class Almacen {
 
   Future<void> guardarParcela(Parcela p) => _prefs.setString('parcela', jsonEncode(p.aJson()));
 
-  Plantacion? leerPlantacion() {
-    final s = _prefs.getString('plantacion');
-    return s == null ? null : Plantacion.deJson(jsonDecode(s) as Map<String, dynamic>);
+  /// Plantaciones de la finca. Las versiones anteriores guardaban una sola,
+  /// en la clave `plantacion`; si existe, se lee como la primera de la lista.
+  List<Plantacion> leerPlantaciones() {
+    final s = _prefs.getString('plantaciones');
+    if (s != null) {
+      return (jsonDecode(s) as List<dynamic>).map((j) => Plantacion.deJson(j as Map<String, dynamic>)).toList();
+    }
+    final vieja = _prefs.getString('plantacion');
+    return vieja == null ? [] : [Plantacion.deJson(jsonDecode(vieja) as Map<String, dynamic>)];
   }
 
-  Future<void> guardarPlantacion(Plantacion p) => _prefs.setString('plantacion', jsonEncode(p.aJson()));
+  Future<void> guardarPlantaciones(List<Plantacion> p) =>
+      _prefs.setString('plantaciones', jsonEncode(p.map((x) => x.aJson()).toList()));
+
+  String? leerSeleccionada() => _prefs.getString('seleccionada');
+
+  Future<void> guardarSeleccionada(String id) => _prefs.setString('seleccionada', id);
 
   List<RegistroSemanal> leerRegistros() {
     final s = _prefs.getString('registros');
@@ -56,6 +68,29 @@ class Almacen {
   }
 
   Future<void> guardarUltimaSincronizacion(DateTime f) => _prefs.setString('ultimaSync', f.toIso8601String());
+
+  /// Teselas del mapa guardadas para usarlas sin conexión. Se conservan como
+  /// máximo [_maxTeselas]; al pasarse, se borran las más viejas.
+  static const _maxTeselas = 100;
+
+  Uint8List? leerTesela(String clave) {
+    final s = _prefs.getString('tesela:$clave');
+    return s == null ? null : base64Decode(s);
+  }
+
+  Future<void> guardarTesela(String clave, Uint8List bytes) async {
+    final indice = [...?_prefs.getStringList('teselas')]..remove(clave);
+    indice.add(clave);
+    while (indice.length > _maxTeselas) {
+      await _prefs.remove('tesela:${indice.removeAt(0)}');
+    }
+    await _prefs.setString('tesela:$clave', base64Encode(bytes));
+    await _prefs.setStringList('teselas', indice);
+  }
+
+  String? leerCapa() => _prefs.getString('capa');
+
+  Future<void> guardarCapa(String nombre) => _prefs.setString('capa', nombre);
 
   String? leerIdioma() => _prefs.getString('idioma');
 

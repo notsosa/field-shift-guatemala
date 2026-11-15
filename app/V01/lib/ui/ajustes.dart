@@ -14,7 +14,6 @@ class PestanaAjustes extends StatelessWidget {
     final estado = Alcance.de(context);
     final t = estado.txt;
     final parcela = estado.parcela!;
-    final plantacion = estado.plantacion!;
     final raiz = Navigator.of(context, rootNavigator: true);
 
     return CupertinoPageScaffold(
@@ -31,12 +30,16 @@ class PestanaAjustes extends StatelessWidget {
                 icono: CupertinoIcons.location,
                 alPulsar: () => raiz.push(CupertinoPageRoute<void>(builder: (_) => const PantallaParcela())),
               ),
-              Fila(
-                titulo: t.nombreCultivo(plantacion.cultivoId),
-                detalle: '${t.fechaLarga(plantacion.fecha)} · ${t.nombreRiego(plantacion.riego)}',
-                icono: CupertinoIcons.tree,
-                alPulsar: () => raiz.push(CupertinoPageRoute<void>(builder: (_) => const PantallaPlantacion())),
-              ),
+            ]),
+            Rotulo(t.plantaciones),
+            Grupo(children: [
+              for (final p in estado.plantaciones)
+                Fila(
+                  titulo: t.nombrePlantacion(p),
+                  detalle: '${t.fechaLarga(p.fecha)} · ${t.nombreRiego(p.riego)}',
+                  icono: CupertinoIcons.tree,
+                  alPulsar: () => raiz.push(CupertinoPageRoute<void>(builder: (_) => PantallaPlantacion(id: p.id))),
+                ),
             ]),
             Rotulo(t.idioma),
             Padding(

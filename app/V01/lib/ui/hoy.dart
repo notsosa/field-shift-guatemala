@@ -3,6 +3,7 @@ import 'package:cupertino_ui/cupertino_ui.dart';
 import '../estado.dart';
 import '../motor/fao56.dart';
 import '../motor/recomendador.dart';
+import 'finca.dart';
 import 'graficos.dart';
 import 'registro.dart';
 import 'tema.dart';
@@ -41,7 +42,6 @@ class PestanaHoy extends StatelessWidget {
     final t = estado.txt;
     final r = estado.recomendacion;
     final plantacion = estado.plantacion!;
-    final parcela = estado.parcela!;
     final color = colorNivel(context, r.nivel);
     final sinDatos = r.nivel == NivelAgua.sinDatos;
 
@@ -81,10 +81,7 @@ class PestanaHoy extends StatelessWidget {
           SliverList.list(children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(Espacio.m, 0, Espacio.m, Espacio.m),
-              child: Text(
-                '${t.nombreCultivo(plantacion.cultivoId)} · ${parcela.nombre}',
-                style: letra(16, color: Paleta.de(context, Paleta.secundario)),
-              ),
+              child: const CambioPlantacion(),
             ),
 
             // Estado del agua y recomendación.

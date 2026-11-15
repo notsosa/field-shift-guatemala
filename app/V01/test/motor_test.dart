@@ -1,4 +1,7 @@
+import 'dart:math' as math;
+
 import 'package:field_shift/datos/clima.dart';
+import 'package:field_shift/datos/mapa.dart';
 import 'package:field_shift/modelos.dart';
 import 'package:field_shift/motor/fao56.dart';
 import 'package:field_shift/motor/recomendador.dart';
@@ -180,5 +183,29 @@ void main() {
     expect(r.dias.first.completo, isTrue);
     expect(r.dias.last.tmax, isNull);
     expect(r.dias.last.completo, isFalse);
+  });
+
+  group('plano de la finca', () {
+    test('la ventana queda centrada y cubre el ancho pedido', () {
+      final v = Ventana.centrada(14.8250, -89.5312, 500);
+      // 500 m sobre el paralelo de esa latitud, que mide unos 38 740 km.
+      expect(v.ancho, closeTo(500 / (40075016.686 * math.cos(14.8250 * math.pi / 180)), 1e-15));
+      expect(v.ancho * 40075016.686, inInclusiveRange(515, 520));
+      expect(v.izquierda + v.ancho / 2, closeTo((-89.5312 + 180) / 360, 1e-12));
+      final z = v.zoom(19);
+      expect(z, 18);
+      final teselas = v.teselas(z);
+      expect(teselas.length, inInclusiveRange(4, 25));
+      // Chiquimula cae en la tesela 65883 del zoom 18 (eje x).
+      expect(teselas.map((t) => t.$1), contains(((-89.5312 + 180) / 360 * (1 << 18)).floor()));
+    });
+
+    test('el área de un cuadrado y el reescalado conservan el terreno', () {
+      const c = [Punto(0.25, 0.25), Punto(0.75, 0.25), Punto(0.75, 0.75), Punto(0.25, 0.75)];
+      expect(areaDe(c, 500), closeTo(250 * 250, 1e-6)); // medio lienzo de 500 m
+      final grande = reescalar(c, 500, 1000);
+      expect(grande.first.x, closeTo(0.375, 1e-12));
+      expect(areaDe(grande, 1000), closeTo(250 * 250, 1e-6));
+    });
   });
 }

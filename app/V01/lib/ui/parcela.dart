@@ -3,7 +3,7 @@ import 'package:geolocator/geolocator.dart';
 
 import '../estado.dart';
 import '../modelos.dart';
-import 'plantacion.dart';
+import 'finca.dart';
 import 'tema.dart';
 
 /// Fija el punto de la parcela, con el GPS o escribiendo las coordenadas.
@@ -90,9 +90,18 @@ class _EstadoParcela extends State<PantallaParcela> {
     }
     final nombre = _nombre.text.trim().isEmpty ? t.tuParcela : _nombre.text.trim();
     final navegador = Navigator.of(context);
-    await estado.guardarParcela(Parcela(nombre: nombre, latitud: _latitud!, longitud: _longitud!));
+    final anterior = estado.parcela;
+    final mismoPunto = anterior != null && anterior.latitud == _latitud && anterior.longitud == _longitud;
+    await estado.guardarParcela(Parcela(
+      nombre: nombre,
+      latitud: _latitud!,
+      longitud: _longitud!,
+      elevacion: mismoPunto ? anterior.elevacion : null,
+      contorno: anterior?.contorno ?? const [],
+      lado: anterior?.lado ?? 500,
+    ));
     if (widget.primeraVez) {
-      navegador.push(CupertinoPageRoute<void>(builder: (_) => const PantallaPlantacion(primeraVez: true)));
+      if (mounted) await agregarPlantacion(context, primeraVez: true);
     } else {
       estado.sincronizar();
       navegador.pop();

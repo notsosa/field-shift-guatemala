@@ -3,6 +3,7 @@ import 'package:cupertino_ui/cupertino_ui.dart';
 import '../estado.dart';
 import '../modelos.dart';
 import 'ajustes.dart' show confirmar;
+import 'finca.dart';
 import 'tema.dart';
 
 /// Formulario del registro semanal: riego, plaga y fertilizante.
@@ -31,6 +32,7 @@ class _EstadoRegistro extends State<PantallaRegistro> {
     final estado = Alcance.leer(context);
     final navegador = Navigator.of(context);
     await estado.guardarRegistro(RegistroSemanal(
+      plantacionId: estado.plantacion!.id,
       fecha: soloFecha(estado.hoy),
       riegos: _riegos,
       plaga: _plaga,
@@ -76,7 +78,7 @@ class _EstadoRegistro extends State<PantallaRegistro> {
             Expanded(
               child: ListView(
                 children: [
-                  Rotulo(t.ultimaSemana),
+                  Rotulo('${t.nombrePlantacion(estado.plantacion!)} · ${t.ultimaSemana}'),
                   if (tieneRiego) ...[
                     Grupo(children: [
                       Fila(
@@ -175,6 +177,12 @@ class PestanaRegistros extends StatelessWidget {
               padding: EdgeInsets.zero,
               onPressed: nuevo,
               child: const Icon(CupertinoIcons.add, size: 26),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(Espacio.m, 0, Espacio.m, Espacio.s),
+              child: CambioPlantacion(),
             ),
           ),
           if (estado.registros.isEmpty)

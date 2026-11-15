@@ -10,9 +10,69 @@ String _iso(DateTime f) =>
 
 DateTime _deIso(String s) => DateTime.parse(s);
 
-/// Punto fijado por el usuario para su parcela.
+/// Punto del plano de la finca, en fracciones de 0 a 1 del lienzo cuadrado. El
+/// lienzo representa un cuadrado de `Parcela.lado` metros centrado en el punto
+/// de la finca, con el norte arriba.
+class Punto {
+  const Punto(this.x, this.y);
+
+  final double x;
+  final double y;
+
+  List<double> aJson() => [x, y];
+}
+
+List<Punto> _puntos(dynamic j) => j == null
+    ? const []
+    : [for (final p in j as List<dynamic>) Punto(((p as List<dynamic>)[0] as num).toDouble(), (p[1] as num).toDouble())];
+
+/// Centro de un contorno, para colocar el marcador.
+Punto centroDe(List<Punto> c) {
+  if (c.isEmpty) return const Punto(0.5, 0.5);
+  var x = 0.0, y = 0.0;
+  for (final p in c) {
+    x += p.x;
+    y += p.y;
+  }
+  return Punto(x / c.length, y / c.length);
+}
+
+/// Área de un contorno en metros cuadrados, para un lienzo de [lado] metros.
+double areaDe(List<Punto> c, double lado) {
+  if (c.length < 3) return 0;
+  var suma = 0.0;
+  for (var i = 0, j = c.length - 1; i < c.length; j = i++) {
+    suma += (c[j].x + c[i].x) * (c[j].y - c[i].y);
+  }
+  return suma.abs() / 2 * lado * lado;
+}
+
+/// Contorno ajustado a un cambio del ancho del lienzo, sin moverlo en el terreno.
+List<Punto> reescalar(List<Punto> c, double ladoViejo, double ladoNuevo) {
+  final f = ladoViejo / ladoNuevo;
+  return [for (final p in c) Punto(0.5 + (p.x - 0.5) * f, 0.5 + (p.y - 0.5) * f)];
+}
+
+/// Verdadero si el punto cae dentro del contorno (regla par-impar).
+bool dentroDe(List<Punto> c, Punto p) {
+  var dentro = false;
+  for (var i = 0, j = c.length - 1; i < c.length; j = i++) {
+    final a = c[i], b = c[j];
+    if ((a.y > p.y) != (b.y > p.y) && p.x < (b.x - a.x) * (p.y - a.y) / (b.y - a.y) + a.x) dentro = !dentro;
+  }
+  return dentro;
+}
+
+/// La finca: el punto fijado por el usuario y, si lo dibujó, su contorno.
 class Parcela {
-  const Parcela({required this.nombre, required this.latitud, required this.longitud, this.elevacion});
+  const Parcela({
+    required this.nombre,
+    required this.latitud,
+    required this.longitud,
+    this.elevacion,
+    this.contorno = const [],
+    this.lado = 500,
+  });
 
   final String nombre;
   final double latitud;
@@ -21,17 +81,37 @@ class Parcela {
   /// Metros sobre el nivel del mar; la entrega NASA POWER al sincronizar.
   final double? elevacion;
 
-  Parcela con({double? elevacion}) =>
-      Parcela(nombre: nombre, latitud: latitud, longitud: longitud, elevacion: elevacion ?? this.elevacion);
+  /// Contorno de la finca en el plano. Vacío si no se ha dibujado.
+  final List<Punto> contorno;
 
-  Map<String, dynamic> aJson() =>
-      {'nombre': nombre, 'latitud': latitud, 'longitud': longitud, 'elevacion': elevacion};
+  /// Ancho en metros del cuadrado que muestra el plano de la finca.
+  final double lado;
+
+  Parcela con({double? elevacion, List<Punto>? contorno, double? lado}) => Parcela(
+        nombre: nombre,
+        latitud: latitud,
+        longitud: longitud,
+        elevacion: elevacion ?? this.elevacion,
+        contorno: contorno ?? this.contorno,
+        lado: lado ?? this.lado,
+      );
+
+  Map<String, dynamic> aJson() => {
+        'nombre': nombre,
+        'latitud': latitud,
+        'longitud': longitud,
+        'elevacion': elevacion,
+        'contorno': [for (final p in contorno) p.aJson()],
+        'lado': lado,
+      };
 
   factory Parcela.deJson(Map<String, dynamic> j) => Parcela(
         nombre: j['nombre'] as String,
         latitud: (j['latitud'] as num).toDouble(),
         longitud: (j['longitud'] as num).toDouble(),
         elevacion: (j['elevacion'] as num?)?.toDouble(),
+        contorno: _puntos(j['contorno']),
+        lado: (j['lado'] as num?)?.toDouble() ?? 500,
       );
 }
 
@@ -114,9 +194,13 @@ const catalogo = <Cultivo>[
 
 Cultivo cultivoPorId(String id) => catalogo.firstWhere((c) => c.id == id, orElse: () => catalogo.first);
 
-/// Información de la plantación que el usuario da al configurar la app.
+/// Una plantación de la finca. Puede haber varias, cada una con su perímetro
+/// en el croquis, sus registros semanales y su recomendación.
 class Plantacion {
   const Plantacion({
+    this.id = '',
+    this.nombre = '',
+    this.contorno = const [],
     required this.cultivoId,
     required this.fecha,
     required this.ciclo,
@@ -126,7 +210,23 @@ class Plantacion {
     required this.plagaReciente,
     required this.fertilizo,
     this.notaPlaga = '',
+    this.inicioPlaga,
+    this.nivelPlaga = NivelPlaga.leve,
+    this.plagaTratada = false,
+    this.tratamientoPlaga = '',
+    this.tipoFertilizante = TipoFertilizante.quimico,
+    this.notaFertilizante = '',
+    this.fechaFertilizante,
   });
+
+  /// Identificador dentro de la finca. Vacío hasta que se guarda.
+  final String id;
+
+  /// Nombre que le da el productor, por ejemplo «Lote norte». Opcional.
+  final String nombre;
+
+  /// Perímetro en el croquis de la finca. Vacío si no se ha dibujado.
+  final List<Punto> contorno;
 
   final String cultivoId;
 
@@ -136,13 +236,40 @@ class Plantacion {
   final Suelo suelo;
   final TipoRiego riego;
   final TemporadaRiego temporadaRiego;
+
+  // Plaga reciente al registrar la plantación. Los detalles solo cuentan si
+  // [plagaReciente] es verdadero.
   final bool plagaReciente;
+
+  /// Qué plaga es, en palabras del productor.
   final String notaPlaga;
+  final DateTime? inicioPlaga;
+  final NivelPlaga nivelPlaga;
+  final bool plagaTratada;
+
+  /// Con qué la trató.
+  final String tratamientoPlaga;
+
+  // Fertilización al registrar la plantación. Los detalles solo cuentan si
+  // [fertilizo] es verdadero.
   final bool fertilizo;
+  final TipoFertilizante tipoFertilizante;
+
+  /// Producto aplicado.
+  final String notaFertilizante;
+  final DateTime? fechaFertilizante;
 
   Cultivo get cultivo => cultivoPorId(cultivoId);
 
+  Plantacion conId(String nuevo) => Plantacion.deJson({...aJson(), 'id': nuevo});
+
+  Plantacion conContorno(List<Punto> nuevo) =>
+      Plantacion.deJson({...aJson(), 'contorno': [for (final p in nuevo) p.aJson()]});
+
   Map<String, dynamic> aJson() => {
+        'id': id,
+        'nombre': nombre,
+        'contorno': [for (final p in contorno) p.aJson()],
         'cultivo': cultivoId,
         'fecha': _iso(fecha),
         'ciclo': ciclo,
@@ -151,10 +278,20 @@ class Plantacion {
         'temporadaRiego': temporadaRiego.name,
         'plagaReciente': plagaReciente,
         'notaPlaga': notaPlaga,
+        'inicioPlaga': inicioPlaga == null ? null : _iso(inicioPlaga!),
+        'nivelPlaga': nivelPlaga.name,
+        'plagaTratada': plagaTratada,
+        'tratamientoPlaga': tratamientoPlaga,
         'fertilizo': fertilizo,
+        'tipoFertilizante': tipoFertilizante.name,
+        'notaFertilizante': notaFertilizante,
+        'fechaFertilizante': fechaFertilizante == null ? null : _iso(fechaFertilizante!),
       };
 
   factory Plantacion.deJson(Map<String, dynamic> j) => Plantacion(
+        id: j['id'] as String? ?? '',
+        nombre: j['nombre'] as String? ?? '',
+        contorno: _puntos(j['contorno']),
         cultivoId: j['cultivo'] as String,
         fecha: _deIso(j['fecha'] as String),
         ciclo: (j['ciclo'] as num).toInt(),
@@ -163,16 +300,27 @@ class Plantacion {
         temporadaRiego: TemporadaRiego.values.byName(j['temporadaRiego'] as String),
         plagaReciente: j['plagaReciente'] as bool? ?? false,
         notaPlaga: j['notaPlaga'] as String? ?? '',
+        inicioPlaga: j['inicioPlaga'] == null ? null : _deIso(j['inicioPlaga'] as String),
+        nivelPlaga: NivelPlaga.values.byName(j['nivelPlaga'] as String? ?? 'leve'),
+        plagaTratada: j['plagaTratada'] as bool? ?? false,
+        tratamientoPlaga: j['tratamientoPlaga'] as String? ?? '',
         fertilizo: j['fertilizo'] as bool? ?? false,
+        tipoFertilizante: TipoFertilizante.values.byName(j['tipoFertilizante'] as String? ?? 'quimico'),
+        notaFertilizante: j['notaFertilizante'] as String? ?? '',
+        fechaFertilizante: j['fechaFertilizante'] == null ? null : _deIso(j['fechaFertilizante'] as String),
       );
 }
 
 /// Qué tanto daño ve el productor.
 enum NivelPlaga { ninguna, leve, moderada, fuerte }
 
+/// Clase de fertilizante aplicado.
+enum TipoFertilizante { quimico, organico, ambos }
+
 /// Registro semanal: riego, plaga y fertilizante de los últimos siete días.
 class RegistroSemanal {
   const RegistroSemanal({
+    this.plantacionId = '',
     required this.fecha,
     required this.riegos,
     required this.plaga,
@@ -181,8 +329,13 @@ class RegistroSemanal {
     this.notaFertilizante = '',
   });
 
+  /// Plantación a la que pertenece.
+  final String plantacionId;
+
   /// Día en que se llenó; cubre los siete días anteriores.
   final DateTime fecha;
+
+  RegistroSemanal conPlantacion(String id) => RegistroSemanal.deJson({...aJson(), 'plantacion': id});
 
   /// Cuántas veces regó en la semana.
   final int riegos;
@@ -192,6 +345,7 @@ class RegistroSemanal {
   final String notaFertilizante;
 
   Map<String, dynamic> aJson() => {
+        'plantacion': plantacionId,
         'fecha': _iso(fecha),
         'riegos': riegos,
         'plaga': plaga.name,
@@ -201,6 +355,7 @@ class RegistroSemanal {
       };
 
   factory RegistroSemanal.deJson(Map<String, dynamic> j) => RegistroSemanal(
+        plantacionId: j['plantacion'] as String? ?? '',
         fecha: _deIso(j['fecha'] as String),
         riegos: (j['riegos'] as num).toInt(),
         plaga: NivelPlaga.values.byName(j['plaga'] as String),

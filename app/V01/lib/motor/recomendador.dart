@@ -219,7 +219,9 @@ Recomendacion recomendar({
   if (climaViejo) avisos.add(Aviso.climaViejo);
   final plagaActiva = ultimoRegistro != null
       ? ultimoRegistro.plaga.index >= NivelPlaga.moderada.index
-      : plantacion.plagaReciente;
+      // Sin registros aún: cuenta la plaga declarada al registrar la plantación,
+      // salvo que ya esté tratada y el daño no sea fuerte.
+      : plantacion.plagaReciente && (!plantacion.plagaTratada || plantacion.nivelPlaga == NivelPlaga.fuerte);
   if (plagaActiva) avisos.add(Aviso.plaga);
   final fertilizado = plantacion.fertilizo || registros.any((r) => r.fertilizo);
   if (!cultivo.perenne && actual.etapa == Etapa.desarrollo && !fertilizado) avisos.add(Aviso.fertilizar);

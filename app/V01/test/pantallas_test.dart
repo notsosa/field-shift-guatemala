@@ -2,15 +2,18 @@
 // de cada pantalla en test/capturas/ para revisar el diseño:
 //
 //   flutter test test/pantallas_test.dart --update-goldens
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:field_shift/datos/almacen.dart';
 import 'package:field_shift/datos/clima.dart';
+import 'package:field_shift/datos/mapa.dart';
 import 'package:field_shift/estado.dart';
 import 'package:field_shift/main.dart';
 import 'package:field_shift/modelos.dart';
+import 'package:field_shift/ui/finca.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,6 +56,15 @@ class ClimaFalso extends ServicioClima {
   }
 }
 
+/// Mapa de mentira: no hay imágenes guardadas ni descarga, así que el plano se
+/// ve como croquis y las pruebas no usan internet.
+class MapaFalso extends ServicioMapa {
+  MapaFalso() : super(null);
+
+  @override
+  Future<Uint8List?> tesela(CapaMapa capa, int z, int x, int y) async => null;
+}
+
 Future<void> _cargarFuentes() async {
   final inter = FontLoader('Inter')..addFont(_bytes('assets/fuentes/Inter.ttf'));
   await inter.load();
@@ -82,7 +94,12 @@ Future<AppEstado> _abrir(
   tester.platformDispatcher.platformBrightnessTestValue = brillo;
   addTearDown(tester.view.reset);
   addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
-  final estado = AppEstado(await Almacen.abrir(), servicioClima: clima ?? ClimaFalso(), reloj: () => _hoy);
+  final estado = AppEstado(
+    await Almacen.abrir(),
+    servicioClima: clima ?? ClimaFalso(),
+    servicioMapa: MapaFalso(),
+    reloj: () => _hoy,
+  );
   await tester.pumpWidget(FieldShift(estado: estado));
   await tester.pumpAndSettle();
   return estado;
@@ -90,6 +107,15 @@ Future<AppEstado> _abrir(
 
 Future<void> _captura(WidgetTester tester, String nombre) =>
     expectLater(find.byType(CupertinoApp), matchesGoldenFile('capturas/$nombre.png'));
+
+/// Toca el lienzo del croquis en las fracciones dadas para marcar esquinas.
+Future<void> _marcar(WidgetTester tester, Key lienzo, List<Offset> fracciones) async {
+  final caja = tester.getRect(find.byKey(lienzo));
+  for (final f in fracciones) {
+    await tester.tapAt(caja.topLeft + Offset(f.dx * caja.width, f.dy * caja.height));
+    await tester.pump();
+  }
+}
 
 void main() {
   setUpAll(_cargarFuentes);
@@ -118,20 +144,78 @@ void main() {
 
     await tester.tap(find.text('Continuar'));
     await tester.pumpAndSettle();
+
+    // Contorno de la finca: se dibuja tocando las esquinas.
+    expect(find.text('Contorno de la finca'), findsOneWidget);
+    await _marcar(tester, const Key('lienzo'), const [
+      Offset(0.12, 0.15), Offset(0.78, 0.10), Offset(0.90, 0.85), Offset(0.15, 0.88),
+    ]);
+    await _captura(tester, '02b_contorno_finca');
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
+    expect(estado.parcela!.contorno.length, 4);
+
+    // Perímetro de la plantación dentro de la finca.
+    expect(find.text('Perímetro'), findsOneWidget);
+    await _marcar(tester, const Key('lienzo'), const [
+      Offset(0.50, 0.50), Offset(0.80, 0.50), Offset(0.80, 0.78), Offset(0.50, 0.78),
+    ]);
+    await _captura(tester, '02c_perimetro');
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
     expect(find.text('Plantación'), findsWidgets);
     await tester.tap(find.text('Frijol'));
     await tester.pumpAndSettle();
     await _captura(tester, '03_plantacion');
+
+    // Caja de plaga: se despliega al activarla.
+    expect(find.text('Desde cuándo'), findsNothing);
+    await tester.ensureVisible(find.byKey(const Key('plaga')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('plaga')));
+    await tester.pumpAndSettle();
+    expect(find.text('Desde cuándo'), findsOneWidget);
+    await tester.enterText(find.widgetWithText(CupertinoTextField, 'Gusano cogollero'), 'Mosca blanca');
+    await tester.tap(find.text('Fuerte'));
+    await tester.tap(find.byKey(const Key('plagaTratada')));
+    await tester.pumpAndSettle();
+    await Scrollable.ensureVisible(tester.element(find.text('Plaga reciente')), alignment: 0.04);
+    await tester.pumpAndSettle();
+    await _captura(tester, '03b_plantacion_plaga');
+
+    // Caja de fertilizante.
+    await tester.ensureVisible(find.byKey(const Key('fertilizo')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('fertilizo')));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.widgetWithText(CupertinoTextField, 'Urea, 15-15-15…'), 'Urea');
+    await tester.tap(find.text('Orgánico'));
+    await tester.pumpAndSettle();
+    await Scrollable.ensureVisible(tester.element(find.text('Ya fertilizaste')), alignment: 0.04);
+    await tester.pumpAndSettle();
+    await _captura(tester, '03c_plantacion_fertilizante');
+
     await tester.ensureVisible(find.text('Goteo'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Goteo'));
     await tester.pumpAndSettle();
-    await _captura(tester, '03b_plantacion_riego');
+    await _captura(tester, '03d_plantacion_riego');
 
     await tester.tap(find.text('Guardar'));
     await tester.pumpAndSettle();
     expect(estado.configurada, isTrue);
+    expect(estado.plantaciones.length, 1);
+    expect(estado.plantacion!.contorno.length, 4);
     expect(estado.plantacion!.cultivoId, 'frijol');
+    expect(estado.plantacion!.plagaReciente, isTrue);
+    expect(estado.plantacion!.notaPlaga, 'Mosca blanca');
+    expect(estado.plantacion!.nivelPlaga, NivelPlaga.fuerte);
+    expect(estado.plantacion!.plagaTratada, isTrue);
+    expect(estado.plantacion!.inicioPlaga, _hoy);
+    expect(estado.plantacion!.fertilizo, isTrue);
+    expect(estado.plantacion!.tipoFertilizante, TipoFertilizante.organico);
+    expect(estado.plantacion!.notaFertilizante, 'Urea');
+    expect(estado.plantacion!.fechaFertilizante, _hoy);
     expect(estado.plantacion!.riego, TipoRiego.goteo);
     expect(estado.plantacion!.ciclo, 67);
     expect(estado.parcela!.elevacion, 373); // llegó con la sincronización
@@ -174,6 +258,54 @@ void main() {
     await tester.tap(find.text('Ajustes'));
     await tester.pumpAndSettle();
     await _captura(tester, '08_ajustes');
+
+    // Mapa de la finca: dos plantaciones; al tocar una en el mapa se elige.
+    await tester.tap(find.text('Finca'));
+    await tester.pumpAndSettle();
+    expect(estado.plantaciones.length, 2);
+    expect(estado.plantacion!.cultivoId, 'frijol');
+    await _captura(tester, '11_finca');
+    await _marcar(tester, const Key('lienzo-finca'), const [Offset(0.30, 0.33)]);
+    await tester.pumpAndSettle();
+    expect(estado.plantacion!.cultivoId, 'maiz');
+    expect(estado.registros, isEmpty); // los registros son de cada plantación
+
+    // Ingresar una plantación nueva desde el mapa.
+    await tester.scrollUntilVisible(
+      find.text('Nueva plantación'),
+      200,
+      scrollable: find.descendant(of: find.byType(PestanaFinca), matching: find.byType(Scrollable)).first,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Nueva plantación'));
+    await tester.pumpAndSettle();
+    expect(find.text('Perímetro'), findsOneWidget); // la finca ya tiene contorno
+    await _marcar(tester, const Key('lienzo'), const [
+      Offset(0.20, 0.58), Offset(0.46, 0.58), Offset(0.46, 0.80), Offset(0.20, 0.80),
+    ]);
+    await _captura(tester, '12_nueva_plantacion');
+    await tester.tap(find.text('Continuar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Tomate'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Guardar'));
+    await tester.pumpAndSettle();
+    expect(estado.plantaciones.length, 3);
+    expect(estado.plantacion!.cultivoId, 'tomate');
+    expect(estado.plantacion!.contorno.length, 4);
+    await _captura(tester, '13_finca_tres');
+
+    // Al elegirla en la lista se pasa a Hoy con esa plantación.
+    await Scrollable.ensureVisible(tester.element(find.text('Maíz')), alignment: 0.5);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Maíz'));
+    await tester.pumpAndSettle();
+    expect(estado.plantacion!.cultivoId, 'maiz');
+    // Hoy había quedado desplazada hacia abajo en un paso anterior.
+    await tester.drag(find.byType(CustomScrollView).first, const Offset(0, 900));
+    await tester.pumpAndSettle();
+    expect(find.text('agua disponible'), findsOneWidget);
+    await _captura(tester, '14_hoy_maiz');
   });
 
   testWidgets('modo oscuro y cultivo sin estrés', (tester) async {
@@ -208,8 +340,42 @@ void main() {
     final segundo = await _abrir(tester, guardado: guardado, clima: ClimaFalso(wifi: false));
     expect(segundo.configurada, isTrue);
     expect(segundo.parcela!.nombre, 'Chiquimula');
+    expect(segundo.plantaciones.length, 2);
+    expect(segundo.plantacion!.cultivoId, 'frijol');
+    expect(segundo.parcela!.contorno.length, 6);
     expect(segundo.registros.length, 1);
     expect(segundo.clima.length, primero.clima.length);
     expect(find.text('agua disponible'), findsOneWidget);
+  });
+
+  testWidgets('los datos de la versión con una sola plantación se conservan', (tester) async {
+    final vieja = Plantacion(
+      cultivoId: 'maiz',
+      fecha: DateTime(2026, 9, 20),
+      ciclo: 120,
+      suelo: Suelo.franco,
+      riego: TipoRiego.goteo,
+      temporadaRiego: TemporadaRiego.auxilio,
+      plagaReciente: false,
+      fertilizo: false,
+    ).aJson()
+      ..remove('id')
+      ..remove('nombre')
+      ..remove('contorno');
+    final registro = RegistroSemanal(fecha: DateTime(2026, 11, 10), riegos: 1, plaga: NivelPlaga.ninguna, fertilizo: false)
+        .aJson()
+      ..remove('plantacion');
+    final estado = await _abrir(tester, guardado: {
+      'parcela': jsonEncode({'nombre': 'La Vega', 'latitud': 14.8, 'longitud': -89.5, 'elevacion': 400}),
+      'plantacion': jsonEncode(vieja),
+      'registros': jsonEncode([registro]),
+    });
+    expect(estado.configurada, isTrue);
+    expect(estado.plantaciones.length, 1);
+    expect(estado.plantacion!.id, isNotEmpty);
+    expect(estado.plantacion!.cultivoId, 'maiz');
+    expect(estado.registros.length, 1);
+    expect(estado.parcela!.contorno, isEmpty);
+    expect(find.text('Falta el clima'), findsOneWidget);
   });
 }

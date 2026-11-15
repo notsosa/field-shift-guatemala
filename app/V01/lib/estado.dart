@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 
 import 'datos/almacen.dart';
 import 'datos/clima.dart';
+import 'datos/mapa.dart';
 import 'modelos.dart';
 import 'motor/recomendador.dart';
 import 'textos.dart';
@@ -12,48 +13,102 @@ import 'textos.dart';
 enum ResultadoSync { ok, sinWifi, error }
 
 class AppEstado extends ChangeNotifier {
-  AppEstado(this._almacen, {ServicioClima? servicioClima, DateTime Function()? reloj})
+  AppEstado(this._almacen, {ServicioClima? servicioClima, ServicioMapa? servicioMapa, DateTime Function()? reloj})
       : _servicio = servicioClima ?? ServicioClima(),
         _reloj = reloj ?? DateTime.now {
+    mapa = servicioMapa ?? ServicioMapa(_almacen, hayWifi: _servicio.hayWifi);
+    final capaGuardada = _almacen.leerCapa();
+    capa = CapaMapa.values.firstWhere((c) => c.name == capaGuardada, orElse: () => CapaMapa.mapa);
     parcela = _almacen.leerParcela();
-    plantacion = _almacen.leerPlantacion();
-    registros = _almacen.leerRegistros();
+    plantaciones = _almacen.leerPlantaciones();
+    todosLosRegistros = _almacen.leerRegistros();
     clima = _almacen.leerClima();
     ultimaSync = _almacen.leerUltimaSincronizacion();
     idioma = _almacen.leerIdioma() ?? 'es';
+    _seleccionada = _almacen.leerSeleccionada();
+
+    // Datos de versiones con una sola plantación: se le da un identificador y
+    // se le asignan los registros que no tenían dueña.
+    if (plantaciones.any((p) => p.id.isEmpty)) {
+      plantaciones = [for (final p in plantaciones) p.id.isEmpty ? p.conId(_nuevoId()) : p];
+    }
+    if (plantaciones.isNotEmpty && todosLosRegistros.any((r) => r.plantacionId.isEmpty)) {
+      final primera = plantaciones.first.id;
+      todosLosRegistros = [
+        for (final r in todosLosRegistros) r.plantacionId.isEmpty ? r.conPlantacion(primera) : r,
+      ];
+    }
   }
 
   final Almacen _almacen;
   final ServicioClima _servicio;
   final DateTime Function() _reloj;
 
+  /// Descarga y guarda las imágenes del mapa de fondo.
+  late final ServicioMapa mapa;
+
+  /// Fondo elegido para el plano de la finca.
+  CapaMapa capa = CapaMapa.mapa;
+
   Parcela? parcela;
-  Plantacion? plantacion;
-  List<RegistroSemanal> registros = [];
+  List<Plantacion> plantaciones = [];
+
+  /// Registros semanales de todas las plantaciones, del más reciente al más viejo.
+  List<RegistroSemanal> todosLosRegistros = [];
   List<DiaClima> clima = [];
   DateTime? ultimaSync;
   String idioma = 'es';
   bool sincronizando = false;
-  Recomendacion? _recomendacion;
+  String? _seleccionada;
+  final _recomendaciones = <String, Recomendacion>{};
 
   Txt get txt => Txt(idioma == 'en');
   DateTime get hoy => _reloj();
-  bool get configurada => parcela != null && plantacion != null;
+  bool get configurada => parcela != null && plantaciones.isNotEmpty;
 
-  Recomendacion get recomendacion {
-    if (!configurada) return Recomendacion.vacia;
-    return _recomendacion ??= recomendar(
+  /// Plantación que se está viendo en Hoy y en Registros.
+  Plantacion? get plantacion {
+    if (plantaciones.isEmpty) return null;
+    return plantaciones.firstWhere((p) => p.id == _seleccionada, orElse: () => plantaciones.first);
+  }
+
+  Plantacion? plantacionPorId(String? id) {
+    for (final p in plantaciones) {
+      if (p.id == id) return p;
+    }
+    return null;
+  }
+
+  List<RegistroSemanal> registrosDe(String id) => todosLosRegistros.where((r) => r.plantacionId == id).toList();
+
+  /// Registros de la plantación seleccionada.
+  List<RegistroSemanal> get registros => plantacion == null ? [] : registrosDe(plantacion!.id);
+
+  Recomendacion recomendacionDe(Plantacion p) {
+    if (parcela == null) return Recomendacion.vacia;
+    return _recomendaciones[p.id] ??= recomendar(
       parcela: parcela!,
-      plantacion: plantacion!,
+      plantacion: p,
       clima: clima,
-      registros: registros,
+      registros: registrosDe(p.id),
       hoy: hoy,
     );
   }
 
+  /// Recomendación de la plantación seleccionada.
+  Recomendacion get recomendacion => plantacion == null ? Recomendacion.vacia : recomendacionDe(plantacion!);
+
   void _cambio() {
-    _recomendacion = null;
+    _recomendaciones.clear();
     notifyListeners();
+  }
+
+  String _nuevoId() {
+    var n = 1;
+    while (plantaciones.any((p) => p.id == 'p$n')) {
+      n++;
+    }
+    return 'p$n';
   }
 
   Future<void> guardarParcela(Parcela p) async {
@@ -68,25 +123,79 @@ class AppEstado extends ChangeNotifier {
     _cambio();
   }
 
-  Future<void> guardarPlantacion(Plantacion p) async {
-    plantacion = p;
-    await _almacen.guardarPlantacion(p);
+  /// Guarda el contorno de la finca dibujado en el croquis.
+  Future<void> guardarContornoFinca(List<Punto> contorno) async {
+    final p = parcela;
+    if (p == null) return;
+    parcela = p.con(contorno: contorno);
+    await _almacen.guardarParcela(parcela!);
     _cambio();
   }
 
-  /// Guarda un registro semanal; si ya hay uno de ese día, lo reemplaza.
+  Future<void> cambiarCapa(CapaMapa nueva) async {
+    capa = nueva;
+    await _almacen.guardarCapa(nueva.name);
+    notifyListeners();
+  }
+
+  /// Cambia el ancho del plano de la finca. Los contornos ya dibujados se
+  /// ajustan para quedar en el mismo lugar del terreno.
+  Future<void> cambiarLado(double nuevo) async {
+    final p = parcela;
+    if (p == null || p.lado == nuevo) return;
+    parcela = p.con(lado: nuevo, contorno: reescalar(p.contorno, p.lado, nuevo));
+    plantaciones = [for (final x in plantaciones) x.conContorno(reescalar(x.contorno, p.lado, nuevo))];
+    await _almacen.guardarParcela(parcela!);
+    await _almacen.guardarPlantaciones(plantaciones);
+    _cambio();
+  }
+
+  /// Agrega una plantación nueva (sin identificador) o actualiza una existente,
+  /// y la deja seleccionada.
+  Future<void> guardarPlantacion(Plantacion p) async {
+    final guardada = p.id.isEmpty ? p.conId(_nuevoId()) : p;
+    final existe = plantaciones.any((x) => x.id == guardada.id);
+    plantaciones = existe
+        ? [for (final x in plantaciones) x.id == guardada.id ? guardada : x]
+        : [...plantaciones, guardada];
+    _seleccionada = guardada.id;
+    await _almacen.guardarPlantaciones(plantaciones);
+    await _almacen.guardarSeleccionada(guardada.id);
+    _cambio();
+  }
+
+  /// Borra una plantación con sus registros semanales.
+  Future<void> borrarPlantacion(String id) async {
+    plantaciones = plantaciones.where((p) => p.id != id).toList();
+    todosLosRegistros = todosLosRegistros.where((r) => r.plantacionId != id).toList();
+    if (_seleccionada == id) _seleccionada = plantaciones.isEmpty ? null : plantaciones.first.id;
+    await _almacen.guardarPlantaciones(plantaciones);
+    await _almacen.guardarRegistros(todosLosRegistros);
+    _cambio();
+  }
+
+  Future<void> seleccionar(String id) async {
+    if (_seleccionada == id || plantacionPorId(id) == null) return;
+    _seleccionada = id;
+    await _almacen.guardarSeleccionada(id);
+    notifyListeners();
+  }
+
+  /// Guarda un registro semanal; si esa plantación ya tiene uno de ese día, lo
+  /// reemplaza.
   Future<void> guardarRegistro(RegistroSemanal r) async {
-    registros = [
-      ...registros.where((x) => soloFecha(x.fecha) != soloFecha(r.fecha)),
+    todosLosRegistros = [
+      ...todosLosRegistros
+          .where((x) => x.plantacionId != r.plantacionId || soloFecha(x.fecha) != soloFecha(r.fecha)),
       r,
     ]..sort((a, b) => b.fecha.compareTo(a.fecha));
-    await _almacen.guardarRegistros(registros);
+    await _almacen.guardarRegistros(todosLosRegistros);
     _cambio();
   }
 
   Future<void> borrarRegistro(RegistroSemanal r) async {
-    registros = registros.where((x) => x != r).toList();
-    await _almacen.guardarRegistros(registros);
+    todosLosRegistros = todosLosRegistros.where((x) => x != r).toList();
+    await _almacen.guardarRegistros(todosLosRegistros);
     _cambio();
   }
 
@@ -96,7 +205,7 @@ class AppEstado extends ChangeNotifier {
     _cambio();
   }
 
-  /// Descarga el clima reciente de la parcela. Solo corre con wifi.
+  /// Descarga el clima reciente de la finca. Solo corre con wifi.
   Future<ResultadoSync> sincronizar() async {
     final p = parcela;
     if (p == null || sincronizando) return ResultadoSync.error;
@@ -105,10 +214,11 @@ class AppEstado extends ChangeNotifier {
     try {
       if (!await _servicio.hayWifi()) return ResultadoSync.sinWifi;
       final fin = soloFecha(hoy);
-      final siembra = plantacion?.fecha;
-      // Desde la siembra, con un mínimo de 60 días y un máximo de 240.
+      // Desde la siembra más antigua, con un mínimo de 60 días y un máximo de 240.
       var desde = DateTime(fin.year, fin.month, fin.day - 60);
-      if (siembra != null && siembra.isBefore(desde)) desde = soloFecha(siembra);
+      for (final x in plantaciones) {
+        if (x.fecha.isBefore(desde)) desde = soloFecha(x.fecha);
+      }
       final limite = DateTime(fin.year, fin.month, fin.day - 240);
       if (desde.isBefore(limite)) desde = limite;
 
@@ -116,7 +226,7 @@ class AppEstado extends ChangeNotifier {
       clima = r.dias;
       await _almacen.guardarClima(clima);
       if (r.elevacion != null) {
-        parcela = p.con(elevacion: r.elevacion);
+        parcela = parcela!.con(elevacion: r.elevacion);
         await _almacen.guardarParcela(parcela!);
       }
       ultimaSync = hoy;
@@ -130,12 +240,36 @@ class AppEstado extends ChangeNotifier {
     }
   }
 
-  /// Carga una parcela y una plantación de ejemplo para conocer la app.
+  /// Carga una finca de ejemplo con dos plantaciones para conocer la app.
   Future<void> cargarEjemplo() async {
     final h = soloFecha(hoy);
-    await guardarParcela(const Parcela(nombre: 'Chiquimula', latitud: 14.8250, longitud: -89.5312));
+    await guardarParcela(const Parcela(
+      nombre: 'Chiquimula',
+      latitud: 14.8250,
+      longitud: -89.5312,
+      contorno: [
+        Punto(0.10, 0.16),
+        Punto(0.74, 0.10),
+        Punto(0.90, 0.26),
+        Punto(0.92, 0.86),
+        Punto(0.16, 0.90),
+        Punto(0.08, 0.52),
+      ],
+    ));
+    await guardarPlantacion(Plantacion(
+      cultivoId: 'maiz',
+      contorno: const [Punto(0.17, 0.22), Punto(0.50, 0.19), Punto(0.48, 0.47), Punto(0.16, 0.49)],
+      fecha: DateTime(h.year, h.month, h.day - 55),
+      ciclo: 120,
+      suelo: Suelo.franco,
+      riego: TipoRiego.ninguno,
+      temporadaRiego: TemporadaRiego.auxilio,
+      plagaReciente: false,
+      fertilizo: true,
+    ));
     await guardarPlantacion(Plantacion(
       cultivoId: 'frijol',
+      contorno: const [Punto(0.56, 0.54), Punto(0.86, 0.54), Punto(0.86, 0.82), Punto(0.56, 0.82)],
       fecha: DateTime(h.year, h.month, h.day - 38),
       ciclo: 67,
       suelo: Suelo.franco,
@@ -144,7 +278,9 @@ class AppEstado extends ChangeNotifier {
       plagaReciente: false,
       fertilizo: true,
     ));
+    // Queda seleccionada la última guardada: el frijol.
     await guardarRegistro(RegistroSemanal(
+      plantacionId: plantacion!.id,
       fecha: DateTime(h.year, h.month, h.day - 9),
       riegos: 2,
       plaga: NivelPlaga.leve,
@@ -156,10 +292,11 @@ class AppEstado extends ChangeNotifier {
   Future<void> borrarTodo() async {
     await _almacen.borrarTodo();
     parcela = null;
-    plantacion = null;
-    registros = [];
+    plantaciones = [];
+    todosLosRegistros = [];
     clima = [];
     ultimaSync = null;
+    _seleccionada = null;
     await _almacen.guardarIdioma(idioma);
     _cambio();
   }
