@@ -1,3 +1,10 @@
 .venv/
 __pycache__/
 *.pyc
+
+# LLM de lenguas mayas: pesos entrenados y feedback de usuarios (datos personales seudónimos)
+modelos/
+# derivados regenerables con preparar_datos_llm.py
+datos/lenguas_mayas/llm/*.jsonl
+# corpus con licencias restringidas: vive en el repo privado mariobet23440/lenguas-mayas-corpus
+datos/lenguas_mayas/pretraining/
