@@ -1,0 +1,4397 @@
+{
+  "schema_version": "1.1.0",
+  "fecha_revision": "2026-11-14",
+  "proyecto": "Field Shift Guatemala",
+  "estado": "base_documental_provisional",
+  "autor": "asesor_agroclimatico",
+  "alcance": "Propuesta del asesor para explorar sucesiones; no funcionalidad implementada ni decisión confirmada del equipo.",
+  "catalogo_referencia": "conocimiento/catalogo-botanico-cultivos-guatemala.md",
+  "sintesis_referencia": "conocimiento/compatibilidad-y-sucesiones.md",
+  "metodo": {
+    "tipo": "revision_documental_selectiva",
+    "taxonomia": "IDs, especie y producto conservados del catálogo; arveja con sinónimo agrícola.",
+    "fuentes": "Primarias institucionales y artículos originales, con lectura declarada por fuente.",
+    "cobertura": "Matriz completa de IDs; cobertura científica parcial por mecanismo. No se revisó un ensayo para cada pareja.",
+    "actualizacion": "Añadir organismos/ensayos con fuentes y recálculo de cobertura; no interpretar vacío como no hospedante."
+  },
+  "semantica": {
+    "filas": "A: cultivo/producto antecesor, terminado antes de B en el mismo sublote.",
+    "columnas": "B: cultivo/producto sucesor que se pretende establecer.",
+    "direccion": "A→B no demuestra B→A. Los grupos de hospedantes originan alertas simétricas, no efectos simétricos.",
+    "diagonal": "A→A: repetición del mismo producto, comparador sin diversificación.",
+    "solapamiento": "Asociación/relevo fuera de la evaluación estricta; requiere modelo de coexistencia.",
+    "familia": "Descriptor taxonómico; sin premio, veto ni puntuación automática.",
+    "vacio": "Sin evidencia específica o sin alerta en esta selección no equivale a inocuidad, incompatibilidad ni riesgo cero.",
+    "presencia": "Hospedante documentado no significa organismo presente en Guatemala o en la parcela.",
+    "efectos": "Sin coeficientes universales de rendimiento, N residual, penalización sanitaria o días de espera."
+  },
+  "vocabulario": {
+    "estado_decision": {
+      "requiere_evaluacion_local": "Único estado de decisión en esta entrega: falta caso de parcela."
+    },
+    "estado_evidencia": {
+      "con_evidencia_en_otro_contexto": "Ensayo original seleccionado con límites explícitos; no aprobación local.",
+      "sin_evidencia_especifica": "No hay ensayo de esa transición codificado en esta selección."
+    },
+    "estado_diagnostico": [
+      "desconocido",
+      "sospechoso_sin_confirmar",
+      "confirmado_positivo",
+      "evaluado_sin_deteccion_con_metodo_y_fecha"
+    ],
+    "politica_faltantes": "Conservar desconocido y procedencia; no sustituir ausencia de dato por cero/negativo."
+  },
+  "esquema_celda": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "tipo",
+      "estado_decision",
+      "estado_evidencia",
+      "alertas_hospedante_ids",
+      "evidencias_sucesion_ids",
+      "reglas_ids"
+    ],
+    "properties": {
+      "tipo": {
+        "enum": [
+          "repeticion",
+          "sucesion_entre_cultivos_distintos"
+        ]
+      },
+      "estado_decision": {
+        "const": "requiere_evaluacion_local"
+      },
+      "estado_evidencia": {
+        "enum": [
+          "con_evidencia_en_otro_contexto",
+          "sin_evidencia_especifica"
+        ]
+      },
+      "alertas_hospedante_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "evidencias_sucesion_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "reglas_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true,
+        "minItems": 1
+      }
+    }
+  },
+  "cultivos": [
+    {
+      "id": "C01",
+      "nombre": "Maíz, grano seco",
+      "nombre_cientifico": "Zea mays L.",
+      "familia": "Poaceae"
+    },
+    {
+      "id": "C02",
+      "nombre": "Frijol común, grano",
+      "nombre_cientifico": "Phaseolus vulgaris L.",
+      "familia": "Fabaceae"
+    },
+    {
+      "id": "C03",
+      "nombre": "Sorgo, grano",
+      "nombre_cientifico": "Sorghum bicolor (L.) Moench",
+      "familia": "Poaceae"
+    },
+    {
+      "id": "C04",
+      "nombre": "Arroz, grano",
+      "nombre_cientifico": "Oryza sativa L.",
+      "familia": "Poaceae"
+    },
+    {
+      "id": "C05",
+      "nombre": "Trigo harinero, grano",
+      "nombre_cientifico": "Triticum aestivum L.",
+      "familia": "Poaceae"
+    },
+    {
+      "id": "C06",
+      "nombre": "Ajonjolí, semilla",
+      "nombre_cientifico": "Sesamum indicum L.",
+      "familia": "Pedaliaceae"
+    },
+    {
+      "id": "C07",
+      "nombre": "Papa, tubérculo para consumo",
+      "nombre_cientifico": "Solanum tuberosum L.",
+      "familia": "Solanaceae"
+    },
+    {
+      "id": "C08",
+      "nombre": "Tomate, fruto",
+      "nombre_cientifico": "Solanum lycopersicum L.",
+      "familia": "Solanaceae"
+    },
+    {
+      "id": "C09",
+      "nombre": "Chile pimiento, fruto dulce",
+      "nombre_cientifico": "Capsicum annuum L.",
+      "familia": "Solanaceae"
+    },
+    {
+      "id": "C10",
+      "nombre": "Cebolla, bulbo",
+      "nombre_cientifico": "Allium cepa L.",
+      "familia": "Amaryllidaceae"
+    },
+    {
+      "id": "C11",
+      "nombre": "Zanahoria, raíz comercial",
+      "nombre_cientifico": "Daucus carota L.",
+      "familia": "Apiaceae"
+    },
+    {
+      "id": "C12",
+      "nombre": "Lechuga, hoja/cabeza",
+      "nombre_cientifico": "Lactuca sativa L.",
+      "familia": "Asteraceae"
+    },
+    {
+      "id": "C13",
+      "nombre": "Arveja china, vaina tierna",
+      "nombre_cientifico": "Lathyrus oleraceus Lam.",
+      "familia": "Fabaceae",
+      "sinonimo_agricola": "Pisum sativum L."
+    },
+    {
+      "id": "C14",
+      "nombre": "Brócoli, inflorescencia",
+      "nombre_cientifico": "Brassica oleracea L.",
+      "familia": "Brassicaceae"
+    },
+    {
+      "id": "C15",
+      "nombre": "Pepino, fruto tierno",
+      "nombre_cientifico": "Cucumis sativus L.",
+      "familia": "Cucurbitaceae"
+    },
+    {
+      "id": "C16",
+      "nombre": "Melón, fruto",
+      "nombre_cientifico": "Cucumis melo L.",
+      "familia": "Cucurbitaceae"
+    },
+    {
+      "id": "C17",
+      "nombre": "Sandía, fruto",
+      "nombre_cientifico": "Citrullus lanatus (Thunb.) Matsum. & Nakai",
+      "familia": "Cucurbitaceae"
+    },
+    {
+      "id": "C18",
+      "nombre": "Camote, raíz reservante",
+      "nombre_cientifico": "Ipomoea batatas (L.) Lam.",
+      "familia": "Convolvulaceae"
+    }
+  ],
+  "fuentes": [
+    {
+      "id": "F01",
+      "autor": "FAO",
+      "titulo": "Species diversification",
+      "anio": null,
+      "url": "https://www.fao.org/conservation-agriculture/in-practice/species-diversification/en/",
+      "alcance_lectura": "página institucional consultada",
+      "limite": "Marco general, no ensayo de parejas."
+    },
+    {
+      "id": "F02",
+      "autor": "ICTA; Villatoro Mérida, Franco Rivera, Castillo Monterroso; reedición Miranda Mijangos",
+      "titulo": "Manual para producción de frijol",
+      "anio": 2022,
+      "url": "https://www.icta.gob.gt/publicaciones/Frijol/Manual%20de%20producci%C3%B3n%20de%20frijol%20ICTA.pdf",
+      "alcance_lectura": "PDF: portada y apartados de preparación/siembra consultados",
+      "limite": "Relevo en p. 10 impresa; no prueba de sucesión estricta."
+    },
+    {
+      "id": "F03",
+      "autor": "APS; M. Babadoost",
+      "titulo": "Phytophthora blight of cucurbits",
+      "anio": 2005,
+      "url": "https://www.apsnet.org/edcenter/pdlessons/Pages/Phytophthora.aspx",
+      "alcance_lectura": "lección técnica: hospedantes, ciclo y manejo consultados",
+      "limite": "Actualización 2016; no prueba presencia en Guatemala."
+    },
+    {
+      "id": "F04",
+      "autor": "UC IPM",
+      "titulo": "Potato: Verticillium Wilt",
+      "anio": 2019,
+      "url": "https://ipm.ucanr.edu/agriculture/potato/verticillium-wilt/",
+      "alcance_lectura": "especie causal y manejo consultados",
+      "limite": "California; actualización del texto 03/2019. No validación guatemalteca."
+    },
+    {
+      "id": "F05",
+      "autor": "UC IPM",
+      "titulo": "Tomato: Verticillium Wilt",
+      "anio": 2013,
+      "url": "https://ipm.ucanr.edu/agriculture/tomato/verticillium-wilt/",
+      "alcance_lectura": "especie causal, persistencia y manejo consultados",
+      "limite": "California; actualización del texto 12/2013."
+    },
+    {
+      "id": "F06",
+      "autor": "Pacific Northwest Pest Management Handbooks",
+      "titulo": "Pepper (Capsicum spp.)-Verticillium Wilt",
+      "anio": 2026,
+      "url": "https://pnwhandbooks.org/plantdisease/host-disease/pepper-capsicum-spp-verticillium-wilt",
+      "alcance_lectura": "causas y control cultural consultados",
+      "limite": "Revisión marzo 2026. Solo V. dahliae se aplica en H02."
+    },
+    {
+      "id": "F07",
+      "autor": "UC IPM",
+      "titulo": "Potato: Nematodes",
+      "anio": 2019,
+      "url": "https://ipm.ucanr.edu/agriculture/potato/nematodes/",
+      "alcance_lectura": "especies, evaluación e historial consultados",
+      "limite": "California; actualización del texto 08/2019."
+    },
+    {
+      "id": "F08",
+      "autor": "UC IPM",
+      "titulo": "Carrot: Nematodes",
+      "anio": 2024,
+      "url": "https://ipm.ucanr.edu/agriculture/carrot/nematodes/",
+      "alcance_lectura": "especies, daño y evaluación consultados",
+      "limite": "California; actualización del texto 02/2024."
+    },
+    {
+      "id": "F09",
+      "autor": "FAO; Allen y colaboradores",
+      "titulo": "FAO-56: capítulo 8, ETc under soil water stress conditions",
+      "anio": 1998,
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "alcance_lectura": "reserva radicular y balance consultados",
+      "limite": "Método general; necesita suelo y cultivo locales."
+    },
+    {
+      "id": "F10",
+      "autor": "R. Dill-Macky y R. K. Jones",
+      "titulo": "The Effect of Previous Crop Residues and Tillage on Fusarium Head Blight of Wheat",
+      "anio": 2000,
+      "url": "https://apsjournals.apsnet.org/doi/abs/10.1094/PDIS.2000.84.1.71",
+      "alcance_lectura": "resumen del editor consultado por índice; acceso directo intermitente",
+      "limite": "Plant Disease 84:71-76; DOI 10.1094/PDIS.2000.84.1.71."
+    },
+    {
+      "id": "F11",
+      "autor": "J. J. Hao, K. V. Subbarao y S. T. Koike",
+      "titulo": "Effects of Broccoli Rotation on Lettuce Drop Caused by Sclerotinia minor and on the Population Density of Sclerotia in Soil",
+      "anio": 2003,
+      "url": "https://apsjournals.apsnet.org/doi/pdf/10.1094/PDIS.2003.87.2.159",
+      "alcance_lectura": "resumen e introducción indexados consultados; no lectura integral de métodos/tablas",
+      "limite": "Plant Disease 87:159-166; DOI 10.1094/PDIS.2003.87.2.159."
+    },
+    {
+      "id": "F12",
+      "autor": "UC IPM",
+      "titulo": "Lettuce: Nematodes",
+      "anio": 2017,
+      "url": "https://ipm.ucanr.edu/agriculture/lettuce/nematodes/",
+      "alcance_lectura": "especies y evaluación consultadas",
+      "limite": "California; actualización del texto 04/2017."
+    },
+    {
+      "id": "F13",
+      "autor": "UC IPM",
+      "titulo": "Cole Crops: Nematodes",
+      "anio": 2018,
+      "url": "https://ipm.ucanr.edu/agriculture/cole-crops/nematodes/",
+      "alcance_lectura": "especies y manejo del grupo consultados",
+      "limite": "California; actualización del texto 10/2018. Evidencia del grupo de coles, sin ensayo de cada variedad de brócoli."
+    },
+    {
+      "id": "F14",
+      "autor": "ICTA",
+      "titulo": "Recomendaciones técnicas para el cultivo de maíz en el oriente de Guatemala",
+      "anio": 2015,
+      "url": "https://www.icta.gob.gt/publicaciones/Maiz/Recomendaciones%20tecnicas%20para%20el%20cultivo%20de%20maiz%20en%20el%20oriente%20de%20Guatemala%202015.pdf",
+      "alcance_lectura": "trifoliar del catálogo: alcance regional y manejo consultados",
+      "limite": "No prueba todas las sucesiones propuestas."
+    },
+    {
+      "id": "F15",
+      "autor": "H. Morales y S. Perez; CGIAR/CIAT",
+      "titulo": "Guía para buenas prácticas en el manejo del cultivo de frijol en Guatemala",
+      "anio": 2024,
+      "url": "https://alliancebioversityciat.org/publications-data/guia-para-buenas-practicas-en-el-manejo-del-cultivo-de-frijol-en-guatemala",
+      "alcance_lectura": "solo ficha institucional consultada, texto no leído",
+      "limite": "Manual de 20 páginas; no se atribuyen efectos de sucesión."
+    },
+    {
+      "id": "F16",
+      "autor": "K. V. Subbarao, J. C. Hubbard y S. T. Koike",
+      "titulo": "Evaluation of Broccoli Residue Incorporation into Field Soil for Verticillium Wilt Control in Cauliflower",
+      "anio": 1999,
+      "url": "https://apsjournals.apsnet.org/doi/10.1094/PDIS.1999.83.2.124",
+      "alcance_lectura": "resumen del editor consultado",
+      "limite": "Plant Disease 83:124-129; receptor coliflor, no C14."
+    },
+    {
+      "id": "F17",
+      "autor": "Cornell Vegetable Program",
+      "titulo": "Phytophthora Blight and Its Management in Cucurbit Crops and Other Vegetables",
+      "anio": 2023,
+      "url": "https://www.vegetables.cornell.edu/pest-management/disease-factsheets/phytophthora-blight-and-its-management-in-cucurbit-crops-and-other-vegetables/",
+      "alcance_lectura": "referencia adicional de hospedantes; acceso directo intermitente",
+      "limite": "Actualización agosto 2023; ejote no se mapea sin revisión a C02 de grano."
+    }
+  ],
+  "reglas": [
+    {
+      "id": "R_GENERAL",
+      "tipo": "comprobaciones_obligatorias",
+      "componentes_ids": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07"
+      ],
+      "fuentes_ids": [
+        "F01"
+      ],
+      "efecto": "Todas las celdas requieren estas comprobaciones; ninguna produce aprobación automática."
+    },
+    {
+      "id": "R01",
+      "tipo": "modo_fechas_y_producto",
+      "datos": [
+        "sublote",
+        "producto_A",
+        "producto_B",
+        "variedad_A",
+        "variedad_B",
+        "fecha_terminacion_A",
+        "fecha_establecimiento_B"
+      ],
+      "criterio": "A termina antes de establecer B en la misma superficie. Si hay solapamiento, evaluar relevo/asociación fuera de esta matriz.",
+      "desconocido": "No declarar sucesión estricta sin fechas suficientes.",
+      "fuentes_ids": [
+        "F01",
+        "F02",
+        "F14"
+      ]
+    },
+    {
+      "id": "R02",
+      "tipo": "adaptacion_y_ventana",
+      "datos": [
+        "ubicacion",
+        "elevacion",
+        "suelo_drenaje",
+        "sistema",
+        "variedad",
+        "ventana_local",
+        "temperatura",
+        "agua"
+      ],
+      "criterio": "Comprobar aptitud de ambos productos y del calendario local. La presencia de un cultivo en Guatemala no acredita aptitud de cualquier parcela.",
+      "desconocido": "Evaluar escenarios y conservar faltantes.",
+      "fuentes_ids": [
+        "F02",
+        "F09",
+        "F14"
+      ]
+    },
+    {
+      "id": "R03",
+      "tipo": "sanidad",
+      "datos": [
+        "organismo",
+        "estado_diagnostico",
+        "historial_cultivos",
+        "variedades",
+        "malezas",
+        "voluntarias",
+        "material_propagacion"
+      ],
+      "criterio": "Las alertas de hospedantes son potenciales; cruzarlas con diagnóstico e historial. Sin alerta catalogada no equivale a ausencia de organismos compartidos.",
+      "desconocido": "Desconocido no equivale a diagnóstico negativo.",
+      "fuentes_ids": [
+        "F03",
+        "F04",
+        "F05",
+        "F06",
+        "F07",
+        "F08",
+        "F12",
+        "F13"
+      ]
+    },
+    {
+      "id": "R04",
+      "tipo": "agua_y_raices",
+      "datos": [
+        "agua_inicial_por_capa",
+        "suelo",
+        "profundidad_efectiva",
+        "lluvia",
+        "riego_entregable",
+        "drenaje",
+        "etapas_B"
+      ],
+      "criterio": "Continuar el balance de A a B; no reiniciar el agua al cambiar cultivo. Distinguir cultivo vivo, residuo y suelo descubierto.",
+      "desconocido": "Usar escenarios explícitos, no una humedad técnica inventada.",
+      "fuentes_ids": [
+        "F09"
+      ]
+    },
+    {
+      "id": "R05",
+      "tipo": "residuos_y_nutrientes",
+      "datos": [
+        "analisis_suelo",
+        "aportes",
+        "fijacion_estimada_si_existe",
+        "cosecha_retirada",
+        "residuos_conservados",
+        "sanidad_residuos"
+      ],
+      "criterio": "Registrar entradas, extracción y destino de residuos; no otorgar N fijo por Fabaceae ni beneficio fijo por familia distinta.",
+      "desconocido": "Efecto residual sin cuantificar; sin crédito automático.",
+      "fuentes_ids": [
+        "F01",
+        "F02",
+        "F10"
+      ]
+    },
+    {
+      "id": "R06",
+      "tipo": "terminacion_y_manejo",
+      "datos": [
+        "etapa_dano_A",
+        "ultima_cosecha",
+        "fecha_retiro",
+        "rebrote",
+        "voluntarias",
+        "residuos",
+        "labores",
+        "restricciones_manejo_previo"
+      ],
+      "criterio": "La primera cosecha no libera necesariamente el terreno. Comprobar terminación y requisitos vigentes del manejo anterior según su documentación; no fijar días universales.",
+      "desconocido": "No inventar fecha de liberación ni intervalo sanitario.",
+      "fuentes_ids": [
+        "F02",
+        "F07",
+        "F14"
+      ]
+    },
+    {
+      "id": "R07",
+      "tipo": "recursos_y_economia",
+      "origen": "propuesta de diseño del asesor, no efecto experimental",
+      "datos": [
+        "semilla",
+        "mano_obra",
+        "equipo",
+        "costos_y_fechas",
+        "ingresos_y_fechas",
+        "efectivo",
+        "necesidad_efectivo",
+        "mercado",
+        "autoconsumo",
+        "horizonte_comun"
+      ],
+      "criterio": "Comparar alternativas factibles con agua, labores, caja y objetivo del productor; no deducir rentabilidad del parentesco.",
+      "desconocido": "Viabilidad por confirmar, no aprobación por defecto.",
+      "fuentes_ids": []
+    },
+    {
+      "id": "R_REPETICION",
+      "tipo": "diagonal",
+      "criterio": "A y B son el mismo cultivo/producto: repetición comparadora, no rotación diversificada. Revisar número de ciclos e historial.",
+      "fuentes_ids": [
+        "F01"
+      ]
+    },
+    {
+      "id": "H01",
+      "tipo": "alerta_condicional_hospedantes",
+      "alerta_id": "H01",
+      "criterio": "Ambos IDs están en H01; mostrar alerta potencial de P. capsici. No equivale a ensayo de la pareja ni diagnóstico.",
+      "fuentes_ids": [
+        "F03"
+      ]
+    },
+    {
+      "id": "H02",
+      "tipo": "alerta_condicional_hospedantes",
+      "alerta_id": "H02",
+      "criterio": "Ambos IDs están en H02; mostrar alerta potencial de V. dahliae, especie verificada por cultivo.",
+      "fuentes_ids": [
+        "F04",
+        "F05",
+        "F06"
+      ]
+    },
+    {
+      "id": "H03",
+      "tipo": "alerta_condicional_hospedantes",
+      "alerta_id": "H03",
+      "criterio": "Ambos IDs están en H03; mostrar alerta potencial de M. incognita. Identificar especie/población y material.",
+      "fuentes_ids": [
+        "F07",
+        "F08",
+        "F12",
+        "F13"
+      ]
+    },
+    {
+      "id": "R_E01",
+      "tipo": "evidencia_contextual",
+      "evidencia_id": "E01",
+      "criterio": "Consultar dirección, sistema y resultado de E01; no invertir ni convertir en coeficiente universal.",
+      "fuentes_ids": [
+        "F10"
+      ]
+    },
+    {
+      "id": "R_E02",
+      "tipo": "evidencia_contextual",
+      "evidencia_id": "E02",
+      "criterio": "Consultar el sistema multiciclo de E02; un efecto frente a S. minor no cancela la alerta H03.",
+      "fuentes_ids": [
+        "F11"
+      ]
+    }
+  ],
+  "alertas_hospedante": [
+    {
+      "id": "H01",
+      "organismo": "Phytophthora capsici",
+      "grupo_biologico": "oomiceto",
+      "hospedantes_ids": [
+        "C08",
+        "C09",
+        "C15",
+        "C16",
+        "C17"
+      ],
+      "fuentes_por_hospedante": {
+        "C08": [
+          "F03"
+        ],
+        "C09": [
+          "F03"
+        ],
+        "C15": [
+          "F03"
+        ],
+        "C16": [
+          "F03"
+        ],
+        "C17": [
+          "F03"
+        ]
+      },
+      "fuentes_ids": [
+        "F03"
+      ],
+      "alcance": "Hospedantes explícitos en lección técnica; no pruebas de cada sucesión.",
+      "condicion": "Revisar diagnóstico, drenaje, agua y traslado de suelo/residuos; no inferir erradicación por un solo ciclo.",
+      "presencia_en_parcela": "no_evaluada",
+      "validez_geografica": "Evidencia externa; sin diagnóstico ni prevalencia demostrada en Guatemala.",
+      "intervalo_minimo_local_validado_dias": null,
+      "penalizacion_numerica": null,
+      "nivel_evidencia_por_hospedante": {
+        "C08": "lista_explicita_de_hospedantes_en_leccion_tecnica",
+        "C09": "lista_explicita_de_hospedantes_en_leccion_tecnica",
+        "C15": "lista_explicita_de_hospedantes_en_leccion_tecnica",
+        "C16": "lista_explicita_de_hospedantes_en_leccion_tecnica",
+        "C17": "lista_explicita_de_hospedantes_en_leccion_tecnica"
+      }
+    },
+    {
+      "id": "H02",
+      "organismo": "Verticillium dahliae",
+      "grupo_biologico": "hongo",
+      "hospedantes_ids": [
+        "C07",
+        "C08",
+        "C09"
+      ],
+      "fuentes_por_hospedante": {
+        "C07": [
+          "F04"
+        ],
+        "C08": [
+          "F05"
+        ],
+        "C09": [
+          "F06"
+        ]
+      },
+      "fuentes_ids": [
+        "F04",
+        "F05",
+        "F06"
+      ],
+      "alcance": "Especie documentada por cultivo; no se fusiona V. albo-atrum con ella.",
+      "condicion": "Revisar diagnóstico, variedad y hospedantes alternos; el cambio de cultivo no garantiza saneamiento.",
+      "presencia_en_parcela": "no_evaluada",
+      "validez_geografica": "Guías de California y noroeste de Estados Unidos; no diagnóstico local.",
+      "intervalo_minimo_local_validado_dias": null,
+      "penalizacion_numerica": null,
+      "nivel_evidencia_por_hospedante": {
+        "C07": "guia_tecnica_por_cultivo_sin_ensayo_especifico_del_cultivar",
+        "C08": "guia_tecnica_por_cultivo_sin_ensayo_especifico_del_cultivar",
+        "C09": "guia_tecnica_por_cultivo_sin_ensayo_especifico_del_cultivar"
+      }
+    },
+    {
+      "id": "H03",
+      "organismo": "Meloidogyne incognita",
+      "grupo_biologico": "nematodo",
+      "hospedantes_ids": [
+        "C07",
+        "C11",
+        "C12",
+        "C14"
+      ],
+      "fuentes_por_hospedante": {
+        "C07": [
+          "F07"
+        ],
+        "C11": [
+          "F08"
+        ],
+        "C12": [
+          "F12"
+        ],
+        "C14": [
+          "F13"
+        ]
+      },
+      "fuentes_ids": [
+        "F07",
+        "F08",
+        "F12",
+        "F13"
+      ],
+      "alcance": "Guías por cultivo y grupo de coles para brócoli; no ensayos de cada cultivar/transición.",
+      "condicion": "Identificar especie/población y susceptibilidad; no extrapolar condición de no hospedante entre especies de Meloidogyne.",
+      "presencia_en_parcela": "no_evaluada",
+      "validez_geografica": "Guías de California; no prueba de incidencia o umbral en Guatemala.",
+      "intervalo_minimo_local_validado_dias": null,
+      "penalizacion_numerica": null,
+      "nivel_evidencia_por_hospedante": {
+        "C07": "guia_tecnica_por_cultivo_sin_ensayo_especifico_del_cultivar",
+        "C11": "guia_tecnica_por_cultivo_sin_ensayo_especifico_del_cultivar",
+        "C12": "guia_tecnica_por_cultivo_sin_ensayo_especifico_del_cultivar",
+        "C14": "guia_del_grupo_horticola_coles_sin_ensayo_especifico_del_cultivar"
+      }
+    }
+  ],
+  "evidencias_sucesion": [
+    {
+      "id": "E01",
+      "pares_dirigidos": [
+        [
+          "C01",
+          "C05"
+        ],
+        [
+          "C05",
+          "C05"
+        ]
+      ],
+      "tipo": "ensayo_original_extranjero_resumen_consultado",
+      "organismo": "Fusarium graminearum; nombre histórico Gibberella zeae",
+      "contexto": "Minnesota, 1995-1997; trigo de primavera susceptible Norm; antecedentes maíz, trigo y soja, con tres laboreos.",
+      "resultado": "La fusariosis de espiga fue mayor tras maíz que tras los otros antecedentes; residuos y laboreo modificaron la respuesta.",
+      "limites": "No demuestra adaptación local, dirección inversa ni pérdidas universales. Se retiene el contexto completo, sin recomendar laboreo por defecto.",
+      "fuentes_ids": [
+        "F10"
+      ],
+      "coeficiente_simulador": null,
+      "validacion_guatemala": false,
+      "unidad_de_inferencia": "Respuesta del trigo susceptible a antecedentes y laboreos en el ensayo descrito.",
+      "efecto_numerico_aislado_A_B_estimado_en_esta_base": false,
+      "resumen_original_alternativo": "https://pubmed.ncbi.nlm.nih.gov/30841225/"
+    },
+    {
+      "id": "E02",
+      "pares_dirigidos": [
+        [
+          "C14",
+          "C12"
+        ]
+      ],
+      "tipo": "ensayo_original_extranjero_resumen_y_intro_consultados",
+      "organismo": "Sclerotinia minor",
+      "contexto": "Dos sitios de Salinas, California, con presión inicial distinta; secuencias multiciclo de lechuga, brócoli y barbecho.",
+      "resultado": "La respuesta dependió del sitio y número de cultivos de brócoli; reducción más clara con presión inicial alta.",
+      "limites": "No aísla un bono de una transición ni valida Guatemala. No cancelar alertas de otros organismos. No extrapolar a S. sclerotiorum.",
+      "fuentes_ids": [
+        "F11"
+      ],
+      "coeficiente_simulador": null,
+      "validacion_guatemala": false,
+      "unidad_de_inferencia": "Programa de rotación de varios ciclos por sitio y presión inicial de Sclerotinia minor; no bono aislado A→B.",
+      "efecto_numerico_aislado_A_B_estimado_en_esta_base": false,
+      "resumen_original_alternativo": "https://pubmed.ncbi.nlm.nih.gov/30812921/"
+    }
+  ],
+  "antecedentes_no_codificados_como_sucesion": [
+    {
+      "id": "CTX01",
+      "modo": "relevo",
+      "cultivos_ids": [
+        "C01",
+        "C02"
+      ],
+      "descripcion": "ICTA describe establecer frijol cuando el maíz alcanza madurez fisiológica, p. 10 impresa. Hay coincidencia temporal: no se mapea a sucesión estricta.",
+      "fuentes_ids": [
+        "F02"
+      ]
+    },
+    {
+      "id": "CTX02",
+      "modo": "sucesion_con_producto_fuera_del_catalogo",
+      "cultivos_ids": [
+        "C14"
+      ],
+      "receptor_fuera_catalogo": "coliflor, misma especie Brassica oleracea pero producto distinto de C14",
+      "descripcion": "Ensayo de residuos de brócoli frente a V. dahliae en coliflor; no se codifica como brócoli repetido.",
+      "fuentes_ids": [
+        "F16"
+      ]
+    },
+    {
+      "id": "CTX03",
+      "modo": "sucesion_con_especie_fuera_del_catalogo",
+      "cultivos_ids": [
+        "C01"
+      ],
+      "antecesor_fuera_catalogo": "mucuna",
+      "descripcion": "El ensayo CRIA citado en el manual del proyecto no se sustituye por frijol común.",
+      "fuentes_ids": [],
+      "fuente_local": "conocimiento/manual-agroclimatico.md"
+    },
+    {
+      "id": "CTX04",
+      "modo": "hospedante_documentado_en_otro_producto",
+      "cultivos_ids": [
+        "C02"
+      ],
+      "organismo": "Phytophthora capsici",
+      "descripcion": "Cornell incluye ejote de Phaseolus vulgaris. C02 de grano no se añade aquí a H01 sin revisar material/sistema; exclusión no significa no hospedante.",
+      "fuentes_ids": [
+        "F17"
+      ],
+      "accion_por_incertidumbre": "Si A o B es C02, consultar este antecedente además de la celda. Producto de grano no demuestra resistencia; no interpretar su exclusión de H01 como ruptura sanitaria."
+    }
+  ],
+  "secuencias_iniciales_para_estudiar": [
+    {
+      "antecesor": "C01",
+      "sucesor": "C02",
+      "estado": "hipotesis_para_estudio",
+      "ambiente": "Oriente u otra región con ventana local para ambos; comprobar primera/postrera y materiales.",
+      "condiciones": [
+        "liberación real tras maíz de grano seco",
+        "agua hasta etapas sensibles de frijol",
+        "sanidad",
+        "variedad",
+        "si hay solapamiento tratar como relevo"
+      ],
+      "evidencia_sucesion_ids": []
+    },
+    {
+      "antecesor": "C02",
+      "sucesor": "C01",
+      "estado": "hipotesis_para_estudio",
+      "ambiente": "Siguiente ventana local de maíz donde ambos estén adaptados.",
+      "condiciones": [
+        "agua",
+        "variedad",
+        "residuos y extracción",
+        "sin crédito fijo de N",
+        "caja"
+      ],
+      "evidencia_sucesion_ids": []
+    },
+    {
+      "antecesor": "C01",
+      "sucesor": "C06",
+      "estado": "hipotesis_para_estudio",
+      "ambiente": "Sector cálido con experiencia local en ajonjolí; no toda Guatemala.",
+      "condiciones": [
+        "ventana tras terminar maíz",
+        "drenaje",
+        "establecimiento",
+        "cosecha",
+        "comprador"
+      ],
+      "evidencia_sucesion_ids": []
+    },
+    {
+      "antecesor": "C07",
+      "sucesor": "C10",
+      "estado": "hipotesis_para_estudio",
+      "ambiente": "Sector de altiplano con aptitud comprobada de ambos productos/variedades.",
+      "condiciones": [
+        "sanidad y voluntarias de papa",
+        "suelo",
+        "variedad/fotoperíodo de cebolla",
+        "trasplantes",
+        "agua",
+        "trabajo"
+      ],
+      "evidencia_sucesion_ids": []
+    },
+    {
+      "antecesor": "C14",
+      "sucesor": "C12",
+      "estado": "hipotesis_con_evidencia_externa_condicional",
+      "ambiente": "Horticultura fresca con materiales y agua locales.",
+      "condiciones": [
+        "diagnóstico de S. minor si se busca ese efecto",
+        "atender H03",
+        "terminación y residuos",
+        "calidad comercial",
+        "costos"
+      ],
+      "evidencia_sucesion_ids": [
+        "E02"
+      ]
+    }
+  ],
+  "uso_simulador": {
+    "orden": [
+      "definir sublote, tiempo y producto",
+      "comprobar viabilidad y faltantes",
+      "mostrar alertas con diagnóstico separado",
+      "simular continuidad de suelo/residuos/caja",
+      "comparar objetivos en horizonte común",
+      "validar en campo antes de recomendar"
+    ],
+    "desconocidos": "No bloquear o aprobar silenciosamente por falta de dato; mostrar escenarios y dato pendiente.",
+    "entrenamiento": "No usar celdas como etiquetas binarias ni vacíos como recompensas cero. Sin bonos automáticos de familia/N.",
+    "restricciones": "Solo excluir por restricción de recursos/fechas o criterio sanitario explícito con datos y fundamento aplicables.",
+    "decisiones_rescate": "Conservar etapa/daño y manejo de terminación; no suponer cosecha normal antes de cambiar.",
+    "estado_integracion": "No implementado por este estudio."
+  },
+  "datos_locales_minimos": [
+    "ubicación y sublote",
+    "producto/variedad actual y propuesto",
+    "historial con fechas y faltantes",
+    "etapa, daño y última cosecha",
+    "síntomas, diagnóstico, método y fecha si existen",
+    "retiro, residuos y voluntarias",
+    "agua realmente entregable",
+    "suelo/drenaje y análisis si corresponden",
+    "semilla/trasplante y labores",
+    "costos, dinero y necesidad de ingresos con fechas",
+    "comprador o autoconsumo",
+    "horizonte común de comparación"
+  ],
+  "matriz": {
+    "C01": {
+      "C01": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "con_evidencia_en_otro_contexto",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [
+          "E01"
+        ],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_E01"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C02": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C03": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C04": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C05": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "con_evidencia_en_otro_contexto",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [
+          "E01"
+        ],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION",
+          "R_E01"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C06": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C07": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H02",
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION",
+          "H02",
+          "H03"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H02"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H02"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H02"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H02"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C08": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H02"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H02"
+        ]
+      },
+      "C08": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01",
+          "H02"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION",
+          "H01",
+          "H02"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01",
+          "H02"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01",
+          "H02"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C09": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H02"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H02"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01",
+          "H02"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01",
+          "H02"
+        ]
+      },
+      "C09": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01",
+          "H02"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION",
+          "H01",
+          "H02"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C10": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C11": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION",
+          "H03"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C12": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03"
+        ]
+      },
+      "C12": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION",
+          "H03"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C13": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C14": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "con_evidencia_en_otro_contexto",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [
+          "E02"
+        ],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H03",
+          "R_E02"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H03"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION",
+          "H03"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C15": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION",
+          "H01"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C16": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C16": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION",
+          "H01"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C17": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "H01"
+        ]
+      },
+      "C17": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [
+          "H01"
+        ],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION",
+          "H01"
+        ]
+      },
+      "C18": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      }
+    },
+    "C18": {
+      "C01": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C02": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C03": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C04": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C05": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C06": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C07": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C08": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C09": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C10": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C11": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C12": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C13": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C14": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C15": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C16": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C17": {
+        "tipo": "sucesion_entre_cultivos_distintos",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL"
+        ]
+      },
+      "C18": {
+        "tipo": "repeticion",
+        "estado_decision": "requiere_evaluacion_local",
+        "estado_evidencia": "sin_evidencia_especifica",
+        "alertas_hospedante_ids": [],
+        "evidencias_sucesion_ids": [],
+        "reglas_ids": [
+          "R_GENERAL",
+          "R_REPETICION"
+        ]
+      }
+    }
+  },
+  "cobertura": {
+    "cultivos": 18,
+    "familias": 10,
+    "celdas": 324,
+    "repeticiones": 18,
+    "cambios": 306,
+    "celdas_con_alerta_hospedantes": 45,
+    "alertas_en_repeticiones": 9,
+    "alertas_en_cambios": 36,
+    "celdas_sin_alerta_en_este_alcance": 279,
+    "celdas_con_evidencia_contextual": 3,
+    "evidencia_en_repeticiones": 1,
+    "celdas_sin_evidencia_especifica": 321,
+    "celdas_con_alerta_o_evidencia": 47,
+    "celdas_sin_alerta_ni_evidencia": 277,
+    "celdas_aprobadas_para_parcela": 0,
+    "celdas_con_ensayo_local_validado_en_esta_seleccion": 0,
+    "celdas_por_regla_hospedantes": {
+      "H01": 25,
+      "H02": 9,
+      "H03": 16
+    },
+    "nota": "45 relaciones únicas derivadas de grupos de hospedantes, no 45 ensayos. Fuentes/evidencias seleccionadas, no revisión exhaustiva."
+  },
+  "auditoria": {
+    "fecha_local": "2026-11-14",
+    "revisor": "asistente_principal_independiente_del_asesor",
+    "resultado": "afirmaciones_centrales_respaldadas_con_limites_de_alcance",
+    "informe": "investigacion/auditoria-asesor-agroclimatico.md",
+    "evidencia": "investigacion/evidencia-auditoria-asesor.json",
+    "control_integridad": "investigacion/resultado-verificacion-matriz.json",
+    "apto_como_etiquetas_supervisadas_de_compatibilidad": false,
+    "validacion_de_campo_realizada": false
+  }
+}

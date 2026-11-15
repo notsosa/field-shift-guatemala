@@ -1,0 +1,5186 @@
+[
+  {
+    "programa": "ajonjoli100_maiz90_gap7_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-09",
+    "intervalo_fin": "2025-08-15",
+    "fin_ciclo": "2025-11-13",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-16",
+        "fin": "2025-11-13"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap7_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-05",
+    "fin_ciclo": "2025-11-13",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-06",
+        "fin": "2025-11-13"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz90_gap14_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-09",
+    "intervalo_fin": "2025-08-22",
+    "fin_ciclo": "2025-11-20",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-23",
+        "fin": "2025-11-20"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap14_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-12",
+    "fin_ciclo": "2025-11-20",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-13",
+        "fin": "2025-11-20"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz90_gap21_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-09",
+    "intervalo_fin": "2025-08-29",
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-30",
+        "fin": "2025-11-27"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap21_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-19",
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-20",
+        "fin": "2025-11-27"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap7_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-09",
+    "intervalo_fin": "2025-08-15",
+    "fin_ciclo": "2025-12-18",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-16",
+        "fin": "2025-12-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap7_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-09",
+    "fin_ciclo": "2025-12-18",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-10",
+        "fin": "2025-12-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap14_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-09",
+    "intervalo_fin": "2025-08-22",
+    "fin_ciclo": "2025-12-25",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-23",
+        "fin": "2025-12-25"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap14_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-16",
+    "fin_ciclo": "2025-12-25",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-17",
+        "fin": "2025-12-25"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap21_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-09",
+    "intervalo_fin": "2025-08-29",
+    "fin_ciclo": "2026-01-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-30",
+        "fin": "2026-01-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap21_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-23",
+    "fin_ciclo": "2026-01-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-24",
+        "fin": "2026-01-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap7_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-19",
+    "intervalo_fin": "2025-08-25",
+    "fin_ciclo": "2025-11-23",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-26",
+        "fin": "2025-11-23"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap7_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-05",
+    "fin_ciclo": "2025-11-23",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-06",
+        "fin": "2025-11-23"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap14_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-19",
+    "intervalo_fin": "2025-09-01",
+    "fin_ciclo": "2025-11-30",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-02",
+        "fin": "2025-11-30"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap14_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-12",
+    "fin_ciclo": "2025-11-30",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-13",
+        "fin": "2025-11-30"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap21_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-19",
+    "intervalo_fin": "2025-09-08",
+    "fin_ciclo": "2025-12-07",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-09",
+        "fin": "2025-12-07"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap21_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-19",
+    "fin_ciclo": "2025-12-07",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-20",
+        "fin": "2025-12-07"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap7_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-19",
+    "intervalo_fin": "2025-08-25",
+    "fin_ciclo": "2025-12-28",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-26",
+        "fin": "2025-12-28"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap7_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-09",
+    "fin_ciclo": "2025-12-28",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-10",
+        "fin": "2025-12-28"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap14_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-19",
+    "intervalo_fin": "2025-09-01",
+    "fin_ciclo": "2026-01-04",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-02",
+        "fin": "2026-01-04"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap14_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-16",
+    "fin_ciclo": "2026-01-04",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-17",
+        "fin": "2026-01-04"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap21_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-19",
+    "intervalo_fin": "2025-09-08",
+    "fin_ciclo": "2026-01-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-09",
+        "fin": "2026-01-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap21_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-23",
+    "fin_ciclo": "2026-01-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-24",
+        "fin": "2026-01-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap7_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-04",
+    "fin_ciclo": "2026-01-02",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-05",
+        "fin": "2026-01-02"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap7_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-05",
+    "fin_ciclo": "2026-01-02",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-06",
+        "fin": "2026-01-02"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap14_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-11",
+    "fin_ciclo": "2026-01-09",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-12",
+        "fin": "2026-01-09"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap14_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-12",
+    "fin_ciclo": "2026-01-09",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-13",
+        "fin": "2026-01-09"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap21_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-18",
+    "fin_ciclo": "2026-01-16",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-19",
+        "fin": "2026-01-16"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap21_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-19",
+    "fin_ciclo": "2026-01-16",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-20",
+        "fin": "2026-01-16"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap7_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-04",
+    "fin_ciclo": "2026-02-06",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-05",
+        "fin": "2026-02-06"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap7_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-09",
+    "fin_ciclo": "2026-02-06",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-10",
+        "fin": "2026-02-06"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap14_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-11",
+    "fin_ciclo": "2026-02-13",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-12",
+        "fin": "2026-02-13"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap14_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-16",
+    "fin_ciclo": "2026-02-13",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-17",
+        "fin": "2026-02-13"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap21_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-28",
+    "intervalo_fin": "2025-10-18",
+    "fin_ciclo": "2026-02-20",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-19",
+        "fin": "2026-02-20"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap21_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-23",
+    "fin_ciclo": "2026-02-20",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-24",
+        "fin": "2026-02-20"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap7_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-28",
+    "intervalo_fin": "2025-11-03",
+    "fin_ciclo": "2026-02-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-04",
+        "fin": "2026-02-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap7_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-05",
+    "fin_ciclo": "2026-02-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-06",
+        "fin": "2026-02-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap14_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-28",
+    "intervalo_fin": "2025-11-10",
+    "fin_ciclo": "2026-02-08",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-11",
+        "fin": "2026-02-08"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap14_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-12",
+    "fin_ciclo": "2026-02-08",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-13",
+        "fin": "2026-02-08"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap21_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-28",
+    "intervalo_fin": "2025-11-17",
+    "fin_ciclo": "2026-02-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-18",
+        "fin": "2026-02-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap21_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-07-30",
+    "intervalo_fin": "2025-08-19",
+    "fin_ciclo": "2026-02-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-07-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-20",
+        "fin": "2026-02-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap7_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-28",
+    "intervalo_fin": "2025-11-03",
+    "fin_ciclo": "2026-03-08",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-04",
+        "fin": "2026-03-08"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap7_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-09",
+    "fin_ciclo": "2026-03-08",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-10",
+        "fin": "2026-03-08"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap14_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-28",
+    "intervalo_fin": "2025-11-10",
+    "fin_ciclo": "2026-03-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-11",
+        "fin": "2026-03-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap14_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-16",
+    "fin_ciclo": "2026-03-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-17",
+        "fin": "2026-03-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap21_2025-05-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-28",
+    "intervalo_fin": "2025-11-17",
+    "fin_ciclo": "2026-03-22",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-18",
+        "fin": "2026-03-22"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap21_2025-05-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-03",
+    "intervalo_fin": "2025-09-23",
+    "fin_ciclo": "2026-03-22",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-01",
+        "fin": "2025-09-02"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-24",
+        "fin": "2026-03-22"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz90_gap7_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-23",
+    "intervalo_fin": "2025-08-29",
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-30",
+        "fin": "2025-11-27"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap7_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-19",
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-20",
+        "fin": "2025-11-27"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz90_gap14_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-23",
+    "intervalo_fin": "2025-09-05",
+    "fin_ciclo": "2025-12-04",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-06",
+        "fin": "2025-12-04"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap14_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-26",
+    "fin_ciclo": "2025-12-04",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-27",
+        "fin": "2025-12-04"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz90_gap21_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-23",
+    "intervalo_fin": "2025-09-12",
+    "fin_ciclo": "2025-12-11",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-13",
+        "fin": "2025-12-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap21_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-09-02",
+    "fin_ciclo": "2025-12-11",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-03",
+        "fin": "2025-12-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap7_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-23",
+    "intervalo_fin": "2025-08-29",
+    "fin_ciclo": "2026-01-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-08-30",
+        "fin": "2026-01-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap7_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-09-23",
+    "fin_ciclo": "2026-01-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-24",
+        "fin": "2026-01-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap14_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-23",
+    "intervalo_fin": "2025-09-05",
+    "fin_ciclo": "2026-01-08",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-06",
+        "fin": "2026-01-08"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap14_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-09-30",
+    "fin_ciclo": "2026-01-08",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-01",
+        "fin": "2026-01-08"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap21_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-23",
+    "intervalo_fin": "2025-09-12",
+    "fin_ciclo": "2026-01-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-13",
+        "fin": "2026-01-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap21_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-10-07",
+    "fin_ciclo": "2026-01-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-08",
+        "fin": "2026-01-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap7_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-02",
+    "intervalo_fin": "2025-09-08",
+    "fin_ciclo": "2025-12-07",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-01"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-09",
+        "fin": "2025-12-07"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap7_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-19",
+    "fin_ciclo": "2025-12-07",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-20",
+        "fin": "2025-12-07"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap14_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-02",
+    "intervalo_fin": "2025-09-15",
+    "fin_ciclo": "2025-12-14",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-01"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-16",
+        "fin": "2025-12-14"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap14_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-26",
+    "fin_ciclo": "2025-12-14",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-27",
+        "fin": "2025-12-14"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap21_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-02",
+    "intervalo_fin": "2025-09-22",
+    "fin_ciclo": "2025-12-21",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-01"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-23",
+        "fin": "2025-12-21"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap21_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-09-02",
+    "fin_ciclo": "2025-12-21",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-03",
+        "fin": "2025-12-21"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap7_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-02",
+    "intervalo_fin": "2025-09-08",
+    "fin_ciclo": "2026-01-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-01"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-09",
+        "fin": "2026-01-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap7_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-09-23",
+    "fin_ciclo": "2026-01-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-24",
+        "fin": "2026-01-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap14_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-02",
+    "intervalo_fin": "2025-09-15",
+    "fin_ciclo": "2026-01-18",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-01"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-16",
+        "fin": "2026-01-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap14_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-09-30",
+    "fin_ciclo": "2026-01-18",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-01",
+        "fin": "2026-01-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap21_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-02",
+    "intervalo_fin": "2025-09-22",
+    "fin_ciclo": "2026-01-25",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-01"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-23",
+        "fin": "2026-01-25"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap21_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-10-07",
+    "fin_ciclo": "2026-01-25",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-08",
+        "fin": "2026-01-25"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap7_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-10-18",
+    "fin_ciclo": "2026-01-16",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-19",
+        "fin": "2026-01-16"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap7_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-19",
+    "fin_ciclo": "2026-01-16",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-20",
+        "fin": "2026-01-16"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap14_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-10-25",
+    "fin_ciclo": "2026-01-23",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-26",
+        "fin": "2026-01-23"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap14_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-26",
+    "fin_ciclo": "2026-01-23",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-27",
+        "fin": "2026-01-23"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap21_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-11-01",
+    "fin_ciclo": "2026-01-30",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-02",
+        "fin": "2026-01-30"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap21_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-09-02",
+    "fin_ciclo": "2026-01-30",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-03",
+        "fin": "2026-01-30"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap7_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-10-18",
+    "fin_ciclo": "2026-02-20",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-19",
+        "fin": "2026-02-20"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap7_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-09-23",
+    "fin_ciclo": "2026-02-20",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-24",
+        "fin": "2026-02-20"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap14_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-10-25",
+    "fin_ciclo": "2026-02-27",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-26",
+        "fin": "2026-02-27"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap14_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-09-30",
+    "fin_ciclo": "2026-02-27",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-01",
+        "fin": "2026-02-27"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap21_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-12",
+    "intervalo_fin": "2025-11-01",
+    "fin_ciclo": "2026-03-06",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-10-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-02",
+        "fin": "2026-03-06"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap21_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-10-07",
+    "fin_ciclo": "2026-03-06",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-08",
+        "fin": "2026-03-06"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap7_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-11-11",
+    "intervalo_fin": "2025-11-17",
+    "fin_ciclo": "2026-02-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-18",
+        "fin": "2026-02-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap7_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-19",
+    "fin_ciclo": "2026-02-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-20",
+        "fin": "2026-02-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap14_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-11-11",
+    "intervalo_fin": "2025-11-24",
+    "fin_ciclo": "2026-02-22",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-25",
+        "fin": "2026-02-22"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap14_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-08-26",
+    "fin_ciclo": "2026-02-22",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-08-27",
+        "fin": "2026-02-22"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap21_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-11-11",
+    "intervalo_fin": "2025-12-01",
+    "fin_ciclo": "2026-03-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-02",
+        "fin": "2026-03-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap21_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-13",
+    "intervalo_fin": "2025-09-02",
+    "fin_ciclo": "2026-03-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-08-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-03",
+        "fin": "2026-03-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap7_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-11-11",
+    "intervalo_fin": "2025-11-17",
+    "fin_ciclo": "2026-03-22",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-18",
+        "fin": "2026-03-22"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap7_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-09-23",
+    "fin_ciclo": "2026-03-22",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-24",
+        "fin": "2026-03-22"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap14_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-11-11",
+    "intervalo_fin": "2025-11-24",
+    "fin_ciclo": "2026-03-29",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-25",
+        "fin": "2026-03-29"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap14_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-09-30",
+    "fin_ciclo": "2026-03-29",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-01",
+        "fin": "2026-03-29"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap21_2025-05-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-11-11",
+    "intervalo_fin": "2025-12-01",
+    "fin_ciclo": "2026-04-05",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-02",
+        "fin": "2026-04-05"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap21_2025-05-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-05-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-17",
+    "intervalo_fin": "2025-10-07",
+    "fin_ciclo": "2026-04-05",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-05-15",
+        "fin": "2025-09-16"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-08",
+        "fin": "2026-04-05"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz90_gap7_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-09",
+    "intervalo_fin": "2025-09-15",
+    "fin_ciclo": "2025-12-14",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-16",
+        "fin": "2025-12-14"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap7_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-05",
+    "fin_ciclo": "2025-12-14",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-06",
+        "fin": "2025-12-14"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz90_gap14_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-09",
+    "intervalo_fin": "2025-09-22",
+    "fin_ciclo": "2025-12-21",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-23",
+        "fin": "2025-12-21"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap14_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-12",
+    "fin_ciclo": "2025-12-21",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-13",
+        "fin": "2025-12-21"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz90_gap21_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-09",
+    "intervalo_fin": "2025-09-29",
+    "fin_ciclo": "2025-12-28",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-30",
+        "fin": "2025-12-28"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap21_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-19",
+    "fin_ciclo": "2025-12-28",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-20",
+        "fin": "2025-12-28"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap7_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-09",
+    "intervalo_fin": "2025-09-15",
+    "fin_ciclo": "2026-01-18",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-16",
+        "fin": "2026-01-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap7_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-10",
+    "fin_ciclo": "2026-01-18",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-11",
+        "fin": "2026-01-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap14_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-09",
+    "intervalo_fin": "2025-09-22",
+    "fin_ciclo": "2026-01-25",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-23",
+        "fin": "2026-01-25"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap14_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-17",
+    "fin_ciclo": "2026-01-25",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-18",
+        "fin": "2026-01-25"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap21_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-09",
+    "intervalo_fin": "2025-09-29",
+    "fin_ciclo": "2026-02-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-08"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-30",
+        "fin": "2026-02-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap21_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-24",
+    "fin_ciclo": "2026-02-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-25",
+        "fin": "2026-02-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap7_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-19",
+    "intervalo_fin": "2025-09-25",
+    "fin_ciclo": "2025-12-24",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-26",
+        "fin": "2025-12-24"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap7_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-05",
+    "fin_ciclo": "2025-12-24",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-06",
+        "fin": "2025-12-24"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap14_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-19",
+    "intervalo_fin": "2025-10-02",
+    "fin_ciclo": "2025-12-31",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-03",
+        "fin": "2025-12-31"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap14_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-12",
+    "fin_ciclo": "2025-12-31",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-13",
+        "fin": "2025-12-31"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap21_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-19",
+    "intervalo_fin": "2025-10-09",
+    "fin_ciclo": "2026-01-07",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-10",
+        "fin": "2026-01-07"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap21_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-19",
+    "fin_ciclo": "2026-01-07",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-20",
+        "fin": "2026-01-07"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap7_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-19",
+    "intervalo_fin": "2025-09-25",
+    "fin_ciclo": "2026-01-28",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-26",
+        "fin": "2026-01-28"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap7_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-10",
+    "fin_ciclo": "2026-01-28",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-11",
+        "fin": "2026-01-28"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap14_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-19",
+    "intervalo_fin": "2025-10-02",
+    "fin_ciclo": "2026-02-04",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-03",
+        "fin": "2026-02-04"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap14_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-17",
+    "fin_ciclo": "2026-02-04",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-18",
+        "fin": "2026-02-04"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap21_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-19",
+    "intervalo_fin": "2025-10-09",
+    "fin_ciclo": "2026-02-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-09-18"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-10",
+        "fin": "2026-02-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap21_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-24",
+    "fin_ciclo": "2026-02-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-25",
+        "fin": "2026-02-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap7_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-04",
+    "fin_ciclo": "2026-02-02",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-05",
+        "fin": "2026-02-02"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap7_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-05",
+    "fin_ciclo": "2026-02-02",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-06",
+        "fin": "2026-02-02"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap14_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-11",
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-12",
+        "fin": "2026-02-09"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap14_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-12",
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-13",
+        "fin": "2026-02-09"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap21_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-18",
+    "fin_ciclo": "2026-02-16",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-19",
+        "fin": "2026-02-16"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap21_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-19",
+    "fin_ciclo": "2026-02-16",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-20",
+        "fin": "2026-02-16"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap7_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-04",
+    "fin_ciclo": "2026-03-09",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-05",
+        "fin": "2026-03-09"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap7_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-10",
+    "fin_ciclo": "2026-03-09",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-11",
+        "fin": "2026-03-09"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap14_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-11",
+    "fin_ciclo": "2026-03-16",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-12",
+        "fin": "2026-03-16"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap14_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-17",
+    "fin_ciclo": "2026-03-16",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-18",
+        "fin": "2026-03-16"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap21_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-29",
+    "intervalo_fin": "2025-11-18",
+    "fin_ciclo": "2026-03-23",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-28"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-19",
+        "fin": "2026-03-23"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap21_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-24",
+    "fin_ciclo": "2026-03-23",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-25",
+        "fin": "2026-03-23"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap7_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-11-28",
+    "intervalo_fin": "2025-12-04",
+    "fin_ciclo": "2026-03-04",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-05",
+        "fin": "2026-03-04"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap7_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-05",
+    "fin_ciclo": "2026-03-04",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-06",
+        "fin": "2026-03-04"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap14_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-11-28",
+    "intervalo_fin": "2025-12-11",
+    "fin_ciclo": "2026-03-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-12",
+        "fin": "2026-03-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap14_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-12",
+    "fin_ciclo": "2026-03-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-13",
+        "fin": "2026-03-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap21_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-11-28",
+    "intervalo_fin": "2025-12-18",
+    "fin_ciclo": "2026-03-18",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-19",
+        "fin": "2026-03-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap21_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-08-30",
+    "intervalo_fin": "2025-09-19",
+    "fin_ciclo": "2026-03-18",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-08-29"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-20",
+        "fin": "2026-03-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap7_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-11-28",
+    "intervalo_fin": "2025-12-04",
+    "fin_ciclo": "2026-04-08",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-05",
+        "fin": "2026-04-08"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap7_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-10",
+    "fin_ciclo": "2026-04-08",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-11",
+        "fin": "2026-04-08"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap14_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-11-28",
+    "intervalo_fin": "2025-12-11",
+    "fin_ciclo": "2026-04-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-12",
+        "fin": "2026-04-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap14_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-17",
+    "fin_ciclo": "2026-04-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-18",
+        "fin": "2026-04-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap21_2025-06-01",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-11-28",
+    "intervalo_fin": "2025-12-18",
+    "fin_ciclo": "2026-04-22",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-19",
+        "fin": "2026-04-22"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap21_2025-06-01",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-01",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-04",
+    "intervalo_fin": "2025-10-24",
+    "fin_ciclo": "2026-04-22",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-01",
+        "fin": "2025-10-03"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-25",
+        "fin": "2026-04-22"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz90_gap7_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-23",
+    "intervalo_fin": "2025-09-29",
+    "fin_ciclo": "2025-12-28",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-30",
+        "fin": "2025-12-28"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap7_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-09-19",
+    "fin_ciclo": "2025-12-28",
+    "ciclo_cabe_en_2025": true,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-20",
+        "fin": "2025-12-28"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz90_gap14_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-23",
+    "intervalo_fin": "2025-10-06",
+    "fin_ciclo": "2026-01-04",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-07",
+        "fin": "2026-01-04"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap14_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-09-26",
+    "fin_ciclo": "2026-01-04",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-27",
+        "fin": "2026-01-04"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz90_gap21_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-23",
+    "intervalo_fin": "2025-10-13",
+    "fin_ciclo": "2026-01-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-14",
+        "fin": "2026-01-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli100_gap21_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-10-03",
+    "fin_ciclo": "2026-01-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-04",
+        "fin": "2026-01-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap7_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-23",
+    "intervalo_fin": "2025-09-29",
+    "fin_ciclo": "2026-02-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-09-30",
+        "fin": "2026-02-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap7_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-10-24",
+    "fin_ciclo": "2026-02-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-25",
+        "fin": "2026-02-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap14_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-23",
+    "intervalo_fin": "2025-10-06",
+    "fin_ciclo": "2026-02-08",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-07",
+        "fin": "2026-02-08"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap14_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-10-31",
+    "fin_ciclo": "2026-02-08",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-11-01",
+        "fin": "2026-02-08"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli100_maiz125_gap21_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-23",
+    "intervalo_fin": "2025-10-13",
+    "fin_ciclo": "2026-02-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-22"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-14",
+        "fin": "2026-02-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli100_gap21_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 100,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-11-07",
+    "fin_ciclo": "2026-02-15",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-11-08",
+        "fin": "2026-02-15"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap7_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-03",
+    "intervalo_fin": "2025-10-09",
+    "fin_ciclo": "2026-01-07",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-02"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-10",
+        "fin": "2026-01-07"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap7_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-09-19",
+    "fin_ciclo": "2026-01-07",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-20",
+        "fin": "2026-01-07"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap14_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-03",
+    "intervalo_fin": "2025-10-16",
+    "fin_ciclo": "2026-01-14",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-02"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-17",
+        "fin": "2026-01-14"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap14_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-09-26",
+    "fin_ciclo": "2026-01-14",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-27",
+        "fin": "2026-01-14"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz90_gap21_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-03",
+    "intervalo_fin": "2025-10-23",
+    "fin_ciclo": "2026-01-21",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-02"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-24",
+        "fin": "2026-01-21"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli110_gap21_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-10-03",
+    "fin_ciclo": "2026-01-21",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-04",
+        "fin": "2026-01-21"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap7_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-03",
+    "intervalo_fin": "2025-10-09",
+    "fin_ciclo": "2026-02-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-02"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-10",
+        "fin": "2026-02-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap7_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-10-24",
+    "fin_ciclo": "2026-02-11",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-25",
+        "fin": "2026-02-11"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap14_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-03",
+    "intervalo_fin": "2025-10-16",
+    "fin_ciclo": "2026-02-18",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-02"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-17",
+        "fin": "2026-02-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap14_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-10-31",
+    "fin_ciclo": "2026-02-18",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-11-01",
+        "fin": "2026-02-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli110_maiz125_gap21_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-03",
+    "intervalo_fin": "2025-10-23",
+    "fin_ciclo": "2026-02-25",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-02"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-10-24",
+        "fin": "2026-02-25"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli110_gap21_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 110,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-11-07",
+    "fin_ciclo": "2026-02-25",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-11-08",
+        "fin": "2026-02-25"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap7_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-11-18",
+    "fin_ciclo": "2026-02-16",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-19",
+        "fin": "2026-02-16"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap7_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-09-19",
+    "fin_ciclo": "2026-02-16",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-20",
+        "fin": "2026-02-16"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap14_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-11-25",
+    "fin_ciclo": "2026-02-23",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-26",
+        "fin": "2026-02-23"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap14_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-09-26",
+    "fin_ciclo": "2026-02-23",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-27",
+        "fin": "2026-02-23"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz90_gap21_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-12-02",
+    "fin_ciclo": "2026-03-02",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-03",
+        "fin": "2026-03-02"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli150_gap21_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-10-03",
+    "fin_ciclo": "2026-03-02",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-04",
+        "fin": "2026-03-02"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap7_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-11-18",
+    "fin_ciclo": "2026-03-23",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-19",
+        "fin": "2026-03-23"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap7_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-10-24",
+    "fin_ciclo": "2026-03-23",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-25",
+        "fin": "2026-03-23"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap14_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-11-25",
+    "fin_ciclo": "2026-03-30",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-11-26",
+        "fin": "2026-03-30"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap14_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-10-31",
+    "fin_ciclo": "2026-03-30",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-11-01",
+        "fin": "2026-03-30"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli150_maiz125_gap21_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-11-12",
+    "intervalo_fin": "2025-12-02",
+    "fin_ciclo": "2026-04-06",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-11-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-03",
+        "fin": "2026-04-06"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli150_gap21_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 150,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-11-07",
+    "fin_ciclo": "2026-04-06",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-11-08",
+        "fin": "2026-04-06"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap7_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-12-12",
+    "intervalo_fin": "2025-12-18",
+    "fin_ciclo": "2026-03-18",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-19",
+        "fin": "2026-03-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap7_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-09-19",
+    "fin_ciclo": "2026-03-18",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-20",
+        "fin": "2026-03-18"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap14_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-12-12",
+    "intervalo_fin": "2025-12-25",
+    "fin_ciclo": "2026-03-25",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-26",
+        "fin": "2026-03-25"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap14_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-09-26",
+    "fin_ciclo": "2026-03-25",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-09-27",
+        "fin": "2026-03-25"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz90_gap21_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-12-12",
+    "intervalo_fin": "2026-01-01",
+    "fin_ciclo": "2026-04-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-02",
+        "fin": "2026-04-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz90_ajonjoli180_gap21_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 90,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-09-13",
+    "intervalo_fin": "2025-10-03",
+    "fin_ciclo": "2026-04-01",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-09-12"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-04",
+        "fin": "2026-04-01"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap7_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-12-12",
+    "intervalo_fin": "2025-12-18",
+    "fin_ciclo": "2026-04-22",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-19",
+        "fin": "2026-04-22"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap7_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 7,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-10-24",
+    "fin_ciclo": "2026-04-22",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-10-25",
+        "fin": "2026-04-22"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap14_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-12-12",
+    "intervalo_fin": "2025-12-25",
+    "fin_ciclo": "2026-04-29",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-12-26",
+        "fin": "2026-04-29"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap14_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 14,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-10-31",
+    "fin_ciclo": "2026-04-29",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-11-01",
+        "fin": "2026-04-29"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "ajonjoli180_maiz125_gap21_2025-06-15",
+    "secuencia": "ajonjoli_maiz",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-12-12",
+    "intervalo_fin": "2026-01-01",
+    "fin_ciclo": "2026-05-06",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "secado_y_retiro_ajonjoli",
+    "segmentos": [
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      },
+      {
+        "cultivo": "maiz",
+        "inicio": "2026-01-02",
+        "fin": "2026-05-06"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  },
+  {
+    "programa": "maiz125_ajonjoli180_gap21_2025-06-15",
+    "secuencia": "maiz_ajonjoli",
+    "inicio": "2025-06-15",
+    "ajonjoli_dias": 180,
+    "maiz_dias": 125,
+    "intervalo_dias": 21,
+    "intervalo_inicio": "2025-10-18",
+    "intervalo_fin": "2025-11-07",
+    "fin_ciclo": "2026-05-06",
+    "ciclo_cabe_en_2025": false,
+    "liberacion_final_parcela": "sin_verificar",
+    "funcion_intervalo": "retiro_maiz_y_preparacion",
+    "segmentos": [
+      {
+        "cultivo": "maiz",
+        "inicio": "2025-06-15",
+        "fin": "2025-10-17"
+      },
+      {
+        "cultivo": "ajonjoli",
+        "inicio": "2025-11-08",
+        "fin": "2026-05-06"
+      }
+    ],
+    "estado": "fechas_supuestas_sin_fenologia_observada"
+  }
+]

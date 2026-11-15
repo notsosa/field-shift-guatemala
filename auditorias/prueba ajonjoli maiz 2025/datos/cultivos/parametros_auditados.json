@@ -1,0 +1,22 @@
+{
+  "fecha_revision": "2026-11-15",
+  "estado": "referencias_y_supuestos_sin_calibracion_local",
+  "cultivos": {
+    "maiz": {"especie": "Zea mays L.", "familia": "Poaceae", "kc": [0.3, 1.2, 0.35], "zr": 1.0, "p": 0.55, "etapas": {"90": [14, 25, 29, 22], "125": [20, 35, 40, 30]}, "fuentes": ["FAO56_T11", "FAO56_T12", "FAO56_T22", "ICTA_MAIZ"], "nota": "90 días es sensibilidad de ciclo corto con etapas prorrateadas; no confirma retiro ni grano seco. 125 días es referencia extranjera FAO."},
+    "frijol": {"especie": "Phaseolus vulgaris L.", "familia": "Fabaceae", "kc": [0.4, 1.15, 0.35], "zr": 0.6, "p": 0.45, "etapas": {"70": [11, 18, 26, 15], "95": [15, 25, 35, 20]}, "fuentes": ["FAO56_T11", "FAO56_T12", "FAO56_T22"], "nota": "Comparador de la prueba anterior; calendario corto ilustrativo, sin bonificación fija de N."},
+    "ajonjoli": {"especie": "Sesamum indicum L.", "familia": "Pedaliaceae", "kc": [0.35, 1.1, 0.25], "zr": 1.0, "p": 0.6, "etapas": {"100": [18, 27, 36, 19], "110": [20, 30, 40, 20], "150": [27, 41, 55, 27], "180": [33, 49, 65, 33]}, "fuentes": ["FAO56_T11", "FAO56_T12", "FAO56_T22", "MAGA_MERCADO_2017", "KEW_SESAMUM"], "nota": "Kc inicial 0.35 procede del grupo oleaginosas; Kc medio/final 1.10/0.25 de la fila Sesame. Raíz FAO 1.0–1.5 m: se limita a 1 m por el perfil disponible. Etapas de 110 días sumadas de la fila FAO; 100/150/180 son reescalados para sensibilidad, no fenología observada."}
+  },
+  "inconsistencias": [
+    {"fuente": "FAO56_T11", "dato_publicado": {"etapas": [20, 30, 40, 20], "total_columna": 100}, "suma_real": 110, "tratamiento": "Conservar inconsistencia; simular 110 por suma y 100 prorrateado como hipótesis separada."},
+    {"fuente": "MAGA_MERCADO_2017", "dato_publicado": "150 a 180 días", "tratamiento": "Ficha comercial antigua sin variedad ni experimento local; evaluar calendario de 150 y 180 días sin declararlo correcto para Chiquimula."}
+  ],
+  "fuentes": {
+    "FAO56_T11": {"url": "https://www.fao.org/4/x0490e/x0490e0b.htm", "localizador": "Tabla 11, Sesame, China, June"},
+    "FAO56_T12": {"url": "https://www.fao.org/4/x0490e/x0490e0b.htm", "localizador": "Tabla 12, h. Oil Crops y Sesame"},
+    "FAO56_T22": {"url": "https://www.fao.org/4/x0490e/x0490e0e.htm", "localizador": "Tabla 22, Sesame"},
+    "ICTA_MAIZ": {"url": "https://www.icta.gob.gt/publicaciones/Maiz/Recomendaciones%20tecnicas%20para%20el%20cultivo%20de%20maiz%20en%20el%20oriente%20de%20Guatemala%202015.pdf", "localizador": "Variedades y cosecha"},
+    "MAGA_MERCADO_2017": {"url": "https://www.maga.gob.gt/sitios/diplan/download/informacion_del_sector/fichasdemercado/Ajonjol%C3%AD%20de%20Primera%20Mayorista.pdf", "localizador": "Ciclo vegetativo: 150 a 180; fuente Planeamiento 2017", "acceso": "Pasaje original extraído por web; descarga directa 403."},
+    "KEW_SESAMUM": {"url": "https://powo.science.kew.org/taxon/675971-1", "localizador": "Cabecera: especie aceptada y Pedaliaceae"},
+    "NCSU_2026": {"url": "https://content.ces.ncsu.edu/sesame-production-fact-sheet", "fecha_publicacion": "2026-03-23", "localizador": "Site Selection, Field Preparation and Planting", "limite": "Ensayos/experiencia de Carolina del Norte, sin validación guatemalteca; consultada retrospectivamente en 2026."}
+  }
+}

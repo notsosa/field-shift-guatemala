@@ -1,0 +1,67 @@
+{
+  "fecha_consulta_local": "2026-11-15",
+  "metodo": "Auditoría selectiva de fuentes originales y comparación retrospectiva. La evidencia de la dirección anterior se conserva con sus límites; no constituye validación automática de la inversa.",
+  "afirmaciones": [
+    {
+      "id": "R01",
+      "afirmacion": "Para el oriente de Guatemala, ICTA recomienda establecer el maíz al iniciarse las lluvias, normalmente a finales de mayo o principios de junio.",
+      "url": "https://www.icta.gob.gt/publicaciones/Maiz/Recomendaciones%20tecnicas%20para%20el%20cultivo%20de%20maiz%20en%20el%20oriente%20de%20Guatemala%202015.pdf",
+      "localizador": "Página 2, Época de siembra; incluye Chiquimula y altitudes de 100 a 1400 m.",
+      "estado": "texto_original_leido",
+      "limite": "Recomendación de 2015 para la época principal; no prohíbe toda siembra de postrera ni demuestra inviabilidad en septiembre. La misma fuente contempla siembra con riego en otras épocas. No acredita agua disponible en la parcela."
+    },
+    {
+      "id": "R02",
+      "afirmacion": "ICTA B-5 se describe con ciclo de tres meses, y otros materiales con cuatro meses. La cosecha requiere maíz seco.",
+      "url": "https://www.icta.gob.gt/publicaciones/Maiz/Recomendaciones%20tecnicas%20para%20el%20cultivo%20de%20maiz%20en%20el%20oriente%20de%20Guatemala%202015.pdf",
+      "localizador": "Página 2, Variedades e híbridos; página 1, Dobla y Cosecha.",
+      "estado": "texto_original_leido",
+      "limite": "Tres meses se aproxima a 90 días únicamente para sensibilidad; no valida etapas 14/25/29/22 ni fecha exacta de grano seco. El modelo de 125 días procede de FAO, no de convertir cuatro meses a una duración local exacta."
+    },
+    {
+      "id": "R03",
+      "afirmacion": "La guía de extensión de NC State distingue madurez del ajonjolí y secado posterior antes de cosechar.",
+      "url": "https://content.ces.ncsu.edu/sesame-production-fact-sheet",
+      "fecha_publicacion": "2026-03-23",
+      "localizador": "Field Preparation and Planting y Harvest.",
+      "estado": "texto_original_leido",
+      "limite": "La referencia de 7–14 días adicionales es de Carolina del Norte. Se exploran intervalos de 7/14/21 días completos para secado, retiro y preparación, sin afirmar que garanticen cosecha local. Los 150/180 días de una ficha MAGA podrían tener otra definición de ciclo; no se suman tiempos como si fueran fenología validada."
+    },
+    {
+      "id": "R04",
+      "afirmacion": "Ajonjolí es sensible al anegamiento y requiere revisar su establecimiento.",
+      "url": "https://content.ces.ncsu.edu/sesame-production-fact-sheet",
+      "localizador": "Site Selection; Field Preparation and Planting.",
+      "estado": "texto_original_leido",
+      "limite": "Información estadounidense; no demuestra anegamiento en esta parcela. El motor drena instantáneamente el exceso, por lo que un déficit bajo no certifica buen drenaje. La advertencia sobre residuos al sembrar ajonjolí no se transforma en prueba de toxicidad de residuos de ajonjolí sobre maíz."
+    },
+    {
+      "id": "R05",
+      "afirmacion": "La tabla HTML FAO de etapas de Sesame tiene una inconsistencia: 20+30+40+20=110, aunque la columna total indica 100.",
+      "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+      "localizador": "Tabla 11, Sesame; para maíz de 125 días se usa la fila 20/35/40/30.",
+      "estado": "fila_original_reconsultada",
+      "limite": "110 es la suma y 100 una sensibilidad reescalada. Son referencias extranjeras y no fenología validada en Guatemala. Se conserva además la hipótesis comercial MAGA de 150/180 días con sus límites previos."
+    },
+    {
+      "id": "R06",
+      "afirmacion": "FAO proporciona referencias para raíz y agotamiento de agua del maíz y ajonjolí.",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "localizador": "Tabla 22: Sesame 1.0–1.5 m y p=0.60; Field maize 1.0–1.7 m y p=0.55; ajuste p por ETc.",
+      "estado": "fila_original_reconsultada",
+      "limite": "Raíces limitadas a 1 m por el perfil disponible; sin calibración de raíces, cultivares o estrés de campo. Se mantiene el motor simplificado de cinco capas para comparar con la prueba publicada."
+    },
+    {
+      "id": "R07",
+      "afirmacion": "Un mejor balance hídrico o el cambio de familia botánica prueba una ruptura sanitaria o un aumento del rendimiento.",
+      "estado": "no_demostrada_no_usada",
+      "limite": "No se modelan patógenos, nematodos, insectos, alelopatía, residuos, fertilidad ni rendimiento. No se asigna un bono de nitrógeno al ajonjolí ni un efecto sanitario a ninguna dirección."
+    }
+  ],
+  "evidencia_heredada": "evidencia_previa_maiz_ajonjoli.json",
+  "acceso_incompleto_excluido": [
+    {"url": "https://apsjournals.apsnet.org/doi/full/10.1094/PDIS-07-21-1390-FE", "resultado": "403 al abrir el texto completo; no usado para afirmar infección compartida o compatibilidad sanitaria local."}
+  ],
+  "faltantes_para_decidir": ["Variedades y definición de madurez/cosecha", "Días reales de secado, retiro y preparación", "Linderos, drenaje y profundidad efectiva", "Sanidad y malezas", "Agua de riego disponible y capacidad de aplicación", "Análisis de suelo y fertilización", "Comprador y costos"],
+  "dictamen": "Evaluación de calendario y agua, condicionada a validación local. No certifica compatibilidad agronómica, sanitaria o comercial."
+}

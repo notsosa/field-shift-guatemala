@@ -1,0 +1,19 @@
+{
+  "fecha_utc": "2026-11-15T17:39:44.449634+00:00",
+  "alternativa": "ajonjolí→maíz",
+  "programas_calendario": 192,
+  "programas_completos_2025": 42,
+  "programas_fuera_2025": 150,
+  "escenarios_simulados": 6048,
+  "comparaciones_pareadas": 3024,
+  "pasos_diarios": 2207520,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "pruebas": 10,
+  "resultado_pruebas": "OK",
+  "regresion": "Cuatro lluvias × dos modos de riego de maíz→ajonjolí, intervalo 7 días, commit 244ef10e99d8d8375aeebfcdced94cfae6fdc5f5",
+  "fuentes_sha_comprobadas": 49,
+  "enlaces_locales": "comprobados",
+  "csv_json_conteos": "coinciden",
+  "balances_referencia_registros": 17520,
+  "errores": []
+}

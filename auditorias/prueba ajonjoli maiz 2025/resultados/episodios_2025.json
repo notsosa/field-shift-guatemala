@@ -1,0 +1,201 @@
+{
+  "calor_14_dias_POWER": {
+    "inicio": "2025-05-14",
+    "fin": "2025-05-27",
+    "Tmax_media_C": 34.31928571428571,
+    "Tmax_pico_C": 37.17
+  },
+  "por_fuente_lluvia": {
+    "imerg": {
+      "acumulado_anual_mm": 2243.5000461786985,
+      "racha_seca_mayo_octubre_P_menor_1mm": {
+        "inicio": "2025-07-15",
+        "fin": "2025-07-25",
+        "dias": 11,
+        "lluvia_mm": 0.6000000238418579
+      },
+      "semana_mas_lluviosa": {
+        "inicio": "2025-09-17",
+        "fin": "2025-09-23",
+        "lluvia_mm": 296.8000030517578
+      }
+    },
+    "chirps": {
+      "acumulado_anual_mm": 1317.7238723747432,
+      "racha_seca_mayo_octubre_P_menor_1mm": {
+        "inicio": "2025-07-15",
+        "fin": "2025-07-25",
+        "dias": 11,
+        "lluvia_mm": 0.0
+      },
+      "semana_mas_lluviosa": {
+        "inicio": "2025-09-17",
+        "fin": "2025-09-23",
+        "lluvia_mm": 186.87839603424072
+      }
+    },
+    "era5": {
+      "acumulado_anual_mm": 1020.5,
+      "racha_seca_mayo_octubre_P_menor_1mm": {
+        "inicio": "2025-10-25",
+        "fin": "2025-10-31",
+        "dias": 7,
+        "lluvia_mm": 1.6
+      },
+      "semana_mas_lluviosa": {
+        "inicio": "2025-06-04",
+        "fin": "2025-06-10",
+        "lluvia_mm": 99.3
+      }
+    },
+    "power": {
+      "acumulado_anual_mm": 909.83,
+      "racha_seca_mayo_octubre_P_menor_1mm": {
+        "inicio": "2025-05-15",
+        "fin": "2025-05-22",
+        "dias": 8,
+        "lluvia_mm": 2.72
+      },
+      "semana_mas_lluviosa": {
+        "inicio": "2025-05-29",
+        "fin": "2025-06-04",
+        "lluvia_mm": 76.94
+      }
+    }
+  },
+  "mensual": [
+    {
+      "mes": "2025-01",
+      "P_imerg_mm": 7.200000286102295,
+      "P_chirps_mm": 5.280219055712223,
+      "P_era5_mm": 17.7,
+      "P_power_mm": 42.69,
+      "Tmax_media_POWER_C": 25.85967741935484,
+      "Tmin_media_POWER_C": 17.391935483870967,
+      "et0_POWER_mm": 98.97495227223928,
+      "GWETROOT_MEDIA": 0.5964516129032258
+    },
+    {
+      "mes": "2025-02",
+      "P_imerg_mm": 64.69999983906746,
+      "P_chirps_mm": 9.84264900535345,
+      "P_era5_mm": 14.3,
+      "P_power_mm": 15.96,
+      "Tmax_media_POWER_C": 28.547142857142855,
+      "Tmin_media_POWER_C": 18.846785714285716,
+      "et0_POWER_mm": 109.5489233304003,
+      "GWETROOT_MEDIA": 0.5264285714285715
+    },
+    {
+      "mes": "2025-03",
+      "P_imerg_mm": 8.399999916553497,
+      "P_chirps_mm": 11.861437797546387,
+      "P_era5_mm": 7.7,
+      "P_power_mm": 35.93,
+      "Tmax_media_POWER_C": 32.02870967741936,
+      "Tmin_media_POWER_C": 19.34967741935484,
+      "et0_POWER_mm": 157.95993602507153,
+      "GWETROOT_MEDIA": 0.48806451612903223
+    },
+    {
+      "mes": "2025-04",
+      "P_imerg_mm": 153.00000426918268,
+      "P_chirps_mm": 24.762051582336426,
+      "P_era5_mm": 18.5,
+      "P_power_mm": 25.54,
+      "Tmax_media_POWER_C": 32.13133333333333,
+      "Tmin_media_POWER_C": 19.399333333333335,
+      "et0_POWER_mm": 163.78541104785438,
+      "GWETROOT_MEDIA": 0.4703333333333333
+    },
+    {
+      "mes": "2025-05",
+      "P_imerg_mm": 162.4000024870038,
+      "P_chirps_mm": 64.07225716114044,
+      "P_era5_mm": 44.0,
+      "P_power_mm": 58.15,
+      "Tmax_media_POWER_C": 33.82774193548387,
+      "Tmin_media_POWER_C": 22.31225806451613,
+      "et0_POWER_mm": 154.54551974379496,
+      "GWETROOT_MEDIA": 0.4754838709677419
+    },
+    {
+      "mes": "2025-06",
+      "P_imerg_mm": 616.6000139713287,
+      "P_chirps_mm": 369.28871750831604,
+      "P_era5_mm": 301.5,
+      "P_power_mm": 235.42,
+      "Tmax_media_POWER_C": 28.555,
+      "Tmin_media_POWER_C": 21.145333333333333,
+      "et0_POWER_mm": 117.21427844620881,
+      "GWETROOT_MEDIA": 0.5746666666666667
+    },
+    {
+      "mes": "2025-07",
+      "P_imerg_mm": 217.80000625550747,
+      "P_chirps_mm": 69.45602941513062,
+      "P_era5_mm": 72.9,
+      "P_power_mm": 92.3,
+      "Tmax_media_POWER_C": 28.53516129032258,
+      "Tmin_media_POWER_C": 20.59483870967742,
+      "et0_POWER_mm": 139.70309028696326,
+      "GWETROOT_MEDIA": 0.5812903225806452
+    },
+    {
+      "mes": "2025-08",
+      "P_imerg_mm": 137.1000021994114,
+      "P_chirps_mm": 141.24286317825317,
+      "P_era5_mm": 111.9,
+      "P_power_mm": 86.89,
+      "Tmax_media_POWER_C": 29.946129032258064,
+      "Tmin_media_POWER_C": 20.821935483870966,
+      "et0_POWER_mm": 139.55982214186412,
+      "GWETROOT_MEDIA": 0.5409677419354839
+    },
+    {
+      "mes": "2025-09",
+      "P_imerg_mm": 679.7000131011009,
+      "P_chirps_mm": 426.127769947052,
+      "P_era5_mm": 250.3,
+      "P_power_mm": 93.26,
+      "Tmax_media_POWER_C": 29.357666666666667,
+      "Tmin_media_POWER_C": 21.143666666666668,
+      "et0_POWER_mm": 119.93024120637014,
+      "GWETROOT_MEDIA": 0.5386666666666667
+    },
+    {
+      "mes": "2025-10",
+      "P_imerg_mm": 158.30000271648169,
+      "P_chirps_mm": 148.86987924575806,
+      "P_era5_mm": 117.9,
+      "P_power_mm": 107.08,
+      "Tmax_media_POWER_C": 27.844516129032257,
+      "Tmin_media_POWER_C": 19.999032258064517,
+      "et0_POWER_mm": 107.1654427484498,
+      "GWETROOT_MEDIA": 0.562258064516129
+    },
+    {
+      "mes": "2025-11",
+      "P_imerg_mm": 23.100000374019146,
+      "P_chirps_mm": 15.098357986658812,
+      "P_era5_mm": 26.6,
+      "P_power_mm": 56.44,
+      "Tmax_media_POWER_C": 26.972333333333335,
+      "Tmin_media_POWER_C": 18.304333333333332,
+      "et0_POWER_mm": 95.72443712574609,
+      "GWETROOT_MEDIA": 0.538
+    },
+    {
+      "mes": "2025-12",
+      "P_imerg_mm": 15.200000762939453,
+      "P_chirps_mm": 31.821640491485596,
+      "P_era5_mm": 37.2,
+      "P_power_mm": 60.17,
+      "Tmax_media_POWER_C": 27.024516129032257,
+      "Tmin_media_POWER_C": 18.357741935483872,
+      "et0_POWER_mm": 97.95074576008825,
+      "GWETROOT_MEDIA": 0.5216129032258064
+    }
+  ],
+  "definiciones": "Máximos dentro de las series de 2025; P<1 mm/día es umbral analítico de racha seca. No son diagnósticos de desastre, inicio de invierno ni canícula oficial."
+}
