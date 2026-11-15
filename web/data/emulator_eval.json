@@ -1,4 +1,11 @@
 {
+ "meta": {
+  "simulatorCommit": "b8179a4",
+  "simulatorDirty": false,
+  "rainSource": "ERA5",
+  "generated": "2026-11-15",
+  "evaluated": "2026-11-15"
+ },
  "targets": [
   "waterIndex",
   "ksFlowerMain",
@@ -6,53 +13,53 @@
  ],
  "mlp": {
   "rmse": [
-   0.05875822393837953,
-   0.04354109495715811,
-   0.011593072197509676
+   0.07589184644113954,
+   0.048708657257461034,
+   0.011722349762921427
   ],
   "r2": [
-   0.8715954205865377,
-   0.7401814438305047,
-   0.9836722883548387
+   0.8665606059741227,
+   0.8013419309463722,
+   0.9833061083000029
   ],
-  "trainSeconds": 8.79,
+  "trainSeconds": 9.9,
   "params": 4323,
   "trainDevice": "cuda",
   "trainDeviceName": "NVIDIA GeForce RTX 4050 Laptop GPU",
   "torchVersion": "2.11.0+cu128",
-  "trainSecondsCpu": 4.25,
-  "trainSecondsCuda": 8.79,
+  "trainSecondsCpu": 4.93,
+  "trainSecondsCuda": 9.9,
   "trainMemoryAnalyticMB": 0.339,
   "trainMemoryMeasuredMB": 19.166,
   "memoryMethod": "trainMemoryMeasuredMB = torch.cuda.max_memory_allocated() during the training loop minus the GPU memory allocated before it (psutil not installed; GPU tensors only, not host RAM). trainMemoryAnalyticMB = analytical estimate (the like-for-like figure): params x 4 B x (weights + grad + 2 Adam states) + 2 x batch(256) x activations(140) x 4 B.",
   "epochs": 34,
-  "bestValLoss": 0.14691020548343658,
+  "bestValLoss": 0.1321905106306076,
   "valYears": [
    2017,
    2018
   ],
-  "predictMicros": 12.603337328138702,
-  "speedupVsSimulator": 30.47625323362262
+  "predictMicros": 9.73047871100763,
+  "speedupVsSimulator": 33.01841662072449
  },
  "elm": {
   "rmse": [
-   0.0707985843197819,
-   0.04874610441926616,
+   0.09094000842183735,
+   0.05743244804790255,
    0.01310327414140177
   ],
   "r2": [
-   0.8135800702955203,
-   0.6743498359586775,
+   0.8083963391260596,
+   0.7238096175702958,
    0.9791412684203238
   ],
-  "trainSeconds": 51.458019000000085,
+  "trainSeconds": 47.065344399999944,
   "params": 43500,
   "trainMemoryAnalyticMB": 17.5323486328125,
-  "trainMemoryMeasuredMB": 13.8671875,
+  "trainMemoryMeasuredMB": 13.91015625,
   "note": "trainELM standardizes the targets internally (yMean/yStd stored in the model); elmPredict de-standardizes.",
   "memoryMethod": "trainMemoryAnalyticMB = bytes of A (hidden^2) + B (hidden x 3) + W + b + beta as Float64. trainMemoryMeasuredMB = process.memoryUsage().rss after trainELM minus rss before (after global.gc(), run with node --expose-gc); an RSS delta, not a peak, and noisy at this size.",
-  "predictMicros": 72.553358966676,
-  "speedupVsSimulator": 5.294069157811747
+  "predictMicros": 52.294076034487894,
+  "speedupVsSimulator": 6.1438125379106605
  },
  "elmBrowser": {
   "hidden": 600,
@@ -61,62 +68,62 @@
   "seed": 42,
   "rows": "emulator_train_subset.json",
   "nRows": 5000,
-  "trainSeconds": 1.5173125,
+  "trainSeconds": 1.045269100000034,
   "note": "The exact ELM the page trains: trainELM(emulator_train_subset.json, browserElmRecommendation) with seed 42, trained here in Node; scored on the same test rows as mlp and elm.",
   "r2": [
-   0.755796027813311,
-   0.5817002617280682,
+   0.7552796343776446,
+   0.6275575496459642,
    0.9652189477785312
   ],
   "rmse": [
-   0.08103166555640408,
-   0.055246918601032306,
+   0.1027751561213295,
+   0.0666933665556077,
    0.016920268008508734
   ],
   "bySplit": {
    "testYears": {
     "n": 10080,
     "r2": [
-     0.7339669915603213,
-     0.3491732262178736,
+     0.6927870140250016,
+     0.44962740293134085,
      0.9561572594208674
     ],
     "rmse": [
-     0.06622191628075343,
-     0.03931771038033152,
+     0.08405121758436043,
+     0.049147373238388255,
      0.018819013257110814
     ]
    },
    "testPoints": {
     "n": 7463,
     "r2": [
-     0.7646822508860265,
-     0.642649702042206,
+     0.7684181897334104,
+     0.6634620761493206,
      0.9744679913956511
     ],
     "rmse": [
-     0.09372888259241724,
-     0.06828707418617316,
+     0.1207430760568328,
+     0.08261482430635232,
      0.013878343304980261
     ]
    },
    "testBoth": {
     "n": 2483,
     "r2": [
-     0.6942895667504265,
-     0.49987649396225,
+     0.7413761994768493,
+     0.6325153798793636,
      0.9702224459058046
     ],
     "rmse": [
-     0.09354059426293324,
-     0.06576911321621504,
+     0.11266154704519907,
+     0.07452719720378148,
      0.01709973428331211
     ]
    }
   },
   "trainMemoryAnalyticMB": 2.89306640625,
-  "predictMicros": 33.05826259196536,
-  "speedupVsSimulator": 11.61895604563556
+  "predictMicros": 21.341650853890503,
+  "speedupVsSimulator": 15.054364922316731
  },
  "elmSweep": [
   {
@@ -124,12 +131,12 @@
    "inputScale": 1,
    "lambda": 0.1,
    "valR2": [
-    0.8081611333723481,
-    0.4213800261591978,
+    0.7472072329294497,
+    0.44747267614727637,
     0.9437494550626648
    ],
-   "valR2Mean": 0.724430204864737,
-   "trainSeconds": 5.814525799999999,
+   "valR2Mean": 0.7128097880464637,
+   "trainSeconds": 7.795933300000001,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -137,12 +144,12 @@
    "inputScale": 1,
    "lambda": 10,
    "valR2": [
-    0.8082398821062583,
-    0.42144505789649855,
+    0.7472768595530646,
+    0.4477299009236452,
     0.9437824241578086
    ],
-   "valR2Mean": 0.7244891213868551,
-   "trainSeconds": 5.9746444,
+   "valR2Mean": 0.7129297282115061,
+   "trainSeconds": 9.623595100000001,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -150,12 +157,12 @@
    "inputScale": 1,
    "lambda": 1000,
    "valR2": [
-    0.8058158444896593,
-    0.4151617577559329,
+    0.7436625774423982,
+    0.4521042759188315,
     0.9448907563472098
    ],
-   "valR2Mean": 0.721956119530934,
-   "trainSeconds": 5.696477400000002,
+   "valR2Mean": 0.7135525365694798,
+   "trainSeconds": 10.411823,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -163,12 +170,12 @@
    "inputScale": 0.5,
    "lambda": 0.1,
    "valR2": [
-    0.8428788626335879,
-    0.4814083786475237,
+    0.7887102139553085,
+    0.5102054585880449,
     0.9509844214736904
    ],
-   "valR2Mean": 0.7584238875849341,
-   "trainSeconds": 7.801993500000001,
+   "valR2Mean": 0.7499666980056814,
+   "trainSeconds": 13.481386599999999,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -176,12 +183,12 @@
    "inputScale": 0.5,
    "lambda": 10,
    "valR2": [
-    0.8431228051313375,
-    0.4813706547579325,
+    0.7888894124664609,
+    0.5109136357867017,
     0.9510794647583377
    ],
-   "valR2Mean": 0.7585243082158692,
-   "trainSeconds": 7.792679499999998,
+   "valR2Mean": 0.7502941710038334,
+   "trainSeconds": 13.267070099999998,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -189,12 +196,12 @@
    "inputScale": 0.5,
    "lambda": 1000,
    "valR2": [
-    0.8192270632912435,
-    0.43548028397396554,
+    0.7593817447149931,
+    0.48162475443861064,
     0.9495327241164842
    ],
-   "valR2Mean": 0.7347466904605643,
-   "trainSeconds": 5.459246700000003,
+   "valR2Mean": 0.7301797410900294,
+   "trainSeconds": 9.912301,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -202,12 +209,12 @@
    "inputScale": 0.25,
    "lambda": 0.1,
    "valR2": [
-    0.8695370560064706,
-    0.5274935799853034,
+    0.8178487148646973,
+    0.5587745864252315,
     0.9584357655536969
    ],
-   "valR2Mean": 0.7851554671818236,
-   "trainSeconds": 5.9001921999999976,
+   "valR2Mean": 0.7783530222812086,
+   "trainSeconds": 6.349116099999999,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -215,12 +222,12 @@
    "inputScale": 0.25,
    "lambda": 10,
    "valR2": [
-    0.8691748755818459,
-    0.5227265591978225,
+    0.8169588425647132,
+    0.559520538863156,
     0.9584935703662136
    ],
-   "valR2Mean": 0.7834650017152941,
-   "trainSeconds": 5.643971899999997,
+   "valR2Mean": 0.7783243172646942,
+   "trainSeconds": 6.089243199999997,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -228,12 +235,12 @@
    "inputScale": 0.25,
    "lambda": 1000,
    "valR2": [
-    0.7491251466530773,
-    0.35097094011062346,
+    0.6848168837095081,
+    0.3976877723032515,
     0.9454026812446334
    ],
-   "valR2Mean": 0.6818329226694448,
-   "trainSeconds": 5.677649299999997,
+   "valR2Mean": 0.675969112419131,
+   "trainSeconds": 5.8903402999999965,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -241,12 +248,12 @@
    "inputScale": 0.1,
    "lambda": 0.1,
    "valR2": [
-    0.8823326573819038,
-    0.5396123448469033,
+    0.8304480535863539,
+    0.5810300256433104,
     0.9652243432569126
    ],
-   "valR2Mean": 0.7957231151619065,
-   "trainSeconds": 5.5166103,
+   "valR2Mean": 0.792234140828859,
+   "trainSeconds": 5.799760099999999,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -254,12 +261,12 @@
    "inputScale": 0.1,
    "lambda": 10,
    "valR2": [
-    0.7868370509912375,
-    0.3934708808881594,
+    0.7253853058219812,
+    0.44633106177411574,
     0.9488283782769258
    ],
-   "valR2Mean": 0.7097121033854409,
-   "trainSeconds": 5.5422327000000005,
+   "valR2Mean": 0.7068482486243409,
+   "trainSeconds": 6.079642299999993,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -267,12 +274,12 @@
    "inputScale": 0.1,
    "lambda": 1000,
    "valR2": [
-    0.6355716743738244,
-    0.22863520240854585,
+    0.5619543182600022,
+    0.2567280249035532,
     0.9346831950504055
    ],
-   "valR2Mean": 0.5996300239442586,
-   "trainSeconds": 5.457718900000007,
+   "valR2Mean": 0.5844551794046536,
+   "trainSeconds": 5.694078000000008,
    "memoryAnalyticMB": 2.89306640625
   },
   {
@@ -280,12 +287,12 @@
    "inputScale": 1,
    "lambda": 0.1,
    "valR2": [
-    0.8600214475343537,
-    0.5445312669035326,
+    0.8057439990706762,
+    0.5576431981949381,
     0.9544289712016452
    ],
-   "valR2Mean": 0.7863272285465106,
-   "trainSeconds": 51.8813686,
+   "valR2Mean": 0.7726053894890864,
+   "trainSeconds": 40.00509449999999,
    "memoryAnalyticMB": 17.5323486328125
   },
   {
@@ -293,12 +300,12 @@
    "inputScale": 1,
    "lambda": 10,
    "valR2": [
-    0.8602610518896961,
-    0.5446639963521563,
+    0.8060063895996691,
+    0.5581861391566629,
     0.954456126751852
    ],
-   "valR2Mean": 0.7864603916645682,
-   "trainSeconds": 48.853124599999994,
+   "valR2Mean": 0.7728828851693947,
+   "trainSeconds": 39.7324957,
    "memoryAnalyticMB": 17.5323486328125
   },
   {
@@ -306,12 +313,12 @@
    "inputScale": 1,
    "lambda": 1000,
    "valR2": [
-    0.8646896880234005,
-    0.5384488236543046,
+    0.8100147190959787,
+    0.5714661332217936,
     0.9543400937400573
    ],
-   "valR2Mean": 0.7858262018059209,
-   "trainSeconds": 47.22641129999998,
+   "valR2Mean": 0.7786069820192765,
+   "trainSeconds": 39.767410399999996,
    "memoryAnalyticMB": 17.5323486328125
   },
   {
@@ -319,12 +326,12 @@
    "inputScale": 0.5,
    "lambda": 0.1,
    "valR2": [
-    0.8828914627261152,
-    0.5779379458656511,
+    0.8331302261627112,
+    0.5965607259360992,
     0.9616828034917196
    ],
-   "valR2Mean": 0.8075040706944953,
-   "trainSeconds": 46.43911440000002,
+   "valR2Mean": 0.7971245851968433,
+   "trainSeconds": 37.571368199999995,
    "memoryAnalyticMB": 17.5323486328125
   },
   {
@@ -332,12 +339,12 @@
    "inputScale": 0.5,
    "lambda": 10,
    "valR2": [
-    0.8840878874816486,
-    0.5784573029393064,
+    0.8343507585408971,
+    0.598576530050877,
     0.9617154562796641
    ],
-   "valR2Mean": 0.8080868822335397,
-   "trainSeconds": 47.876076500000025,
+   "valR2Mean": 0.7982142482904795,
+   "trainSeconds": 37.33142789999998,
    "memoryAnalyticMB": 17.5323486328125
   },
   {
@@ -345,12 +352,12 @@
    "inputScale": 0.5,
    "lambda": 1000,
    "valR2": [
-    0.8768612761841448,
-    0.5425079972868052,
+    0.8235740966760163,
+    0.5890805685256357,
     0.9566606637464905
    ],
-   "valR2Mean": 0.7920099790724802,
-   "trainSeconds": 57.249265300000026,
+   "valR2Mean": 0.7897717763160476,
+   "trainSeconds": 37.426003899999955,
    "memoryAnalyticMB": 17.5323486328125
   },
   {
@@ -358,12 +365,12 @@
    "inputScale": 0.25,
    "lambda": 0.1,
    "valR2": [
-    0.8983942686384965,
-    0.5963252903641754,
+    0.850422533159338,
+    0.6229080061658521,
     0.9700955534902709
    ],
-   "valR2Mean": 0.8216050374976476,
-   "trainSeconds": 45.90603940000001,
+   "valR2Mean": 0.8144753642718202,
+   "trainSeconds": 38.374652700000034,
    "memoryAnalyticMB": 17.5323486328125
   },
   {
@@ -371,12 +378,12 @@
    "inputScale": 0.25,
    "lambda": 10,
    "valR2": [
-    0.9048711839086002,
-    0.5953420375924098,
+    0.8566990765831436,
+    0.6313395308171821,
     0.9683603150961801
    ],
-   "valR2Mean": 0.8228578455323966,
-   "trainSeconds": 44.94047000000003,
+   "valR2Mean": 0.8187996408321686,
+   "trainSeconds": 40.45833319999999,
    "memoryAnalyticMB": 17.5323486328125
   },
   {
@@ -384,12 +391,12 @@
    "inputScale": 0.25,
    "lambda": 1000,
    "valR2": [
-    0.8266737683954577,
-    0.4650907895462276,
+    0.7690451144382677,
+    0.5187947231668477,
     0.9501252447073004
    ],
-   "valR2Mean": 0.7472966008829953,
-   "trainSeconds": 48.70920319999999,
+   "valR2Mean": 0.7459883607708053,
+   "trainSeconds": 38.417101000000024,
    "memoryAnalyticMB": 17.5323486328125
   },
   {
@@ -397,12 +404,12 @@
    "inputScale": 0.1,
    "lambda": 0.1,
    "valR2": [
-    0.9118910260442319,
-    0.6072420033683548,
+    0.8649184303183175,
+    0.6474952780760553,
     0.9757043430825275
    ],
-   "valR2Mean": 0.8316124574983714,
-   "trainSeconds": 41.53980870000005,
+   "valR2Mean": 0.8293726838256336,
+   "trainSeconds": 38.96540789999999,
    "memoryAnalyticMB": 17.5323486328125
   },
   {
@@ -410,12 +417,12 @@
    "inputScale": 0.1,
    "lambda": 10,
    "valR2": [
-    0.8599743904275791,
-    0.5066908482085317,
+    0.8055331794193363,
+    0.5606549821047929,
     0.95515442104855
    ],
-   "valR2Mean": 0.7739398865615535,
-   "trainSeconds": 48.77863120000006,
+   "valR2Mean": 0.7737808608575598,
+   "trainSeconds": 39.26114069999999,
    "memoryAnalyticMB": 17.5323486328125
   },
   {
@@ -423,12 +430,12 @@
    "inputScale": 0.1,
    "lambda": 1000,
    "valR2": [
-    0.6454967988479281,
-    0.24510909046438178,
+    0.5738844477632181,
+    0.27560764783912994,
     0.9341229583544921
    ],
-   "valR2Mean": 0.6082429492222673,
-   "trainSeconds": 49.09231699999992,
+   "valR2Mean": 0.5945383513189467,
+   "trainSeconds": 37.88698899999994,
    "memoryAnalyticMB": 17.5323486328125
   }
  ],
@@ -611,41 +618,41 @@
   "inputScale": 0.1,
   "lambda": 0.1,
   "seed": 42,
-  "note": "Best validation R2 among hidden <= 600 (hidden 600, inputScale 0.1, lambda 0.1: val R2 mean 0.796, 5.5 s in Node) versus the overall best (hidden 1500, inputScale 0.1, lambda 0.1: val R2 mean 0.832, 41.5 s in Node). In-browser training on the 5,000-row subset is O(rows x hidden^2), so the cap trades some accuracy for a short wait; training times are measured in Node on the full fit set, the browser subset is about 5x smaller. Its real test scores are in elmBrowser."
+  "note": "Best validation R2 among hidden <= 600 (hidden 600, inputScale 0.1, lambda 0.1: val R2 mean 0.792, 5.8 s in Node) versus the overall best (hidden 1500, inputScale 0.1, lambda 0.1: val R2 mean 0.829, 39.0 s in Node). In-browser training on the 5,000-row subset is O(rows x hidden^2), so the cap trades some accuracy for a short wait; training times are measured in Node on the full fit set, the browser subset is about 5x smaller. Its real test scores are in elmBrowser."
  },
  "stressDetection": {
   "target": "ksFlowerMain",
   "threshold": 0.7,
   "split": "testYears",
   "n": 10080,
-  "baseRate": 0.009821428571428571,
+  "baseRate": 0.017361111111111112,
   "description": "Stress at maize flowering = ksFlowerMean < 0.7, in the simulator (truth) and in the model's prediction, on bySplit.testYears rows. baseRate = share of rows that are truly stressed.",
   "mlp": {
-   "precision": 0.6923076923076923,
-   "recall": 0.7272727272727273,
-   "f1": 0.7093596059113301,
-   "tp": 72,
-   "fp": 32,
-   "fn": 27,
-   "tn": 9949
+   "precision": 0.7150837988826816,
+   "recall": 0.7314285714285714,
+   "f1": 0.7231638418079096,
+   "tp": 128,
+   "fp": 51,
+   "fn": 47,
+   "tn": 9854
   },
   "elm": {
-   "precision": 0.7301587301587301,
-   "recall": 0.46464646464646464,
-   "f1": 0.5679012345679012,
-   "tp": 46,
-   "fp": 17,
-   "fn": 53,
-   "tn": 9964
+   "precision": 0.7518248175182481,
+   "recall": 0.5885714285714285,
+   "f1": 0.6602564102564101,
+   "tp": 103,
+   "fp": 34,
+   "fn": 72,
+   "tn": 9871
   },
   "elmBrowser": {
-   "precision": 0.7058823529411765,
-   "recall": 0.24242424242424243,
-   "f1": 0.3609022556390978,
-   "tp": 24,
-   "fp": 10,
-   "fn": 75,
-   "tn": 9971
+   "precision": 0.8170731707317073,
+   "recall": 0.38285714285714284,
+   "f1": 0.5214007782101168,
+   "tp": 67,
+   "fp": 15,
+   "fn": 108,
+   "tn": 9890
   }
  },
  "diffError": {
@@ -663,79 +670,79 @@
   "mlp": {
    "proteger": {
     "waterIndex": {
-     "rmse": 0.04515787745601045,
-     "signAgreement": 0.7681236673773987,
+     "rmse": 0.0703697854268773,
+     "signAgreement": 0.6820936639118458,
      "n": 3240,
-     "nSigned": 1876,
-     "rmseOfMedians": 0.024769586827938665,
-     "meanAbsTrue": 0.018775978788116703
+     "nSigned": 1815,
+     "rmseOfMedians": 0.03174723804809806,
+     "meanAbsTrue": 0.010473285119760232
     },
     "ksFlowerMain": {
-     "rmse": 0.007657505900633771,
+     "rmse": 0.014441560199808603,
      "signAgreement": null,
      "n": 3240,
      "nSigned": 0,
-     "rmseOfMedians": 0.004795294526365179,
+     "rmseOfMedians": 0.00802538504107778,
      "meanAbsTrue": 0
     },
     "bareFrac": {
-     "rmse": 0.012644369199844923,
-     "signAgreement": 0.9317129629629629,
+     "rmse": 0.013975222432370892,
+     "signAgreement": 0.9652777777777778,
      "n": 3240,
      "nSigned": 1728,
-     "rmseOfMedians": 0.006409118461863317,
+     "rmseOfMedians": 0.008452363415030048,
      "meanAbsTrue": 0.015771028037383204
     }
    },
    "extra_secano": {
     "waterIndex": {
-     "rmse": 0.061367236568507545,
-     "signAgreement": 0.9112249253094323,
+     "rmse": 0.07256125261259987,
+     "signAgreement": 0.9166666666666666,
      "n": 3240,
-     "nSigned": 2343,
-     "rmseOfMedians": 0.05997581814002325,
-     "meanAbsTrue": 0.12853680619823712
+     "nSigned": 2196,
+     "rmseOfMedians": 0.0729513031572048,
+     "meanAbsTrue": 0.13026600020862103
     },
     "ksFlowerMain": {
-     "rmse": 0.008073040538614766,
+     "rmse": 0.010946497960158195,
      "signAgreement": null,
      "n": 3240,
      "nSigned": 0,
-     "rmseOfMedians": 0.002583122208351742,
+     "rmseOfMedians": 0.0031919380111476835,
      "meanAbsTrue": 0
     },
     "bareFrac": {
-     "rmse": 0.014411542078426874,
-     "signAgreement": 0.9253472222222222,
+     "rmse": 0.014110697799613514,
+     "signAgreement": 0.9855324074074074,
      "n": 3240,
      "nSigned": 1728,
-     "rmseOfMedians": 0.009809892453459168,
+     "rmseOfMedians": 0.010768603076182121,
      "meanAbsTrue": 0.015771028037383204
     }
    },
    "extra_riego": {
     "waterIndex": {
-     "rmse": 0.07090482692134661,
-     "signAgreement": 0.9056152927120669,
+     "rmse": 0.07834720270745518,
+     "signAgreement": 0.9709513435003632,
      "n": 2160,
-     "nSigned": 1674,
-     "rmseOfMedians": 0.03813420715069717,
-     "meanAbsTrue": 0.13065730478229282
+     "nSigned": 1377,
+     "rmseOfMedians": 0.04462740737244286,
+     "meanAbsTrue": 0.1310573705095016
     },
     "ksFlowerMain": {
-     "rmse": 0.002732118076476528,
+     "rmse": 0.0027715560788709854,
      "signAgreement": null,
      "n": 2160,
      "nSigned": 0,
-     "rmseOfMedians": 0.0015235992167973566,
+     "rmseOfMedians": 0.0014117646666641692,
      "meanAbsTrue": 0
     },
     "bareFrac": {
-     "rmse": 0.013433715904382327,
-     "signAgreement": 0.9010416666666666,
+     "rmse": 0.011949503691268865,
+     "signAgreement": 0.9140625,
      "n": 2160,
      "nSigned": 1152,
-     "rmseOfMedians": 0.010396052648054618,
+     "rmseOfMedians": 0.008614574193757605,
      "meanAbsTrue": 0.014135514018691588
     }
    }
@@ -743,19 +750,19 @@
   "elm": {
    "proteger": {
     "waterIndex": {
-     "rmse": 0.049678166515256986,
-     "signAgreement": 0.7510660980810234,
+     "rmse": 0.07399042508471776,
+     "signAgreement": 0.6666666666666666,
      "n": 3240,
-     "nSigned": 1876,
-     "rmseOfMedians": 0.0299861398853665,
-     "meanAbsTrue": 0.018775978788116703
+     "nSigned": 1815,
+     "rmseOfMedians": 0.03850837901323105,
+     "meanAbsTrue": 0.010473285119760232
     },
     "ksFlowerMain": {
-     "rmse": 0.007348722686661132,
+     "rmse": 0.008344118213133805,
      "signAgreement": null,
      "n": 3240,
      "nSigned": 0,
-     "rmseOfMedians": 0.0033241960267758634,
+     "rmseOfMedians": 0.0033237353953737003,
      "meanAbsTrue": 0
     },
     "bareFrac": {
@@ -769,19 +776,19 @@
    },
    "extra_secano": {
     "waterIndex": {
-     "rmse": 0.06833391461572184,
-     "signAgreement": 0.9099445155783183,
+     "rmse": 0.07721442629353559,
+     "signAgreement": 0.895264116575592,
      "n": 3240,
-     "nSigned": 2343,
-     "rmseOfMedians": 0.06796752234942663,
-     "meanAbsTrue": 0.12853680619823712
+     "nSigned": 2196,
+     "rmseOfMedians": 0.07503128268933142,
+     "meanAbsTrue": 0.13026600020862103
     },
     "ksFlowerMain": {
-     "rmse": 0.007156558790374976,
+     "rmse": 0.00796086894097568,
      "signAgreement": null,
      "n": 3240,
      "nSigned": 0,
-     "rmseOfMedians": 0.0037785077840012046,
+     "rmseOfMedians": 0.0036861801850115814,
      "meanAbsTrue": 0
     },
     "bareFrac": {
@@ -795,19 +802,19 @@
    },
    "extra_riego": {
     "waterIndex": {
-     "rmse": 0.06878170542593054,
-     "signAgreement": 0.8835125448028673,
+     "rmse": 0.0708458179318743,
+     "signAgreement": 0.9389978213507625,
      "n": 2160,
-     "nSigned": 1674,
-     "rmseOfMedians": 0.04028290300427634,
-     "meanAbsTrue": 0.13065730478229282
+     "nSigned": 1377,
+     "rmseOfMedians": 0.04154960941742763,
+     "meanAbsTrue": 0.1310573705095016
     },
     "ksFlowerMain": {
-     "rmse": 0.00662936423871526,
+     "rmse": 0.007308694377643856,
      "signAgreement": null,
      "n": 2160,
      "nSigned": 0,
-     "rmseOfMedians": 0.001978442253543331,
+     "rmseOfMedians": 0.0023025402139305548,
      "meanAbsTrue": 0
     },
     "bareFrac": {
@@ -823,19 +830,19 @@
   "elmBrowser": {
    "proteger": {
     "waterIndex": {
-     "rmse": 0.0492030772542342,
-     "signAgreement": 0.7894456289978679,
+     "rmse": 0.0756318267563952,
+     "signAgreement": 0.6506887052341598,
      "n": 3240,
-     "nSigned": 1876,
-     "rmseOfMedians": 0.03079322503741626,
-     "meanAbsTrue": 0.018775978788116703
+     "nSigned": 1815,
+     "rmseOfMedians": 0.03730964866374175,
+     "meanAbsTrue": 0.010473285119760232
     },
     "ksFlowerMain": {
-     "rmse": 0.01728092254692448,
+     "rmse": 0.020509940056071853,
      "signAgreement": null,
      "n": 3240,
      "nSigned": 0,
-     "rmseOfMedians": 0.008167447745752964,
+     "rmseOfMedians": 0.008557325205542199,
      "meanAbsTrue": 0
     },
     "bareFrac": {
@@ -849,19 +856,19 @@
    },
    "extra_secano": {
     "waterIndex": {
-     "rmse": 0.07842476015383237,
-     "signAgreement": 0.9112249253094323,
+     "rmse": 0.08764131478615096,
+     "signAgreement": 0.894808743169399,
      "n": 3240,
-     "nSigned": 2343,
-     "rmseOfMedians": 0.09066642333400138,
-     "meanAbsTrue": 0.12853680619823712
+     "nSigned": 2196,
+     "rmseOfMedians": 0.09801191729404483,
+     "meanAbsTrue": 0.13026600020862103
     },
     "ksFlowerMain": {
-     "rmse": 0.01405966589254339,
+     "rmse": 0.016167672857019172,
      "signAgreement": null,
      "n": 3240,
      "nSigned": 0,
-     "rmseOfMedians": 0.007841064314205677,
+     "rmseOfMedians": 0.008328064803055169,
      "meanAbsTrue": 0
     },
     "bareFrac": {
@@ -875,19 +882,19 @@
    },
    "extra_riego": {
     "waterIndex": {
-     "rmse": 0.07189002197271661,
-     "signAgreement": 0.9169653524492234,
+     "rmse": 0.07496296579606454,
+     "signAgreement": 0.981118373275236,
      "n": 2160,
-     "nSigned": 1674,
-     "rmseOfMedians": 0.05122609659045103,
-     "meanAbsTrue": 0.13065730478229282
+     "nSigned": 1377,
+     "rmseOfMedians": 0.05251569497940012,
+     "meanAbsTrue": 0.1310573705095016
     },
     "ksFlowerMain": {
-     "rmse": 0.011888482295204544,
+     "rmse": 0.01592236779372481,
      "signAgreement": null,
      "n": 2160,
      "nSigned": 0,
-     "rmseOfMedians": 0.005209013840633262,
+     "rmseOfMedians": 0.0074793435302209325,
      "meanAbsTrue": 0
     },
     "bareFrac": {
@@ -903,14 +910,14 @@
  },
  "endToEnd": {
   "microsPerYear": {
-   "mlp": 79.03874999998759,
-   "elm": 133.34812500009625,
-   "elmBrowser": 98.89520833336671
+   "mlp": 41.04333333355802,
+   "elm": 87.47500000002522,
+   "elmBrowser": 50.66812500008382
   },
   "speedupVsSimulator": {
-   "mlp": 4.859673261548091,
-   "elm": 2.880449200173205,
-   "elmBrowser": 3.8839343834167313
+   "mlp": 7.827946073192105,
+   "elm": 3.672877965122006,
+   "elmBrowser": 6.340968804324388
   },
   "note": "End to end per simulated year: climateFeatures + phenoFeatures on a one-year slice of the bundle (as the page does) + encodeFeatures + the forward pass, against runSequence per year. ET0 is precomputed for both."
  },
@@ -923,32 +930,32 @@
    4
   ],
   "r2Mean": [
-   0.8090173041187019,
-   0.6734753845754964,
+   0.8066667981893174,
+   0.7215516093426068,
    0.9794784609576546
   ],
   "r2Std": [
-   0.008670169034773453,
-   0.0032207896222249378,
+   0.005238713463890873,
+   0.0028713568542686222,
    0.0006173092838354683
   ]
  },
  "baseline": {
   "rmse": [
-   0.1369963582878984,
-   0.07858301887403883,
+   0.17985776206831192,
+   0.10151158168659838,
    0.06478778952807429
   ],
   "r2": [
-   0.3019906536995892,
-   0.15369113520202027,
+   0.2505335557030257,
+   0.13717030353406778,
    0.4900652994955549
   ],
   "description": "Predicts each target as the TRAIN mean within the same (sequenceId, irrigation, texture, slopeClass, sowOffsetDays) group, ignoring climate; falls back to the global train mean when a group is empty.",
   "groupFallbacks": 0,
   "nGroups": 1089
  },
- "simulatorMicrosPerYear": 384.1025000011238,
+ "simulatorMicrosPerYear": 321.2849999991401,
  "speedupNote": "speedupVsSimulator is per prediction with the inputs precomputed: the model forward pass against the simulator core (runSequence, 24 years averaged per year) with features and ET0 already computed. endToEnd adds the feature extraction.",
  "targetsNote": "waterIndex = mean relYield of the food crops (ky not null); a crop whose cycle does not finish within the agricultural year (cycleIncomplete) counts as relYield 0.",
  "nTrain": 29974,
@@ -959,37 +966,37 @@
    "n": 10080,
    "mlp": {
     "r2": [
-     0.8469275816457893,
-     0.6652676586991096,
-     0.9778490450767481
+     0.8148837359893467,
+     0.7053224395106039,
+     0.9762017063431284
     ],
     "rmse": [
-     0.05023222933461987,
-     0.028197093962657252,
-     0.013376553410759313
+     0.06524489142883202,
+     0.035962133008470724,
+     0.013865033105903816
     ]
    },
    "elm": {
     "r2": [
-     0.7592604740028679,
-     0.5142847372208394,
+     0.7148186006298485,
+     0.5500506367791684,
      0.9730590406295899
     ],
     "rmse": [
-     0.06299523227294282,
-     0.033966155167852306,
+     0.08098131453993145,
+     0.04443792082134018,
      0.014752123169899796
     ]
    },
    "baseline": {
     "r2": [
-     0.24962048913954193,
-     0.023547124002794573,
+     0.1886049474838054,
+     0.03579565686122266,
      0.4923165939803288
     ],
     "rmse": [
-     0.11121784213841479,
-     0.04815941007092863,
+     0.1365967611798534,
+     0.06505137065503587,
      0.0640389917340178
     ]
    }
@@ -998,37 +1005,37 @@
    "n": 7463,
    "mlp": {
     "r2": [
-     0.8778544883550767,
-     0.7733521499336724,
-     0.9895013878078944
+     0.8837100559679829,
+     0.834025382487059,
+     0.9901764816809049
     ],
     "rmse": [
-     0.06752815020170279,
-     0.05438350985193601,
-     0.0088994072682717
+     0.08556203284022952,
+     0.05801787476610101,
+     0.008608523412349875
     ]
    },
    "elm": {
     "r2": [
-     0.8463987499208198,
-     0.725337006841795,
+     0.8453176697702042,
+     0.768786067985392,
      0.9850157909779587
     ],
     "rmse": [
-     0.07572573055716039,
-     0.05986755273162919,
+     0.0986802784978506,
+     0.06847751278845474,
      0.010631928481736684
     ]
    },
    "baseline": {
     "r2": [
-     0.2774819858637597,
-     0.14963795216087405,
+     0.21781500044436308,
+     0.1293218506380106,
      0.5187385447950243
     ],
     "rmse": [
-     0.16423678559495758,
-     0.10534001253832667,
+     0.22190380798330672,
+     0.13288311518804752,
      0.06025397115571747
     ]
    }
@@ -1037,37 +1044,37 @@
    "n": 2483,
    "mlp": {
     "r2": [
-     0.8638738117040223,
-     0.633110072049716,
-     0.9878278669332031
+     0.8539622595883737,
+     0.7507226961683113,
+     0.9892947462644759
     ],
     "rmse": [
-     0.06241886054084243,
-     0.05633149112143219,
-     0.010932719269809417
+     0.08465917231048091,
+     0.061381369539986394,
+     0.010252820011833618
     ]
    },
    "elm": {
     "r2": [
-     0.7525999930185803,
-     0.5712406091461875,
+     0.7797532717966581,
+     0.7027648319133055,
      0.9835485449941228
     ],
     "rmse": [
-     0.0841482034237798,
-     0.060896197520127975,
+     0.10396716427559342,
+     0.06702630850913684,
      0.012710042645417977
     ]
    },
    "baseline": {
     "r2": [
-     0.2984136673351814,
-     0.1863183963164875,
+     0.24298033344825765,
+     0.14936403702180456,
      0.35913132268172965
     ],
     "rmse": [
-     0.141705124000176,
-     0.08389007859411943,
+     0.19275029301503982,
+     0.1133879946896784,
      0.07932852396570685
     ]
    }
