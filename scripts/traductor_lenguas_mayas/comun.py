@@ -20,7 +20,7 @@ DATOS = RAIZ / "datos" / "lenguas_mayas"
 #   git clone https://github.com/mariobet23440/lenguas-mayas-corpus datos/lenguas_mayas/pretraining
 CORPUS = Path(os.environ.get("FIELDSHIFT_CORPUS", DATOS / "pretraining"))
 DATOS_LLM = CORPUS / "llm"           # datasets del LLM: también en el repo privado
-MODELOS = RAIZ / "modelos"            # en .gitignore: pesos y feedback de usuarios
+MODELOS = Path(os.environ.get("FIELDSHIFT_MODELOS", RAIZ / "modelos"))   # en .gitignore; en Colab, Google Drive
 REGISTRO = MODELOS / "ACTUAL"         # texto con la ruta del modelo en producción
 FEEDBACK_DB = Path(os.environ.get("FIELDSHIFT_FEEDBACK_DB", MODELOS / "feedback.db"))
 
@@ -105,12 +105,18 @@ def dispositivo_y_dtype():
 
 
 def cargar_modelo(ruta: str, para_entrenar: bool = False):
+    """Carga un modelo completo o una carpeta con solo el adaptador LoRA (p. ej. modelo_lenguas_mayas/)."""
     from transformers import AutoModelForCausalLM, AutoTokenizer
     dev, dtype, _, _ = dispositivo_y_dtype()
-    tok = AutoTokenizer.from_pretrained(ruta)
+    cfg_lora = Path(ruta) / "adapter_config.json"
+    base = json.loads(cfg_lora.read_text(encoding="utf-8"))["base_model_name_or_path"] if cfg_lora.exists() else ruta
+    tok = AutoTokenizer.from_pretrained(base)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
-    model = AutoModelForCausalLM.from_pretrained(ruta, dtype=dtype)
+    model = AutoModelForCausalLM.from_pretrained(base, dtype=dtype)
+    if cfg_lora.exists():
+        from peft import PeftModel
+        model = PeftModel.from_pretrained(model, ruta).merge_and_unload()
     if not para_entrenar:
         model.to(dev).eval()
     return model, tok
@@ -128,6 +134,7 @@ def fusionar_y_guardar(model, tok, destino: Path):
     """Fusiona el adaptador LoRA en los pesos y guarda un modelo completo (fácil de servir o convertir a GGUF).
     Devuelve el modelo fusionado."""
     if hasattr(model, "merge_and_unload"):
+        model.save_pretrained(destino.parent / "adaptador")   # solo el LoRA: lo usa exportar_modelo.py
         model = model.merge_and_unload()
     destino.mkdir(parents=True, exist_ok=True)
     model.save_pretrained(destino, safe_serialization=True)

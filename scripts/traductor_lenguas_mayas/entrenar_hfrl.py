@@ -104,7 +104,7 @@ def main():
     tok = AutoTokenizer.from_pretrained(actual)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
-    model = AutoModelForCausalLM.from_pretrained(actual, dtype=torch.float32 if dev == "cpu" else dtype)
+    model = AutoModelForCausalLM.from_pretrained(actual, dtype=torch.float32 if dev == "cpu" or fp16 else dtype)
 
     # el modelo actual y el nuevo se miden sobre LA MISMA muestra para que la compuerta sea justa
     eval_filas = cargar_eval(a.max_eval, a.seed)

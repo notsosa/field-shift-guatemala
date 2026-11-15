@@ -101,7 +101,7 @@ def main():
     ds = ds.train_test_split(test_size=max(1, int(0.01 * len(ds))), seed=a.seed)
     print(f"Bloques de {a.block_size} tokens: train={len(ds['train'])} eval={len(ds['test'])}")
 
-    model = AutoModelForCausalLM.from_pretrained(a.modelo, dtype=torch.float32 if dev == "cpu" else dtype)
+    model = AutoModelForCausalLM.from_pretrained(a.modelo, dtype=torch.float32 if dev == "cpu" or fp16 else dtype)
     if dev == "cuda":
         model.gradient_checkpointing_enable()
         model.enable_input_require_grads()

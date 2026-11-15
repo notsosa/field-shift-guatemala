@@ -55,7 +55,7 @@ def main():
     tok = AutoTokenizer.from_pretrained(a.modelo)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
-    model = AutoModelForCausalLM.from_pretrained(a.modelo, dtype=torch.float32 if dev == "cpu" else dtype)
+    model = AutoModelForCausalLM.from_pretrained(a.modelo, dtype=torch.float32 if dev == "cpu" or fp16 else dtype)
 
     ds = load_dataset("json", data_files=str(DATOS_LLM / "sft_train.jsonl"), split="train")
     if a.solo_tareas:

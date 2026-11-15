@@ -69,6 +69,10 @@ python entrenar_pretraining.py --modelo HuggingFaceTB/SmolLM2-135M-Instruct --ma
 python entrenar_sft.py --max-ejemplos 64 --max-pasos 3 --max-eval 6
 ```
 
+### Entrenar en Google Colab (GPU gratis)
+
+[Abrir colab_entrenar_llm.ipynb en Colab](https://colab.research.google.com/github/notsosa/field-shift-guatemala/blob/main/scripts/traductor_lenguas_mayas/colab_entrenar_llm.ipynb) → elige GPU T4 → *Ejecutar todo*. El notebook guarda los checkpoints en Google Drive (si Colab se desconecta, se vuelve a ejecutar y continúa). Pide un token de GitHub de solo lectura para el repo privado del corpus. Al final exporta `modelo_lenguas_mayas/` con [exportar_modelo.py](exportar_modelo.py): combina los LoRA del pre-entrenamiento y del SFT en uno solo de fp16 (< 100 MB) que se aplica directamente sobre Qwen2.5-0.5B.
+
 ### Entrenar de noche en una computadora sin GPU
 
 ```powershell
