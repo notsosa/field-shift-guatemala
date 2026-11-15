@@ -6,9 +6,9 @@ const json = JSON.parse(readFileSync(new URL('../web/data/crops.json', import.me
 const seqs = JSON.parse(readFileSync(new URL('../web/data/sequences.json', import.meta.url), 'utf8'));
 const base = { id: 'x', name: { en: 'X', es: 'X' }, sources: { agro: 'x' }, econ: null };
 
-test('catálogo: 8 cultivos con fuente agronómica', () => {
+test('catálogo: 12 cultivos con fuente agronómica', () => {
   const m = loadCrops(json);
-  assert.equal(m.size, 8);
+  assert.equal(m.size, 12);
   for (const c of m.values()) assert.ok(c.sources.agro);
   assert.equal(m.get('maiz').kc.mid, 1.2);
   assert.equal(m.get('mucuna').ky, null);
@@ -36,5 +36,21 @@ test('catálogo: maíz y frijol con Ky por etapa verificado; el resto null', () 
   const m = loadCrops(json);
   assert.deepEqual(m.get('maiz').kyStages, { veg: 0.4, flower: 1.5, yieldForm: 0.5, ripen: 0.2 });
   assert.deepEqual(m.get('frijol').kyStages, { veg: 0.2, flower: 1.1, yieldForm: 0.75, ripen: 0.2 });
-  for (const id of ['sorgo', 'ajonjoli', 'sandia', 'melon', 'tomate', 'mucuna']) assert.equal(m.get(id).kyStages, null);
+  for (const id of ['sorgo', 'ajonjoli', 'sandia', 'melon', 'tomate', 'mucuna', 'papa', 'cebolla', 'brocoli', 'lechuga']) assert.equal(m.get(id).kyStages, null);
+});
+
+test('papa, cebolla, brócoli y lechuga: valores de las auditorías, fuentes y proxies rotulados', () => {
+  const m = loadCrops(json);
+  const days = (c) => Object.values(c.days).reduce((a, b) => a + b, 0);
+  assert.deepEqual(['papa', 'cebolla', 'brocoli', 'lechuga'].map((id) => days(m.get(id))), [115, 150, 135, 75]);
+  assert.deepEqual(m.get('cebolla').kc, { ini: 0.7, mid: 1.05, end: 0.75 });
+  assert.equal(m.get('lechuga').zrMax, 0.4);
+  for (const id of ['papa', 'cebolla', 'brocoli', 'lechuga']) {
+    const c = m.get(id);
+    assert.ok(c.sources.agro.includes('a0d0690') && c.sources.days.includes('a0d0690'), id);
+    assert.ok(c.proxy.includes('tbase') && c.sources.tbase.startsWith('PROXY'), id);
+    assert.equal(c.proxy.includes('ky'), c.sources.ky.startsWith('PROXY'), id);
+    assert.equal(c.econ, null);
+  }
+  assert.deepEqual([m.get('papa').ky, m.get('cebolla').ky, m.get('brocoli').proxy, m.get('lechuga').proxy], [1.1, 1.1, ['ky', 'tbase'], ['ky', 'tbase']]);
 });

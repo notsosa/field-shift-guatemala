@@ -291,5 +291,167 @@
       "econ": null
     },
     "kyStages": null
+  },
+  {
+    "id": "papa",
+    "name": {
+      "en": "Potato",
+      "es": "Papa"
+    },
+    "family": "Solanaceae",
+    "legume": false,
+    "needsIrrigation": true,
+    "harvestRainSensitive": true,
+    "tbase": 5,
+    "days": {
+      "ini": 25,
+      "dev": 30,
+      "mid": 30,
+      "late": 30
+    },
+    "kc": {
+      "ini": 0.5,
+      "mid": 1.15,
+      "end": 0.75
+    },
+    "zrMax": 0.5,
+    "p": 0.35,
+    "ky": 1.1,
+    "econ": null,
+    "proxy": [
+      "tbase"
+    ],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p) con los valores del archivo auditado del equipo: equipo (Carlos), auditorias/combinaciones pendientes 7 cultivos 2025/datos/cultivos/parametros_auditados.json, commit a0d0690 del repositorio field-shift-guatemala (main)",
+      "days": "FAO-56 cuadro 11 (duración de etapas), ciclo de referencia de 115 días (clima semiárido); archivo del equipo auditorias/combinaciones pendientes 7 cultivos 2025/datos/cultivos/parametros_auditados.json (commit a0d0690)",
+      "ky": "FAO-56 cuadro 24 (Ky estacional de FAO-33) https://www.fao.org/4/x0490e/x0490e0e.htm: papa 1.1",
+      "tbase": "PROXY: temperatura base 5 °C supuesta para hortalizas de clima templado; no hay fuente legible (FAO-56 no da temperatura base y el archivo del equipo tampoco). Sin verificar",
+      "needsIrrigation": "El archivo del equipo no lo indica: valor conservador (true), no verificado",
+      "harvestRainSensitive": "El archivo del equipo no lo indica: valor conservador (true), no verificado",
+      "econ": null
+    },
+    "kyStages": null
+  },
+  {
+    "id": "cebolla",
+    "name": {
+      "en": "Onion",
+      "es": "Cebolla"
+    },
+    "family": "Amaryllidaceae",
+    "legume": false,
+    "needsIrrigation": true,
+    "harvestRainSensitive": true,
+    "tbase": 5,
+    "days": {
+      "ini": 15,
+      "dev": 25,
+      "mid": 70,
+      "late": 40
+    },
+    "kc": {
+      "ini": 0.7,
+      "mid": 1.05,
+      "end": 0.75
+    },
+    "zrMax": 0.5,
+    "p": 0.3,
+    "ky": 1.1,
+    "econ": null,
+    "proxy": [
+      "tbase"
+    ],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p) con los valores del archivo auditado del equipo: equipo (Carlos), auditorias/combinaciones pendientes 7 cultivos 2025/datos/cultivos/parametros_auditados.json, commit a0d0690 del repositorio field-shift-guatemala (main)",
+      "days": "FAO-56 cuadro 11 (duración de etapas), ciclo de referencia de 150 días (bulbo seco); archivo del equipo auditorias/combinaciones pendientes 7 cultivos 2025/datos/cultivos/parametros_auditados.json (commit a0d0690)",
+      "ky": "FAO-56 cuadro 24 (Ky estacional de FAO-33) https://www.fao.org/4/x0490e/x0490e0e.htm: cebolla 1.1",
+      "tbase": "PROXY: temperatura base 5 °C supuesta para hortalizas de clima templado; no hay fuente legible (FAO-56 no da temperatura base y el archivo del equipo tampoco). Sin verificar",
+      "needsIrrigation": "El archivo del equipo no lo indica: valor conservador (true), no verificado",
+      "harvestRainSensitive": "El archivo del equipo no lo indica: valor conservador (true), no verificado",
+      "econ": null
+    },
+    "kyStages": null
+  },
+  {
+    "id": "brocoli",
+    "name": {
+      "en": "Broccoli",
+      "es": "Brócoli"
+    },
+    "family": "Brassicaceae",
+    "legume": false,
+    "needsIrrigation": true,
+    "harvestRainSensitive": true,
+    "tbase": 5,
+    "days": {
+      "ini": 35,
+      "dev": 45,
+      "mid": 40,
+      "late": 15
+    },
+    "kc": {
+      "ini": 0.7,
+      "mid": 1.05,
+      "end": 0.95
+    },
+    "zrMax": 0.5,
+    "p": 0.45,
+    "ky": 0.95,
+    "econ": null,
+    "proxy": [
+      "ky",
+      "tbase"
+    ],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p) con los valores del archivo auditado del equipo: equipo (Carlos), auditorias/combinaciones pendientes 7 cultivos 2025/datos/cultivos/parametros_auditados.json, commit a0d0690 del repositorio field-shift-guatemala (main)",
+      "days": "FAO-56 cuadro 11 (duración de etapas), ciclo FAO de 135 días (el archivo del equipo marca 75 y 90 días como variantes prorrateadas de sensibilidad); archivo del equipo auditorias/combinaciones pendientes 7 cultivos 2025/datos/cultivos/parametros_auditados.json (commit a0d0690)",
+      "ky": "PROXY: brócoli no está en FAO-56 cuadro 24; se usa el Ky de la col (Brassica oleracea, la misma especie), 0.95, FAO-56 cuadro 24 (Ky estacional de FAO-33) https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "tbase": "PROXY: temperatura base 5 °C supuesta para hortalizas de clima templado; no hay fuente legible (FAO-56 no da temperatura base y el archivo del equipo tampoco). Sin verificar",
+      "needsIrrigation": "El archivo del equipo no lo indica: valor conservador (true), no verificado",
+      "harvestRainSensitive": "El archivo del equipo no lo indica: valor conservador (true), no verificado",
+      "econ": null
+    },
+    "kyStages": null
+  },
+  {
+    "id": "lechuga",
+    "name": {
+      "en": "Lettuce",
+      "es": "Lechuga"
+    },
+    "family": "Asteraceae",
+    "legume": false,
+    "needsIrrigation": true,
+    "harvestRainSensitive": true,
+    "tbase": 5,
+    "days": {
+      "ini": 20,
+      "dev": 30,
+      "mid": 15,
+      "late": 10
+    },
+    "kc": {
+      "ini": 0.7,
+      "mid": 1,
+      "end": 0.95
+    },
+    "zrMax": 0.4,
+    "p": 0.3,
+    "ky": 1,
+    "econ": null,
+    "proxy": [
+      "ky",
+      "tbase"
+    ],
+    "sources": {
+      "agro": "FAO-56 (Allen et al., 1998) cuadro 12 (Kc) y cuadro 22 (Zr, p) con los valores del archivo auditado del equipo: equipo (Carlos), auditorias/combinaciones pendientes 7 cultivos 2025/datos/cultivos/parametros_auditados.json, commit a0d0690 del repositorio field-shift-guatemala (main)",
+      "days": "FAO-56 cuadro 11 (duración de etapas), ciclo de referencia de 75 días; archivo del equipo auditorias/combinaciones pendientes 7 cultivos 2025/datos/cultivos/parametros_auditados.json (commit a0d0690)",
+      "ky": "PROXY: la lechuga no está en FAO-56 cuadro 24 (ni se pudo leer otra fuente); Ky = 1 (pérdida de rendimiento proporcional a la de agua), igual que el ajonjolí",
+      "tbase": "PROXY: temperatura base 5 °C supuesta para hortalizas de clima templado; no hay fuente legible (FAO-56 no da temperatura base y el archivo del equipo tampoco). Sin verificar",
+      "needsIrrigation": "El archivo del equipo no lo indica: valor conservador (true), no verificado",
+      "harvestRainSensitive": "El archivo del equipo no lo indica: valor conservador (true), no verificado",
+      "econ": null
+    },
+    "kyStages": null
   }
 ]

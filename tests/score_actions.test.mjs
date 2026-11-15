@@ -125,3 +125,12 @@ test('an offset that would push the sowing outside the agricultural year is reje
   assert.equal(edge[0].crops[0].sowDate, '2022-03-31');
   assert.equal(edge[1].crops[0].sowDate, '2021-04-01');
 });
+
+test('single-crop actions accept papa, cebolla, brocoli and lechuga (Task 23) and score them', () => {
+  for (const crop of ['papa', 'cebolla', 'brocoli', 'lechuga']) {
+    const { results } = scoreActions({ actions: [{ ...single, crop, sowDate: '06-01' }] }, ctx);
+    assert.equal(results[0].crops[0].cropId, crop);
+    assert.equal(results[0].crops[0].sowDate, '2020-06-01');
+    assert.equal(typeof results[0].crops[0].relYield, 'number');
+  }
+});

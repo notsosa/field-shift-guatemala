@@ -2,7 +2,7 @@
 // Uso:  node scripts/compare/score_actions.mjs --in actions.json [--out scored.json]   (sin --out, imprime el JSON)
 // Entrada {"actions": [...]}. Una acción: {id, site, year, texture | "soil": "site", slopeClass, irrigation} más
 //   {sequenceId: "actual"|"proteger"|"extra_secano"|"extra_riego", sowOffsetDays: n}   (rotación; el desfase mueve al cultivo principal)
-//   o {crop: "maiz"|"frijol"|"sorgo", sowDate: "MM-DD"}                                 (un cultivo con fecha fija, como scripts/referee/compare.mjs).
+//   o {crop: "maiz"|"frijol"|"sorgo"|"papa"|"cebolla"|"brocoli"|"lechuga", sowDate: "MM-DD"}                                 (un cultivo con fecha fija, como scripts/referee/compare.mjs).
 // Las acciones inválidas se rechazan todas juntas con un mensaje que nombra el id de cada una.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -19,7 +19,7 @@ export const SITES = ['chiquimula', 'jutiapa', 'sanmartin'];
 export const TEXTURES = ['sand', 'loam', 'clay'];
 export const SLOPES = ['flat', 'moderate', 'steep'];
 export const IRRIGATIONS = ['none', 'limited', 'full'];
-export const SINGLE_CROPS = ['maiz', 'frijol', 'sorgo'];
+export const SINGLE_CROPS = ['maiz', 'frijol', 'sorgo', 'papa', 'cebolla', 'brocoli', 'lechuga'];
 const KEYS = new Set(['id', 'site', 'year', 'texture', 'soil', 'slopeClass', 'irrigation', 'sequenceId', 'sowOffsetDays', 'crop', 'sowDate', 'note']);
 
 /** Bundles de los pilotos, su ET0, los cultivos, las rotaciones y el suelo SoilGrids de cada piloto. */
