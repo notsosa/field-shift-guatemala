@@ -1,12 +1,12 @@
 # Resultados · modelo-keu (simulador FAO-56 + emulador)
 
-Actualizado el 14 de noviembre de 2026 (artefactos generados el 2026-11-15 UTC con el simulador del commit `b8179a4`). Rama `modelo-keu`. Los números salen de `web/data/emulator_eval.json`, `web/data/emulator_mlp.json` y `web/data/referee_aquacrop.json`, que se regeneran con los scripts de `scripts/emulator/` y `scripts/referee/`. Las columnas "antes" salen de la versión anterior de esos mismos archivos (commit `9d5b5f9`).
+Actualizado el 15 de noviembre de 2026 (emulador reentrenado el 2026-11-15 con el árbol limpio del commit `337c803`; el simulador no cambió en esta ronda). Rama `modelo-keu`. Los números salen de `web/data/emulator_eval.json`, `web/data/emulator_mlp.json`, `scripts/emulator/feature_screening.json` y `web/data/referee_aquacrop.json`, que se regeneran con los scripts de `scripts/emulator/` y `scripts/referee/`. Las columnas "antes" de la ronda de entradas de agua antecedente salen de la versión anterior de esos mismos archivos (commit `88c879f`, 25 entradas); las de la ronda anterior del simulador, del commit `9d5b5f9`.
 
 ## Qué es este modelo
 
 1. **Simulador** (`web/js/model/`, JavaScript sin dependencias): balance diario de agua en raíces FAO-56, ET₀ Penman-Monteith, etapas del cultivo por grados-día, respuesta del rendimiento al agua FAO-33 (Ky por etapa en maíz y frijol, Ky estacional en los demás) y rotaciones por año agrícola (abril–marzo). Clima: NASA POWER (temperatura, humedad, radiación, viento) y lluvia ERA5 de Copernicus tomada por Open-Meteo.
-2. **Emulador**: dos redes que aprenden a imitar al simulador a partir de 25 entradas (clima del año, ventana de floración del maíz, suelo, pendiente, riego, rotación y desfase de siembra) y predicen 3 salidas:
-   - **Red embudo** 25→64→32→16→3, entrenada con backpropagation en PyTorch.
+2. **Emulador**: dos redes que aprenden a imitar al simulador a partir de 27 entradas (clima del año, ventana de floración del maíz, el agua antecedente a esa ventana, suelo, pendiente, riego, rotación y desfase de siembra) y predicen 3 salidas:
+   - **Red embudo** 27→64→32→16→3, entrenada con backpropagation en PyTorch.
    - **ELM** (Extreme Learning Machine), entrenada **sin backpropagation**: capa oculta aleatoria fija y una sola solución de mínimos cuadrados. Se puede entrenar en el navegador.
 3. **Página** `web/emulator.html`: comparación red embudo vs ELM, mapa del Corredor Seco y prueba de fecha de siembra confirmada con el simulador.
 
@@ -20,7 +20,7 @@ El emulador **imita al simulador; no predice cosechas reales**.
 4. **Corrección del número de curva** del grupo hidrológico D (clase `clay`) con residuo: 85 y no 87 (TR-55, cuadro 2-2b). Cambia un poco las corridas con `clay` y residuo.
 5. Un solo lugar para calcular la ventana de floración (sin cambio numérico: diferencia 0 en 360 valores comprobados) y la fuente del Ky por etapa del frijol ahora cita solo el cuadro donde se verificó.
 
-Todos los archivos derivados se regeneraron una vez con este modelo. Mismo diseño de muestreo, mismas semillas, mismas divisiones, mismas 25 entradas y 3 salidas, mismos hiperparámetros.
+Todos los archivos derivados se regeneraron con ese modelo en la ronda anterior (25 entradas y 3 salidas). En la ronda actual el simulador no cambia: solo se agregan 2 entradas de agua antecedente al emulador (siguiente sección); el diseño de muestreo (50,000 ejemplos), las semillas, las divisiones, las capas ocultas 64→32→16→3, la receta de entrenamiento y la rejilla de la ELM son los mismos.
 
 ## Datos y prueba
 
@@ -28,7 +28,32 @@ Todos los archivos derivados se regeneraron una vez con este modelo. Mismo dise�
 - Entrenamiento: 29,974 ejemplos. Prueba: 20,026 ejemplos (años 2019–2024, o 4 municipios dejados fuera).
 - Los 4 municipios dejados fuera comparten celda de NASA POWER con municipios de entrenamiento, así que **la prueba más limpia es "años nuevos" (2019–2024)**.
 - Validación para elegir configuraciones: años 2017–2018. Los datos de prueba nunca se usaron para elegir nada.
-- Aviso: las entradas de floración (Tarea 13e) se diseñaron después de ver un primer R² de prueba; los modelos nunca se ajustaron con filas de prueba.
+- Aviso: las entradas de floración (Tarea 13e) y las de agua antecedente (Tarea 19) se diseñaron **después de conocer resultados de prueba anteriores**; los modelos nunca se ajustaron con filas de prueba. Las de la Tarea 19 se eligieron con la validación (2017–2018) y la prueba se midió una sola vez, después de fijar la elección.
+
+## Entradas de agua antecedente
+
+**Por qué.** El coeficiente de estrés en la floración depende del agua que el suelo guardó **antes** de esa ventana (zona de raíces y subsuelo), y el emulador solo tenía entradas de la propia ventana (`rainFlower`, `drySpellFlower`, `deficitFlower`). Con 25 entradas, en años nuevos la red embudo daba 0.815 / 0.705 y la ELM 0.715 / 0.550 (índice de agua / agua en floración), por debajo de la meta de 0.8 en tres de cuatro casos.
+
+**Protocolo fijado de antemano** (las candidatas, los conjuntos, la regla y las constantes se escribieron antes de ver ningún número y no se cambiaron):
+
+- Las filas de prueba (años 2019–2024 o los 4 municipios dejados fuera) no se usaron para diseñar, comparar, elegir ni ajustar nada. El código del cribado no puede ni calcularlas: `build_screening_superset.mjs` descarta las filas de prueba antes de calcular las candidatas y `screen_features.py` solo lee ese archivo (20,026 filas de prueba descartadas; `nTestRowsRead: 0` en `feature_screening.json`).
+- Siete candidatas, solo del clima, ET₀ y los parámetros del maíz (sin balance hídrico simulado y sin suelo, pendiente, riego ni rotación), con `f0` = primer día de la ventana de floración, `s` = día de siembra, ventanas recortadas al 1 de abril y Kc de la siembra en adelante (`kc.ini` antes): `rainPre30` (lluvia de los 30 días antes de `f0`), `drySpellPre20` (racha seca más larga en los 20 días antes), `balancePre30` y `balanceSeason` (Σ lluvia − Kc·ET₀ en los 30 días antes y desde la siembra), `rainPreSow30` (lluvia de los 30 días antes de sembrar), `apiFlower` (índice de precipitación antecedente, `API = 0.9·API + lluvia` desde el 1 de abril) y `storeProxy` (balance corrido con piso en 0 y tope fijo de 150 mm para todo suelo, desde el 1 de abril). **`storeProxy` es un indicador sin suelo, no el simulador.**
+- Cinco conjuntos: S0 (las 25 actuales, control), S1 = S0 + {`rainPre30`, `drySpellPre20`}, S2 = S0 + {`balancePre30`, `balanceSeason`, `rainPreSow30`}, S3 = S0 + {`apiFlower`, `storeProxy`}, S4 = S0 + las siete.
+- Regla: red embudo con la receta estándar (mismo código que `train_mlp.py`, semilla 42), ajustada con las filas de entrenamiento fuera de 2017–2018 y puntuada en las filas de validación (2017–2018, puntos de entrenamiento); puntaje = promedio del R² de índice de agua y de agua en floración. Se excluye un conjunto si su R² de suelo desnudo en validación cae más de 0.005 bajo el de S0; gana el mayor puntaje, y entre conjuntos a menos de 0.005 el de menos entradas; si ninguno supera a S0 por al menos 0.01, se queda S0.
+
+**Cribado (solo validación 2017–2018; 26,618 filas de ajuste, 3,356 de validación).**
+
+| Conjunto | Entradas | R² índice de agua | R² agua en floración | R² suelo desnudo | Puntaje | ¿Excluido? |
+|---|---|---|---|---|---|---|
+| S0 (control) | 25 | 0.881 | 0.739 | 0.980 | 0.810 | no |
+| S1 (+ `rainPre30`, `drySpellPre20`) | 27 | 0.902 | 0.842 | 0.980 | 0.872 | no |
+| S2 (+ `balancePre30`, `balanceSeason`, `rainPreSow30`) | 28 | 0.913 | 0.843 | 0.984 | 0.878 | no |
+| **S3 (+ `apiFlower`, `storeProxy`)** | 27 | 0.925 | 0.921 | 0.986 | 0.923 | no |
+| S4 (+ las siete) | 32 | 0.924 | 0.925 | 0.989 | 0.924 | no |
+
+**Elegido: S3** (`apiFlower`, `storeProxy`; 27 entradas, 4,451 parámetros). S3 y S4 quedan a 0.0016 de diferencia (dentro de 0.005), así que gana el de menos entradas; S3 supera a S0 en +0.113 de puntaje (el mínimo era 0.01). Se compararon 5 conjuntos en validación. Dos precisiones: el R² de validación de la red de cada conjunto usa las mismas filas con las que esa red decide cuándo parar el entrenamiento (la receta estándar), lo que lo vuelve algo optimista, igual para todos los conjuntos; y el R² de prueba posterior es menor que el de validación (abajo).
+
+**Una sola evaluación final de prueba**, con la configuración elegida y por la tubería normal (`generate.mjs` → `train_mlp.py` en CUDA → `evaluate.mjs`), sin segunda iteración. Lo que salió se informa tal cual.
 
 ## Exactitud frente al simulador (R², 1 = perfecto)
 
@@ -36,57 +61,84 @@ Salidas: índice de agua / agua en floración del maíz (Ks) / suelo desnudo en 
 
 | Modelo | Todas las pruebas | Años nuevos 2019–2024 | Municipios nuevos |
 |---|---|---|---|
-| Red embudo (4,323 parámetros) | 0.867 / 0.801 / 0.983 | **0.815 / 0.705 / 0.976** | 0.884 / 0.834 / 0.990 |
-| ELM, 1,500 neuronas (43,500 parámetros) | 0.808 / 0.724 / 0.979 | 0.715 / 0.550 / 0.973 | 0.845 / 0.769 / 0.985 |
-| ELM del navegador, 600 neuronas | 0.755 / 0.628 / 0.965 | 0.693 / 0.450 / 0.956 | 0.768 / 0.663 / 0.974 |
+| Red embudo (4,451 parámetros) | 0.896 / 0.934 / 0.989 | **0.842 / 0.876 / 0.986** | 0.916 / 0.948 / 0.992 |
+| ELM, 1,500 neuronas (46,500 parámetros) | 0.841 / 0.886 / 0.974 | 0.763 / 0.796 / 0.968 | 0.876 / 0.912 / 0.982 |
+| ELM del navegador, 600 neuronas | 0.780 / 0.818 / 0.961 | 0.711 / 0.698 / 0.952 | 0.808 / 0.854 / 0.971 |
 | Línea base (promedio por manejo, sin clima) | 0.251 / 0.137 / 0.490 | 0.189 / 0.036 / 0.492 | 0.218 / 0.129 / 0.519 |
 
-**Antes → después** (R² en años nuevos, índice de agua / agua en floración):
+**Antes → después de las entradas de agua antecedente** (R² del emulador, commit `88c879f` con 25 entradas → ahora con 27; índice de agua / agua en floración / suelo desnudo):
 
-| Modelo | Antes (simulador anterior) | Después (modelo final) |
+| Modelo | Años nuevos 2019–2024 | Todas las pruebas | Municipios nuevos |
+|---|---|---|---|
+| Red embudo | 0.815 / 0.705 / 0.976 → **0.842 / 0.876 / 0.986** | 0.867 / 0.801 / 0.983 → 0.896 / 0.934 / 0.989 | 0.884 / 0.834 / 0.990 → 0.916 / 0.948 / 0.992 |
+| ELM, 1,500 neuronas | 0.715 / 0.550 / 0.973 → 0.763 / 0.796 / **0.968** | 0.808 / 0.724 / 0.979 → 0.841 / 0.886 / **0.974** | 0.845 / 0.769 / 0.985 → 0.876 / 0.912 / **0.982** |
+| ELM del navegador | 0.693 / 0.450 / 0.956 → 0.711 / 0.698 / **0.952** | 0.755 / 0.628 / 0.965 → 0.780 / 0.818 / **0.961** | 0.768 / 0.663 / 0.974 → 0.808 / 0.854 / **0.971** |
+| Línea base | 0.189 / 0.036 / 0.492 (sin cambio) | 0.251 / 0.137 / 0.490 (sin cambio) | 0.218 / 0.129 / 0.519 (sin cambio) |
+
+- **Mejoró:** el índice de agua y, sobre todo, el agua en floración en los tres modelos y en las tres divisiones. En años nuevos, el agua en floración de la red embudo subió de 0.705 a 0.876 y la de la ELM de 0.550 a 0.796.
+- **Empeoró (en negritas arriba):** el R² del suelo desnudo de la ELM y de la ELM del navegador bajó en las tres divisiones (años nuevos 0.973 → 0.968 y 0.956 → 0.952; sigue alto). Las dos entradas nuevas no ayudan a esa salida en las ELM. En la red embudo el suelo desnudo mejoró (0.976 → 0.986).
+- La validación fue más optimista que la prueba: S3 sacó 0.925 / 0.921 en validación y la red embudo 0.842 / 0.876 en años nuevos.
+- La ELM se eligió otra vez con el barrido en validación: 1,500 neuronas, escala 0.1 y λ 0.1 (el borde de la rejilla); la del navegador, 600 neuronas con los mismos valores. Con 5 semillas distintas el R² casi no cambia (desviación ≤ 0.004).
+- **Meta de R² > 0.8 en años nuevos para el índice de agua y el agua en floración** (la meta no se bajó ni se tocó la prueba):
+
+  | Modelo | Índice de agua | Agua en floración | Estado |
+  |---|---|---|---|
+  | Red embudo | 0.842 (cumple) | 0.876 (cumple) | **Cumple las dos** |
+  | ELM, 1,500 neuronas | 0.763 (no) | 0.796 (no, a 0.004) | **No cumple ninguna** |
+  | ELM del navegador (no entra en la prueba de la meta) | 0.711 (no) | 0.698 (no) | No cumple |
+
+  La prueba `emulator_eval.test.mjs` sigue marcada como pendiente porque la ELM no llega; la red embudo ya cumple.
+
+**Ronda anterior (cambio del simulador; R² en años nuevos, índice de agua / agua en floración):**
+
+| Modelo | Simulador anterior (`9d5b5f9`) | Simulador final con 25 entradas (`88c879f`) |
 |---|---|---|
 | Red embudo | 0.847 / 0.665 | 0.815 / 0.705 |
 | ELM, 1,500 neuronas | 0.759 / 0.514 | 0.715 / 0.550 |
 | ELM del navegador | 0.734 / 0.349 | 0.693 / 0.450 |
 
-- **El índice de agua se volvió más difícil de imitar** en todos los modelos (la red embudo bajó de 0.847 a 0.815; la ELM, de 0.759 a 0.715). Una causa probable (no medida): el simulador ahora varía más entre años y combina las etapas por producto, y las redes lo siguen peor. **El agua en floración mejoró** en todos (la red embudo subió de 0.665 a 0.705).
-- La ELM se eligió con un barrido en validación (neuronas, escala de los pesos aleatorios y regularización). Ganó otra vez 1,500 neuronas, escala 0.1 y λ 0.1, en el borde de la rejilla. Con 5 semillas distintas el R² casi no cambia (desviación ≤ 0.006).
-- **Meta pendiente:** el equipo fijó R² > 0.8 en años nuevos para el índice de agua y el agua en floración.
-  - La red embudo ahora cumple el índice de agua (0.815) y no la floración (0.705).
-  - La ELM no la cumple en ninguna de las dos (0.715 y 0.550).
-  - La meta no se bajó ni se tocó la prueba: sigue marcada como pendiente de decisión.
+El índice de agua se había vuelto más difícil de imitar con el cambio del simulador (una causa probable, no medida: el simulador varía más entre años y combina las etapas por producto); con las entradas nuevas la red embudo pasa de 0.815 a 0.842, sin volver al 0.847 de antes.
 
 ## Medidas ligadas a la decisión
 
-- **Detectar estrés en floración** (Ks < 0.7), en años nuevos. Ahora el 1.74 % de los casos tiene estrés real (antes 0.98 %: la tasa base casi se duplicó).
+- **Detectar estrés en floración** (Ks < 0.7), en años nuevos. El 1.74 % de los casos tiene estrés real (igual que antes: esta vez sí es la misma comparación).
 
-  | Modelo | Precisión | Recuperación | F1 (antes) | F1 (ahora) |
+  | Modelo | F1 (antes, `88c879f`) | Precisión | Recuperación | F1 (ahora) |
   |---|---|---|---|---|
-  | Red embudo | 0.72 | 0.73 | 0.71 | 0.72 |
-  | ELM | 0.75 | 0.59 | 0.57 | 0.66 |
-  | ELM del navegador | 0.82 | 0.38 | 0.36 | 0.52 |
+  | Red embudo | 0.72 | 0.80 | 0.79 | 0.80 |
+  | ELM | 0.66 | 0.85 | 0.69 | 0.76 |
+  | ELM del navegador | 0.52 | 0.84 | 0.61 | 0.71 |
 
-  La tasa base cambió, así que el F1 de antes y el de ahora no se miden sobre el mismo problema; la mejora es real pero no es una comparación exacta.
+- **Diferencia "alternativa menos rotación actual"** (años nuevos; error típico por municipio-año-manejo y porcentaje de casos con el signo correcto), antes (`88c879f`) → ahora:
 
-- **Diferencia "alternativa menos rotación actual"** (red embudo, años nuevos), antes → ahora:
-  - índice de agua de "Proteger": error típico de ±4.5 → **±7.0 puntos** (peor), con el signo correcto en 77 % → **68 %** de los casos (peor);
-  - índice de agua de "Extra (secano)": ±6.1 → ±7.3 puntos, signo correcto 91 % → 92 %;
-  - índice de agua de "Extra (riego)": ±7.1 → ±7.8 puntos, signo correcto 91 % → 97 %;
-  - suelo desnudo de "Proteger": ±2.7 → ±3.0 días (algo peor), signo correcto 93 % → 97 % (mejor).
-- La diferencia de "Proteger" en el índice de agua es hoy la medida menos confiable del emulador: se equivoca de signo en 1 de cada 3 casos.
+  | Modelo | Alternativa | Índice de agua: error (puntos) | signo correcto | Suelo desnudo: error (días) | signo correcto |
+  |---|---|---|---|---|---|
+| Red embudo | Proteger | ±7.0 → ±5.9 | 68 % → 68 % | ±3.0 → ±2.4 | 97 % → 91 % |
+| Red embudo | Extra (secano) | ±7.3 → ±7.2 | 92 % → 91 % | ±3.0 → ±2.5 | 99 % → 95 % |
+| Red embudo | Extra (riego) | ±7.8 → ±7.2 | 97 % → 97 % | ±2.6 → ±2.1 | 91 % → 96 % |
+| ELM | Proteger | ±7.4 → ±7.0 | 67 % → 71 % | ±2.7 → ±2.8 | 94 % → 95 % |
+| ELM | Extra (secano) | ±7.7 → ±7.9 | 90 % → 91 % | ±2.6 → ±2.7 | 96 % → 95 % |
+| ELM | Extra (riego) | ±7.1 → ±7.0 | 94 % → 96 % | ±2.3 → ±2.7 | 96 % → 93 % |
+| ELM del navegador | Proteger | ±7.6 → ±7.3 | 65 % → 64 % | ±3.7 → ±3.7 | 97 % → 99 % |
+| ELM del navegador | Extra (secano) | ±8.8 → ±9.2 | 89 % → 87 % | ±3.8 → ±3.8 | 96 % → 99 % |
+| ELM del navegador | Extra (riego) | ±7.5 → ±7.3 | 98 % → 97 % | ±3.4 → ±3.6 | 95 % → 93 % |
+
+  - La red embudo mejora el error del índice de agua en las tres alternativas, pero **el signo correcto de "Proteger" en el índice de agua no cambia** (68 %) y el de "Extra (secano)" baja un poco (92 % → 91 %).
+  - **Empeoró** en la red embudo el signo correcto del suelo desnudo de "Proteger" (97 % → 91 %) y de "Extra (secano)" (99 % → 95 %), aunque su error en días bajó. En la ELM empeoraron el error del suelo desnudo en las tres alternativas y el signo de "Extra (secano)" (96 % → 95 %) y de "Extra (riego)" (96 % → 93 %). En la ELM del navegador empeoraron el error y el signo del índice de agua de "Extra (secano)" (±8.8 → ±9.2 puntos; 89 % → 87 %), el error y el signo del suelo desnudo de "Extra (riego)" (±3.4 → ±3.6 días; 95 % → 93 %) y el signo de "Extra (riego)" en el índice de agua (98 % → 97 %).
+- La diferencia de "Proteger" en el índice de agua sigue siendo la medida menos confiable del emulador: la red embudo se equivoca de signo en 1 de cada 3 casos (68 % correcto) y la ELM en 29 % de los casos.
 - El agua en floración del maíz es idéntica entre rotaciones por construcción (el maíz es el mismo), así que no sirve para compararlas.
 
 ## Costo
 
 | | Red embudo | ELM (1,500) |
 |---|---|---|
-| Tiempo de entrenamiento | 9.9 s en GPU (RTX 4050, CUDA) · 4.9 s en CPU | 47 s en JavaScript puro (no comparable) |
-| Memoria de entrenamiento (calculada) | 0.34 MB | 17.5 MB |
-| Tiempo por predicción | 9.7 µs | 52.3 µs |
-| Velocidad frente al simulador (321 µs por año) | 33× por predicción, 7.8× de punta a punta | 6× por predicción, 3.7× de punta a punta |
+| Tiempo de entrenamiento | 23.9 s en GPU (RTX 4050, CUDA) · 6.9 s en CPU | 45 s en JavaScript puro (no comparable) |
+| Memoria de entrenamiento (calculada) | 0.35 MB | 17.6 MB |
+| Tiempo por predicción | 9.5 µs | 57.7 µs |
+| Velocidad frente al simulador (394 µs por año) | 42× por predicción, 7.7× de punta a punta | 6.8× por predicción, 3.3× de punta a punta |
 
-- Antes: 8.8 s GPU / 4.3 s CPU; ELM 51 s; 12.6 µs y 72.6 µs por predicción; simulador 384 µs por año. Los tiempos dependen de la máquina y de lo que estuviera corriendo: las diferencias pequeñas no son una mejora real. La memoria calculada no cambió.
-- La GPU sigue siendo más lenta que la CPU para esta red tan pequeña. Los 4.9 s de CPU salen de una corrida aparte, con los mismos datos, cuyos pesos no se guardan.
+- Antes (`88c879f`): 9.9 s GPU / 4.9 s CPU; ELM 47 s; 9.7 µs y 52.3 µs por predicción; simulador 321 µs por año; 33× y 6× por predicción, 7.8× y 3.7× de punta a punta. Los tiempos dependen de la máquina y de lo que estuviera corriendo (el simulador no cambió y midió 394 µs en lugar de 321 µs), así que las diferencias pequeñas no son reales y los factores de velocidad no se pueden comparar con exactitud. **Más lento:** la red embudo tardó más en entrenar (48 épocas contra 34: 23.9 s en GPU y 6.9 s en CPU) y la preparación de entradas de punta a punta cuesta más (51 µs contra 41 µs por año con la red embudo; 119 µs contra 87 µs con la ELM), porque ahora se calculan también `apiFlower` y `storeProxy`. Parámetros: 4,323 → 4,451 la red embudo y 43,500 → 46,500 la ELM (27 entradas); la memoria calculada casi no cambia (0.339 → 0.345 MB y 17.53 → 17.56 MB).
+- La GPU sigue siendo más lenta que la CPU para esta red tan pequeña. Los 6.9 s de CPU salen de una corrida aparte, con los mismos datos, cuyos pesos no se guardan.
 - Para acercarse a la red embudo, la ELM necesita muchas más neuronas y unas 50 veces más memoria. Su ventaja es la sencillez: no usa backpropagation y la versión de 600 neuronas se entrena en el navegador en ~1 s.
 
 ## Juez independiente (AquaCrop)
@@ -210,14 +262,17 @@ Con otro producto de lluvia el orden de los años del simulador cambia mucho (Sp
 - Varios municipios comparten celda de clima. Salamá, Rabinal, Cubulco y San Martín Jilotepeque usan una celda a 1,516 m; los tres valles de Baja Verapaz están a unos 950 m.
 - El índice de agua promedia los cultivos de comida de cada rotación, así que no es comparable entre rotaciones con cultivos distintos.
 - Un cultivo que no termina su ciclo dentro del año agrícola cuenta como rendimiento 0.
-- **Empeoró:** el R² del índice de agua en años nuevos (todos los modelos) y el error de la diferencia "Proteger" en el índice de agua (ver arriba).
+- **Empeoró en la ronda del cambio del simulador:** el R² del índice de agua en años nuevos (todos los modelos) y el error de la diferencia "Proteger" en el índice de agua. **Empeoró con las entradas de agua antecedente:** el R² del suelo desnudo de las dos ELM, el signo correcto de la diferencia de suelo desnudo en la red embudo para "Proteger" y "Extra (secano)", y los tiempos (ver Costo).
+- **Meta no cumplida:** la ELM sigue bajo 0.8 en años nuevos (0.763 y 0.796). Las entradas nuevas se diseñaron después de conocer resultados de prueba anteriores; la evaluación de prueba final fue una sola.
+- `storeProxy` usa un tope fijo de 150 mm para todo suelo: es un indicador sin suelo, no el balance del simulador.
 
 ## Cómo reproducir
 
 ```bash
-npm test                                             # 178 pruebas (1 pendiente: la meta de R²)
+npm test                                             # 184 pruebas (1 pendiente: la meta de R² de la ELM)
 node scripts/emulator/fetch_points.mjs               # descarga clima de los 20 puntos (NASA POWER + ERA5); ya hecho, usa cachés
 node scripts/emulator/generate.mjs                   # genera los 50,000 ejemplos (guarda commit, lluvia y fecha)
+node scripts/emulator/build_screening_superset.mjs && python scripts/emulator/screen_features.py   # cribado en validación de las entradas de agua antecedente (sin filas de prueba)
 python scripts/emulator/train_mlp.py --device cpu --out <tmp>/mlp_cpu.json                     # tiempo de CPU
 python scripts/emulator/train_mlp.py --device cuda --cpu-timing <tmp>/mlp_cpu.json             # red embudo (pesos de esta corrida)
 node --expose-gc scripts/emulator/evaluate.mjs       # barrido de la ELM y todas las métricas
