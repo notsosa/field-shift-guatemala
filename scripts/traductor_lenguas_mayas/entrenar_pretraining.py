@@ -23,7 +23,8 @@ import random
 from itertools import chain
 from pathlib import Path
 
-from comun import CORPUS, LENGUAS, MAYAS, MODELO_BASE, MODELOS, config_lora, dispositivo_y_dtype, fusionar_y_guardar
+from comun import (CORPUS, LENGUAS, MAYAS, MODELO_BASE, MODELOS, callback_limite_tiempo, config_lora,
+                   dispositivo_y_dtype, evitar_suspension, fusionar_y_guardar, ultimo_checkpoint)
 
 
 def cargar_docs(lenguas, max_docs, alpha, seed):
@@ -80,6 +81,8 @@ def main():
     ap.add_argument("--alpha-muestreo", type=float, default=0.5)
     ap.add_argument("--max-docs", type=int, default=0, help="limitar documentos por lengua (pruebas)")
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--max-horas", type=float, default=0, help="parar (guardando) tras N horas; 0 = sin límite")
+    ap.add_argument("--save-pasos", type=int, default=200, help="cada cuántos pasos evaluar y guardar checkpoint")
     a = ap.parse_args()
 
     import torch
@@ -110,12 +113,17 @@ def main():
         output_dir=str(salida / "checkpoints"), num_train_epochs=a.epocas, max_steps=a.max_pasos,
         per_device_train_batch_size=a.batch, per_device_eval_batch_size=a.batch,
         gradient_accumulation_steps=a.grad_accum, learning_rate=a.lr, lr_scheduler_type="cosine",
-        warmup_steps=0.03, weight_decay=0.0, logging_steps=10, eval_strategy="steps", eval_steps=200,
-        save_steps=200, save_total_limit=2, bf16=bf16, fp16=fp16, report_to="none", seed=a.seed,
+        warmup_steps=0.03, weight_decay=0.0, logging_steps=10, eval_strategy="steps", eval_steps=a.save_pasos,
+        save_steps=a.save_pasos, save_total_limit=2, bf16=bf16, fp16=fp16, report_to="none", seed=a.seed,
     )
     trainer = Trainer(model=model, args=args, train_dataset=ds["train"], eval_dataset=ds["test"],
                       data_collator=DataCollatorForLanguageModeling(tok, mlm=False))
-    trainer.train()
+    trainer.add_callback(callback_limite_tiempo(a.max_horas))
+    reanudar = ultimo_checkpoint(salida / "checkpoints")
+    if reanudar:
+        print(f"Reanudando desde {reanudar}")
+    evitar_suspension(True)
+    trainer.train(resume_from_checkpoint=reanudar)
     m = trainer.evaluate()
     print(f"Perplejidad en eval: {math.exp(m['eval_loss']):.2f}")
     fusionar_y_guardar(trainer.model, tok, salida / "final")   # la etapa 2 parte de aquí

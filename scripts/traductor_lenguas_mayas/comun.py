@@ -150,3 +150,38 @@ def generar(model, tok, mensajes: list[dict], n: int = 1, max_new_tokens: int = 
         )
     largo = enc["input_ids"].shape[1]
     return [tok.decode(o[largo:], skip_special_tokens=True).strip() for o in out]
+
+
+# ------------------------------------------------------- entrenamiento largo
+def callback_limite_tiempo(horas: float):
+    """Detiene el entrenamiento limpiamente (guardando checkpoint) al pasar `horas`. 0 = sin límite."""
+    import time
+    from transformers import TrainerCallback
+
+    class LimiteTiempo(TrainerCallback):
+        def on_train_begin(self, args, state, control, **kw):
+            self.t0 = time.time()
+
+        def on_step_end(self, args, state, control, **kw):
+            if horas and time.time() - self.t0 > horas * 3600:
+                print(f"\n⏱ Se alcanzó el límite de {horas} h en el paso {state.global_step}: guardando y cerrando.")
+                control.should_save = True
+                control.should_training_stop = True
+            return control
+
+    return LimiteTiempo()
+
+
+def ultimo_checkpoint(carpeta: Path):
+    """Ruta del checkpoint más reciente (para reanudar si se apagó la computadora), o None."""
+    from transformers.trainer_utils import get_last_checkpoint
+    return get_last_checkpoint(str(carpeta)) if Path(carpeta).is_dir() else None
+
+
+def evitar_suspension(activar: bool = True):
+    """En Windows pide que el equipo no se suspenda mientras este proceso entrena (no cambia la configuración)."""
+    import sys
+    if sys.platform == "win32":
+        import ctypes
+        ES_CONTINUOUS, ES_SYSTEM_REQUIRED = 0x80000000, 0x00000001
+        ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS | (ES_SYSTEM_REQUIRED if activar else 0))

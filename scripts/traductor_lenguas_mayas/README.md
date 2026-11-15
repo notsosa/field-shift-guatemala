@@ -69,6 +69,19 @@ python entrenar_pretraining.py --modelo HuggingFaceTB/SmolLM2-135M-Instruct --ma
 python entrenar_sft.py --max-ejemplos 64 --max-pasos 3 --max-eval 6
 ```
 
+### Entrenar de noche en una computadora sin GPU
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\traductor_lenguas_mayas\iniciar_entrenamiento_noche.ps1 -Horas 8
+Get-Content modelos\logs\ESTADO.txt          # ver en qué va
+```
+
+[entrenar_noche.py](entrenar_noche.py) corre en segundo plano con la ventana oculta y pide a Windows que no se suspenda. En CPU solo hace el SFT de traducción, con límite de horas y un checkpoint cada 25 pasos (unos 35 min). Si la computadora se apaga, vuelve a lanzarlo y sigue desde el último checkpoint. Al terminar evalúa y registra el modelo, y `probar_modelo.py` lo usa directamente.
+
+Medido en una laptop de 8 núcleos con Qwen2.5-0.5B: unos 5 s por ejemplo, o sea ~5 500 ejemplos en 8 h (≈ 38 % de una época de traducción). Para el entrenamiento completo usa GPU (ver [ESTADISTICAS.md del repo privado](https://github.com/mariobet23440/lenguas-mayas-corpus/blob/main/ESTADISTICAS.md)).
+
+Para generar las estadísticas de los datos: `python estadisticas_datos.py`. Escribe `ESTADISTICAS.md` en el repo privado.
+
 ## Aprendizaje continuo con feedback humano (HFRL) en una app de teléfono
 
 El modelo **no se entrena dentro del teléfono**. El entrenamiento necesita GPU y debe controlarse antes de publicar. El teléfono solo hace dos cosas: muestra respuestas y recoge opiniones. Todo lo demás pasa en el servidor, en un ciclo:
