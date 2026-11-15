@@ -24,6 +24,7 @@ El proyecto busca ayudar al finquero a comparar secuencias de cultivos en una mi
 | [Tareas](proyecto/tasks.md) | Tablero de tareas para la entrega, con estatus y responsable. |
 | [Decisiones](proyecto/decisions.md) | Decisiones pendientes, opciones y recomendación. |
 | [Datasets](proyecto/datasets.md) | Datos que usa el proyecto, propósito, estado y enlace de acceso. |
+| [Motor gráfico 2D/3D](graphics/README.md) · [Handoff gráfico](graphics/HANDOFF.md) | Visor topográfico y agroclimático WebGL Ultra-HD (`localhost:8090`), servidor local y guía de handoff. |
 | [Diccionarios](diccionarios/README.md) | Vocabulario agrícola y gramática básica de k'iche', q'eqchi', kaqchikel y mam para traducir la app. |
 
 ## Estructura del repositorio
@@ -35,6 +36,7 @@ El proyecto busca ayudar al finquero a comparar secuencias de cultivos en una mi
 | `docs/` | Documentos de diseño de la app. |
 | `diccionarios/` | Idiomas mayas para la interfaz. |
 | `scripts/` | Descarga de datos: NASA POWER, CHIRPS/IMERG (ClimateSERV), JAXA (GSMaP, AW3D30), SoilGrids, ESA WorldCover y MAGA. |
+| `graphics/` | Motor gráfico interactivo 2D ⟷ 3D WebGL Ultra-HD (`topo3d.html`), servidor local (`servidor_topo3d.py`), documentación (`README.md`) y handoff (`HANDOFF.md`). |
 | `datos/` | Datos descargados para la parcela piloto provisional, cada uno con su `.meta.json` de procedencia. |
 
 Para correr los scripts: `py -3.12 -m venv .venv`, `.venv/Scripts/python -m pip install -r requirements.txt` y luego `.venv/Scripts/python scripts/<script>.py --lat <lat> --lon <lon> --nombre <parcela>`. `descargar_power.py` funciona sin instalar nada.

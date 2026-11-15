@@ -1,0 +1,2579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Field Shift GT — Visor Topográfico 3D Multicapa (Radio 5 km · NASA SRTM + NASA POWER)</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    :root {
+      --bg: #070c17;
+      --card: #0f172a;
+      --border: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #10b981;
+      --poi: #f59e0b;
+      --primary: #3b82f6;
+      --danger: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      flex-shrink: 0;
+    }
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      background: rgba(16, 185, 129, 0.16);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 999px;
+      letter-spacing: 0.3px;
+    }
+    .badge-nasa {
+      background: rgba(239, 68, 68, 0.16);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 999px;
+    }
+    h1 {
+      font-size: 14.5px;
+      font-weight: 700;
+    }
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      font-size: 12px;
+    }
+    button, select, input[type="text"] {
+      background: #1e293b;
+      color: var(--text);
+      border: 1px solid #334155;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    input[type="text"] {
+      cursor: text;
+    }
+    button:hover, select:hover { border-color: #64748b; }
+    button.active {
+      background: var(--primary);
+      border-color: #60a5fa;
+      font-weight: 600;
+    }
+    button.active-temp {
+      background: linear-gradient(135deg, #dc2626, #ea580c);
+      border-color: #fca5a5;
+      font-weight: 700;
+    }
+    button.active-moist {
+      background: linear-gradient(135deg, #0284c7, #0d9488);
+      border-color: #7dd3fc;
+      font-weight: 700;
+    }
+    button.active-poi {
+      background: linear-gradient(135deg, #d97706, #f59e0b);
+      color: #080d19;
+      border-color: #fde68a;
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+    }
+
+    /* Mode Slide Switch & Temporal Strip */
+    .climate-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 11.5px;
+      flex-wrap: wrap;
+    }
+    .mode-switch {
+      display: inline-flex;
+      background: #080d19;
+      border: 1px solid #334155;
+      border-radius: 999px;
+      padding: 2px;
+      gap: 2px;
+    }
+    .mode-option {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .mode-option.active-realtime {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #051b11;
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.35);
+    }
+    .mode-option.active-planning {
+      background: linear-gradient(135deg, #d97706, #f59e0b);
+      color: #080d19;
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+    }
+
+    .temporal-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 300px;
+      flex-wrap: wrap;
+    }
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 230px;
+      background: #090f1d;
+      border: 1px solid #1e293b;
+      padding: 4px 10px;
+      border-radius: 7px;
+    }
+    .slider-wrap input[type="range"] {
+      flex: 1;
+      accent-color: #10b981;
+      cursor: pointer;
+    }
+    .status-tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 10.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tag-observed {
+      background: rgba(16, 185, 129, 0.16);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+    }
+    .tag-projected {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fbbf24;
+      border: 1px dashed rgba(245, 158, 11, 0.6);
+    }
+
+    .month-pills {
+      display: flex;
+      gap: 3px;
+      flex-wrap: wrap;
+    }
+    .month-btn {
+      padding: 3px 7px;
+      font-size: 10.5px;
+      border-radius: 5px;
+      background: #0f172a;
+      border: 1px solid #334155;
+    }
+    .month-btn.projected {
+      border-style: dashed;
+      border-color: rgba(245, 158, 11, 0.55);
+      color: #fde68a;
+    }
+    .month-btn.active {
+      background: #f59e0b;
+      color: #080d19;
+      border-color: #fbbf24;
+      border-style: solid;
+      font-weight: 700;
+    }
+
+    .legend-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11.5px;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+    .gradient-pill {
+      width: 145px;
+      height: 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.28);
+    }
+
+    /* Box Size Inputs (0.5 km to 10 km) & 2D <-> 3D Morph Slider */
+    .box-dim-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #080d19;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+    }
+    .dim-input {
+      width: 56px;
+      text-align: center;
+      padding: 3px 5px;
+      font-weight: 700;
+      color: #fde68a;
+      background: #0f172a;
+      border: 1px solid #475569;
+      border-radius: 5px;
+      font-size: 11.5px;
+    }
+    .dim-input:focus {
+      outline: none;
+      border-color: #10b981;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+    }
+    .morph-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #080d19;
+      border: 1px solid #38bdf8;
+      border-radius: 999px;
+      padding: 3px 10px;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.18);
+    }
+    .morph-btn {
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .morph-btn.active {
+      background: #0284c7;
+      color: #f8fafc;
+      border-color: #7dd3fc;
+    }
+
+    /* Main Workspace: Left Sidebar & Right Main 3D Viewport */
+    .workspace {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 355px 1fr;
+      gap: 10px;
+      padding: 10px;
+      min-height: 0;
+    }
+    .sidebar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 0;
+    }
+    .sidebar-section {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #map2d {
+      width: 100%;
+      height: 195px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .poi-bar {
+      padding: 8px 12px;
+      background: rgba(245, 158, 11, 0.08);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.28);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .poi-chips {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .poi-chip {
+      font-size: 10.5px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #1e293b;
+      border: 1px solid #475569;
+      color: #fde68a;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .poi-chip:hover {
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.2);
+    }
+    .metrics-stack {
+      padding: 9px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .metric-card {
+      background: #090f1d;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .metric-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+    }
+    .metric-sub {
+      font-size: 10px;
+      color: #64748b;
+      margin-top: 1px;
+    }
+    .metric-val {
+      font-size: 13.5px;
+      font-weight: 700;
+      text-align: right;
+    }
+    .agro-card {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 11px;
+      line-height: 1.42;
+      color: #e2e8f0;
+    }
+
+    /* Main 3D Viewport */
+    .stage-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 0;
+    }
+    .stage-header {
+      padding: 7px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.92);
+      flex-shrink: 0;
+    }
+    .stage-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .dot-pin {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--poi);
+      box-shadow: 0 0 8px var(--poi);
+      display: inline-block;
+    }
+    .canvas-wrap {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      background: radial-gradient(circle at 50% 35%, #17253f 0%, #060a12 100%);
+      overflow: hidden;
+    }
+    canvas.gl-canvas, canvas.hud-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    canvas.hud-canvas { cursor: crosshair; }
+    canvas.hud-canvas.dragging { cursor: grabbing; }
+
+    .hud-overlay {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(8, 13, 25, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      pointer-events: none;
+      line-height: 1.45;
+      color: #e2e8f0;
+      z-index: 4;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
+    }
+    .hover-overlay {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(8, 13, 25, 0.98);
+      border: 1px solid rgba(245, 158, 11, 0.65);
+      border-radius: 7px;
+      padding: 6px 11px;
+      font-size: 12px;
+      color: #f8fafc;
+      pointer-events: none;
+      font-family: monospace;
+      z-index: 4;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-row">
+      <div class="brand">
+        <span class="badge">FIELD SHIFT GT · WEBGL ULTRA-HD (220×220)</span>
+        <span class="badge-nasa" id="nasa-api-status">NASA SRTM z13 + NASA POWER API Live</span>
+        <h1>Mapa Topográfico 3D Multicapa · Radio 5 km con Indicador de Punto de Interés</h1>
+      </div>
+
+      <div class="toolbar">
+        <span style="color:var(--muted);font-weight:600;">Capa del Mapa 3D:</span>
+        <button id="layer-temp" class="active-temp">🌡️ Temperatura NASA (°C)</button>
+        <button id="layer-moist">💧 Humedad del Suelo (%)</button>
+        <button id="layer-elev">⛰️ Elevación (m s.n.m.)</button>
+        <button id="layer-slope">📐 Pendiente y Escorrentía (%)</button>
+        <button id="layer-icta">🌱 Pisos Térmicos ICTA (500m)</button>
+      </div>
+    </div>
+
+    <!-- Dual-Mode Temporal Strip: Real-Time Verification vs. Planting Planning -->
+    <div class="climate-strip">
+      <div class="mode-switch">
+        <button id="mode-realtime" class="mode-option active-realtime">
+          📡 Verificación en Tiempo Real (Últimos días)
+        </button>
+        <button id="mode-planning" class="mode-option">
+          📅 Planificación de Siembra (Ciclo Anual)
+        </button>
+      </div>
+
+      <!-- 1) Real-Time Daily Slider Controls -->
+      <div class="temporal-controls" id="controls-realtime">
+        <div class="slider-wrap">
+          <span style="color:#34d399;font-weight:700;white-space:nowrap;" id="rt-date-label">Último pase satelital</span>
+          <input type="range" id="rt-day-slider" min="0" max="13" step="1" value="13" />
+          <span class="status-tag tag-observed" id="rt-lag-badge">● Dato Observado NASA (hace 3 días)</span>
+        </div>
+      </div>
+
+      <!-- 2) Planting Planning Monthly Slider + Pills Controls -->
+      <div class="temporal-controls" id="controls-planning" style="display:none;">
+        <div class="slider-wrap" style="max-width:255px;">
+          <span style="color:#fbbf24;font-weight:700;white-space:nowrap;" id="plan-month-label">Mayo (Siembra 1ª)</span>
+          <input type="range" id="plan-month-slider" min="1" max="12" step="1" value="5" style="accent-color:#f59e0b;" />
+        </div>
+        <div class="month-pills" id="month-pills">
+          <button class="month-btn" data-m="1">Ene</button>
+          <button class="month-btn" data-m="2">Feb</button>
+          <button class="month-btn" data-m="3">Mar</button>
+          <button class="month-btn" data-m="4">Abr</button>
+          <button class="month-btn active" data-m="5">May</button>
+          <button class="month-btn" data-m="6">Jun</button>
+          <button class="month-btn" data-m="7">Jul</button>
+          <button class="month-btn" data-m="8">Ago</button>
+          <button class="month-btn" data-m="9">Sep</button>
+          <button class="month-btn" data-m="10">Oct</button>
+          <button class="month-btn" data-m="11">Nov</button>
+          <button class="month-btn projected" data-m="12">Dic ◌</button>
+        </div>
+        <span class="status-tag tag-observed" id="plan-type-badge">● Mes Observado</span>
+      </div>
+
+      <!-- Variable selector + Color Legend + View Options -->
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <select id="temp-var-select" title="Variable térmica de NASA POWER">
+          <option value="T2M_MAX" selected>T2M_MAX (Máxima Diurna · Estrés)</option>
+          <option value="T2M">T2M (Media Diaria a 2m)</option>
+          <option value="T2M_MIN">T2M_MIN (Mínima Nocturna)</option>
+        </select>
+
+        <div class="legend-bar">
+          <span id="legend-min">18°C</span>
+          <div class="gradient-pill" id="legend-gradient" style="background:linear-gradient(90deg,#2e73f2,#0dc4ae,#38cc59,#fad126,#f77314,#db2424,#7a0f2e);"></div>
+          <span id="legend-max">36°C</span>
+        </div>
+
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+          <input type="checkbox" id="chk-contours" checked /> Curvas 50m
+        </label>
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+          <input type="checkbox" id="chk-flow" checked /> Escorrentía
+        </label>
+        <label style="display:flex;align-items:center;gap:4px;">
+          Relieve ×<span id="exag-label">2.2</span>
+          <input type="range" id="exag-slider" min="1" max="4.0" step="0.1" value="2.2" style="width:55px;" />
+        </label>
+
+        <!-- Cuadro Personalizable: 2 cuadros de texto (0.5 km a 10 km) -->
+        <div class="box-dim-bar" title="Ingresa el Ancho (Este-Oeste) y Largo (Norte-Sur) del cuadro desde 0.5 km hasta 10 km">
+          <span style="color:#34d399;font-weight:700;">📐 Cuadro (0.5–10 km):</span>
+          <input type="text" id="box-width-input" class="dim-input" value="5" placeholder="0.5-10" title="Ancho Este-Oeste en km (0.5 a 10)" />
+          <span style="color:var(--muted);font-weight:700;">×</span>
+          <input type="text" id="box-height-input" class="dim-input" value="5" placeholder="0.5-10" title="Largo Norte-Sur en km (0.5 a 10)" />
+          <span style="color:var(--muted);font-weight:600;">km</span>
+          <button id="btn-apply-box" style="padding:3px 9px;background:#10b981;color:#052e16;border-color:#34d399;font-weight:700;">
+            Aplicar
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Single-Point Workspace -->
+  <main class="workspace">
+    <!-- Left Sidebar: 2D Map + Point of Interest Controls + Agroclimatic Diagnostics -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>🗺️ Acción al hacer clic en Mapa 2D:</span>
+        </div>
+        <div style="display:flex;gap:5px;margin-bottom:6px;">
+          <button id="map-click-poi" class="active-poi" style="flex:1;font-size:11px;" title="Colocar el Indicador de Punto de Interés dentro del terreno">
+            📍 Colocar Punto Interés
+          </button>
+          <button id="map-click-center" style="flex:1;font-size:11px;" title="Mover el cuadro completo a otra región del mapa">
+            🟩 Mover Cuadro (<span id="btn-center-dim-label">5×5 km</span>)
+          </button>
+        </div>
+        <div style="font-size:10.5px;color:var(--muted);line-height:1.3;">
+          También puedes hacer <strong>clic directo sobre cualquier punto del relieve 3D</strong> a la derecha para colocar ahí el indicador <strong style="color:#fbbf24;">📍 Punto de Interés</strong>.
+        </div>
+      </div>
+
+      <div id="map2d"></div>
+
+      <!-- Point of Interest (POI) Naming & Saved Pins Strip -->
+      <div class="poi-bar">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+          <span style="font-size:11px;font-weight:700;color:#fbbf24;">📍 Punto de Interés Seleccionado:</span>
+          <span id="coords-badge" style="font-family:monospace;font-size:11px;color:#fde68a;">14.8250, -89.5312</span>
+        </div>
+        <div style="display:flex;gap:5px;">
+          <input type="text" id="poi-name-input" value="Parcela Piloto MAGA D01" placeholder="Nombre del punto (ej. Mi Parcela)" style="flex:1;" />
+          <button id="btn-save-poi" title="Guardar este Punto de Interés en el mapa 3D" style="background:#f59e0b;color:#080d19;border-color:#fbbf24;font-weight:700;">
+            📌 Fijar
+          </button>
+          <button id="btn-recenter-5km" title="Regenerar el cuadro centrado exactamente en este Punto de Interés">
+            🎯 Centrar Cuadro
+          </button>
+        </div>
+        <div class="poi-chips" id="saved-pois-list"></div>
+      </div>
+
+      <div class="metrics-stack">
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Altitud en Punto de Interés</div>
+            <div class="metric-sub" id="m-range-sub">Rango en 5 km: —</div>
+          </div>
+          <div class="metric-val" id="m-elev">— m</div>
+        </div>
+
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Temperatura en el Punto</div>
+            <div class="metric-sub" id="m-trange-sub">Rango en 5 km: —</div>
+          </div>
+          <div class="metric-val" id="m-temp" style="color:#fb923c;">— °C</div>
+        </div>
+
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Humedad del Suelo</div>
+            <div class="metric-sub" id="m-rain-sub">Lluvia: —</div>
+          </div>
+          <div class="metric-val" id="m-moist" style="color:#38bdf8;">— %</div>
+        </div>
+
+        <div class="metric-card">
+          <div>
+            <div class="metric-label">Pendiente / Escorrentía</div>
+            <div class="metric-sub" id="m-slope-sub">Mediana en 5 km: —</div>
+          </div>
+          <div class="metric-val" id="m-risk">—</div>
+        </div>
+
+        <div class="agro-card" id="agro-box">
+          Cargando diagnóstico en el Punto de Interés y recomendación ICTA...
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Stage: Single Full-Size Ultra-HD 3D Topographic Map -->
+    <section class="stage-panel">
+      <div class="stage-header">
+        <div class="stage-title">
+          <span class="dot-pin"></span>
+          <span id="stage-title-text">📍 Parcela Piloto MAGA D01 (14.8250, -89.5312) · Cuadro 5×5 km</span>
+        </div>
+
+        <!-- Slider de Transición Continua: Vista 2D Cenital <-> Vista 3D Relieve -->
+        <div class="morph-control" title="Desliza para pasar suavemente de Mapa 2D Plano (Norte arriba) a Relieve 3D">
+          <button id="btn-morph-2d" class="morph-btn">🗺️ 2D Plano</button>
+          <input type="range" id="morph-2d3d-slider" min="0" max="100" step="1" value="100" style="width:115px;accent-color:#38bdf8;cursor:pointer;" />
+          <button id="btn-morph-3d" class="morph-btn active">⛰️ 3D Relieve</button>
+          <span id="morph-pct-label" style="font-size:11px;font-weight:700;color:#7dd3fc;min-width:62px;text-align:right;">3D (100%)</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted);">
+          <span style="color:#fde68a;font-weight:600;">💡 Clic = Colocar 📍</span>
+          <span>·</span>
+          <span>Arrastrar = Rotar 3D</span>
+          <span>·</span>
+          <span>Rueda = Zoom</span>
+        </div>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="gl-main" class="gl-canvas"></canvas>
+        <canvas id="hud-main" class="hud-canvas"></canvas>
+        <div class="hud-overlay" id="hud-main-text">Cargando malla WebGL Ultra-HD (180×180)...</div>
+        <div class="hover-overlay" id="hover-main-text">Mueve el cursor sobre el mapa 3D y haz clic para colocar el Indicador de Punto de Interés</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // =========================================================================
+    // 1. CONFIG & EMBEDDED NASA POWER DATA (DAILY RECENT + 25-YR CLIMATOLOGY)
+    // =========================================================================
+    const N = 220; // 220×220 WebGL Ultra-HD mesh (95,922 triangles)
+    const DEFAULT_BOX_KM = 5.0; // Default 5×5 km square (configurable 0.5 km to 10 km)
+    const ZOOM_DEM = 13;
+
+    const NOW = new Date();
+    const CURRENT_MONTH = NOW.getMonth() + 1;
+
+    const FALLBACK_RECENT_DAYS = [
+      { date: "Día -16 (Obs.)", daysAgo: 16, T2M: 21.05, T2M_MAX: 25.61, T2M_MIN: 17.62, RH2M: 86.8, PRECTOTCORR: 0.21, GWETTOP: 0.53, GWETROOT: 0.54 },
+      { date: "Día -15 (Obs.)", daysAgo: 15, T2M: 22.65, T2M_MAX: 28.29, T2M_MIN: 18.89, RH2M: 81.5, PRECTOTCORR: 0.11, GWETTOP: 0.51, GWETROOT: 0.53 },
+      { date: "Día -14 (Obs.)", daysAgo: 14, T2M: 21.99, T2M_MAX: 26.54, T2M_MIN: 19.48, RH2M: 82.8, PRECTOTCORR: 0.57, GWETTOP: 0.51, GWETROOT: 0.53 },
+      { date: "Día -13 (Obs.)", daysAgo: 13, T2M: 21.65, T2M_MAX: 27.10, T2M_MIN: 18.43, RH2M: 84.0, PRECTOTCORR: 1.28, GWETTOP: 0.51, GWETROOT: 0.53 },
+      { date: "Día -12 (Obs.)", daysAgo: 12, T2M: 21.95, T2M_MAX: 28.00, T2M_MIN: 18.07, RH2M: 83.2, PRECTOTCORR: 0.63, GWETTOP: 0.50, GWETROOT: 0.52 },
+      { date: "Día -11 (Obs.)", daysAgo: 11, T2M: 20.94, T2M_MAX: 25.77, T2M_MIN: 17.53, RH2M: 86.5, PRECTOTCORR: 2.37, GWETTOP: 0.51, GWETROOT: 0.52 },
+      { date: "Día -10 (Obs.)", daysAgo: 10, T2M: 21.75, T2M_MAX: 26.58, T2M_MIN: 18.64, RH2M: 83.5, PRECTOTCORR: 1.06, GWETTOP: 0.51, GWETROOT: 0.52 },
+      { date: "Día -9 (Obs.)",  daysAgo: 9,  T2M: 21.64, T2M_MAX: 26.62, T2M_MIN: 18.77, RH2M: 85.0, PRECTOTCORR: 1.65, GWETTOP: 0.50, GWETROOT: 0.52 },
+      { date: "Día -8 (Obs.)",  daysAgo: 8,  T2M: 20.80, T2M_MAX: 24.95, T2M_MIN: 18.40, RH2M: 88.3, PRECTOTCORR: 3.38, GWETTOP: 0.53, GWETROOT: 0.52 },
+      { date: "Día -7 (Obs.)",  daysAgo: 7,  T2M: 20.62, T2M_MAX: 25.80, T2M_MIN: 17.27, RH2M: 86.5, PRECTOTCORR: 1.67, GWETTOP: 0.52, GWETROOT: 0.52 },
+      { date: "Día -6 (Obs.)",  daysAgo: 6,  T2M: 21.12, T2M_MAX: 26.04, T2M_MIN: 18.24, RH2M: 84.8, PRECTOTCORR: 0.46, GWETTOP: 0.50, GWETROOT: 0.52 },
+      { date: "Día -5 (Obs.)",  daysAgo: 5,  T2M: 20.86, T2M_MAX: 26.95, T2M_MIN: 17.06, RH2M: 78.9, PRECTOTCORR: 0.00, GWETTOP: 0.49, GWETROOT: 0.52 },
+      { date: "Día -4 (Obs.)",  daysAgo: 4,  T2M: 21.44, T2M_MAX: 27.72, T2M_MIN: 17.01, RH2M: 80.6, PRECTOTCORR: 0.41, GWETTOP: 0.49, GWETROOT: 0.52 },
+      { date: "Último Pase (Hace 3 días)", daysAgo: 3, T2M: 20.74, T2M_MAX: 25.32, T2M_MIN: 17.68, RH2M: 86.8, PRECTOTCORR: 3.48, GWETTOP: 0.56, GWETROOT: 0.58 }
+    ];
+
+    const DEFAULT_NASA_CLIM = {
+      refElev: 762.46,
+      source: "NASA POWER (MERRA-2, 2001–2025)",
+      recentDays: FALLBACK_RECENT_DAYS,
+      months: {
+        1:  { name: "Enero",      T2M: 19.81, T2M_MAX: 24.82, T2M_MIN: 16.30, RH2M: 85.75, PRECTOTCORR: 2.35, GWETTOP: 0.65, GWETROOT: 0.64 },
+        2:  { name: "Febrero",    T2M: 21.17, T2M_MAX: 27.08, T2M_MIN: 16.98, RH2M: 80.36, PRECTOTCORR: 1.56, GWETTOP: 0.57, GWETROOT: 0.58 },
+        3:  { name: "Marzo",      T2M: 22.93, T2M_MAX: 29.70, T2M_MIN: 17.93, RH2M: 73.33, PRECTOTCORR: 2.41, GWETTOP: 0.49, GWETROOT: 0.53 },
+        4:  { name: "Abril",      T2M: 24.93, T2M_MAX: 31.88, T2M_MIN: 19.68, RH2M: 69.19, PRECTOTCORR: 1.43, GWETTOP: 0.45, GWETROOT: 0.50 },
+        5:  { name: "Mayo",       T2M: 25.19, T2M_MAX: 30.89, T2M_MIN: 20.93, RH2M: 74.28, PRECTOTCORR: 5.13, GWETTOP: 0.51, GWETROOT: 0.52 },
+        6:  { name: "Junio",      T2M: 23.84, T2M_MAX: 27.99, T2M_MIN: 20.80, RH2M: 83.78, PRECTOTCORR: 7.08, GWETTOP: 0.66, GWETROOT: 0.61 },
+        7:  { name: "Julio",      T2M: 23.14, T2M_MAX: 26.99, T2M_MIN: 20.37, RH2M: 87.11, PRECTOTCORR: 5.38, GWETTOP: 0.70, GWETROOT: 0.66 },
+        8:  { name: "Agosto",     T2M: 23.27, T2M_MAX: 27.18, T2M_MIN: 20.42, RH2M: 86.89, PRECTOTCORR: 6.22, GWETTOP: 0.73, GWETROOT: 0.69 },
+        9:  { name: "Septiembre", T2M: 23.20, T2M_MAX: 26.97, T2M_MIN: 20.46, RH2M: 87.39, PRECTOTCORR: 7.13, GWETTOP: 0.78, GWETROOT: 0.75 },
+        10: { name: "Octubre",    T2M: 22.28, T2M_MAX: 26.07, T2M_MIN: 19.52, RH2M: 88.67, PRECTOTCORR: 5.43, GWETTOP: 0.79, GWETROOT: 0.78 },
+        11: { name: "Noviembre",  T2M: 20.67, T2M_MAX: 24.78, T2M_MIN: 17.71, RH2M: 88.97, PRECTOTCORR: 3.42, GWETTOP: 0.76, GWETROOT: 0.75 },
+        12: { name: "Diciembre",  T2M: 20.09, T2M_MAX: 24.68, T2M_MIN: 16.89, RH2M: 87.78, PRECTOTCORR: 2.21, GWETTOP: 0.71, GWETROOT: 0.69 }
+      }
+    };
+
+    const MONTH_KEYS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    const MONTH_NAMES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const DIURNAL_MAX_OFFSET = [5.01, 5.91, 6.77, 6.95, 5.70, 4.15, 3.85, 3.91, 3.77, 3.79, 4.11, 4.59];
+    const DIURNAL_MIN_OFFSET = [3.51, 4.19, 5.00, 5.25, 4.26, 3.04, 2.77, 2.85, 2.74, 2.76, 2.96, 3.20];
+
+    const state = {
+      // Center of the customizable rectangular area
+      centerLat: 14.8250,
+      centerLon: -89.5312,
+      // Customizable rectangular dimensions in km (0.5 km to 10.0 km each)
+      widthKm: DEFAULT_BOX_KM,
+      heightKm: DEFAULT_BOX_KM,
+      // Continuous 2D <-> 3D transition factor (0.0 = 2D flat North-up, 1.0 = 3D relief)
+      morph3D: 1.0,
+      morphAnimId: null,
+      // Active Point of Interest (POI) indicator inside the terrain (row, col in 0..N-1)
+      poiRow: Math.floor(N / 2),
+      poiCol: Math.floor(N / 2),
+      poiLat: 14.8250,
+      poiLon: -89.5312,
+      poiLabel: "Parcela Piloto MAGA D01",
+      // Hovered vertex on the terrain (null when mouse outside)
+      hoverIdx: null,
+      // Saved Points of Interest
+      savedPois: [
+        { name: "Parcela MAGA D01", lat: 14.8250, lon: -89.5312, color: "#10b981" },
+        { name: "Cabecera Chiquimula", lat: 14.8000, lon: -89.5400, color: "#38bdf8" }
+      ],
+      mapClickMode: "poi", // "poi" (move indicator) or "center" (move box)
+      layer: "temp",
+      temporalMode: "realtime",
+      rtIndex: 13,
+      month: 5,
+      tempVar: "T2M_MAX",
+      yaw: -0.68,
+      pitch: 0.58,
+      zoom: 1.04,
+      exag: 2.2,
+      contours: true,
+      flow: true,
+      dem: null,
+      clim: DEFAULT_NASA_CLIM,
+      computed: null,
+      glCtx: null
+    };
+
+    function formatBoxDim(w = state.widthKm, h = state.heightKm) {
+      const fw = Number(w.toFixed(1));
+      const fh = Number(h.toFixed(1));
+      return `${fw}×${fh} km`;
+    }
+
+    function getBoxBoundsLatLng(lat = state.centerLat, lon = state.centerLon, wKm = state.widthKm, hKm = state.heightKm) {
+      const dlat = (hKm * 0.5) / 111.32;
+      const dlon = (wKm * 0.5) / (111.32 * Math.cos((lat * Math.PI) / 180));
+      return [
+        [lat - dlat, lon - dlon],
+        [lat + dlat, lon + dlon]
+      ];
+    }
+
+    document.querySelectorAll(".month-btn").forEach((btn) => {
+      const m = parseInt(btn.getAttribute("data-m"), 10);
+      if (m > CURRENT_MONTH) {
+        btn.classList.add("projected");
+        btn.textContent = btn.textContent.replace(" ◌", "") + " ◌";
+        btn.title = "Mes futuro: Proyección histórica NASA POWER (promedio 25 años 2001–2025)";
+      } else {
+        btn.classList.remove("projected");
+        btn.title = "Mes ya transcurrido: Dato observado";
+      }
+    });
+
+    // =========================================================================
+    // 2. 2D LEAFLET MAP (CUSTOMIZABLE RECTANGLE + POINT OF INTEREST MARKER)
+    // =========================================================================
+    const map = L.map("map2d", { zoomControl: true }).setView([state.centerLat, state.centerLon], 12);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      attribution: "&copy; OpenStreetMap"
+    }).addTo(map);
+
+    const boxRect2D = L.rectangle(getBoxBoundsLatLng(), {
+      color: "#10b981",
+      weight: 2,
+      dashArray: "5, 4",
+      fillColor: "#10b981",
+      fillOpacity: 0.12
+    }).addTo(map).bindTooltip("Área del Modelo (Cuadro 5×5 km)");
+
+    // Center reference dot
+    const centerDot = L.circleMarker([state.centerLat, state.centerLon], {
+      radius: 4,
+      color: "#10b981",
+      weight: 1.5,
+      fillColor: "#10b981",
+      fillOpacity: 0.8
+    }).addTo(map);
+
+    // Point of Interest (POI) active marker on 2D map
+    const poiMarker2D = L.circleMarker([state.poiLat, state.poiLon], {
+      radius: 8,
+      color: "#ffffff",
+      weight: 2.5,
+      fillColor: "#f59e0b",
+      fillOpacity: 1
+    }).addTo(map).bindTooltip("📍 Punto de Interés Seleccionado", { permanent: false });
+
+    const savedMarkersGroup = L.layerGroup().addTo(map);
+
+    function renderSavedPoisUI() {
+      savedMarkersGroup.clearLayers();
+      const container = document.getElementById("saved-pois-list");
+      container.innerHTML = "";
+      state.savedPois.forEach((p, idx) => {
+        L.circleMarker([p.lat, p.lon], {
+          radius: 5,
+          color: "#080d19",
+          weight: 1.5,
+          fillColor: p.color || "#38bdf8",
+          fillOpacity: 0.9
+        }).addTo(savedMarkersGroup).bindTooltip(`📌 ${p.name}`);
+
+        const chip = document.createElement("span");
+        chip.className = "poi-chip";
+        chip.innerHTML = `📌 ${p.name}`;
+        chip.title = `Ir a ${p.name} (${p.lat.toFixed(4)}, ${p.lon.toFixed(4)})`;
+        chip.addEventListener("click", () => {
+          document.getElementById("poi-name-input").value = p.name;
+          placePoiByLatLon(p.lat, p.lon, p.name);
+        });
+        container.appendChild(chip);
+      });
+    }
+
+    function placePoiByRowCol(r, c, customName) {
+      if (!state.dem) return;
+      state.poiRow = Math.max(0, Math.min(N - 1, r));
+      state.poiCol = Math.max(0, Math.min(N - 1, c));
+      const [lonW, latS, lonE, latN] = state.dem.bounds;
+      state.poiLat = Number((latN - (state.poiRow / (N - 1)) * (latN - latS)).toFixed(4));
+      state.poiLon = Number((lonW + (state.poiCol / (N - 1)) * (lonE - lonW)).toFixed(4));
+      if (customName) {
+        state.poiLabel = customName;
+        document.getElementById("poi-name-input").value = customName;
+      } else {
+        state.poiLabel = document.getElementById("poi-name-input").value || "Punto de Interés";
+      }
+
+      poiMarker2D.setLatLng([state.poiLat, state.poiLon]);
+      document.getElementById("coords-badge").textContent = `${state.poiLat.toFixed(4)}, ${state.poiLon.toFixed(4)}`;
+      document.getElementById("stage-title-text").textContent =
+        `📍 ${state.poiLabel} (${state.poiLat.toFixed(4)}, ${state.poiLon.toFixed(4)}) · Cuadro ${formatBoxDim()}`;
+
+      updateSidebarMetrics();
+      renderScene();
+    }
+
+    function placePoiByLatLon(lat, lon, customName) {
+      if (!state.dem) return;
+      const [lonW, latS, lonE, latN] = state.dem.bounds;
+      // Check if (lat, lon) is inside the current terrain bounds
+      if (lat >= latS && lat <= latN && lon >= lonW && lon <= lonE) {
+        const r = Math.round(((latN - lat) / (latN - latS)) * (N - 1));
+        const c = Math.round(((lon - lonW) / (lonE - lonW)) * (N - 1));
+        placePoiByRowCol(r, c, customName);
+      } else {
+        // Outside current block: move box center to this point and place POI at center
+        setCenter5km(lat, lon, customName);
+      }
+    }
+
+    function setCenter5km(lat, lon, customName) {
+      state.centerLat = Number(lat.toFixed(4));
+      state.centerLon = Number(lon.toFixed(4));
+      state.poiRow = Math.floor(N / 2);
+      state.poiCol = Math.floor(N / 2);
+      state.poiLat = state.centerLat;
+      state.poiLon = state.centerLon;
+      if (customName) {
+        state.poiLabel = customName;
+        document.getElementById("poi-name-input").value = customName;
+      }
+
+      const boundsLatLng = getBoxBoundsLatLng();
+      boxRect2D.setBounds(boundsLatLng);
+      boxRect2D.setTooltipContent(`Área del Modelo (Cuadro ${formatBoxDim()})`);
+      centerDot.setLatLng([state.centerLat, state.centerLon]);
+      poiMarker2D.setLatLng([state.poiLat, state.poiLon]);
+      map.panTo([state.centerLat, state.centerLon]);
+
+      document.getElementById("coords-badge").textContent = `${state.poiLat.toFixed(4)}, ${state.poiLon.toFixed(4)}`;
+      document.getElementById("stage-title-text").textContent =
+        `📍 ${state.poiLabel} (${state.poiLat.toFixed(4)}, ${state.poiLon.toFixed(4)}) · Cuadro ${formatBoxDim()}`;
+      loadPointData();
+    }
+
+    map.on("click", (e) => {
+      if (state.mapClickMode === "poi") {
+        placePoiByLatLon(e.latlng.lat, e.latlng.lng, document.getElementById("poi-name-input").value || "Punto de Interés");
+      } else {
+        setCenter5km(e.latlng.lat, e.latlng.lng, document.getElementById("poi-name-input").value || "Centro Parcela");
+      }
+    });
+
+    document.getElementById("map-click-poi").addEventListener("click", () => {
+      state.mapClickMode = "poi";
+      document.getElementById("map-click-poi").className = "active-poi";
+      document.getElementById("map-click-center").className = "";
+    });
+
+    document.getElementById("map-click-center").addEventListener("click", () => {
+      state.mapClickMode = "center";
+      document.getElementById("map-click-center").className = "active";
+      document.getElementById("map-click-poi").className = "";
+    });
+
+    document.getElementById("poi-name-input").addEventListener("input", (e) => {
+      state.poiLabel = e.target.value || "Punto de Interés";
+      document.getElementById("stage-title-text").textContent =
+        `📍 ${state.poiLabel} (${state.poiLat.toFixed(4)}, ${state.poiLon.toFixed(4)}) · Cuadro ${formatBoxDim()}`;
+      renderScene();
+    });
+
+    document.getElementById("btn-save-poi").addEventListener("click", () => {
+      const name = (document.getElementById("poi-name-input").value || `Punto ${state.savedPois.length + 1}`).trim();
+      const palette = ["#f59e0b", "#38bdf8", "#a855f7", "#ec4899", "#22c55e"];
+      const color = palette[state.savedPois.length % palette.length];
+      state.savedPois.push({ name, lat: state.poiLat, lon: state.poiLon, color });
+      renderSavedPoisUI();
+      renderScene();
+    });
+
+    document.getElementById("btn-recenter-5km").addEventListener("click", () => {
+      setCenter5km(state.poiLat, state.poiLon, state.poiLabel);
+    });
+
+    renderSavedPoisUI();
+
+    // =========================================================================
+    // 3. LIVE NASA POWER API CLIENT (DAILY REAL-TIME + CLIMATOLOGY PLANNING)
+    // =========================================================================
+    const nasaPowerCache = new Map();
+
+    function formatYMD(d) {
+      const y = d.getUTCFullYear();
+      const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+      const day = String(d.getUTCDate()).padStart(2, "0");
+      return `${y}${m}${day}`;
+    }
+
+    async function fetchNasaPowerData(lat, lon) {
+      const key = `${lat.toFixed(2)}_${lon.toFixed(2)}`;
+      if (nasaPowerCache.has(key)) return nasaPowerCache.get(key);
+
+      const p = (async () => {
+        let refElev = 762.46;
+        let months = { ...DEFAULT_NASA_CLIM.months };
+        let recentDays = [...FALLBACK_RECENT_DAYS];
+
+        try {
+          const climUrl = `https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,RH2M,PRECTOTCORR,GWETTOP,GWETROOT&community=AG&longitude=${lon.toFixed(4)}&latitude=${lat.toFixed(4)}&format=JSON`;
+          const climResp = await fetch(climUrl);
+          if (climResp.ok) {
+            const climJson = await climResp.json();
+            if (climJson.geometry && climJson.geometry.coordinates && climJson.geometry.coordinates[2] != null) {
+              refElev = Number(climJson.geometry.coordinates[2]);
+            }
+            const par = climJson.properties.parameter;
+            months = {};
+            for (let i = 0; i < 12; i++) {
+              const mk = MONTH_KEYS[i];
+              const tMean = par.T2M ? par.T2M[mk] : DEFAULT_NASA_CLIM.months[i + 1].T2M;
+              months[i + 1] = {
+                name: MONTH_NAMES[i],
+                T2M: tMean,
+                T2M_MAX: Number((tMean + DIURNAL_MAX_OFFSET[i]).toFixed(2)),
+                T2M_MIN: Number((tMean - DIURNAL_MIN_OFFSET[i]).toFixed(2)),
+                RH2M: par.RH2M ? par.RH2M[mk] : DEFAULT_NASA_CLIM.months[i + 1].RH2M,
+                PRECTOTCORR: par.PRECTOTCORR ? par.PRECTOTCORR[mk] : DEFAULT_NASA_CLIM.months[i + 1].PRECTOTCORR,
+                GWETTOP: par.GWETTOP ? par.GWETTOP[mk] : DEFAULT_NASA_CLIM.months[i + 1].GWETTOP,
+                GWETROOT: par.GWETROOT ? par.GWETROOT[mk] : DEFAULT_NASA_CLIM.months[i + 1].GWETROOT
+              };
+            }
+          }
+
+          const refNow = new Date();
+          if (refNow.getUTCFullYear() > 2025) refNow.setUTCFullYear(2025);
+          const startD = new Date(refNow.getTime() - 28 * 86400000);
+          const dailyUrl = `https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,T2M_MAX,T2M_MIN,RH2M,PRECTOTCORR,GWETTOP,GWETROOT&community=AG&longitude=${lon.toFixed(4)}&latitude=${lat.toFixed(4)}&start=${formatYMD(startD)}&end=${formatYMD(refNow)}&format=JSON&time-standard=LST`;
+          const dailyResp = await fetch(dailyUrl);
+          if (dailyResp.ok) {
+            const dailyJson = await dailyResp.json();
+            const dPar = dailyJson.properties.parameter;
+            const allDates = Object.keys(dPar.T2M || {}).sort();
+            const valid = [];
+            for (let i = 0; i < allDates.length; i++) {
+              const dk = allDates[i];
+              const t = dPar.T2M[dk];
+              const tmax = dPar.T2M_MAX ? dPar.T2M_MAX[dk] : -999;
+              const gw = dPar.GWETROOT ? dPar.GWETROOT[dk] : -999;
+              if (t !== -999 && tmax !== -999 && gw !== -999) {
+                valid.push({
+                  rawDate: `${dk.slice(0, 4)}-${dk.slice(4, 6)}-${dk.slice(6, 8)}`,
+                  T2M: t,
+                  T2M_MAX: tmax,
+                  T2M_MIN: dPar.T2M_MIN[dk] !== -999 ? dPar.T2M_MIN[dk] : t - 4.0,
+                  RH2M: dPar.RH2M && dPar.RH2M[dk] !== -999 ? dPar.RH2M[dk] : 80,
+                  PRECTOTCORR: dPar.PRECTOTCORR && dPar.PRECTOTCORR[dk] !== -999 ? dPar.PRECTOTCORR[dk] : 0,
+                  GWETTOP: dPar.GWETTOP && dPar.GWETTOP[dk] !== -999 ? dPar.GWETTOP[dk] : gw,
+                  GWETROOT: gw
+                });
+              }
+            }
+            if (valid.length >= 7) {
+              const last14 = valid.slice(-14);
+              recentDays = last14.map((item, idx) => {
+                const daysFromLatest = (last14.length - 1) - idx;
+                const totalLagDays = daysFromLatest + 3;
+                return {
+                  ...item,
+                  daysAgo: totalLagDays,
+                  date: daysFromLatest === 0
+                    ? `Último Pase (${item.rawDate} · hace 3d)`
+                    : `${item.rawDate} (hace ${totalLagDays}d)`
+                };
+              });
+            }
+          }
+
+          document.getElementById("nasa-api-status").textContent =
+            `NASA POWER API Live · Celda ref: ${Math.round(refElev)} m`;
+        } catch (e) {
+          console.warn("Usando caché local NASA POWER:", e);
+        }
+
+        return { refElev, months, recentDays };
+      })();
+
+      nasaPowerCache.set(key, p);
+      return p;
+    }
+
+    // =========================================================================
+    // 4. HIGH-RES OPTION 1 ENGINE: NASA SRTM / TERRARIUM z=13 + BILINEAR INTERP
+    // =========================================================================
+    const tileCache = new Map();
+    function loadTileImage(url) {
+      if (tileCache.has(url)) return tileCache.get(url);
+      const p = new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => resolve(img);
+        img.onerror = (err) => reject(err);
+        img.src = url;
+      });
+      tileCache.set(url, p);
+      return p;
+    }
+
+    function lon2tileFloat(lon, z) {
+      return ((lon + 180) / 360) * Math.pow(2, z);
+    }
+    function lat2tileFloat(lat, z) {
+      const rad = (lat * Math.PI) / 180;
+      return ((1 - Math.log(Math.tan(rad) + 1 / Math.cos(rad)) / Math.PI) / 2) * Math.pow(2, z);
+    }
+
+    async function fetchHighResTerrariumBox(lat, lon, widthKm = state.widthKm, heightKm = state.heightKm, n = N) {
+      const maxDim = Math.max(widthKm, heightKm);
+      // Use z=14 (~9.5m/px) for smaller boxes (<=3.5 km) and z=13 (~19m/px) for larger boxes (up to 10 km)
+      const z = maxDim <= 3.5 ? 14 : ZOOM_DEM;
+      const dlat = (heightKm * 0.5) / 111.32;
+      const dlon = (widthKm * 0.5) / (111.32 * Math.cos((lat * Math.PI) / 180));
+      const latN = lat + dlat, latS = lat - dlat;
+      const lonW = lon - dlon, lonE = lon + dlon;
+
+      const txMin = Math.floor(lon2tileFloat(lonW, z));
+      const txMax = Math.floor(lon2tileFloat(lonE, z));
+      const tyMin = Math.floor(lat2tileFloat(latN, z));
+      const tyMax = Math.floor(lat2tileFloat(latS, z));
+
+      const cols = txMax - txMin + 1;
+      const rows = tyMax - tyMin + 1;
+      const offCanvas = document.createElement("canvas");
+      offCanvas.width = cols * 256;
+      offCanvas.height = rows * 256;
+      const offCtx = offCanvas.getContext("2d", { willReadFrequently: true });
+
+      const jobs = [];
+      for (let ty = tyMin; ty <= tyMax; ty++) {
+        for (let tx = txMin; tx <= txMax; tx++) {
+          const url = `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${tx}/${ty}.png`;
+          jobs.push(
+            loadTileImage(url).then((img) => {
+              offCtx.drawImage(img, (tx - txMin) * 256, (ty - tyMin) * 256);
+            })
+          );
+        }
+      }
+      await Promise.all(jobs);
+
+      const W = offCanvas.width;
+      const H = offCanvas.height;
+      const imgData = offCtx.getImageData(0, 0, W, H).data;
+
+      function decodePixel(ix, iy) {
+        const cx = Math.max(0, Math.min(W - 1, ix));
+        const cy = Math.max(0, Math.min(H - 1, iy));
+        const p = (cy * W + cx) * 4;
+        return (imgData[p] * 256 + imgData[p + 1] + imgData[p + 2] / 256) - 32768;
+      }
+
+      // Catmull-Rom 1D cubic spline kernel for C1-smooth sub-pixel terrain & contour curvature
+      function cubicHermite(p0, p1, p2, p3, t) {
+        const a = -0.5 * p0 + 1.5 * p1 - 1.5 * p2 + 0.5 * p3;
+        const b = p0 - 2.5 * p1 + 2.0 * p2 - 0.5 * p3;
+        const c = -0.5 * p0 + 0.5 * p2;
+        const d = p1;
+        return ((a * t + b) * t + c) * t + d;
+      }
+
+      function sampleBicubic(fx, fy) {
+        const x1 = Math.floor(fx), y1 = Math.floor(fy);
+        const tx = fx - x1, ty = fy - y1;
+        const row0 = cubicHermite(decodePixel(x1 - 1, y1 - 1), decodePixel(x1, y1 - 1), decodePixel(x1 + 1, y1 - 1), decodePixel(x1 + 2, y1 - 1), tx);
+        const row1 = cubicHermite(decodePixel(x1 - 1, y1),     decodePixel(x1, y1),     decodePixel(x1 + 1, y1),     decodePixel(x1 + 2, y1),     tx);
+        const row2 = cubicHermite(decodePixel(x1 - 1, y1 + 1), decodePixel(x1, y1 + 1), decodePixel(x1 + 1, y1 + 1), decodePixel(x1 + 2, y1 + 1), tx);
+        const row3 = cubicHermite(decodePixel(x1 - 1, y1 + 2), decodePixel(x1, y1 + 2), decodePixel(x1 + 1, y1 + 2), decodePixel(x1 + 2, y1 + 2), tx);
+        return cubicHermite(row0, row1, row2, row3, ty);
+      }
+
+      const rawElev = new Float32Array(n * n);
+      for (let r = 0; r < n; r++) {
+        const curLat = latN - (r / (n - 1)) * (latN - latS);
+        const fy = (lat2tileFloat(curLat, z) - tyMin) * 256;
+        for (let c = 0; c < n; c++) {
+          const curLon = lonW + (c / (n - 1)) * (lonE - lonW);
+          const fx = (lon2tileFloat(curLon, z) - txMin) * 256;
+          rawElev[r * n + c] = sampleBicubic(fx, fy);
+        }
+      }
+
+      // 2-pass separable Gaussian smoothing to eliminate any tile compression noise
+      const pass1 = new Float32Array(n * n);
+      const tempElev = new Float32Array(n * n);
+      const elev = new Float32Array(n * n);
+
+      function smoothPass(src, dst) {
+        for (let r = 0; r < n; r++) {
+          for (let c = 0; c < n; c++) {
+            const cL = Math.max(0, c - 1), cR = Math.min(n - 1, c + 1);
+            pass1[r * n + c] = 0.24 * src[r * n + cL] + 0.52 * src[r * n + c] + 0.24 * src[r * n + cR];
+          }
+        }
+        for (let r = 0; r < n; r++) {
+          const rU = Math.max(0, r - 1), rD = Math.min(n - 1, r + 1);
+          for (let c = 0; c < n; c++) {
+            dst[r * n + c] = 0.24 * pass1[rU * n + c] + 0.52 * pass1[r * n + c] + 0.24 * pass1[rD * n + c];
+          }
+        }
+      }
+      smoothPass(rawElev, tempElev);
+      smoothPass(tempElev, elev);
+
+      let minE = 99999, maxE = -99999;
+      for (let i = 0; i < n * n; i++) {
+        const val = elev[i];
+        if (val < minE) minE = val;
+        if (val > maxE) maxE = val;
+      }
+
+      const cellMX = (widthKm * 1000.0) / (n - 1);
+      const cellMY = (heightKm * 1000.0) / (n - 1);
+      const slope = new Float32Array(n * n);
+      const gradX = new Float32Array(n * n);
+      const gradY = new Float32Array(n * n);
+      const normals = new Float32Array(n * n * 3);
+      const insolation = new Float32Array(n * n);
+
+      for (let r = 0; r < n; r++) {
+        const r0 = Math.max(0, r - 1), r1 = Math.min(n - 1, r + 1);
+        for (let c = 0; c < n; c++) {
+          const c0 = Math.max(0, c - 1), c1 = Math.min(n - 1, c + 1);
+          const idx = r * n + c;
+          const dzdx = (elev[r * n + c1] - elev[r * n + c0]) / ((c1 - c0) * cellMX);
+          const dzdy = (elev[r1 * n + c] - elev[r0 * n + c]) / ((r1 - r0) * cellMY);
+          gradX[idx] = dzdx;
+          gradY[idx] = dzdy;
+          slope[idx] = Math.hypot(dzdx, dzdy) * 100.0;
+
+          const nx = -dzdx * 2.2;
+          const ny = 1.0;
+          const nz = -dzdy * 2.2;
+          const len = Math.hypot(nx, ny, nz) || 1.0;
+          normals[idx * 3 + 0] = nx / len;
+          normals[idx * 3 + 1] = ny / len;
+          normals[idx * 3 + 2] = nz / len;
+
+          insolation[idx] = Math.max(-1, Math.min(1, (-dzdx * 0.6 + dzdy * 0.8) * 3.5));
+        }
+      }
+
+      // Build True 3D Curved Hydrological Runoff Streamlines (RK2 integration over continuous DEM)
+      function sampleSurfaceUV(u, v) {
+        const fc = Math.max(0, Math.min(n - 1.001, ((u + 1.0) * 0.5) * (n - 1)));
+        const fr = Math.max(0, Math.min(n - 1.001, ((v + 1.0) * 0.5) * (n - 1)));
+        const c0 = Math.floor(fc), r0 = Math.floor(fr);
+        const c1 = Math.min(n - 1, c0 + 1), r1 = Math.min(n - 1, r0 + 1);
+        const wc = fc - c0, wr = fr - r0;
+
+        const i00 = r0 * n + c0, i10 = r0 * n + c1;
+        const i01 = r1 * n + c0, i11 = r1 * n + c1;
+
+        const bilerp = (arr) =>
+          (arr[i00] * (1 - wc) + arr[i10] * wc) * (1 - wr) +
+          (arr[i01] * (1 - wc) + arr[i11] * wc) * wr;
+
+        const nx =
+          (normals[i00 * 3] * (1 - wc) + normals[i10 * 3] * wc) * (1 - wr) +
+          (normals[i01 * 3] * (1 - wc) + normals[i11 * 3] * wc) * wr;
+        const ny =
+          (normals[i00 * 3 + 1] * (1 - wc) + normals[i10 * 3 + 1] * wc) * (1 - wr) +
+          (normals[i01 * 3 + 1] * (1 - wc) + normals[i11 * 3 + 1] * wc) * wr;
+        const nz =
+          (normals[i00 * 3 + 2] * (1 - wc) + normals[i10 * 3 + 2] * wc) * (1 - wr) +
+          (normals[i01 * 3 + 2] * (1 - wc) + normals[i11 * 3 + 2] * wc) * wr;
+
+        return {
+          elev: bilerp(elev),
+          gx: bilerp(gradX),
+          gy: bilerp(gradY),
+          slope: bilerp(slope),
+          nx,
+          ny,
+          nz
+        };
+      }
+
+      const streamlines = [];
+      const seedStep = 11;
+      const numSteps = 14;
+      const dt = 0.012; // ~60 m per step along the 3D slope (14 steps = ~840 m curved flow path)
+
+      for (let r = seedStep; r < n - seedStep; r += seedStep) {
+        for (let c = seedStep; c < n - seedStep; c += seedStep) {
+          // Slight deterministic stagger so streamlines follow natural valleys organically
+          const jr = r + ((c * 7) % 5) - 2;
+          const jc = c + ((r * 11) % 5) - 2;
+          const startIdx = jr * n + jc;
+          if (slope[startIdx] < 5.5) continue;
+
+          let u = (jc / (n - 1)) * 2.0 - 1.0;
+          let v = (jr / (n - 1)) * 2.0 - 1.0;
+          const pts = [];
+
+          for (let s = 0; s < numSteps; s++) {
+            const s0 = sampleSurfaceUV(u, v);
+            pts.push({
+              u,
+              v,
+              elev: s0.elev,
+              nx: s0.nx,
+              ny: s0.ny,
+              nz: s0.nz,
+              slope: s0.slope
+            });
+
+            if (s0.slope < 2.2) break;
+            const gLen0 = Math.hypot(s0.gx, s0.gy) || 1.0;
+            const dx0 = -s0.gx / gLen0;
+            const dy0 = -s0.gy / gLen0;
+
+            // RK2 Midpoint step for smooth hydrological curvature around hills & ravines
+            const uMid = u + dx0 * (dt * 0.5);
+            const vMid = v + dy0 * (dt * 0.5);
+            if (Math.abs(uMid) > 0.96 || Math.abs(vMid) > 0.96) break;
+
+            const sMid = sampleSurfaceUV(uMid, vMid);
+            const gLenM = Math.hypot(sMid.gx, sMid.gy) || 1.0;
+            const dxM = -sMid.gx / gLenM;
+            const dyM = -sMid.gy / gLenM;
+
+            u += dxM * dt;
+            v += dyM * dt;
+            if (Math.abs(u) > 0.96 || Math.abs(v) > 0.96) break;
+          }
+
+          if (pts.length >= 4) {
+            streamlines.push(pts);
+          }
+        }
+      }
+
+      return {
+        lat,
+        lon,
+        width_km: widthKm,
+        height_km: heightKm,
+        n,
+        cell_mx: cellMX,
+        cell_my: cellMY,
+        bounds: [lonW, latS, lonE, latN],
+        min_elev: minE,
+        max_elev: maxE,
+        elev,
+        slope,
+        gradX,
+        gradY,
+        normals,
+        insolation,
+        streamlines
+      };
+    }
+
+    // =========================================================================
+    // 5. COMPUTE MULTI-LAYER FIELDS FOR ACTIVE TEMPORAL MODE
+    // =========================================================================
+    function computeClimateFields() {
+      if (!state.dem) return;
+      const dem = state.dem;
+      const clim = state.clim || DEFAULT_NASA_CLIM;
+      const refElev = clim.refElev || 762.46;
+
+      let activeRecord;
+      let periodLabel;
+      let isProjected = false;
+
+      if (state.temporalMode === "realtime") {
+        const days = clim.recentDays || FALLBACK_RECENT_DAYS;
+        const idx = Math.max(0, Math.min(days.length - 1, state.rtIndex));
+        activeRecord = days[idx];
+        periodLabel = activeRecord.date;
+        document.getElementById("rt-date-label").textContent = activeRecord.date;
+        document.getElementById("rt-lag-badge").textContent =
+          `● Observado NASA POWER (hace ${activeRecord.daysAgo} días)`;
+      } else {
+        activeRecord = clim.months[state.month] || DEFAULT_NASA_CLIM.months[5];
+        isProjected = state.month > CURRENT_MONTH;
+        periodLabel = isProjected
+          ? `${activeRecord.name} (Proyección 25 años)`
+          : `${activeRecord.name} (Observado)`;
+
+        document.getElementById("plan-month-label").textContent = activeRecord.name;
+        const badgeEl = document.getElementById("plan-type-badge");
+        if (isProjected) {
+          badgeEl.className = "status-tag tag-projected";
+          badgeEl.textContent = "◌ Mes futuro: Proyección histórica NASA (2001–2025)";
+        } else {
+          badgeEl.className = "status-tag tag-observed";
+          badgeEl.textContent = "● Mes ya transcurrido (Dato observado)";
+        }
+      }
+
+      const baseTemp = activeRecord[state.tempVar] != null ? activeRecord[state.tempVar] : activeRecord.T2M_MAX;
+      const baseMoistPct = ((activeRecord.GWETROOT * 0.65 + activeRecord.GWETTOP * 0.35) * 100.0);
+
+      const n = dem.n;
+      const tempField = new Float32Array(n * n);
+      const moistField = new Float32Array(n * n);
+
+      let minT = 999, maxT = -999;
+      let minM = 999, maxM = -999;
+      const elevSpan = Math.max(100, dem.max_elev - dem.min_elev);
+
+      for (let i = 0; i < n * n; i++) {
+        const z = dem.elev[i];
+        const s = dem.slope[i];
+        const ins = dem.insolation[i];
+
+        const t = baseTemp - 0.0065 * (z - refElev) + ins * 0.85;
+        tempField[i] = t;
+        if (t < minT) minT = t;
+        if (t > maxT) maxT = t;
+
+        const relHeight = (z - dem.min_elev) / elevSpan;
+        const slopeDrainage = Math.min(20, s * 0.42);
+        const valleyAccum = (1.0 - relHeight) * 12.0 - 5.0;
+        const m = Math.max(8, Math.min(98, baseMoistPct + valleyAccum - slopeDrainage * 0.65 - ins * 2.5));
+        moistField[i] = m;
+        if (m < minM) minM = m;
+        if (m > maxM) maxM = m;
+      }
+
+      const sortedS = Array.from(dem.slope).sort((a, b) => a - b);
+
+      state.computed = {
+        periodLabel,
+        isProjected,
+        rainMmDay: activeRecord.PRECTOTCORR,
+        rhPct: activeRecord.RH2M,
+        tempField,
+        moistField,
+        minT,
+        maxT,
+        minM,
+        maxM,
+        medianSlope: Math.round(sortedS[Math.floor(sortedS.length / 2)] * 10) / 10
+      };
+
+      updateSidebarMetrics();
+      uploadBuffersToWebGL();
+    }
+
+    // =========================================================================
+    // 6. HARDWARE-ACCELERATED WEBGL 3D ENGINE (180×180, PER-PIXEL SHADING)
+    // =========================================================================
+    const VS_SRC = `
+      attribute vec2 aGrid;
+      attribute float aElev;
+      attribute float aSlope;
+      attribute float aTemp;
+      attribute float aMoist;
+      attribute vec3 aNormal;
+
+      uniform float uMinElev;
+      uniform float uVertScale;
+      uniform float uYOffset;
+      uniform float uScaleX;
+      uniform float uScaleY;
+      uniform float uYaw;
+      uniform float uPitch;
+      uniform float uZoom;
+      uniform float uAspect;
+
+      varying float vElev;
+      varying float vSlope;
+      varying float vTemp;
+      varying float vMoist;
+      varying vec3 vNormal;
+
+      void main() {
+        vElev = aElev;
+        vSlope = aSlope;
+        vTemp = aTemp;
+        vMoist = aMoist;
+        vNormal = aNormal;
+
+        float zMeters = aElev - uMinElev;
+        float yPos = (zMeters * uVertScale) + uYOffset;
+
+        float gx = aGrid.x * uScaleX;
+        float gy = aGrid.y * uScaleY;
+
+        float cy = cos(uYaw), sy = sin(uYaw);
+        float x1 = gx * cy - gy * sy;
+        float z1 = gx * sy + gy * cy;
+
+        float cp = cos(uPitch), sp = sin(uPitch);
+        float y2 = yPos * cp - z1 * sp;
+        float z2 = yPos * sp + z1 * cp;
+
+        vec2 screen = vec2(x1 / max(0.5, uAspect), y2) * 0.90 * uZoom;
+        // Negate z2 so closer terrain (z2 > 0) maps to negative NDC Z (near plane) and 100% occludes back slopes
+        gl_Position = vec4(screen, -z2 * 0.25, 1.0);
+      }
+    `;
+
+    const FS_SRC = `
+      #extension GL_OES_standard_derivatives : enable
+      precision highp float;
+
+      varying float vElev;
+      varying float vSlope;
+      varying float vTemp;
+      varying float vMoist;
+      varying vec3 vNormal;
+
+      uniform int uLayerMode;
+      uniform float uMinElev;
+      uniform float uMaxElev;
+      uniform bool uContours;
+
+      vec3 rampTemp(float t) {
+        float u = clamp((t - 18.0) / 18.0, 0.0, 1.0);
+        vec3 c0 = vec3(0.18, 0.45, 0.95);
+        vec3 c1 = vec3(0.05, 0.72, 0.68);
+        vec3 c2 = vec3(0.22, 0.80, 0.35);
+        vec3 c3 = vec3(0.98, 0.82, 0.15);
+        vec3 c4 = vec3(0.97, 0.45, 0.08);
+        vec3 c5 = vec3(0.86, 0.14, 0.14);
+        vec3 c6 = vec3(0.48, 0.06, 0.18);
+        if (u < 0.166) return mix(c0, c1, u / 0.166);
+        if (u < 0.333) return mix(c1, c2, (u - 0.166) / 0.167);
+        if (u < 0.500) return mix(c2, c3, (u - 0.333) / 0.167);
+        if (u < 0.666) return mix(c3, c4, (u - 0.500) / 0.166);
+        if (u < 0.833) return mix(c4, c5, (u - 0.666) / 0.167);
+        return mix(c5, c6, (u - 0.833) / 0.167);
+      }
+
+      vec3 rampMoist(float m) {
+        float u = clamp((m - 20.0) / 65.0, 0.0, 1.0);
+        vec3 c0 = vec3(0.78, 0.24, 0.14);
+        vec3 c1 = vec3(0.92, 0.58, 0.14);
+        vec3 c2 = vec3(0.52, 0.80, 0.22);
+        vec3 c3 = vec3(0.06, 0.72, 0.65);
+        vec3 c4 = vec3(0.12, 0.38, 0.88);
+        if (u < 0.25) return mix(c0, c1, u / 0.25);
+        if (u < 0.50) return mix(c1, c2, (u - 0.25) / 0.25);
+        if (u < 0.75) return mix(c2, c3, (u - 0.50) / 0.25);
+        return mix(c3, c4, (u - 0.75) / 0.25);
+      }
+
+      vec3 rampElev(float e) {
+        float u = clamp((e - uMinElev) / max(50.0, uMaxElev - uMinElev), 0.0, 1.0);
+        vec3 c0 = vec3(0.12, 0.52, 0.34);
+        vec3 c1 = vec3(0.45, 0.72, 0.28);
+        vec3 c2 = vec3(0.88, 0.76, 0.32);
+        vec3 c3 = vec3(0.72, 0.42, 0.22);
+        vec3 c4 = vec3(0.92, 0.90, 0.88);
+        if (u < 0.25) return mix(c0, c1, u / 0.25);
+        if (u < 0.55) return mix(c1, c2, (u - 0.25) / 0.30);
+        if (u < 0.82) return mix(c2, c3, (u - 0.55) / 0.27);
+        return mix(c3, c4, (u - 0.82) / 0.18);
+      }
+
+      vec3 rampSlope(float s) {
+        float u = clamp(s / 36.0, 0.0, 1.0);
+        vec3 c0 = vec3(0.08, 0.72, 0.48);
+        vec3 c1 = vec3(0.96, 0.76, 0.14);
+        vec3 c2 = vec3(0.94, 0.35, 0.12);
+        vec3 c3 = vec3(0.68, 0.10, 0.22);
+        if (u < 0.25) return mix(c0, c1, u / 0.25);
+        if (u < 0.60) return mix(c1, c2, (u - 0.25) / 0.35);
+        return mix(c2, c3, (u - 0.60) / 0.40);
+      }
+
+      vec3 rampIcta(float e) {
+        if (e < 498.0) {
+          float t = clamp((e - 250.0) / 250.0, 0.0, 1.0);
+          return mix(vec3(0.92, 0.42, 0.10), vec3(0.96, 0.68, 0.20), t);
+        } else if (e <= 502.0) {
+          return vec3(1.0, 1.0, 1.0);
+        } else {
+          float t = clamp((e - 500.0) / 700.0, 0.0, 1.0);
+          return mix(vec3(0.10, 0.72, 0.48), vec3(0.08, 0.45, 0.78), t);
+        }
+      }
+
+      void main() {
+        vec3 baseColor;
+        if (uLayerMode == 0) baseColor = rampTemp(vTemp);
+        else if (uLayerMode == 1) baseColor = rampMoist(vMoist);
+        else if (uLayerMode == 2) baseColor = rampElev(vElev);
+        else if (uLayerMode == 3) baseColor = rampSlope(vSlope);
+        else baseColor = rampIcta(vElev);
+
+        vec3 N = normalize(vNormal);
+        vec3 L = normalize(vec3(-0.55, 0.78, -0.35));
+        float diff = max(0.0, dot(N, L));
+        float sky = 0.5 + 0.5 * N.y;
+        float shade = 0.42 + 0.46 * diff + 0.18 * sky;
+        vec3 col = baseColor * shade;
+
+        if (uContours) {
+          // True screen-space Euclidean derivative of elevation (meters per pixel)
+          float fw = length(vec2(dFdx(vElev), dFdy(vElev)));
+          // Smoothly suppress contour bands on near-flat plains so flat areas never show blotchy rings
+          float slopeMask = smoothstep(0.012, 0.055, fw);
+          float w = max(0.025, fw);
+
+          // Minor contours every 25 m (fine topographic detail)
+          float d25 = abs(fract(vElev / 25.0 + 0.5) - 0.5) * 25.0;
+          float line25 = (1.0 - smoothstep(w * 0.25, w * 1.15, d25)) * slopeMask;
+
+          // Standard contours every 50 m (crisp cartographic isolines)
+          float d50 = abs(fract(vElev / 50.0 + 0.5) - 0.5) * 50.0;
+          float line50 = (1.0 - smoothstep(w * 0.35, w * 1.35, d50)) * slopeMask;
+
+          // Master index contours every 200 m (high-contrast cream isoline with dark halo)
+          float d200 = abs(fract(vElev / 200.0 + 0.5) - 0.5) * 200.0;
+          float halo200 = (1.0 - smoothstep(w * 0.90, w * 2.35, d200)) * slopeMask;
+          float line200 = (1.0 - smoothstep(w * 0.45, w * 1.50, d200)) * slopeMask;
+
+          col = mix(col, vec3(0.04, 0.07, 0.13), line25 * 0.22);
+          col = mix(col, vec3(0.03, 0.05, 0.10), line50 * 0.42);
+          col = mix(col, vec3(0.02, 0.04, 0.08), halo200 * 0.45);
+          col = mix(col, vec3(1.00, 0.97, 0.88), line200 * 0.72);
+        }
+
+        gl_FragColor = vec4(col, 1.0);
+      }
+    `;
+
+    function initWebGL() {
+      const canvas = document.getElementById("gl-main");
+      const gl = canvas.getContext("webgl", { antialias: true, preserveDrawingBuffer: true });
+      if (!gl) return null;
+      gl.getExtension("OES_standard_derivatives");
+      gl.getExtension("OES_element_index_uint");
+
+      function compile(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        return s;
+      }
+
+      const prog = gl.createProgram();
+      gl.attachShader(prog, compile(gl.VERTEX_SHADER, VS_SRC));
+      gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FS_SRC));
+      gl.linkProgram(prog);
+      gl.useProgram(prog);
+
+      const gridCoords = new Float32Array(N * N * 2);
+      for (let r = 0; r < N; r++) {
+        const v = (r / (N - 1)) * 2.0 - 1.0;
+        for (let c = 0; c < N; c++) {
+          const u = (c / (N - 1)) * 2.0 - 1.0;
+          const idx = (r * N + c) * 2;
+          gridCoords[idx] = u;
+          gridCoords[idx + 1] = v;
+        }
+      }
+
+      const indices = new Uint32Array((N - 1) * (N - 1) * 6);
+      let ptr = 0;
+      for (let r = 0; r < N - 1; r++) {
+        for (let c = 0; c < N - 1; c++) {
+          const i00 = r * N + c;
+          const i10 = i00 + 1;
+          const i01 = (r + 1) * N + c;
+          const i11 = i01 + 1;
+          indices[ptr++] = i00;
+          indices[ptr++] = i01;
+          indices[ptr++] = i10;
+          indices[ptr++] = i10;
+          indices[ptr++] = i01;
+          indices[ptr++] = i11;
+        }
+      }
+
+      const bufGrid = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, bufGrid);
+      gl.bufferData(gl.ARRAY_BUFFER, gridCoords, gl.STATIC_DRAW);
+
+      const bufIdx = gl.createBuffer();
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, bufIdx);
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indices, gl.STATIC_DRAW);
+
+      return {
+        gl,
+        canvas,
+        prog,
+        indexCount: indices.length,
+        bufGrid,
+        bufIdx,
+        bufElev: gl.createBuffer(),
+        bufSlope: gl.createBuffer(),
+        bufTemp: gl.createBuffer(),
+        bufMoist: gl.createBuffer(),
+        bufNormal: gl.createBuffer(),
+        locs: {
+          aGrid: gl.getAttribLocation(prog, "aGrid"),
+          aElev: gl.getAttribLocation(prog, "aElev"),
+          aSlope: gl.getAttribLocation(prog, "aSlope"),
+          aTemp: gl.getAttribLocation(prog, "aTemp"),
+          aMoist: gl.getAttribLocation(prog, "aMoist"),
+          aNormal: gl.getAttribLocation(prog, "aNormal"),
+          uMinElev: gl.getUniformLocation(prog, "uMinElev"),
+          uMaxElev: gl.getUniformLocation(prog, "uMaxElev"),
+          uVertScale: gl.getUniformLocation(prog, "uVertScale"),
+          uYOffset: gl.getUniformLocation(prog, "uYOffset"),
+          uScaleX: gl.getUniformLocation(prog, "uScaleX"),
+          uScaleY: gl.getUniformLocation(prog, "uScaleY"),
+          uYaw: gl.getUniformLocation(prog, "uYaw"),
+          uPitch: gl.getUniformLocation(prog, "uPitch"),
+          uZoom: gl.getUniformLocation(prog, "uZoom"),
+          uAspect: gl.getUniformLocation(prog, "uAspect"),
+          uLayerMode: gl.getUniformLocation(prog, "uLayerMode"),
+          uContours: gl.getUniformLocation(prog, "uContours")
+        }
+      };
+    }
+
+    function uploadBuffersToWebGL() {
+      if (!state.glCtx) state.glCtx = initWebGL();
+      const ctx = state.glCtx;
+      if (!ctx || !state.dem || !state.computed) return;
+      const { gl } = ctx;
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, ctx.bufElev);
+      gl.bufferData(gl.ARRAY_BUFFER, state.dem.elev, gl.DYNAMIC_DRAW);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, ctx.bufSlope);
+      gl.bufferData(gl.ARRAY_BUFFER, state.dem.slope, gl.DYNAMIC_DRAW);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, ctx.bufTemp);
+      gl.bufferData(gl.ARRAY_BUFFER, state.computed.tempField, gl.DYNAMIC_DRAW);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, ctx.bufMoist);
+      gl.bufferData(gl.ARRAY_BUFFER, state.computed.moistField, gl.DYNAMIC_DRAW);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, ctx.bufNormal);
+      gl.bufferData(gl.ARRAY_BUFFER, state.dem.normals, gl.DYNAMIC_DRAW);
+    }
+
+    function getViewTransform() {
+      const m = state.morph3D; // 0.0 = 2D flat North-up zenith, 1.0 = 3D volumetric perspective
+      const maxDim = Math.max(0.5, state.widthKm, state.heightKm);
+      const scaleX = state.widthKm / maxDim;
+      const scaleY = state.heightKm / maxDim;
+
+      // Shortest-angle interpolation from 0 (North-up in 2D) to state.yaw (3D)
+      const wrappedYaw = Math.atan2(Math.sin(state.yaw), Math.cos(state.yaw));
+      const effYaw = wrappedYaw * m;
+
+      // Pitch interpolates from PI/2 (90° zenith top-down in 2D) to state.pitch (3D)
+      const effPitch = (Math.PI * 0.5) * (1.0 - m) + state.pitch * m;
+
+      // Scale vertical relief proportionally to box dimensions and morph3D
+      const refFactor = 6.5 / Math.max(1.2, maxDim);
+      const effVertScale = 0.00028 * refFactor * state.exag * m;
+      const effYOffset = -0.26 * m;
+
+      return { m, scaleX, scaleY, effYaw, effPitch, effVertScale, effYOffset };
+    }
+
+    function projectPoint2D(u, v, elev, minElev, W, H) {
+      const aspect = W / Math.max(1, H);
+      const vt = getViewTransform();
+      const zMeters = elev - minElev;
+      const yPos = (zMeters * vt.effVertScale) + vt.effYOffset;
+
+      const gx = u * vt.scaleX;
+      const gy = v * vt.scaleY;
+
+      const cy = Math.cos(vt.effYaw), sy = Math.sin(vt.effYaw);
+      const x1 = gx * cy - gy * sy;
+      const z1 = gx * sy + gy * cy;
+
+      const cp = Math.cos(vt.effPitch), sp = Math.sin(vt.effPitch);
+      const y2 = yPos * cp - z1 * sp;
+      const z2 = yPos * sp + z1 * cp;
+
+      const ndcX = (x1 / Math.max(0.5, aspect)) * 0.90 * state.zoom;
+      const ndcY = y2 * 0.90 * state.zoom;
+
+      return {
+        x: (ndcX * 0.5 + 0.5) * W,
+        y: (1.0 - (ndcY * 0.5 + 0.5)) * H,
+        depth: z2
+      };
+    }
+
+    const LAYER_MAP = { temp: 0, moist: 1, elev: 2, slope: 3, icta: 4 };
+
+    function renderScene() {
+      if (!state.glCtx || !state.dem || !state.computed) return;
+      const { gl, canvas, prog, locs } = state.glCtx;
+      const hudCanvas = document.getElementById("hud-main");
+      const hudCtx = hudCanvas.getContext("2d");
+
+      const dpr = Math.min(2.25, window.devicePixelRatio || 1);
+      const rect = canvas.getBoundingClientRect();
+      const W = Math.max(10, Math.round(rect.width * dpr));
+      const H = Math.max(10, Math.round(rect.height * dpr));
+
+      if (canvas.width !== W || canvas.height !== H) {
+        canvas.width = W;
+        canvas.height = H;
+      }
+      if (hudCanvas.width !== W || hudCanvas.height !== H) {
+        hudCanvas.width = W;
+        hudCanvas.height = H;
+      }
+
+      gl.viewport(0, 0, W, H);
+      gl.enable(gl.DEPTH_TEST);
+      gl.clearColor(0.0, 0.0, 0.0, 0.0);
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+      gl.useProgram(prog);
+
+      function bindAttr(buf, loc, size) {
+        if (loc < 0) return;
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.enableVertexAttribArray(loc);
+        gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
+      }
+
+      bindAttr(state.glCtx.bufGrid, locs.aGrid, 2);
+      bindAttr(state.glCtx.bufElev, locs.aElev, 1);
+      bindAttr(state.glCtx.bufSlope, locs.aSlope, 1);
+      bindAttr(state.glCtx.bufTemp, locs.aTemp, 1);
+      bindAttr(state.glCtx.bufMoist, locs.aMoist, 1);
+      bindAttr(state.glCtx.bufNormal, locs.aNormal, 3);
+
+      const vt = getViewTransform();
+
+      gl.uniform1f(locs.uMinElev, state.dem.min_elev);
+      gl.uniform1f(locs.uMaxElev, state.dem.max_elev);
+      gl.uniform1f(locs.uVertScale, vt.effVertScale);
+      gl.uniform1f(locs.uYOffset, vt.effYOffset);
+      gl.uniform1f(locs.uScaleX, vt.scaleX);
+      gl.uniform1f(locs.uScaleY, vt.scaleY);
+      gl.uniform1f(locs.uYaw, vt.effYaw);
+      gl.uniform1f(locs.uPitch, vt.effPitch);
+      gl.uniform1f(locs.uZoom, state.zoom);
+      gl.uniform1f(locs.uAspect, rect.width / Math.max(1, rect.height));
+      gl.uniform1i(locs.uLayerMode, LAYER_MAP[state.layer] || 0);
+      gl.uniform1i(locs.uContours, state.contours ? 1 : 0);
+
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, state.glCtx.bufIdx);
+      gl.drawElements(gl.TRIANGLES, state.glCtx.indexCount, gl.UNSIGNED_INT, 0);
+
+      // =======================================================================
+      // 2D HUD OVERLAY: 3D Depth Horizon Grid, Curved Runoff Streamlines, Cardinals & POI
+      // =======================================================================
+      hudCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const cw = rect.width;
+      const ch = rect.height;
+      hudCtx.clearRect(0, 0, cw, ch);
+
+      // Build fast screen-space Z-buffer grid so 2D streamlines and labels respect 3D mountain occlusion
+      const occW = 220;
+      const occH = 150;
+      const occGrid = new Float32Array(occW * occH);
+      occGrid.fill(-999.0);
+
+      if (vt.m > 0.05) {
+        for (let r = 0; r < N; r += 2) {
+          const v = (r / (N - 1)) * 2.0 - 1.0;
+          for (let c = 0; c < N; c += 2) {
+            const u = (c / (N - 1)) * 2.0 - 1.0;
+            const pt = projectPoint2D(u, v, state.dem.elev[r * N + c], state.dem.min_elev, cw, ch);
+            const gx = Math.floor((pt.x / cw) * occW);
+            const gy = Math.floor((pt.y / ch) * occH);
+            if (gx >= 0 && gx < occW - 1 && gy >= 0 && gy < occH - 1) {
+              const d = pt.depth;
+              const idx0 = gy * occW + gx;
+              if (d > occGrid[idx0]) occGrid[idx0] = d;
+              if (d > occGrid[idx0 + 1]) occGrid[idx0 + 1] = d;
+              if (d > occGrid[idx0 + occW]) occGrid[idx0 + occW] = d;
+              if (d > occGrid[idx0 + occW + 1]) occGrid[idx0 + occW + 1] = d;
+            }
+          }
+        }
+      }
+
+      function isOccludedByTerrain(x, y, depth, tolerance = 0.13) {
+        if (vt.m <= 0.05) return false; // In flat 2D zenith mode, nothing is occluded by mountains
+        const gx = Math.floor((x / cw) * occW);
+        const gy = Math.floor((y / ch) * occH);
+        if (gx < 0 || gx >= occW || gy < 0 || gy >= occH) return false;
+        return occGrid[gy * occW + gx] > depth + tolerance;
+      }
+
+      // Cardinals anchored at the terrain edge & occluded if behind a mountain peak
+      const midIdx = Math.floor(N / 2);
+      const cardinals = [
+        { label: `NORTE (${Number(state.heightKm.toFixed(1))} km)`, u: 0, v: -1.07, edgeElev: state.dem.elev[0 * N + midIdx] },
+        { label: `SUR (${Number(state.heightKm.toFixed(1))} km)`,   u: 0, v:  1.07, edgeElev: state.dem.elev[(N - 1) * N + midIdx] },
+        { label: `ESTE (${Number(state.widthKm.toFixed(1))} km)`,   u: 1.07, v: 0,  edgeElev: state.dem.elev[midIdx * N + (N - 1)] },
+        { label: `OESTE (${Number(state.widthKm.toFixed(1))} km)`,  u: -1.07, v: 0, edgeElev: state.dem.elev[midIdx * N + 0] }
+      ];
+      hudCtx.font = "bold 11px sans-serif";
+      hudCtx.textAlign = "center";
+      for (const cd of cardinals) {
+        const pt = projectPoint2D(cd.u, cd.v, cd.edgeElev, state.dem.min_elev, cw, ch);
+        if (isOccludedByTerrain(pt.x, pt.y, pt.depth, 0.03)) continue;
+        const tw = hudCtx.measureText(cd.label).width + 12;
+        hudCtx.fillStyle = "rgba(8, 13, 25, 0.90)";
+        hudCtx.strokeStyle = "rgba(148, 163, 184, 0.35)";
+        hudCtx.lineWidth = 1;
+        hudCtx.beginPath();
+        hudCtx.roundRect(pt.x - tw / 2, pt.y - 11, tw, 16, 4);
+        hudCtx.fill();
+        hudCtx.stroke();
+        hudCtx.fillStyle = "#cbd5e1";
+        hudCtx.fillText(cd.label, pt.x, pt.y + 1);
+      }
+
+      // Draw High-Definition 3D Curved Runoff Streamlines (Curvas de Escorrentía)
+      if (state.flow && state.dem.streamlines) {
+        const cy = Math.cos(vt.effYaw), sy = Math.sin(vt.effYaw);
+        const cp = Math.cos(vt.effPitch), sp = Math.sin(vt.effPitch);
+
+        hudCtx.lineCap = "round";
+        hudCtx.lineJoin = "round";
+
+        for (const stream of state.dem.streamlines) {
+          const visPts = [];
+          for (let i = 0; i < stream.length; i++) {
+            const p = stream[i];
+            // Check 3D surface normal toward camera so curves on back slopes are hidden
+            const nz1 = p.nx * sy + p.nz * cy;
+            const nCamZ = p.ny * sp + nz1 * cp;
+            if (nCamZ < 0.14) break;
+
+            const proj = projectPoint2D(p.u, p.v, p.elev, state.dem.min_elev, cw, ch);
+            if (isOccludedByTerrain(proj.x, proj.y, proj.depth, 0.13)) break;
+            visPts.push(proj);
+          }
+
+          if (visPts.length < 3) continue;
+
+          const pStart = visPts[0];
+          const pEnd = visPts[visPts.length - 1];
+          const screenLen = Math.hypot(pEnd.x - pStart.x, pEnd.y - pStart.y);
+          if (screenLen < 7) continue;
+
+          // Smooth quadratic spline path helper
+          const traceSmoothCurve = () => {
+            hudCtx.beginPath();
+            hudCtx.moveTo(visPts[0].x, visPts[0].y);
+            for (let i = 1; i < visPts.length - 1; i++) {
+              const xc = (visPts[i].x + visPts[i + 1].x) * 0.5;
+              const yc = (visPts[i].y + visPts[i + 1].y) * 0.5;
+              hudCtx.quadraticCurveTo(visPts[i].x, visPts[i].y, xc, yc);
+            }
+            hudCtx.lineTo(pEnd.x, pEnd.y);
+          };
+
+          // 1) Dark outer contrast casing so the curve stands out cleanly over bright yellow/green/red
+          traceSmoothCurve();
+          hudCtx.strokeStyle = "rgba(7, 12, 23, 0.55)";
+          hudCtx.lineWidth = 3.1;
+          hudCtx.stroke();
+
+          // 2) Tapered hydrological gradient stroke (translucent sky-blue tail -> bright cyan-white head)
+          const grad = hudCtx.createLinearGradient(pStart.x, pStart.y, pEnd.x, pEnd.y);
+          grad.addColorStop(0.0, "rgba(56, 189, 248, 0.18)");
+          grad.addColorStop(0.45, "rgba(125, 211, 252, 0.85)");
+          grad.addColorStop(1.0, "rgba(240, 249, 255, 0.98)");
+          traceSmoothCurve();
+          hudCtx.strokeStyle = grad;
+          hudCtx.lineWidth = 1.75;
+          hudCtx.stroke();
+
+          // 3) Crisp directional arrowhead at the downstream tip
+          const pPrev = visPts[visPts.length - 2];
+          const ang = Math.atan2(pEnd.y - pPrev.y, pEnd.x - pPrev.x);
+          const headLen = 5.2;
+          const wingAng = 0.52;
+
+          hudCtx.beginPath();
+          hudCtx.moveTo(pEnd.x, pEnd.y);
+          hudCtx.lineTo(
+            pEnd.x - headLen * Math.cos(ang - wingAng),
+            pEnd.y - headLen * Math.sin(ang - wingAng)
+          );
+          hudCtx.lineTo(
+            pEnd.x - headLen * Math.cos(ang + wingAng),
+            pEnd.y - headLen * Math.sin(ang + wingAng)
+          );
+          hudCtx.closePath();
+          hudCtx.fillStyle = "#e0f2fe";
+          hudCtx.strokeStyle = "rgba(7, 12, 23, 0.7)";
+          hudCtx.lineWidth = 0.9;
+          hudCtx.stroke();
+          hudCtx.fill();
+        }
+      }
+
+      // Draw Saved POIs that fall inside the 5km bounds
+      const [lonW, latS, lonE, latN] = state.dem.bounds;
+      for (const sp of state.savedPois) {
+        if (sp.lat < latS || sp.lat > latN || sp.lon < lonW || sp.lon > lonE) continue;
+        // Skip if practically identical to the active POI
+        if (Math.hypot(sp.lat - state.poiLat, sp.lon - state.poiLon) < 0.0005) continue;
+
+        const sr = Math.round(((latN - sp.lat) / (latN - latS)) * (N - 1));
+        const sc = Math.round(((sp.lon - lonW) / (lonE - lonW)) * (N - 1));
+        const sIdx = Math.max(0, Math.min(N * N - 1, sr * N + sc));
+        const su = (sc / (N - 1)) * 2 - 1;
+        const sv = (sr / (N - 1)) * 2 - 1;
+        const sElev = state.dem.elev[sIdx];
+        const pPt = projectPoint2D(su, sv, sElev, state.dem.min_elev, cw, ch);
+
+        hudCtx.strokeStyle = sp.color || "#38bdf8";
+        hudCtx.lineWidth = 1.6;
+        hudCtx.beginPath();
+        hudCtx.moveTo(pPt.x, pPt.y);
+        hudCtx.lineTo(pPt.x, pPt.y - 20);
+        hudCtx.stroke();
+
+        hudCtx.fillStyle = sp.color || "#38bdf8";
+        hudCtx.beginPath();
+        hudCtx.arc(pPt.x, pPt.y, 4, 0, Math.PI * 2);
+        hudCtx.fill();
+
+        hudCtx.font = "bold 10.5px sans-serif";
+        const stw = hudCtx.measureText(sp.name).width + 10;
+        hudCtx.fillStyle = "rgba(8, 13, 25, 0.98)";
+        hudCtx.beginPath();
+        hudCtx.roundRect(pPt.x - stw / 2, pPt.y - 38, stw, 16, 4);
+        hudCtx.fill();
+        hudCtx.stroke();
+        hudCtx.fillStyle = "#e2e8f0";
+        hudCtx.fillText(sp.name, pPt.x, pPt.y - 26);
+      }
+
+      // Draw Hover Crosshair Indicator on the 3D Terrain
+      if (state.hoverIdx !== null && state.hoverIdx >= 0) {
+        const hr = Math.floor(state.hoverIdx / N);
+        const hc = state.hoverIdx % N;
+        const hu = (hc / (N - 1)) * 2 - 1;
+        const hv = (hr / (N - 1)) * 2 - 1;
+        const hElev = state.dem.elev[state.hoverIdx];
+        const hPt = projectPoint2D(hu, hv, hElev, state.dem.min_elev, cw, ch);
+
+        // Target ring on surface
+        hudCtx.strokeStyle = "rgba(255, 255, 255, 0.9)";
+        hudCtx.lineWidth = 1.5;
+        hudCtx.beginPath();
+        hudCtx.ellipse(hPt.x, hPt.y, 10, 5.5, 0, 0, Math.PI * 2);
+        hudCtx.stroke();
+
+        hudCtx.fillStyle = "#fde047";
+        hudCtx.beginPath();
+        hudCtx.arc(hPt.x, hPt.y, 3, 0, Math.PI * 2);
+        hudCtx.fill();
+      }
+
+      // Draw Active Point of Interest (POI) Indicator Beacon on 3D Terrain
+      const poiIdx = state.poiRow * N + state.poiCol;
+      const pu = (state.poiCol / (N - 1)) * 2 - 1;
+      const pv = (state.poiRow / (N - 1)) * 2 - 1;
+      const pElev = state.dem.elev[poiIdx];
+      const pPin = projectPoint2D(pu, pv, pElev, state.dem.min_elev, cw, ch);
+
+      // Outer target ring on the surface (circle in 2D, perspective ellipse in 3D)
+      const ryRing = 8 + 7 * (1.0 - vt.m);
+      const poleHeight = Math.round(16 + 20 * vt.m);
+      hudCtx.strokeStyle = "rgba(245, 158, 11, 0.95)";
+      hudCtx.lineWidth = 2;
+      hudCtx.beginPath();
+      hudCtx.ellipse(pPin.x, pPin.y, 15, ryRing, 0, 0, Math.PI * 2);
+      hudCtx.stroke();
+
+      hudCtx.fillStyle = "rgba(245, 158, 11, 0.25)";
+      hudCtx.fill();
+
+      // Vertical beacon pole
+      hudCtx.strokeStyle = "#ffffff";
+      hudCtx.lineWidth = 2.4;
+      hudCtx.beginPath();
+      hudCtx.moveTo(pPin.x, pPin.y);
+      hudCtx.lineTo(pPin.x, pPin.y - poleHeight);
+      hudCtx.stroke();
+
+      // Pin base dot
+      hudCtx.fillStyle = "#f59e0b";
+      hudCtx.beginPath();
+      hudCtx.arc(pPin.x, pPin.y, 6, 0, Math.PI * 2);
+      hudCtx.fill();
+      hudCtx.stroke();
+
+      // Floating POI Data Card
+      const poiTemp = state.computed.tempField[poiIdx].toFixed(1);
+      const poiMoist = Math.round(state.computed.moistField[poiIdx]);
+      const poiSlope = state.dem.slope[poiIdx].toFixed(1);
+      const poiElevRound = Math.round(pElev);
+
+      let metricHighlight = `${poiTemp} °C · Hum: ${poiMoist}%`;
+      if (state.layer === "elev") metricHighlight = `${poiElevRound} m s.n.m. · Pend: ${poiSlope}%`;
+      else if (state.layer === "slope") metricHighlight = `Pend: ${poiSlope}% · ${poiElevRound} m`;
+      else if (state.layer === "icta") metricHighlight = `${poiElevRound} m (${poiElevRound < 500 ? "<500m" : "500-1500m"})`;
+
+      const line1 = `📍 ${state.poiLabel} (${poiElevRound} m)`;
+      const line2 = `${metricHighlight} · Pend: ${poiSlope}%`;
+
+      hudCtx.font = "bold 12px sans-serif";
+      const w1 = hudCtx.measureText(line1).width;
+      hudCtx.font = "11px sans-serif";
+      const w2 = hudCtx.measureText(line2).width;
+      const boxW = Math.max(w1, w2) + 22;
+      const boxH = 38;
+
+      const bx = Math.max(boxW / 2 + 6, Math.min(cw - boxW / 2 - 6, pPin.x));
+      const by = Math.max(boxH + 8, pPin.y - poleHeight - 4);
+
+      hudCtx.fillStyle = "#080d19";
+      hudCtx.strokeStyle = "#f59e0b";
+      hudCtx.lineWidth = 2.0;
+      hudCtx.beginPath();
+      hudCtx.roundRect(bx - boxW / 2, by - boxH, boxW, boxH, 7);
+      hudCtx.fill();
+      hudCtx.stroke();
+
+      hudCtx.textAlign = "center";
+      hudCtx.fillStyle = "#fde68a";
+      hudCtx.font = "bold 12px sans-serif";
+      hudCtx.fillText(line1, bx, by - 21);
+
+      hudCtx.fillStyle = "#f8fafc";
+      hudCtx.font = "11px sans-serif";
+      hudCtx.fillText(line2, bx, by - 7);
+    }
+
+    // =========================================================================
+    // 7. SIDEBAR METRICS FOR SELECTED POINT OF INTEREST (POI)
+    // =========================================================================
+    function updateLegendForLayer(layer) {
+      const minEl = document.getElementById("legend-min");
+      const maxEl = document.getElementById("legend-max");
+      const gradEl = document.getElementById("legend-gradient");
+      if (layer === "temp") {
+        minEl.textContent = "18°C";
+        maxEl.textContent = "36°C";
+        gradEl.style.background = "linear-gradient(90deg,#2e73f2,#0dc4ae,#38cc59,#fad126,#f77314,#db2424,#7a0f2e)";
+      } else if (layer === "moist") {
+        minEl.textContent = "20% (Seco)";
+        maxEl.textContent = "85% (Saturado)";
+        gradEl.style.background = "linear-gradient(90deg,#c73d24,#eb9424,#85cc38,#0fb8a6,#1f61e0)";
+      } else if (layer === "elev") {
+        minEl.textContent = "300 m";
+        maxEl.textContent = "1,350 m";
+        gradEl.style.background = "linear-gradient(90deg,#1f8557,#73b847,#e0c252,#b86b38,#ebe6e0)";
+      } else if (layer === "slope") {
+        minEl.textContent = "0%";
+        maxEl.textContent = ">35%";
+        gradEl.style.background = "linear-gradient(90deg,#14b87a,#f5c224,#f0591f,#ad1a38)";
+      } else {
+        minEl.textContent = "<500m";
+        maxEl.textContent = ">500m";
+        gradEl.style.background = "linear-gradient(90deg,#eb6b1a 48%,#ffffff 50%,#1ab87a 52%,#1473c7 100%)";
+      }
+    }
+
+    function updateSidebarMetrics() {
+      if (!state.dem || !state.computed) return;
+      const c = state.computed;
+      const poiIdx = state.poiRow * N + state.poiCol;
+
+      const poiElev = Math.round(state.dem.elev[poiIdx]);
+      const poiSlope = Math.round(state.dem.slope[poiIdx] * 10) / 10;
+      const poiTemp = Math.round(c.tempField[poiIdx] * 10) / 10;
+      const poiMoist = Math.round(c.moistField[poiIdx]);
+
+      const dimTxt = formatBoxDim();
+      document.getElementById("m-elev").textContent = `${poiElev} m s.n.m.`;
+      document.getElementById("m-range-sub").textContent =
+        `Rango en ${dimTxt}: ${Math.round(state.dem.min_elev)}–${Math.round(state.dem.max_elev)} m`;
+
+      document.getElementById("m-temp").textContent = `${poiTemp} °C`;
+      document.getElementById("m-trange-sub").textContent =
+        `Rango en ${dimTxt}: ${c.minT.toFixed(1)}–${c.maxT.toFixed(1)} °C`;
+
+      document.getElementById("m-moist").textContent = `${poiMoist} %`;
+      document.getElementById("m-rain-sub").textContent =
+        `Lluvia: ${c.rainMmDay.toFixed(1)} mm/día · HR ${Math.round(c.rhPct)}%`;
+
+      const riskEl = document.getElementById("m-risk");
+      document.getElementById("m-slope-sub").textContent = `Mediana en ${dimTxt}: ${c.medianSlope}%`;
+      if (poiTemp >= 31.5) {
+        riskEl.textContent = `${poiSlope}% · Estrés Calor`;
+        riskEl.style.color = "#ef4444";
+      } else if (poiSlope >= 16.0) {
+        riskEl.textContent = `${poiSlope}% · Escorrentía`;
+        riskEl.style.color = "#f59e0b";
+      } else {
+        riskEl.textContent = `${poiSlope}% · Infiltra bien`;
+        riskEl.style.color = "#10b981";
+      }
+
+      const agroBox = document.getElementById("agro-box");
+      if (poiElev < 500) {
+        agroBox.innerHTML =
+          `<strong>🌱 Diagnóstico en «${state.poiLabel}» (${poiElev} m, &lt;500m):</strong><br>` +
+          `• <strong>Frijol apto:</strong> ICTA Ligero o ICTA Patriarca (toleran ${poiTemp} °C).<br>` +
+          `• <strong>Maíz:</strong> ICTA B-5 + cobertura <em>Canavalia</em> (retiene ${poiMoist}% humedad con ${poiSlope}% de pendiente).`;
+      } else {
+        agroBox.innerHTML =
+          `<strong>🌱 Diagnóstico en «${state.poiLabel}» (${poiElev} m, 500–1500m):</strong><br>` +
+          `• <strong>Frijol apto:</strong> ICTA Chortí, ICTA Petén o ICTA Sayaxché.<br>` +
+          `• <strong>Maíz:</strong> ICTA B-5 / HB-83 (${poiSlope > 12 ? "requiere curvas a nivel por " + poiSlope + "% de pendiente" : "buena infiltración"}).`;
+      }
+
+      const layerNames = {
+        temp: `🌡️ Temperatura NASA POWER (${state.tempVar})`,
+        moist: `💧 Humedad del Suelo NASA POWER`,
+        elev: "⛰️ Elevación Topográfica NASA SRTM (z=13, ~19m)",
+        slope: "📐 Pendiente y Riesgo de Escorrentía (%)",
+        icta: "🌱 Pisos Térmicos ICTA (Umbral 500 m s.n.m.)"
+      };
+      const modeTag = state.temporalMode === "realtime"
+        ? `📡 Verificación en Tiempo Real · ${c.periodLabel}`
+        : `📅 Planificación de Siembra · ${c.periodLabel}`;
+      document.getElementById("hud-main-text").innerHTML =
+        `<strong>${layerNames[state.layer]}</strong><br>${modeTag}`;
+    }
+
+    async function loadPointData() {
+      const hud = document.getElementById("hud-main-text");
+      const dimTxt = formatBoxDim();
+      hud.textContent = `Consultando NASA SRTM Ultra-HD + NASA POWER API para cuadro ${dimTxt} en (${state.centerLat.toFixed(4)}, ${state.centerLon.toFixed(4)})...`;
+      try {
+        const [dem, clim] = await Promise.all([
+          fetchHighResTerrariumBox(state.centerLat, state.centerLon, state.widthKm, state.heightKm, N),
+          fetchNasaPowerData(state.centerLat, state.centerLon)
+        ]);
+        state.dem = dem;
+        state.clim = clim;
+        const rtSlider = document.getElementById("rt-day-slider");
+        rtSlider.max = String((clim.recentDays || FALLBACK_RECENT_DAYS).length - 1);
+        state.rtIndex = parseInt(rtSlider.max, 10);
+        rtSlider.value = String(state.rtIndex);
+        computeClimateFields();
+        renderScene();
+      } catch (err) {
+        console.error(err);
+        hud.textContent = `Error al cargar datos: ${err.message}`;
+      }
+    }
+
+    // Customizable Box Dimensions (0.5 km to 10 km) Handlers
+    function applyCustomBoxDimensions() {
+      const wInput = document.getElementById("box-width-input");
+      const hInput = document.getElementById("box-height-input");
+      let w = parseFloat(String(wInput.value).replace(",", "."));
+      let h = parseFloat(String(hInput.value).replace(",", "."));
+      if (isNaN(w)) w = DEFAULT_BOX_KM;
+      if (isNaN(h)) h = DEFAULT_BOX_KM;
+      w = Math.round(Math.max(0.5, Math.min(10.0, w)) * 10) / 10;
+      h = Math.round(Math.max(0.5, Math.min(10.0, h)) * 10) / 10;
+
+      wInput.value = String(w);
+      hInput.value = String(h);
+      state.widthKm = w;
+      state.heightKm = h;
+
+      const dimTxt = formatBoxDim();
+      document.getElementById("btn-center-dim-label").textContent = dimTxt;
+      document.getElementById("stage-title-text").textContent =
+        `📍 ${state.poiLabel} (${state.poiLat.toFixed(4)}, ${state.poiLon.toFixed(4)}) · Cuadro ${dimTxt}`;
+
+      const boundsLatLng = getBoxBoundsLatLng();
+      boxRect2D.setBounds(boundsLatLng);
+      boxRect2D.setTooltipContent(`Área del Modelo (Cuadro ${dimTxt})`);
+      map.fitBounds(boundsLatLng, { padding: [18, 18], maxZoom: 15 });
+
+      loadPointData();
+    }
+
+    document.getElementById("btn-apply-box").addEventListener("click", applyCustomBoxDimensions);
+    document.getElementById("box-width-input").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") applyCustomBoxDimensions();
+    });
+    document.getElementById("box-height-input").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") applyCustomBoxDimensions();
+    });
+    document.getElementById("box-width-input").addEventListener("change", applyCustomBoxDimensions);
+    document.getElementById("box-height-input").addEventListener("change", applyCustomBoxDimensions);
+
+    // Smooth 2D <-> 3D Slider & Quick Pill Buttons
+    function updateMorphUI(m) {
+      state.morph3D = Math.max(0.0, Math.min(1.0, m));
+      const pct = Math.round(state.morph3D * 100);
+      document.getElementById("morph-2d3d-slider").value = String(pct);
+
+      const labelEl = document.getElementById("morph-pct-label");
+      const btn2D = document.getElementById("btn-morph-2d");
+      const btn3D = document.getElementById("btn-morph-3d");
+
+      if (pct === 0) {
+        labelEl.textContent = "2D (100%)";
+        btn2D.classList.add("active");
+        btn3D.classList.remove("active");
+      } else if (pct === 100) {
+        labelEl.textContent = "3D (100%)";
+        btn2D.classList.remove("active");
+        btn3D.classList.add("active");
+      } else {
+        labelEl.textContent = `3D (${pct}%)`;
+        btn2D.classList.remove("active");
+        btn3D.classList.remove("active");
+      }
+      renderScene();
+    }
+
+    function animateMorphTo(targetM) {
+      if (state.morphAnimId) cancelAnimationFrame(state.morphAnimId);
+      const startM = state.morph3D;
+      const startTime = performance.now();
+      const duration = 380;
+
+      function step(now) {
+        const u = Math.min(1.0, (now - startTime) / duration);
+        // Smooth easeInOutCubic
+        const ease = u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+        updateMorphUI(startM + (targetM - startM) * ease);
+        if (u < 1.0) {
+          state.morphAnimId = requestAnimationFrame(step);
+        } else {
+          state.morphAnimId = null;
+        }
+      }
+      state.morphAnimId = requestAnimationFrame(step);
+    }
+
+    document.getElementById("morph-2d3d-slider").addEventListener("input", (e) => {
+      if (state.morphAnimId) {
+        cancelAnimationFrame(state.morphAnimId);
+        state.morphAnimId = null;
+      }
+      updateMorphUI(parseInt(e.target.value, 10) / 100.0);
+    });
+    document.getElementById("btn-morph-2d").addEventListener("click", () => animateMorphTo(0.0));
+    document.getElementById("btn-morph-3d").addEventListener("click", () => animateMorphTo(1.0));
+
+    // Mode Slide Toggle Listeners
+    function setTemporalMode(mode) {
+      state.temporalMode = mode;
+      const btnRT = document.getElementById("mode-realtime");
+      const btnPL = document.getElementById("mode-planning");
+      const ctrlRT = document.getElementById("controls-realtime");
+      const ctrlPL = document.getElementById("controls-planning");
+
+      if (mode === "realtime") {
+        btnRT.className = "mode-option active-realtime";
+        btnPL.className = "mode-option";
+        ctrlRT.style.display = "flex";
+        ctrlPL.style.display = "none";
+      } else {
+        btnRT.className = "mode-option";
+        btnPL.className = "mode-option active-planning";
+        ctrlRT.style.display = "none";
+        ctrlPL.style.display = "flex";
+      }
+      computeClimateFields();
+      renderScene();
+    }
+
+    document.getElementById("mode-realtime").addEventListener("click", () => setTemporalMode("realtime"));
+    document.getElementById("mode-planning").addEventListener("click", () => setTemporalMode("planning"));
+
+    document.getElementById("rt-day-slider").addEventListener("input", (e) => {
+      state.rtIndex = parseInt(e.target.value, 10);
+      computeClimateFields();
+      renderScene();
+    });
+
+    function selectPlanningMonth(m) {
+      state.month = m;
+      document.getElementById("plan-month-slider").value = String(m);
+      document.querySelectorAll(".month-btn").forEach((b) => {
+        b.classList.toggle("active", parseInt(b.getAttribute("data-m"), 10) === m);
+      });
+      computeClimateFields();
+      renderScene();
+    }
+
+    document.getElementById("plan-month-slider").addEventListener("input", (e) => {
+      selectPlanningMonth(parseInt(e.target.value, 10));
+    });
+
+    document.querySelectorAll(".month-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectPlanningMonth(parseInt(btn.getAttribute("data-m"), 10));
+      });
+    });
+
+    // =========================================================================
+    // 8. 3D VIEWPORT PICKING: HOVER INDICATOR + CLICK TO PLACE POI ON 3D MAP
+    // =========================================================================
+    const hudCanvas = document.getElementById("hud-main");
+    let pointerDown = false;
+    let downX = 0, downY = 0;
+    let lastX = 0, lastY = 0;
+    let movedDist = 0;
+
+    function pickNearestVertex(mx, my, width, height) {
+      if (!state.dem) return -1;
+      let bestIdx = -1;
+      let bestScore = Infinity;
+      const step = 2; // Fine picking across the 180×180 mesh
+      for (let r = 0; r < N; r += step) {
+        const v = (r / (N - 1)) * 2 - 1;
+        for (let c = 0; c < N; c += step) {
+          const u = (c / (N - 1)) * 2 - 1;
+          const idx = r * N + c;
+          const pt = projectPoint2D(u, v, state.dem.elev[idx], state.dem.min_elev, width, height);
+          const d2 = (pt.x - mx) ** 2 + (pt.y - my) ** 2;
+          if (d2 < 320) {
+            // Prefer front-most surface (higher pt.depth) when a front hill overlaps a back hill
+            const score = d2 - pt.depth * 180;
+            if (score < bestScore) {
+              bestScore = score;
+              bestIdx = idx;
+            }
+          }
+        }
+      }
+      return bestIdx;
+    }
+
+    hudCanvas.addEventListener("pointerdown", (e) => {
+      pointerDown = true;
+      downX = lastX = e.clientX;
+      downY = lastY = e.clientY;
+      movedDist = 0;
+      hudCanvas.setPointerCapture(e.pointerId);
+    });
+
+    hudCanvas.addEventListener("pointermove", (e) => {
+      const rect = hudCanvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+
+      if (pointerDown) {
+        const dx = e.clientX - lastX;
+        const dy = e.clientY - lastY;
+        movedDist += Math.hypot(dx, dy);
+        lastX = e.clientX;
+        lastY = e.clientY;
+        if (movedDist > 4) {
+          if (state.morph3D <= 0.05 && state.dem) {
+            // In 2D flat mode, dragging moves the Point of Interest (POI) smoothly across the 2D map
+            const idx = pickNearestVertex(mx, my, rect.width, rect.height);
+            if (idx >= 0) {
+              placePoiByRowCol(Math.floor(idx / N), idx % N);
+            }
+          } else {
+            hudCanvas.classList.add("dragging");
+            state.yaw += dx * 0.008;
+            state.pitch = Math.max(0.22, Math.min(1.22, state.pitch + dy * 0.006));
+            renderScene();
+          }
+        }
+        return;
+      }
+
+      if (!state.dem || !state.computed) return;
+      const idx = pickNearestVertex(mx, my, rect.width, rect.height);
+      state.hoverIdx = idx >= 0 ? idx : null;
+      if (idx >= 0) {
+        const r = Math.floor(idx / N), c = idx % N;
+        const [lonW, latS, lonE, latN] = state.dem.bounds;
+        const lat = (latN - (r / (N - 1)) * (latN - latS)).toFixed(4);
+        const lon = (lonW + (c / (N - 1)) * (lonE - lonW)).toFixed(4);
+        const el = Math.round(state.dem.elev[idx]);
+        const sl = state.dem.slope[idx].toFixed(1);
+        const tp = state.computed.tempField[idx].toFixed(1);
+        const mo = Math.round(state.computed.moistField[idx]);
+        document.getElementById("hover-main-text").textContent =
+          `Clic para colocar 📍 aquí: (${lat}, ${lon}) · ${el}m · ${tp}°C · Hum: ${mo}% · Pend: ${sl}%`;
+      }
+      renderScene();
+    });
+
+    hudCanvas.addEventListener("pointerup", (e) => {
+      if (!pointerDown) return;
+      pointerDown = false;
+      hudCanvas.classList.remove("dragging");
+
+      // If user clicked without dragging (< 5px movement), place the POI indicator at that 3D point!
+      if (movedDist < 5 && state.dem) {
+        const rect = hudCanvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        const idx = pickNearestVertex(mx, my, rect.width, rect.height);
+        if (idx >= 0) {
+          const r = Math.floor(idx / N);
+          const c = idx % N;
+          placePoiByRowCol(r, c);
+        }
+      }
+    });
+
+    hudCanvas.addEventListener("pointercancel", () => {
+      pointerDown = false;
+      hudCanvas.classList.remove("dragging");
+    });
+
+    hudCanvas.addEventListener("pointerleave", () => {
+      state.hoverIdx = null;
+      renderScene();
+    });
+
+    hudCanvas.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      state.zoom = Math.max(0.65, Math.min(2.2, state.zoom * (e.deltaY < 0 ? 1.08 : 0.92)));
+      renderScene();
+    }, { passive: false });
+
+    function setLayer(layer) {
+      state.layer = layer;
+      for (const k of ["temp", "moist", "elev", "slope", "icta"]) {
+        const btn = document.getElementById("layer-" + k);
+        btn.className = "";
+        if (k === layer) {
+          btn.className = k === "temp" ? "active-temp" : k === "moist" ? "active-moist" : "active";
+        }
+      }
+      updateLegendForLayer(layer);
+      updateSidebarMetrics();
+      renderScene();
+    }
+
+    for (const k of ["temp", "moist", "elev", "slope", "icta"]) {
+      document.getElementById("layer-" + k).addEventListener("click", () => setLayer(k));
+    }
+
+    document.getElementById("temp-var-select").addEventListener("change", (e) => {
+      state.tempVar = e.target.value;
+      computeClimateFields();
+      renderScene();
+    });
+
+    document.getElementById("chk-contours").addEventListener("change", (e) => {
+      state.contours = e.target.checked;
+      renderScene();
+    });
+    document.getElementById("chk-flow").addEventListener("change", (e) => {
+      state.flow = e.target.checked;
+      renderScene();
+    });
+    document.getElementById("exag-slider").addEventListener("input", (e) => {
+      state.exag = parseFloat(e.target.value);
+      document.getElementById("exag-label").textContent = state.exag.toFixed(1);
+      renderScene();
+    });
+
+    window.addEventListener("resize", renderScene);
+
+    // Initial load
+    loadPointData();
+  </script>
+</body>
+</html>

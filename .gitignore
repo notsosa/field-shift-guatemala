@@ -6,3 +6,8 @@ __pycache__/
 modelos/
 # corpus y datasets del LLM (licencias restringidas): repo privado mariobet23440/lenguas-mayas-corpus
 datos/lenguas_mayas/pretraining/
+
+# Caché temporal de teselas y respaldo local del motor gráfico
+datos/relieve/jaxa_cog_cache/
+web/
+scripts/servidor_topo3d.py
