@@ -1,9 +1,11 @@
 // Genera los ejemplos de entrenamiento del emulador corriendo el simulador completo.
 // Uso: node scripts/emulator/generate.mjs  (requiere las cachés de fetch_points.mjs)
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { loadCrops } from '../../web/js/model/crops.js';
 import { computeEt0Series, agriculturalYears, runSequence } from '../../web/js/model/simulate.js';
 import { climateFeatures, phenoFeatures, encodeFeatures, targetsOf, mulberry32, FEATURE_NAMES, CLIMATE_FEATURE_NAMES, PHENO_FEATURE_NAMES, TARGET_NAMES } from '../../web/js/model/emulator.js';
+import { fileURLToPath } from 'node:url';
 import { sharedCells } from './cells.mjs';
 
 const here = (p) => new URL(p, import.meta.url);
@@ -77,7 +79,15 @@ for (const gp of gridPoints) Object.assign(gp, cells[gp.id]);
 const heldOut = new Set(points.filter((p) => p.heldOut).map((p) => p.id));
 const isTest = (m) => (m.year >= 2019 && m.year <= 2024) || heldOut.has(m.pointId);
 const nTest = meta.filter(isTest).length;
-writeFileSync(here('./samples.json'), JSON.stringify({ featureNames: FEATURE_NAMES, targetNames: TARGET_NAMES, X, Y, meta }));
+// Procedencia: commit del simulador al generar (y si el modelo tenía cambios sin confirmar), fuente de lluvia de los bundles, fecha.
+const git = (...a) => execFileSync('git', ['-C', fileURLToPath(here('../..')), ...a], { encoding: 'utf8' }).trim();
+const provenance = {
+  simulatorCommit: git('rev-parse', '--short', 'HEAD'),
+  simulatorDirty: git('status', '--porcelain', '--', 'web/js/model', 'web/data/crops.json', 'web/data/sequences.json') !== '',
+  rainSource: [...new Set(Object.values(bundles).map((b) => b.rainSource))].join(', '),
+  generated: new Date().toISOString().slice(0, 10),
+};
+writeFileSync(here('./samples.json'), JSON.stringify({ provenance, featureNames: FEATURE_NAMES, targetNames: TARGET_NAMES, X, Y, meta }));
 writeFileSync(here('../../web/data/grid_features.json'), JSON.stringify({ points: gridPoints, years: [...yearSet].sort((a, b) => a - b), climateNames: CLIMATE_FEATURE_NAMES, phenoNames: PHENO_FEATURE_NAMES, offsets: OFFSETS, climate, pheno }));
 
 console.log(`\nPuntos usados: ${gridPoints.length}; candidatos totales: ${seen}; conservados: ${X.length}; tiempo: ${((Date.now() - t0) / 1000).toFixed(1)} s`);

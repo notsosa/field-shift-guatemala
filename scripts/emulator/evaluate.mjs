@@ -12,7 +12,8 @@ import { sharedCells } from './cells.mjs';
 
 const here = (p) => new URL(p, import.meta.url);
 const readJson = (u) => JSON.parse(readFileSync(u, 'utf8'));
-const { featureNames, targetNames, X, Y, meta } = readJson(here('./samples.json'));
+const { featureNames, targetNames, X, Y, meta, provenance } = readJson(here('./samples.json'));
+if (!provenance) throw new Error('samples.json sin provenance: regenera con generate.mjs');
 const points = readJson(here('./points.json'));
 const net = readJson(here('../../web/data/emulator_mlp.json'));
 const OUT = here('../../web/data/emulator_eval.json');
@@ -308,6 +309,7 @@ const caveat = `The spatial hold-out is not fully independent: NASA POWER temper
 
 const overall = { mlp: metrics(teIdx, mlpPred), elm: metrics(teIdx, elmPred), baseline: metrics(teIdx, basePred), elmBrowser: metrics(teIdx, elmBPred) };
 const evalOut = {
+  meta: { ...provenance, evaluated: new Date().toISOString().slice(0, 10) },
   targets: targetNames,
   mlp: { rmse: overall.mlp.rmse, r2: overall.mlp.r2, trainSeconds: net.trainSeconds, params: net.params,
     trainDevice: net.device ?? 'cpu', trainDeviceName: net.deviceName ?? 'CPU', torchVersion: net.torchVersion ?? null,
