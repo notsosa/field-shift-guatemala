@@ -19,9 +19,9 @@ Es una propuesta de Keu. Alex puede pedir cambios; lo que se acuerde se anota al
 |---|---|---|
 | Entrenamiento | Los 20 puntos de `scripts/emulator/points.json` | 2001–2016 |
 | Validación (elegir pesos, parar) | Los mismos 20 | 2017–2018 |
-| Prueba | Chiquimula, Jutiapa y San Martín Jilotepeque | 2019–2024 |
+| Prueba | Chiquimula, Jutiapa y San Martín Jilotepeque | 2022–2025 (los años que reservó Alex); con los datos actuales se pueden medir 2022–2024 (la serie de clima termina el 2025-12-31, así que el año agrícola 2025 no se puede medir). Se sigue reportando también 2019–2024 como medida adicional |
 
-- **Casos de prueba:** 3 pilotos × 6 años × 3 momentos de pérdida = 54. Nadie los usa para entrenar, elegir ni ajustar nada.
+- **Casos de prueba:** 3 pilotos × 3 años (2022–2024) × 3 momentos de pérdida = 27; como medida adicional, 3 × 6 años (2019–2024) × 3 = 54. Nadie los usa para entrenar, elegir ni ajustar nada.
 - **Clima:** NASA POWER para temperatura, humedad, radiación y viento, con la temperatura llevada a la altura de la parcela; lluvia ERA5. Son los archivos de `web/data/snapshots/` (pilotos) y `scripts/emulator/cache/` (los 20 puntos; se regeneran con `node scripts/emulator/fetch_points.mjs`).
 - **Suelo:** el de SoilGrids de cada piloto (`scripts/emulator/points.json`); en los demás puntos, las clases arena, franco y arcilla.
 - **Cultivos:** los parámetros de `web/data/crops.json`.
@@ -54,7 +54,7 @@ Los dos se miden contra las mismas dos referencias:
 
 ## 6. Las mismas medidas
 
-Sobre los 54 casos de prueba, y siempre con el conteo al lado de cada porcentaje:
+Sobre los 27 casos de 2022–2024 y, como medida adicional, los 54 de 2019–2024, y siempre con el conteo al lado de cada porcentaje:
 
 | Medida | Qué dice |
 |---|---|
@@ -89,9 +89,9 @@ No se fija el mismo algoritmo para los dos, porque es parte de lo que cada arqui
 |---|---|---|
 | Tarea de la sección 1 | Ya medida con el simulador y las redes v2 (`web/data/decision_loss_eval.json`) | Por adaptar: sus pesos se entrenaron en otro simulador y con otras prioridades |
 | Datos y juez de esta rama | Sí | Falta conectar su red a estos datos, o publicar el código que arma sus entradas |
-| Tres semillas 17 / 29 / 43 | Falta: se usó la semilla 42 | Sí |
+| Tres semillas 17 / 29 / 43 | Hecho de nuestro lado (`web/data/aligned_eval.json`); la semilla 42 de antes se conserva | Sí |
 | Prueba de "sin datos futuros" | Sí | Por confirmar |
-| Años de prueba 2019–2024 | Sí | Reservó 2022–2025: hay que alinear |
+| Años de prueba 2022–2025 | Alineado de nuestro lado en 2022–2024; 2025 pendiente de datos (la serie termina el 2025-12-31). 2019–2024 se reporta como adicional | Reservó 2022–2025 |
 
 ## Acuerdos
 

@@ -598,6 +598,104 @@ Cultivos elegidos (de 54): la regla, maíz 28 y frijol 26; el simulador típico,
 - **Muestra pequeña:** 54 casos (3 sitios × 6 años × 3 momentos de pérdida), con los conteos junto a cada cifra y sin significancia estadística.
 - **El v1 sigue siendo el modelo de la página.** El v2 se reproduce con `node scripts/emulator/generate_v2.mjs`, `python scripts/emulator/train_mlp_v2.py`, `node scripts/emulator/evaluate_v2.mjs` y `node scripts/compare/loss_decision.mjs`.
 
+## Condiciones alineadas con el modelo de Alex (semillas 17, 29 y 43; años 2022–2024)
+
+**Qué cambió.** Se reentrenó la red embudo v2 (receta base, mismos datos y particiones) con las semillas 17, 29 y 43, cada una en su archivo (`web/data/emulator_v2_mlp_seed17.json`, `…seed29.json`, `…seed43.json`), y la ELM v2 con las mismas tres semillas (la de su capa oculta aleatoria). Todo está en `web/data/aligned_eval.json`, escrito por `scripts/compare/aligned_eval.mjs`; los resultados de la semilla 42 (`emulator_v2_*.json`, `decision_loss_eval.json`) no cambian. Aquí no se compara con ningún otro modelo.
+
+**Años.** Los años reservados son 2022–2025. El año agrícola 2025 (abril de 2025 a marzo de 2026) **no se puede medir**: la serie de clima termina el 2025-12-31 y no se inventó nada. Se miden 2022–2024: 27 casos (3 pilotos × 3 años × 3 momentos de pérdida). Las redes **no se reajustaron** con 2019–2021 añadidos: se ajustaron con 2019–2024 fuera, así que 2022–2024 es un subconjunto de años que nunca vieron. Se reporta también el conjunto de 2019–2024 (54 casos).
+
+### Exactitud del emulador por semilla
+
+**Años nuevos (2019–2024, puntos de entrenamiento)** — n = 12107 filas; R² (RMSE) por salida y F1 del ajuste. La exactitud del emulador se mide en los años de prueba con que se entrenó (2019–2024), no solo en 2022–2024.
+
+| Modelo | Semilla | R² A | R² B | R² ajuste | RMSE A | RMSE B | RMSE ajuste | F1 ajuste |
+|---|---|---|---|---|---|---|---|---|
+| Red (MLP) | 17 | 0.595 | 0.911 | 0.906 | 0.093 | 0.095 | 0.139 | 0.983 |
+| Red (MLP) | 29 | 0.622 | 0.899 | 0.894 | 0.090 | 0.102 | 0.148 | 0.979 |
+| Red (MLP) | 43 | 0.632 | 0.906 | 0.902 | 0.089 | 0.098 | 0.142 | 0.982 |
+| Red (MLP) | media (mín–máx) | 0.616 (0.595–0.632) | 0.905 (0.899–0.911) | 0.901 (0.894–0.906) | 0.091 (0.089–0.093) | 0.098 (0.095–0.102) | 0.143 (0.139–0.148) | 0.981 (0.979–0.983) |
+| ELM | 17 | 0.519 | 0.850 | 0.735 | 0.102 | 0.124 | 0.234 | 0.971 |
+| ELM | 29 | 0.509 | 0.853 | 0.728 | 0.103 | 0.122 | 0.237 | 0.971 |
+| ELM | 43 | 0.520 | 0.855 | 0.730 | 0.102 | 0.122 | 0.236 | 0.970 |
+| ELM | media (mín–máx) | 0.516 (0.509–0.520) | 0.853 (0.850–0.855) | 0.731 (0.728–0.735) | 0.102 (0.102–0.103) | 0.123 (0.122–0.124) | 0.236 (0.234–0.237) | 0.971 (0.970–0.971) |
+
+**Puntos nuevos (puntos retenidos, otros años)** — n = 8824 filas; R² (RMSE) por salida y F1 del ajuste. La exactitud del emulador se mide en los años de prueba con que se entrenó (2019–2024), no solo en 2022–2024.
+
+| Modelo | Semilla | R² A | R² B | R² ajuste | RMSE A | RMSE B | RMSE ajuste | F1 ajuste |
+|---|---|---|---|---|---|---|---|---|
+| Red (MLP) | 17 | 0.797 | 0.907 | 0.864 | 0.111 | 0.115 | 0.156 | 0.981 |
+| Red (MLP) | 29 | 0.805 | 0.917 | 0.887 | 0.108 | 0.109 | 0.142 | 0.982 |
+| Red (MLP) | 43 | 0.792 | 0.908 | 0.884 | 0.112 | 0.115 | 0.144 | 0.982 |
+| Red (MLP) | media (mín–máx) | 0.798 (0.792–0.805) | 0.911 (0.907–0.917) | 0.878 (0.864–0.887) | 0.110 (0.108–0.112) | 0.113 (0.109–0.115) | 0.147 (0.142–0.156) | 0.982 (0.981–0.982) |
+| ELM | 17 | 0.760 | 0.831 | 0.698 | 0.120 | 0.156 | 0.232 | 0.969 |
+| ELM | 29 | 0.759 | 0.852 | 0.691 | 0.121 | 0.146 | 0.235 | 0.968 |
+| ELM | 43 | 0.750 | 0.843 | 0.687 | 0.123 | 0.150 | 0.236 | 0.969 |
+| ELM | media (mín–máx) | 0.756 (0.750–0.760) | 0.842 (0.831–0.852) | 0.692 (0.687–0.698) | 0.121 (0.120–0.123) | 0.151 (0.146–0.156) | 0.234 (0.232–0.236) | 0.969 (0.968–0.969) |
+
+### Decisión tras perder el maíz, años reservados medibles 2022–2024 (n = 27 casos)
+
+G / E / P = casos en que gana, empata o pierde contra la regla (tolerancia 0.001). Ejecutable = acciones cuyo ciclo termina en el año. Bajo 0.5 = casos con rendimiento relativo elegido menor que 0.5. Se aparta = casos en que la acción elegida difiere de la de la regla. Los conteos van de n = 27; no se hace prueba de significancia.
+
+| Política | Prioridad | Semilla | Rendimiento medio elegido | Ganancia sobre la regla | G / E / P | Arrepentimiento medio | Percentil 10 | Peor caso | Ejecutable | Bajo 0.5 | Se aparta de la regla |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Regla agronómica | – | – | 0.856 | +0.000 | 0 / 27 / 0 | 0.123 | 0.607 | 0.000 | 26 / 27 | 2 / 27 | 0 / 27 |
+| Simulador | típico | – | 0.947 | +0.091 | 10 / 16 / 1 | 0.032 | 0.907 | 0.462 | 27 / 27 | 1 / 27 | 15 / 27 |
+| Simulador | cauto | – | 0.963 | +0.107 | 13 / 8 / 6 | 0.017 | 0.905 | 0.796 | 27 / 27 | 0 / 27 | 24 / 27 |
+| Oráculo | – | – | 0.979 | – | – | 0 | – | – | 27 / 27 | 0 / 27 | 17 / 27 |
+| Red (MLP) | típico | 17 | 0.953 | +0.097 | 13 / 8 / 6 | 0.027 | 0.851 | 0.711 | 27 / 27 | 0 / 27 | 27 / 27 |
+| Red (MLP) | típico | 29 | 0.952 | +0.097 | 13 / 7 / 7 | 0.027 | 0.851 | 0.711 | 27 / 27 | 0 / 27 | 25 / 27 |
+| Red (MLP) | típico | 43 | 0.957 | +0.101 | 12 / 10 / 5 | 0.022 | 0.851 | 0.752 | 27 / 27 | 0 / 27 | 22 / 27 |
+| Red (MLP) | típico | media (mín–máx) | 0.954 (0.952–0.957) | 0.098 (0.097–0.101) | G 12.7 (12.0–13.0); E 8.3 (7.0–10.0); P 6.0 (5.0–7.0) | 0.025 (0.022–0.027) | 0.851 (0.851–0.851) | 0.725 (0.711–0.752) | 27.0 (27.0–27.0) | 0.0 (0.0–0.0) | 24.7 (22.0–27.0) |
+| Red (MLP) | cauto | 17 | 0.953 | +0.097 | 13 / 8 / 6 | 0.027 | 0.851 | 0.711 | 27 / 27 | 0 / 27 | 27 / 27 |
+| Red (MLP) | cauto | 29 | 0.952 | +0.096 | 13 / 6 / 8 | 0.027 | 0.851 | 0.711 | 27 / 27 | 0 / 27 | 27 / 27 |
+| Red (MLP) | cauto | 43 | 0.952 | +0.096 | 12 / 9 / 6 | 0.027 | 0.851 | 0.711 | 27 / 27 | 0 / 27 | 24 / 27 |
+| Red (MLP) | cauto | media (mín–máx) | 0.952 (0.952–0.953) | 0.096 (0.096–0.097) | G 12.7 (12.0–13.0); E 7.7 (6.0–9.0); P 6.7 (6.0–8.0) | 0.027 (0.027–0.027) | 0.851 (0.851–0.851) | 0.711 (0.711–0.711) | 27.0 (27.0–27.0) | 0.0 (0.0–0.0) | 26.0 (24.0–27.0) |
+| ELM | típico | 17 | 0.928 | +0.072 | 12 / 7 / 8 | 0.052 | 0.761 | 0.422 | 27 / 27 | 1 / 27 | 25 / 27 |
+| ELM | típico | 29 | 0.935 | +0.079 | 13 / 6 / 8 | 0.044 | 0.811 | 0.422 | 27 / 27 | 1 / 27 | 26 / 27 |
+| ELM | típico | 43 | 0.935 | +0.079 | 13 / 6 / 8 | 0.044 | 0.811 | 0.422 | 27 / 27 | 1 / 27 | 26 / 27 |
+| ELM | típico | media (mín–máx) | 0.933 (0.928–0.935) | 0.077 (0.072–0.079) | G 12.7 (12.0–13.0); E 6.3 (6.0–7.0); P 8.0 (8.0–8.0) | 0.047 (0.044–0.052) | 0.795 (0.761–0.811) | 0.422 (0.422–0.422) | 27.0 (27.0–27.0) | 1.0 (1.0–1.0) | 25.7 (25.0–26.0) |
+| ELM | cauto | 17 | 0.917 | +0.061 | 12 / 6 / 9 | 0.062 | 0.718 | 0.422 | 27 / 27 | 1 / 27 | 27 / 27 |
+| ELM | cauto | 29 | 0.935 | +0.079 | 13 / 6 / 8 | 0.044 | 0.811 | 0.422 | 27 / 27 | 1 / 27 | 27 / 27 |
+| ELM | cauto | 43 | 0.952 | +0.096 | 13 / 6 / 8 | 0.027 | 0.851 | 0.711 | 27 / 27 | 0 / 27 | 27 / 27 |
+| ELM | cauto | media (mín–máx) | 0.935 (0.917–0.952) | 0.079 (0.061–0.096) | G 12.7 (12.0–13.0); E 6.0 (6.0–6.0); P 8.3 (8.0–9.0) | 0.045 (0.027–0.062) | 0.793 (0.718–0.851) | 0.519 (0.422–0.711) | 27.0 (27.0–27.0) | 0.7 (0.0–1.0) | 27.0 (27.0–27.0) |
+
+### Decisión tras perder el maíz, 2019–2024 (adicional) (n = 54 casos)
+
+G / E / P = casos en que gana, empata o pierde contra la regla (tolerancia 0.001). Ejecutable = acciones cuyo ciclo termina en el año. Bajo 0.5 = casos con rendimiento relativo elegido menor que 0.5. Se aparta = casos en que la acción elegida difiere de la de la regla. Los conteos van de n = 54; no se hace prueba de significancia.
+
+| Política | Prioridad | Semilla | Rendimiento medio elegido | Ganancia sobre la regla | G / E / P | Arrepentimiento medio | Percentil 10 | Peor caso | Ejecutable | Bajo 0.5 | Se aparta de la regla |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Regla agronómica | – | – | 0.802 | +0.000 | 0 / 54 / 0 | 0.169 | 0.466 | 0.000 | 49 / 54 | 7 / 54 | 0 / 54 |
+| Simulador | típico | – | 0.925 | +0.123 | 20 / 29 / 5 | 0.046 | 0.809 | 0.243 | 54 / 54 | 3 / 54 | 30 / 54 |
+| Simulador | cauto | – | 0.945 | +0.143 | 26 / 17 / 11 | 0.026 | 0.837 | 0.711 | 54 / 54 | 0 / 54 | 48 / 54 |
+| Oráculo | – | – | 0.971 | – | – | 0 | – | – | 54 / 54 | 0 / 54 | 33 / 54 |
+| Red (MLP) | típico | 17 | 0.943 | +0.141 | 27 / 16 / 11 | 0.028 | 0.837 | 0.640 | 54 / 54 | 0 / 54 | 54 / 54 |
+| Red (MLP) | típico | 29 | 0.943 | +0.141 | 26 / 17 / 11 | 0.028 | 0.837 | 0.640 | 54 / 54 | 0 / 54 | 44 / 54 |
+| Red (MLP) | típico | 43 | 0.944 | +0.142 | 24 / 21 / 9 | 0.027 | 0.807 | 0.640 | 54 / 54 | 0 / 54 | 42 / 54 |
+| Red (MLP) | típico | media (mín–máx) | 0.943 (0.943–0.944) | 0.141 (0.141–0.142) | G 25.7 (24.0–27.0); E 18.0 (16.0–21.0); P 10.3 (9.0–11.0) | 0.028 (0.027–0.028) | 0.827 (0.807–0.837) | 0.640 (0.640–0.640) | 54.0 (54.0–54.0) | 0.0 (0.0–0.0) | 46.7 (42.0–54.0) |
+| Red (MLP) | cauto | 17 | 0.943 | +0.141 | 27 / 16 / 11 | 0.028 | 0.837 | 0.640 | 54 / 54 | 0 / 54 | 54 / 54 |
+| Red (MLP) | cauto | 29 | 0.942 | +0.140 | 27 / 14 / 13 | 0.029 | 0.837 | 0.640 | 54 / 54 | 0 / 54 | 54 / 54 |
+| Red (MLP) | cauto | 43 | 0.944 | +0.142 | 26 / 19 / 9 | 0.027 | 0.818 | 0.640 | 54 / 54 | 0 / 54 | 49 / 54 |
+| Red (MLP) | cauto | media (mín–máx) | 0.943 (0.942–0.944) | 0.141 (0.140–0.142) | G 26.7 (26.0–27.0); E 16.3 (14.0–19.0); P 11.0 (9.0–13.0) | 0.028 (0.027–0.029) | 0.831 (0.818–0.837) | 0.640 (0.640–0.640) | 54.0 (54.0–54.0) | 0.0 (0.0–0.0) | 52.3 (49.0–54.0) |
+| ELM | típico | 17 | 0.915 | +0.113 | 22 / 19 / 13 | 0.056 | 0.757 | 0.277 | 54 / 54 | 2 / 54 | 43 / 54 |
+| ELM | típico | 29 | 0.925 | +0.123 | 25 / 16 / 13 | 0.046 | 0.818 | 0.277 | 54 / 54 | 2 / 54 | 47 / 54 |
+| ELM | típico | 43 | 0.925 | +0.123 | 25 / 16 / 13 | 0.046 | 0.818 | 0.277 | 54 / 54 | 2 / 54 | 47 / 54 |
+| ELM | típico | media (mín–máx) | 0.922 (0.915–0.925) | 0.120 (0.113–0.123) | G 24.0 (22.0–25.0); E 17.0 (16.0–19.0); P 13.0 (13.0–13.0) | 0.049 (0.046–0.056) | 0.798 (0.757–0.818) | 0.277 (0.277–0.277) | 54.0 (54.0–54.0) | 2.0 (2.0–2.0) | 45.7 (43.0–47.0) |
+| ELM | cauto | 17 | 0.910 | +0.108 | 24 / 15 / 15 | 0.061 | 0.759 | 0.277 | 54 / 54 | 2 / 54 | 51 / 54 |
+| ELM | cauto | 29 | 0.925 | +0.123 | 25 / 16 / 13 | 0.046 | 0.818 | 0.277 | 54 / 54 | 2 / 54 | 51 / 54 |
+| ELM | cauto | 43 | 0.942 | +0.140 | 26 / 15 / 13 | 0.029 | 0.837 | 0.640 | 54 / 54 | 0 / 54 | 52 / 54 |
+| ELM | cauto | media (mín–máx) | 0.926 (0.910–0.942) | 0.123 (0.108–0.140) | G 25.0 (24.0–26.0); E 15.3 (15.0–16.0); P 13.7 (13.0–15.0) | 0.046 (0.029–0.061) | 0.805 (0.759–0.837) | 0.398 (0.277–0.640) | 54.0 (54.0–54.0) | 1.3 (0.0–2.0) | 51.3 (51.0–52.0) |
+
+
+### Lectura, sin rodeos
+
+- **Pocos casos.** El conjunto de 2022–2024 tiene solo 27 casos (3 pilotos × 3 años × 3 momentos de pérdida). Cada caso pesa 1 de 27; diferencias de 1 a 3 casos entre semillas o entre políticas no son significativas y no se hizo ninguna prueba de significancia.
+- **El año 2025 no está medido.** Faltan datos; nada se estimó ni se completó.
+- **Red (MLP).** Entre las tres semillas, en 2022–2024 el rendimiento medio elegido va de 0.952 a 0.957 (típico) y de 0.952 a 0.953 (cauto); ninguna semilla da resultados por debajo de 0.5 en 27 casos. Lo que sí cambia entre semillas es en cuántos casos se aparta de la regla (22 a 27 de 27 en típico) y el conteo G / E / P (por ejemplo 13 / 8 / 6, 13 / 7 / 7 y 12 / 10 / 5 en típico).
+- **ELM.** Es más variable entre semillas que la red, sobre todo con prioridad cauta en 2022–2024: rendimiento medio de 0.917 a 0.952, percentil 10 de 0.718 a 0.851, peor caso de 0.422 a 0.711, y un caso por debajo de 0.5 en las semillas 17 y 29 y ninguno en la 43. Con prioridad típica el peor caso es 0.422 en las tres semillas y hay un caso por debajo de 0.5 en cada una. La semilla 17 es la peor de la ELM en ambas prioridades y en ambos conjuntos de años.
+- **Exactitud del emulador.** La salida más débil de la red es el rendimiento relativo del primer cultivo en años nuevos (R² de 0.595 a 0.632 entre semillas); la de la ELM también (0.509 a 0.520), y la ELM queda por debajo de la red en todas las salidas y semillas, en años nuevos y en puntos nuevos. Esa exactitud se mide en los años de prueba 2019–2024 con que se entrenó, no en 2022–2024 solamente.
+- **Contra la regla.** En 2022–2024 la regla tiene peor caso 0 y un caso no ejecutable de 27; el simulador tiene peor caso 0.462 (típico) y 0.796 (cauto). Todo esto es del simulador como juez, sin precios ni costos, y no es una recomendación.
+
 ## Optimizaciones de entrenamiento (notas de Alex)
 
 Alex listó lo que mejoró el entrenamiento de su CNN. Aplicamos a nuestra red embudo (unos 4,500 parámetros, entrena en segundos) lo que le cabe, eligiendo solo con validación (filas de entrenamiento de los años 2017-2018; ninguna fila de prueba se leyó: `nTestRowsRead` = 0 en `scripts/emulator/recipe_screening.json`).
