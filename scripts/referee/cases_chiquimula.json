@@ -1,0 +1,15 @@
+{
+  "note": "Chiquimula point, 2001-2024. Soil 'Loam' in AquaCrop vs texture 'loam' in the simulator. Dry start (wilting point on 1 April).",
+  "cases": [
+    { "id": "maiz_0520", "crop": "Maize", "sowDate": "05-20", "years": "2001-2024", "soil": "Loam", "initial": "dry" },
+    { "id": "frijol_0901", "crop": "DryBean", "sowDate": "09-01", "years": "2001-2024", "soil": "Loam", "initial": "dry" },
+    { "id": "sweep_maiz_0501", "group": "sowing_sweep", "crop": "Maize", "sowDate": "05-01", "years": "2001-2024", "soil": "Loam", "initial": "dry" },
+    { "id": "sweep_maiz_0511", "group": "sowing_sweep", "crop": "Maize", "sowDate": "05-11", "years": "2001-2024", "soil": "Loam", "initial": "dry" },
+    { "id": "sweep_maiz_0521", "group": "sowing_sweep", "crop": "Maize", "sowDate": "05-21", "years": "2001-2024", "soil": "Loam", "initial": "dry" },
+    { "id": "sweep_maiz_0531", "group": "sowing_sweep", "crop": "Maize", "sowDate": "05-31", "years": "2001-2024", "soil": "Loam", "initial": "dry" },
+    { "id": "sweep_maiz_0610", "group": "sowing_sweep", "crop": "Maize", "sowDate": "06-10", "years": "2001-2024", "soil": "Loam", "initial": "dry" },
+    { "id": "sweep_maiz_0620", "group": "sowing_sweep", "crop": "Maize", "sowDate": "06-20", "years": "2001-2024", "soil": "Loam", "initial": "dry" },
+    { "id": "sweep_maiz_0630", "group": "sowing_sweep", "crop": "Maize", "sowDate": "06-30", "years": "2001-2024", "soil": "Loam", "initial": "dry" },
+    { "id": "sweep_maiz_0710", "group": "sowing_sweep", "crop": "Maize", "sowDate": "07-10", "years": "2001-2024", "soil": "Loam", "initial": "dry" }
+  ]
+}

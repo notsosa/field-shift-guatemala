@@ -1,0 +1,1790 @@
+{
+ "meta": {
+  "aquacropVersion": "3.1.0",
+  "generated": "2026-11-15",
+  "weatherSource": {
+   "bundle": "web/data/snapshots/chiquimula.json",
+   "rainSource": "ERA5",
+   "lat": 14.8,
+   "lon": -89.54,
+   "elevation": 762.46
+  },
+  "aquacropConvention": "season 1 Apr Y .. 31 Mar Y+1; initial water at wilting point (dry) or field capacity (fc) on 1 Apr; default crop parameters",
+  "initialCondition": "dry",
+  "soil": [
+   "Loam"
+  ],
+  "simulatorSetup": "texture loam, flat slope, rainfed, dry start on 1 April, single crop with fixed sowing date",
+  "note": "AquaCrop uses default crop parameters (no local calibration): this tests logic and robustness, not field truth. Do not quote AquaCrop absolute yields. AquaCrop relYield = yield / max over the case years."
+ },
+ "before": {
+  "label": "d02febe",
+  "cases": {
+   "maiz_0520": {
+    "crop": "Maize",
+    "sowDate": "05-20",
+    "group": null,
+    "n": 24,
+    "spearman": 0.6151,
+    "worst5": {
+     "aquacrop": [
+      2011,
+      2014,
+      2015,
+      2019,
+      2023
+     ],
+     "simulator": [
+      2004,
+      2014,
+      2015,
+      2018,
+      2019
+     ],
+     "overlap": 3
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 4,
+      "simulator": 2
+     },
+     "2015": {
+      "aquacrop": 1,
+      "simulator": 1
+     },
+     "2018": {
+      "aquacrop": 11,
+      "simulator": 5
+     },
+     "2019": {
+      "aquacrop": 2,
+      "simulator": 4
+     }
+    },
+    "cv": {
+     "aquacrop": 0.3977,
+     "simulator": 0.0784
+    },
+    "simYearsAtOne": 13,
+    "perYear": [
+     {
+      "year": 2001,
+      "aquacropYieldTHa": 10.1362,
+      "aquacropRelYield": 0.6841,
+      "simulatorRelYield": 0.9681
+     },
+     {
+      "year": 2002,
+      "aquacropYieldTHa": 6.8657,
+      "aquacropRelYield": 0.4634,
+      "simulatorRelYield": 0.8906
+     },
+     {
+      "year": 2003,
+      "aquacropYieldTHa": 12.5337,
+      "aquacropRelYield": 0.8459,
+      "simulatorRelYield": 0.9471
+     },
+     {
+      "year": 2004,
+      "aquacropYieldTHa": 10.1448,
+      "aquacropRelYield": 0.6847,
+      "simulatorRelYield": 0.8145
+     },
+     {
+      "year": 2005,
+      "aquacropYieldTHa": 14.161,
+      "aquacropRelYield": 0.9557,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2006,
+      "aquacropYieldTHa": 14.5531,
+      "aquacropRelYield": 0.9822,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2007,
+      "aquacropYieldTHa": 12.1248,
+      "aquacropRelYield": 0.8183,
+      "simulatorRelYield": 0.9864
+     },
+     {
+      "year": 2008,
+      "aquacropYieldTHa": 14.2245,
+      "aquacropRelYield": 0.96,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2009,
+      "aquacropYieldTHa": 13.2942,
+      "aquacropRelYield": 0.8972,
+      "simulatorRelYield": 0.971
+     },
+     {
+      "year": 2010,
+      "aquacropYieldTHa": 14.5775,
+      "aquacropRelYield": 0.9839,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2011,
+      "aquacropYieldTHa": 6.7384,
+      "aquacropRelYield": 0.4548,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2012,
+      "aquacropYieldTHa": 10.904,
+      "aquacropRelYield": 0.7359,
+      "simulatorRelYield": 0.9767
+     },
+     {
+      "year": 2013,
+      "aquacropYieldTHa": 14.4654,
+      "aquacropRelYield": 0.9763,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2014,
+      "aquacropYieldTHa": 6.0465,
+      "aquacropRelYield": 0.4081,
+      "simulatorRelYield": 0.7794
+     },
+     {
+      "year": 2015,
+      "aquacropYieldTHa": 0.6743,
+      "aquacropRelYield": 0.0455,
+      "simulatorRelYield": 0.7647
+     },
+     {
+      "year": 2016,
+      "aquacropYieldTHa": 12.1624,
+      "aquacropRelYield": 0.8209,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2017,
+      "aquacropYieldTHa": 14.746,
+      "aquacropRelYield": 0.9952,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2018,
+      "aquacropYieldTHa": 11.6802,
+      "aquacropRelYield": 0.7883,
+      "simulatorRelYield": 0.8869
+     },
+     {
+      "year": 2019,
+      "aquacropYieldTHa": 0.9045,
+      "aquacropRelYield": 0.061,
+      "simulatorRelYield": 0.8864
+     },
+     {
+      "year": 2020,
+      "aquacropYieldTHa": 14.7837,
+      "aquacropRelYield": 0.9978,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2021,
+      "aquacropYieldTHa": 13.1914,
+      "aquacropRelYield": 0.8903,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2022,
+      "aquacropYieldTHa": 14.8167,
+      "aquacropRelYield": 1,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2023,
+      "aquacropYieldTHa": 5.591,
+      "aquacropRelYield": 0.3773,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2024,
+      "aquacropYieldTHa": 8.513,
+      "aquacropRelYield": 0.5746,
+      "simulatorRelYield": 1
+     }
+    ]
+   },
+   "frijol_0901": {
+    "crop": "DryBean",
+    "sowDate": "09-01",
+    "group": null,
+    "n": 24,
+    "spearman": 0.5991,
+    "worst5": {
+     "aquacrop": [
+      2004,
+      2009,
+      2010,
+      2016,
+      2021
+     ],
+     "simulator": [
+      2010,
+      2011,
+      2012,
+      2016,
+      2021
+     ],
+     "overlap": 3
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 19,
+      "simulator": 17
+     },
+     "2015": {
+      "aquacrop": 20,
+      "simulator": 15
+     },
+     "2018": {
+      "aquacrop": 13,
+      "simulator": 10
+     },
+     "2019": {
+      "aquacrop": 21,
+      "simulator": 20
+     }
+    },
+    "cv": {
+     "aquacrop": 0.3548,
+     "simulator": 0.1184
+    },
+    "simYearsAtOne": 5,
+    "perYear": [
+     {
+      "year": 2001,
+      "aquacropYieldTHa": 3.4606,
+      "aquacropRelYield": 0.8267,
+      "simulatorRelYield": 0.9145
+     },
+     {
+      "year": 2002,
+      "aquacropYieldTHa": 2.5642,
+      "aquacropRelYield": 0.6126,
+      "simulatorRelYield": 0.9199
+     },
+     {
+      "year": 2003,
+      "aquacropYieldTHa": 3.4287,
+      "aquacropRelYield": 0.8191,
+      "simulatorRelYield": 0.9949
+     },
+     {
+      "year": 2004,
+      "aquacropYieldTHa": 1.7758,
+      "aquacropRelYield": 0.4242,
+      "simulatorRelYield": 0.9558
+     },
+     {
+      "year": 2005,
+      "aquacropYieldTHa": 3.7188,
+      "aquacropRelYield": 0.8884,
+      "simulatorRelYield": 0.9673
+     },
+     {
+      "year": 2006,
+      "aquacropYieldTHa": 3.7152,
+      "aquacropRelYield": 0.8876,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2007,
+      "aquacropYieldTHa": 3.7652,
+      "aquacropRelYield": 0.8995,
+      "simulatorRelYield": 0.9457
+     },
+     {
+      "year": 2008,
+      "aquacropYieldTHa": 3.5065,
+      "aquacropRelYield": 0.8377,
+      "simulatorRelYield": 0.8892
+     },
+     {
+      "year": 2009,
+      "aquacropYieldTHa": 1.3545,
+      "aquacropRelYield": 0.3236,
+      "simulatorRelYield": 0.9469
+     },
+     {
+      "year": 2010,
+      "aquacropYieldTHa": 1.2968,
+      "aquacropRelYield": 0.3098,
+      "simulatorRelYield": 0.6102
+     },
+     {
+      "year": 2011,
+      "aquacropYieldTHa": 3.6294,
+      "aquacropRelYield": 0.8671,
+      "simulatorRelYield": 0.833
+     },
+     {
+      "year": 2012,
+      "aquacropYieldTHa": 1.8067,
+      "aquacropRelYield": 0.4316,
+      "simulatorRelYield": 0.8226
+     },
+     {
+      "year": 2013,
+      "aquacropYieldTHa": 3.9316,
+      "aquacropRelYield": 0.9393,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2014,
+      "aquacropYieldTHa": 3.9557,
+      "aquacropRelYield": 0.945,
+      "simulatorRelYield": 0.9706
+     },
+     {
+      "year": 2015,
+      "aquacropYieldTHa": 4.0021,
+      "aquacropRelYield": 0.9561,
+      "simulatorRelYield": 0.9659
+     },
+     {
+      "year": 2016,
+      "aquacropYieldTHa": 1.7983,
+      "aquacropRelYield": 0.4296,
+      "simulatorRelYield": 0.6123
+     },
+     {
+      "year": 2017,
+      "aquacropYieldTHa": 2.5926,
+      "aquacropRelYield": 0.6194,
+      "simulatorRelYield": 0.906
+     },
+     {
+      "year": 2018,
+      "aquacropYieldTHa": 3.5346,
+      "aquacropRelYield": 0.8444,
+      "simulatorRelYield": 0.9228
+     },
+     {
+      "year": 2019,
+      "aquacropYieldTHa": 4.0839,
+      "aquacropRelYield": 0.9756,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2020,
+      "aquacropYieldTHa": 4.1012,
+      "aquacropRelYield": 0.9798,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2021,
+      "aquacropYieldTHa": 0.5382,
+      "aquacropRelYield": 0.1286,
+      "simulatorRelYield": 0.8266
+     },
+     {
+      "year": 2022,
+      "aquacropYieldTHa": 4.1513,
+      "aquacropRelYield": 0.9917,
+      "simulatorRelYield": 0.9317
+     },
+     {
+      "year": 2023,
+      "aquacropYieldTHa": 2.7015,
+      "aquacropRelYield": 0.6454,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2024,
+      "aquacropYieldTHa": 4.1859,
+      "aquacropRelYield": 1,
+      "simulatorRelYield": 0.9903
+     }
+    ]
+   },
+   "sweep_maiz_0501": {
+    "crop": "Maize",
+    "sowDate": "05-01",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.3896,
+    "worst5": {
+     "aquacrop": [
+      2001,
+      2015,
+      2019,
+      2023,
+      2024
+     ],
+     "simulator": [
+      2001,
+      2002,
+      2014,
+      2015,
+      2019
+     ],
+     "overlap": 3
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 16,
+      "simulator": 2
+     },
+     "2015": {
+      "aquacrop": 1,
+      "simulator": 1
+     },
+     "2018": {
+      "aquacrop": 9,
+      "simulator": 6
+     },
+     "2019": {
+      "aquacrop": 3,
+      "simulator": 3
+     }
+    },
+    "cv": {
+     "aquacrop": 0.5124,
+     "simulator": 0.0952
+    },
+    "simYearsAtOne": 4
+   },
+   "sweep_maiz_0511": {
+    "crop": "Maize",
+    "sowDate": "05-11",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.5457,
+    "worst5": {
+     "aquacrop": [
+      2011,
+      2014,
+      2015,
+      2019,
+      2023
+     ],
+     "simulator": [
+      2002,
+      2014,
+      2015,
+      2018,
+      2019
+     ],
+     "overlap": 3
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 4,
+      "simulator": 2
+     },
+     "2015": {
+      "aquacrop": 1,
+      "simulator": 1
+     },
+     "2018": {
+      "aquacrop": 10,
+      "simulator": 4
+     },
+     "2019": {
+      "aquacrop": 2,
+      "simulator": 3
+     }
+    },
+    "cv": {
+     "aquacrop": 0.4609,
+     "simulator": 0.0928
+    },
+    "simYearsAtOne": 9
+   },
+   "sweep_maiz_0521": {
+    "crop": "Maize",
+    "sowDate": "05-21",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.5308,
+    "worst5": {
+     "aquacrop": [
+      2002,
+      2014,
+      2015,
+      2019,
+      2023
+     ],
+     "simulator": [
+      2004,
+      2014,
+      2015,
+      2018,
+      2019
+     ],
+     "overlap": 3
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 4,
+      "simulator": 2
+     },
+     "2015": {
+      "aquacrop": 1,
+      "simulator": 1
+     },
+     "2018": {
+      "aquacrop": 13,
+      "simulator": 5
+     },
+     "2019": {
+      "aquacrop": 2,
+      "simulator": 4
+     }
+    },
+    "cv": {
+     "aquacrop": 0.3928,
+     "simulator": 0.0764
+    },
+    "simYearsAtOne": 13
+   },
+   "sweep_maiz_0531": {
+    "crop": "Maize",
+    "sowDate": "05-31",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.6228,
+    "worst5": {
+     "aquacrop": [
+      2001,
+      2002,
+      2014,
+      2015,
+      2019
+     ],
+     "simulator": [
+      2002,
+      2004,
+      2014,
+      2015,
+      2019
+     ],
+     "overlap": 4
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 4,
+      "simulator": 2
+     },
+     "2015": {
+      "aquacrop": 2,
+      "simulator": 3
+     },
+     "2018": {
+      "aquacrop": 11,
+      "simulator": 6
+     },
+     "2019": {
+      "aquacrop": 1,
+      "simulator": 4
+     }
+    },
+    "cv": {
+     "aquacrop": 0.3763,
+     "simulator": 0.0528
+    },
+    "simYearsAtOne": 16
+   },
+   "sweep_maiz_0610": {
+    "crop": "Maize",
+    "sowDate": "06-10",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.6296,
+    "worst5": {
+     "aquacrop": [
+      2001,
+      2004,
+      2014,
+      2015,
+      2019
+     ],
+     "simulator": [
+      2004,
+      2009,
+      2014,
+      2015,
+      2023
+     ],
+     "overlap": 3
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 1,
+      "simulator": 3
+     },
+     "2015": {
+      "aquacrop": 3,
+      "simulator": 2
+     },
+     "2018": {
+      "aquacrop": 8,
+      "simulator": 9
+     },
+     "2019": {
+      "aquacrop": 1,
+      "simulator": 6
+     }
+    },
+    "cv": {
+     "aquacrop": 0.5023,
+     "simulator": 0.0294
+    },
+    "simYearsAtOne": 16
+   },
+   "sweep_maiz_0620": {
+    "crop": "Maize",
+    "sowDate": "06-20",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.1203,
+    "worst5": {
+     "aquacrop": [
+      2004,
+      2012,
+      2014,
+      2018,
+      2019
+     ],
+     "simulator": [
+      2004,
+      2010,
+      2015,
+      2016,
+      2023
+     ],
+     "overlap": 1
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 1,
+      "simulator": 8
+     },
+     "2015": {
+      "aquacrop": 6,
+      "simulator": 2
+     },
+     "2018": {
+      "aquacrop": 1,
+      "simulator": 8
+     },
+     "2019": {
+      "aquacrop": 1,
+      "simulator": 8
+     }
+    },
+    "cv": {
+     "aquacrop": 0.6206,
+     "simulator": 0.0139
+    },
+    "simYearsAtOne": 17
+   },
+   "sweep_maiz_0630": {
+    "crop": "Maize",
+    "sowDate": "06-30",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.0796,
+    "worst5": {
+     "aquacrop": [
+      2004,
+      2012,
+      2014,
+      2015,
+      2019
+     ],
+     "simulator": [
+      2004,
+      2009,
+      2010,
+      2016,
+      2021
+     ],
+     "overlap": 1
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 3,
+      "simulator": 8
+     },
+     "2015": {
+      "aquacrop": 5,
+      "simulator": 8
+     },
+     "2018": {
+      "aquacrop": 7,
+      "simulator": 8
+     },
+     "2019": {
+      "aquacrop": 1,
+      "simulator": 8
+     }
+    },
+    "cv": {
+     "aquacrop": 0.5422,
+     "simulator": 0.0236
+    },
+    "simYearsAtOne": 17
+   },
+   "sweep_maiz_0710": {
+    "crop": "Maize",
+    "sowDate": "07-10",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": -0.2451,
+    "worst5": {
+     "aquacrop": [
+      2003,
+      2004,
+      2014,
+      2015,
+      2019
+     ],
+     "simulator": [
+      2010,
+      2011,
+      2012,
+      2016,
+      2021
+     ],
+     "overlap": 0
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 3,
+      "simulator": 14
+     },
+     "2015": {
+      "aquacrop": 5,
+      "simulator": 14
+     },
+     "2018": {
+      "aquacrop": 7,
+      "simulator": 11
+     },
+     "2019": {
+      "aquacrop": 1,
+      "simulator": 14
+     }
+    },
+    "cv": {
+     "aquacrop": 0.3917,
+     "simulator": 0.05
+    },
+    "simYearsAtOne": 12
+   }
+  },
+  "sowingCurve": {
+   "crop": "Maize",
+   "aquacropRelativeTo": "best yield over all sweep dates and years",
+   "points": [
+    {
+     "sowDate": "05-01",
+     "aquacrop": {
+      "medianTHa": 8.9719,
+      "meanTHa": 7.8846,
+      "p10THa": 1.3996,
+      "medianRel": 0.604
+     },
+     "simulator": {
+      "medianRel": 0.9901,
+      "meanRel": 0.9352,
+      "p10Rel": 0.8335
+     }
+    },
+    {
+     "sowDate": "05-11",
+     "aquacrop": {
+      "medianTHa": 11.3314,
+      "meanTHa": 9.5514,
+      "p10THa": 3.1829,
+      "medianRel": 0.7628
+     },
+     "simulator": {
+      "medianRel": 0.9925,
+      "meanRel": 0.9392,
+      "p10Rel": 0.8455
+     }
+    },
+    {
+     "sowDate": "05-21",
+     "aquacrop": {
+      "medianTHa": 11.3052,
+      "meanTHa": 10.5945,
+      "p10THa": 5.999,
+      "medianRel": 0.7611
+     },
+     "simulator": {
+      "medianRel": 1,
+      "meanRel": 0.9547,
+      "p10Rel": 0.8366
+     }
+    },
+    {
+     "sowDate": "05-31",
+     "aquacrop": {
+      "medianTHa": 12.8376,
+      "meanTHa": 11.1643,
+      "p10THa": 5.4645,
+      "medianRel": 0.8643
+     },
+     "simulator": {
+      "medianRel": 1,
+      "meanRel": 0.9733,
+      "p10Rel": 0.8871
+     }
+    },
+    {
+     "sowDate": "06-10",
+     "aquacrop": {
+      "medianTHa": 13.3258,
+      "meanTHa": 10.578,
+      "p10THa": 1.0067,
+      "medianRel": 0.8971
+     },
+     "simulator": {
+      "medianRel": 1,
+      "meanRel": 0.9878,
+      "p10Rel": 0.956
+     }
+    },
+    {
+     "sowDate": "06-20",
+     "aquacrop": {
+      "medianTHa": 13.9203,
+      "meanTHa": 9.7394,
+      "p10THa": 0.2813,
+      "medianRel": 0.9371
+     },
+     "simulator": {
+      "medianRel": 1,
+      "meanRel": 0.9932,
+      "p10Rel": 0.9774
+     }
+    },
+    {
+     "sowDate": "06-30",
+     "aquacrop": {
+      "medianTHa": 11.714,
+      "meanTHa": 9.7538,
+      "p10THa": 1.5165,
+      "medianRel": 0.7886
+     },
+     "simulator": {
+      "medianRel": 1,
+      "meanRel": 0.9898,
+      "p10Rel": 0.9691
+     }
+    },
+    {
+     "sowDate": "07-10",
+     "aquacrop": {
+      "medianTHa": 12.1438,
+      "meanTHa": 10.6977,
+      "p10THa": 5.1417,
+      "medianRel": 0.8175
+     },
+     "simulator": {
+      "medianRel": 0.9987,
+      "meanRel": 0.973,
+      "p10Rel": 0.9077
+     }
+    }
+   ]
+  }
+ },
+ "after": {
+  "label": "4ea12c1",
+  "cases": {
+   "maiz_0520": {
+    "crop": "Maize",
+    "sowDate": "05-20",
+    "group": null,
+    "n": 24,
+    "spearman": 0.8557,
+    "worst5": {
+     "aquacrop": [
+      2011,
+      2014,
+      2015,
+      2019,
+      2023
+     ],
+     "simulator": [
+      2004,
+      2014,
+      2015,
+      2018,
+      2019
+     ],
+     "overlap": 3
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 4,
+      "simulator": 2
+     },
+     "2015": {
+      "aquacrop": 1,
+      "simulator": 1
+     },
+     "2018": {
+      "aquacrop": 11,
+      "simulator": 5
+     },
+     "2019": {
+      "aquacrop": 2,
+      "simulator": 3
+     }
+    },
+    "cv": {
+     "aquacrop": 0.3977,
+     "simulator": 0.111
+    },
+    "simYearsAtOne": 9,
+    "perYear": [
+     {
+      "year": 2001,
+      "aquacropYieldTHa": 10.1362,
+      "aquacropRelYield": 0.6841,
+      "simulatorRelYield": 0.9461
+     },
+     {
+      "year": 2002,
+      "aquacropYieldTHa": 6.8657,
+      "aquacropRelYield": 0.4634,
+      "simulatorRelYield": 0.8879
+     },
+     {
+      "year": 2003,
+      "aquacropYieldTHa": 12.5337,
+      "aquacropRelYield": 0.8459,
+      "simulatorRelYield": 0.9459
+     },
+     {
+      "year": 2004,
+      "aquacropYieldTHa": 10.1448,
+      "aquacropRelYield": 0.6847,
+      "simulatorRelYield": 0.8145
+     },
+     {
+      "year": 2005,
+      "aquacropYieldTHa": 14.161,
+      "aquacropRelYield": 0.9557,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2006,
+      "aquacropYieldTHa": 14.5531,
+      "aquacropRelYield": 0.9822,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2007,
+      "aquacropYieldTHa": 12.1248,
+      "aquacropRelYield": 0.8183,
+      "simulatorRelYield": 0.9646
+     },
+     {
+      "year": 2008,
+      "aquacropYieldTHa": 14.2245,
+      "aquacropRelYield": 0.96,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2009,
+      "aquacropYieldTHa": 13.2942,
+      "aquacropRelYield": 0.8972,
+      "simulatorRelYield": 0.971
+     },
+     {
+      "year": 2010,
+      "aquacropYieldTHa": 14.5775,
+      "aquacropRelYield": 0.9839,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2011,
+      "aquacropYieldTHa": 6.7384,
+      "aquacropRelYield": 0.4548,
+      "simulatorRelYield": 0.9981
+     },
+     {
+      "year": 2012,
+      "aquacropYieldTHa": 10.904,
+      "aquacropRelYield": 0.7359,
+      "simulatorRelYield": 0.9767
+     },
+     {
+      "year": 2013,
+      "aquacropYieldTHa": 14.4654,
+      "aquacropRelYield": 0.9763,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2014,
+      "aquacropYieldTHa": 6.0465,
+      "aquacropRelYield": 0.4081,
+      "simulatorRelYield": 0.7794
+     },
+     {
+      "year": 2015,
+      "aquacropYieldTHa": 0.6743,
+      "aquacropRelYield": 0.0455,
+      "simulatorRelYield": 0.5694
+     },
+     {
+      "year": 2016,
+      "aquacropYieldTHa": 12.1624,
+      "aquacropRelYield": 0.8209,
+      "simulatorRelYield": 0.992
+     },
+     {
+      "year": 2017,
+      "aquacropYieldTHa": 14.746,
+      "aquacropRelYield": 0.9952,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2018,
+      "aquacropYieldTHa": 11.6802,
+      "aquacropRelYield": 0.7883,
+      "simulatorRelYield": 0.8869
+     },
+     {
+      "year": 2019,
+      "aquacropYieldTHa": 0.9045,
+      "aquacropRelYield": 0.061,
+      "simulatorRelYield": 0.7931
+     },
+     {
+      "year": 2020,
+      "aquacropYieldTHa": 14.7837,
+      "aquacropRelYield": 0.9978,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2021,
+      "aquacropYieldTHa": 13.1914,
+      "aquacropRelYield": 0.8903,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2022,
+      "aquacropYieldTHa": 14.8167,
+      "aquacropRelYield": 1,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2023,
+      "aquacropYieldTHa": 5.591,
+      "aquacropRelYield": 0.3773,
+      "simulatorRelYield": 0.9223
+     },
+     {
+      "year": 2024,
+      "aquacropYieldTHa": 8.513,
+      "aquacropRelYield": 0.5746,
+      "simulatorRelYield": 0.9488
+     }
+    ]
+   },
+   "frijol_0901": {
+    "crop": "DryBean",
+    "sowDate": "09-01",
+    "group": null,
+    "n": 24,
+    "spearman": 0.5991,
+    "worst5": {
+     "aquacrop": [
+      2004,
+      2009,
+      2010,
+      2016,
+      2021
+     ],
+     "simulator": [
+      2010,
+      2011,
+      2012,
+      2016,
+      2021
+     ],
+     "overlap": 3
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 19,
+      "simulator": 17
+     },
+     "2015": {
+      "aquacrop": 20,
+      "simulator": 15
+     },
+     "2018": {
+      "aquacrop": 13,
+      "simulator": 10
+     },
+     "2019": {
+      "aquacrop": 21,
+      "simulator": 20
+     }
+    },
+    "cv": {
+     "aquacrop": 0.3548,
+     "simulator": 0.1184
+    },
+    "simYearsAtOne": 5,
+    "perYear": [
+     {
+      "year": 2001,
+      "aquacropYieldTHa": 3.4606,
+      "aquacropRelYield": 0.8267,
+      "simulatorRelYield": 0.9145
+     },
+     {
+      "year": 2002,
+      "aquacropYieldTHa": 2.5642,
+      "aquacropRelYield": 0.6126,
+      "simulatorRelYield": 0.9199
+     },
+     {
+      "year": 2003,
+      "aquacropYieldTHa": 3.4287,
+      "aquacropRelYield": 0.8191,
+      "simulatorRelYield": 0.9949
+     },
+     {
+      "year": 2004,
+      "aquacropYieldTHa": 1.7758,
+      "aquacropRelYield": 0.4242,
+      "simulatorRelYield": 0.9558
+     },
+     {
+      "year": 2005,
+      "aquacropYieldTHa": 3.7188,
+      "aquacropRelYield": 0.8884,
+      "simulatorRelYield": 0.9673
+     },
+     {
+      "year": 2006,
+      "aquacropYieldTHa": 3.7152,
+      "aquacropRelYield": 0.8876,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2007,
+      "aquacropYieldTHa": 3.7652,
+      "aquacropRelYield": 0.8995,
+      "simulatorRelYield": 0.9457
+     },
+     {
+      "year": 2008,
+      "aquacropYieldTHa": 3.5065,
+      "aquacropRelYield": 0.8377,
+      "simulatorRelYield": 0.8892
+     },
+     {
+      "year": 2009,
+      "aquacropYieldTHa": 1.3545,
+      "aquacropRelYield": 0.3236,
+      "simulatorRelYield": 0.9469
+     },
+     {
+      "year": 2010,
+      "aquacropYieldTHa": 1.2968,
+      "aquacropRelYield": 0.3098,
+      "simulatorRelYield": 0.6102
+     },
+     {
+      "year": 2011,
+      "aquacropYieldTHa": 3.6294,
+      "aquacropRelYield": 0.8671,
+      "simulatorRelYield": 0.833
+     },
+     {
+      "year": 2012,
+      "aquacropYieldTHa": 1.8067,
+      "aquacropRelYield": 0.4316,
+      "simulatorRelYield": 0.8226
+     },
+     {
+      "year": 2013,
+      "aquacropYieldTHa": 3.9316,
+      "aquacropRelYield": 0.9393,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2014,
+      "aquacropYieldTHa": 3.9557,
+      "aquacropRelYield": 0.945,
+      "simulatorRelYield": 0.9706
+     },
+     {
+      "year": 2015,
+      "aquacropYieldTHa": 4.0021,
+      "aquacropRelYield": 0.9561,
+      "simulatorRelYield": 0.9659
+     },
+     {
+      "year": 2016,
+      "aquacropYieldTHa": 1.7983,
+      "aquacropRelYield": 0.4296,
+      "simulatorRelYield": 0.6123
+     },
+     {
+      "year": 2017,
+      "aquacropYieldTHa": 2.5926,
+      "aquacropRelYield": 0.6194,
+      "simulatorRelYield": 0.906
+     },
+     {
+      "year": 2018,
+      "aquacropYieldTHa": 3.5346,
+      "aquacropRelYield": 0.8444,
+      "simulatorRelYield": 0.9228
+     },
+     {
+      "year": 2019,
+      "aquacropYieldTHa": 4.0839,
+      "aquacropRelYield": 0.9756,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2020,
+      "aquacropYieldTHa": 4.1012,
+      "aquacropRelYield": 0.9798,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2021,
+      "aquacropYieldTHa": 0.5382,
+      "aquacropRelYield": 0.1286,
+      "simulatorRelYield": 0.8266
+     },
+     {
+      "year": 2022,
+      "aquacropYieldTHa": 4.1513,
+      "aquacropRelYield": 0.9917,
+      "simulatorRelYield": 0.9317
+     },
+     {
+      "year": 2023,
+      "aquacropYieldTHa": 2.7015,
+      "aquacropRelYield": 0.6454,
+      "simulatorRelYield": 1
+     },
+     {
+      "year": 2024,
+      "aquacropYieldTHa": 4.1859,
+      "aquacropRelYield": 1,
+      "simulatorRelYield": 0.9903
+     }
+    ]
+   },
+   "sweep_maiz_0501": {
+    "crop": "Maize",
+    "sowDate": "05-01",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.7976,
+    "worst5": {
+     "aquacrop": [
+      2001,
+      2015,
+      2019,
+      2023,
+      2024
+     ],
+     "simulator": [
+      2001,
+      2002,
+      2015,
+      2019,
+      2023
+     ],
+     "overlap": 4
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 16,
+      "simulator": 7
+     },
+     "2015": {
+      "aquacrop": 1,
+      "simulator": 1
+     },
+     "2018": {
+      "aquacrop": 9,
+      "simulator": 8
+     },
+     "2019": {
+      "aquacrop": 3,
+      "simulator": 2
+     }
+    },
+    "cv": {
+     "aquacrop": 0.5124,
+     "simulator": 0.1806
+    },
+    "simYearsAtOne": 0
+   },
+   "sweep_maiz_0511": {
+    "crop": "Maize",
+    "sowDate": "05-11",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.8135,
+    "worst5": {
+     "aquacrop": [
+      2011,
+      2014,
+      2015,
+      2019,
+      2023
+     ],
+     "simulator": [
+      2001,
+      2002,
+      2014,
+      2015,
+      2019
+     ],
+     "overlap": 3
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 4,
+      "simulator": 3
+     },
+     "2015": {
+      "aquacrop": 1,
+      "simulator": 1
+     },
+     "2018": {
+      "aquacrop": 10,
+      "simulator": 6
+     },
+     "2019": {
+      "aquacrop": 2,
+      "simulator": 2
+     }
+    },
+    "cv": {
+     "aquacrop": 0.4609,
+     "simulator": 0.142
+    },
+    "simYearsAtOne": 4
+   },
+   "sweep_maiz_0521": {
+    "crop": "Maize",
+    "sowDate": "05-21",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.7797,
+    "worst5": {
+     "aquacrop": [
+      2002,
+      2014,
+      2015,
+      2019,
+      2023
+     ],
+     "simulator": [
+      2004,
+      2014,
+      2015,
+      2018,
+      2019
+     ],
+     "overlap": 3
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 4,
+      "simulator": 2
+     },
+     "2015": {
+      "aquacrop": 1,
+      "simulator": 1
+     },
+     "2018": {
+      "aquacrop": 13,
+      "simulator": 5
+     },
+     "2019": {
+      "aquacrop": 2,
+      "simulator": 3
+     }
+    },
+    "cv": {
+     "aquacrop": 0.3928,
+     "simulator": 0.1078
+    },
+    "simYearsAtOne": 9
+   },
+   "sweep_maiz_0531": {
+    "crop": "Maize",
+    "sowDate": "05-31",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.6772,
+    "worst5": {
+     "aquacrop": [
+      2001,
+      2002,
+      2014,
+      2015,
+      2019
+     ],
+     "simulator": [
+      2002,
+      2004,
+      2014,
+      2015,
+      2019
+     ],
+     "overlap": 4
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 4,
+      "simulator": 3
+     },
+     "2015": {
+      "aquacrop": 2,
+      "simulator": 1
+     },
+     "2018": {
+      "aquacrop": 11,
+      "simulator": 6
+     },
+     "2019": {
+      "aquacrop": 1,
+      "simulator": 4
+     }
+    },
+    "cv": {
+     "aquacrop": 0.3763,
+     "simulator": 0.0779
+    },
+    "simYearsAtOne": 14
+   },
+   "sweep_maiz_0610": {
+    "crop": "Maize",
+    "sowDate": "06-10",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.6306,
+    "worst5": {
+     "aquacrop": [
+      2001,
+      2004,
+      2014,
+      2015,
+      2019
+     ],
+     "simulator": [
+      2004,
+      2009,
+      2014,
+      2015,
+      2023
+     ],
+     "overlap": 3
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 1,
+      "simulator": 3
+     },
+     "2015": {
+      "aquacrop": 3,
+      "simulator": 1
+     },
+     "2018": {
+      "aquacrop": 8,
+      "simulator": 9
+     },
+     "2019": {
+      "aquacrop": 1,
+      "simulator": 6
+     }
+    },
+    "cv": {
+     "aquacrop": 0.5023,
+     "simulator": 0.0481
+    },
+    "simYearsAtOne": 16
+   },
+   "sweep_maiz_0620": {
+    "crop": "Maize",
+    "sowDate": "06-20",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.1192,
+    "worst5": {
+     "aquacrop": [
+      2004,
+      2012,
+      2014,
+      2018,
+      2019
+     ],
+     "simulator": [
+      2004,
+      2010,
+      2015,
+      2016,
+      2023
+     ],
+     "overlap": 1
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 1,
+      "simulator": 8
+     },
+     "2015": {
+      "aquacrop": 6,
+      "simulator": 1
+     },
+     "2018": {
+      "aquacrop": 1,
+      "simulator": 8
+     },
+     "2019": {
+      "aquacrop": 1,
+      "simulator": 8
+     }
+    },
+    "cv": {
+     "aquacrop": 0.6206,
+     "simulator": 0.0226
+    },
+    "simYearsAtOne": 17
+   },
+   "sweep_maiz_0630": {
+    "crop": "Maize",
+    "sowDate": "06-30",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": 0.1624,
+    "worst5": {
+     "aquacrop": [
+      2004,
+      2012,
+      2014,
+      2015,
+      2019
+     ],
+     "simulator": [
+      2004,
+      2009,
+      2010,
+      2016,
+      2021
+     ],
+     "overlap": 1
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 3,
+      "simulator": 9
+     },
+     "2015": {
+      "aquacrop": 5,
+      "simulator": 6
+     },
+     "2018": {
+      "aquacrop": 7,
+      "simulator": 9
+     },
+     "2019": {
+      "aquacrop": 1,
+      "simulator": 9
+     }
+    },
+    "cv": {
+     "aquacrop": 0.5422,
+     "simulator": 0.0235
+    },
+    "simYearsAtOne": 16
+   },
+   "sweep_maiz_0710": {
+    "crop": "Maize",
+    "sowDate": "07-10",
+    "group": "sowing_sweep",
+    "n": 24,
+    "spearman": -0.2451,
+    "worst5": {
+     "aquacrop": [
+      2003,
+      2004,
+      2014,
+      2015,
+      2019
+     ],
+     "simulator": [
+      2010,
+      2011,
+      2012,
+      2016,
+      2021
+     ],
+     "overlap": 0
+    },
+    "droughtRanks": {
+     "2014": {
+      "aquacrop": 3,
+      "simulator": 14
+     },
+     "2015": {
+      "aquacrop": 5,
+      "simulator": 14
+     },
+     "2018": {
+      "aquacrop": 7,
+      "simulator": 11
+     },
+     "2019": {
+      "aquacrop": 1,
+      "simulator": 14
+     }
+    },
+    "cv": {
+     "aquacrop": 0.3917,
+     "simulator": 0.05
+    },
+    "simYearsAtOne": 12
+   }
+  },
+  "sowingCurve": {
+   "crop": "Maize",
+   "aquacropRelativeTo": "best yield over all sweep dates and years",
+   "points": [
+    {
+     "sowDate": "05-01",
+     "aquacrop": {
+      "medianTHa": 8.9719,
+      "meanTHa": 7.8846,
+      "p10THa": 1.3996,
+      "medianRel": 0.604
+     },
+     "simulator": {
+      "medianRel": 0.8885,
+      "meanRel": 0.8513,
+      "p10Rel": 0.6714
+     }
+    },
+    {
+     "sowDate": "05-11",
+     "aquacrop": {
+      "medianTHa": 11.3314,
+      "meanTHa": 9.5514,
+      "p10THa": 3.1829,
+      "medianRel": 0.7628
+     },
+     "simulator": {
+      "medianRel": 0.954,
+      "meanRel": 0.8989,
+      "p10Rel": 0.7548
+     }
+    },
+    {
+     "sowDate": "05-21",
+     "aquacrop": {
+      "medianTHa": 11.3052,
+      "meanTHa": 10.5945,
+      "p10THa": 5.999,
+      "medianRel": 0.7611
+     },
+     "simulator": {
+      "medianRel": 0.9762,
+      "meanRel": 0.9363,
+      "p10Rel": 0.8065
+     }
+    },
+    {
+     "sowDate": "05-31",
+     "aquacrop": {
+      "medianTHa": 12.8376,
+      "meanTHa": 11.1643,
+      "p10THa": 5.4645,
+      "medianRel": 0.8643
+     },
+     "simulator": {
+      "medianRel": 1,
+      "meanRel": 0.9632,
+      "p10Rel": 0.8729
+     }
+    },
+    {
+     "sowDate": "06-10",
+     "aquacrop": {
+      "medianTHa": 13.3258,
+      "meanTHa": 10.578,
+      "p10THa": 1.0067,
+      "medianRel": 0.8971
+     },
+     "simulator": {
+      "medianRel": 1,
+      "meanRel": 0.9824,
+      "p10Rel": 0.9559
+     }
+    },
+    {
+     "sowDate": "06-20",
+     "aquacrop": {
+      "medianTHa": 13.9203,
+      "meanTHa": 9.7394,
+      "p10THa": 0.2813,
+      "medianRel": 0.9371
+     },
+     "simulator": {
+      "medianRel": 1,
+      "meanRel": 0.9904,
+      "p10Rel": 0.9774
+     }
+    },
+    {
+     "sowDate": "06-30",
+     "aquacrop": {
+      "medianTHa": 11.714,
+      "meanTHa": 9.7538,
+      "p10THa": 1.5165,
+      "medianRel": 0.7886
+     },
+     "simulator": {
+      "medianRel": 1,
+      "meanRel": 0.9893,
+      "p10Rel": 0.9691
+     }
+    },
+    {
+     "sowDate": "07-10",
+     "aquacrop": {
+      "medianTHa": 12.1438,
+      "meanTHa": 10.6977,
+      "p10THa": 5.1417,
+      "medianRel": 0.8175
+     },
+     "simulator": {
+      "medianRel": 0.9987,
+      "meanRel": 0.973,
+      "p10Rel": 0.9077
+     }
+    }
+   ]
+  }
+ }
+}
