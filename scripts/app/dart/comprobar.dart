@@ -6,21 +6,27 @@ import 'dart:io';
 
 import 'red.dart';
 
-void main(List<String> args) {
-  final app = jsonDecode(File('web/data/app_mlp.json').readAsStringSync()) as Map<String, dynamic>;
-  final entradas = app['checkInputs'] as List<dynamic>;
-  final esperadas = app['checkPredictions'] as List<dynamic>;
+/// Compara predecirCapas con los casos guardados dentro del propio archivo.
+void comprobarCapas(String archivo) {
+  final red = jsonDecode(File('web/data/$archivo').readAsStringSync()) as Map<String, dynamic>;
+  final entradas = red['checkInputs'] as List<dynamic>;
+  final esperadas = red['checkPredictions'] as List<dynamic>;
   var peor = 0.0;
   for (var i = 0; i < entradas.length; i++) {
     final x = [for (final v in entradas[i] as List<dynamic>) (v as num).toDouble()];
-    final y = predecirCapas(app, x);
+    final y = predecirCapas(red, x);
     final e = (esperadas[i] as Map<String, dynamic>)['pred'] as List<dynamic>;
     for (var o = 0; o < y.length; o++) {
       final d = (y[o] - (e[o] as num).toDouble()).abs();
       if (d > peor) peor = d;
     }
   }
-  print('app_mlp.json: ${entradas.length} casos, diferencia máxima $peor');
+  print('$archivo: ${entradas.length} casos, diferencia máxima $peor');
+}
+
+void main(List<String> args) {
+  comprobarCapas('app_mlp.json');
+  comprobarCapas('coffee_ptc_mlp.json');
 
   if (args.isNotEmpty) {
     final cafe = jsonDecode(File('web/data/coffee_recommender.json').readAsStringSync()) as Map<String, dynamic>;

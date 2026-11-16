@@ -9,7 +9,8 @@ Nada de esto está conectado a la app todavía. El código es JavaScript puro (s
 | Qué | Archivo |
 |---|---|
 | Código de café (cultivo, sombra, avisos, decisión de riego) | `web/js/model/coffee.js` (216 líneas) |
-| Pesos de la red que recomienda riego | `web/data/coffee_recommender.json` |
+| Pesos de la red de riego que mejor rinde (predice y luego elige) | `web/data/coffee_ptc_mlp.json` |
+| Pesos de la red que recomienda riego directamente (rinde menos) | `web/data/coffee_recommender.json` |
 | Textos, fuentes y nivel de confianza de cada aviso | `web/data/coffee_sources.json` |
 | Resultados medidos | `web/data/coffee_eval.json` |
 | Parámetros del café | `web/data/crops.json`, cultivo `cafe` |
@@ -105,13 +106,35 @@ No cambia el Kc del café ni la temperatura (no hay fuente para eso).
 
 **Hay que leer esto antes de conectar la red:**
 
-- La red que está exportada (`coffee_recommender.json`) apenas iguala o supera a la regla, según la semilla. **No justifica por sí sola reemplazar la regla.**
-- La política que sí mejora claramente (predecir y luego elegir) **no tiene sus pesos exportados**: solo se guardaron sus predicciones. Para usarla habría que volver a entrenarla y exportarla (`scripts/coffee/ptc_mlp.py`); eso lo hace Keu.
+- La red que recomienda directamente (`coffee_recommender.json`) apenas iguala o supera a la regla, según la semilla. **No justifica por sí sola reemplazar la regla.**
+- La política que sí mejora claramente es predecir y luego elegir. **Sus pesos ya están exportados** en `web/data/coffee_ptc_mlp.json` (ver el apartado siguiente). Si se conecta una red de riego de café, que sea esa.
 - La red se entrenó con **lluvia de ERA5** y temperatura llevada a la altura de la parcela. La app usa **lluvia de NASA POWER** y temperatura de la celda sin corregir. Las entradas no significan exactamente lo mismo; no se midió cuánto cambia el resultado.
 - La red necesita la lluvia y la ET₀ **desde el 1 de noviembre anterior**. A los 90 días de una floración de mayo eso son unos 280 días, más que los 240 que descarga la app. Para café habría que ampliar la ventana a 365 días.
 - En `soilAWmm` va el agua disponible total de la zona de raíces en mm (agua disponible del suelo × 1.2 m de raíz), no los mm por metro.
 
-Por todo esto, para la entrega lo razonable es mostrar **la regla** como recomendación de riego del café y dejar la red como siguiente paso.
+Las tres últimas advertencias (lluvia de ERA5, ventana desde el 1 de noviembre, unidades de `soilAWmm`) valen igual para la red del apartado siguiente, porque usa las mismas 16 entradas.
+
+Por todo esto, lo más seguro para la entrega es mostrar **la regla** como recomendación de riego del café; si hay tiempo para una red, la del apartado siguiente.
+
+### La red que mejor rinde: predecir y luego elegir (`coffee_ptc_mlp.json`)
+
+- **Qué predice:** cuántos días de estrés (Ks < 1) evitaría regar 20 mm hoy, en los 30 días siguientes.
+- **Cómo decide:** regar si la predicción es mayor que el precio de regar: **3** días si la prioridad es ahorrar agua y trabajo, **1** día si es proteger el cultivo. No usa la regla ni necesita evaluarse dos veces.
+- **Forma:** 16 entradas → 64 → 32 → 16 → 1, ReLU en las capas ocultas, salida lineal. 3,713 parámetros.
+- **Entradas:** las 16 de `coffeeDecisionState`, en el mismo orden (`inputNames` del archivo): `daysSinceFlowering`, `doy`, `rain7`, `et0_7`, `rain28`, `et0_28`, `rainSinceNov1`, `et0SinceNov1`, `dryspell28`, `tmean28`, `tmaxMax28`, `runningDepletion`, `soilAWmm`, `elevation`, `shadeTrees`, `deciduous`. Sin prioridad ni acción.
+- **Formato:** el mismo de `app_mlp.json` (capas con `W` y `b`, `mean`, `std`, `yMean`, `yStd`). En Dart: `predecirCapas(red, x)[0] > precio`.
+- **Semilla exportada:** la 29, la de menor pérdida de validación (2017–2018) entre 17, 29 y 43.
+- **Es exactamente la red que se midió:** al reentrenar para exportar, las predicciones de las tres semillas salieron idénticas a las guardadas (diferencia 0 en los 6,480 escenarios). Lo comprueba `tests/coffee_ptc.test.mjs`.
+- **Casos para probar la versión en Dart:** `checkInputs` y `checkPredictions` dentro del archivo (50 casos, tolerancia 1e-5).
+
+Utilidad media de la red exportada (de `utilityOfExported` en el archivo; más alto es mejor):
+
+| Casos | Prioridad «ahorrar agua» | Regla | Prioridad «proteger el cultivo» | Regla |
+|---|---|---|---|---|
+| Años nuevos 2019–2024 (1,620) | 0.523 | 0.036 | 1.223 | 0.818 |
+| Años reservados 2022–2024 (810) | 0.565 | −0.177 | 1.367 | 0.801 |
+
+La predicción en sí es floja (R² de 0.24 a 0.28 en años nuevos según la semilla): acierta lo suficiente para decidir mejor que la regla, pero el número de días que predice no conviene mostrárselo al productor como dato.
 
 ## Diferencias entre el café del modelo y el café de la app
 
@@ -188,6 +211,7 @@ Con Dart 3.14 (`dart run scripts/app/dart/comprobar.dart`):
 | Red | Casos | Diferencia máxima contra la referencia |
 |---|---|---|
 | `app_mlp.json` (los casos de `checkInputs` y `checkPredictions`, calculados en PyTorch) | 100 | 1.5e-6 (PyTorch calcula en 32 bits; la prueba en JS usa tolerancia 1e-5) |
+| `coffee_ptc_mlp.json` (los casos guardados en el archivo, calculados en PyTorch) | 50 | 9.5e-7 |
 | `coffee_recommender.json` (entradas al azar contra `forward` en JS) | 20 | 1.5e-15 |
 
 `dart analyze` no encontró problemas. **No está probado dentro de la app ni en un teléfono.**
