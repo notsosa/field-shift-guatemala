@@ -854,9 +854,203 @@ Es descriptivo y **no ajusta nada**: pone lo que las fuentes dicen que hicieron 
 
 - **No es una prueba con datos retenidos**: Illustrative, not a held-out test: 2009 is a training year at every point; 2023 is not used for training or validation (at the pilots it is a test year). Nothing is fitted to these events.
 - Las fuentes describen regiones o comunidades, no una parcela; no hay rendimientos ni fechas por parcela, así que nada se calibró con estos eventos.
-- **Resultado documentado de 2009** (la segunda siembra de maíz se perdió): el simulador **no lo reproduce** para el maíz resembrado a los 30, 45 o 60 días de la pérdida: su rendimiento relativo va de 0.460 a 1.000 en los cuatro puntos; es menor de 0.5 solo en jutiapa a los 30 días, y en Chiquimula y Zacapa da casi 1. El calendario tampoco es el mismo (el informe habla de una siembra del segundo ciclo, más tarde), así que la discrepancia no prueba que el simulador falle ese año, pero tampoco lo confirma.
+- **Resultado documentado de 2009** (la segunda siembra de maíz se perdió): el simulador **no lo reproduce** para el maíz resembrado a los 30, 45 o 60 días de la pérdida: su rendimiento relativo va de 0.460 a 1.000 en los cuatro puntos; es menor de 0.5 solo en jutiapa a los 30 días, y en Chiquimula y Zacapa da casi 1. El calendario tampoco es el mismo (el informe habla de una siembra del segundo ciclo, más tarde), así que la discrepancia no prueba que el simulador falle ese año, pero tampoco lo confirma. **Diagnóstico posterior (Tarea 35):** el calendario de esta tabla (resembrar 14 días después de una pérdida) no es el de la segunda siembra del informe y la lluvia de ERA5 es la más húmeda en Zacapa; con CHIRPS y la siembra de segunda de agosto a septiembre, Zacapa sí muestra 2009 entre los peores años, aunque sin pérdida total. Ver "¿Coincide el simulador con lo que pasó de verdad?", más abajo, y `web/data/diagnosis_2009.json`.
 - Lo documentado en 2009 (resembrar maíz) coincide con la acción de la regla en casi todas las filas, pero el único resultado documentado es la pérdida y el simulador no la reproduce; por eso no se puede decir que la red o la regla habrían decidido mejor que los agricultores.
 - Para 2023 no hay resultado documentado; solo que se resembró (cultivo no indicado). No se puede comparar con lo que el agricultor realmente sembró.
+
+## ¿Coincide el simulador con lo que pasó de verdad?
+
+El dueño del proyecto preguntó qué tan fiel es el simulador a la realidad. El único caso con desenlace conocido, el oriente de Guatemala en 2009 (los agricultores resembraron maíz en el segundo ciclo y lo perdieron otra vez por la sequía, ver "Contraste con decisiones documentadas de agricultores"), **no se reproducía**. Aquí se busca por qué, se corrige lo que tiene una causa justificada (la fuente de lluvia y el calendario del cultivo) y se mide la coincidencia con los eventos de sequía documentados de 2001 a 2024. **No se tocó ningún parámetro del modelo** para que 2009 saliera mal; las reglas de elección se fijaron antes de ver los resultados.
+
+### En breve
+
+- **2009 sigue sin reproducirse como pérdida total, pero la causa no es una sola.** Con la lluvia de CHIRPS y el calendario de segunda (siembra de agosto a septiembre), Zacapa sí muestra 2009 entre los peores años para el maíz (percentil 0.15 a 0.23 en las cuatro fechas; rendimiento relativo de 0.94 a 0.39). Con ERA5, la fuente del modelo, Zacapa sale sin estrés (1.000 el 15 de agosto). En Chiquimula el maíz de 2009 no pierde más de 0.35 en ninguna fuente ni fecha (mínimo 0.651). Ninguna combinación llega a "se perdieron todas las plantaciones" (el mínimo de maíz, salvo siembras tardías de Jutiapa que dan 0 en casi todos los años, es 0.387).
+- **Eventos documentados (16 eventos, 3 sin departamento y por eso no puntuados).** Con ERA5, 144/331 (44 %) de los sitios-año de evento caen en el peor tercio de los años de su sitio, contra 25/228 (11 %) de los sitios-año que las fuentes describen como normales o buenos. AUC 0.68 contra esos años y 0.64 contra todos los demás (0.5 es no distinguir). POWER: 113/331 (34 %), AUC 0.65 y 0.56. CHIRPS (solo 8 de los 20 puntos): 51/139 (37 %), AUC 0.73 y 0.58. **La coincidencia es modesta**: mejor que el azar, lejos de reproducir los eventos.
+- **Regla fijada de antemano para elegir la fuente de lluvia:** con los eventos de 2001–2016 ninguna fuente supera a ERA5 por 0.05 de AUC (ERA5 0.576, POWER 0.504, CHIRPS 0.526), así que **ERA5 se queda**. No se cambió la fuente del modelo ni se reentrenó ninguna red.
+- Los eventos son reportes regionales, no parcelas; el simulador solo ve agua. Con tan pocos eventos no se afirma significancia.
+
+### Lluvia: tres fuentes para los mismos puntos y años
+
+Fuentes diarias 2001–2024 para los 20 puntos de `scripts/emulator/points.json`: **ERA5** (Open-Meteo, `scripts/emulator/cache`), **NASA POWER `PRECTOTCORR`** (`scripts/emulator/cache_power_app`, bajada en la Tarea 34) y **CHIRPS** v2.0 vía ClimateSERV (dataset 0, promedio de una caja de ±0.03°, servicio oficial sin cuenta ni clave; descarga con `scripts/data/fetch_chirps_node.mjs`, que hace las mismas peticiones que `fetch_rain_climateserv.py` sin necesitar Python). ClimateSERV respondió a unas 7 a 10 peticiones por minuto sin importar cuántas se lanzaran a la vez, y con unas 20 en paralelo devolvió errores HTTP 503. Dentro del tope de tiempo (unos 17 minutos en total, contando un primer intento interrumpido) se bajaron los 25 años de **8 puntos**: Chiquimula, Jutiapa, San Martín Jilotepeque, Esquipulas, Olopa, Zacapa, Asunción Mita, Jalpatagua. Los otros 12 puntos no se bajaron y quedan sin CHIRPS (null en el artefacto); una descarga a medias de Santa Catarina Mita, Jalapa y Guastatoya no se usa.
+
+**Cobertura:** en ERA5 y POWER (20 puntos) y en CHIRPS (8 puntos) no falta ningún día de 2001-01-01 a 2025-12-31, así que no se excluyó ningún año-fuente y no se rellenó nada. Si faltara un día, el año agrícola que lo contiene (1 abr a 31 mar) queda fuera para ese sitio y fuente. Artefacto: `web/data/rain_sources.json`, por punto y fuente, por año: total anual, total mayo–octubre, total julio–agosto (la canícula) y racha seca más larga (menos de 1 mm) de junio a septiembre.
+
+Las tres fuentes no coinciden en el nivel. Media 2001–2024 en los puntos con CHIRPS:
+
+| Punto | ERA5 anual (mm) | POWER anual (mm) | CHIRPS anual (mm) | ERA5 may–oct (mm) | POWER may–oct (mm) | CHIRPS may–oct (mm) |
+|---|---|---|---|---|---|---|
+| Chiquimula | 1095 | 1542 | 1297 | 984 | 1132 | 1206 |
+| Jutiapa | 1093 | 1249 | 1313 | 1014 | 1079 | 1243 |
+| San Martín Jilotepeque | 1102 | 1412 | 1155 | 973 | 1233 | 1076 |
+| Esquipulas | 2016 | 1391 | 1590 | 1798 | 1121 | 1457 |
+| Olopa | 1706 | 1391 | 1612 | 1374 | 1121 | 1481 |
+| Zacapa | 1464 | 1542 | 1024 | 1211 | 1132 | 946 |
+| Asunción Mita | 612 | 1249 | 1462 | 565 | 1079 | 1372 |
+| Jalpatagua | 1973 | 1352 | 1650 | 1844 | 1207 | 1560 |
+
+En Chiquimula y Zacapa, POWER da exactamente la misma serie: ambos puntos caen en la misma celda de POWER (unos 0.5°), mientras que ERA5 y CHIRPS los distinguen.
+
+### Por qué falla 2009
+
+Se simuló, con el simulador existente, en secano, con el suelo del sitio (Chiquimula y Jutiapa) o franco (Zacapa), para cada fuente: **(a)** lo que hacía `historical_check`: maíz resembrado 14 días después de una pérdida a los 30, 45 y 60 días de la siembra, contados desde la regla de inicio de lluvias; **(b)** el calendario documentado: maíz de primera sembrado en la fecha de la regla de inicio (lo que se perdió primero) y maíz y frijol de segunda sembrados el 1 y 15 de agosto y el 1 y 15 de septiembre de 2009. Cada celda trae el rendimiento relativo, los días de estrés (coeficiente de estrés Ks < 0.7 durante el ciclo) y el puesto y percentil de 2009 entre los 24 años 2001–2024 del mismo sitio, fuente y calendario (puesto 1 = el peor; percentil 0 = el peor; "peor tercio" = percentil de 0.33 o menos). El ciclo termina antes del 31 de marzo en todas las celdas. Artefacto: `web/data/diagnosis_2009.json`; script `scripts/compare/diagnosis_2009.mjs`.
+
+**La lluvia de 2009, por fuente:**
+
+| Sitio | Fuente | Anual abr–mar (mm) | May–oct (mm) | Jul–ago (mm) | Racha seca máx. jun–sep (días) | Percentil may–oct | Percentil jul–ago | Inicio de lluvias |
+|---|---|---|---|---|---|---|---|---|
+| Chiquimula | ERA5 | 942.9 | 801.3 | 269.4 | 6 | 0.19 | 0.31 | 2009-05-03 |
+| Chiquimula | POWER | 1253 | 940.1 | 403.2 | 6 | 0.27 | 0.60 | 2009-05-03 |
+| Chiquimula | CHIRPS | 1127.2 | 1057.6 | 340.6 | 10 | 0.27 | 0.48 | 2009-05-03 |
+| Jutiapa | ERA5 | 922.5 | 790.9 | 158.6 | 9 | 0.27 | 0.31 | 2009-05-09 |
+| Jutiapa | POWER | 1080 | 892.2 | 366.9 | 4 | 0.23 | 0.44 | 2009-05-03 |
+| Jutiapa | CHIRPS | 1148.9 | 1052 | 386.1 | 5 | 0.15 | 0.52 | 2009-05-05 |
+| Zacapa | ERA5 | 1262 | 1023.5 | 354.8 | 5 | 0.15 | 0.31 | 2009-05-08 |
+| Zacapa | POWER | 1253 | 940.1 | 403.2 | 6 | 0.27 | 0.60 | 2009-05-03 |
+| Zacapa | CHIRPS | 837.2 | 794.6 | 238.8 | 12 | 0.27 | 0.44 | 2009-05-04 |
+
+**Chiquimula:**
+
+| Calendario | ERA5: rend. (días estrés; puesto de 24; percentil) | POWER: rend. (días estrés; puesto de 24; percentil) | CHIRPS: rend. (días estrés; puesto de 24; percentil) |
+|---|---|---|---|
+| a) Maíz resembrado tras pérdida a los 30 días (como historical_check) | 0.995 (0 d; #4; 0.15 **peor tercio**) | 1.000 (0 d; #2, 23 empatados; 0.52) | 1.000 (0 d; #1, 24 empatados; 0.50) |
+| a) Maíz resembrado tras pérdida a los 45 días | 0.997 (0 d; #5; 0.19 **peor tercio**) | 1.000 (0 d; #4, 21 empatados; 0.56) | 1.000 (0 d; #5, 20 empatados; 0.58) |
+| a) Maíz resembrado tras pérdida a los 60 días | 0.978 (1 d; #10; 0.40) | 0.999 (0 d; #2; 0.06 **peor tercio**) | 1.000 (0 d; #14, 11 empatados; 0.77) |
+| b) Maíz de primera, siembra en la regla de inicio | 0.993 (0 d; #12; 0.48) | 1.000 (0 d; #11, 14 empatados; 0.71) | 1.000 (0 d; #14, 11 empatados; 0.77) |
+| b) Maíz de segunda, siembra 1 ago | 0.988 (0 d; #11; 0.44) | 1.000 (0 d; #4, 21 empatados; 0.56) | 0.987 (1 d; #9; 0.35) |
+| b) Maíz de segunda, siembra 15 ago | 0.972 (8 d; #15; 0.60) | 0.996 (0 d; #6; 0.23 **peor tercio**) | 0.904 (24 d; #9; 0.35) |
+| b) Maíz de segunda, siembra 1 sep | 0.914 (28 d; #19; 0.77) | 0.963 (3 d; #7; 0.27 **peor tercio**) | 0.765 (43 d; #13; 0.52) |
+| b) Maíz de segunda, siembra 15 sep | 0.789 (45 d; #19; 0.77) | 0.905 (7 d; #9; 0.35) | 0.651 (56 d; #16; 0.65) |
+| b) Frijol de segunda, siembra 1 ago | 0.994 (0 d; #3; 0.10 **peor tercio**) | 0.956 (0 d; #2; 0.06 **peor tercio**) | 0.924 (1 d; #1; 0.02 **peor tercio**) |
+| b) Frijol de segunda, siembra 15 ago | 0.971 (0 d; #4; 0.15 **peor tercio**) | 1.000 (0 d; #4, 21 empatados; 0.56) | 0.962 (0 d; #3; 0.10 **peor tercio**) |
+| b) Frijol de segunda, siembra 1 sep | 0.917 (5 d; #4; 0.15 **peor tercio**) | 0.959 (1 d; #2; 0.06 **peor tercio**) | 0.977 (1 d; #7; 0.27 **peor tercio**) |
+| b) Frijol de segunda, siembra 15 sep | 0.913 (1 d; #12; 0.48) | 0.974 (0 d; #7; 0.27 **peor tercio**) | 0.910 (8 d; #14; 0.56) |
+
+**Jutiapa** (suelo arcilloso con poca agua disponible: el maíz rinde poco casi todos los años, y por eso 2009 no destaca):
+
+| Calendario | ERA5: rend. (días estrés; puesto de 24; percentil) | POWER: rend. (días estrés; puesto de 24; percentil) | CHIRPS: rend. (días estrés; puesto de 24; percentil) |
+|---|---|---|---|
+| a) Maíz resembrado tras pérdida a los 30 días (como historical_check) | 0.460 (33 d; #4; 0.15 **peor tercio**) | 0.944 (9 d; #11; 0.44) | 0.981 (5 d; #14; 0.56) |
+| a) Maíz resembrado tras pérdida a los 45 días | 0.763 (27 d; #17; 0.69) | 0.822 (14 d; #10; 0.40) | 0.923 (9 d; #17; 0.69) |
+| a) Maíz resembrado tras pérdida a los 60 días | 0.677 (46 d; #18; 0.73) | 0.817 (36 d; #15; 0.60) | 0.813 (34 d; #18; 0.73) |
+| b) Maíz de primera, siembra en la regla de inicio | 0.350 (44 d; #9; 0.35) | 0.993 (0 d; #12; 0.48) | 0.941 (1 d; #9; 0.35) |
+| b) Maíz de segunda, siembra 1 ago | 0.405 (55 d; #5; 0.19 **peor tercio**) | 0.500 (52 d; #5; 0.19 **peor tercio**) | 0.517 (51 d; #11; 0.44) |
+| b) Maíz de segunda, siembra 15 ago | 0.423 (67 d; #17; 0.69) | 0.377 (64 d; #10; 0.40) | 0.378 (70 d; #12; 0.48) |
+| b) Maíz de segunda, siembra 1 sep | 0.231 (78 d; #20; 0.81) | 0.297 (79 d; #18; 0.73) | 0.205 (82 d; #17; 0.69) |
+| b) Maíz de segunda, siembra 15 sep | 0.000 (92 d; #1, 20 empatados; 0.42) | 0.000 (91 d; #1, 15 empatados; 0.31 **peor tercio**) | 0.000 (92 d; #1, 19 empatados; 0.40) |
+| b) Frijol de segunda, siembra 1 ago | 0.799 (11 d; #7; 0.27 **peor tercio**) | 0.620 (6 d; #1; 0.02 **peor tercio**) | 0.941 (1 d; #7; 0.27 **peor tercio**) |
+| b) Frijol de segunda, siembra 15 ago | 0.730 (17 d; #6; 0.23 **peor tercio**) | 0.835 (14 d; #5; 0.19 **peor tercio**) | 0.880 (11 d; #8; 0.31 **peor tercio**) |
+| b) Frijol de segunda, siembra 1 sep | 0.416 (22 d; #5; 0.19 **peor tercio**) | 0.463 (21 d; #4; 0.15 **peor tercio**) | 0.538 (19 d; #9; 0.35) |
+| b) Frijol de segunda, siembra 15 sep | 0.428 (34 d; #17; 0.69) | 0.309 (38 d; #10; 0.40) | 0.281 (36 d; #11; 0.44) |
+
+**Zacapa:**
+
+| Calendario | ERA5: rend. (días estrés; puesto de 24; percentil) | POWER: rend. (días estrés; puesto de 24; percentil) | CHIRPS: rend. (días estrés; puesto de 24; percentil) |
+|---|---|---|---|
+| a) Maíz resembrado tras pérdida a los 30 días (como historical_check) | 1.000 (0 d; #2, 23 empatados; 0.52) | 1.000 (0 d; #2, 23 empatados; 0.52) | 0.867 (8 d; #2; 0.06 **peor tercio**) |
+| a) Maíz resembrado tras pérdida a los 45 días | 1.000 (0 d; #3, 22 empatados; 0.54) | 1.000 (0 d; #5, 20 empatados; 0.58) | 1.000 (0 d; #9, 16 empatados; 0.67) |
+| a) Maíz resembrado tras pérdida a los 60 días | 1.000 (0 d; #7, 18 empatados; 0.63) | 0.991 (0 d; #2; 0.06 **peor tercio**) | 0.988 (0 d; #12; 0.48) |
+| b) Maíz de primera, siembra en la regla de inicio | 1.000 (0 d; #7, 18 empatados; 0.63) | 1.000 (0 d; #12, 13 empatados; 0.73) | 0.980 (0 d; #14; 0.56) |
+| b) Maíz de segunda, siembra 1 ago | 1.000 (0 d; #6, 19 empatados; 0.60) | 0.999 (0 d; #2; 0.06 **peor tercio**) | 0.940 (14 d; #4; 0.15 **peor tercio**) |
+| b) Maíz de segunda, siembra 15 ago | 1.000 (0 d; #12, 13 empatados; 0.73) | 1.000 (0 d; #7, 18 empatados; 0.63) | 0.824 (28 d; #6; 0.23 **peor tercio**) |
+| b) Maíz de segunda, siembra 1 sep | 0.971 (4 d; #16; 0.65) | 0.953 (10 d; #7; 0.27 **peor tercio**) | 0.588 (46 d; #4; 0.15 **peor tercio**) |
+| b) Maíz de segunda, siembra 15 sep | 0.882 (15 d; #14; 0.56) | 0.861 (17 d; #7; 0.27 **peor tercio**) | 0.387 (61 d; #5; 0.19 **peor tercio**) |
+| b) Frijol de segunda, siembra 1 ago | 1.000 (0 d; #3, 22 empatados; 0.54) | 0.917 (2 d; #2; 0.06 **peor tercio**) | 0.937 (2 d; #4; 0.15 **peor tercio**) |
+| b) Frijol de segunda, siembra 15 ago | 1.000 (0 d; #3, 22 empatados; 0.54) | 0.957 (0 d; #2; 0.06 **peor tercio**) | 0.913 (0 d; #4; 0.15 **peor tercio**) |
+| b) Frijol de segunda, siembra 1 sep | 1.000 (0 d; #7, 18 empatados; 0.63) | 0.934 (3 d; #2; 0.06 **peor tercio**) | 0.952 (8 d; #10; 0.40) |
+| b) Frijol de segunda, siembra 15 sep | 0.992 (0 d; #13; 0.52) | 0.924 (1 d; #5; 0.19 **peor tercio**) | 0.624 (25 d; #5; 0.19 **peor tercio**) |
+
+#### Diagnóstico, sin rodeos
+
+- **La lluvia de 2009 no es extrema en ninguna fuente.** Mayo–octubre queda en el tercio más seco de los años (percentil 0.15 a 0.27) en las nueve combinaciones sitio-fuente, pero julio–agosto no (0.31 a 0.60), y la racha seca más larga de junio a septiembre va de 4 a 12 días.
+- **Con el calendario de `historical_check` el simulador no ve pérdida:** el rendimiento del maíz resembrado va de 0.460 a 1.000, y solo baja de 0.5 en Jutiapa con ERA5 a los 30 días. Resembrar en junio o julio es sembrar en plena lluvia.
+- **Con el calendario documentado cambia, pero poco:** el maíz de primera da 0.98 a 1.00 en Chiquimula y Zacapa con las tres fuentes. En Jutiapa da 0.350 con ERA5, 0.993 con POWER y 0.941 con CHIRPS: con ERA5 es un año malo, pero ese maíz da una mediana de 0.49 en ese sitio (2009 queda en el percentil 0.35), no es excepcional.
+- **La única combinación que muestra 2009 como año malo de segunda es Zacapa con CHIRPS:** el maíz sembrado el 1 ago, 15 ago, 1 sep y 15 sep rinde 0.940, 0.824, 0.588 y 0.387 (14 a 61 días de estrés), y 2009 queda entre los 6 peores años de 24 en las cuatro fechas. Con ERA5, el mismo sitio y fechas rinden 1.000, 1.000, 0.971 y 0.882. Con POWER, 0.999, 1.000, 0.953 y 0.861; ahí el "peor tercio" es una diferencia de centésimas, no una pérdida.
+- **En Chiquimula no hay una pérdida de maíz notable con ninguna fuente:** el maíz de segunda sembrado el 15 de agosto rinde 0.972 (ERA5), 0.996 (POWER) y 0.904 (CHIRPS), con percentiles 0.60, 0.23 y 0.35; el mínimo en todas las fechas y fuentes es 0.651 (CHIRPS, 15 de septiembre, percentil 0.65: un año típico para esa fecha). POWER lo pone en el peor tercio el 15 de agosto y el 1 de septiembre, con 0.996 y 0.963, diferencias de centésimas.
+- **Ninguna combinación reproduce "se perdieron todas las plantaciones".** Fuera de las siembras tardías de Jutiapa (15 de septiembre da 0 en 20, 15 y 19 de 24 años según la fuente, o sea que no es 2009), el rendimiento mínimo del maíz es 0.387.
+
+**Veredicto:** el fallo no viene de una sola cosa. (1) **El calendario**: resembrar 14 días después de una pérdida de junio o julio no es la segunda siembra de agosto a septiembre del informe, y con la de agosto a septiembre el maíz sufre más. (2) **La fuente de lluvia**: ERA5 es la más húmeda en Zacapa en 2009 (1262 mm contra 837 mm en CHIRPS; medias de 1464 y 1024 mm) y con ella no hay estrés; con CHIRPS sí. No se probó con estaciones, así que no se sabe cuál está más cerca de lo que llovió. (3) **Ni una ni otra bastan** para reproducir una pérdida total: queda lo que este simulador no ve (plagas, semilla, calor, fertilidad, la lluvia local que las celdas de 0.05° a 0.5° no capturan) o una falta de sensibilidad del modelo a la sequía en suelos francos. No se ajustó nada para cerrar esa distancia.
+
+### Los eventos documentados 2001–2024
+
+Otro agente compiló, **sin ver salidas del simulador**, una tabla de eventos de sequía documentados en el Corredor Seco de Guatemala (`research_notes/eventos-sequia-documentados.json`, fuera del repositorio; el artefacto guarda su huella SHA-256 y copia las citas). Son 16 eventos y 6 años que las fuentes describen como normales o buenos (`noEventYears`). Tres eventos no nombran departamentos (E01 2001 primera, E09 2015 primera, E10 2016 primera) y no se pueden ubicar en puntos: no se puntúan, y su año queda fuera de los años de control de ese ciclo. Los eventos E05 y E06 (2014 primera) son dos fuentes del mismo evento y comparten sitios-año, y E15 (2023, Olopa) cuenta todos los puntos del departamento de Chiquimula, como pide la regla de asignación por departamento.
+
+| Id | Año | Ciclo | Cultivo | Departamentos | Lo reportado (resumen) | Fuente | Confianza | Sitios-año puntuados | Aciertos ERA5 | Aciertos POWER | Aciertos CHIRPS |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| E01 | 2001 | primera | ambos | (ninguno nombrado) | Perdida de ~8 % del area sembrada de maiz y frijol en los departamentos centrales y orientales; unas 13 000 fincas de subsistencia con perdidas de al menos 80 % de los cultivos de primera en zonas localizadas; produccion de cereales 2001 prevista -9 %. | [FAO/GIEWS 2001-09-03](https://www.fao.org/4/y1913e/pays/gua0109e.htm) | media | 0 | no puntuado | no puntuado | no puntuado |
+| E02 | 2009 | ambas | ambos | Chiquimula, Zacapa, El Progreso, Baja Verapaz, Jalapa, Jutiapa | Perdidas localizadas hasta 100 % en el Corredor Seco; rendimiento de maiz de primera de 20 a 4 qq/mz (~80 %); frijol de postrera esperado ~5 qq/mz frente a 20 normales (-75 %), algunos agricultores perdieron todo el frijol negro; ~10 % del area nacional de maiz perdida (calculo de la mision con sus cuadros). | [FAO/PMA 2010-02-23](https://www.fao.org/4/ak344s/ak344s00.htm) | alta | 72 | 27/72 | 19/72 | 9/28 |
+| E03 | 2012 | primera | ambos | Jutiapa, El Progreso, Chiquimula, Zacapa, Baja Verapaz | Perdidas significativas, hasta 70 %, en maiz y frijol de agricultores de subsistencia e infra-subsistencia en algunas regiones de los departamentos citados. | [SESAN (Comité de Pronóstico SAN) 2012-10](https://portal.siinsan.gob.gt/wp-content/uploads/Monitoreo_y_Evaluacion/Pronostico/INFORMES 2012/a65e36ed41f8994215dda2c7af408ab6.pdf) | alta | 32 | 11/32 | 8/32 | 0/14 |
+| E04 | 2013 | primera | maiz | El Progreso, Zacapa, Chiquimula, Baja Verapaz | Perdidas de 60 a 100 % de maiz de primera en agricultores pobres del Corredor Seco oriental; 87 % de los hogares afectados viven en los cuatro departamentos; segun MAGA, 31 224 hogares afectados por el periodo seco de julio-agosto. | [FEWS NET 2013-09](https://fews.net/latin-america-and-caribbean/guatemala/food-security-outlook-update/september-2013) | media | 12 | 2/12 | 5/12 | 0/4 |
+| E05 | 2014 | primera | ambos | Baja Verapaz, Chiquimula, El Progreso, Jutiapa, Zacapa, Santa Rosa, Jalapa | Encuesta en 3 814 comunidades de 208 municipios: 168 278 familias con perdidas; perdidas en quintales de 80 % maiz y 63 % frijol (nivel nacional, familias de infra y subsistencia); Q450 millones. INSIVUMEH listo como mas impactados: Baja Verapaz, Chiquimula, El Progreso, Jutiapa, Zacapa, Quiche, Santa Rosa, Retalhuleu, Jalapa y Suchitepequez. | [SESAN / MAGA / INSIVUMEH 2014-08 (encuesta 1-6 agosto 2014)](https://portal.siinsan.gob.gt/wp-content/uploads/cedesan/InformeCaniculaProlongada2014_13Ago14.pdf) | alta | 38 | 25/38 | 24/38 | 8/14 |
+| E06 | 2014 | primera | ambos | Chiquimula, El Progreso, Baja Verapaz, Jutiapa, Zacapa, Santa Rosa, Jalapa | Reduccion de produccion de maiz de cerca de 1.9 millones de quintales y mas de 650 mil quintales de frijol; mas de 168 mil familias; Q450 339 649. Hasta 3 decadas sin lluvia en El Progreso, Jalapa, Chiquimula y Jutiapa; acumulados de 0 a 40 % de lo normal. | [MAGA / SMC (INSIVUMEH, MARN, SESAN, FEWS NET, FAO, PMA) 2014-08](https://precios.maga.gob.gt/archivos/smc/2014/08%20Bolet%c3%adn%20SMC%20-%20Agosto%20-%202014.pdf) | alta | 38 | 25/38 | 24/38 | 8/14 |
+| E07 | 2014 | postrera | ambos | Jutiapa, Chiquimula, Santa Rosa | Solo 1 664 comunidades (44 %) reportaron posibilidad de sembrar la postrera de maiz y frijol; las mayores cantidades en Jutiapa, Chiquimula y Santa Rosa; MAGA: de las comunidades afectadas con posibilidad, 44 % podria sembrar y 56 % no. | [SESAN / MAGA / INSIVUMEH 2014-08](https://portal.siinsan.gob.gt/wp-content/uploads/cedesan/InformeCaniculaProlongada2014_13Ago14.pdf) | media | 20 | 0/20 | 0/20 | 0/12 |
+| E08 | 2015 | primera | maiz | Baja Verapaz, Chiquimula, El Progreso, Zacapa, Jalapa | Perdidas de 75 a 100 % del maiz de primera en productores de subsistencia del Corredor Seco occidental y oriental; deficit de lluvia de hasta 75 % bajo lo normal; en agosto deficit de hasta 95 % en departamentos del oriente y hasta 27 dias sin lluvia; mas de 70 000 hogares afectados (cifra preliminar de agosto). | [FEWS NET 2015-12](https://fews.net/latin-america-and-caribbean/guatemala/food-security-outlook-update/december-2015) | alta | 14 | 10/14 | 14/14 | 3/4 |
+| E09 | 2015 | primera | ambos | (ninguno nombrado) | Fuertes perdidas de maiz y frijol para muchos productores de subsistencia del Corredor Seco centroamericano; reduccion considerable de reservas. | [FEWS NET 2016-05](https://fews.net/sites/default/files/documents/reports/AMERICA%20CENTRAL%20Informe%20Especial%20-%20sector%20cafetalero%20-%202016.pdf) | media | 0 | no puntuado | no puntuado | no puntuado |
+| E10 | 2016 | primera | ambos | (ninguno nombrado) | A nivel nacional la cosecha de primera dentro de parametros normales, pero con danos en el corredor seco bajo 700 msnm y perdidas totales en algunas areas; cosecha con 15-30 dias de retraso. | [FEWS NET 2016-10](https://fews.net/latin-america-and-caribbean/guatemala/food-security-outlook/october-2016) | media | 0 | no puntuado | no puntuado | no puntuado |
+| E11 | 2016 | postrera | frijol | Chiquimula, Zacapa, Jutiapa | Menores rendimientos de frijol en las areas bajas del corredor seco oriental; el oct-2016 menciona danos al frijol de postrera en Chiquimula, Zacapa y Jutiapa. | [FEWS NET 2016-11](https://fews.net/es/central-america-and-caribbean/guatemala/key-message-update/november-2016) | media | 11 | 7/11 | 1/11 | 5/7 |
+| E12 | 2018 | primera | ambos | Chiquimula, Jutiapa, Zacapa, El Progreso, Jalapa | Danos importantes a mas de 291 mil familias, principalmente en los departamentos citados (tambien Huehuetenango); algunas familias reportan perdidas totales de la primera de maiz y frijol; cultivos en crecimiento vegetativo. | [MAGA / SMC 2018-08](https://precios.maga.gob.gt/archivos/smc/2018/08%20Bolet%C3%ADn%20SMC%20-%20Agosto%20-%202018.pdf) | alta | 30 | 18/30 | 22/30 | 9/14 |
+| E13 | 2018 | primera | ambos | Zacapa, Chiquimula, Baja Verapaz, El Progreso, Jutiapa, Jalapa | Segun MAGA, 201 692 agricultores de subsistencia perdieron casi la totalidad de sus cultivos de primera (zona de medios de vida del oriente); reservas de maiz minimas o inexistentes; precio del maiz hasta Q170-180/qq. | [FEWS NET 2018-12](https://fews.net/es/latin-america-and-caribbean/guatemala/perspectiva-de-seguridad-alimentaria/diciembre-2018/print) | alta | 36 | 24/36 | 25/36 | 9/14 |
+| E14 | 2019 | primera | ambos | El Progreso, Jutiapa, Zacapa, Chiquimula, Baja Verapaz | En el Corredor Seco perdidas de mas de 50 % y rendimientos 50 % menores a lo usual (tambien Quiche). FEWS oct-2019: perdidas ~5 % en algunas areas excedentarias; hogares pobres del este perdieron su primera por segundo ano. | [FEWS NET 2019-08](https://fews.net/latin-america-and-caribbean/guatemala/food-security-outlook-update/august-2019) | media | 32 | 21/32 | 3/32 | 4/14 |
+| E15 | 2023 | primera | maiz | Chiquimula | Resiembra por condiciones climaticas desfavorables en Olopa; en la region nororiente 62.9 % de los agricultores entrevistados presento dano en maiz por gusano cogollero y principalmente sequia (101 cuerdas); en algunas comunidades mas de ocho dias consecutivos sin lluvia en Crecimiento I; las zonas mas afectadas no permitieron siembra ni resiembra. | [MAGA / SMC con datos PMA e INSIVUMEH 2023-07](https://precios.maga.gob.gt/archivos/smc/2023/07%20Informe%20SMC%20-%20Julio%20-%202023.pdf) | alta | 5 | 2/5 | 0/5 | 3/3 |
+| E16 | 2023 | ambas | ambos | Baja Verapaz, Chiquimula, El Progreso, Zacapa, Jutiapa | Perdidas de maiz de primera de agricultores de subsistencia 'alrededor de 25 a 30 %' en conjunto; en diferentes regiones perdidas de frijol de 60 % a totales; siembra de primera retrasada 1-2 meses; postrera sembrada y cosechada tarde; algunos resembraron con semilla de reserva. | [FEWS NET 2024-02](https://fews.net/latin-america-and-caribbean/guatemala/food-security-outlook/february-2024) | media | 64 | 17/64 | 14/64 | 13/28 |
+
+**Cómo se puntuó (fijado antes de ver resultados):**
+
+- **Unidad** = un sitio-año: un punto cuyo departamento nombra el evento × año agrícola × ciclo × cultivo. Primera = siembra en la fecha de la regla de inicio de lluvias; postrera = siembra el 15 de agosto; un evento "ambas" cuenta los dos ciclos y "ambos" cultivos cuenta maíz y frijol por separado. Total: 331 unidades de evento, 228 unidades de años normales (en los mismos puntos, cultivos y ciclos) y 1330 de "otros años".
+- **Valor** = rendimiento relativo del simulador (secano, suelo del sitio en los pilotos y franco en el resto) con la lluvia de cada fuente; **percentil** = rango medio entre los años usables del mismo sitio, ciclo, cultivo y fuente.
+- **Acierto** = percentil de 1/3 o menos (el peor tercio de los años de ese sitio). Umbral fijo, no se cambia.
+- **Separación (AUC)** = probabilidad de que una unidad de evento tenga peor percentil que una de control (empate cuenta 1/2), contra (a) los `noEventYears` y (b) todos los demás años de esos puntos sin ningún evento listado de ese ciclo y cultivo. Un AUC de 0.5 no distingue nada.
+- CHIRPS solo existe en 8 puntos, así que sus unidades son menos; para comparar fuentes sobre lo mismo hay una segunda tabla con el **soporte común** (solo las unidades que las tres fuentes pueden evaluar).
+
+**Resultados por fuente** (todas las unidades que cada fuente puede evaluar; entre paréntesis, eventos contra controles):
+
+| Fuente | Periodo | Aciertos (peor tercio) | Falsas alarmas en noEventYears | Otros años en el peor tercio | AUC contra noEventYears | AUC contra otros años |
+|---|---|---|---|---|---|---|
+| ERA5 | 2001–2016 | 82/199 (41 %) | 4/38 (11 %) | 228/874 (26 %) | 0.76 (199 contra 38) | 0.61 (199 contra 874) |
+| ERA5 | 2017–2024 | 62/132 (47 %) | 21/190 (11 %) | 67/456 (15 %) | 0.66 (132 contra 190) | 0.68 (132 contra 456) |
+| ERA5 | todos | 144/331 (44 %) | 25/228 (11 %) | 295/1330 (22 %) | 0.68 (331 contra 228) | 0.64 (331 contra 1330) |
+| POWER | 2001–2016 | 71/199 (36 %) | 0/38 (0 %) | 270/874 (31 %) | 0.79 (199 contra 38) | 0.53 (199 contra 874) |
+| POWER | 2017–2024 | 42/132 (32 %) | 25/190 (13 %) | 38/456 (8 %) | 0.59 (132 contra 190) | 0.64 (132 contra 456) |
+| POWER | todos | 113/331 (34 %) | 25/228 (11 %) | 308/1330 (23 %) | 0.65 (331 contra 228) | 0.56 (331 contra 1330) |
+| CHIRPS | 2001–2016 | 25/83 (30 %) | 0/14 (0 %) | 112/322 (35 %) | 0.80 (83 contra 14) | 0.53 (83 contra 322) |
+| CHIRPS | 2017–2024 | 26/56 (46 %) | 4/70 (6 %) | 21/168 (13 %) | 0.71 (56 contra 70) | 0.67 (56 contra 168) |
+| CHIRPS | todos | 51/139 (37 %) | 4/84 (5 %) | 133/490 (27 %) | 0.73 (139 contra 84) | 0.58 (139 contra 490) |
+
+**Sobre el soporte común** (las mismas unidades para las tres fuentes):
+
+| Fuente | Periodo | Aciertos | AUC contra noEventYears | AUC contra otros años |
+|---|---|---|---|---|
+| ERA5 | 2001–2016 | 28/83 (34 %) | 0.75 (83 contra 14) | 0.58 (83 contra 322) |
+| ERA5 | 2017–2024 | 23/56 (41 %) | 0.60 (56 contra 70) | 0.63 (56 contra 168) |
+| ERA5 | todos | 51/139 (37 %) | 0.63 (139 contra 84) | 0.60 (139 contra 490) |
+| POWER | 2001–2016 | 28/83 (34 %) | 0.77 (83 contra 14) | 0.50 (83 contra 322) |
+| POWER | 2017–2024 | 17/56 (30 %) | 0.60 (56 contra 70) | 0.64 (56 contra 168) |
+| POWER | todos | 45/139 (32 %) | 0.66 (139 contra 84) | 0.55 (139 contra 490) |
+| CHIRPS | 2001–2016 | 25/83 (30 %) | 0.80 (83 contra 14) | 0.53 (83 contra 322) |
+| CHIRPS | 2017–2024 | 26/56 (46 %) | 0.71 (56 contra 70) | 0.67 (56 contra 168) |
+| CHIRPS | todos | 51/139 (37 %) | 0.73 (139 contra 84) | 0.58 (139 contra 490) |
+
+Lectura:
+
+- **ERA5** acierta 82/199 (41 %) en 2001–2016 y 62/132 (47 %) en 2017–2024. Las falsas alarmas (años descritos como normales que caen en el peor tercio) son 25/228 (11 %). Es mejor que el azar (que daría un tercio de aciertos y AUC 0.5) pero está lejos de reproducir los eventos: más de la mitad de los sitios-año de evento no salen entre los peores de su sitio.
+- **POWER** está en el nivel del azar en aciertos (113/331 (34 %)); su AUC contra los años normales parece alto en 2001–2016 (0.79) pero se apoya en 38 controles de un solo año (2015 postrera) y contra los otros años es 0.53.
+- **CHIRPS** (8 puntos) acierta 25/83 (30 %) en 2001–2016 y 26/56 (46 %) en 2017–2024. Con tan pocos puntos, vecinos entre sí y correlacionados, no se puede decir más.
+- **Dónde acierta y dónde no (ERA5):** acierta sobre todo 2014 primera (25/38 sitios-año), 2015 primera maíz (10/14), 2018 primera (18/30 y 24/36) y 2019 primera (21/32). Falla en la **postrera de 2014 (0/20 con las tres fuentes)**: el reporte habla de comunidades que no pudieron sembrar la postrera (solo el 44 % pudo), y el simulador siempre siembra el 15 de agosto, así que no ve esa pérdida. También falla en 2013 primera maíz (2/12), en 2023 primera Olopa (2/5) y en 2009 (27/72).
+- **Fallos de ERA5 por nombre** (puntos que no cayeron en el peor tercio, por evento, ciclo y cultivo; el detalle de las tres fuentes está en `web/data/real_events_check.json`, `misses`): 2009 primera maiz: Chiquimula, Esquipulas, Jocotán, Quetzaltepeque, Olopa, Zacapa, Gualán, Guastatoya, Rabinal, Cubulco, Monjas, Jutiapa, Asunción Mita, Jalpatagua, Santa Catarina Mita; 2009 primera frijol: Esquipulas, Olopa, Guastatoya, Salamá, Rabinal, Cubulco, Jalapa, Jutiapa, Asunción Mita, Jalpatagua, Santa Catarina Mita; 2009 postrera maiz: Chiquimula, Esquipulas, Jocotán, Quetzaltepeque, Zacapa, Gualán, Guastatoya, Sanarate, Salamá, Rabinal, Cubulco, Jalapa, Monjas, Jutiapa, Jalpatagua; 2009 postrera frijol: Olopa, Zacapa, Gualán, Jalpatagua; 2012 primera maiz: Asunción Mita, Jalpatagua, Santa Catarina Mita, Esquipulas, Olopa, Zacapa, Gualán, Salamá, Rabinal, Cubulco; 2012 primera frijol: Asunción Mita, Jalpatagua, Santa Catarina Mita, Guastatoya, Sanarate, Chiquimula, Esquipulas, Zacapa, Gualán, Rabinal, Cubulco; 2013 primera maiz: Guastatoya, Sanarate, Zacapa, Chiquimula, Esquipulas, Jocotán, Quetzaltepeque, Olopa, Salamá, Rabinal; 2014 primera maiz: Gualán; 2014 primera frijol: Salamá, Rabinal, Cubulco, Esquipulas, Quetzaltepeque, Guastatoya, Sanarate, Jutiapa, Jalpatagua, Santa Catarina Mita, Zacapa, Gualán; 2014 postrera maiz: Jutiapa, Asunción Mita, Jalpatagua, Santa Catarina Mita, Chiquimula, Esquipulas, Jocotán, Quetzaltepeque, Olopa, Cuilapa; 2014 postrera frijol: Jutiapa, Asunción Mita, Jalpatagua, Santa Catarina Mita, Chiquimula, Esquipulas, Jocotán, Quetzaltepeque, Olopa, Cuilapa; 2015 primera maiz: Esquipulas, Olopa, Gualán, Monjas; 2016 postrera frijol: Esquipulas, Zacapa, Gualán, Jalpatagua; 2018 primera maiz: Esquipulas, Olopa, Asunción Mita, Santa Catarina Mita, Zacapa, Gualán; 2018 primera frijol: Jutiapa, Asunción Mita, Jalpatagua, Santa Catarina Mita, Zacapa, Gualán; 2019 primera maiz: Jalpatagua, Gualán, Esquipulas, Olopa, Cubulco; 2019 primera frijol: Jutiapa, Asunción Mita, Jalpatagua, Zacapa, Gualán, Esquipulas; 2023 primera maiz: Chiquimula, Jocotán, Quetzaltepeque, Salamá, Rabinal, Cubulco, Guastatoya, Sanarate, Jutiapa, Asunción Mita, Santa Catarina Mita; 2023 primera frijol: Salamá, Rabinal, Cubulco, Chiquimula, Jocotán, Quetzaltepeque, Guastatoya, Sanarate, Jutiapa, Asunción Mita, Santa Catarina Mita; 2023 postrera maiz: Salamá, Rabinal, Cubulco, Chiquimula, Esquipulas, Jocotán, Quetzaltepeque, Olopa, Guastatoya, Sanarate, Zacapa, Gualán, Jutiapa, Asunción Mita, Jalpatagua, Santa Catarina Mita; 2023 postrera frijol: Salamá, Rabinal, Cubulco, Esquipulas, Olopa, Zacapa, Gualán, Jalpatagua, Santa Catarina Mita.
+- **Falsas alarmas por nombre** (años descritos como normales en que el simulador pone al sitio en el peor tercio). ERA5: 2015 postrera frijol: Jocotán, Quetzaltepeque, Salamá, Asunción Mita; 2017 primera frijol: Asunción Mita; 2017 postrera maiz: Chiquimula, Esquipulas, Jocotán, Quetzaltepeque, Jutiapa, Jalpatagua, Santa Catarina Mita; 2018 postrera maiz: Esquipulas, Olopa, Zacapa, Salamá, Cubulco, Jalapa, Monjas, Cuilapa; 2018 postrera frijol: Olopa, Guastatoya, Sanarate, Jutiapa; 2020 primera frijol: Gualán. POWER: 2017 postrera maiz: Esquipulas, Jocotán, Quetzaltepeque, Olopa, Guastatoya, Sanarate, Salamá, Rabinal, Cubulco, Jalapa, Monjas, Jutiapa, Asunción Mita, Jalpatagua, Santa Catarina Mita, Cuilapa; 2018 postrera maiz: Chiquimula, Esquipulas, Jocotán, Quetzaltepeque, Olopa, Zacapa, Gualán, Guastatoya, Sanarate. CHIRPS: 2018 postrera maiz: Zacapa; 2018 postrera frijol: Chiquimula, Zacapa; 2020 primera frijol: Jutiapa.
+
+**La regla preregistrada para elegir la fuente.** Con los eventos de 2001–2016 solamente, gana la fuente de mayor AUC y reemplaza a ERA5 solo si lo supera por al menos 0.05. Como en 2001–2016 el archivo trae un solo año normal (2015 postrera), el AUC de la regla usa los "otros años" como controles y el soporte común (esto también se fijó antes de calcular). Resultado: **ERA5 0.576, POWER 0.504, CHIRPS 0.526. ERA5 tiene el AUC más alto, así que ERA5 se queda como fuente recomendada.** Comprobación fuera de muestra con los eventos de 2017–2024 (soporte común, 56 unidades de evento): contra los otros años, ERA5 0.633, POWER 0.636, CHIRPS 0.666; contra los años normales, ERA5 0.601, POWER 0.596, CHIRPS 0.713; aciertos 23/56 (41 %), 17/56 (30 %) y 26/56 (46 %). En esos años CHIRPS queda por encima de ERA5, pero la regla no se decide con ellos, son 8 puntos y pocos eventos, y no se cambia la decisión. **No se cambió la fuente de lluvia del modelo ni se reentrenó ninguna red.** Si algún día se cambiara, habría que regenerar los paquetes de clima de los 20 puntos (`scripts/emulator/cache` y los `web/data/snapshots`), las muestras de entrenamiento del emulador y del recomendador, reentrenar las redes (emulador, recomendador, red alineada, red de la app y las de café que usen lluvia), y repetir las evaluaciones en `web/data`. Además CHIRPS solo se bajó para 8 de los 20 puntos.
+
+**Límites de esta comparación**
+
+- **Los eventos son reportes regionales** (departamentos, familias, área sembrada), no parcelas: cada punto de un departamento nombrado cuenta como un sitio-año aunque la pérdida haya sido local. No hay rendimientos medidos por parcela.
+- **El simulador solo ve agua.** No ve plagas, semilla (incluida la entregada por el MAGA), dinero, calor ni fertilidad del suelo, ni la imposibilidad de sembrar por falta de lluvia a tiempo (caso de la postrera de 2014).
+- **Pocos eventos y muy correlacionados:** los puntos vecinos comparten clima y un mismo evento aporta muchos sitios-año. Se dan conteos junto a cada tasa y no se afirma significancia.
+- **Los años de control son pocos y desiguales:** la lista de años normales es corta (2015 postrera, 2017, 2018 postrera, 2019 postrera, 2020 primera), algunas entradas son regionales y las de 2017 no mencionan Guatemala; los "otros años" no están verificados como buenos.
+- El percentil por rango puede marcar como "peor tercio" una diferencia de centésimas cuando casi todos los años dan 1.000.
+- El año agrícola 2025 no se puede medir; la serie termina el 2025-12-31.
+- CHIRPS solo cubre 8 de los 20 puntos y se comparó en esos; ERA5 y POWER cubren los 20.
+
+**Archivos:** `web/data/rain_sources.json`, `web/data/diagnosis_2009.json`, `web/data/real_events_check.json`; scripts `scripts/data/fetch_chirps_node.mjs`, `scripts/compare/rain_sources.mjs`, `scripts/compare/diagnosis_2009.mjs`, `scripts/compare/real_events_check.mjs` y `scripts/compare/rain_sources_lib.mjs`; pruebas a mano en `tests/real_events_check.test.mjs`. Para repetir: `node scripts/compare/rain_sources.mjs && node scripts/compare/diagnosis_2009.mjs && node scripts/compare/real_events_check.mjs` (los cachés de lluvia de CHIRPS están fuera del repositorio; se bajan con `node scripts/data/fetch_chirps_node.mjs`).
 
 ## Optimizaciones de entrenamiento (notas de Alex)
 
