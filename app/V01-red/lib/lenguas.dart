@@ -101,7 +101,7 @@ const glosario = <Termino>[
     'mam': Palabra("tx'otx'", _s),
   }),
   Termino('hoy', 'hoy', {
-    'quc': Palabra('kamik', _s, 'kiche.md solo trae kamik como «morir»: ojo'),
+    // K'iche': sin borrador. Se retiró «kamik»: el diccionario del equipo solo lo trae como «morir».
     'cak': Palabra('wakami', _s),
     'kek': Palabra('anaqwan', _s),
     'mam': Palabra("ja'la", _s),

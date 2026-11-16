@@ -8,12 +8,12 @@ El código está en `lib/lenguas.dart` (tabla `glosario`); este archivo es su re
 
 Se cotejó cada término con los diccionarios del equipo en `field-shift-guatemala/diccionarios/` (`kiche.md`, `qeqchi.md`, `kaqchikel.md`, `mam.md`, `palabras-por-buscar.md`), de solo lectura. No se encontraron archivos csv/json/jsonl/tsv de diccionario; el modelo de traducción del equipo no se usó para generar texto.
 
-Resumen de las 46 celdas con palabra:
+Resumen de las 45 celdas con palabra:
 
 - **Verificado exacto: 15** (K'iche' 7, Kaqchikel 2, Q'eqchi' 6).
 - **Verificado con variante de escritura: 3** (se conserva la ortografía del encargo): Kaqchikel *kinäq'* (el archivo: *kinaq'*), Kaqchikel *ixkoya'* (*xkoya'*), Q'eqchi' *kape'* (*kape*).
 - **Distinto en el diccionario: 0.**
-- **Sin verificar: 28.** El mam no tiene fuente en el equipo (`mam.md` es una plantilla sin traducciones).
+- **Sin verificar: 27.** El mam no tiene fuente en el equipo (`mam.md` es una plantilla sin traducciones).
 
 Referencias de página: las de cada archivo (K'iche': Vásquez García 2017; Q'eqchi': Cu Cab y Cu Cab 1998; Kaqchikel: Chacach Cutzal 1990). En `kaqchikel.md` *kinaq'* y *kape* figuran como «cognado» y *ya'* como «por verificar»; *xkoya'* por contexto.
 
@@ -27,7 +27,7 @@ Referencias de página: las de cada archivo (K'iche': Vásquez García 2017; Q'e
 | agua | ja': verificado (p. 105) | ya': verificado (p. 66; el archivo lo marca «por verificar») | ha': verificado (p. 181) | a': sin verificar |
 | lluvia | jab': verificado (p. 105) | jäb': sin verificar | hab': verificado (p. 266) | jb'al: sin verificar |
 | tierra / suelo | ulew: verificado (p. 81, derivada de «piocha») | ulew: sin verificar | ch'och': verificado (p. 326) | tx'otx': sin verificar |
-| hoy | kamik: sin verificar (kiche.md solo trae *kamik* como «morir»: ojo) | wakami: sin verificar | anaqwan: sin verificar | ja'la: sin verificar |
+| hoy | (vacío) sin borrador: se retiró *kamik* porque el diccionario del equipo solo lo trae como «morir» | wakami: sin verificar | anaqwan: sin verificar | ja'la: sin verificar |
 | siembra | tiko'n: sin verificar (kiche.md solo propone *tikonik*) | tiko'n: sin verificar (trae *ajtiko'n*, agricultor) | awimq: sin verificar (trae *awk* «sembrar» y *awleb'aal*) | awal: sin verificar |
 | sombra | mu'j: sin verificar | muj: sin verificar | mu: sin verificar | muj: sin verificar |
 | cosecha (de maíz) | jach': sin verificar (kiche.md solo propone *k'ob'anik*) | jach': sin verificar | q'olok: verificado (p. 208, cosechar milpa) | (vacío) |

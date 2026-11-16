@@ -13,7 +13,7 @@ void main() {
     'agua': {'quc': "ja'", 'cak': "ya'", 'kek': "ha'", 'mam': "a'"},
     'lluvia': {'quc': "jab'", 'cak': "jäb'", 'kek': "hab'", 'mam': "jb'al"},
     'suelo': {'quc': 'ulew', 'cak': 'ulew', 'kek': "ch'och'", 'mam': "tx'otx'"},
-    'hoy': {'quc': 'kamik', 'cak': 'wakami', 'kek': 'anaqwan', 'mam': "ja'la"},
+    'hoy': {'quc': '', 'cak': 'wakami', 'kek': 'anaqwan', 'mam': "ja'la"},
     'siembra': {'quc': "tiko'n", 'cak': "tiko'n", 'kek': 'awimq', 'mam': 'awal'},
     'sombra': {'quc': "mu'j", 'cak': 'muj', 'kek': 'mu', 'mam': 'muj'},
     'cosecha': {'quc': "jach'", 'cak': "jach'", 'kek': "q'olok", 'mam': ''},
@@ -45,8 +45,9 @@ void main() {
     expect(es.esMaya, isFalse);
     expect(quc.nombreCultivo('maiz'), 'ixim · Maíz');
     expect(quc.nombreCultivoCorto('frijol'), "kinaq'");
-    expect(quc.hoy, 'kamik');
-    expect(quc.hoyTitulo, 'kamik · Hoy');
+    expect(quc.hoy, 'Hoy'); // sin borrador en K'iche': español
+    expect(quc.hoyTitulo, 'Hoy');
+    expect(const Txt(false, lengua: 'cak').hoyTitulo, 'wakami · Hoy');
     expect(quc.lluvia, "jab' · Lluvia");
     expect(quc.guardar, es.guardar); // lo que no está en el glosario, en español
     expect(quc.avisoBorrador,

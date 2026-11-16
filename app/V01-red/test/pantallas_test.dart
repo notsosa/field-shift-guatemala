@@ -944,7 +944,7 @@ void main() {
     expect(estado.idioma, 'quc');
     expect(find.textContaining("Traducción en borrador: solo algunas palabras están en K'iche'"), findsOneWidget);
     expect(find.text('ixim · Maíz'), findsOneWidget); // fila de la plantación en Ajustes
-    await tester.tap(find.text('kamik')); // pestaña Hoy: solo el término
+    await tester.tap(find.text('Hoy')); // pestaña Hoy: sin borrador en K'iche', queda el español
     await tester.pumpAndSettle();
     expect(find.textContaining('ixim · Maíz'), findsWidgets);
     expect(find.byKey(const Key('aviso_borrador')), findsOneWidget);
@@ -954,7 +954,7 @@ void main() {
   testWidgets('lenguas mayas: cada lengua muestra su cultivo y el aviso; es y en no tienen aviso', (tester) async {
     final estado = await abrirConPlantacion(tester, cultivo: 'maiz', dias: 40);
     for (final (codigo, nombre, maiz, hoy) in [
-      ('quc', "K'iche'", 'ixim', 'kamik'),
+      ('quc', "K'iche'", 'ixim', 'Hoy'),
       ('cak', 'Kaqchikel', 'ixim', 'wakami'),
       ('kek', "Q'eqchi'", 'ixim', 'anaqwan'),
       ('mam', 'Mam', "ixi'n", "ja'la"),
