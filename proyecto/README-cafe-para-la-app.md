@@ -134,7 +134,7 @@ Utilidad media de la red exportada (de `utilityOfExported` en el archivo; más a
 | Años nuevos 2019–2024 (1,620) | 0.523 | 0.036 | 1.223 | 0.818 |
 | Años reservados 2022–2024 (810) | 0.565 | −0.177 | 1.367 | 0.801 |
 
-La predicción en sí es floja (R² de 0.24 a 0.28 en años nuevos según la semilla): acierta lo suficiente para decidir mejor que la regla, pero el número de días que predice no conviene mostrárselo al productor como dato.
+La predicción en sí es floja (R² de 0.24 en años nuevos para la semilla exportada; 0.17 a 0.28 entre las tres semillas): acierta lo suficiente para decidir mejor que la regla, pero el número de días que predice no conviene mostrárselo al productor como dato.
 
 ## Diferencias entre el café del modelo y el café de la app
 
