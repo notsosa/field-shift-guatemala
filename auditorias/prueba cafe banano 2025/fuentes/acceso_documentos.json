@@ -1,0 +1,56 @@
+[
+  {
+    "nombre": "fao56_crop_coefficients_table12.html",
+    "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+    "consulta_utc": "2026-11-16T02:10:00+00:00",
+    "alcance": "Tabla 12: Coeficientes Kc de referencia para Coffee (bare ground cover 0.90/0.95/0.95; with weeds 1.05/1.10/1.10) y Banana (1st year 0.50/1.10/1.00; 2nd year 1.00/1.20/1.10)"
+  },
+  {
+    "nombre": "fao56_root_depth_depletion_table22.html",
+    "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+    "consulta_utc": "2026-11-16T02:10:00+00:00",
+    "alcance": "Tabla 22 y ecuaciones 82–88: Zr y fracción p para Coffee (Zr=0.9–1.5 m, p=0.40) y Banana (Zr=0.5–0.9 m, p=0.35)"
+  },
+  {
+    "nombre": "anacafe_guia_variedades_2020.pdf",
+    "url": "https://www.anacafe.org/uploads/file/8ee92f426ab648318001477e70d0bbe1/Gu%C3%ADa-de-variedades-Anacaf%C3%A9-2020.pdf",
+    "consulta_utc": "2026-11-16T02:12:00+00:00",
+    "alcance": "Guía técnica institucional de Anacafé: rangos altitudinales, resistencia a roya y portainjerto Robusta Nemaya contra nematodos"
+  },
+  {
+    "nombre": "anacafe_guia_fertirriego_2025.pdf",
+    "url": "https://www.anacafe.org/uploads/file/315610a5a0284d24902f86d78bda6704/Gui%CC%81a_de_Fertirriego_-_2025.pdf",
+    "consulta_utc": "2026-11-16T02:12:00+00:00",
+    "alcance": "Guía técnica institucional de Anacafé: monitoreo de humedad radicular, tensiómetros y nutrición por etapa"
+  },
+  {
+    "nombre": "cenicafe_avance_tecnico_311.html",
+    "url": "https://publicaciones.cenicafe.org/index.php/avances_tecnicos/article/view/311",
+    "consulta_utc": "2026-11-16T02:14:00+00:00",
+    "alcance": "Arcila y Jaramillo (2003): humedad del suelo, latencia floral, floración y fases de llenado del fruto del cafeto"
+  },
+  {
+    "nombre": "van_asten_2011_coffee_banana_intercropping",
+    "url": "https://doi.org/10.1016/j.agsy.2010.12.004",
+    "consulta_utc": "2026-11-16T02:15:00+00:00",
+    "alcance": "van Asten et al. (2011), Agricultural Systems 104(4):326–334: LER, flujo de caja temprano y reciclaje de potasio en asocio café-banano"
+  },
+  {
+    "nombre": "sarmiento_soler_2019_water_use_coffee_banana",
+    "url": "https://doi.org/10.1016/j.agrformet.2018.12.006",
+    "consulta_utc": "2026-11-16T02:16:00+00:00",
+    "alcance": "Sarmiento-Soler et al. (2019), Agricultural and Forest Meteorology 266–267:231–242: uso de agua y competencia en sistemas de café a pleno sol vs. sombreados con banano y árboles"
+  },
+  {
+    "nombre": "cattan_2009_banana_stemflow_runoff",
+    "url": "https://doi.org/10.1016/j.jhydrol.2009.02.020",
+    "consulta_utc": "2026-11-16T02:17:00+00:00",
+    "alcance": "Cattan et al. (2009), Journal of Hydrology 368:251–261: redistribución de lluvia por el dosel en embudo y escurrimiento caulinar del banano"
+  },
+  {
+    "nombre": "avelino_2022_cerda_2020_poeydebat_2017_sanidad",
+    "url": "https://doi.org/10.1094/PDIS-05-21-0949-FE",
+    "consulta_utc": "2026-11-16T02:18:00+00:00",
+    "alcance": "Estudios CATIE/CIRAD sobre microclima y roya/ojo de gallo (Avelino et al. 2022; Cerda et al. 2020) y nematodos/picudo en musáceas (Poeydebat et al. 2017)"
+  }
+]

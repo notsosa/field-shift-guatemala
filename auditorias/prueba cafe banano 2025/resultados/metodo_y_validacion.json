@@ -1,0 +1,800 @@
+{
+  "fecha_utc": "2026-11-16T02:56:09.871754+00:00",
+  "fecha_local_auditoria": "2026-11-16",
+  "sitio": {
+    "lat": 14.825,
+    "lon": -89.5312,
+    "caracter": "candidato agrícola elegido por el usuario; sin delimitación de finca ni verificación de campo",
+    "elevacion_dsm_m": 373.0,
+    "pendiente_dsm_local_pct": 2.5655780058800133,
+    "maga_cobertura_2025_en_punto": [
+      {
+        "gid": 79955,
+        "depto": "Chiquimula",
+        "codigo": 2001,
+        "municipio": "Chiquimula",
+        "C_USO": 2111,
+        "usot": "Maíz y frijol",
+        "nivel_1": "2. Territorios agrícolas",
+        "nivel_2": "2.1. Cultivos anuales",
+        "nivel_3": "2.1.1. Granos básicos",
+        "nivel_4": "2.1.1.1. Maíz y frijol",
+        "valp1": "2.1.1.1",
+        "area_ha": 102.325631621,
+        "area_ha_aj": 102.325631621,
+        "ha_final": 102.325765433,
+        "conteo": 1
+      }
+    ],
+    "worldcover_2021_clase": 30.0,
+    "suelo_superficial_estimado": {
+      "clay": 26.4,
+      "sand": 45.0,
+      "silt": 28.6,
+      "phh2o": 7.0,
+      "soc": 22.8,
+      "bdod": 1.4
+    },
+    "perfil_soilgrids": [
+      {
+        "profundidad": "0-5cm",
+        "desde_m": 0.0,
+        "hasta_m": 0.05,
+        "wv0033": 0.299,
+        "wv1500": 0.158,
+        "cfvo": 15.3,
+        "agua_disponible_mm": 7.049999999999999
+      },
+      {
+        "profundidad": "5-15cm",
+        "desde_m": 0.05,
+        "hasta_m": 0.15,
+        "wv0033": 0.294,
+        "wv1500": 0.16,
+        "cfvo": 14.1,
+        "agua_disponible_mm": 13.399999999999999
+      },
+      {
+        "profundidad": "15-30cm",
+        "desde_m": 0.15,
+        "hasta_m": 0.3,
+        "wv0033": 0.298,
+        "wv1500": 0.157,
+        "cfvo": 15.1,
+        "agua_disponible_mm": 21.15
+      },
+      {
+        "profundidad": "30-60cm",
+        "desde_m": 0.3,
+        "hasta_m": 0.6,
+        "wv0033": 0.307,
+        "wv1500": 0.178,
+        "cfvo": 19.7,
+        "agua_disponible_mm": 38.7
+      },
+      {
+        "profundidad": "60-100cm",
+        "desde_m": 0.6,
+        "hasta_m": 1.0,
+        "wv0033": 0.306,
+        "wv1500": 0.18,
+        "cfvo": 22.9,
+        "agua_disponible_mm": 50.4
+      }
+    ],
+    "agua_disponible_0_100cm_mm": 130.7,
+    "fuentes_estaticas": "SoilGrids 2.0 WCS; MAGA cobertura 2025; JAXA AW3D30 v4.1; ESA WorldCover 2021 v200",
+    "limites": [
+      "DSM incluye vegetación y construcciones; pendiente no mide drenaje ni inundabilidad.",
+      "SoilGrids es predicción espacial estática, no análisis del suelo en 2025.",
+      "wv0033 se usa como aproximación de capacidad de campo, no medición de campo.",
+      "No se aplica una corrección adicional por fragmentos gruesos a wv; almacenamiento se perturba en sensibilidad.",
+      "Las discrepancias MAGA/WorldCover no demuestran cuál clasificación es correcta en campo."
+    ],
+    "contexto_tematico_maga": {
+      "fisiografia": [
+        {
+          "CODGP": "4.4.4",
+          "G_PAISAJE": "4.4.4 Abanicos Aluviales",
+          "CODSR": "4.4",
+          "NOMGP": "Abanicos Aluviales",
+          "UBICGP": "Se encuentra en los municipios de Chiquimula, Jocotán y Camotán en Chiquimula.",
+          "ELEVGP1": 0,
+          "ELEVGP2": 0,
+          "PENGP": "0",
+          "DRENGP": "",
+          "ROCAGP": "Rocas intrusivas y rocas metamórficas",
+          "MORFOGEGP": "Los fragmentos se originaron por erosión y transporte hídrico de materiales de las partes altas.",
+          "EDADGEOGP": "Cuaternario",
+          "OBSERGP": "",
+          "CODR": 4,
+          "NOMR": "Tierras Altas Cristalinas",
+          "CODSR_1": "4.4",
+          "NOMSR": "Montañas de San Raymundo - Progreso - Jalapa - Espíritu Santo",
+          "UBICSR": "Municipio San Raymundo, San Pedro Ayampúc de Guatemala, Jocotán y Camotán de Chiquimula, montañas de Chiquimula y Zacapa, Los Amates, Izabal y frontera con Honduras",
+          "ELEVSR1": 50,
+          "ELEVSR2": 1800,
+          "DRENSR": "Dendrítico, subparalelo y angular",
+          "EDADGEOSR": "Cretácito, Terciario y Cuaternario",
+          "ROCASR": "Hay rocas ígneas, metamórficas, carbonatos y rocas clásticas.",
+          "OBSERSR": ""
+        }
+      ],
+      "taxonomia_suelos": [
+        {
+          "ORDEN": "Inceptisoles"
+        }
+      ],
+      "capacidad_uso_tierra_usda": [
+        {
+          "CAPACIDAD": "III",
+          "VOCACION": "Agrícola"
+        }
+      ],
+      "amenaza_sequia": [
+        {
+          "OBJECTID": 9,
+          "fid_1": 70,
+          "cat": 62,
+          "cat_": 6,
+          "AMENAZA2": "Muy alto",
+          "COUNT": 5,
+          "AREA_KM2": 2934.21225577,
+          "PORCEN": 3.5
+        }
+      ],
+      "zonas_de_vida": [
+        {
+          "ZONAS": "bs-S",
+          "ZVIDA": "Bosque seco Subtropical",
+          "PMIN": 500,
+          "PMAX": 1000,
+          "PPROM": 750,
+          "TBMIN": 19,
+          "TBMAX": 24,
+          "EMIN": 0,
+          "EMAX": 1200,
+          "RELIEVE": "Plano a ligeramente accidentado",
+          "CCLIMA": "Días claros y soleados durante los meses en que no llueve y parcialmente nublados durante la época de enero-abril.",
+          "VEGETACION": "---",
+          "AREA_CALC": 4099.18
+        }
+      ]
+    },
+    "unidades": {
+      "clay_sand_silt_cfvo": "%",
+      "wv0033_wv1500": "m³/m³",
+      "soc": "g/kg",
+      "bdod": "g/cm³",
+      "phh2o": "pH",
+      "agua_disponible": "mm"
+    }
+  },
+  "configuracion": {
+    "fecha_auditoria": "2026-11-16",
+    "cultivos": [
+      "cafe_solo",
+      "cafe_banano"
+    ],
+    "alternativa_solicitada": "cafe_banano (Café + Banano Musa spp.)",
+    "comparador": "cafe_solo (Solo Café)",
+    "inicios": [
+      "2025-01-01",
+      "2025-01-15",
+      "2025-03-01",
+      "2025-05-01",
+      "2025-05-15",
+      "2025-06-01",
+      "2025-06-15",
+      "2025-09-01"
+    ],
+    "duraciones_dias": [
+      180,
+      240,
+      300,
+      365
+    ],
+    "variantes_manejo": [
+      "limpio_vs_regulado",
+      "cobertura_viva_vs_musa_denso",
+      "establecimiento_renovacion_anio1"
+    ],
+    "referencia_inicio": "2025-01-01",
+    "referencia_duraciones": {
+      "cafe_solo": 365,
+      "cafe_banano": 365
+    },
+    "referencia_variante": "limpio_vs_regulado",
+    "referencia_establecimiento_inicio": "2025-05-15",
+    "referencia_establecimiento_duracion_dias": 180,
+    "suelo_escenarios": [
+      [
+        "perfil_referencia",
+        1.0,
+        1.0
+      ],
+      [
+        "raiz_limitada_30cm",
+        0.3,
+        1.0
+      ],
+      [
+        "almacenamiento_menos25pct",
+        1.0,
+        0.75
+      ]
+    ],
+    "fases_fenologicas_2025": [
+      {
+        "id": "latencia_y_floracion",
+        "nombre": "Época seca, latencia del botón floral y floraciones (ene–abr)",
+        "inicio": "2025-01-01",
+        "fin": "2025-04-30"
+      },
+      {
+        "id": "cuajado_y_expansion_canicula",
+        "nombre": "Cuajado, expansión rápida del fruto (Fase II) y canícula (may–ago)",
+        "inicio": "2025-05-01",
+        "fin": "2025-08-15"
+      },
+      {
+        "id": "llenado_endospermo",
+        "nombre": "Llenado y endurecimiento de endospermo (Fase III, demanda crítica de K y agua, ago–oct)",
+        "inicio": "2025-08-16",
+        "fin": "2025-10-31"
+      },
+      {
+        "id": "maduracion_cosecha_y_repela",
+        "nombre": "Maduración a cereza (Fase IV), cosecha escalonada y pepena/repela contra broca (nov–dic)",
+        "inicio": "2025-11-01",
+        "fin": "2025-12-31"
+      }
+    ],
+    "nota_fechas": "Se incluye 2025-01-01 (365 días) para evaluar el ciclo anual completo de plantación establecida y las siete fechas de enero a septiembre con duraciones de 180/240/300/365 días para evaluar ventanas de establecimiento o renovación (recepa) y hacer explícitos los calendarios que exceden 2025 sin extrapolar datos.",
+    "fuente_motor_commit": "0633f2f2d47562a4860c2904ef23049dd35bd9fa"
+  },
+  "resultados_resumen": {
+    "alternativa": "cafe_banano (Café + Banano Musa spp.)",
+    "comparador": "cafe_solo (Solo Café)",
+    "programas": 192,
+    "completos_2025": 90,
+    "inconclusos_sin_simular": 102,
+    "corridas": 12960,
+    "pares": 6480,
+    "pares_secano": 3240,
+    "inverso_mayor_deficit": 3240,
+    "inverso_menor_deficit": 0,
+    "pares_en_tolerancia": 0,
+    "tolerancia_mm": 0.0001,
+    "pasos_diarios": 4730400,
+    "max_error_balance_mm": 5.684341886080802e-14,
+    "por_variante_secano": {
+      "limpio_vs_regulado": {
+        "pares_secano": 1080,
+        "asocio_mayor_deficit": 1080,
+        "asocio_menor_deficit": 0,
+        "diferencia_media_mm": 59.6322,
+        "diferencia_min_mm": 19.8251,
+        "diferencia_max_mm": 120.5212
+      },
+      "cobertura_viva_vs_musa_denso": {
+        "pares_secano": 1080,
+        "asocio_mayor_deficit": 1080,
+        "asocio_menor_deficit": 0,
+        "diferencia_media_mm": 36.4581,
+        "diferencia_min_mm": 12.7073,
+        "diferencia_max_mm": 71.7293
+      },
+      "establecimiento_renovacion_anio1": {
+        "pares_secano": 1080,
+        "asocio_mayor_deficit": 1080,
+        "asocio_menor_deficit": 0,
+        "diferencia_media_mm": 101.9758,
+        "diferencia_min_mm": 30.1421,
+        "diferencia_max_mm": 219.189
+      }
+    },
+    "referencia_anual_2025": [
+      {
+        "variante_manejo": "limpio_vs_regulado",
+        "secuencia": "cafe_solo",
+        "fuente": "imerg",
+        "ETc_mm": 1404.75725,
+        "ETa_mm": 981.77211,
+        "deficit_mm": 422.98514,
+        "dias_estres": 191
+      },
+      {
+        "variante_manejo": "limpio_vs_regulado",
+        "secuencia": "cafe_solo",
+        "fuente": "chirps",
+        "ETc_mm": 1404.75725,
+        "ETa_mm": 777.90342,
+        "deficit_mm": 626.85383,
+        "dias_estres": 238
+      },
+      {
+        "variante_manejo": "limpio_vs_regulado",
+        "secuencia": "cafe_solo",
+        "fuente": "era5",
+        "ETc_mm": 1404.75725,
+        "ETa_mm": 756.49371,
+        "deficit_mm": 648.26354,
+        "dias_estres": 249
+      },
+      {
+        "variante_manejo": "limpio_vs_regulado",
+        "secuencia": "cafe_solo",
+        "fuente": "power",
+        "ETc_mm": 1404.75725,
+        "ETa_mm": 768.39472,
+        "deficit_mm": 636.36253,
+        "dias_estres": 305
+      },
+      {
+        "variante_manejo": "limpio_vs_regulado",
+        "secuencia": "cafe_banano",
+        "fuente": "imerg",
+        "ETc_mm": 1525.49018,
+        "ETa_mm": 1023.28649,
+        "deficit_mm": 502.20369,
+        "dias_estres": 207
+      },
+      {
+        "variante_manejo": "limpio_vs_regulado",
+        "secuencia": "cafe_banano",
+        "fuente": "chirps",
+        "ETc_mm": 1525.49018,
+        "ETa_mm": 810.36168,
+        "deficit_mm": 715.1285,
+        "dias_estres": 252
+      },
+      {
+        "variante_manejo": "limpio_vs_regulado",
+        "secuencia": "cafe_banano",
+        "fuente": "era5",
+        "ETc_mm": 1525.49018,
+        "ETa_mm": 780.86928,
+        "deficit_mm": 744.6209,
+        "dias_estres": 264
+      },
+      {
+        "variante_manejo": "limpio_vs_regulado",
+        "secuencia": "cafe_banano",
+        "fuente": "power",
+        "ETc_mm": 1525.49018,
+        "ETa_mm": 768.8837,
+        "deficit_mm": 756.60648,
+        "dias_estres": 329
+      },
+      {
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "secuencia": "cafe_solo",
+        "fuente": "imerg",
+        "ETc_mm": 1630.06667,
+        "ETa_mm": 1050.85199,
+        "deficit_mm": 579.21468,
+        "dias_estres": 214
+      },
+      {
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "secuencia": "cafe_solo",
+        "fuente": "chirps",
+        "ETc_mm": 1630.06667,
+        "ETa_mm": 832.54573,
+        "deficit_mm": 797.52094,
+        "dias_estres": 255
+      },
+      {
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "secuencia": "cafe_solo",
+        "fuente": "era5",
+        "ETc_mm": 1630.06667,
+        "ETa_mm": 798.28748,
+        "deficit_mm": 831.77919,
+        "dias_estres": 266
+      },
+      {
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "secuencia": "cafe_solo",
+        "fuente": "power",
+        "ETc_mm": 1630.06667,
+        "ETa_mm": 772.62928,
+        "deficit_mm": 857.43739,
+        "dias_estres": 330
+      },
+      {
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "secuencia": "cafe_banano",
+        "fuente": "imerg",
+        "ETc_mm": 1699.12384,
+        "ETa_mm": 1079.48989,
+        "deficit_mm": 619.63395,
+        "dias_estres": 231
+      },
+      {
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "secuencia": "cafe_banano",
+        "fuente": "chirps",
+        "ETc_mm": 1699.12384,
+        "ETa_mm": 853.53102,
+        "deficit_mm": 845.59283,
+        "dias_estres": 266
+      },
+      {
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "secuencia": "cafe_banano",
+        "fuente": "era5",
+        "ETc_mm": 1699.12384,
+        "ETa_mm": 812.12501,
+        "deficit_mm": 886.99884,
+        "dias_estres": 276
+      },
+      {
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "secuencia": "cafe_banano",
+        "fuente": "power",
+        "ETc_mm": 1699.12384,
+        "ETa_mm": 769.95717,
+        "deficit_mm": 929.16667,
+        "dias_estres": 341
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_solo",
+        "fuente": "imerg",
+        "ETc_mm": 1150.80985,
+        "ETa_mm": 906.89487,
+        "deficit_mm": 243.91498,
+        "dias_estres": 161
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_solo",
+        "fuente": "chirps",
+        "ETc_mm": 1150.80985,
+        "ETa_mm": 737.35643,
+        "deficit_mm": 413.45342,
+        "dias_estres": 222
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_solo",
+        "fuente": "era5",
+        "ETc_mm": 1150.80985,
+        "ETa_mm": 729.06661,
+        "deficit_mm": 421.74324,
+        "dias_estres": 223
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_solo",
+        "fuente": "power",
+        "ETc_mm": 1150.80985,
+        "ETa_mm": 771.10551,
+        "deficit_mm": 379.70434,
+        "dias_estres": 253
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_banano",
+        "fuente": "imerg",
+        "ETc_mm": 1370.07331,
+        "ETa_mm": 1008.76408,
+        "deficit_mm": 361.30923,
+        "dias_estres": 198
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_banano",
+        "fuente": "chirps",
+        "ETc_mm": 1370.07331,
+        "ETa_mm": 811.38036,
+        "deficit_mm": 558.69294,
+        "dias_estres": 254
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_banano",
+        "fuente": "era5",
+        "ETc_mm": 1370.07331,
+        "ETa_mm": 785.20054,
+        "deficit_mm": 584.87277,
+        "dias_estres": 262
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_banano",
+        "fuente": "power",
+        "ETc_mm": 1370.07331,
+        "ETa_mm": 774.58276,
+        "deficit_mm": 595.49055,
+        "dias_estres": 317
+      }
+    ],
+    "referencia_establecimiento_mayo15_180d": [
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_solo",
+        "fuente": "imerg",
+        "ETc_mm": 564.10313,
+        "ETa_mm": 546.71295,
+        "deficit_mm": 17.39019,
+        "dias_estres": 21
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_solo",
+        "fuente": "chirps",
+        "ETc_mm": 564.10313,
+        "ETa_mm": 546.03063,
+        "deficit_mm": 18.07251,
+        "dias_estres": 24
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_solo",
+        "fuente": "era5",
+        "ETc_mm": 564.10313,
+        "ETa_mm": 530.57718,
+        "deficit_mm": 33.52595,
+        "dias_estres": 33
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_solo",
+        "fuente": "power",
+        "ETc_mm": 564.10313,
+        "ETa_mm": 527.11069,
+        "deficit_mm": 36.99244,
+        "dias_estres": 56
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_banano",
+        "fuente": "imerg",
+        "ETc_mm": 669.91202,
+        "ETa_mm": 617.71156,
+        "deficit_mm": 52.20046,
+        "dias_estres": 39
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_banano",
+        "fuente": "chirps",
+        "ETc_mm": 669.91202,
+        "ETa_mm": 610.94453,
+        "deficit_mm": 58.96749,
+        "dias_estres": 52
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_banano",
+        "fuente": "era5",
+        "ETc_mm": 669.91202,
+        "ETa_mm": 582.33171,
+        "deficit_mm": 87.58032,
+        "dias_estres": 67
+      },
+      {
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "secuencia": "cafe_banano",
+        "fuente": "power",
+        "ETc_mm": 669.91202,
+        "ETa_mm": 538.20989,
+        "deficit_mm": 131.70213,
+        "dias_estres": 113
+      }
+    ],
+    "nota": "Malla de sensibilidades; evalúa de forma separada el costo hídrico transpiratorio del dosel de Musa frente a la cobertura de mulch y al establecimiento de primer año. No asigna bono automático por familia ni certifica rendimiento o sanidad."
+  },
+  "metodo": "Balance diario de cinco capas del commit 0633f2f2d47562a4860c2904ef23049dd35bd9fa; contabilidad conservada. Compara Solo Café frente a Café + Banano (Musa spp.) bajo tres variantes explícitas de Kc/Zr/p y cuatro duraciones (180–365 d).",
+  "limites": [
+    "Hindcast de 2025 en el punto candidato (373 m DSM), sin delimitación de finca ni validación de campo.",
+    "A 373 m DSM, la temperatura media regional (24.42 °C POWER / 27.60 °C ERA5) excede el rango óptimo de Coffea arabica estándar (18–22 °C, 600–1,600 m s. n. m.) y se ubica en el piso térmico de Coffea canephora (Robusta / portainjerto Nemaya, 200–1,000 m).",
+    "La amortiguación térmica bajo dosel de Musa (−1.5 a −3.0 °C documentada en literatura) se reporta como referencia descriptiva; no modifica automáticamente ET0 ni la fenología en el motor.",
+    "El motor usa un Kc compuesto efectivo por variante; no resuelve la partición bidimensional de raíces entre hileras de café y matas de banano ni el escurrimiento caulinar concentrado (stemflow) al pie del pseudotallo.",
+    "Semillero (90–120 d) y almácigo en bolsa (6–9 meses) ocurren fuera del sublote antes del trasplante y no se descuentan del balance de la parcela.",
+    "No se extrapolan lluvias a 2026 ni se rellenan con ceros los calendarios de establecimiento iniciados después del 1 de enero que superan el 31 de diciembre de 2025.",
+    "La diferencia de familia botánica (Rubiaceae + Musaceae) no otorga bono fitosanitario ni cancela el riesgo de nematodos compartidos (Pratylenchus coffeae, Meloidogyne spp.) o volcamiento por Radopholus similis y Cosmopolites sordidus.",
+    "El aporte de flujo de caja temprano del banano (9–14 meses) y el reciclaje de potasio (K) en pseudotallos/hojas picados requieren validar densidad, costos locales y precios en finca."
+  ],
+  "archivos_fuente_sha256": [
+    {
+      "path": "configuracion.json",
+      "sha256": "3bf249bc205de13045d31f6b68abb65f830459f3259ae069a12c5d44764a0043"
+    },
+    {
+      "path": "datos/cobertura/chiquimula_worldcover2021.tif",
+      "sha256": "5cb6e7b07efe4122bcfa510ea35fe0aa834f401db7bce78f8a0ffd193ba80e28"
+    },
+    {
+      "path": "datos/cultivos/compatibilidad_sucesiones.json",
+      "sha256": "8a6d7dfdccdbaf2867747cdb36b8b6686228521fa795667b051d2c02bbc9e116"
+    },
+    {
+      "path": "datos/cultivos/parametros_auditados.json",
+      "sha256": "7838f2c9311f902ad48891a30d4b9ee8e397982f4041497a81db586414656e57"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/chirps_v2_2025.json",
+      "sha256": "729f71110c581b6ae5af2458d9fe1b2f28a204890fdda1d573e008a78791e3ee"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/chirps_v2_job.json",
+      "sha256": "190a4102c352421d5458fe494d288810515faa052544c5bbf9953abaa3b0513d"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/chirps_v2_progreso.json",
+      "sha256": "1a53d685bb677c3c274982d58f7220d41b12cd82a058acdf697a50bf7244c95e"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/descargas.json",
+      "sha256": "7e5e47ca2445e995ebd45da5a7f7e5015eb565135ad1a63e1b14e9770c4fe34f"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/entorno_diario_2025.csv",
+      "sha256": "6c08a215f1b3f97dc87b95d8b030a757908e4b577615aefa68c153136506e582"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/era5_2025.json",
+      "sha256": "23279b8ef14d0cbae94c051c5b5ee4395953b7da024436f57b3c447529a4e1b9"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/imerg_v07_late_2025.json",
+      "sha256": "ae827ba20b3fe748442acf561cd80ee87f52a6e8d9af809ca10e93ad6a13cfd0"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/imerg_v07_late_job.json",
+      "sha256": "e34d14ddea34184668f0adcc893ea227f9baf2d435069cda378f08f96e4f15bf"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/imerg_v07_late_progreso.json",
+      "sha256": "5b6ce822b4fe08f72310cee32d7ea73a669f9d9760ef9ac75973e45a376f8420"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/perfil_suelo.csv",
+      "sha256": "354b21a4776ec46651c5a682e0a8c171aa9307e1e1bc56c5a021267273627ced"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/power_2025.json",
+      "sha256": "7b3aba896d24c1826e3418da2ad296f933863e20ddb6bd4f9744b7925984d567"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/sitio_y_suelo.json",
+      "sha256": "e351684ac5d455594eb1e84bc266b2befab49ee2bb5934847538ded918b63c1f"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/bdod_0-5cm.tif",
+      "sha256": "b514698857fa349ac6278a45a98c53b0c20debe44a5468c85c78a33c9dd9101e"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_0-5cm.tif",
+      "sha256": "2cb78718152bf9233cf3ce0c2bdc69a7f618da0c7b9656a21cdd13c0b80157b5"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_15-30cm.tif",
+      "sha256": "004f47940e7f7d5a2e37f78f55f5d2af40fe8f7cc92f8a6332fd1476132cd6c7"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_30-60cm.tif",
+      "sha256": "0e18ef47e27da0a212278197c514c4be40be91a66ca3b9704e55f12de129efc0"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_5-15cm.tif",
+      "sha256": "558611db9e3abe52619ea8c9ea7d37c7ff27243d1d8b870f16af03c1910833d8"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_60-100cm.tif",
+      "sha256": "f857e221e91e82eecb2e55533f49b099d57da29f64a8dded9c70f72b3042ac9b"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/clay_0-5cm.tif",
+      "sha256": "5936b01d3a47d51185fbc415da36a4b8ba3e60fe03be32c5a435c39ab056c569"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/descargas.json",
+      "sha256": "89d4a2fb4d833e4257de411f91b03ea34828f881c845a9d31044c45fc9ca5480"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/phh2o_0-5cm.tif",
+      "sha256": "fd58066d2d7eb18de9dbf4b873bd998dc8b8d4750406246128bbc1f59ef6c75b"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/sand_0-5cm.tif",
+      "sha256": "5149b13860ab1c713e9b689de88a89aaf0e938843ccb9a7542d031354536076a"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/silt_0-5cm.tif",
+      "sha256": "06ee04ffd53a7daa040b05bbacb957e178924fc133f059fec63fa05ef983fb6f"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/soc_0-5cm.tif",
+      "sha256": "ebaf5a9e768856d08714f1c92762662f9ce33de09c6ddb7c206dcca67be2afc6"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_0-5cm.tif",
+      "sha256": "2fc6aa900201f067f93400ba4d0e85687cd365893d6595857a879ad162f73877"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_15-30cm.tif",
+      "sha256": "265583176fe30a07341a5cd951a4351fc54a6235606f6237dc43ce4a3c36f6a7"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_30-60cm.tif",
+      "sha256": "388a59fe3a10ff9b1173dfe1a908f696e35d03c3713f7fd46987bd9611ea6c4d"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_5-15cm.tif",
+      "sha256": "921af4fe1aec221dd631e1916a4d6923116292a39b56f3cb84140d5ee25f47cd"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_60-100cm.tif",
+      "sha256": "68eb2dc4534a63c41efad3dbdb2e90b807b3c57019e0ea672fc15004b5fb8d57"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_0-5cm.tif",
+      "sha256": "5c7815a996b313c06e93e8ab5ead58099fadd50191554828793c4c638f2400ad"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_15-30cm.tif",
+      "sha256": "168ce5598be893a2e2bb5aa1cac9b742251a7543847f62aa9fdce02afd549ca0"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_30-60cm.tif",
+      "sha256": "cb6862a2d43e7a475d915897774a87514febffd024eff51788dccddbcd12bee3"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_5-15cm.tif",
+      "sha256": "b8a128ba0c9d3415deda8fcce5e6c4b3b4ac5c478493b602fa253171fb68e669"
+    },
+    {
+      "path": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_60-100cm.tif",
+      "sha256": "08db68f543e5f82bc197e857739674434478f50fa75f3db0b1b13963aa018865"
+    },
+    {
+      "path": "datos/maga/chiquimula_amenaza_sequia.geojson",
+      "sha256": "cf2348d3734df9ff9451c7ca1230d855c5f8c1d4e4c84ca8bb4193c9620eab56"
+    },
+    {
+      "path": "datos/maga/chiquimula_capacidad_uso_tierra_usda.geojson",
+      "sha256": "4cf772e266047f92cb95cd14f501dac3d587cd4d1144d53af01c43526ac3ef1f"
+    },
+    {
+      "path": "datos/maga/chiquimula_cobertura_uso_tierra_2025.geojson",
+      "sha256": "35b6ce1ab372663ebe43ad70865da2dbda6008743df42507ea53a1ce3385a265"
+    },
+    {
+      "path": "datos/maga/chiquimula_fisiografia.geojson",
+      "sha256": "217c959e5c2bd191b4b7ba11bb73500aa3735da6df13fdb019e42b10968949dc"
+    },
+    {
+      "path": "datos/maga/chiquimula_taxonomia_suelos.geojson",
+      "sha256": "f0e5a398afb7ef095c8fbc9f5e4536b5aee5dc79e3f06fed801a212343f00de2"
+    },
+    {
+      "path": "datos/maga/chiquimula_zonas_de_vida.geojson",
+      "sha256": "a9a80d7d1941e1f48626f60ab9bddfe0e27e980a251397224c97368c41321c7d"
+    },
+    {
+      "path": "datos/relieve/chiquimula_aw3d30_dsm.tif",
+      "sha256": "d460c5fd1e8b875fda96021a9494995fbce1973c1b94b773ce32d072ecbd22fa"
+    },
+    {
+      "path": "requirements-simulacion.txt",
+      "sha256": "4c8ab871bfc979af304848b467c8526f34c975c533cbaf1319e47dacb5bd2946"
+    },
+    {
+      "path": "scripts/auditar_cafe_banano_2025.py",
+      "sha256": "ee315496a60c47ac8d9f39df056e873c40093f4bbb1719fab7b6a740ef90e969"
+    },
+    {
+      "path": "scripts/motor_hidrico_base.py",
+      "sha256": "dfb40cb8b9a209a1c20baf5f16282eb0218f0a98b19da47b958c1e8baa37ab53"
+    },
+    {
+      "path": "tests/referencia_publicada.json",
+      "sha256": "c7a97f2a6d1292e5b76fd4d4c930411010680496e8499b87b6d9da7ed892425d"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "fecha_consulta": "2026-11-16",
+  "metodo": "Revisión selectiva de documentos primarios institucionales y artículos científicos, con alcance de lectura declarado. Evidencia contextual no equivale a validación de parcela.",
+  "afirmaciones": [
+    {
+      "id": "F01",
+      "afirmacion": "Coeficientes de cultivo (Kc) para café (con suelo limpio 0.90/0.95/0.95 y con malezas 1.05/1.10/1.10) y para banano (1.er año 0.50/1.10/1.00 y 2.º año 1.00/1.20/1.10)",
+      "fuentes": [
+        "https://www.fao.org/4/x0490e/x0490e0b.htm",
+        "https://www.fao.org/4/x0490e/x0490e0g.htm"
+      ],
+      "localizador": "Tabla 12 y Capítulo 11 (dosel compartido / cultivos intercalados)",
+      "lectura": "Filas originales HTML de FAO-56 contrastadas",
+      "limite": "Referencias de clima subhúmedo estándar. El motor usa un Kc compuesto por variante de manejo; no simula partición bidimensional de radiación ni transpiración separada planta por planta."
+    },
+    {
+      "id": "F02",
+      "afirmacion": "Profundidad efectiva máxima de raíces (Zr) y fracción de agotamiento sin estrés (p) para café (Zr=0.9–1.5 m, p=0.40) y banano (Zr=0.5–0.9 m, p=0.35)",
+      "fuentes": [
+        "https://www.fao.org/4/x0490e/x0490e0e.htm"
+      ],
+      "localizador": "Tabla 22 y ecuaciones 82–85",
+      "lectura": "Filas originales HTML de FAO-56 contrastadas",
+      "limite": "En campo, tanto el cafeto como las musáceas concentran la mayor densidad de raíces absorbentes en los primeros 0–30 a 0–40 cm. Se evalúa la sensibilidad con límite de raíz a 30 cm."
+    },
+    {
+      "id": "F03",
+      "afirmacion": "Identidad taxonómica y familia botánica de Coffea arabica L., Coffea canephora Pierre ex A.Froehner (Rubiaceae) y Musa acuminata / Musa × paradisiaca L. (Musaceae)",
+      "fuentes": [
+        "https://powo.science.kew.org/taxon/272953-2",
+        "https://powo.science.kew.org/taxon/272971-2",
+        "https://powo.science.kew.org/taxon/30000656-2"
+      ],
+      "localizador": "Fichas taxonómicas POWO-Kew",
+      "lectura": "Nombres aceptados y familias verificados",
+      "limite": "Pertenecer a familias botánicas distintas (Rubiaceae vs. Musaceae) no otorga un bono automático ni garantiza ruptura sanitaria frente a nematodos polífagos o compartidos."
+    },
+    {
+      "id": "C01",
+      "afirmacion": "Rangos altitudinales en Guatemala, resistencia a roya (Hemileia vastatrix) de variedades como Anacafé 14, Catimores y Sarchimores frente a Bourbon/Caturra, y uso del portainjerto Robusta Nemaya (600–1,000 m s. n. m.) contra nematodos",
+      "fuentes": [
+        "https://www.anacafe.org/uploads/file/8ee92f426ab648318001477e70d0bbe1/Gu%C3%ADa-de-variedades-Anacaf%C3%A9-2020.pdf"
+      ],
+      "localizador": "Guía de variedades de café en Guatemala, Anacafé 2020; fichas varietales y sección sobre Robusta/Nemaya",
+      "lectura": "Guía técnica institucional de Guatemala consultada",
+      "limite": "El candidato de 373 m DSM queda por debajo de los 600 m s. n. m. recomendados para Coffea arabica estándar y se ubica en el piso térmico cálido de Coffea canephora (Robusta); requiere verificar la altitud y variedad real de la finca."
+    },
+    {
+      "id": "C02",
+      "afirmacion": "Fisiología de la floración del cafeto (latencia del botón floral durante el déficit hídrico de época seca y ruptura de latencia 8–10 días después de lluvia o riego efectivo de ~10–15 mm) y alta sensibilidad hídrica y nutricional (potasio K) durante la expansión y llenado del fruto",
+      "fuentes": [
+        "https://publicaciones.cenicafe.org/index.php/avances_tecnicos/article/view/311",
+        "https://www.anacafe.org/uploads/file/315610a5a0284d24902f86d78bda6704/Gui%CC%81a_de_Fertirriego_-_2025.pdf"
+      ],
+      "localizador": "Arcila y Jaramillo, 2003, Avance Técnico Cenicafé 311; Guía de riego y fertirriego Anacafé 2025, pp. 22–23",
+      "lectura": "Documentos técnicos primarios consultados",
+      "limite": "El balance de 5 capas calcula agotamiento y estrés (Ks<0.95), pero no simula explícitamente la iniciación de yemas, el aborto por flor estrella ni la translocación de potasio hacia la semilla."
+    },
+    {
+      "id": "C03",
+      "afirmacion": "En el sistema agroforestal café + banano (Musa spp.), el dosel amortigua temperaturas máximas (1.5–3.0 °C), aporta biomasa/mulch rica en potasio y genera flujo de caja temprano (9–14 meses) con Uso Equivalente de la Tierra (LER) de 1.3 a >1.5, pero puede competir por agua superficial en época seca o suelos someros si la densidad de musáceas es excesiva",
+      "fuentes": [
+        "https://doi.org/10.1016/j.agsy.2010.12.004",
+        "https://doi.org/10.1016/j.agrformet.2018.12.006",
+        "https://doi.org/10.1016/j.agrformet.2017.08.036",
+        "https://doi.org/10.1016/j.jhydrol.2009.02.020"
+      ],
+      "localizador": "van Asten et al. (2011) Agricultural Systems 104:326–334; Sarmiento-Soler et al. (2019) Agric. For. Meteorol. 266–267:231–242; Padovan et al. (2018) Agric. For. Meteorol. 248:1–14; Cattan et al. (2009) J. Hydrol. 368:251–261",
+      "lectura": "Artículos científicos primarios indexados y resúmenes/hallazgos verificados",
+      "limite": "El balance neto entre conservación por mulch y consumo transpiratorio depende de la densidad de matas, del deshije (madre-hijo-nieto), del retorno de pseudotallos picados y de la profundidad efectiva del suelo en la parcela."
+    },
+    {
+      "id": "C04",
+      "afirmacion": "Interacción compleja del microclima de sombra con enfermedades foliares (ojo de gallo Mycena citricolor y roya Hemileia vastatrix) y riesgos sanitarios de raíz y cormo compartidos o asociados entre café y musáceas (Pratylenchus coffeae, Meloidogyne spp., Radopholus similis y Cosmopolites sordidus)",
+      "fuentes": [
+        "https://doi.org/10.1094/PDIS-05-21-0949-FE",
+        "https://doi.org/10.1016/j.cropro.2020.105149",
+        "https://doi.org/10.1016/j.apsoil.2017.04.017",
+        "https://doi.org/10.1016/j.biocontrol.2017.08.009"
+      ],
+      "localizador": "Avelino et al. (2022) Plant Disease 106:7–21; Cerda et al. (2020) Crop Protection 134:105149; Poeydebat et al. (2017) Applied Soil Ecology 117–118:137–146 y Biological Control 114:125–132",
+      "lectura": "Artículos científicos primarios de CATIE/CIRAD consultados",
+      "limite": "Justifican alertas condicionales de manejo (deshoje/deshije, cormos sanos, patrón Nemaya y pepena/repela contra broca); no constituyen un diagnóstico fitosanitario del candidato de Chiquimula."
+    }
+  ],
+  "faltantes": [
+    "Especie y variedad exacta de café (C. arabica vs. C. canephora) y si está injertada sobre patrón Nemaya",
+    "Arreglo espacial, densidad de matas de Musa spp. y número de hijos por unidad productiva",
+    "Medición local de temperatura bajo dosel, humedad radicular (10–30 cm) y profundidad efectiva sin talpetate",
+    "Análisis químico de suelo (pH, potasio intercambiable) y diagnóstico nematológico de raíces y cormos",
+    "Disponibilidad real de agua para riego de auxilio en floración y llenado",
+    "Precios en finca, costos de transporte y destino de racimos y café cereza"
+  ],
+  "dictamen": "Balance hídrico y exposición agroclimática exploratorios. El asocio regulado con mulch muestra un incremento moderado de demanda hídrica frente al monocultivo limpio, mientras que el asocio denso sin deshije eleva sustancialmente el déficit en secano. En el candidato a 373 m DSM persiste alerta térmica para Coffea arabica estándar."
+}

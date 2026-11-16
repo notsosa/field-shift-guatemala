@@ -1,0 +1,4610 @@
+[
+  {
+    "programa": "cafe_solo_180d_limpio_vs_regulado_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-06-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-01",
+        "fin": "2025-06-29"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_limpio_vs_regulado_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-06-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-01",
+        "fin": "2025-06-29"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_cobertura_viva_vs_musa_denso_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-06-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-01",
+        "fin": "2025-06-29"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_cobertura_viva_vs_musa_denso_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-06-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-01",
+        "fin": "2025-06-29"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_establecimiento_renovacion_anio1_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-06-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-01",
+        "fin": "2025-06-29"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_establecimiento_renovacion_anio1_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-06-29",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-01",
+        "fin": "2025-06-29"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_limpio_vs_regulado_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-01",
+        "fin": "2025-08-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_limpio_vs_regulado_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-01",
+        "fin": "2025-08-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_cobertura_viva_vs_musa_denso_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-01",
+        "fin": "2025-08-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_cobertura_viva_vs_musa_denso_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-01",
+        "fin": "2025-08-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_establecimiento_renovacion_anio1_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-01",
+        "fin": "2025-08-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_establecimiento_renovacion_anio1_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-28",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-01",
+        "fin": "2025-08-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_limpio_vs_regulado_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_limpio_vs_regulado_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_cobertura_viva_vs_musa_denso_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_cobertura_viva_vs_musa_denso_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_establecimiento_renovacion_anio1_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_establecimiento_renovacion_anio1_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_limpio_vs_regulado_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-31",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-01",
+        "fin": "2025-12-31"
+      }
+    ],
+    "tipo_ciclo": "anual_establecido_2025",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_limpio_vs_regulado_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-31",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-01",
+        "fin": "2025-12-31"
+      }
+    ],
+    "tipo_ciclo": "anual_establecido_2025",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_cobertura_viva_vs_musa_denso_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-31",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-01",
+        "fin": "2025-12-31"
+      }
+    ],
+    "tipo_ciclo": "anual_establecido_2025",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_cobertura_viva_vs_musa_denso_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-31",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-01",
+        "fin": "2025-12-31"
+      }
+    ],
+    "tipo_ciclo": "anual_establecido_2025",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_establecimiento_renovacion_anio1_2025-01-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-31",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-01",
+        "fin": "2025-12-31"
+      }
+    ],
+    "tipo_ciclo": "anual_establecido_2025",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_establecimiento_renovacion_anio1_2025-01-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-31",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-01",
+        "fin": "2025-12-31"
+      }
+    ],
+    "tipo_ciclo": "anual_establecido_2025",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_limpio_vs_regulado_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-07-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-15",
+        "fin": "2025-07-13"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_limpio_vs_regulado_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-07-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-15",
+        "fin": "2025-07-13"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_cobertura_viva_vs_musa_denso_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-07-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-15",
+        "fin": "2025-07-13"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_cobertura_viva_vs_musa_denso_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-07-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-15",
+        "fin": "2025-07-13"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_establecimiento_renovacion_anio1_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-07-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-15",
+        "fin": "2025-07-13"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_establecimiento_renovacion_anio1_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-07-13",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-15",
+        "fin": "2025-07-13"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_limpio_vs_regulado_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-09-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-15",
+        "fin": "2025-09-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_limpio_vs_regulado_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-09-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-15",
+        "fin": "2025-09-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_cobertura_viva_vs_musa_denso_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-09-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-15",
+        "fin": "2025-09-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_cobertura_viva_vs_musa_denso_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-09-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-15",
+        "fin": "2025-09-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_establecimiento_renovacion_anio1_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-09-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-15",
+        "fin": "2025-09-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_establecimiento_renovacion_anio1_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-09-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-15",
+        "fin": "2025-09-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_limpio_vs_regulado_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_limpio_vs_regulado_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_cobertura_viva_vs_musa_denso_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_cobertura_viva_vs_musa_denso_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_establecimiento_renovacion_anio1_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_establecimiento_renovacion_anio1_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_limpio_vs_regulado_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-15",
+        "fin": "2026-01-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_limpio_vs_regulado_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-01-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-01-15",
+        "fin": "2026-01-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_cobertura_viva_vs_musa_denso_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-15",
+        "fin": "2026-01-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_cobertura_viva_vs_musa_denso_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-01-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-01-15",
+        "fin": "2026-01-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_establecimiento_renovacion_anio1_2025-01-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-15",
+        "fin": "2026-01-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_establecimiento_renovacion_anio1_2025-01-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-01-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-01-15",
+        "fin": "2026-01-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_limpio_vs_regulado_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-03-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-03-01",
+        "fin": "2025-08-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_limpio_vs_regulado_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-03-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-03-01",
+        "fin": "2025-08-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_cobertura_viva_vs_musa_denso_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-03-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-03-01",
+        "fin": "2025-08-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_cobertura_viva_vs_musa_denso_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-03-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-03-01",
+        "fin": "2025-08-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_establecimiento_renovacion_anio1_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-03-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-03-01",
+        "fin": "2025-08-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_establecimiento_renovacion_anio1_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-03-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-08-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-03-01",
+        "fin": "2025-08-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_limpio_vs_regulado_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-03-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-03-01",
+        "fin": "2025-10-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_limpio_vs_regulado_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-03-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-03-01",
+        "fin": "2025-10-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_cobertura_viva_vs_musa_denso_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-03-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-03-01",
+        "fin": "2025-10-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_cobertura_viva_vs_musa_denso_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-03-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-03-01",
+        "fin": "2025-10-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_establecimiento_renovacion_anio1_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-03-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-03-01",
+        "fin": "2025-10-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_establecimiento_renovacion_anio1_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-03-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-03-01",
+        "fin": "2025-10-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_limpio_vs_regulado_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-03-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-25",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-03-01",
+        "fin": "2025-12-25"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_limpio_vs_regulado_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-03-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-25",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-03-01",
+        "fin": "2025-12-25"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_cobertura_viva_vs_musa_denso_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-03-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-25",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-03-01",
+        "fin": "2025-12-25"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_cobertura_viva_vs_musa_denso_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-03-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-25",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-03-01",
+        "fin": "2025-12-25"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_establecimiento_renovacion_anio1_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-03-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-25",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-03-01",
+        "fin": "2025-12-25"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_establecimiento_renovacion_anio1_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-03-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-25",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-03-01",
+        "fin": "2025-12-25"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_limpio_vs_regulado_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-03-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-03-01",
+        "fin": "2026-02-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_limpio_vs_regulado_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-03-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-03-01",
+        "fin": "2026-02-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_cobertura_viva_vs_musa_denso_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-03-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-03-01",
+        "fin": "2026-02-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_cobertura_viva_vs_musa_denso_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-03-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-03-01",
+        "fin": "2026-02-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_establecimiento_renovacion_anio1_2025-03-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-03-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-03-01",
+        "fin": "2026-02-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_establecimiento_renovacion_anio1_2025-03-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-03-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-03-01",
+        "fin": "2026-02-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_limpio_vs_regulado_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_limpio_vs_regulado_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_cobertura_viva_vs_musa_denso_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_cobertura_viva_vs_musa_denso_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_establecimiento_renovacion_anio1_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_establecimiento_renovacion_anio1_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-10-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-01",
+        "fin": "2025-10-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_limpio_vs_regulado_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-01",
+        "fin": "2025-12-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_limpio_vs_regulado_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-01",
+        "fin": "2025-12-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_cobertura_viva_vs_musa_denso_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-01",
+        "fin": "2025-12-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_cobertura_viva_vs_musa_denso_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-01",
+        "fin": "2025-12-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_establecimiento_renovacion_anio1_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-01",
+        "fin": "2025-12-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_establecimiento_renovacion_anio1_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-26",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-01",
+        "fin": "2025-12-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_limpio_vs_regulado_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-01",
+        "fin": "2026-02-24"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_limpio_vs_regulado_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-01",
+        "fin": "2026-02-24"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_cobertura_viva_vs_musa_denso_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-01",
+        "fin": "2026-02-24"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_cobertura_viva_vs_musa_denso_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-01",
+        "fin": "2026-02-24"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_establecimiento_renovacion_anio1_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-01",
+        "fin": "2026-02-24"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_establecimiento_renovacion_anio1_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-24",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-01",
+        "fin": "2026-02-24"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_limpio_vs_regulado_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-01",
+        "fin": "2026-04-30"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_limpio_vs_regulado_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-01",
+        "fin": "2026-04-30"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_cobertura_viva_vs_musa_denso_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-01",
+        "fin": "2026-04-30"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_cobertura_viva_vs_musa_denso_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-01",
+        "fin": "2026-04-30"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_establecimiento_renovacion_anio1_2025-05-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-01",
+        "fin": "2026-04-30"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_establecimiento_renovacion_anio1_2025-05-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-30",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-01",
+        "fin": "2026-04-30"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_limpio_vs_regulado_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_limpio_vs_regulado_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_cobertura_viva_vs_musa_denso_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_cobertura_viva_vs_musa_denso_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_establecimiento_renovacion_anio1_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_establecimiento_renovacion_anio1_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-10",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-15",
+        "fin": "2025-11-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_limpio_vs_regulado_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-15",
+        "fin": "2026-01-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_limpio_vs_regulado_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-15",
+        "fin": "2026-01-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_cobertura_viva_vs_musa_denso_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-15",
+        "fin": "2026-01-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_cobertura_viva_vs_musa_denso_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-15",
+        "fin": "2026-01-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_establecimiento_renovacion_anio1_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-15",
+        "fin": "2026-01-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_establecimiento_renovacion_anio1_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-15",
+        "fin": "2026-01-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_limpio_vs_regulado_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-15",
+        "fin": "2026-03-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_limpio_vs_regulado_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-15",
+        "fin": "2026-03-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_cobertura_viva_vs_musa_denso_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-15",
+        "fin": "2026-03-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_cobertura_viva_vs_musa_denso_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-15",
+        "fin": "2026-03-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_establecimiento_renovacion_anio1_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-15",
+        "fin": "2026-03-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_establecimiento_renovacion_anio1_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-15",
+        "fin": "2026-03-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_limpio_vs_regulado_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-15",
+        "fin": "2026-05-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_limpio_vs_regulado_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-05-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-05-15",
+        "fin": "2026-05-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_cobertura_viva_vs_musa_denso_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-15",
+        "fin": "2026-05-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_cobertura_viva_vs_musa_denso_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-05-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-05-15",
+        "fin": "2026-05-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_establecimiento_renovacion_anio1_2025-05-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-15",
+        "fin": "2026-05-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_establecimiento_renovacion_anio1_2025-05-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-05-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-05-15",
+        "fin": "2026-05-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_limpio_vs_regulado_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_limpio_vs_regulado_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_cobertura_viva_vs_musa_denso_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_cobertura_viva_vs_musa_denso_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_establecimiento_renovacion_anio1_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_establecimiento_renovacion_anio1_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-11-27",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-01",
+        "fin": "2025-11-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_limpio_vs_regulado_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-01",
+        "fin": "2026-01-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_limpio_vs_regulado_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-01",
+        "fin": "2026-01-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_cobertura_viva_vs_musa_denso_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-01",
+        "fin": "2026-01-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_cobertura_viva_vs_musa_denso_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-01",
+        "fin": "2026-01-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_establecimiento_renovacion_anio1_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-01",
+        "fin": "2026-01-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_establecimiento_renovacion_anio1_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-01-26",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-01",
+        "fin": "2026-01-26"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_limpio_vs_regulado_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-01",
+        "fin": "2026-03-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_limpio_vs_regulado_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-01",
+        "fin": "2026-03-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_cobertura_viva_vs_musa_denso_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-01",
+        "fin": "2026-03-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_cobertura_viva_vs_musa_denso_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-01",
+        "fin": "2026-03-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_establecimiento_renovacion_anio1_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-01",
+        "fin": "2026-03-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_establecimiento_renovacion_anio1_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-03-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-01",
+        "fin": "2026-03-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_limpio_vs_regulado_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-01",
+        "fin": "2026-05-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_limpio_vs_regulado_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-01",
+        "fin": "2026-05-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_cobertura_viva_vs_musa_denso_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-01",
+        "fin": "2026-05-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_cobertura_viva_vs_musa_denso_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-01",
+        "fin": "2026-05-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_establecimiento_renovacion_anio1_2025-06-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-01",
+        "fin": "2026-05-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_establecimiento_renovacion_anio1_2025-06-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-05-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-01",
+        "fin": "2026-05-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_limpio_vs_regulado_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_limpio_vs_regulado_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_cobertura_viva_vs_musa_denso_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_cobertura_viva_vs_musa_denso_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_establecimiento_renovacion_anio1_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_establecimiento_renovacion_anio1_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-15",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2025-12-11",
+    "ciclo_cabe_en_2025": true,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-15",
+        "fin": "2025-12-11"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_limpio_vs_regulado_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-15",
+        "fin": "2026-02-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_limpio_vs_regulado_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-15",
+        "fin": "2026-02-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_cobertura_viva_vs_musa_denso_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-15",
+        "fin": "2026-02-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_cobertura_viva_vs_musa_denso_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-15",
+        "fin": "2026-02-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_establecimiento_renovacion_anio1_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-15",
+        "fin": "2026-02-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_establecimiento_renovacion_anio1_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-15",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-09",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-15",
+        "fin": "2026-02-09"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_limpio_vs_regulado_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-15",
+        "fin": "2026-04-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_limpio_vs_regulado_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-15",
+        "fin": "2026-04-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_cobertura_viva_vs_musa_denso_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-15",
+        "fin": "2026-04-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_cobertura_viva_vs_musa_denso_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-15",
+        "fin": "2026-04-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_establecimiento_renovacion_anio1_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-15",
+        "fin": "2026-04-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_establecimiento_renovacion_anio1_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-15",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-10",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-15",
+        "fin": "2026-04-10"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_limpio_vs_regulado_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-15",
+        "fin": "2026-06-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_limpio_vs_regulado_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-06-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-06-15",
+        "fin": "2026-06-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_cobertura_viva_vs_musa_denso_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-15",
+        "fin": "2026-06-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_cobertura_viva_vs_musa_denso_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-06-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-06-15",
+        "fin": "2026-06-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_establecimiento_renovacion_anio1_2025-06-15",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-15",
+        "fin": "2026-06-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_establecimiento_renovacion_anio1_2025-06-15",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-06-15",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-14",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-06-15",
+        "fin": "2026-06-14"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_limpio_vs_regulado_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-09-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-09-01",
+        "fin": "2026-02-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_limpio_vs_regulado_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-09-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-09-01",
+        "fin": "2026-02-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_cobertura_viva_vs_musa_denso_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-09-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-09-01",
+        "fin": "2026-02-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_cobertura_viva_vs_musa_denso_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-09-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-09-01",
+        "fin": "2026-02-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_180d_establecimiento_renovacion_anio1_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-09-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-09-01",
+        "fin": "2026-02-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_180d_establecimiento_renovacion_anio1_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-09-01",
+    "duracion_dias": 180,
+    "duracion_cafe_solo_dias": 180,
+    "duracion_cafe_banano_dias": 180,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-02-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-09-01",
+        "fin": "2026-02-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_limpio_vs_regulado_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-09-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-09-01",
+        "fin": "2026-04-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_limpio_vs_regulado_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-09-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-09-01",
+        "fin": "2026-04-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_cobertura_viva_vs_musa_denso_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-09-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-09-01",
+        "fin": "2026-04-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_cobertura_viva_vs_musa_denso_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-09-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-09-01",
+        "fin": "2026-04-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_240d_establecimiento_renovacion_anio1_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-09-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-09-01",
+        "fin": "2026-04-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_240d_establecimiento_renovacion_anio1_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-09-01",
+    "duracion_dias": 240,
+    "duracion_cafe_solo_dias": 240,
+    "duracion_cafe_banano_dias": 240,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-04-28",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-09-01",
+        "fin": "2026-04-28"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_limpio_vs_regulado_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-09-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-09-01",
+        "fin": "2026-06-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_limpio_vs_regulado_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-09-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-09-01",
+        "fin": "2026-06-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_cobertura_viva_vs_musa_denso_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-09-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-09-01",
+        "fin": "2026-06-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_cobertura_viva_vs_musa_denso_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-09-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-09-01",
+        "fin": "2026-06-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_300d_establecimiento_renovacion_anio1_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-09-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-09-01",
+        "fin": "2026-06-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_300d_establecimiento_renovacion_anio1_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-09-01",
+    "duracion_dias": 300,
+    "duracion_cafe_solo_dias": 300,
+    "duracion_cafe_banano_dias": 300,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-06-27",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-09-01",
+        "fin": "2026-06-27"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_limpio_vs_regulado_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-09-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-08-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-09-01",
+        "fin": "2026-08-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_limpio_vs_regulado_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "limpio_vs_regulado",
+    "inicio": "2025-09-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-08-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "limpio_vs_regulado",
+        "inicio": "2025-09-01",
+        "fin": "2026-08-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_cobertura_viva_vs_musa_denso_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-09-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-08-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-09-01",
+        "fin": "2026-08-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_cobertura_viva_vs_musa_denso_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "cobertura_viva_vs_musa_denso",
+    "inicio": "2025-09-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-08-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "cobertura_viva_vs_musa_denso",
+        "inicio": "2025-09-01",
+        "fin": "2026-08-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_solo_365d_establecimiento_renovacion_anio1_2025-09-01",
+    "secuencia": "cafe_solo",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-09-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-08-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_solo",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-09-01",
+        "fin": "2026-08-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  },
+  {
+    "programa": "cafe_banano_365d_establecimiento_renovacion_anio1_2025-09-01",
+    "secuencia": "cafe_banano",
+    "variante_manejo": "establecimiento_renovacion_anio1",
+    "inicio": "2025-09-01",
+    "duracion_dias": 365,
+    "duracion_cafe_solo_dias": 365,
+    "duracion_cafe_banano_dias": 365,
+    "intervalo_dias": 0,
+    "fin_ciclo": "2026-08-31",
+    "ciclo_cabe_en_2025": false,
+    "segmentos": [
+      {
+        "cultivo": "cafe_banano",
+        "variante_manejo": "establecimiento_renovacion_anio1",
+        "inicio": "2025-09-01",
+        "fin": "2026-08-31"
+      }
+    ],
+    "tipo_ciclo": "ventana_establecimiento_o_renovacion",
+    "liberacion_parcela": "plantacion_perenne_permanece_en_parcela",
+    "almacigo": "semillero_y_almacigo_externos_excluidos_del_balance",
+    "estado": "calendario_supuesto_sin_validacion_de_variedad_sombra_o_adaptacion"
+  }
+]

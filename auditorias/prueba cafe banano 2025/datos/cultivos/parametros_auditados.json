@@ -1,0 +1,170 @@
+{
+  "estado": "referencias_y_sensibilidades_sin_calibracion_local",
+  "cultivos": {
+    "cafe_solo": {
+      "especie": "Coffea arabica L. / Coffea canephora Pierre ex A.Froehner",
+      "familia": "Rubiaceae",
+      "producto": "café cereza / pergamino en monocultivo (sin dosel de musáceas)",
+      "kc": [
+        0.9,
+        0.95,
+        0.95
+      ],
+      "zr": 1.0,
+      "p": 0.4,
+      "rango_zr_fao": [
+        0.8,
+        1.5
+      ],
+      "variantes": {
+        "limpio_vs_regulado": {
+          "descripcion": "Café en monocultivo con suelo limpio o cobertura muerta (mulch), FAO-56 Tabla 12 (bare ground cover)",
+          "kc": [
+            0.9,
+            0.95,
+            0.95
+          ],
+          "zr": 1.0,
+          "p": 0.4
+        },
+        "cobertura_viva_vs_musa_denso": {
+          "descripcion": "Café en monocultivo con cobertura viva o malezas entre calles, FAO-56 Tabla 12 (with weeds)",
+          "kc": [
+            1.05,
+            1.1,
+            1.1
+          ],
+          "zr": 1.0,
+          "p": 0.4
+        },
+        "establecimiento_renovacion_anio1": {
+          "descripcion": "Café en primer año de establecimiento en campo definitivo o posrecepa (zócalo), dosel juvenil",
+          "kc": [
+            0.55,
+            0.85,
+            0.9
+          ],
+          "zr": 0.8,
+          "p": 0.4
+        }
+      },
+      "etapas": {
+        "180": [
+          30,
+          50,
+          60,
+          40
+        ],
+        "240": [
+          40,
+          65,
+          85,
+          50
+        ],
+        "300": [
+          45,
+          80,
+          115,
+          60
+        ],
+        "365": [
+          60,
+          90,
+          125,
+          90
+        ]
+      },
+      "nota": "FAO-56 Tabla 12 reporta Kc 0.90/0.95/0.95 (suelo limpio) y 1.05/1.10/1.10 (con malezas/cobertura viva), y Tabla 22 reporta Zr=0.9–1.5 m y p=0.40. En establecimiento/recepa se modela sensibilidad con Zr=0.80 m y Kc juvenil. Semillero (90–120 d) y almácigo (6–9 meses en vivero) ocurren fuera del sublote antes del trasplante.",
+      "kew": "https://powo.science.kew.org/taxon/272953-2",
+      "kew_robusta": "https://powo.science.kew.org/taxon/272971-2"
+    },
+    "cafe_banano": {
+      "especie": "Coffea arabica L. (o C. canephora) + Musa acuminata / Musa × paradisiaca L.",
+      "familia": "Rubiaceae + Musaceae (asocio simultáneo)",
+      "producto": "café cereza + racimos de banano/plátano y biomasa de pseudotallo/hojas",
+      "kc": [
+        0.95,
+        1.05,
+        1.0
+      ],
+      "zr": 1.0,
+      "p": 0.38,
+      "rango_zr_fao": [
+        0.5,
+        1.5
+      ],
+      "variantes": {
+        "limpio_vs_regulado": {
+          "descripcion": "Asocio café + banano con densidad regulada (madre-hijo-nieto, 30–45 % sombra) y mulch de pseudotallos/hojas picados que reduce evaporación directa del suelo",
+          "kc": [
+            0.95,
+            1.05,
+            1.0
+          ],
+          "zr": 1.0,
+          "p": 0.38
+        },
+        "cobertura_viva_vs_musa_denso": {
+          "descripcion": "Asocio café + banano denso sin deshije estricto (sensibilidad de alta transpiración / competencia hídrica, límite superior FAO-56 Tabla 12 banano 2.º año)",
+          "kc": [
+            1.0,
+            1.2,
+            1.1
+          ],
+          "zr": 1.0,
+          "p": 0.35
+        },
+        "establecimiento_renovacion_anio1": {
+          "descripcion": "Establecimiento simultáneo café joven/recepado + banano de 1.er año como sombra temporal y flujo de caja a 9–14 meses (basado en FAO-56 Tabla 12 banano 1.er año 0.50/1.10/1.00)",
+          "kc": [
+            0.6,
+            1.05,
+            1.0
+          ],
+          "zr": 0.8,
+          "p": 0.35
+        }
+      },
+      "etapas": {
+        "180": [
+          30,
+          50,
+          60,
+          40
+        ],
+        "240": [
+          40,
+          65,
+          85,
+          50
+        ],
+        "300": [
+          45,
+          80,
+          115,
+          60
+        ],
+        "365": [
+          60,
+          90,
+          125,
+          90
+        ]
+      },
+      "nota": "FAO-56 Tabla 12 reporta para banano 1.er año Kc 0.50/1.10/1.00 y 2.º año 1.00/1.20/1.10, y Tabla 22 reporta Zr=0.5–0.9 m y p=0.35. Las tres variantes representan: 1) asocio regulado con cobertura de mulch de Musa, 2) asocio denso sin regulación (máxima demanda evaporativa) y 3) establecimiento de primer año. La diferencia de familia botánica (Rubiaceae + Musaceae) no otorga bono sanitario ni cancela el riesgo de nematodos compartidos (Pratylenchus coffeae, Meloidogyne spp.).",
+      "kew": "https://powo.science.kew.org/taxon/30000656-2"
+    }
+  },
+  "fuentes": {
+    "etapas_kc": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+    "raices_p": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+    "dosel_compartido_fao56": "https://www.fao.org/4/x0490e/x0490e0g.htm",
+    "anacafe_variedades": "https://www.anacafe.org/uploads/file/8ee92f426ab648318001477e70d0bbe1/Gu%C3%ADa-de-variedades-Anacaf%C3%A9-2020.pdf",
+    "anacafe_fertirriego": "https://www.anacafe.org/uploads/file/315610a5a0284d24902f86d78bda6704/Gui%CC%81a_de_Fertirriego_-_2025.pdf",
+    "cenicafe_floracion_agua": "https://publicaciones.cenicafe.org/index.php/avances_tecnicos/article/view/311",
+    "van_asten_2011_cafe_banano": "https://doi.org/10.1016/j.agsy.2010.12.004",
+    "sarmiento_soler_2019_agua": "https://doi.org/10.1016/j.agrformet.2018.12.006",
+    "cattan_2009_stemflow_musa": "https://doi.org/10.1016/j.jhydrol.2009.02.020"
+  },
+  "limites": "El motor de 5 capas usa Kc compuesto efectivo por variante; no resuelve explícitamente la partición 2D de raíces entre surcos de café y matas de banano ni el escurrimiento caulinar puntual del pseudotallo. No simula la ruptura de latencia floral, la caída de frutos por falta de potasio ni pérdidas por roya, ojo de gallo, broca o nematodos."
+}

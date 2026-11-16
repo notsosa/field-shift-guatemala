@@ -1,0 +1,450 @@
+{
+  "fecha_utc": "2026-11-16T02:56:11.393899+00:00",
+  "nota": "Excluye el propio inventario, cachés y PDF consultados; se conservan sus fuentes y huellas de acceso.",
+  "archivos": [
+    {
+      "ruta": ".gitignore",
+      "bytes": 45,
+      "sha256": "05cdd093cde322f4e76b75b656345a3f5fd5285bb9030f24a0f338b0c602517e",
+      "git_blob_sha": "b46a131f870d8b1adedeae0b064a3e9f21b13a86"
+    },
+    {
+      "ruta": "configuracion.json",
+      "bytes": 2321,
+      "sha256": "3bf249bc205de13045d31f6b68abb65f830459f3259ae069a12c5d44764a0043",
+      "git_blob_sha": "d17e09485efacffb6278eeeb2f85257b479d2b86"
+    },
+    {
+      "ruta": "control_paquete.json",
+      "bytes": 576,
+      "sha256": "aeb957cac6e9f040279145cf0420d8b2dff2b5cedec300d936305a2e26e69ccb",
+      "git_blob_sha": "420f1c4d32f4a6fcc5152053d451250fb34b16b3"
+    },
+    {
+      "ruta": "datos/cobertura/chiquimula_worldcover2021.tif",
+      "bytes": 635878,
+      "sha256": "5cb6e7b07efe4122bcfa510ea35fe0aa834f401db7bce78f8a0ffd193ba80e28",
+      "git_blob_sha": "7ec8ad137cadad298b804b012a484b2d6dabab8c"
+    },
+    {
+      "ruta": "datos/cultivos/compatibilidad_sucesiones.json",
+      "bytes": 139777,
+      "sha256": "8a6d7dfdccdbaf2867747cdb36b8b6686228521fa795667b051d2c02bbc9e116",
+      "git_blob_sha": "7e9e16371288383b8928d4991d665d304d5916c2"
+    },
+    {
+      "ruta": "datos/cultivos/parametros_auditados.json",
+      "bytes": 5950,
+      "sha256": "7838f2c9311f902ad48891a30d4b9ee8e397982f4041497a81db586414656e57",
+      "git_blob_sha": "693f7aa145a7133a9833b80ecd64bd4c8ba118b6"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/chirps_v2_2025.json",
+      "bytes": 64031,
+      "sha256": "729f71110c581b6ae5af2458d9fe1b2f28a204890fdda1d573e008a78791e3ee",
+      "git_blob_sha": "0aa529d86daec73e46f577a206a198c00c74a41a"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/chirps_v2_job.json",
+      "bytes": 40,
+      "sha256": "190a4102c352421d5458fe494d288810515faa052544c5bbf9953abaa3b0513d",
+      "git_blob_sha": "f6148ef2f4b0244f931b306735ab294fb18be1ee"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/chirps_v2_progreso.json",
+      "bytes": 261,
+      "sha256": "1a53d685bb677c3c274982d58f7220d41b12cd82a058acdf697a50bf7244c95e",
+      "git_blob_sha": "f4786d5a82af10aae84158362b12c9d730f9a3bb"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/descargas.json",
+      "bytes": 3144,
+      "sha256": "7e5e47ca2445e995ebd45da5a7f7e5015eb565135ad1a63e1b14e9770c4fe34f",
+      "git_blob_sha": "c511c31d95ebf57b6657751da380582de01630a3"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/entorno_diario_2025.csv",
+      "bytes": 72979,
+      "sha256": "6c08a215f1b3f97dc87b95d8b030a757908e4b577615aefa68c153136506e582",
+      "git_blob_sha": "d712768ff1f64b00ffac88e09bc91e81bf30c45c"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/era5_2025.json",
+      "bytes": 336891,
+      "sha256": "23279b8ef14d0cbae94c051c5b5ee4395953b7da024436f57b3c447529a4e1b9",
+      "git_blob_sha": "f1f7e5ebd56b4b1776d41875f6a5edaef7b9dc63"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/imerg_v07_late_2025.json",
+      "bytes": 64323,
+      "sha256": "ae827ba20b3fe748442acf561cd80ee87f52a6e8d9af809ca10e93ad6a13cfd0",
+      "git_blob_sha": "7bdef839f24ecee438a5d14f0109ea2fa08b055b"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/imerg_v07_late_job.json",
+      "bytes": 40,
+      "sha256": "e34d14ddea34184668f0adcc893ea227f9baf2d435069cda378f08f96e4f15bf",
+      "git_blob_sha": "cae9bfa55dac34248f44ea49778c51dc0fb003fc"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/imerg_v07_late_progreso.json",
+      "bytes": 261,
+      "sha256": "5b6ce822b4fe08f72310cee32d7ea73a669f9d9760ef9ac75973e45a376f8420",
+      "git_blob_sha": "05b4355387115c294c8e40f7d82c67e3666824c2"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/perfil_suelo.csv",
+      "bytes": 290,
+      "sha256": "354b21a4776ec46651c5a682e0a8c171aa9307e1e1bc56c5a021267273627ced",
+      "git_blob_sha": "5442ed28a3f44f9061efa2525dff54d4d7a8af49"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/power_2025.json",
+      "bytes": 85699,
+      "sha256": "7b3aba896d24c1826e3418da2ad296f933863e20ddb6bd4f9744b7925984d567",
+      "git_blob_sha": "a09a998ff8cc99774a37c2c3da85565862bbdd5f"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/sitio_y_suelo.json",
+      "bytes": 5155,
+      "sha256": "e351684ac5d455594eb1e84bc266b2befab49ee2bb5934847538ded918b63c1f",
+      "git_blob_sha": "34b0088364eabb9169fc48de1f238eb7f1f177b0"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/bdod_0-5cm.tif",
+      "bytes": 611,
+      "sha256": "b514698857fa349ac6278a45a98c53b0c20debe44a5468c85c78a33c9dd9101e",
+      "git_blob_sha": "9b4c8a7be4da9b02383ea2838a344ee9c99c7670"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_0-5cm.tif",
+      "bytes": 624,
+      "sha256": "2cb78718152bf9233cf3ce0c2bdc69a7f618da0c7b9656a21cdd13c0b80157b5",
+      "git_blob_sha": "11f890057c5cc698420ad102ec151fcc7d77d183"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_15-30cm.tif",
+      "bytes": 623,
+      "sha256": "004f47940e7f7d5a2e37f78f55f5d2af40fe8f7cc92f8a6332fd1476132cd6c7",
+      "git_blob_sha": "c5ebbfed1941b93651f1f875627494af56ec2069"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_30-60cm.tif",
+      "bytes": 624,
+      "sha256": "0e18ef47e27da0a212278197c514c4be40be91a66ca3b9704e55f12de129efc0",
+      "git_blob_sha": "2c5f6bbd04ee5f7cd43717ff25395b11e420ad5d"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_5-15cm.tif",
+      "bytes": 624,
+      "sha256": "558611db9e3abe52619ea8c9ea7d37c7ff27243d1d8b870f16af03c1910833d8",
+      "git_blob_sha": "6a6dbc0f684275df57abd568cd605130d27d3812"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/cfvo_60-100cm.tif",
+      "bytes": 621,
+      "sha256": "f857e221e91e82eecb2e55533f49b099d57da29f64a8dded9c70f72b3042ac9b",
+      "git_blob_sha": "a6f71abf4f467c159e4c6308b9d9592991f46422"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/clay_0-5cm.tif",
+      "bytes": 619,
+      "sha256": "5936b01d3a47d51185fbc415da36a4b8ba3e60fe03be32c5a435c39ab056c569",
+      "git_blob_sha": "1a6970e901721fee86f1af3826207c91ed93f93c"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/descargas.json",
+      "bytes": 12522,
+      "sha256": "89d4a2fb4d833e4257de411f91b03ea34828f881c845a9d31044c45fc9ca5480",
+      "git_blob_sha": "9e980e7bddc8f1c29080d1fc7ed5cc1ef9283d1b"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/phh2o_0-5cm.tif",
+      "bytes": 605,
+      "sha256": "fd58066d2d7eb18de9dbf4b873bd998dc8b8d4750406246128bbc1f59ef6c75b",
+      "git_blob_sha": "6bbdadc2c3fcc20d1f6e55048bedde45c6fc5cc0"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/sand_0-5cm.tif",
+      "bytes": 622,
+      "sha256": "5149b13860ab1c713e9b689de88a89aaf0e938843ccb9a7542d031354536076a",
+      "git_blob_sha": "05cc6abb5fc7cdcfdcecda4b9e7c68c9fe8168a4"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/silt_0-5cm.tif",
+      "bytes": 618,
+      "sha256": "06ee04ffd53a7daa040b05bbacb957e178924fc133f059fec63fa05ef983fb6f",
+      "git_blob_sha": "13c1ad755d2b4afc60ad088efa589269186b3b70"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/soc_0-5cm.tif",
+      "bytes": 621,
+      "sha256": "ebaf5a9e768856d08714f1c92762662f9ce33de09c6ddb7c206dcca67be2afc6",
+      "git_blob_sha": "8c2287eae43b21264832fbe81e434508b9536194"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_0-5cm.tif",
+      "bytes": 619,
+      "sha256": "2fc6aa900201f067f93400ba4d0e85687cd365893d6595857a879ad162f73877",
+      "git_blob_sha": "13110a6349ee1c0d5f7edbb0fc20720e9cf6168a"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_15-30cm.tif",
+      "bytes": 622,
+      "sha256": "265583176fe30a07341a5cd951a4351fc54a6235606f6237dc43ce4a3c36f6a7",
+      "git_blob_sha": "58a571b39297c6022e2b1df8374ba0dac1a795ea"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_30-60cm.tif",
+      "bytes": 621,
+      "sha256": "388a59fe3a10ff9b1173dfe1a908f696e35d03c3713f7fd46987bd9611ea6c4d",
+      "git_blob_sha": "013db32cffb0c97cf69170783690d39cefb5d7ee"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_5-15cm.tif",
+      "bytes": 617,
+      "sha256": "921af4fe1aec221dd631e1916a4d6923116292a39b56f3cb84140d5ee25f47cd",
+      "git_blob_sha": "0b0c657fcfd985faf9822ced50334e28a6262a19"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv0033_60-100cm.tif",
+      "bytes": 622,
+      "sha256": "68eb2dc4534a63c41efad3dbdb2e90b807b3c57019e0ea672fc15004b5fb8d57",
+      "git_blob_sha": "28c55c2ab2c2ef39f300218fc67975ff7ffcfeca"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_0-5cm.tif",
+      "bytes": 615,
+      "sha256": "5c7815a996b313c06e93e8ab5ead58099fadd50191554828793c4c638f2400ad",
+      "git_blob_sha": "eb99e4f3fe1c3aae4623cec9d9d8771f7787df90"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_15-30cm.tif",
+      "bytes": 617,
+      "sha256": "168ce5598be893a2e2bb5aa1cac9b742251a7543847f62aa9fdce02afd549ca0",
+      "git_blob_sha": "11671291c8f236abffa9280f31f3b0bdb2efb51a"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_30-60cm.tif",
+      "bytes": 618,
+      "sha256": "cb6862a2d43e7a475d915897774a87514febffd024eff51788dccddbcd12bee3",
+      "git_blob_sha": "32bd624e079b98e95e784bef9a3677b8b1c079aa"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_5-15cm.tif",
+      "bytes": 615,
+      "sha256": "b8a128ba0c9d3415deda8fcce5e6c4b3b4ac5c478493b602fa253171fb68e669",
+      "git_blob_sha": "8614bc2f1a80c654d18f82dd53a3e9f5c3f5f14f"
+    },
+    {
+      "ruta": "datos/escenarios/chiquimula_2025/suelo_wcs/wv1500_60-100cm.tif",
+      "bytes": 614,
+      "sha256": "08db68f543e5f82bc197e857739674434478f50fa75f3db0b1b13963aa018865",
+      "git_blob_sha": "0fd36ec33d258b4915613b166faaac36aa84e26e"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_amenaza_sequia.geojson",
+      "bytes": 1016807,
+      "sha256": "cf2348d3734df9ff9451c7ca1230d855c5f8c1d4e4c84ca8bb4193c9620eab56",
+      "git_blob_sha": "417eebcef798cbe333a0f41ee8a218f1b334acaf"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_capacidad_uso_tierra_usda.geojson",
+      "bytes": 1757421,
+      "sha256": "4cf772e266047f92cb95cd14f501dac3d587cd4d1144d53af01c43526ac3ef1f",
+      "git_blob_sha": "8b6193bbed55becf65cf8a915f4a902400bf8bae"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_cobertura_uso_tierra_2025.geojson",
+      "bytes": 5227410,
+      "sha256": "35b6ce1ab372663ebe43ad70865da2dbda6008743df42507ea53a1ce3385a265",
+      "git_blob_sha": "fafdc9995463cb68fa454cd173ccc3587935ddb7"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_fisiografia.geojson",
+      "bytes": 2642832,
+      "sha256": "217c959e5c2bd191b4b7ba11bb73500aa3735da6df13fdb019e42b10968949dc",
+      "git_blob_sha": "253e23773d8ef5b23d395591cedb6ec60d4bb726"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_taxonomia_suelos.geojson",
+      "bytes": 15639714,
+      "sha256": "f0e5a398afb7ef095c8fbc9f5e4536b5aee5dc79e3f06fed801a212343f00de2",
+      "git_blob_sha": "d02f99ca460e3a021ba036b02af8a0b01e01606a"
+    },
+    {
+      "ruta": "datos/maga/chiquimula_zonas_de_vida.geojson",
+      "bytes": 4127109,
+      "sha256": "a9a80d7d1941e1f48626f60ab9bddfe0e27e980a251397224c97368c41321c7d",
+      "git_blob_sha": "77561e1f48bc5b048e8f7376c3636a0e42351b64"
+    },
+    {
+      "ruta": "datos/relieve/chiquimula_aw3d30_dsm.tif",
+      "bytes": 148181,
+      "sha256": "d460c5fd1e8b875fda96021a9494995fbce1973c1b94b773ce32d072ecbd22fa",
+      "git_blob_sha": "2e0f2a9e8dcd01bf683216fddefa3ed0ac921f0b"
+    },
+    {
+      "ruta": "fuentes/acceso_documentos.json",
+      "bytes": 3138,
+      "sha256": "6ebdf98bb08a2c3e5438c336a5feb4bb5fe77556ae32ed31adf1596bdbef883c",
+      "git_blob_sha": "7a12fffd7f121108bb07e499c12741e8220acf93"
+    },
+    {
+      "ruta": "fuentes/evidencia_bibliografica.json",
+      "bytes": 7615,
+      "sha256": "d6716ea2fcd95e5c6818faefcd21f3061b91df684a7eb4f427384c65eaeda5fd",
+      "git_blob_sha": "70e7057546d19bcc6f8fda9993e08d4137d41013"
+    },
+    {
+      "ruta": "README.md",
+      "bytes": 25074,
+      "sha256": "e8f0f9553645ac71699ffafd17e31e6b72b4e5381f3df46b07f02cc00cf66947",
+      "git_blob_sha": "4c8a6a252ea253564ab04e4fd5f17eeca7b39b9f"
+    },
+    {
+      "ruta": "requirements-simulacion.txt",
+      "bytes": 195,
+      "sha256": "4c8ab871bfc979af304848b467c8526f34c975c533cbaf1319e47dacb5bd2946",
+      "git_blob_sha": "7f1458b2aad4639ad8b0e0bef545abe7260646ed"
+    },
+    {
+      "ruta": "resultados/balances_referencia.csv.gz",
+      "bytes": 1049535,
+      "sha256": "f9a3f2437c7521dad2d5f9379b913a76575e01d0985b5c31d5425acf70404c46",
+      "git_blob_sha": "0e28bd6cb8c423b53b06155bd626b4fa4923eb11"
+    },
+    {
+      "ruta": "resultados/calendarios_evaluados.csv",
+      "bytes": 63575,
+      "sha256": "19c090bdcd4b0b0e6c042c54509393273b583d22a207c908c11baff3e49f4e40",
+      "git_blob_sha": "adc59802c69367199dd57a2d21bfe1ab28957596"
+    },
+    {
+      "ruta": "resultados/calendarios_evaluados.json",
+      "bytes": 168791,
+      "sha256": "7e64d01407d93d82fe9d42249519e358d20d922be3341c185433f900939a0668",
+      "git_blob_sha": "f61199b69ef7ed6533c1df1bddcbb560d121fa07"
+    },
+    {
+      "ruta": "resultados/calendarios_y_cobertura.png",
+      "bytes": 53215,
+      "sha256": "28f573c36d61f164cee42571861eb2fb2a69bdb66972d793c52698e65d5c104c",
+      "git_blob_sha": "8e10887188b2995e337d458fcc813d91b86b5294"
+    },
+    {
+      "ruta": "resultados/comparacion_hidrica.png",
+      "bytes": 26000,
+      "sha256": "c2b0005c74a8c7cacc363ad97a2097fb453c496cf598b487c8f57a9a25e5637c",
+      "git_blob_sha": "fa9fcef0ab3a7db55c48d6e687c7a6cb0c4e6903"
+    },
+    {
+      "ruta": "resultados/comparacion_pareada.csv.gz",
+      "bytes": 110779,
+      "sha256": "159dc393c7df0a1b3a40a231de239b76c2fee20c3635aaedd2f5489376910451",
+      "git_blob_sha": "c46bdba037bf887fecc7323bd5624be3fa2c3814"
+    },
+    {
+      "ruta": "resultados/comparacion_referencia.csv",
+      "bytes": 21951,
+      "sha256": "01a025f46c09d888d113d9494c8ef12610e1042d5131b23ec6c1e4ded4996710",
+      "git_blob_sha": "bc207df85ea0d8a089b15efe57c1fcb74d7ffe11"
+    },
+    {
+      "ruta": "resultados/comparacion_referencia.json",
+      "bytes": 96262,
+      "sha256": "fd99bcab11e4283f994e794fbb16b763ec964b85ec3cb6ac0e249ad6d1100f5d",
+      "git_blob_sha": "ce315b91fe5472890cc65c47fcb72d7522d71ce4"
+    },
+    {
+      "ruta": "resultados/episodios_2025.json",
+      "bytes": 6198,
+      "sha256": "1943010c17dfe695814a554f3e74ddc5427d3ee0f33b30d06c09c78743b468f7",
+      "git_blob_sha": "3186b339680b144e5e50398e44eb56369c8c668d"
+    },
+    {
+      "ruta": "resultados/exposicion_climatica.csv",
+      "bytes": 87711,
+      "sha256": "eea0d912ebb5dff60f90dbaf282a2192852f6c313dbf2c682b5ab3ec9257079e",
+      "git_blob_sha": "dd7d797167cca13503f3f915e7b458f715371871"
+    },
+    {
+      "ruta": "resultados/exposicion_termica.png",
+      "bytes": 50164,
+      "sha256": "69a049871b4a463835ff57ff899b462043cd6edd55722f290fda351137942c74",
+      "git_blob_sha": "1006aa79f1ec87169fa31586085d2b00daf7b4ad"
+    },
+    {
+      "ruta": "resultados/metodo_y_validacion.json",
+      "bytes": 28597,
+      "sha256": "677416b647e5608ce9308e15076e7d482ae30eb4df13a86f76a9f6116aed1952",
+      "git_blob_sha": "417d4be6a19c1cbb2d0990eb55f7e40fc2464706"
+    },
+    {
+      "ruta": "resultados/resultados_escenarios.csv.gz",
+      "bytes": 421450,
+      "sha256": "c16b642ded857a79ca6c73233da7389228666f4c68f54321aaa2a25f75232e37",
+      "git_blob_sha": "2127af8af09fbc4f00632d39cc80fe9afbb5f257"
+    },
+    {
+      "ruta": "resultados/resultados_escenarios.json.gz",
+      "bytes": 673033,
+      "sha256": "41c3f3bb4991556f3e43caae06969488446f1f1028ca961f339b35467792f473",
+      "git_blob_sha": "f6bdc6ee03a72cac727a5a23296d9cb9d44f2a24"
+    },
+    {
+      "ruta": "resultados/resumen_ejecutivo.json",
+      "bytes": 9506,
+      "sha256": "53b1d580922ad1d53904d9fe4f78254af8dbe405734aac007b19c25551f2f440",
+      "git_blob_sha": "77d389744dbd61e56489ca39872a42ef4b764ab9"
+    },
+    {
+      "ruta": "resultados/resumen_mensual.csv",
+      "bytes": 1675,
+      "sha256": "490c73ed11d6ebf8990e0528c0961ade5805e898e466767098ff97ebcb636ca5",
+      "git_blob_sha": "c1a17671a3c04c8fa3cdae9739a9e7085f5ce75b"
+    },
+    {
+      "ruta": "scripts/auditar_cafe_banano_2025.py",
+      "bytes": 20741,
+      "sha256": "ee315496a60c47ac8d9f39df056e873c40093f4bbb1719fab7b6a740ef90e969",
+      "git_blob_sha": "5bc76682263641829762a2bc26035168c55ededa"
+    },
+    {
+      "ruta": "scripts/descargar_escenario_chiquimula_2025.cjs",
+      "bytes": 4092,
+      "sha256": "25004812f54d5cd213b165eb64f1c2c184f3f88c9160b625e390c127717372ff",
+      "git_blob_sha": "3ee6c465471558719741c786554673cd85f8d872"
+    },
+    {
+      "ruta": "scripts/descargar_suelo_escenario_2025.cjs",
+      "bytes": 1846,
+      "sha256": "548c2f9ac325c28abbdfaa3898ceea705f6ee65f7855069b9489a2e79a2d071c",
+      "git_blob_sha": "c112e3ddaba1104efcef4a6dd69939ced8a63f99"
+    },
+    {
+      "ruta": "scripts/motor_hidrico_base.py",
+      "bytes": 17248,
+      "sha256": "dfb40cb8b9a209a1c20baf5f16282eb0218f0a98b19da47b958c1e8baa37ab53",
+      "git_blob_sha": "4f6e03198dec9db8d3fe4a195d1a669e6a21e034"
+    },
+    {
+      "ruta": "scripts/verificar_paquete.py",
+      "bytes": 5260,
+      "sha256": "fa1f2f98ee57814a76c7822a8e5e65e100421c5d220180e2ff38d48eaaf0bd5e",
+      "git_blob_sha": "f0c405648c6f2673f3b10e88ed85fb3c3e39a22a"
+    },
+    {
+      "ruta": "tests/referencia_publicada.json",
+      "bytes": 18040,
+      "sha256": "c7a97f2a6d1292e5b76fd4d4c930411010680496e8499b87b6d9da7ed892425d",
+      "git_blob_sha": "56df25141c36bb648c9b01c1a827bc27c3f58e94"
+    },
+    {
+      "ruta": "tests/test_auditoria.py",
+      "bytes": 5168,
+      "sha256": "ecaf8587e83227012924b6b472fdb8785f66946c36a4386321218dfca75db285",
+      "git_blob_sha": "be79b5e2370771f0b7071a6cea4af2cbe5cdcc22"
+    }
+  ]
+}

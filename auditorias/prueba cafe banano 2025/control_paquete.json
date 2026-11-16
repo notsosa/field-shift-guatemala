@@ -1,0 +1,18 @@
+{
+  "fecha_utc": "2026-11-16T02:56:11.393899+00:00",
+  "alternativa": "cafe_banano (Café + Banano Musa spp.)",
+  "programas": 192,
+  "completos_2025": 90,
+  "inconclusos_sin_simular": 102,
+  "corridas": 12960,
+  "pares": 6480,
+  "pasos_diarios": 4730400,
+  "max_error_balance_mm": 5.684341886080802e-14,
+  "pruebas": 10,
+  "resultado_pruebas": "OK",
+  "fuentes_sha_comprobadas": 49,
+  "balances_referencia": 17520,
+  "regresion": "4 lluvias y 2 modos de riego del comparador publicado; coincide a 4 decimales.",
+  "malla_csv_json_y_enlaces": "comprobados",
+  "errores": []
+}

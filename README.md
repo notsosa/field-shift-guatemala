@@ -11,6 +11,7 @@ El proyecto busca ayudar al finquero a comparar secuencias de cultivos en una mi
 | Documento | Contenido |
 |---|---|
 | [Manual agroclimático](conocimiento/manual-agroclimatico.md) | Agua, suelo, clima, rotaciones y manejo del café, con referencias y ejemplos. |
+| [Ciclo del café y asocio con banano](conocimiento/cafe-ciclo-y-asocio-banano.md) | Ciclo técnico completo del café (siembra a cosecha), sistema agroforestal café + *Musa* spp. (luz, microclima, agua, potasio, nematodos y flujo de caja) y parámetros FAO-56. |
 | [Observaciones NASA](conocimiento/observaciones-nasa.md) | Interpretación de lluvia, humedad, relieve y vegetación, con resolución y límites de los productos. |
 | [Investigación de productores](investigacion/productores-guatemala.md) | Dificultades documentadas en Guatemala, población estudiada, metodología y alcance. |
 | [Conversaciones con cafetaleros](investigacion/testimonios-2026-11-11.md) | Apuntes anónimos compartidos por el equipo y preguntas por aclarar. |

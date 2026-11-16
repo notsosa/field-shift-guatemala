@@ -1,0 +1,83 @@
+{
+  "fecha_auditoria": "2026-11-16",
+  "cultivos": [
+    "cafe_solo",
+    "cafe_banano"
+  ],
+  "alternativa_solicitada": "cafe_banano (Café + Banano Musa spp.)",
+  "comparador": "cafe_solo (Solo Café)",
+  "inicios": [
+    "2025-01-01",
+    "2025-01-15",
+    "2025-03-01",
+    "2025-05-01",
+    "2025-05-15",
+    "2025-06-01",
+    "2025-06-15",
+    "2025-09-01"
+  ],
+  "duraciones_dias": [
+    180,
+    240,
+    300,
+    365
+  ],
+  "variantes_manejo": [
+    "limpio_vs_regulado",
+    "cobertura_viva_vs_musa_denso",
+    "establecimiento_renovacion_anio1"
+  ],
+  "referencia_inicio": "2025-01-01",
+  "referencia_duraciones": {
+    "cafe_solo": 365,
+    "cafe_banano": 365
+  },
+  "referencia_variante": "limpio_vs_regulado",
+  "referencia_establecimiento_inicio": "2025-05-15",
+  "referencia_establecimiento_duracion_dias": 180,
+  "suelo_escenarios": [
+    [
+      "perfil_referencia",
+      1.0,
+      1.0
+    ],
+    [
+      "raiz_limitada_30cm",
+      0.3,
+      1.0
+    ],
+    [
+      "almacenamiento_menos25pct",
+      1.0,
+      0.75
+    ]
+  ],
+  "fases_fenologicas_2025": [
+    {
+      "id": "latencia_y_floracion",
+      "nombre": "Época seca, latencia del botón floral y floraciones (ene–abr)",
+      "inicio": "2025-01-01",
+      "fin": "2025-04-30"
+    },
+    {
+      "id": "cuajado_y_expansion_canicula",
+      "nombre": "Cuajado, expansión rápida del fruto (Fase II) y canícula (may–ago)",
+      "inicio": "2025-05-01",
+      "fin": "2025-08-15"
+    },
+    {
+      "id": "llenado_endospermo",
+      "nombre": "Llenado y endurecimiento de endospermo (Fase III, demanda crítica de K y agua, ago–oct)",
+      "inicio": "2025-08-16",
+      "fin": "2025-10-31"
+    },
+    {
+      "id": "maduracion_cosecha_y_repela",
+      "nombre": "Maduración a cereza (Fase IV), cosecha escalonada y pepena/repela contra broca (nov–dic)",
+      "inicio": "2025-11-01",
+      "fin": "2025-12-31"
+    }
+  ],
+  "nota_fechas": "Se incluye 2025-01-01 (365 días) para evaluar el ciclo anual completo de plantación establecida y las siete fechas de enero a septiembre con duraciones de 180/240/300/365 días para evaluar ventanas de establecimiento o renovación (recepa) y hacer explícitos los calendarios que exceden 2025 sin extrapolar datos.",
+  "fuente_motor_commit": "0633f2f2d47562a4860c2904ef23049dd35bd9fa"
+}
