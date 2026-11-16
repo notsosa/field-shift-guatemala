@@ -313,7 +313,7 @@ const catalogo = <Cultivo>[
   ),
   Cultivo(
     id: 'frijol',
-    ciclos: [67, 80, 90],
+    ciclos: [67, 80, 90, 83],
     parametros: ParametrosCultivo(
       kcInicial: 0.40,
       kcMedio: 1.15,
@@ -327,7 +327,7 @@ const catalogo = <Cultivo>[
   ),
   Cultivo(
     id: 'tomate',
-    ciclos: [120, 145],
+    ciclos: [120, 145, 85],
     parametros: ParametrosCultivo(
       kcInicial: 0.60,
       kcMedio: 1.15,
@@ -352,10 +352,244 @@ const catalogo = <Cultivo>[
       perenne: true,
     ),
   ),
+  // Perfiles adicionales de runs/v3_prepared/config.resolved.json. Las fases
+  // de FAO-56 usan emergencia y floración de referencia y asignan el último
+  // cuarto del período posterior a floración a la fase final.
+  Cultivo(
+    id: 'sorghum',
+    ciclos: [110],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.30,
+      kcMedio: 1.05,
+      kcFinal: 0.55,
+      etapas: [7, 55, 36, 12],
+      raizMaxima: 1.00,
+      p: 0.55,
+      perenne: false,
+      ky: 0.90,
+    ),
+  ),
+  Cultivo(
+    id: 'rice',
+    ciclos: [118],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.60,
+      kcMedio: 1.15,
+      kcFinal: 0.70,
+      etapas: [8, 81, 22, 7],
+      raizMaxima: 0.65,
+      p: 0.25,
+      perenne: false,
+      ky: 1.10,
+    ),
+  ),
+  Cultivo(
+    id: 'wheat',
+    ciclos: [132],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.30,
+      kcMedio: 1.15,
+      kcFinal: 0.30,
+      etapas: [9, 70, 40, 13],
+      raizMaxima: 1.00,
+      p: 0.55,
+      perenne: false,
+      ky: 1.15,
+    ),
+  ),
+  Cultivo(
+    id: 'sesame',
+    ciclos: [110],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.35,
+      kcMedio: 1.10,
+      kcFinal: 0.25,
+      etapas: [6, 40, 48, 16],
+      raizMaxima: 1.00,
+      p: 0.60,
+      perenne: false,
+      ky: 1.00,
+    ),
+  ),
+  Cultivo(
+    id: 'potato',
+    ciclos: [115],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.50,
+      kcMedio: 1.15,
+      kcFinal: 0.75,
+      etapas: [15, 48, 39, 13],
+      raizMaxima: 0.50,
+      p: 0.35,
+      perenne: false,
+      ky: 1.10,
+    ),
+  ),
+  Cultivo(
+    id: 'pepper',
+    ciclos: [90],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.60,
+      kcMedio: 1.05,
+      kcFinal: 0.90,
+      etapas: [8, 34, 36, 12],
+      raizMaxima: 0.65,
+      p: 0.30,
+      perenne: false,
+      ky: 1.10,
+    ),
+  ),
+  Cultivo(
+    id: 'onion',
+    ciclos: [150],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.70,
+      kcMedio: 1.05,
+      kcFinal: 0.75,
+      etapas: [10, 67, 55, 18],
+      raizMaxima: 0.50,
+      p: 0.30,
+      perenne: false,
+      ky: 1.10,
+    ),
+  ),
+  Cultivo(
+    id: 'carrot',
+    ciclos: [105],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.70,
+      kcMedio: 1.05,
+      kcFinal: 0.95,
+      etapas: [12, 40, 40, 13],
+      raizMaxima: 0.65,
+      p: 0.35,
+      perenne: false,
+      ky: 1.00,
+    ),
+  ),
+  Cultivo(
+    id: 'lettuce',
+    ciclos: [75],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.70,
+      kcMedio: 1.00,
+      kcFinal: 0.95,
+      etapas: [7, 32, 27, 9],
+      raizMaxima: 0.40,
+      p: 0.30,
+      perenne: false,
+      ky: 1.00,
+    ),
+  ),
+  Cultivo(
+    id: 'snow_pea',
+    ciclos: [67],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.50,
+      kcMedio: 1.15,
+      kcFinal: 1.10,
+      etapas: [9, 29, 22, 7],
+      raizMaxima: 0.70,
+      p: 0.35,
+      perenne: false,
+      ky: 1.15,
+    ),
+  ),
+  Cultivo(
+    id: 'broccoli',
+    ciclos: [90],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.70,
+      kcMedio: 1.05,
+      kcFinal: 0.95,
+      etapas: [7, 42, 31, 10],
+      raizMaxima: 0.50,
+      p: 0.45,
+      perenne: false,
+      ky: 1.00,
+    ),
+  ),
+  Cultivo(
+    id: 'cucumber',
+    ciclos: [55],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.60,
+      kcMedio: 1.00,
+      kcFinal: 0.75,
+      etapas: [6, 26, 17, 6],
+      raizMaxima: 0.75,
+      p: 0.50,
+      perenne: false,
+      ky: 1.05,
+    ),
+  ),
+  Cultivo(
+    id: 'melon',
+    ciclos: [85],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.50,
+      kcMedio: 0.85,
+      kcFinal: 0.60,
+      etapas: [7, 31, 35, 12],
+      raizMaxima: 0.95,
+      p: 0.45,
+      perenne: false,
+      ky: 1.00,
+    ),
+  ),
+  Cultivo(
+    id: 'watermelon',
+    ciclos: [85],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.40,
+      kcMedio: 1.00,
+      kcFinal: 0.75,
+      etapas: [7, 33, 34, 11],
+      raizMaxima: 0.90,
+      p: 0.40,
+      perenne: false,
+      ky: 1.10,
+    ),
+  ),
+  Cultivo(
+    id: 'sweet_potato',
+    ciclos: [135],
+    parametros: ParametrosCultivo(
+      kcInicial: 0.50,
+      kcMedio: 1.15,
+      kcFinal: 0.65,
+      etapas: [12, 52, 53, 18],
+      raizMaxima: 1.00,
+      p: 0.65,
+      perenne: false,
+      ky: 1.00,
+    ),
+  ),
 ];
 
 Cultivo cultivoPorId(String id) =>
     catalogo.firstWhere((c) => c.id == id, orElse: () => catalogo.first);
+
+/// Configuración de café que consume la red de Keu.
+enum Sombra {
+  ninguna,
+  arbolesPerennes,
+  arbolesCaducos,
+  bananoRegulado,
+  bananoDenso,
+}
+
+enum SueloSurcos { limpio, malezas }
+
+enum PrioridadRiego {
+  ahorrarAgua(3),
+  protegerCultivo(1);
+
+  const PrioridadRiego(this.precio);
+
+  /// Días de estrés evitados que sirven como umbral para el modelo de café.
+  final int precio;
+}
 
 /// Una plantación de la finca. Puede haber varias, cada una con su perímetro
 /// en el croquis, sus registros semanales y su recomendación.
@@ -388,6 +622,9 @@ class Plantacion {
     this.proporcionMinima,
     this.fin,
     this.motivoCierre = '',
+    this.sombra = Sombra.ninguna,
+    this.sueloSurcos = SueloSurcos.limpio,
+    this.prioridadRiego = PrioridadRiego.ahorrarAgua,
   });
 
   /// Identificador dentro de la finca. Vacío hasta que se guarda.
@@ -438,6 +675,9 @@ class Plantacion {
   final double? proporcionMinima;
   final DateTime? fin;
   bool get activa => fin == null;
+  final Sombra sombra;
+  final SueloSurcos sueloSurcos;
+  final PrioridadRiego prioridadRiego;
 
   Cultivo get cultivo => cultivoPorId(cultivoId);
   bool get tieneRiego => riego != TipoRiego.ninguno;
@@ -482,6 +722,11 @@ class Plantacion {
     'fechaFertilizante': fechaFertilizante == null
         ? null
         : _iso(fechaFertilizante!),
+    if (cultivoId == 'cafe') ...{
+      'sombra': sombra.name,
+      'sueloSurcos': sueloSurcos.name,
+      'prioridadRiego': prioridadRiego.name,
+    },
   };
 
   factory Plantacion.deJson(Map<String, dynamic> j) => Plantacion(
@@ -518,6 +763,20 @@ class Plantacion {
     fechaFertilizante: j['fechaFertilizante'] == null
         ? null
         : _deIso(j['fechaFertilizante'] as String),
+    sombra: j['sombra'] == 'banano'
+        ? Sombra.bananoRegulado
+        : Sombra.values.firstWhere(
+            (valor) => valor.name == j['sombra'],
+            orElse: () => Sombra.ninguna,
+          ),
+    sueloSurcos: SueloSurcos.values.firstWhere(
+      (valor) => valor.name == j['sueloSurcos'],
+      orElse: () => SueloSurcos.limpio,
+    ),
+    prioridadRiego: PrioridadRiego.values.firstWhere(
+      (valor) => valor.name == j['prioridadRiego'],
+      orElse: () => PrioridadRiego.ahorrarAgua,
+    ),
   );
 }
 

@@ -208,10 +208,26 @@ class Txt {
   };
 
   String nombreCultivo(String id) => switch (id) {
-    'maiz' => _('Maíz', 'Maize'),
-    'frijol' => _('Frijol', 'Beans'),
-    'tomate' => _('Tomate', 'Tomato'),
+    'maiz' || 'maize' => _('Maíz', 'Maize'),
+    'frijol' || 'bean' => _('Frijol', 'Beans'),
+    'bean_zam' => _('Frijol ICTA Zam', 'ICTA Zam beans'),
+    'tomate' || 'tomato' => _('Tomate', 'Tomato'),
     'cafe' => _('Café', 'Coffee'),
+    'sorghum' => _('Sorgo', 'Sorghum'),
+    'rice' => _('Arroz', 'Rice'),
+    'wheat' => _('Trigo', 'Wheat'),
+    'sesame' => _('Ajonjolí', 'Sesame'),
+    'potato' => _('Papa', 'Potato'),
+    'pepper' => _('Chile pimiento', 'Sweet pepper'),
+    'onion' => _('Cebolla', 'Onion'),
+    'carrot' => _('Zanahoria', 'Carrot'),
+    'lettuce' => _('Lechuga', 'Lettuce'),
+    'snow_pea' => _('Arveja china', 'Snow pea'),
+    'broccoli' => _('Brócoli', 'Broccoli'),
+    'cucumber' => _('Pepino', 'Cucumber'),
+    'melon' => _('Melón', 'Melon'),
+    'watermelon' => _('Sandía', 'Watermelon'),
+    'sweet_potato' => _('Camote', 'Sweet potato'),
     _ => id,
   };
 

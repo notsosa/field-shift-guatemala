@@ -2,6 +2,7 @@ import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../estado.dart';
 import '../modelos.dart';
+import '../plan_v3.dart';
 import 'ajustes.dart' show confirmar;
 import 'finca.dart';
 import 'tema.dart';
@@ -18,6 +19,7 @@ class PantallaPlantacion extends StatefulWidget {
     this.loteId,
     this.contornoNuevo,
     this.fincaNueva,
+    this.sugerencia,
   });
 
   final bool primeraVez;
@@ -32,6 +34,7 @@ class PantallaPlantacion extends StatefulWidget {
   /// Contorno de la finca y ancho del plano dibujados en este mismo flujo.
   /// Se guardan junto con la plantación, al pulsar «Guardar».
   final Trazo? fincaNueva;
+  final PropuestaSiembraV3? sugerencia;
 
   @override
   State<PantallaPlantacion> createState() => _EstadoPlantacion();
@@ -95,6 +98,16 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
         _anterior.text = estado.txt.nombreCultivo(previa.cultivoId);
       }
     }
+    final propuesta = widget.sugerencia;
+    if (p == null && propuesta != null) {
+      _cultivo = propuesta.cultivoId;
+      _variedad.text = propuesta.variedad;
+      _anterior.text = propuesta.cultivoAnterior;
+      _fecha = soloFecha(propuesta.fecha);
+      _ciclo = propuesta.ciclo;
+      _suelo = propuesta.suelo;
+      _riego = propuesta.riego;
+    }
     if (p != null) {
       _nombre.text = p.nombre;
       _variedad.text = p.variedad;
@@ -136,6 +149,9 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
   }
 
   void _elegirCultivo(String id) => setState(() {
+    if (id != _cultivo && _variedad.text == widget.sugerencia?.variedad) {
+      _variedad.clear();
+    }
     _cultivo = id;
     final c = cultivoPorId(id);
     if (!c.ciclos.contains(_ciclo)) _ciclo = c.ciclos.first;
@@ -163,6 +179,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
 
   Future<void> _guardar() async {
     final estado = Alcance.leer(context);
+    final anterior = estado.plantacionPorId(widget.id);
     final navegador = Navigator.of(context);
     final c = cultivoPorId(_cultivo);
     // Lo dibujado en los pasos anteriores se guarda aquí, no antes, para que
@@ -185,8 +202,11 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
       await estado.guardarPlantacion(
         Plantacion(
           id: widget.id ?? '',
-          loteId:
-              estado.plantacionPorId(widget.id)?.loteId ?? widget.loteId ?? '',
+          loteId: anterior?.loteId ?? widget.loteId ?? '',
+          sombra: anterior?.sombra ?? Sombra.ninguna,
+          sueloSurcos: anterior?.sueloSurcos ?? SueloSurcos.limpio,
+          prioridadRiego:
+              anterior?.prioridadRiego ?? PrioridadRiego.ahorrarAgua,
           variedad: _variedad.text.trim(),
           cultivoAnterior: _anterior.text.trim(),
           mantenerCultivo: _mantener,
@@ -325,6 +345,9 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
     final estado = Alcance.de(context);
     final t = estado.txt;
     final cultivo = cultivoPorId(_cultivo);
+    final ciclos = widget.sugerencia == null
+        ? cultivo.ciclos
+        : ({...cultivo.ciclos, _ciclo}.toList()..sort());
 
     Widget bloque(String titulo, Widget control) => Padding(
       padding: const EdgeInsets.symmetric(
@@ -419,13 +442,11 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
                           if (v != null && mounted) _elegirCultivo(v);
                         },
                       ),
-                      if (!cultivo.perenne && cultivo.ciclos.length > 1)
+                      if (!cultivo.perenne && ciclos.length > 1)
                         bloque(
                           t.ciclo,
                           Selector<int>(
-                            opciones: {
-                              for (final d in cultivo.ciclos) d: t.dias(d),
-                            },
+                            opciones: {for (final d in ciclos) d: t.dias(d)},
                             valor: _ciclo,
                             alCambiar: (v) => setState(() => _ciclo = v),
                           ),

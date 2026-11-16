@@ -6,6 +6,7 @@ library;
 
 import '../modelos.dart';
 import '../eventos.dart';
+import 'cafe.dart';
 import 'fao56.dart';
 
 enum NivelAgua { sinDatos, bien, atencion, estres }
@@ -53,6 +54,7 @@ class Recomendacion {
     this.temperaturaActual,
     this.humedadRelativaActual,
     this.lluvia14dMm,
+    this.cafeRed,
   });
 
   final NivelAgua nivel;
@@ -95,6 +97,7 @@ class Recomendacion {
   final double? temperaturaActual;
   final double? humedadRelativaActual;
   final double? lluvia14dMm;
+  final ResultadoCafe? cafeRed;
 
   /// Agua que el cultivo necesitó en los últimos siete días, mm.
   final double necesidadSemana;
@@ -351,16 +354,17 @@ Recomendacion recomendar({
     avisos.add(Aviso.registroPendiente);
   }
   if (climaViejo) avisos.add(Aviso.climaViejo);
-  final plagas = [
-    for (final (i, e) in eventos.indexed)
-      if (e.tipo == TipoEvento.plaga &&
-          e.fecha != null &&
-          !soloFecha(e.fecha!).isAfter(soloFecha(hoy)))
-        (i, e),
-  ]..sort((a, b) {
-    final cmp = soloFecha(b.$2.fecha!).compareTo(soloFecha(a.$2.fecha!));
-    return cmp != 0 ? cmp : b.$1.compareTo(a.$1);
-  });
+  final plagas =
+      [
+        for (final (i, e) in eventos.indexed)
+          if (e.tipo == TipoEvento.plaga &&
+              e.fecha != null &&
+              !soloFecha(e.fecha!).isAfter(soloFecha(hoy)))
+            (i, e),
+      ]..sort((a, b) {
+        final cmp = soloFecha(b.$2.fecha!).compareTo(soloFecha(a.$2.fecha!));
+        return cmp != 0 ? cmp : b.$1.compareTo(a.$1);
+      });
   final ultimaPlaga = plagas.isEmpty ? null : plagas.first.$2;
   final plagaActiva =
       ultimaPlaga != null &&
@@ -421,6 +425,17 @@ Recomendacion recomendar({
     for (final d in semana)
       if (d.lluvia != null) d.lluvia!,
   ];
+  final cafeRed = plantacion.cultivoId == cultivoCafe
+      ? resultadoCafe(
+          parcela: parcela,
+          plantacion: plantacion,
+          serie: SerieCafe.deClima(dias, clima),
+          estados: estados,
+          registros: registros,
+          riegosDiarios: riegosDiarios,
+          climaViejo: climaViejo,
+        )
+      : null;
 
   final entradas =
       clima.where((d) => !soloFecha(d.fecha).isAfter(soloFecha(hoy))).toList()
@@ -471,6 +486,7 @@ Recomendacion recomendar({
     temperaturaActual: tempActual,
     humedadRelativaActual: hrActual,
     lluvia14dMm: lluvia14dMm,
+    cafeRed: cafeRed,
   );
 }
 
@@ -508,4 +524,5 @@ Recomendacion limitarRiego(
   temperaturaActual: r.temperaturaActual,
   humedadRelativaActual: r.humedadRelativaActual,
   lluvia14dMm: r.lluvia14dMm,
+  cafeRed: r.cafeRed,
 );

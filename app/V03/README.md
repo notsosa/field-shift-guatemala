@@ -1,8 +1,10 @@
 # Field Shift
 
+**V03 · 1.4.0+6.** Esta entrega incorpora el plan diario, las sugerencias de siembra y el riego del café con redes neuronales que corren en la app.
+
 App Android (Flutter) para decidir riego y manejo de una parcela sin depender de la señal. Proyecto del equipo de Ciudad de Guatemala para *Field Shift: Adapting Farms with NASA Data*, NASA Space Apps Challenge 2026.
 
-Versión `1.3.0+5`: navegación en máximo 2 toques (`lib/ui/flujo.dart`), tipografía mínima de 18 px y soporte de escalado `2.0x`–`3.2x`, sistema de componentes emergentes propios de alto contraste y zonas táctiles >= 56 px (`lib/ui/emergentes.dart`: `elegirOpcion`, `confirmarAccion`, `mostrarAviso`, `elegirFecha`, `Interruptor`), formularios con revelación progresiva (`SeccionDesplegable`) y errores visibles sobre `PieGuardar`, recuperación ante JSON corrupto (`fincaV3.respaldoCorrupto` con degradación a `V2`/`V1`) y rezago real de 2 días en NASA POWER; además de campañas con historial, cosechas/pérdidas y bitácoras, riego con destinatario explícito, paquete JSON versionado con revisión e importación sin duplicados, disponibilidad de agua por fecha, lluvia desconocida explícita y lotes con geometría geográfica y validación espacial. Detalles de datos y migración en [etapas 1 y 2](docs/etapas-1-2.md) y [etapas 3–5](docs/etapas-3-5.md).
+La versión base `1.3.0+5` incorporó la navegación en máximo 2 toques (`lib/ui/flujo.dart`), tipografía mínima de 18 px y soporte de escalado `2.0x`–`3.2x`, sistema de componentes emergentes propios de alto contraste y zonas táctiles >= 56 px (`lib/ui/emergentes.dart`: `elegirOpcion`, `confirmarAccion`, `mostrarAviso`, `elegirFecha`, `Interruptor`), formularios con revelación progresiva (`SeccionDesplegable`) y errores visibles sobre `PieGuardar`, recuperación ante JSON corrupto (`fincaV3.respaldoCorrupto` con degradación a `V2`/`V1`) y rezago real de 2 días en NASA POWER; además de campañas con historial, cosechas/pérdidas y bitácoras, riego con destinatario explícito, paquete JSON versionado con revisión e importación sin duplicados, disponibilidad de agua por fecha, lluvia desconocida explícita y lotes con geometría geográfica y validación espacial. Detalles de datos y migración en [etapas 1 y 2](docs/etapas-1-2.md) y [etapas 3–5](docs/etapas-3-5.md).
 
 ## Qué hace
 
@@ -68,9 +70,9 @@ Para regenerar las imágenes de las pantallas tras un cambio de diseño:
 flutter test test/pantallas_test.dart --update-goldens
 ```
 
-## Dónde conectar la red neuronal
+## Redes neuronales
 
-`lib/motor/recomendador.dart` expone una sola función, `recomendar(...)`, que recibe parcela, plantación, clima, registros y disponibilidad de agua para la fecha y devuelve un objeto `Recomendacion`. Hoy usa el balance de agua FAO-56 y reglas simples. Un modelo entrenado puede reemplazarla o complementarla manteniendo ese mismo tipo de salida, sin tocar las pantallas.
+Desde **Finca → Plan diario**, la red neuronal calcula qué hacer hoy en los lotes. Para una siembra nueva se puede usar **Nueva plantación** o **Sugerir cultivo con red neuronal**. En un cafetal, la tarjeta **Riego del café** aparece en **Hoy** y en el detalle del lote. Ambas redes ejecutan la inferencia localmente en Dart. [Datos, alcance y origen de los pesos](docs/plan-v3.md)
 
 ## Supuestos y límites
 

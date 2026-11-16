@@ -81,6 +81,28 @@ class Almacen {
     }
   }
 
+  Map<String, dynamic>? leerPlanV3(String fincaId) {
+    try {
+      final texto = _prefs.getString('planV3');
+      if (texto == null) return null;
+      final json = jsonDecode(texto);
+      return json is Map<String, dynamic> &&
+              json['version'] == 1 &&
+              json['fincaId'] == fincaId
+          ? json
+          : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> guardarPlanV3(String fincaId, Map<String, dynamic> plan) async {
+    final texto = jsonEncode({...plan, 'version': 1, 'fincaId': fincaId});
+    if (!await _prefs.setString('planV3', texto)) {
+      throw StateError('No se pudo guardar el plan V3');
+    }
+  }
+
   Parcela? leerParcela() {
     try {
       final s = _prefs.getString('parcela');

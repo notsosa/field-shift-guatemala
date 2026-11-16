@@ -3,6 +3,7 @@ import 'package:cupertino_ui/cupertino_ui.dart';
 import '../estado.dart';
 import '../modelos.dart';
 import 'agua.dart';
+import 'cafe_red.dart';
 import '../motor/fao56.dart';
 import '../motor/recomendador.dart';
 import 'finca.dart';
@@ -80,14 +81,12 @@ class PestanaHoy extends StatelessWidget {
       alPulsar: switch (a) {
         Aviso.registroPendiente || Aviso.plaga || Aviso.fertilizar => actividad,
         Aviso.capacidadLimitada => agua,
-        Aviso.areaPendiente => () => Navigator.of(
-          context,
-          rootNavigator: true,
-        ).push(
-          CupertinoPageRoute<void>(
-            builder: (_) => PantallaMiPlantacion(loteId: p.loteId),
+        Aviso.areaPendiente =>
+          () => Navigator.of(context, rootNavigator: true).push(
+            CupertinoPageRoute<void>(
+              builder: (_) => PantallaMiPlantacion(loteId: p.loteId),
+            ),
           ),
-        ),
         Aviso.climaViejo => () => _sincronizar(context),
         _ => null,
       },
@@ -219,6 +218,7 @@ class PestanaHoy extends StatelessWidget {
                   ),
                 ),
               ),
+              TarjetaRedCafe(plantacion: p, recomendacion: r),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Espacio.m),
                 child: BotonPrincipal(

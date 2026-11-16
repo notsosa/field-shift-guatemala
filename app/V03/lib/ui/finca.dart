@@ -24,6 +24,8 @@ import 'topo3d_view.dart';
 import 'emergentes.dart' as emergentes;
 import 'flujo.dart';
 import 'parcela.dart';
+import 'siembra_v3.dart';
+import 'plan_v3.dart';
 
 /// Un área dibujada sobre el plano: el perímetro de una plantación.
 class Zona {
@@ -849,6 +851,7 @@ class _EstadoTrazo extends State<PantallaTrazo> {
 Future<void> agregarPlantacion(
   BuildContext context, {
   bool primeraVez = false,
+  bool automatico = false,
 }) {
   final estado = Alcance.leer(context);
   final navegador = Navigator.of(context, rootNavigator: true);
@@ -867,17 +870,19 @@ Future<void> agregarPlantacion(
       // Paso 3: datos de la plantación; ahí se guarda todo.
       alContinuar: (ctx, trazo) => Navigator.of(ctx).push<void>(
         CupertinoPageRoute(
-          builder: (_) => PantallaPlantacion(
-            primeraVez: primeraVez,
-            contornoNuevo: trazo.puntos,
-            fincaNueva: finca,
-          ),
+          builder: (_) => automatico
+              ? PantallaSiembraV3(trazo: trazo, primeraVez: primeraVez)
+              : PantallaPlantacion(
+                  primeraVez: primeraVez,
+                  contornoNuevo: trazo.puntos,
+                  fincaNueva: finca,
+                ),
         ),
       ),
     ),
   );
 
-  if (estado.parcela!.contorno.length >= 3) {
+  if (automatico || estado.parcela!.contorno.length >= 3) {
     return navegador.push<void>(perimetro());
   }
 
@@ -1036,11 +1041,39 @@ class PestanaFinca extends StatelessWidget {
               Grupo(
                 children: [
                   Fila(
+                    key: const Key('finca-siembra-v3'),
+                    titulo: t.bilingue(
+                      'Sugerir cultivo con red neuronal',
+                      'Suggest crop with neural network',
+                    ),
+                    detalle: t.bilingue(
+                      'Elige el lote y consulta qué sembrar.',
+                      'Choose the plot and see what to plant.',
+                    ),
+                    icono: CupertinoIcons.leaf_arrow_circlepath,
+                    alPulsar: () =>
+                        agregarPlantacion(context, automatico: true),
+                  ),
+                  Fila(
                     titulo: t.bilingue('Ver mapa de la finca', 'View farm map'),
                     icono: CupertinoIcons.map,
                     alPulsar: () => raiz.push(
                       CupertinoPageRoute<void>(
                         builder: (_) => const PantallaMapaFinca(),
+                      ),
+                    ),
+                  ),
+                  Fila(
+                    key: const Key('finca-plan-v3'),
+                    titulo: t.bilingue('Plan diario', 'Daily plan'),
+                    detalle: t.bilingue(
+                      'Consulta qué hacer hoy en tus cultivos con la red neuronal.',
+                      'See today’s crop recommendations from the neural network.',
+                    ),
+                    icono: CupertinoIcons.doc_text,
+                    alPulsar: () => raiz.push(
+                      CupertinoPageRoute<void>(
+                        builder: (_) => const PantallaPlanV3(),
                       ),
                     ),
                   ),

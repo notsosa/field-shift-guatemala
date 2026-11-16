@@ -1,6 +1,7 @@
 /// Estado de la finca; escritura versionada y geometría geográfica canónica.
 library;
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/widgets.dart';
 
 import 'dart:async';
@@ -14,7 +15,10 @@ import 'datos/clima.dart';
 import 'datos/mapa.dart';
 import 'datos/terreno.dart';
 import 'modelos.dart';
+import 'motor/cafe.dart' show cultivoCafe, primeroDeNoviembre;
+import 'motor/planificador_v3.dart';
 import 'motor/recomendador.dart';
+import 'plan_v3.dart';
 import 'textos.dart';
 
 export 'datos/terreno.dart';
@@ -132,6 +136,7 @@ class AppEstado extends ChangeNotifier {
               : r;
         })(),
     ];
+    _restaurarPlanV3();
     // Si la escritura de arranque falla, la app abre con los datos en memoria
     // y la siguiente escritura vuelve a intentarlo (siempre guarda todo).
     _escritura = _guardarSnapshot().catchError((Object _) {});
@@ -200,6 +205,12 @@ class AppEstado extends ChangeNotifier {
   String? _seleccionada;
   final _recomendaciones = <String, Recomendacion>{};
   final _enCurso = <String>{};
+  String? _fincaPlanV3;
+  OpcionesPlanV3 _opcionesPlanV3 = OpcionesPlanV3.inicial;
+  ResultadoPlanV3? _resultadoPlanV3;
+  final _planificadorV3 = PlanificadorV3();
+  Future<void> _escrituraPlanV3 = Future.value();
+  bool? _planV3Desactualizado;
 
   /// Ignora una segunda llamada mientras la primera sigue en curso (doble
   /// toque), para no duplicar registros.
@@ -299,6 +310,7 @@ class AppEstado extends ChangeNotifier {
       ].every((v) => v);
   void _cambio() {
     _recomendaciones.clear();
+    _planV3Desactualizado = null;
     notifyListeners();
   }
 
@@ -404,13 +416,12 @@ class AppEstado extends ChangeNotifier {
           sLat += c.latitud;
           sLon += c.longitud;
         }
-        return (
-          lat: sLat / l.geometria.length,
-          lon: sLon / l.geometria.length,
-        );
+        return (lat: sLat / l.geometria.length, lon: sLon / l.geometria.length);
       }
       if (objetivo.contorno.isNotEmpty) {
-        final centro = finca.marco.aGeografico([centroDe(objetivo.contorno)]).first;
+        final centro = finca.marco.aGeografico([
+          centroDe(objetivo.contorno),
+        ]).first;
         return (lat: centro.latitud, lon: centro.longitud);
       }
     }
@@ -1180,6 +1191,203 @@ class AppEstado extends ChangeNotifier {
     _cambio();
   }
 
+  OpcionesPlanV3 get opcionesPlanV3 =>
+      _fincaPlanV3 == parcela?.id ? _opcionesPlanV3 : OpcionesPlanV3.inicial;
+
+  ResultadoPlanV3? get resultadoPlanV3 =>
+      _fincaPlanV3 == parcela?.id ? _resultadoPlanV3 : null;
+
+  bool get resultadoPlanV3Desactualizado {
+    final resultado = resultadoPlanV3;
+    if (resultado == null) return false;
+    if (soloFecha(resultado.calculado) != soloFecha(hoy)) return true;
+    if (_planV3Desactualizado case final bool anterior) return anterior;
+    return _planV3Desactualizado =
+        _identidadPlanV3(opcionesPlanV3, hoy) != resultado.solicitudId;
+  }
+
+  void _restaurarPlanV3() {
+    final fincaId = parcela?.id;
+    if (fincaId == null) return;
+    final guardado = _almacen.leerPlanV3(fincaId);
+    if (guardado == null) return;
+    _fincaPlanV3 = fincaId;
+    if (guardado['opciones'] case final Map<String, dynamic> opciones) {
+      try {
+        _opcionesPlanV3 = OpcionesPlanV3.deJson(opciones);
+      } catch (_) {
+        _opcionesPlanV3 = OpcionesPlanV3.inicial;
+      }
+    }
+    if (guardado['resultado'] case final Map<String, dynamic> resultado) {
+      try {
+        _resultadoPlanV3 = ResultadoPlanV3.deJson(resultado);
+      } catch (_) {
+        _resultadoPlanV3 = null;
+      }
+    }
+  }
+
+  String _identidadPlanV3(OpcionesPlanV3 opciones, DateTime fecha) {
+    final datos = _snapshot()
+      ..remove('seleccionada')
+      ..remove('ultimaSync');
+    final json = jsonEncode([
+      ResultadoPlanV3.revision,
+      fechaIso(fecha),
+      opciones.aJson(),
+      datos,
+    ]);
+    return sha256.convert(utf8.encode(json)).toString();
+  }
+
+  Future<void> calcularPlanV3(OpcionesPlanV3 opciones) =>
+      _enColaPlanV3((fincaId) async {
+        opciones.validar();
+        if (plantaciones.isEmpty) {
+          await _guardarPlanV3(fincaId, opciones, null);
+          return;
+        }
+        final fecha = hoy;
+        final identidad = _identidadPlanV3(opciones, fecha);
+        final lotes = <LoteParaPlanV3>[];
+        for (final p in plantaciones) {
+          final lote = lotePorId(p.loteId);
+          final area =
+              lote != null &&
+                  lote.geometria.isNotEmpty &&
+                  validarTrazo(p.contorno, excepto: p.id) == null
+              ? lote.areaM2 / 10000
+              : 0.0;
+          lotes.add((
+            campania: p,
+            nombre: txt.nombrePlantacion(p),
+            areaHa: area,
+            balance: recomendacionDe(p),
+            riegos: riegosDiarios.where((r) => r.campaniaId == p.id).toList(),
+            registros: registrosDe(p.id),
+            eventos: eventosDe(p.id),
+          ));
+        }
+        final resultado = await _planificadorV3.calcular(
+          solicitudId: identidad,
+          parcela: parcela!,
+          lotes: lotes,
+          clima: List.of(clima),
+          hoy: fecha,
+          opciones: opciones,
+          suministro: suministroDe(fecha),
+        );
+        if (_identidadPlanV3(opciones, hoy) != identidad) {
+          throw FormatException(
+            txt.bilingue(
+              'Cambiaron los datos de la finca. Calcula el plan otra vez.',
+              'Farm data changed. Calculate the plan again.',
+            ),
+          );
+        }
+        await _guardarPlanV3(fincaId, opciones, resultado);
+      });
+
+  Future<PropuestaSiembraV3> proponerSiembraV3({
+    String? loteId,
+    List<Punto>? contorno,
+    double? lado,
+  }) async {
+    final finca = parcela;
+    final lote = loteId == null ? null : lotePorId(loteId);
+    if (finca == null ||
+        loteId != null &&
+            (lote == null || plantaciones.any((p) => p.loteId == loteId))) {
+      throw FormatException(
+        txt.bilingue('Elige un lote disponible.', 'Choose an available plot.'),
+      );
+    }
+    final marco = lado == null ? finca.marco : finca.con(lado: lado).marco;
+    final geometria =
+        lote?.geometria ?? marco.aGeografico(contorno ?? const []);
+    final puntos = marco.aPlano(geometria);
+    final fallo = validarPoligono(puntos, lado: lado ?? finca.lado);
+    if (fallo != null) throw FormatException(txt.errorGeometria(fallo));
+    final areaHa = areaGeografica(geometria) / 10000;
+    final fecha = soloFecha(hoy);
+    final diasUtiles = clima.where((dia) {
+      final dias = fecha.difference(soloFecha(dia.fecha)).inDays;
+      return dia.completo && dia.lluvia != null && dias > 0 && dias <= 28;
+    }).toList();
+    if (diasUtiles.length < 4 ||
+        !diasUtiles.any(
+          (dia) => fecha.difference(soloFecha(dia.fecha)).inDays <= 10,
+        )) {
+      await sincronizar();
+    }
+    if (parcela?.id != finca.id ||
+        parcela?.latitud != finca.latitud ||
+        parcela?.longitud != finca.longitud) {
+      throw FormatException(
+        txt.bilingue('La finca cambió.', 'The farm changed.'),
+      );
+    }
+    final anteriores =
+        loteId == null
+              ? <Plantacion>[]
+              : campanias.where((p) => p.loteId == loteId).toList()
+          ..sort((a, b) => b.fecha.compareTo(a.fecha));
+    final anterior = anteriores.firstOrNull;
+    return _planificadorV3.proponerSiembra(
+      parcela: finca,
+      clima: List.of(clima),
+      hoy: hoy,
+      areaHa: areaHa,
+      suelo: anterior?.suelo ?? Suelo.franco,
+      riego: anterior?.riego ?? TipoRiego.ninguno,
+      cultivoAnterior: anterior?.cultivoId ?? '',
+      opciones: opcionesPlanV3,
+      suministro: suministroDe(hoy),
+    );
+  }
+
+  Future<void> _enColaPlanV3(Future<void> Function(String) guardar) async {
+    final fincaId = parcela?.id;
+    if (fincaId == null) {
+      throw FormatException(
+        txt.bilingue('Configura primero tu finca.', 'Set up your farm first.'),
+      );
+    }
+    return _escribirPlanV3EnOrden(() {
+      if (parcela?.id != fincaId) {
+        throw FormatException(
+          txt.bilingue('La finca cambió.', 'The farm changed.'),
+        );
+      }
+      return guardar(fincaId);
+    });
+  }
+
+  Future<void> _escribirPlanV3EnOrden(Future<void> Function() escribir) {
+    final proxima = _escrituraPlanV3
+        .catchError((Object _) {})
+        .then((_) => escribir());
+    _escrituraPlanV3 = proxima;
+    return proxima;
+  }
+
+  Future<void> _guardarPlanV3(
+    String fincaId,
+    OpcionesPlanV3 opciones,
+    ResultadoPlanV3? resultado,
+  ) async {
+    await _almacen.guardarPlanV3(fincaId, {
+      'opciones': opciones.aJson(),
+      'resultado': resultado?.aJson(),
+    });
+    _fincaPlanV3 = fincaId;
+    _opcionesPlanV3 = opciones;
+    _resultadoPlanV3 = resultado;
+    _planV3Desactualizado = null;
+    notifyListeners();
+  }
+
   Map<String, dynamic> exportarPaquete() => {
     'esquema': 'field-shift-finca',
     'version': 1,
@@ -1390,10 +1598,7 @@ class AppEstado extends ChangeNotifier {
         (j['ultimaSync'] is! String ||
             DateTime.tryParse(j['ultimaSync'] as String) == null)) {
       throw FormatException(
-        txt.bilingue(
-          'Fecha de calendario inválida',
-          'Invalid calendar date',
-        ),
+        txt.bilingue('Fecha de calendario inválida', 'Invalid calendar date'),
       );
     }
     final finca = Parcela.deJson(
@@ -1732,7 +1937,16 @@ class AppEstado extends ChangeNotifier {
       for (final x in plantaciones) {
         if (x.fecha.isBefore(desde)) desde = soloFecha(x.fecha);
       }
-      final limite = DateTime(fin.year, fin.month, fin.day - 240);
+      final hayCafe = plantaciones.any((x) => x.cultivoId == cultivoCafe);
+      if (hayCafe) {
+        final inicioCafetal = primeroDeNoviembre(fin);
+        if (inicioCafetal.isBefore(desde)) desde = inicioCafetal;
+      }
+      final limite = DateTime(
+        fin.year,
+        fin.month,
+        fin.day - (hayCafe ? 366 : 240),
+      );
       if (desde.isBefore(limite)) desde = limite;
       final r = await _servicio.descargar(
         latitud: p.latitud,
@@ -1837,7 +2051,7 @@ class AppEstado extends ChangeNotifier {
     );
   }
 
-  Future<void> borrarTodo() async {
+  Future<void> borrarTodo() => _escribirPlanV3EnOrden(() async {
     await _escritura.catchError((Object _) {});
     await _almacen.borrarTodo();
     parcela = null;
@@ -1851,10 +2065,13 @@ class AppEstado extends ChangeNotifier {
     _eventos = [];
     ultimaSync = null;
     _seleccionada = null;
+    _fincaPlanV3 = null;
+    _opcionesPlanV3 = OpcionesPlanV3.inicial;
+    _resultadoPlanV3 = null;
     await _almacen.guardarIdioma(idioma);
     await _guardarSnapshot();
     _cambio();
-  }
+  });
 }
 
 /// Da acceso al estado desde cualquier pantalla y la redibuja cuando cambia.

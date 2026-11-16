@@ -8,6 +8,8 @@ import 'bitacora.dart';
 import 'registro.dart' show PantallaRegistro;
 import 'agua.dart';
 import 'plantacion.dart';
+import 'siembra_v3.dart';
+import 'cafe_red.dart';
 import 'ajustes.dart' show confirmar;
 import 'hoy.dart' show PantallaDetalleAgua, PestanaHoy;
 import '../motor/recomendador.dart' show NivelAgua;
@@ -134,6 +136,7 @@ class _MiPlantacion extends State<PantallaMiPlantacion> {
                   ),
                 ],
               ),
+              TarjetaRedCafe(plantacion: p, recomendacion: r),
             ],
             Padding(
               padding: const EdgeInsets.all(Espacio.l),
@@ -158,52 +161,66 @@ class _MiPlantacion extends State<PantallaMiPlantacion> {
               ),
             ),
             const SizedBox(height: Espacio.m),
-            if (p != null || hayAnteriores)
-              Grupo(
-                children: [
-                  if (p != null)
-                    Fila(
-                      titulo: t.bilingue('Ver registros', 'View records'),
-                      icono: CupertinoIcons.square_list,
-                      alPulsar: () => Navigator.of(context).push(
-                        CupertinoPageRoute<void>(
-                          builder: (_) => PantallaBitacora(campaniaId: p.id),
-                        ),
+            Grupo(
+              children: [
+                if (p == null)
+                  Fila(
+                    key: const Key('lote-siembra-v3'),
+                    titulo: t.bilingue(
+                      'Sugerir cultivo con red neuronal',
+                      'Suggest crop with neural network',
+                    ),
+                    icono: CupertinoIcons.leaf_arrow_circlepath,
+                    alPulsar: () => Navigator.of(context).push(
+                      CupertinoPageRoute<void>(
+                        builder: (_) =>
+                            PantallaSiembraV3(loteId: widget.loteId),
                       ),
                     ),
-                  if (p != null)
-                    Fila(
-                      titulo: t.bilingue(
-                        'Datos de la plantación',
-                        'Planting details',
-                      ),
-                      detalle: t.bilingue(
-                        'Cultivo, fecha, riego y suelo',
-                        'Crop, date, irrigation and soil',
-                      ),
-                      icono: CupertinoIcons.pencil,
-                      alPulsar: () => Navigator.of(context).push(
-                        CupertinoPageRoute<void>(
-                          builder: (_) => PantallaPlantacion(id: p.id),
-                        ),
+                  ),
+                if (p != null)
+                  Fila(
+                    titulo: t.bilingue('Ver registros', 'View records'),
+                    icono: CupertinoIcons.square_list,
+                    alPulsar: () => Navigator.of(context).push(
+                      CupertinoPageRoute<void>(
+                        builder: (_) => PantallaBitacora(campaniaId: p.id),
                       ),
                     ),
-                  if (hayAnteriores)
-                    Fila(
-                      titulo: t.bilingue(
-                        'Cultivos anteriores de este lote',
-                        'Previous crops in this plot',
-                      ),
-                      icono: CupertinoIcons.clock,
-                      alPulsar: () => Navigator.of(context).push(
-                        CupertinoPageRoute<void>(
-                          builder: (_) =>
-                              PantallaCampanias(loteId: widget.loteId),
-                        ),
+                  ),
+                if (p != null)
+                  Fila(
+                    titulo: t.bilingue(
+                      'Datos de la plantación',
+                      'Planting details',
+                    ),
+                    detalle: t.bilingue(
+                      'Cultivo, fecha, riego y suelo',
+                      'Crop, date, irrigation and soil',
+                    ),
+                    icono: CupertinoIcons.pencil,
+                    alPulsar: () => Navigator.of(context).push(
+                      CupertinoPageRoute<void>(
+                        builder: (_) => PantallaPlantacion(id: p.id),
                       ),
                     ),
-                ],
-              ),
+                  ),
+                if (hayAnteriores)
+                  Fila(
+                    titulo: t.bilingue(
+                      'Cultivos anteriores de este lote',
+                      'Previous crops in this plot',
+                    ),
+                    icono: CupertinoIcons.clock,
+                    alPulsar: () => Navigator.of(context).push(
+                      CupertinoPageRoute<void>(
+                        builder: (_) =>
+                            PantallaCampanias(loteId: widget.loteId),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
             if (p != null)
               SeccionDesplegable(
                 titulo: t.bilingue('Más opciones', 'More options'),
