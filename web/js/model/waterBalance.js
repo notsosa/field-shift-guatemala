@@ -75,6 +75,9 @@ export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, ir
         if (k > kc) { kc = k; p = crop.p; }
       }
     }
+    // plotAdjust.kcSeries / .p (opcional, Tarea 41): lote de un sistema auditado, un solo Kc diario y una sola p para todo el lote (ver coffee.js, SYSTEMS). Sin ellos, nada cambia.
+    if (plotAdjust?.kcSeries) kc = plotAdjust.kcSeries[i];
+    if (plotAdjust?.p != null) p = plotAdjust.p;
     const taw = tawOf(zr);
     if (i === 0) {
       const full = irrigation === 'full';

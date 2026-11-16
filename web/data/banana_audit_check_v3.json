@@ -1,0 +1,272 @@
+{
+  "meta": {
+    "task": 41,
+    "generatedBy": "scripts/coffee/verify_banana_audit.mjs (sección v3)",
+    "audit": "auditorias/prueba cafe banano 2025/ (origin/main, commit ac37f1b); cifras copiadas en scripts/coffee/banana_audit_reference.json",
+    "systems": {
+      "limpio": {
+        "kc_ini_mid_end": [
+          0.9,
+          0.95,
+          0.95
+        ],
+        "p": 0.4,
+        "label": "café solo, suelo limpio o con mulch (calendario de la auditoría)"
+      },
+      "malezas": {
+        "kc_ini_mid_end": [
+          1.05,
+          1.1,
+          1.1
+        ],
+        "p": 0.4,
+        "label": "café solo con cobertura viva o malezas entre los surcos"
+      },
+      "regulado": {
+        "kc_ini_mid_end": [
+          0.95,
+          1.05,
+          1
+        ],
+        "p": 0.38,
+        "label": "café + banano regulado (35–45 % de sombra) con mulch de Musa"
+      },
+      "denso": {
+        "kc_ini_mid_end": [
+          1,
+          1.2,
+          1.1
+        ],
+        "p": 0.35,
+        "label": "café + banano denso sin deshije"
+      }
+    },
+    "systems_source": "auditorias/prueba cafe banano 2025/datos/cultivos/parametros_auditados.json (origin/main ac37f1b), valores de referencia FAO-56 Tablas 12 y 22, sin calibración local; Zr propio de este modelo (1.2 m, la auditoría usa 1.0 m)",
+    "kc_calendar": "etapas de 365 días desde el 1 de enero: ini 60 d, desarrollo 90 d (lineal), media 125 d, final 90 d (lineal), como en parametros_auditados.json (etapas \"365\"); reproduce las cuatro ETc de la auditoría con su ET0 (ver calendar_check)",
+    "run": "corrida C de la tarea 40: ET0 FAO-56 NASA POWER y lluvia ERA5 de la auditoría (2025), TAW 130.7 mm sobre la zona radicular del café del simulador (Zr 1.2 m), reserva inicial 25 %, escorrentía 15 % (lluvia efectiva 0.85·P con CN mínimo), secano",
+    "not_matched": [
+      "Zr: 1.2 m en el simulador, 1.0 m en la auditoría (se igualó TAW 130.7 mm, no la profundidad)",
+      "Escorrentía: fracción fija 15 % aplicada a la lluvia, como en la corrida C",
+      "Suelo de 5 capas de la auditoría frente a una zona radicular + subsuelo en nuestro simulador",
+      "Los Kc y la p son valores de referencia de FAO-56 que la propia auditoría dice que falta confirmar en campo"
+    ],
+    "definitions": "demanda = Σ ETc del lote; ETa = Σ ETa; déficit = demanda − ETa; días con Ks < 0.95 sobre el Ks del lote (con la p del sistema). Secano."
+  },
+  "tolerances_fixed_before_computing": {
+    "sign_and_order": "required: demanda y déficit con limpio < regulado < malezas < denso",
+    "regulated_minus_clean_deficit_mm": [
+      39.61,
+      240.48
+    ],
+    "dense_minus_clean_deficit_mm": [
+      39.61,
+      585.6
+    ],
+    "regulated_less_deficit_than_weedy": "required: déficit regulado < déficit malezas",
+    "regulated_minus_weedy_deficit_mm": [
+      -201.66,
+      -38.51
+    ],
+    "audit_era5_row": {
+      "regulated_minus_clean_deficit_mm": 96.36,
+      "dense_minus_clean_deficit_mm": 238.74,
+      "regulated_minus_weedy_deficit_mm": -87.16
+    }
+  },
+  "calendar_check": {
+    "limpio": {
+      "sum_kc_et0_mm": 1404.76,
+      "audit_etc_mm": 1404.76,
+      "diff_mm": 0
+    },
+    "regulado": {
+      "sum_kc_et0_mm": 1525.49,
+      "audit_etc_mm": 1525.49,
+      "diff_mm": 0
+    },
+    "malezas": {
+      "sum_kc_et0_mm": 1630.07,
+      "audit_etc_mm": 1630.07,
+      "diff_mm": 0
+    },
+    "denso": {
+      "sum_kc_et0_mm": 1699.12,
+      "audit_etc_mm": 1699.12,
+      "diff_mm": 0
+    }
+  },
+  "run_C_v3": {
+    "limpio": {
+      "demand_mm": 1404.76,
+      "eta_mm": 745.1,
+      "deficit_mm": 659.65,
+      "days_ks_lt_095": 257,
+      "days_ks_lt_1": 263,
+      "runoff_mm": 0
+    },
+    "regulado": {
+      "demand_mm": 1525.49,
+      "eta_mm": 772.72,
+      "deficit_mm": 752.77,
+      "days_ks_lt_095": 269,
+      "days_ks_lt_1": 271,
+      "runoff_mm": 0
+    },
+    "malezas": {
+      "demand_mm": 1630.07,
+      "eta_mm": 792.11,
+      "deficit_mm": 837.96,
+      "days_ks_lt_095": 270,
+      "days_ks_lt_1": 272,
+      "runoff_mm": 0
+    },
+    "denso": {
+      "demand_mm": 1699.12,
+      "eta_mm": 808.39,
+      "deficit_mm": 890.74,
+      "days_ks_lt_095": 277,
+      "days_ks_lt_1": 280,
+      "runoff_mm": 0
+    }
+  },
+  "versus_audit_era5": {
+    "limpio": {
+      "audit_era5": {
+        "demand_mm": 1404.76,
+        "eta_mm": 756.49,
+        "deficit_mm": 648.26,
+        "days_ks_lt_095": 249
+      },
+      "ours_minus_audit": {
+        "demand_mm": 0,
+        "eta_mm": -11.39,
+        "deficit_mm": 11.39,
+        "days_ks_lt_095": 8
+      }
+    },
+    "regulado": {
+      "audit_era5": {
+        "demand_mm": 1525.49,
+        "eta_mm": 780.87,
+        "deficit_mm": 744.62,
+        "days_ks_lt_095": 264
+      },
+      "ours_minus_audit": {
+        "demand_mm": 0,
+        "eta_mm": -8.15,
+        "deficit_mm": 8.15,
+        "days_ks_lt_095": 5
+      }
+    },
+    "malezas": {
+      "audit_era5": {
+        "demand_mm": 1630.07,
+        "eta_mm": 798.29,
+        "deficit_mm": 831.78,
+        "days_ks_lt_095": 266
+      },
+      "ours_minus_audit": {
+        "demand_mm": 0,
+        "eta_mm": -6.18,
+        "deficit_mm": 6.18,
+        "days_ks_lt_095": 4
+      }
+    },
+    "denso": {
+      "audit_era5": {
+        "demand_mm": 1699.12,
+        "eta_mm": 812.13,
+        "deficit_mm": 887,
+        "days_ks_lt_095": 276
+      },
+      "ours_minus_audit": {
+        "demand_mm": 0,
+        "eta_mm": -3.74,
+        "deficit_mm": 3.74,
+        "days_ks_lt_095": 1
+      }
+    }
+  },
+  "comparison": {
+    "differences": {
+      "regulated_minus_clean": {
+        "demand_mm": 120.73,
+        "eta_mm": 27.62,
+        "deficit_mm": 93.12,
+        "days_ks_lt_095": 12
+      },
+      "dense_minus_clean": {
+        "demand_mm": 294.36,
+        "eta_mm": 63.29,
+        "deficit_mm": 231.09,
+        "days_ks_lt_095": 20
+      },
+      "weedy_minus_clean": {
+        "demand_mm": 225.31,
+        "eta_mm": 47.01,
+        "deficit_mm": 178.31,
+        "days_ks_lt_095": 13
+      },
+      "regulated_minus_weedy": {
+        "demand_mm": -104.58,
+        "eta_mm": -19.39,
+        "deficit_mm": -85.19,
+        "days_ks_lt_095": -1
+      }
+    },
+    "audit_era5_differences": {
+      "regulated_minus_clean_deficit_mm": 96.36,
+      "dense_minus_clean_deficit_mm": 238.74,
+      "regulated_minus_weedy_deficit_mm": -87.16,
+      "regulated_minus_weedy_range_4_sources_mm": [
+        -100.83,
+        -77.01
+      ]
+    },
+    "sign_ok": true,
+    "order_ok": true,
+    "regulated_close": true,
+    "dense_close": true,
+    "regulated_less_deficit_than_weedy_reproduces": true,
+    "regulated_vs_weedy_magnitude_close": true,
+    "regulated_vs_weedy_inside_audit_range": true
+  },
+  "legacy_clean_coffee_same_inputs": {
+    "note": "el café de siempre (sin la opción): Kc 0.95 constante, p 0.40; es la línea base \"limpio\" de la red",
+    "demand_mm": 1426.96,
+    "eta_mm": 745.16,
+    "deficit_mm": 681.8,
+    "days_ks_lt_095": 257,
+    "days_ks_lt_1": 263,
+    "runoff_mm": 0,
+    "demand_minus_audit_calendar_clean_mm": 22.2,
+    "deficit_minus_audit_calendar_clean_mm": 22.15
+  },
+  "v2_cover_fraction_run_C_for_reference": {
+    "note": "de web/data/banana_audit_check.json (tarea 40, archivado)",
+    "alone": {
+      "demand_mm": 1426.96,
+      "eta_mm": 745.16,
+      "deficit_mm": 681.8,
+      "days_ks_lt_095": 257,
+      "days_ks_lt_1": 263,
+      "runoff_mm": 0
+    },
+    "banana015": {
+      "demand_mm": 1452.99,
+      "eta_mm": 753.04,
+      "deficit_mm": 699.95,
+      "days_ks_lt_095": 263,
+      "days_ks_lt_1": 268,
+      "runoff_mm": 0
+    },
+    "banana030": {
+      "demand_mm": 1561.24,
+      "eta_mm": 794.54,
+      "deficit_mm": 766.7,
+      "days_ks_lt_095": 273,
+      "days_ks_lt_1": 274,
+      "runoff_mm": 0
+    }
+  }
+}

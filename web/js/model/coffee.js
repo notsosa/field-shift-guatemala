@@ -69,6 +69,50 @@ export function plotAdjust(dates, shade, treeType, opts = {}) {
   };
 }
 
+// --- Sistemas de la auditoría del asesor (Tarea 41): cuatro clases con un Kc compuesto y una p para TODO el lote (café + lo que crece entre los surcos). Reemplazan a la fórmula por cobertura de la Tarea 38,
+// que sumaba un término de banano y contaba su estrés dos veces. Fuente: auditorias/prueba cafe banano 2025/datos/cultivos/parametros_auditados.json (origin/main, commit ac37f1b), que cita FAO-56 Tablas 12 y 22:
+// café con suelo limpio o mulch 0.90/0.95/0.95; café con malezas 1.05/1.10/1.10; café + banano regulado (35–45 % de sombra) con mulch de Musa 0.95/1.05/1.00, p 0.38; café + banano denso sin deshije 1.00/1.20/1.10, p 0.35.
+// Son valores de referencia de FAO-56, no medidos en campo (el propio asesor pide confirmarlos). La raíz sigue siendo la nuestra (1.2 m; la auditoría usa 1.0 m).
+// Calendario de los tres Kc (el de la auditoría, que reproduce sus ETc anuales con sus ET0 al centésimo de mm): etapas de 365 días desde el 1 de enero, ini 60 d (Kc ini), desarrollo 90 d (lineal ini → mid),
+// media 125 d (Kc mid), final 90 d (lineal mid → fin). Como el café es perenne, el mismo calendario se repite cada año civil por día del año (el 31 de dic. de un año bisiesto usa el Kc final).
+export const SYSTEMS = {
+  limpio: { kc: [0.90, 0.95, 0.95], p: 0.40, label: 'café solo, suelo limpio o con mulch (calendario de la auditoría)' },
+  malezas: { kc: [1.05, 1.10, 1.10], p: 0.40, label: 'café solo con cobertura viva o malezas entre los surcos' },
+  regulado: { kc: [0.95, 1.05, 1.00], p: 0.38, label: 'café + banano regulado (35–45 % de sombra) con mulch de Musa' },
+  denso: { kc: [1.00, 1.20, 1.10], p: 0.35, label: 'café + banano denso sin deshije' },
+};
+export const SYSTEM_IDS = Object.keys(SYSTEMS);
+export const SYSTEM_STAGE_DAYS = { ini: 60, dev: 90, mid: 125, late: 90 };
+export const SYSTEMS_SOURCE = 'auditorias/prueba cafe banano 2025/datos/cultivos/parametros_auditados.json (origin/main ac37f1b), valores de referencia FAO-56 Tablas 12 y 22, sin calibración local; Zr propio de este modelo (1.2 m, la auditoría usa 1.0 m)';
+export const GROUND = ['limpio', 'malezas']; // suelo entre los surcos
+export const BANANA_CLASS = ['ninguno', 'regulado', 'denso']; // banano entre los surcos
+
+/** Kc de un sistema el día del año doy (1–366), con el calendario de la auditoría. */
+export function systemKc(kc, doy) {
+  const i = Math.min(doy, 365) - 1;
+  const { ini, dev, mid, late } = SYSTEM_STAGE_DAYS;
+  if (i < ini) return kc[0];
+  if (i < ini + dev) return kc[0] + (kc[1] - kc[0]) * (i - ini + 1) / dev;
+  if (i < ini + dev + mid) return kc[1];
+  return kc[1] + (kc[2] - kc[1]) * (i - ini - dev - mid + 1) / late;
+}
+/** Ajuste del lote para simulateDays con un sistema auditado: Kc diario y p únicos, sin recorte ni término extra (nada se cuenta dos veces). */
+export function systemAdjust(dates, system) {
+  const s = SYSTEMS[system];
+  if (!s) throw new Error(`systemAdjust: unknown system "${system}"`);
+  return { reduce: dates.map(() => 0), add: dates.map(() => 0), kcSeries: dates.map((d) => systemKc(s.kc, dayOfYear(d))), p: s.p };
+}
+/**
+ * Sistema que corresponde a lo que declara el agricultor: suelo entre los surcos (limpio | malezas) y banano (ninguno | regulado | denso).
+ * Con banano, el suelo es el de la auditoría (con mulch de Musa) y `suelo` se ignora. Sin banano y suelo limpio devuelve null: el café de siempre (Kc 0.95 constante, p 0.40), sin opción de sistema.
+ */
+export function systemFor({ suelo = 'limpio', banano = 'ninguno' } = {}) {
+  if (!GROUND.includes(suelo)) throw new Error(`systemFor: unknown suelo "${suelo}"`);
+  if (!BANANA_CLASS.includes(banano)) throw new Error(`systemFor: unknown banano "${banano}"`);
+  if (banano !== 'ninguno') return banano;
+  return suelo === 'malezas' ? 'malezas' : null;
+}
+
 /** Floración del año calendario F: primer día del 15 feb al 30 abr con lluvia ≥ 10 mm, más 9 días; si no hay, 9 de mayo con noTrigger. */
 export function floweringFor(dates, rain, F) {
   const a = dates.indexOf(`${F}-02-15`), b = dates.indexOf(`${F}-04-30`);
@@ -78,8 +122,13 @@ export function floweringFor(dates, rain, F) {
 }
 
 /** Balance continuo del café sobre toda la serie, sin riego. Devuelve la salida de simulateDays (dr, ds, ks, eta, etc…). */
-export function simulateCoffee({ dates, rain, et0, crops, texture, shade = 'none', treeType = 'evergreen', slopeClass = 'flat', drInit, dsInit, bananaCover, bananaKs: withBananaKs = true }) {
+export function simulateCoffee({ dates, rain, et0, crops, texture, shade = 'none', treeType = 'evergreen', slopeClass = 'flat', drInit, dsInit, bananaCover, bananaKs: withBananaKs = true, system }) {
   const crop = crops.get(COFFEE_ID);
+  if (system != null) {
+    // Sistema auditado (Tarea 41, opt-in): no se combina con la sombra de árboles ni con la fórmula de banano por cobertura (Tarea 38).
+    if (shade !== 'none') throw new Error('simulateCoffee: a system cannot be combined with tree shade');
+    return simulateDays({ rain, et0, phases: [buildPerennialPhase(crop, rain.length)], crops, texture, slopeClass, irrigation: 'none', drInit, dsInit, plotAdjust: systemAdjust(dates, system) });
+  }
   return simulateDays({
     rain, et0, phases: [buildPerennialPhase(crop, rain.length)], crops, texture, slopeClass, irrigation: 'none', drInit, dsInit,
     plotAdjust: plotAdjust(dates, shade, treeType, { bananaCover, bananaKs: withBananaKs }) ?? undefined,
@@ -235,6 +284,18 @@ export function coffeeDecisionStateV2(args) {
   return { ...r, state: [...r.state, isBanana ? 1 : 0, isBanana ? args.bananaCover : 0] };
 }
 
+// Red v3 (Tarea 41): las 16 entradas de siempre más weeds, bananaRegulated y bananaDense (0/1 cada una; los sistemas de la auditoría, mutuamente excluyentes). Con un sistema, shadeTrees = 0 y deciduous = 0 (no se combina con árboles).
+// Sin sistema (café de siempre, suelo limpio) las tres entradas nuevas valen 0. La regla y el balance corrido de las 16 entradas siguen siendo los del café (Kc 0.95, p 0.40): es lo que el agricultor puede observar.
+export const STATE_NAMES_V3 = [...STATE_NAMES, 'weeds', 'bananaRegulated', 'bananaDense'];
+export const systemFlags = (system) => [system === 'malezas' ? 1 : 0, system === 'regulado' ? 1 : 0, system === 'denso' ? 1 : 0];
+export function coffeeDecisionStateV3(args) {
+  const { system, ...rest } = args;
+  if (system != null && !(system in SYSTEMS)) throw new Error(`coffeeDecisionStateV3: unknown system "${system}"`);
+  if (system != null && rest.shade === 'trees') throw new Error('coffeeDecisionStateV3: a system cannot be combined with tree shade');
+  const r = coffeeDecisionState(rest);
+  return { ...r, state: [...r.state, ...systemFlags(system)] };
+}
+
 /** La regla: regar si el balance corrido dice que la zona radicular gastó más de p (0.40) de su agua disponible (FAO-56). */
 export const ruleIrrigates = (depletion, taw, p) => depletion > p * taw;
 
@@ -242,14 +303,14 @@ export const ruleIrrigates = (depletion, taw, p) => depletion > p * taw;
  * Contrafactual desde el estado del día t (de la corrida continua `sim` sin riego): los 30 días siguientes sin riego y regando 20 mm al final del día t.
  * Estrés = días con Ks < 1. El riego sobre lo que falta se pierde hacia el subsuelo (que en este perfil, Zp = Zr, no tiene capacidad).
  */
-export function counterfactual({ dates, rain, et0, crops, texture, shade, treeType, sim, t, slopeClass = 'flat', irrigationMm = IRRIGATION_MM, horizon = HORIZON_DAYS, returnKs = false, bananaCover, bananaKs: withBananaKs = true }) {
+export function counterfactual({ dates, rain, et0, crops, texture, shade, treeType, sim, t, slopeClass = 'flat', irrigationMm = IRRIGATION_MM, horizon = HORIZON_DAYS, returnKs = false, bananaCover, bananaKs: withBananaKs = true, system }) {
   const lo = t + 1, hi = t + horizon;
   if (hi >= rain.length) throw new Error('counterfactual: the 30-day window goes past the end of the series');
   const run = (mm) => {
     const dr0 = Math.max(0, sim.dr[t] - mm);
     const excess = Math.max(0, mm - sim.dr[t]);
     const ds0 = Math.max(0, sim.ds[t] - excess);
-    const w = simulateCoffee({ dates: dates.slice(lo, hi + 1), rain: rain.slice(lo, hi + 1), et0: et0.slice(lo, hi + 1), crops, texture, shade, treeType, slopeClass, drInit: dr0, dsInit: ds0, bananaCover, bananaKs: withBananaKs });
+    const w = simulateCoffee({ dates: dates.slice(lo, hi + 1), rain: rain.slice(lo, hi + 1), et0: et0.slice(lo, hi + 1), crops, texture, shade, treeType, slopeClass, drInit: dr0, dsInit: ds0, bananaCover, bananaKs: withBananaKs, system });
     const m = stressOver(w, 0, horizon - 1);
     return { stressDays: m.stressDays, etaOverEtc: m.etaOverEtc, ks: returnKs ? w.ks : undefined };
   };

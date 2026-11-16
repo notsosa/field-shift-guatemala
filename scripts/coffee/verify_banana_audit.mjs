@@ -10,7 +10,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadCrops } from '../../web/js/model/crops.js';
 import { computeEt0Series } from '../../web/js/model/simulate.js';
-import { COFFEE_ID, BANANA, simulateCoffee, plotAdjust } from '../../web/js/model/coffee.js';
+import { COFFEE_ID, BANANA, SYSTEMS, SYSTEMS_SOURCE, simulateCoffee, plotAdjust } from '../../web/js/model/coffee.js';
 import { simulateDays } from '../../web/js/model/waterBalance.js';
 import { buildPerennialPhase } from '../../web/js/model/phenology.js';
 
@@ -213,3 +213,79 @@ const out = {
 };
 fs.writeFileSync(path.join(root, 'web/data/banana_audit_check.json'), `${JSON.stringify(out, null, 2)}\n`);
 console.log(JSON.stringify({ A, B, C, cmp, cover, context, auditRef }, null, 1));
+
+// ===================== Tarea 41 (v3): los cuatro sistemas de la auditoría con su Kc compuesto y su p -> web/data/banana_audit_check_v3.json =====================
+// Corrida C de la tarea 40 (ET0 FAO-56 NASA POWER y lluvia ERA5 de la auditoría, TAW 130.7 mm sobre Zr 1.2 m, reserva inicial 25 %, escorrentía 15 %), pero con la opción `system` de simulateCoffee.
+// Tolerancias fijadas ANTES de calcular (las de la tarea 40, aplicadas a las clases de la auditoría; más la comparación con el café con malezas):
+//  - signo y orden iguales a los de la auditoría (obligatorio): en demanda y en déficit limpio < regulado < malezas < denso.
+//  - magnitud "cercana": déficit regulado − limpio entre el rango de la auditoría (4 fuentes de lluvia) ÷ 2 y × 2 (39.6 a 240.5 mm); déficit denso − limpio entre regulado ÷ 2 y (denso − limpio) × 2 (39.6 a 585.6 mm).
+//  - banano regulado con mulch tiene MENOS déficit que el café al sol con malezas (obligatorio; auditoría ERA5: −87.16 mm, rango −100.83 a −77.01); magnitud cercana: entre ese rango × 2 y ÷ 2 (201.7 a 38.5 mm menos).
+// Se informa además la diferencia contra las filas ERA5 de la auditoría (demanda, ETa, déficit, días con Ks < 0.95). No se ajusta nada para acercarse.
+const SYS_ROWS = [
+  { id: 'limpio', audit: E.cafe_solo_limpio },
+  { id: 'regulado', audit: E.cafe_banano_regulado },
+  { id: 'malezas', audit: E.cafe_solo_malezas },
+  { id: 'denso', audit: E.cafe_banano_denso },
+];
+const runSystem = (id, run) => {
+  const sim = simulateCoffee({ dates: run.dates, rain: run.rain, et0: run.et0, crops, texture: run.texture, system: id, slopeClass: 'flat', drInit: run.drInit });
+  return measures(sim, 0, 364);
+};
+const V3C = Object.fromEntries(SYS_ROWS.map((r) => [r.id, runSystem(r.id, runC)]));
+const vsAudit = Object.fromEntries(SYS_ROWS.map((r) => [r.id, {
+  audit_era5: { demand_mm: r2(r.audit.ETc_mm), eta_mm: r2(r.audit.ETa_mm), deficit_mm: r2(r.audit.deficit_mm), days_ks_lt_095: r.audit.dias_Ks_lt_095 },
+  ours_minus_audit: { demand_mm: r2(V3C[r.id].demand_mm - r.audit.ETc_mm), eta_mm: r2(V3C[r.id].eta_mm - r.audit.ETa_mm), deficit_mm: r2(V3C[r.id].deficit_mm - r.audit.deficit_mm), days_ks_lt_095: V3C[r.id].days_ks_lt_095 - r.audit.dias_Ks_lt_095 },
+}]));
+const dv = (a, b, k) => r2(V3C[a][k] - V3C[b][k]);
+const regVsWeedyRange = auditRef.deficit_diff_regulated_vs_weedy_range_mm; // [-100.83, -77.01]
+const tolV3 = {
+  sign_and_order: 'required: demanda y déficit con limpio < regulado < malezas < denso',
+  regulated_minus_clean_deficit_mm: [r2(regLo / 2), r2(regHi * 2)],
+  dense_minus_clean_deficit_mm: [r2(regLo / 2), r2(denseHi * 2)],
+  regulated_less_deficit_than_weedy: 'required: déficit regulado < déficit malezas',
+  regulated_minus_weedy_deficit_mm: [r2(regVsWeedyRange[0] * 2), r2(regVsWeedyRange[1] / 2)],
+  audit_era5_row: { regulated_minus_clean_deficit_mm: auditRef.era5.deficit_diff_regulated_mm, dense_minus_clean_deficit_mm: auditRef.era5.deficit_diff_dense_vs_clean_mm, regulated_minus_weedy_deficit_mm: r2(E.cafe_banano_regulado.deficit_mm - E.cafe_solo_malezas.deficit_mm) },
+};
+const orderOf = (k) => V3C.limpio[k] < V3C.regulado[k] && V3C.regulado[k] < V3C.malezas[k] && V3C.malezas[k] < V3C.denso[k];
+const dRegClean = dv('regulado', 'limpio', 'deficit_mm'), dDenseClean = dv('denso', 'limpio', 'deficit_mm'), dRegWeedy = dv('regulado', 'malezas', 'deficit_mm');
+const diffs = (a, b) => ({ demand_mm: dv(a, b, 'demand_mm'), eta_mm: dv(a, b, 'eta_mm'), deficit_mm: dv(a, b, 'deficit_mm'), days_ks_lt_095: V3C[a].days_ks_lt_095 - V3C[b].days_ks_lt_095 });
+const cmpV3 = {
+  differences: { regulated_minus_clean: diffs('regulado', 'limpio'), dense_minus_clean: diffs('denso', 'limpio'), weedy_minus_clean: diffs('malezas', 'limpio'), regulated_minus_weedy: diffs('regulado', 'malezas') },
+  audit_era5_differences: {
+    regulated_minus_clean_deficit_mm: tolV3.audit_era5_row.regulated_minus_clean_deficit_mm, dense_minus_clean_deficit_mm: tolV3.audit_era5_row.dense_minus_clean_deficit_mm,
+    regulated_minus_weedy_deficit_mm: tolV3.audit_era5_row.regulated_minus_weedy_deficit_mm, regulated_minus_weedy_range_4_sources_mm: regVsWeedyRange,
+  },
+  sign_ok: dRegClean > 0 && dDenseClean > 0, order_ok: orderOf('demand_mm') && orderOf('deficit_mm'),
+  regulated_close: inside(dRegClean, tolV3.regulated_minus_clean_deficit_mm), dense_close: inside(dDenseClean, tolV3.dense_minus_clean_deficit_mm),
+  regulated_less_deficit_than_weedy_reproduces: dRegWeedy < 0,
+  regulated_vs_weedy_magnitude_close: inside(dRegWeedy, tolV3.regulated_minus_weedy_deficit_mm),
+  regulated_vs_weedy_inside_audit_range: inside(dRegWeedy, regVsWeedyRange),
+};
+// el café de siempre (Kc 0.95 constante, sin calendario) en las mismas entradas, para ver cuánto lo separa del 'limpio' con el calendario de la auditoría
+const legacyClean = runCase({ shade: 'none' }, runC, 0, 364);
+const v3out = {
+  meta: {
+    task: 41, generatedBy: 'scripts/coffee/verify_banana_audit.mjs (sección v3)',
+    audit: 'auditorias/prueba cafe banano 2025/ (origin/main, commit ac37f1b); cifras copiadas en scripts/coffee/banana_audit_reference.json',
+    systems: Object.fromEntries(Object.entries(SYSTEMS).map(([k, v]) => [k, { kc_ini_mid_end: v.kc, p: v.p, label: v.label }])),
+    systems_source: SYSTEMS_SOURCE,
+    kc_calendar: 'etapas de 365 días desde el 1 de enero: ini 60 d, desarrollo 90 d (lineal), media 125 d, final 90 d (lineal), como en parametros_auditados.json (etapas "365"); reproduce las cuatro ETc de la auditoría con su ET0 (ver calendar_check)',
+    run: 'corrida C de la tarea 40: ET0 FAO-56 NASA POWER y lluvia ERA5 de la auditoría (2025), TAW 130.7 mm sobre la zona radicular del café del simulador (Zr 1.2 m), reserva inicial 25 %, escorrentía 15 % (lluvia efectiva 0.85·P con CN mínimo), secano',
+    not_matched: [
+      'Zr: 1.2 m en el simulador, 1.0 m en la auditoría (se igualó TAW 130.7 mm, no la profundidad)',
+      'Escorrentía: fracción fija 15 % aplicada a la lluvia, como en la corrida C',
+      'Suelo de 5 capas de la auditoría frente a una zona radicular + subsuelo en nuestro simulador',
+      'Los Kc y la p son valores de referencia de FAO-56 que la propia auditoría dice que falta confirmar en campo',
+    ],
+    definitions: 'demanda = Σ ETc del lote; ETa = Σ ETa; déficit = demanda − ETa; días con Ks < 0.95 sobre el Ks del lote (con la p del sistema). Secano.',
+  },
+  tolerances_fixed_before_computing: tolV3,
+  calendar_check: Object.fromEntries(SYS_ROWS.map((r) => [r.id, { sum_kc_et0_mm: V3C[r.id].demand_mm, audit_etc_mm: r2(r.audit.ETc_mm), diff_mm: r2(V3C[r.id].demand_mm - r.audit.ETc_mm) }])),
+  run_C_v3: V3C,
+  versus_audit_era5: vsAudit,
+  comparison: cmpV3,
+  legacy_clean_coffee_same_inputs: { note: 'el café de siempre (sin la opción): Kc 0.95 constante, p 0.40; es la línea base "limpio" de la red', ...legacyClean, demand_minus_audit_calendar_clean_mm: r2(legacyClean.demand_mm - V3C.limpio.demand_mm), deficit_minus_audit_calendar_clean_mm: r2(legacyClean.deficit_mm - V3C.limpio.deficit_mm) },
+  v2_cover_fraction_run_C_for_reference: { note: 'de web/data/banana_audit_check.json (tarea 40, archivado)', alone: C.alone, banana015: C.banana015, banana030: C.banana030 },
+};
+fs.writeFileSync(path.join(root, 'web/data/banana_audit_check_v3.json'), `${JSON.stringify(v3out, null, 2)}\n`);
+console.log(JSON.stringify({ V3C, vsAudit, cmpV3, legacyClean: v3out.legacy_clean_coffee_same_inputs, calendar: v3out.calendar_check }, null, 1));
