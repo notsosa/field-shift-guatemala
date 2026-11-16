@@ -44,16 +44,19 @@ export function heatCoefficientDay(cropId, tmax, tmin, { k = LOGISTIC_STEEPNESS 
 /**
  * Multiplicador de calor de un ciclo: media del coeficiente diario sobre la ventana de floracion [a, b] (indices inclusivos de tmax/tmin).
  * AquaCrop lo aplica al indice de cosecha; aqui (simplificacion nuestra) la media multiplica el rendimiento relativo limitado por agua.
- * Devuelve { mean, min, daysBelow1 }; sin umbral o ventana vacia: mean 1.
+ * Devuelve { mean, min, daysBelow1, hotDays, coldDays }; sin umbral o ventana vacia: mean 1.
  */
 export function heatMultiplier(cropId, tmax, tmin, a, b, opts) {
-  if (!hasHeatFactor(cropId) || b < a) return { mean: 1, min: 1, daysBelow1: 0 };
-  let sum = 0; let min = 1; let daysBelow1 = 0;
+  if (!hasHeatFactor(cropId) || b < a) return { mean: 1, min: 1, daysBelow1: 0, hotDays: 0, coldDays: 0 };
+  const thr = HEAT_CROPS[cropId];
+  let sum = 0; let min = 1; let daysBelow1 = 0; let hotDays = 0; let coldDays = 0;
   for (let i = a; i <= b; i++) {
     const c = heatCoefficientDay(cropId, tmax[i], tmin[i], opts);
     sum += c; if (c < min) min = c; if (c < 1) daysBelow1++;
+    if (tmax[i] > thr.tmaxThreshold) hotDays++; // dias con Tmax sobre el umbral de calor
+    if (tmin[i] < thr.tminThreshold) coldDays++; // dias con Tmin bajo el umbral de frio
   }
-  return { mean: sum / (b - a + 1), min, daysBelow1 };
+  return { mean: sum / (b - a + 1), min, daysBelow1, hotDays, coldDays };
 }
 
 /** AquaCrop cap. 2, tabla 2.13a: biomasa relativa por defecto por clase de fertilidad (genericos, no calibrados para Guatemala). */

@@ -39,7 +39,7 @@ test('frijol, cafe y otros: sin umbral publicado, sin factor', () => {
     assert.equal(hasHeatFactor(id), false);
     assert.equal(heatCoefficientDay(id, 48, 0), 1);
   }
-  assert.deepEqual(heatMultiplier('frijol', [50, 50], [0, 0], 0, 1), { mean: 1, min: 1, daysBelow1: 0 });
+  assert.deepEqual(heatMultiplier('frijol', [50, 50], [0, 0], 0, 1), { mean: 1, min: 1, daysBelow1: 0, hotDays: 0, coldDays: 0 });
 });
 
 test('multiplicador de ventana = media del coeficiente diario', () => {
@@ -48,7 +48,10 @@ test('multiplicador de ventana = media del coeficiente diario', () => {
   near(m.mean, (1 + 0.5 + 0 + 1) / 4, 1e-9);
   assert.equal(m.min, 0);
   assert.equal(m.daysBelow1, 2);
-  assert.deepEqual(heatMultiplier('maiz', tmax, tmin, 3, 2), { mean: 1, min: 1, daysBelow1: 0 }); // ventana vacia
+  assert.equal(m.hotDays, 2); // 42.5 y 45 sobre 40
+  assert.equal(m.coldDays, 0);
+  assert.equal(heatMultiplier('maiz', [30, 30], [9, 12], 0, 1).coldDays, 1);
+  assert.deepEqual(heatMultiplier('maiz', tmax, tmin, 3, 2), { mean: 1, min: 1, daysBelow1: 0, hotDays: 0, coldDays: 0 }); // ventana vacia
 });
 
 test('fertilidad: tabla 2.13a de AquaCrop; no declarada = 1; clase desconocida falla', () => {

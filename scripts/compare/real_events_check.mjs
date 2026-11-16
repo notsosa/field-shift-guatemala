@@ -89,7 +89,9 @@ export function hitSummary(units) {
 }
 
 if (process.argv[1]?.endsWith('real_events_check.mjs')) {
-  const eventsPath = process.argv[2] ?? DEFAULT_EVENTS;
+  // --heat (Tarea 36): mismo cálculo con el factor de calor en la floración (maíz); escribe web/data/factors_real_events_check.json y no toca real_events_check.json.
+  const HEAT = process.argv.includes('--heat');
+  const eventsPath = process.argv.slice(2).find((a) => !a.startsWith('--')) ?? DEFAULT_EVENTS;
   const raw = fs.readFileSync(eventsPath);
   const file = JSON.parse(raw);
   const points = loadPoints();
@@ -107,7 +109,7 @@ if (process.argv[1]?.endsWith('real_events_check.mjs')) {
     let out = null;
     if (rain) {
       const usable = new Set(completeYears(s.dates, rain)); const soil = soilOfPoint(pointById[pid]);
-      out = YEARS.map((y) => (usable.has(y) ? simulateSowing({ bundle: s.bundle, et0: s.et0, rain, crops, soil, year: y, cropId: crop, sowLocal: sowLocalIndex(s.bundle, rain, y, CALENDARS[cal].when) }) : null));
+      out = YEARS.map((y) => (usable.has(y) ? simulateSowing({ bundle: s.bundle, et0: s.et0, rain, crops, soil, year: y, cropId: crop, sowLocal: sowLocalIndex(s.bundle, rain, y, CALENDARS[cal].when), factors: HEAT ? { heat: true } : null }) : null));
     }
     seriesCache.set(key, out);
     return out;
@@ -194,7 +196,8 @@ if (process.argv[1]?.endsWith('real_events_check.mjs')) {
     summary, ruleInputA, decision, heldOutB, misses, falseAlarms, events: eventRows, noEventYears: noEventRows,
     units: { event: evald.event.map((u) => ({ unit: name(u), point: u.point, year: u.year, calendar: u.calendar, crop: u.crop, events: u.eventIds, by: u.by })), noEvent: evald.noEvent.map((u) => ({ unit: name(u), point: u.point, year: u.year, calendar: u.calendar, crop: u.crop, by: u.by })) },
   };
-  fs.writeFileSync(path.join(root, 'web/data/real_events_check.json'), JSON.stringify(out, null, 1));
+  if (HEAT) out.meta.factors = 'heat factor on (AquaCrop maize/tomato pollination thresholds, logistic over 5 C, mean over flowering window); beans have no threshold so are unchanged; fertility class not stated (multiplier 1); same fixed thresholds, nothing tuned';
+  fs.writeFileSync(path.join(root, HEAT ? 'web/data/factors_real_events_check.json' : 'web/data/real_events_check.json'), JSON.stringify(out, null, 1));
   console.log('units', out.counts, 'skipped', U.skippedEvents.map((s) => `${s.id} ${s.year} ${s.season}`).join('; '));
   for (const s of SOURCES) for (const p of ['A', 'B', 'all']) { const x = summary[s][p]; console.log(s, p, 'hit', `${x.events.hits}/${x.events.n}`, 'common', `${x.eventsCommonSupport.hits}/${x.eventsCommonSupport.n}`, 'noEvFlag', `${x.noEventYearsFlagged.hits}/${x.noEventYearsFlagged.n}`, 'otherFlag', `${x.otherYearsFlagged.hits}/${x.otherYearsFlagged.n}`, 'AUCnoEv', x.aucVsNoEventYears.auc, `(${x.aucVsNoEventYears.nEvents}/${x.aucVsNoEventYears.nControls})`, 'AUCother', x.aucVsOtherYears.auc, `(${x.aucVsOtherYears.nEvents}/${x.aucVsOtherYears.nControls})`, 'commonOther', x.aucVsOtherYearsCommonSupport.auc, `(${x.aucVsOtherYearsCommonSupport.nEvents}/${x.aucVsOtherYearsCommonSupport.nControls})`, 'commonNoEv', x.aucVsNoEventYearsCommonSupport.auc, `(${x.aucVsNoEventYearsCommonSupport.nEvents}/${x.aucVsNoEventYearsCommonSupport.nControls})`); }
   console.log('rule input A', ruleInputA, decision);

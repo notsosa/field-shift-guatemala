@@ -125,7 +125,7 @@ export function simulateSowing({ bundle, et0, rain, crops, soil, year, cropId, s
   if (!factors) return out; // opt-in (Tarea 36): sin `factors` el resultado es el de siempre
   const tmax = bundle.tmax.slice(startIdx, end); const tmin = bundle.tmin.slice(startIdx, end);
   const fl = applyFactors({ cropId, relYield: relYieldWater, tmax, tmin, flowerIdx: [Math.min(phase.floweringIdx[0], dates.length - 1), Math.min(phase.floweringIdx[1], dates.length - 1)], factors });
-  return { ...out, relYieldWaterOnly: out.relYield, relYield: phase.cycleIncomplete ? 0 : fl.relYield, heatMultiplier: fl.heat ? fl.heat.mean : null, heatMinCoefficient: fl.heat ? fl.heat.min : null, heatDaysBelow1: fl.heat ? fl.heat.daysBelow1 : null, fertilityMultiplier: fl.fertility };
+  return { ...out, relYieldWaterOnly: out.relYield, relYield: phase.cycleIncomplete ? 0 : fl.relYield, heatMultiplier: fl.heat ? fl.heat.mean : null, heatMinCoefficient: fl.heat ? fl.heat.min : null, heatDaysBelow1: fl.heat ? fl.heat.daysBelow1 : null, heatHotDays: fl.heat ? fl.heat.hotDays : null, heatColdDays: fl.heat ? fl.heat.coldDays : null, fertilityMultiplier: fl.fertility };
 }
 
 /** Índice local de siembra: 'onset' = regla de inicio de lluvias con `rain`; o 'MM-DD' del año `year`; `offsetDays` se suma al inicio. */

@@ -1,0 +1,1596 @@
+{
+ "meta": {
+  "generated": "2026-11-16",
+  "crop": "maiz",
+  "years": "2001-2024 agricultural years with all rain days present (ERA5), cycle completing inside the agricultural year",
+  "points": 20,
+  "rainSource": "ERA5 (bundle with altitude-corrected Tmax/Tmin)",
+  "calendars": {
+   "primera": "sown at the rain-onset rule",
+   "postrera": "sown 15 August"
+  },
+  "factor": "AquaCrop v7.3 Annex I thresholds (Tmax 40 C, Tmin 10 C) with the logistic fall over 5 C (ch. 3, 3.12.5); mean daily coefficient over the flowering window multiplies the water-limited relative yield (our simplification: AquaCrop applies it to the harvest index); logistic steepness k = 10 is our choice.",
+  "rule": "If the heat factor changes the relative yield by more than 0.01 in fewer than 1 % of site-years, nothing is retrained (fixed before seeing the result).",
+  "lobellSensitivity": "Lobell et al. 2011 (Africa): 1 % per degree-day above 30 C (1.7 % under drought; drought here = water-limited relative yield < 0.7), degree-days approximated from daily Tmax over the whole cycle. A proxy from another continent; off by default and never used in decisions."
+ },
+ "total": {
+  "siteYears": 935,
+  "heatBelow1": 29,
+  "siteYearsWithHotDay": 0,
+  "siteYearsWithColdDay": 29,
+  "hotDays": 0,
+  "coldDays": 92,
+  "changeOver001": 5,
+  "shareChangeOver001": 0.00535,
+  "multiplier": {
+   "min": 0.8293,
+   "p1": 0.9896,
+   "p5": 1,
+   "p50": 1,
+   "mean": 0.99944
+  },
+  "maxDelta": 0.0497,
+  "lobell": {
+   "meanDegreeDays30": 27.02,
+   "siteYearsWithDegreeDays": 732,
+   "meanChange": 0.2,
+   "changeOver001": 616,
+   "maxChange": 1,
+   "droughtSiteYears": 268
+  }
+ },
+ "totalByCalendar": {
+  "primera": {
+   "siteYears": 480,
+   "heatBelow1": 4,
+   "siteYearsWithHotDay": 0,
+   "siteYearsWithColdDay": 4,
+   "hotDays": 0,
+   "coldDays": 10,
+   "changeOver001": 0,
+   "shareChangeOver001": 0,
+   "multiplier": {
+    "min": 0.9891,
+    "p1": 1,
+    "p5": 1,
+    "p50": 1,
+    "mean": 0.99996
+   },
+   "maxDelta": 0.0079,
+   "lobell": {
+    "meanDegreeDays30": 40.45,
+    "siteYearsWithDegreeDays": 405,
+    "meanChange": 0.2818,
+    "changeOver001": 370,
+    "maxChange": 1,
+    "droughtSiteYears": 97
+   }
+  },
+  "postrera": {
+   "siteYears": 455,
+   "heatBelow1": 25,
+   "siteYearsWithHotDay": 0,
+   "siteYearsWithColdDay": 25,
+   "hotDays": 0,
+   "coldDays": 82,
+   "changeOver001": 5,
+   "shareChangeOver001": 0.01099,
+   "multiplier": {
+    "min": 0.8293,
+    "p1": 0.9715,
+    "p5": 0.9999,
+    "p50": 1,
+    "mean": 0.9989
+   },
+   "maxDelta": 0.0497,
+   "lobell": {
+    "meanDegreeDays30": 12.86,
+    "siteYearsWithDegreeDays": 327,
+    "meanChange": 0.1138,
+    "changeOver001": 246,
+    "maxChange": 1,
+    "droughtSiteYears": 171
+   }
+  }
+ },
+ "retrainNeeded": false,
+ "byPoint": [
+  {
+   "point": "chiquimula",
+   "name": "Chiquimula",
+   "department": "Chiquimula",
+   "elevation": 403,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 66.4,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.5428,
+     "changeOver001": 24,
+     "maxChange": 1,
+     "droughtSiteYears": 5
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 18.08,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.1729,
+     "changeOver001": 24,
+     "maxChange": 0.7339,
+     "droughtSiteYears": 2
+    }
+   }
+  },
+  {
+   "point": "jutiapa",
+   "name": "Jutiapa",
+   "department": "Jutiapa",
+   "elevation": 903,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 11.19,
+     "siteYearsWithDegreeDays": 23,
+     "meanChange": 0.0749,
+     "changeOver001": 13,
+     "maxChange": 0.4331,
+     "droughtSiteYears": 17
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 1,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 1,
+    "hotDays": 0,
+    "coldDays": 1,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 1.66,
+     "siteYearsWithDegreeDays": 13,
+     "meanChange": 0.006,
+     "changeOver001": 6,
+     "maxChange": 0.044,
+     "droughtSiteYears": 24
+    }
+   }
+  },
+  {
+   "point": "sanmartin",
+   "name": "San Martín Jilotepeque",
+   "department": "Chimaltenango",
+   "elevation": 1787,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 4,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 4,
+    "hotDays": 0,
+    "coldDays": 10,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 0.9891,
+     "p1": 0.9894,
+     "p5": 0.9919,
+     "p50": 1,
+     "mean": 0.99913
+    },
+    "maxDelta": 0.0079,
+    "lobell": {
+     "meanDegreeDays30": 0.11,
+     "siteYearsWithDegreeDays": 2,
+     "meanChange": 0.0011,
+     "changeOver001": 1,
+     "maxChange": 0.0177,
+     "droughtSiteYears": 4
+    }
+   },
+   "postrera": {
+    "siteYears": 0,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": null,
+    "multiplier": null,
+    "maxDelta": null,
+    "lobell": null
+   }
+  },
+  {
+   "point": "esquipulas",
+   "name": "Esquipulas",
+   "department": "Chiquimula",
+   "elevation": 933,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 24.54,
+     "siteYearsWithDegreeDays": 23,
+     "meanChange": 0.2431,
+     "changeOver001": 23,
+     "maxChange": 0.9996,
+     "droughtSiteYears": 0
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 1.37,
+     "siteYearsWithDegreeDays": 8,
+     "meanChange": 0.0129,
+     "changeOver001": 5,
+     "maxChange": 0.0955,
+     "droughtSiteYears": 8
+    }
+   }
+  },
+  {
+   "point": "jocotan",
+   "name": "Jocotán",
+   "department": "Chiquimula",
+   "elevation": 459,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 52.06,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.4541,
+     "changeOver001": 24,
+     "maxChange": 0.9996,
+     "droughtSiteYears": 3
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 11.59,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.1064,
+     "changeOver001": 20,
+     "maxChange": 0.5396,
+     "droughtSiteYears": 2
+    }
+   }
+  },
+  {
+   "point": "quetzaltepeque",
+   "name": "Quetzaltepeque",
+   "department": "Chiquimula",
+   "elevation": 757,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 22.04,
+     "siteYearsWithDegreeDays": 21,
+     "meanChange": 0.1924,
+     "changeOver001": 21,
+     "maxChange": 0.7559,
+     "droughtSiteYears": 3
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 3.75,
+     "siteYearsWithDegreeDays": 14,
+     "meanChange": 0.0347,
+     "changeOver001": 9,
+     "maxChange": 0.2064,
+     "droughtSiteYears": 9
+    }
+   }
+  },
+  {
+   "point": "olopa",
+   "name": "Olopa",
+   "department": "Chiquimula",
+   "elevation": 1240,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 3.43,
+     "siteYearsWithDegreeDays": 10,
+     "meanChange": 0.033,
+     "changeOver001": 7,
+     "maxChange": 0.3513,
+     "droughtSiteYears": 0
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 7,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 7,
+    "hotDays": 0,
+    "coldDays": 24,
+    "changeOver001": 3,
+    "shareChangeOver001": 0.125,
+    "multiplier": {
+     "min": 0.961,
+     "p1": 0.9654,
+     "p5": 0.9801,
+     "p50": 1,
+     "mean": 0.99619
+    },
+    "maxDelta": 0.0362,
+    "lobell": {
+     "meanDegreeDays30": 1.81,
+     "siteYearsWithDegreeDays": 14,
+     "meanChange": 0.0164,
+     "changeOver001": 10,
+     "maxChange": 0.0609,
+     "droughtSiteYears": 4
+    }
+   }
+  },
+  {
+   "point": "zacapa",
+   "name": "Zacapa",
+   "department": "Zacapa",
+   "elevation": 222,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 150.28,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.9244,
+     "changeOver001": 24,
+     "maxChange": 1,
+     "droughtSiteYears": 0
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 58.32,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.533,
+     "changeOver001": 24,
+     "maxChange": 1,
+     "droughtSiteYears": 0
+    }
+   }
+  },
+  {
+   "point": "gualan",
+   "name": "Gualán",
+   "department": "Zacapa",
+   "elevation": 155,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 179.5,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.9688,
+     "changeOver001": 24,
+     "maxChange": 1,
+     "droughtSiteYears": 0
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 81.14,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.7104,
+     "changeOver001": 24,
+     "maxChange": 1,
+     "droughtSiteYears": 0
+    }
+   }
+  },
+  {
+   "point": "guastatoya",
+   "name": "Guastatoya",
+   "department": "El Progreso",
+   "elevation": 527,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 68.85,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.5792,
+     "changeOver001": 24,
+     "maxChange": 1,
+     "droughtSiteYears": 2
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 13.34,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.1265,
+     "changeOver001": 23,
+     "maxChange": 0.5392,
+     "droughtSiteYears": 5
+    }
+   }
+  },
+  {
+   "point": "sanarate",
+   "name": "Sanarate",
+   "department": "El Progreso",
+   "elevation": 849,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 9.29,
+     "siteYearsWithDegreeDays": 21,
+     "meanChange": 0.0689,
+     "changeOver001": 15,
+     "maxChange": 0.4104,
+     "droughtSiteYears": 12
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 1,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 1,
+    "hotDays": 0,
+    "coldDays": 1,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 0.9982,
+     "p1": 0.9986,
+     "p5": 1,
+     "p50": 1,
+     "mean": 0.99993
+    },
+    "maxDelta": 0.0004,
+    "lobell": {
+     "meanDegreeDays30": 1.07,
+     "siteYearsWithDegreeDays": 13,
+     "meanChange": 0.0075,
+     "changeOver001": 7,
+     "maxChange": 0.0349,
+     "droughtSiteYears": 16
+    }
+   }
+  },
+  {
+   "point": "asuncionmita",
+   "name": "Asunción Mita",
+   "department": "Jutiapa",
+   "elevation": 472,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 63.84,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.2168,
+     "changeOver001": 22,
+     "maxChange": 0.7911,
+     "droughtSiteYears": 19
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 24.61,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.2142,
+     "changeOver001": 24,
+     "maxChange": 0.5926,
+     "droughtSiteYears": 9
+    }
+   }
+  },
+  {
+   "point": "jalpatagua",
+   "name": "Jalpatagua",
+   "department": "Jutiapa",
+   "elevation": 545,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 51.44,
+     "siteYearsWithDegreeDays": 24,
+     "meanChange": 0.4724,
+     "changeOver001": 24,
+     "maxChange": 1,
+     "droughtSiteYears": 0
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 8.74,
+     "siteYearsWithDegreeDays": 21,
+     "meanChange": 0.077,
+     "changeOver001": 14,
+     "maxChange": 0.5118,
+     "droughtSiteYears": 2
+    }
+   }
+  },
+  {
+   "point": "santacatarinamita",
+   "name": "Santa Catarina Mita",
+   "department": "Jutiapa",
+   "elevation": 670,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 25.56,
+     "siteYearsWithDegreeDays": 23,
+     "meanChange": 0.1129,
+     "changeOver001": 18,
+     "maxChange": 0.5772,
+     "droughtSiteYears": 16
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 5.85,
+     "siteYearsWithDegreeDays": 19,
+     "meanChange": 0.0461,
+     "changeOver001": 15,
+     "maxChange": 0.1466,
+     "droughtSiteYears": 17
+    }
+   }
+  },
+  {
+   "point": "jalapa",
+   "name": "Jalapa",
+   "department": "Jalapa",
+   "elevation": 1374,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 1.49,
+     "siteYearsWithDegreeDays": 9,
+     "meanChange": 0.0142,
+     "changeOver001": 7,
+     "maxChange": 0.1916,
+     "droughtSiteYears": 5
+    }
+   },
+   "postrera": {
+    "siteYears": 23,
+    "heatBelow1": 12,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 12,
+    "hotDays": 0,
+    "coldDays": 52,
+    "changeOver001": 2,
+    "shareChangeOver001": 0.08696,
+    "multiplier": {
+     "min": 0.8293,
+     "p1": 0.846,
+     "p5": 0.9095,
+     "p50": 0.9999,
+     "mean": 0.98242
+    },
+    "maxDelta": 0.0497,
+    "lobell": {
+     "meanDegreeDays30": 4.41,
+     "siteYearsWithDegreeDays": 18,
+     "meanChange": 0.0195,
+     "changeOver001": 10,
+     "maxChange": 0.0629,
+     "droughtSiteYears": 23
+    }
+   }
+  },
+  {
+   "point": "monjas",
+   "name": "Monjas",
+   "department": "Jalapa",
+   "elevation": 961,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 16.19,
+     "siteYearsWithDegreeDays": 22,
+     "meanChange": 0.1485,
+     "changeOver001": 21,
+     "maxChange": 0.9988,
+     "droughtSiteYears": 0
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 1,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 1,
+    "hotDays": 0,
+    "coldDays": 1,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 0.9997,
+     "p1": 0.9998,
+     "p5": 1,
+     "p50": 1,
+     "mean": 0.99999
+    },
+    "maxDelta": 0.0001,
+    "lobell": {
+     "meanDegreeDays30": 1.56,
+     "siteYearsWithDegreeDays": 14,
+     "meanChange": 0.012,
+     "changeOver001": 8,
+     "maxChange": 0.0602,
+     "droughtSiteYears": 14
+    }
+   }
+  },
+  {
+   "point": "salama",
+   "name": "Salamá",
+   "department": "Baja Verapaz",
+   "elevation": 946,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 18.46,
+     "siteYearsWithDegreeDays": 21,
+     "meanChange": 0.1713,
+     "changeOver001": 21,
+     "maxChange": 0.9324,
+     "droughtSiteYears": 3
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 1.92,
+     "siteYearsWithDegreeDays": 12,
+     "meanChange": 0.0209,
+     "changeOver001": 5,
+     "maxChange": 0.2405,
+     "droughtSiteYears": 7
+    }
+   }
+  },
+  {
+   "point": "rabinal",
+   "name": "Rabinal",
+   "department": "Baja Verapaz",
+   "elevation": 967,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 6.48,
+     "siteYearsWithDegreeDays": 20,
+     "meanChange": 0.0587,
+     "changeOver001": 17,
+     "maxChange": 0.215,
+     "droughtSiteYears": 8
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 1,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 1,
+    "hotDays": 0,
+    "coldDays": 1,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 0.9999,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 1.66,
+     "siteYearsWithDegreeDays": 12,
+     "meanChange": 0.0161,
+     "changeOver001": 5,
+     "maxChange": 0.1829,
+     "droughtSiteYears": 10
+    }
+   }
+  },
+  {
+   "point": "cubulco",
+   "name": "Cubulco",
+   "department": "Baja Verapaz",
+   "elevation": 997,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 11.49,
+     "siteYearsWithDegreeDays": 20,
+     "meanChange": 0.1125,
+     "changeOver001": 19,
+     "maxChange": 0.6523,
+     "droughtSiteYears": 0
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 1,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 1,
+    "hotDays": 0,
+    "coldDays": 1,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 0.9998,
+     "p1": 0.9998,
+     "p5": 1,
+     "p50": 1,
+     "mean": 0.99999
+    },
+    "maxDelta": 0.0001,
+    "lobell": {
+     "meanDegreeDays30": 1.34,
+     "siteYearsWithDegreeDays": 11,
+     "meanChange": 0.0115,
+     "changeOver001": 4,
+     "maxChange": 0.1118,
+     "droughtSiteYears": 8
+    }
+   }
+  },
+  {
+   "point": "cuilapa",
+   "name": "Cuilapa",
+   "department": "Santa Rosa",
+   "elevation": 929,
+   "primera": {
+    "siteYears": 24,
+    "heatBelow1": 0,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 0,
+    "hotDays": 0,
+    "coldDays": 0,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 1,
+     "p1": 1,
+     "p5": 1,
+     "p50": 1,
+     "mean": 1
+    },
+    "maxDelta": 0,
+    "lobell": {
+     "meanDegreeDays30": 26.32,
+     "siteYearsWithDegreeDays": 22,
+     "meanChange": 0.245,
+     "changeOver001": 21,
+     "maxChange": 1,
+     "droughtSiteYears": 0
+    }
+   },
+   "postrera": {
+    "siteYears": 24,
+    "heatBelow1": 1,
+    "siteYearsWithHotDay": 0,
+    "siteYearsWithColdDay": 1,
+    "hotDays": 0,
+    "coldDays": 1,
+    "changeOver001": 0,
+    "shareChangeOver001": 0,
+    "multiplier": {
+     "min": 0.9999,
+     "p1": 0.9999,
+     "p5": 1,
+     "p50": 1,
+     "mean": 0.99999
+    },
+    "maxDelta": 0.0001,
+    "lobell": {
+     "meanDegreeDays30": 1.68,
+     "siteYearsWithDegreeDays": 14,
+     "meanChange": 0.0145,
+     "changeOver001": 9,
+     "maxChange": 0.0831,
+     "droughtSiteYears": 11
+    }
+   }
+  }
+ ],
+ "affectedSiteYears": [
+  {
+   "point": "sanmartin",
+   "calendar": "primera",
+   "year": 2001,
+   "heatMean": 0.9996,
+   "heatMin": 0.9846,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0.6736,
+   "withHeat": 0.6733
+  },
+  {
+   "point": "sanmartin",
+   "calendar": "primera",
+   "year": 2003,
+   "heatMean": 0.9998,
+   "heatMin": 0.9932,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0.7913,
+   "withHeat": 0.7912
+  },
+  {
+   "point": "sanmartin",
+   "calendar": "primera",
+   "year": 2007,
+   "heatMean": 0.9891,
+   "heatMin": 0.7342,
+   "daysBelow1": 4,
+   "hotDays": 0,
+   "coldDays": 4,
+   "water": 0.7218,
+   "withHeat": 0.7139
+  },
+  {
+   "point": "sanmartin",
+   "calendar": "primera",
+   "year": 2010,
+   "heatMean": 0.9905,
+   "heatMin": 0.6882,
+   "daysBelow1": 4,
+   "hotDays": 0,
+   "coldDays": 4,
+   "water": 0.6615,
+   "withHeat": 0.6552
+  },
+  {
+   "point": "jutiapa",
+   "calendar": "postrera",
+   "year": 2010,
+   "heatMean": 1,
+   "heatMin": 0.9993,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0,
+   "withHeat": 0
+  },
+  {
+   "point": "olopa",
+   "calendar": "postrera",
+   "year": 2002,
+   "heatMean": 0.9979,
+   "heatMin": 0.9549,
+   "daysBelow1": 2,
+   "hotDays": 0,
+   "coldDays": 2,
+   "water": 0.87,
+   "withHeat": 0.8682
+  },
+  {
+   "point": "olopa",
+   "calendar": "postrera",
+   "year": 2005,
+   "heatMean": 0.9805,
+   "heatMin": 0.4595,
+   "daysBelow1": 3,
+   "hotDays": 0,
+   "coldDays": 3,
+   "water": 0.8026,
+   "withHeat": 0.787
+  },
+  {
+   "point": "olopa",
+   "calendar": "postrera",
+   "year": 2006,
+   "heatMean": 0.961,
+   "heatMin": 0.4,
+   "daysBelow1": 4,
+   "hotDays": 0,
+   "coldDays": 4,
+   "water": 0.9289,
+   "withHeat": 0.8927
+  },
+  {
+   "point": "olopa",
+   "calendar": "postrera",
+   "year": 2008,
+   "heatMean": 0.9989,
+   "heatMin": 0.9747,
+   "daysBelow1": 3,
+   "hotDays": 0,
+   "coldDays": 3,
+   "water": 0.7075,
+   "withHeat": 0.7068
+  },
+  {
+   "point": "olopa",
+   "calendar": "postrera",
+   "year": 2010,
+   "heatMean": 0.98,
+   "heatMin": 0.5354,
+   "daysBelow1": 6,
+   "hotDays": 0,
+   "coldDays": 6,
+   "water": 0.5008,
+   "withHeat": 0.4908
+  },
+  {
+   "point": "olopa",
+   "calendar": "postrera",
+   "year": 2011,
+   "heatMean": 0.9981,
+   "heatMin": 0.9508,
+   "daysBelow1": 2,
+   "hotDays": 0,
+   "coldDays": 2,
+   "water": 0.744,
+   "withHeat": 0.7426
+  },
+  {
+   "point": "olopa",
+   "calendar": "postrera",
+   "year": 2017,
+   "heatMean": 0.9922,
+   "heatMin": 0.8838,
+   "daysBelow1": 4,
+   "hotDays": 0,
+   "coldDays": 4,
+   "water": 0.7859,
+   "withHeat": 0.7797
+  },
+  {
+   "point": "sanarate",
+   "calendar": "postrera",
+   "year": 2010,
+   "heatMean": 0.9982,
+   "heatMin": 0.9519,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0.2016,
+   "withHeat": 0.2012
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2002,
+   "heatMean": 0.9723,
+   "heatMin": 0.5555,
+   "daysBelow1": 6,
+   "hotDays": 0,
+   "coldDays": 6,
+   "water": 0.1635,
+   "withHeat": 0.159
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2003,
+   "heatMean": 0.9977,
+   "heatMin": 0.9393,
+   "daysBelow1": 2,
+   "hotDays": 0,
+   "coldDays": 2,
+   "water": 0.3988,
+   "withHeat": 0.3979
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2005,
+   "heatMean": 0.9706,
+   "heatMin": 0.1937,
+   "daysBelow1": 3,
+   "hotDays": 0,
+   "coldDays": 3,
+   "water": 0.3244,
+   "withHeat": 0.3149
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2006,
+   "heatMean": 0.9049,
+   "heatMin": 0.0001,
+   "daysBelow1": 5,
+   "hotDays": 0,
+   "coldDays": 5,
+   "water": 0.5222,
+   "withHeat": 0.4725
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2007,
+   "heatMean": 0.9999,
+   "heatMin": 0.9954,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0.1944,
+   "withHeat": 0.1944
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2010,
+   "heatMean": 0.8293,
+   "heatMin": 0.137,
+   "daysBelow1": 17,
+   "hotDays": 0,
+   "coldDays": 17,
+   "water": 0.0101,
+   "withHeat": 0.0084
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2011,
+   "heatMean": 0.9767,
+   "heatMin": 0.5804,
+   "daysBelow1": 6,
+   "hotDays": 0,
+   "coldDays": 6,
+   "water": 0.0761,
+   "withHeat": 0.0743
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2012,
+   "heatMean": 0.996,
+   "heatMin": 0.8794,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0.0533,
+   "withHeat": 0.0531
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2013,
+   "heatMean": 0.9997,
+   "heatMin": 0.9932,
+   "daysBelow1": 2,
+   "hotDays": 0,
+   "coldDays": 2,
+   "water": 0.3626,
+   "withHeat": 0.3625
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2017,
+   "heatMean": 0.9507,
+   "heatMin": 0.3477,
+   "daysBelow1": 7,
+   "hotDays": 0,
+   "coldDays": 7,
+   "water": 0.2538,
+   "withHeat": 0.2413
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2020,
+   "heatMean": 0.9979,
+   "heatMin": 0.9299,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0.565,
+   "withHeat": 0.5639
+  },
+  {
+   "point": "jalapa",
+   "calendar": "postrera",
+   "year": 2024,
+   "heatMean": 0.9998,
+   "heatMin": 0.994,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0.6797,
+   "withHeat": 0.6795
+  },
+  {
+   "point": "monjas",
+   "calendar": "postrera",
+   "year": 2010,
+   "heatMean": 0.9997,
+   "heatMin": 0.9912,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0.2119,
+   "withHeat": 0.2119
+  },
+  {
+   "point": "rabinal",
+   "calendar": "postrera",
+   "year": 2010,
+   "heatMean": 0.9999,
+   "heatMin": 0.9983,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0.3393,
+   "withHeat": 0.3393
+  },
+  {
+   "point": "cubulco",
+   "calendar": "postrera",
+   "year": 2010,
+   "heatMean": 0.9998,
+   "heatMin": 0.9942,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0.3915,
+   "withHeat": 0.3914
+  },
+  {
+   "point": "cuilapa",
+   "calendar": "postrera",
+   "year": 2010,
+   "heatMean": 0.9999,
+   "heatMin": 0.9963,
+   "daysBelow1": 1,
+   "hotDays": 0,
+   "coldDays": 1,
+   "water": 0.4476,
+   "withHeat": 0.4475
+  }
+ ]
+}
