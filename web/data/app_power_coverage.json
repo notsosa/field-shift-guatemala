@@ -1,0 +1,397 @@
+{
+ "source": "NASA POWER Daily API, community AG, parámetros y formato de la app (app/V01/lib/datos/clima.dart)",
+ "parameters": "T2M_MAX,T2M_MIN,RH2M,WS2M,ALLSKY_SFC_SW_DWN,PRECTOTCORR",
+ "period": "20010101..20251231",
+ "nPoints": 20,
+ "gapRule": "La app (prepararClima) descarta los días sin alguno de los cinco datos de ET0 (tmax, tmin, humedad, viento, radiación) y los completa con el promedio de la ET0 de los siete últimos días observados (4.0 si no hay) y lluvia 0; una lluvia nula con el resto completo cuenta 0 sin marcar el día. No se aplicó ninguna otra regla.",
+ "totalMissingByVariable": {
+  "tmax": 0,
+  "tmin": 0,
+  "humedad": 0,
+  "viento": 0,
+  "radiacion": 0,
+  "lluvia": 0
+ },
+ "points": [
+  {
+   "id": "chiquimula",
+   "lat": 14.8,
+   "lon": -89.54,
+   "cellElevation": 762.46,
+   "siteElevation": 403,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "jutiapa",
+   "lat": 14.29,
+   "lon": -89.9,
+   "cellElevation": 1040.48,
+   "siteElevation": 903,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "sanmartin",
+   "lat": 14.78,
+   "lon": -90.79,
+   "cellElevation": 1515.75,
+   "siteElevation": 1787,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "esquipulas",
+   "lat": 14.57,
+   "lon": -89.35,
+   "cellElevation": 902.67,
+   "siteElevation": 933,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "jocotan",
+   "lat": 14.82,
+   "lon": -89.39,
+   "cellElevation": 762.46,
+   "siteElevation": 459,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "quetzaltepeque",
+   "lat": 14.65,
+   "lon": -89.45,
+   "cellElevation": 902.67,
+   "siteElevation": 757,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "olopa",
+   "lat": 14.68,
+   "lon": -89.34,
+   "cellElevation": 902.67,
+   "siteElevation": 1240,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "zacapa",
+   "lat": 14.97,
+   "lon": -89.53,
+   "cellElevation": 762.46,
+   "siteElevation": 222,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "gualan",
+   "lat": 15.13,
+   "lon": -89.36,
+   "cellElevation": 762.46,
+   "siteElevation": 155,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "guastatoya",
+   "lat": 14.85,
+   "lon": -90.07,
+   "cellElevation": 1053.04,
+   "siteElevation": 527,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "sanarate",
+   "lat": 14.79,
+   "lon": -90.2,
+   "cellElevation": 1053.04,
+   "siteElevation": 849,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "asuncionmita",
+   "lat": 14.33,
+   "lon": -89.71,
+   "cellElevation": 1040.48,
+   "siteElevation": 472,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "jalpatagua",
+   "lat": 14.13,
+   "lon": -90.01,
+   "cellElevation": 607.66,
+   "siteElevation": 545,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "santacatarinamita",
+   "lat": 14.46,
+   "lon": -89.74,
+   "cellElevation": 1040.48,
+   "siteElevation": 670,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "jalapa",
+   "lat": 14.63,
+   "lon": -89.99,
+   "cellElevation": 1040.48,
+   "siteElevation": 1374,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "monjas",
+   "lat": 14.49,
+   "lon": -89.88,
+   "cellElevation": 1040.48,
+   "siteElevation": 961,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "salama",
+   "lat": 15.1,
+   "lon": -90.32,
+   "cellElevation": 1515.75,
+   "siteElevation": 946,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "rabinal",
+   "lat": 15.08,
+   "lon": -90.49,
+   "cellElevation": 1515.75,
+   "siteElevation": 967,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "cubulco",
+   "lat": 15.11,
+   "lon": -90.63,
+   "cellElevation": 1515.75,
+   "siteElevation": 997,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  },
+  {
+   "id": "cuilapa",
+   "lat": 14.28,
+   "lon": -90.3,
+   "cellElevation": 1040.48,
+   "siteElevation": 929,
+   "days": 9131,
+   "first": "2001-01-01",
+   "last": "2025-12-31",
+   "missing": {
+    "tmax": 0,
+    "tmin": 0,
+    "humedad": 0,
+    "viento": 0,
+    "radiacion": 0,
+    "lluvia": 0
+   },
+   "daysWithoutAnyWeatherValue": 0
+  }
+ ]
+}
