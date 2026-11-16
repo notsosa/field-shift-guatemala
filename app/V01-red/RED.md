@@ -109,17 +109,17 @@ Los dos scripts leen archivos del repositorio del equipo (`web/`), así que se c
 
 Los puntos 1 a 3 son copias de archivos; los 4 a 7 son adiciones sin borrar nada del código existente.
 
-## Café: la red de riego v2 y los avisos
+## Café: la red de riego v3 y los avisos
 
-Para plantaciones de café, la tarjeta **Café** de la pestaña Hoy muestra la recomendación de riego de la red del equipo (versión 2, con sombra de banano), los avisos con fuente y una leyenda honesta. La tarjeta «Próximos 7 días» de arriba y sus pruebas no cambiaron.
+Para plantaciones de café, la tarjeta **Café** de la pestaña Hoy muestra la recomendación de riego de la red del equipo (versión 3, con las clases de la auditoría del asesor: café con malezas, banano regulado con mulch y banano denso), los avisos con fuente y una leyenda honesta. La tarjeta «Próximos 7 días» de arriba y sus pruebas no cambiaron.
 
 ### Entradas nuevas del formulario (solo para café)
 
-- **Sombra**: sin sombra, árboles de hoja perenne, árboles de hoja caduca o banano.
-- **Cuánto cubre el banano** (solo con banano): «poco» (0.15) o «regulada» (0.30) del terreno. Son los dos únicos valores con que se entrenó la red; por eso no se deja escribir otro número. «Regulada» es el nombre del asesor: con nuestra fórmula, la cobertura que reproduce el aumento de demanda de agua de su «sombra regulada» es 0.27 a 0.28 (`web/data/banana_audit_check.json`); el «denso sin deshije» (0.54 a 0.55) no se ofrece porque la red no se entrenó fuera de 0.30. Es una equivalencia de agua, no de sombra.
+- **Sombra**: sin sombra, árboles de hoja perenne, árboles de hoja caduca, banano regulado con mulch o banano denso sin deshije. Las dos de banano son clases de la auditoría del asesor del equipo (Kc y p compuestos de FAO-56; **valores de referencia, no medidos en campo**). No se combinan con los árboles.
+- **Suelo entre los surcos**: limpio o con mulch, o con malezas. No se pregunta con banano (la auditoría ya trae su suelo, con mulch de *Musa*); con árboles de sombra se muestra, pero la red no tiene esa combinación: una nota lo dice y la entrada queda en 0.
 - **Prioridad al regar**: ahorrar agua (precio 3 días de estrés) o proteger el cultivo (precio 1).
 
-Se guardan en `Plantacion` (`sombra`, `coberturaBanano`, `prioridadRiego`) con valores por omisión (sin sombra, 0.15, ahorrar agua): los datos guardados antes cargan igual (hay una prueba).
+Se guardan en `Plantacion` (`sombra`, `sueloSurcos`, `prioridadRiego`) con valores por omisión (sin sombra, limpio, ahorrar agua). Se quitó el selector de cobertura de banano. **Datos guardados con la versión anterior:** traían `sombra: banano` y una `coberturaBanano` de 0.15 o 0.30; las dos cargan como **banano regulado** (la clase que el equipo recomienda y que la etiqueta «Regulada · 30 %» ya decía; no hay una clase de menos banano y «denso» sería afirmar de más). Hay una prueba. Los datos sin esos campos cargan con los valores por omisión.
 
 **Por qué solo esas.** Una entrada que ningún modelo conectado usa no sirve. No se agregó «¿puede resembrar?», clase de fertilidad ni calor: ninguna red ni regla conectada en la app los consume.
 
@@ -127,15 +127,15 @@ Se guardan en `Plantacion` (`sombra`, `coberturaBanano`, `prioridadRiego`) con v
 
 | Archivo | Qué es |
 |---|---|
-| `lib/motor/pesos_cafe.dart` | Pesos de la red v2 (3 841 parámetros, 18 entradas), commit y SHA-256 de la fuente. **Generado.** |
+| `lib/motor/pesos_cafe.dart` | Pesos de la red v3 (3 905 parámetros, 19 entradas), commit y SHA-256 de la fuente. **Generado.** |
 | `lib/motor/fuentes_cafe.dart` | Textos, fuentes y confianza de los avisos (de `web/data/coffee_sources.json`). **Generado.** |
-| `lib/motor/cafe.dart` | Dart puro: las 18 entradas, la regla, la decisión, la regla de antracnosis, dónde aplica y los avisos. |
+| `lib/motor/cafe.dart` | Dart puro: las 19 entradas, la regla, la decisión, la regla de antracnosis, dónde aplica y los avisos. |
 | `lib/motor/recomendador.dart` | `Recomendacion` gana `riegoCafe` (decisión) y `avisosCafe`. |
 | `lib/estado.dart` | `inicioDeClima`: ventana de clima de 365 días si hay café. |
 | `lib/ui/plantacion.dart`, `lib/ui/hoy.dart`, `lib/textos.dart` | Formulario, tarjeta `_TarjetaCafe`, textos en español e inglés. |
 | `tool/generar_pesos_cafe.mjs` | Genera los dos archivos `.dart` anteriores. |
 | `tool/generar_casos_cafe.mjs` | Genera `test/casos_cafe.json` con la referencia en JavaScript (`web/js/model/coffee.js`). |
-| `test/cafe_test.dart` | 38 pruebas: paridad, dónde aplica, avisos, plantación, ventana. |
+| `test/cafe_test.dart` | 44 pruebas: paridad, dónde aplica, avisos, plantación, ventana. |
 | `test/pantallas_test.dart` | 6 pruebas de pantalla nuevas y 3 capturas nuevas (`18_cafe_hoy`, `19_cafe_hoy_oscuro`, `20_plantacion_cafe`). |
 
 ### Dónde aplica la red de riego
@@ -148,23 +148,24 @@ La red predice cuántos días de estrés evitaría regar 20 mm hoy; se riega si 
 
 Salen siempre que haya clima, aunque la red no aplique. **Abono**: «aplicar ahora» o «en espera: suelo seco», solo dentro de las ventanas de Anacafé (fuera de ellas no se muestra). **Antracnosis**: Ks < 1 en más de la mitad de los últimos 28 días (balance de la app). **Roya, nivel «posible»**: junio a diciembre con temperatura media de 14 días entre 16 y 28 °C (se necesitan al menos 7 días con temperatura). Quedaron fuera el nivel «favorable» de la roya, el minador y la rama de roya de la antracnosis: necesitan medianas de varios años del sitio que la app no tiene.
 
-### Lo medido por el equipo (`web/data/coffee_eval_v2.json`, escenarios sintéticos con el simulador del equipo)
+### Lo medido por el equipo (`web/data/coffee_eval_v3.json`, escenarios sintéticos con el simulador del equipo)
 
-Utilidad media (más alto es mejor; media de tres semillas) en años de prueba 2019–2024, 540 casos por tipo de sombra:
+Utilidad media (más alto es mejor; media de tres semillas) en años de prueba 2019–2024, 540 casos por sistema. La regla FAO-56 es la misma en todos (balance corrido del café, Kc 0.95, p 0.40):
 
-| Sombra | Ahorrar agua: red | regla | Proteger: red | regla |
+| Sistema | Ahorrar agua: red | regla | Proteger: red | regla |
 |---|---|---|---|---|
-| Ninguna | 0.402 | 0.096 | 1.133 | 0.878 |
-| Hoja perenne | 0.190 | −0.087 | 0.882 | 0.694 |
-| Hoja caduca | 0.790 | 0.100 | 1.681 | 0.881 |
-| Banano 0.15 | 0.448 | 0.081 | 1.204 | 0.863 |
-| Banano 0.30 | 0.771 | 0.128 | 1.656 | 0.909 |
+| Sin sombra (café de siempre) | 0.388 | 0.096 | 1.138 | 0.878 |
+| Hoja perenne | 0.227 | −0.087 | 0.885 | 0.694 |
+| Hoja caduca | 0.822 | 0.100 | 1.730 | 0.881 |
+| Café con malezas | 0.788 | 0.120 | 1.652 | 0.902 |
+| Banano regulado con mulch | 0.780 | 0.172 | 1.650 | 0.954 |
+| Banano denso sin deshije | 0.894 | −0.217 | 1.844 | 0.565 |
 
-Con la semilla exportada (29), todos los escenarios de prueba (2 700): ahorrar agua 0.503 contra 0.064 de la regla; proteger 1.300 contra 0.845. Años reservados 2022–2024 (1 350): 0.544 contra −0.141 y 1.445 contra 0.837. Estos números son contra el simulador del propio equipo, no contra una finca.
+Con la semilla exportada (29), todos los escenarios de prueba (3 240): ahorrar agua 0.650 contra 0.031 de la regla; proteger 1.479 contra 0.812. Años reservados 2022–2024 (1 620): 0.725 contra −0.189 y 1.604 contra 0.789. Estos números son contra el simulador del propio equipo, no contra una finca. Congruencia con la auditoría (2025, mismas entradas diarias): déficit regulado menos limpio +93.12 mm (auditoría +96.36), denso menos limpio +231.09 mm (+238.74), y regulado con **menos** déficit que el café con malezas (−85.19 mm; auditoría −87.16). Detalle en `proyecto/resultados-modelo-keu.md`, «Banano corregido según el asesor del equipo (tarea 41)».
 
 ### Límites
 
-- **El banano es un supuesto provisional, no una medición** (la tarjeta lo dice cuando la sombra es banano). Con ese supuesto el banano no beneficia al cafetal en agua, y la auditoría del asesor del equipo (`auditorias/prueba cafe banano 2025/` de la rama principal) muestra lo mismo: a igual manejo del suelo el banano aumenta el déficit hídrico del café; el beneficio aparece frente a café con malezas vivas y por el mulch, la luz y el microclima, que la red no ve. El manejo recomendado por el asesor es banano regulado (deshijado) con mulch de sus hojas y pseudotallos.
+- **Las clases de banano y malezas son valores de referencia de FAO-56 de la auditoría del asesor, no mediciones** (la tarjeta lo dice con banano). Según esa auditoría, el banano regulado con mulch gasta menos agua que un cafetal al sol con malezas y más que uno con suelo limpio; la tarjeta no promete ahorro de agua. Lo que el modelo no representa: la luz, el microclima, la lluvia que baja por el pseudotallo y el flujo de caja del banano; la raíz es de 1.2 m (la auditoría usa 1.0 m). La versión anterior por cobertura (`bananaCover`, red v2) quedó archivada en el repositorio.
 - La red se entrenó con lluvia de **ERA5** y temperaturas llevadas a la altura de la parcela; la app usa lluvia de **NASA POWER**, la temperatura de la celda y una ET₀ calculada con la humedad relativa. **La paridad prueba que Dart calcula lo mismo que JavaScript con la misma serie, no que la red acierte con el clima de la app.** En la app es una vista previa.
 - La ventana de 365 días hace la descarga más pesada (solo con wifi, solo con café en la finca).
 - Los días sin temperatura (retraso de POWER) no entran en los promedios de temperatura; lluvia y ET₀ de esos días se completan como ya hacía la app.
@@ -172,7 +173,7 @@ Con la semilla exportada (29), todos los escenarios de prueba (2 700): ahorrar a
 
 ### Paridad con la referencia
 
-Con los 8 casos de `test/casos_cafe.json` (cada sombra, las dos prioridades, seco y húmedo, uno con antracnosis activa que cambia la prioridad, abono «ahora» y roya posible): diferencia máxima de las 18 entradas 0.0 (se exige 1e-9); de la predicción 0.0 (se exige 1e-5); decisión y niveles de aviso idénticos. Los 50 casos de comprobación del archivo de pesos (PyTorch, 32 bits): 8.9e-7. El clima de los casos es sintético con semilla fija.
+Con los 12 casos de `test/casos_cafe.json` (cada sombra y las dos clases de suelo, las dos prioridades, seco y húmedo, uno con antracnosis activa que cambia la prioridad, abono «ahora» y roya posible): diferencia máxima de las 19 entradas 0.0 (se exige 1e-9); de la predicción 0.0 (se exige 1e-5); decisión y niveles de aviso idénticos. Los 50 casos de comprobación del archivo de pesos (PyTorch, 32 bits): 8.9e-7. El clima de los casos es sintético con semilla fija.
 
 ### Cómo regenerar
 
@@ -185,7 +186,7 @@ flutter test
 ### Cómo llevarlo a `app/V01`
 
 1. Copiar a `lib/motor/`: `cafe.dart`, `pesos_cafe.dart`, `fuentes_cafe.dart` (y `red.dart` si falta); a `tool/` los dos `.mjs`; a `test/` `casos_cafe.json` y `cafe_test.dart`.
-2. `lib/modelos.dart`: enums `Sombra` y `PrioridadRiego`, las constantes de cobertura y los tres campos de `Plantacion` (constructor, `aJson`, `deJson`).
+2. `lib/modelos.dart`: enums `Sombra`, `SueloSurcos` y `PrioridadRiego` y los tres campos de `Plantacion` (constructor, `aJson`, `deJson`).
 3. `lib/motor/recomendador.dart`: `import 'cafe.dart';`, los campos `riegoCafe` y `avisosCafe`, y el bloque `resultadoCafe` antes del `return`.
 4. `lib/estado.dart`: `diasDeClimaConCafe` e `inicioDeClima`, y usarla en `sincronizar`.
 5. `lib/textos.dart`, `lib/ui/plantacion.dart` (bloque «Café») y `lib/ui/hoy.dart` (`_TarjetaCafe`).

@@ -1,8 +1,8 @@
-// Genera lib/motor/pesos_cafe.dart (red de riego del café, versión 2, con sombra de banano) y
+// Genera lib/motor/pesos_cafe.dart (red de riego del café, versión 3, con las clases de la auditoría del asesor) y
 // lib/motor/fuentes_cafe.dart (textos, fuentes y confianza de los avisos) a partir de los archivos del
 // repositorio del equipo. Los archivos Dart no se editan a mano: se vuelven a generar con este script.
 //
-//   node tool/generar_pesos_cafe.mjs [ruta/a/coffee_ptc_mlp_v2.json] [ruta/a/coffee_sources.json]
+//   node tool/generar_pesos_cafe.mjs [ruta/a/coffee_ptc_mlp_v3.json] [ruta/a/coffee_sources.json]
 //
 // Corre desde app/V01-red/. Solo usa Node (sin paquetes) y git para anotar de qué commit salen los datos.
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 
 const aqui = dirname(fileURLToPath(import.meta.url));
 const raiz = resolve(aqui, '..');
-const origenRed = resolve(process.argv[2] ?? resolve(raiz, '../../web/data/coffee_ptc_mlp_v2.json'));
+const origenRed = resolve(process.argv[2] ?? resolve(raiz, '../../web/data/coffee_ptc_mlp_v3.json'));
 const origenFuentes = resolve(process.argv[3] ?? resolve(raiz, '../../web/data/coffee_sources.json'));
 
 function info(origen) {
@@ -54,8 +54,8 @@ const arq = red.architecture;
 if (!Array.isArray(arq) || arq[0] !== red.inputNames.length || red.mean.length !== arq[0] || red.std.length !== arq[0]) {
   throw new Error('La arquitectura no coincide con las entradas');
 }
-if (red.inputNames.length !== 18 || red.inputNames[16] !== 'banana' || red.inputNames[17] !== 'bananaCover') {
-  throw new Error('Se esperaba la red versión 2 (18 entradas, banana y bananaCover al final)');
+if (red.inputNames.length !== 19 || red.inputNames[16] !== 'weeds' || red.inputNames[17] !== 'bananaRegulated' || red.inputNames[18] !== 'bananaDense') {
+  throw new Error('Se esperaba la red versión 3 (19 entradas, weeds, bananaRegulated y bananaDense al final)');
 }
 red.layers.forEach((c, i) => {
   if (c.W.length !== arq[i + 1] || c.W.some((f) => f.length !== arq[i]) || c.b.length !== arq[i + 1]) throw new Error(`Capa ${i} con forma inesperada`);
@@ -75,7 +75,7 @@ const pesos = `// GENERADO por tool/generar_pesos_cafe.mjs. No editar a mano: se
 // Red: ${arq.join(' → ')} (${red.params} parámetros), semilla ${red.seed}, ReLU en las capas ocultas y salida lineal.
 // Entradas: ${red.inputNames.length}, en el orden de \`pesosCafeEntradas\`.
 // Salida: ${red.target}.
-// La parte de banano es un SUPUESTO PROVISIONAL, no una medida (ver el campo \`provisional\` del archivo fuente).
+// Las clases de sistema (malezas, banano regulado, banano denso) son valores de referencia de FAO-56 de la auditoría del asesor, no medidas de campo (ver el campo \`systemSource\` del archivo fuente).
 library;
 
 /// Commit del repositorio del equipo del que salen estos pesos.
@@ -93,7 +93,7 @@ const pesosCafeSemilla = ${red.seed};
 /// Nombres de las ${red.inputNames.length} entradas, en el orden que espera la red.
 const pesosCafeEntradas = <String>${cadenas(red.inputNames)};
 
-/// Red en el formato de \`web/data/coffee_ptc_mlp_v2.json\` (lo que lee \`predecirCapas\` de red.dart).
+/// Red en el formato de \`web/data/coffee_ptc_mlp_v3.json\` (lo que lee \`predecirCapas\` de red.dart).
 /// La salida, ya en sus unidades, son los días de estrés que evitaría regar 20 mm hoy en los 30 días siguientes.
 const pesosCafe = <String, dynamic>{
   'mean': ${lista(red.mean)},

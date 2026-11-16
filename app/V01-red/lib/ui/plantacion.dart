@@ -39,7 +39,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
 
   // Solo café.
   Sombra _sombra = Sombra.ninguna;
-  double _coberturaBanano = coberturaBananoPoco;
+  SueloSurcos _sueloSurcos = SueloSurcos.limpio;
   PrioridadRiego _prioridad = PrioridadRiego.ahorrarAgua;
 
   bool _plaga = false;
@@ -55,6 +55,9 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
   late DateTime _fechaFertilizante;
 
   bool _iniciado = false;
+
+  /// La sombra elegida es una de las dos clases de banano de la auditoría.
+  bool get _esBanano => _sombra == Sombra.bananoRegulado || _sombra == Sombra.bananoDenso;
 
   @override
   void didChangeDependencies() {
@@ -77,10 +80,7 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
       _riego = p.riego;
       _temporada = p.temporadaRiego;
       _sombra = p.sombra;
-      // Si llegara otro valor, el selector solo ofrece los dos con que se entrenó la red.
-      _coberturaBanano = p.coberturaBanano >= (coberturaBananoPoco + coberturaBananoBastante) / 2
-          ? coberturaBananoBastante
-          : coberturaBananoPoco;
+      _sueloSurcos = p.sueloSurcos;
       _prioridad = p.prioridadRiego;
       _plaga = p.plagaReciente;
       _notaPlaga.text = p.notaPlaga;
@@ -179,7 +179,8 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
       fechaFertilizante: _fertilizo ? _fechaFertilizante : null,
       // Lo del café solo se guarda si el cultivo es café.
       sombra: c.perenne ? _sombra : Sombra.ninguna,
-      coberturaBanano: c.perenne && _sombra == Sombra.banano ? _coberturaBanano : coberturaBananoPoco,
+      // Con banano el suelo es el de la auditoría (con mulch): no se guarda lo que se haya elegido antes.
+      sueloSurcos: c.perenne && !_esBanano ? _sueloSurcos : SueloSurcos.limpio,
       prioridadRiego: c.perenne ? _prioridad : PrioridadRiego.ahorrarAgua,
     ));
     estado.sincronizar();
@@ -407,21 +408,34 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
                         Fila(
                           key: Key('sombra_${s.name}'),
                           titulo: t.nombreSombra(s),
-                          detalle: s == Sombra.banano ? t.bananoProvisional : null,
+                          detalle: s == Sombra.bananoRegulado || s == Sombra.bananoDenso ? t.bananoReferencia : null,
                           final_: marca(s == _sombra),
                           alPulsar: () => setState(() => _sombra = s),
                         ),
-                      if (_sombra == Sombra.banano)
+                    ]),
+                    // Suelo entre los surcos: con banano no se pregunta (la auditoría ya trae su suelo, con mulch de Musa).
+                    if (!_esBanano) ...[
+                      const SizedBox(height: Espacio.m),
+                      Grupo(children: [
                         bloque(
-                          t.coberturaBanano,
-                          // Los dos valores con que se entrenó la red del café (convenciones, no medidas).
-                          Selector<double>(
-                            opciones: {coberturaBananoPoco: t.coberturaPoco, coberturaBananoBastante: t.coberturaBastante},
-                            valor: _coberturaBanano,
-                            alCambiar: (v) => setState(() => _coberturaBanano = v),
+                          t.sueloSurcos,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Selector<SueloSurcos>(
+                                opciones: {for (final s in SueloSurcos.values) s: t.nombreSueloSurcos(s)},
+                                valor: _sueloSurcos,
+                                alCambiar: (v) => setState(() => _sueloSurcos = v),
+                              ),
+                              if (_sombra != Sombra.ninguna && _sueloSurcos == SueloSurcos.malezas) ...[
+                                const SizedBox(height: 8),
+                                Text(t.sueloSurcosConArboles, key: const Key('suelo_surcos_nota'), style: Texto.nota(context)),
+                              ],
+                            ],
                           ),
                         ),
-                    ]),
+                      ]),
+                    ],
                     const SizedBox(height: Espacio.m),
                     Grupo(children: [
                       bloque(

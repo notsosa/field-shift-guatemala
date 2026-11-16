@@ -1,7 +1,7 @@
-// Pruebas del café: la red de riego (versión 2, con sombra de banano), los avisos con fuente y la ventana de clima.
+// Pruebas del café: la red de riego (versión 3, con las clases de la auditoría del asesor), los avisos con fuente y la ventana de clima.
 //
 // La "referencia fija" son los casos de test/casos_cafe.json, generados con la referencia en JavaScript del repositorio
-// (tool/generar_casos_cafe.mjs): series diarias sintéticas, las 18 entradas, la predicción, la decisión y los avisos.
+// (tool/generar_casos_cafe.mjs): series diarias sintéticas, las 19 entradas, la predicción, la decisión y los avisos.
 // Dart tiene que dar las mismas entradas (1e-9), la misma predicción (1e-5), la misma decisión y los mismos niveles de aviso.
 //
 // La paridad prueba que Dart calcula lo mismo que JavaScript con la misma serie. No prueba que la red acierte con el clima
@@ -58,7 +58,7 @@ class _Caso {
 
   DateTime get floracion => _fecha(j['floracion'] as String);
   Sombra get sombra => Sombra.values.byName(_plantacion['sombra'] as String);
-  double get cobertura => (_plantacion['coberturaBanano'] as num).toDouble();
+  SueloSurcos get sueloSurcos => SueloSurcos.values.byName(_plantacion['sueloSurcos'] as String);
   PrioridadRiego get prioridad => PrioridadRiego.values.byName(_plantacion['prioridad'] as String);
   double get aguaDisponible => (_plantacion['aguaDisponible'] as num).toDouble();
   double get elevacion => ((j['parcela'] as Map<String, dynamic>)['elevacion'] as num).toDouble();
@@ -71,7 +71,7 @@ class _Caso {
         kc: 0.95,
         elevacion: elevacion,
         sombra: sombra,
-        coberturaBanano: cobertura,
+        sueloSurcos: sueloSurcos,
       );
 }
 
@@ -109,7 +109,7 @@ const _parcela = Parcela(nombre: 'Prueba', latitud: 14.6, longitud: -90.5, eleva
 Plantacion _cafe({
   required DateTime floracion,
   Sombra sombra = Sombra.ninguna,
-  double cobertura = coberturaBananoPoco,
+  SueloSurcos suelo = SueloSurcos.limpio,
   PrioridadRiego prioridad = PrioridadRiego.ahorrarAgua,
   String cultivo = 'cafe',
   int? ciclo,
@@ -124,7 +124,7 @@ Plantacion _cafe({
       plagaReciente: false,
       fertilizo: false,
       sombra: sombra,
-      coberturaBanano: cobertura,
+      sueloSurcos: suelo,
       prioridadRiego: prioridad,
     );
 
@@ -172,24 +172,24 @@ void main() {
 
   group('pesos y entradas', () {
     test('los nombres de las entradas de la app son los de los pesos y los de la referencia', () {
-      expect(pesosCafeEntradas.length, 18);
+      expect(pesosCafeEntradas.length, 19);
       expect(nombresEntradasCafe, pesosCafeEntradas);
       expect([for (final n in fixture['nombresEntradas'] as List<dynamic>) n as String], pesosCafeEntradas);
-      expect(pesosCafeEntradas.sublist(16), ['banana', 'bananaCover']);
+      expect(pesosCafeEntradas.sublist(16), ['weeds', 'bananaRegulated', 'bananaDense']);
       expect(() => comprobarEntradasDeCafe(), returnsNormally);
     });
 
-    test('la red tiene 3 841 parámetros y la forma 18 → 64 → 32 → 16 → 1', () {
+    test('la red tiene 3 905 parámetros y la forma 19 → 64 → 32 → 16 → 1', () {
       final capas = pesosCafe['layers'] as List<dynamic>;
       var n = 0;
-      final formas = <int>[18];
+      final formas = <int>[19];
       for (final c in capas) {
         final w = (c as Map<String, dynamic>)['W'] as List<dynamic>;
         n += w.length * (w.first as List<dynamic>).length + (c['b'] as List<dynamic>).length;
         formas.add(w.length);
       }
-      expect(n, 3841);
-      expect(formas, [18, 64, 32, 16, 1]);
+      expect(n, 3905);
+      expect(formas, [19, 64, 32, 16, 1]);
       expect(pesosCafeCommit, matches(RegExp(r'^[0-9a-f]{40}$')));
       expect(pesosCafeSha256, matches(RegExp(r'^[0-9a-f]{64}$')));
       expect(fuentesCafeCommit, matches(RegExp(r'^[0-9a-f]{40}$')));
@@ -256,8 +256,8 @@ void main() {
       test(c.nombre, () {
         final e = c.entradas!;
         final esperadas = _lista(c.esperado['entradas']);
-        expect(e.x.length, 18);
-        for (var i = 0; i < 18; i++) {
+        expect(e.x.length, 19);
+        for (var i = 0; i < 19; i++) {
           expect(e.x[i], closeTo(esperadas[i], 1e-9), reason: 'entrada $i (${pesosCafeEntradas[i]})');
         }
         maxEntradas = math.max(maxEntradas, _maxDif(e.x, esperadas));
@@ -312,13 +312,14 @@ void main() {
     test('diferencias máximas contra la referencia', () {
       // Se ejecuta después de los casos (las pruebas de un grupo corren en orden).
       // ignore: avoid_print
-      print('Diferencia máxima de las 18 entradas: ${maxEntradas.toStringAsExponential(2)}; de la predicción: ${maxPrediccion.toStringAsExponential(2)}');
+      print('Diferencia máxima de las 19 entradas: ${maxEntradas.toStringAsExponential(2)}; de la predicción: ${maxPrediccion.toStringAsExponential(2)}');
       expect(maxEntradas, lessThan(1e-9));
       expect(maxPrediccion, lessThan(1e-5));
     });
 
     test('la regla de la antracnosis cambia el precio solo si el productor eligió ahorrar agua', () {
-      final c = casos.firstWhere((c) => c.nombre.contains('caduca_seco_ahorrar_90d_antracnosis'));
+      // Un caso cuya predicción cae entre 1 y 3 días (1.26 con la red v3): ahí el precio decide. La bandera de antracnosis se pasa a mano; aquí solo se prueba la regla.
+      final c = casos.firstWhere((c) => c.nombre.contains('sin_sombra_seco_ahorrar_60d'));
       final e = c.entradas!;
       final ahorrar = decidirRiegoCafe(entradas: e, prioridad: PrioridadRiego.ahorrarAgua, antracnosisPorEstres: true);
       expect(ahorrar.precio, 1);
@@ -338,7 +339,7 @@ void main() {
     test('recomendar arma las mismas entradas con la serie de la propia app', () {
       // Clima de la app → balance de la app → entradas: lo mismo que armar las entradas con la serie.
       final floracion = DateTime(2027, 4, 2);
-      final p = _cafe(floracion: floracion, sombra: Sombra.banano, cobertura: coberturaBananoBastante);
+      final p = _cafe(floracion: floracion, sombra: Sombra.bananoRegulado);
       final clima = _clima(DateTime(2026, 10, 1), _hoy);
       final r = _recomendar(p, clima: clima);
       final serie = SerieCafe.deClima(prepararClima(clima, _parcela, _hoy), clima);
@@ -348,13 +349,13 @@ void main() {
         aguaDisponible: Suelo.franco.aguaDisponible,
         kc: 0.95,
         elevacion: 1100,
-        sombra: Sombra.banano,
-        coberturaBanano: coberturaBananoBastante,
+        sombra: Sombra.bananoRegulado,
+        sueloSurcos: SueloSurcos.limpio,
       )!;
       expect(r.riegoCafe, isNotNull);
       expect(r.riegoCafe!.entradas, e.x);
       expect(r.riegoCafe!.entradas[0], 60); // días desde la floración
-      expect(r.riegoCafe!.entradas.sublist(14), [1, 0, 1, 0.30]); // sombra, caduca, banano, cobertura
+      expect(r.riegoCafe!.entradas.sublist(14), [0, 0, 0, 1, 0]); // árboles, caduca, malezas, banano regulado, banano denso
     });
   });
 
@@ -596,38 +597,53 @@ void main() {
     test('datos guardados antes de estos campos cargan con los valores por omisión', () {
       final p = Plantacion.deJson(viejo());
       expect(p.sombra, Sombra.ninguna);
-      expect(p.coberturaBanano, coberturaBananoPoco);
+      expect(p.sueloSurcos, SueloSurcos.limpio);
       expect(p.prioridadRiego, PrioridadRiego.ahorrarAgua);
       expect(p.cultivoId, 'cafe');
     });
 
     test('valores desconocidos también caen en los de omisión', () {
-      final p = Plantacion.deJson({...viejo(), 'sombra': 'otra', 'prioridadRiego': 'otra', 'coberturaBanano': null});
+      final p = Plantacion.deJson({...viejo(), 'sombra': 'otra', 'prioridadRiego': 'otra', 'sueloSurcos': 'otro'});
       expect(p.sombra, Sombra.ninguna);
       expect(p.prioridadRiego, PrioridadRiego.ahorrarAgua);
-      expect(p.coberturaBanano, coberturaBananoPoco);
+      expect(p.sueloSurcos, SueloSurcos.limpio);
     });
 
     test('ida y vuelta por JSON', () {
-      final p = _cafe(floracion: DateTime(2027, 4, 2), sombra: Sombra.banano, cobertura: coberturaBananoBastante, prioridad: PrioridadRiego.protegerCultivo);
+      final p = _cafe(floracion: DateTime(2027, 4, 2), sombra: Sombra.bananoDenso, suelo: SueloSurcos.malezas, prioridad: PrioridadRiego.protegerCultivo);
       final j = jsonDecode(jsonEncode(p.aJson())) as Map<String, dynamic>;
-      expect(j['sombra'], 'banano');
-      expect(j['coberturaBanano'], 0.30);
+      expect(j['sombra'], 'bananoDenso');
+      expect(j['sueloSurcos'], 'malezas');
+      expect(j.containsKey('coberturaBanano'), isFalse); // ya no hay cobertura
       expect(j['prioridadRiego'], 'protegerCultivo');
       final q = Plantacion.deJson(j);
-      expect(q.sombra, Sombra.banano);
-      expect(q.coberturaBanano, coberturaBananoBastante);
+      expect(q.sombra, Sombra.bananoDenso);
+      expect(q.sueloSurcos, SueloSurcos.malezas);
       expect(q.prioridadRiego, PrioridadRiego.protegerCultivo);
       // Los métodos que reconstruyen la plantación conservan los campos.
-      expect(p.conId('p9').sombra, Sombra.banano);
+      expect(p.conId('p9').sombra, Sombra.bananoDenso);
+      expect(p.conId('p9').sueloSurcos, SueloSurcos.malezas);
       expect(p.conContorno(const []).prioridadRiego, PrioridadRiego.protegerCultivo);
+    });
+
+    test('plantaciones guardadas con banano y cobertura (0.15 o 0.30) cargan como banano regulado', () {
+      // La versión anterior guardaba sombra «banano» y coberturaBanano 0.15 o 0.30. Las dos pasan a la clase regulada de la auditoría; ver modelos.dart.
+      for (final cobertura in [0.15, 0.30]) {
+        final p = Plantacion.deJson({...viejo(), 'sombra': 'banano', 'coberturaBanano': cobertura, 'prioridadRiego': 'protegerCultivo'});
+        expect(p.sombra, Sombra.bananoRegulado, reason: '$cobertura');
+        expect(p.sueloSurcos, SueloSurcos.limpio);
+        expect(p.prioridadRiego, PrioridadRiego.protegerCultivo);
+        // y al guardarse de nuevo ya no llevan cobertura
+        expect(p.aJson()['sombra'], 'bananoRegulado');
+        expect(p.aJson().containsKey('coberturaBanano'), isFalse);
+      }
+      // Los demás valores antiguos no cambian.
+      expect(Plantacion.deJson({...viejo(), 'sombra': 'arbolesCaducos', 'coberturaBanano': 0.15}).sombra, Sombra.arbolesCaducos);
     });
 
     test('el precio de cada prioridad es el de la red: 3 y 1', () {
       expect(PrioridadRiego.ahorrarAgua.precio, 3);
       expect(PrioridadRiego.protegerCultivo.precio, 1);
-      expect(coberturaBananoPoco, 0.15);
-      expect(coberturaBananoBastante, 0.30);
     });
   });
 

@@ -176,7 +176,7 @@ class PestanaHoy extends StatelessWidget {
                 const SizedBox(height: Espacio.m),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: Espacio.m),
-                  child: _TarjetaCafe(r: r, banano: plantacion.sombra == Sombra.banano),
+                  child: _TarjetaCafe(r: r, banano: plantacion.sombra == Sombra.bananoRegulado || plantacion.sombra == Sombra.bananoDenso),
                 ),
               ],
             ],
@@ -295,7 +295,7 @@ class _TarjetaCafe extends StatelessWidget {
 
   final Recomendacion r;
 
-  /// La sombra es banano: hay que decir que su efecto es un supuesto.
+  /// La sombra es banano: se dice lo que dice la auditoría del asesor y que los valores son de referencia.
   final bool banano;
 
   static IconData _icono(TipoAvisoCafe t) => switch (t) {

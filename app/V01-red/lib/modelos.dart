@@ -217,17 +217,16 @@ const catalogo = <Cultivo>[
 Cultivo cultivoPorId(String id) => catalogo.firstWhere((c) => c.id == id, orElse: () => catalogo.first);
 
 /// Sombra del cafetal. Solo se pregunta para café y solo la usa la red de riego
-/// del café (`motor/cafe.dart`).
-enum Sombra { ninguna, arbolesPerennes, arbolesCaducos, banano }
+/// del café (`motor/cafe.dart`). Las dos de banano son las clases de la auditoría
+/// del asesor del equipo (Kc y p compuestos de FAO-56, sin medir en campo):
+/// banano regulado (35–45 % de sombra) con mulch de Musa, y banano denso sin
+/// deshije. No se combinan con los árboles de sombra.
+enum Sombra { ninguna, arbolesPerennes, arbolesCaducos, bananoRegulado, bananoDenso }
 
-/// Parte del terreno cubierta por la copa del banano: «poco». Son los dos únicos
-/// valores con que se entrenó la red del café (0.15 y 0.30 son convenciones de
-/// los escenarios del equipo, no medidas); por eso el formulario no deja
-/// escribir otro número.
-const coberturaBananoPoco = 0.15;
-
-/// Parte del terreno cubierta por la copa del banano: «bastante». Ver [coberturaBananoPoco].
-const coberturaBananoBastante = 0.30;
+/// Suelo entre los surcos del cafetal: limpio o con mulch, o con malezas vivas
+/// (clases de la auditoría del asesor). Con banano se ignora: la auditoría ya
+/// trae su propio suelo (con mulch de Musa).
+enum SueloSurcos { limpio, malezas }
 
 /// Qué pesa más para quien riega el café. El «precio» es lo que cuesta regar,
 /// en días de estrés que el riego tiene que evitar para valer la pena
@@ -264,7 +263,7 @@ class Plantacion {
     this.notaFertilizante = '',
     this.fechaFertilizante,
     this.sombra = Sombra.ninguna,
-    this.coberturaBanano = coberturaBananoPoco,
+    this.sueloSurcos = SueloSurcos.limpio,
     this.prioridadRiego = PrioridadRiego.ahorrarAgua,
   });
 
@@ -314,9 +313,9 @@ class Plantacion {
   /// Sombra del cafetal.
   final Sombra sombra;
 
-  /// Parte del terreno cubierta por banano: [coberturaBananoPoco] o
-  /// [coberturaBananoBastante]. Solo cuenta si [sombra] es banano.
-  final double coberturaBanano;
+  /// Suelo entre los surcos. Solo cuenta sin sombra (con banano se ignora; con
+  /// árboles la red no tiene esa combinación y tampoco lo usa).
+  final SueloSurcos sueloSurcos;
 
   /// Prioridad de quien riega; fija el precio de regar en la red del café.
   final PrioridadRiego prioridadRiego;
@@ -349,7 +348,7 @@ class Plantacion {
         'notaFertilizante': notaFertilizante,
         'fechaFertilizante': fechaFertilizante == null ? null : _iso(fechaFertilizante!),
         'sombra': sombra.name,
-        'coberturaBanano': coberturaBanano,
+        'sueloSurcos': sueloSurcos.name,
         'prioridadRiego': prioridadRiego.name,
       };
 
@@ -374,8 +373,13 @@ class Plantacion {
         notaFertilizante: j['notaFertilizante'] as String? ?? '',
         fechaFertilizante: j['fechaFertilizante'] == null ? null : _deIso(j['fechaFertilizante'] as String),
         // Los datos guardados antes de estos campos no los traen: se usan los valores por omisión.
-        sombra: Sombra.values.firstWhere((s) => s.name == j['sombra'], orElse: () => Sombra.ninguna),
-        coberturaBanano: (j['coberturaBanano'] as num?)?.toDouble() ?? coberturaBananoPoco,
+        // Las plantaciones guardadas con la versión anterior traen sombra 'banano' y una cobertura (0.15 o 0.30): ya no hay cobertura, hay dos clases.
+        // Las dos coberturas pasan a «banano regulado»: la clase regulada de la auditoría (35–45 % de sombra) es la que el equipo recomienda y la que
+        // la etiqueta «Regulada · 30 %» ya decía; 0.15 queda por debajo de esa clase pero no hay una clase de menos banano, y «denso» sería afirmar de más.
+        sombra: j['sombra'] == 'banano'
+            ? Sombra.bananoRegulado
+            : Sombra.values.firstWhere((s) => s.name == j['sombra'], orElse: () => Sombra.ninguna),
+        sueloSurcos: SueloSurcos.values.firstWhere((s) => s.name == j['sueloSurcos'], orElse: () => SueloSurcos.limpio),
         prioridadRiego:
             PrioridadRiego.values.firstWhere((p) => p.name == j['prioridadRiego'], orElse: () => PrioridadRiego.ahorrarAgua),
       );

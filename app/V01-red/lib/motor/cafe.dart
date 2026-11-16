@@ -1,8 +1,8 @@
-/// Café: la red de riego del equipo (versión 2, con sombra de banano) y los
+/// Café: la red de riego del equipo (versión 3, con las clases de la auditoría del asesor) y los
 /// avisos con fuente, en Dart puro (sin Flutter, sin red ni disco).
 ///
 /// La referencia es `web/js/model/coffee.js` (`coffeeDecisionState`,
-/// `coffeeDecisionStateV2`, `runningDepletion`, `ruleIrrigates`,
+/// `coffeeDecisionStateV3`, `runningDepletion`, `ruleIrrigates`,
 /// `effectivePriority` y los avisos). Las pruebas de `test/cafe_test.dart`
 /// comparan este código con esa referencia, caso por caso.
 ///
@@ -70,10 +70,10 @@ const _abonoMeses = [5, 6, 8, 9, 10, 11];
 const _abonoDiasLluvia = 7;
 const _abonoLluviaMm = 10.0;
 
-/// Nombres de las 18 entradas en el orden en que esta app las arma.
+/// Nombres de las 19 entradas en el orden en que esta app las arma.
 const nombresEntradasCafe = <String>[
   'daysSinceFlowering', 'doy', 'rain7', 'et0_7', 'rain28', 'et0_28', 'rainSinceNov1', 'et0SinceNov1', 'dryspell28',
-  'tmean28', 'tmaxMax28', 'runningDepletion', 'soilAWmm', 'elevation', 'shadeTrees', 'deciduous', 'banana', 'bananaCover',
+  'tmean28', 'tmaxMax28', 'runningDepletion', 'soilAWmm', 'elevation', 'shadeTrees', 'deciduous', 'weeds', 'bananaRegulated', 'bananaDense',
 ];
 
 var _entradasComprobadas = false;
@@ -168,7 +168,7 @@ double agotamientoCorrido({
   return d;
 }
 
-/// Las 18 entradas de la red y los dos números que salen del mismo cálculo.
+/// Las 19 entradas de la red y los dos números que salen del mismo cálculo.
 class EntradasCafe {
   const EntradasCafe({required this.x, required this.agotamiento, required this.taw});
 
@@ -182,7 +182,7 @@ class EntradasCafe {
   final double taw;
 }
 
-/// Las 18 entradas de la red el día de hoy (el último de la serie), o nulo si
+/// Las 19 entradas de la red el día de hoy (el último de la serie), o nulo si
 /// la serie no llega al 1 de noviembre anterior ni tiene 28 días.
 ///
 /// [floracion] es la fecha de la última floración (`Plantacion.fecha` del café).
@@ -193,7 +193,7 @@ EntradasCafe? entradasCafe({
   required double kc,
   required double elevacion,
   required Sombra sombra,
-  required double coberturaBanano,
+  required SueloSurcos sueloSurcos,
 }) {
   final t = serie.t;
   if (serie.largo < _ventana) return null;
@@ -215,7 +215,9 @@ EntradasCafe? entradasCafe({
   }
   if (n == 0) return null;
 
-  final banano = sombra == Sombra.banano;
+  // Árboles (perenne o caduca): shadeTrees 1; con banano, shadeTrees 0 (no se combinan). Malezas solo sin sombra: con árboles la red no tiene esa clase.
+  final arboles = sombra == Sombra.arbolesPerennes || sombra == Sombra.arbolesCaducos;
+  final malezas = sombra == Sombra.ninguna && sueloSurcos == SueloSurcos.malezas;
   final x = <double>[
     _diasEntre(floracion, serie.hoy).toDouble(),
     _diaDelAnio(serie.hoy).toDouble(),
@@ -231,10 +233,11 @@ EntradasCafe? entradasCafe({
     agotamiento,
     taw,
     elevacion,
-    sombra != Sombra.ninguna ? 1.0 : 0.0,
+    arboles ? 1.0 : 0.0,
     sombra == Sombra.arbolesCaducos ? 1.0 : 0.0,
-    banano ? 1.0 : 0.0,
-    banano ? coberturaBanano : 0.0,
+    malezas ? 1.0 : 0.0,
+    sombra == Sombra.bananoRegulado ? 1.0 : 0.0,
+    sombra == Sombra.bananoDenso ? 1.0 : 0.0,
   ];
   assert(x.length == nombresEntradasCafe.length);
   return EntradasCafe(x: x, agotamiento: agotamiento, taw: taw);
@@ -425,7 +428,7 @@ class DecisionRiegoCafe {
   /// Agua disponible total de la zona de raíces de 1.2 m, mm.
   final double taw;
 
-  /// Las 18 entradas con que se evaluó la red.
+  /// Las 19 entradas con que se evaluó la red.
   final List<double> entradas;
 }
 
@@ -521,7 +524,7 @@ ResultadoCafe resultadoCafe({
       kc: plantacion.cultivo.parametros.kcMedio,
       elevacion: parcela.elevacion ?? 500,
       sombra: plantacion.sombra,
-      coberturaBanano: plantacion.coberturaBanano,
+      sueloSurcos: plantacion.sueloSurcos,
     );
     if (entradas != null) {
       final antracnosis = avisos.where((a) => a.tipo == TipoAvisoCafe.antracnosis).firstOrNull;

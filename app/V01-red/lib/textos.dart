@@ -287,13 +287,18 @@ class Txt {
         Sombra.ninguna => _('Sin sombra', 'No shade'),
         Sombra.arbolesPerennes => _('Árboles de hoja perenne', 'Evergreen trees'),
         Sombra.arbolesCaducos => _('Árboles de hoja caduca', 'Deciduous trees'),
-        Sombra.banano => _('Banano', 'Banana'),
+        Sombra.bananoRegulado => _('Banano regulado con mulch', 'Managed banana with mulch'),
+        Sombra.bananoDenso => _('Banano denso sin deshije', 'Dense banana, not thinned'),
       };
-  String get bananoProvisional => _('Efecto provisional: es un supuesto, no una medición',
-      'Provisional effect: an assumption, not a measurement');
-  String get coberturaBanano => _('Cuánto del terreno cubre el banano', 'How much of the plot the bananas cover');
-  String get coberturaPoco => _('Poco · 15 %', 'Little · 15 %');
-  String get coberturaBastante => _('Regulada · 30 %', 'Managed · 30 %');
+  String get bananoReferencia => _('Valores de referencia de FAO-56 de la auditoría del asesor, sin medición en campo',
+      'FAO-56 reference values from the advisor’s audit, not measured in the field');
+  String get sueloSurcos => _('Suelo entre los surcos', 'Ground between the rows');
+  String nombreSueloSurcos(SueloSurcos s) => switch (s) {
+        SueloSurcos.limpio => _('Limpio o con mulch', 'Clean or mulched'),
+        SueloSurcos.malezas => _('Con malezas', 'With weeds'),
+      };
+  String get sueloSurcosConArboles => _('Con árboles de sombra, el modelo no distingue las malezas.',
+      'With shade trees, the model does not tell weeds apart.');
   String get prioridadRiego => _('Al regar, qué pesa más', 'When irrigating, what matters more');
   String nombrePrioridad(PrioridadRiego p) => switch (p) {
         PrioridadRiego.ahorrarAgua => _('Ahorrar agua', 'Save water'),
@@ -369,8 +374,8 @@ class Txt {
       'Estimado por la red del equipo con el clima de NASA POWER. La red se entrenó con otra fuente de lluvia (ERA5) y con temperaturas corregidas a la parcela: aquí es una vista previa, no está validada.',
       'Estimated by the team’s neural network from NASA POWER weather. The network was trained with another rain source (ERA5) and plot-corrected temperatures: here it is a preview and has not been validated.');
   String get leyendaBananoCafe => _(
-      'El efecto del banano es un supuesto provisional, no una medición. El banano no le da agua al café: en la auditoría del equipo, a igual manejo, aumenta su déficit hídrico. Lo recomendado por el asesor es banano regulado (deshijado) con mulch de sus hojas y pseudotallos.',
-      'The banana effect is a provisional assumption, not a measurement. Banana does not give the coffee water: in the team’s audit, with the same management, it increases its water deficit. The advisor recommends managed (thinned) banana with a mulch of its leaves and pseudostems.');
+      'Según la auditoría del asesor del equipo, el banano regulado con mulch gasta menos agua que un cafetal al sol con malezas, y más que un cafetal con suelo limpio. No es una promesa de ahorro de agua: los valores son de referencia (FAO-56) y no están medidos en campo.',
+      'According to the team advisor’s audit, managed banana with mulch uses less water than sun-grown coffee with weeds, and more than coffee on clean ground. It is not a promise of water savings: the values are FAO-56 references, not field measurements.');
 
   String mm(double v) => '${v.round()} mm';
   String diasEstres(int n) => n == 0

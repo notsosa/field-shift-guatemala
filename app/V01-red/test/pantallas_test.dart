@@ -612,6 +612,7 @@ void main() {
     int ciclo = 120,
     Brightness brillo = Brightness.light,
     Sombra sombra = Sombra.ninguna,
+    SueloSurcos suelo = SueloSurcos.limpio,
     PrioridadRiego prioridad = PrioridadRiego.ahorrarAgua,
     DateTime? hoy,
   }) async {
@@ -628,6 +629,7 @@ void main() {
       plagaReciente: false,
       fertilizo: true,
       sombra: sombra,
+      sueloSurcos: suelo,
       prioridadRiego: prioridad,
     );
     final estado = await _abrir(tester, brillo: brillo, reloj: hoy, guardado: {
@@ -758,15 +760,23 @@ void main() {
     expect(find.textContaining('a preview and has not been validated'), findsOneWidget);
   });
 
-  testWidgets('Café: la línea del banano aparece solo con sombra de banano', (tester) async {
-    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365, sombra: Sombra.banano);
-    expect(estado.recomendacion.riegoCafe!.entradas[16], 1);
+  testWidgets('Café: la línea del banano aparece solo con banano y no promete ahorro de agua', (tester) async {
+    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365, sombra: Sombra.bananoRegulado);
+    expect(estado.recomendacion.riegoCafe!.entradas.sublist(14), [0, 0, 0, 1, 0]);
     await tester.scrollUntilVisible(tarjetaCafe(), 200, scrollable: listaHoy());
     await tester.drag(find.byType(CustomScrollView).first, const Offset(0, -150));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('leyenda_banano')), findsOneWidget);
-    expect(find.textContaining('El efecto del banano es un supuesto provisional, no una medición.'), findsOneWidget);
-    expect(find.textContaining('banano regulado (deshijado) con mulch'), findsOneWidget);
+    expect(find.textContaining('Según la auditoría del asesor del equipo, el banano regulado con mulch gasta menos agua que un cafetal al sol con malezas, y más que un cafetal con suelo limpio.'), findsOneWidget);
+    expect(find.textContaining('No es una promesa de ahorro de agua'), findsOneWidget);
+    await estado.cambiarIdioma('en');
+    await tester.pumpAndSettle();
+    expect(find.textContaining('managed banana with mulch uses less water than sun-grown coffee with weeds, and more than coffee on clean ground'), findsOneWidget);
+    // banano denso: la misma línea y la entrada de la clase densa
+    final denso = await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365, sombra: Sombra.bananoDenso);
+    expect(denso.recomendacion.riegoCafe!.entradas.sublist(14), [0, 0, 0, 0, 1]);
+    await tester.scrollUntilVisible(tarjetaCafe(), 200, scrollable: listaHoy());
+    expect(find.byKey(const Key('leyenda_banano')), findsOneWidget);
     for (final s in [Sombra.ninguna, Sombra.arbolesPerennes, Sombra.arbolesCaducos]) {
       await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365, sombra: s);
       await tester.scrollUntilVisible(tarjetaCafe(), 200, scrollable: listaHoy());
@@ -798,24 +808,31 @@ void main() {
     expect(find.textContaining('floración de febrero a mayo'), findsNothing);
   });
 
-  testWidgets('Café: el formulario pide sombra, cobertura de banano y prioridad solo para café, y los guarda', (tester) async {
+  testWidgets('Café: el formulario pide sombra, suelo entre los surcos y prioridad solo para café, y los guarda', (tester) async {
     final estado = await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365);
     await tester.tap(find.text('Ajustes'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Café'));
     await tester.pumpAndSettle();
     final formulario = find.descendant(of: find.byType(PantallaPlantacion), matching: find.byType(Scrollable)).first;
-    await tester.scrollUntilVisible(find.byKey(const Key('sombra_banano')), 300, scrollable: formulario);
+    await tester.scrollUntilVisible(find.byKey(const Key('sombra_bananoDenso')), 300, scrollable: formulario);
     await tester.pumpAndSettle();
     expect(find.text('Sin sombra'), findsOneWidget);
-    expect(find.text('Cuánto del terreno cubre el banano'), findsNothing); // solo con banano
-    await tester.tap(find.byKey(const Key('sombra_banano')));
+    expect(find.text('Árboles de hoja perenne'), findsOneWidget);
+    expect(find.text('Árboles de hoja caduca'), findsOneWidget);
+    expect(find.text('Banano regulado con mulch'), findsOneWidget);
+    expect(find.text('Banano denso sin deshije'), findsOneWidget);
+    expect(find.text('Cuánto del terreno cubre el banano'), findsNothing); // ya no hay cobertura
+    expect(find.text('Suelo entre los surcos'), findsOneWidget); // sin banano se pregunta
+    expect(find.text('Limpio o con mulch'), findsOneWidget);
+    expect(find.text('Con malezas'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('sombra_bananoDenso')));
     await tester.pumpAndSettle();
-    expect(find.textContaining('Efecto provisional'), findsOneWidget);
-    expect(find.text('Cuánto del terreno cubre el banano'), findsOneWidget);
-    await tester.ensureVisible(find.text('Regulada · 30 %'));
-    await tester.tap(find.text('Regulada · 30 %'));
+    expect(find.textContaining('Valores de referencia de FAO-56'), findsNWidgets(2)); // en las dos filas de banano
+    expect(find.text('Suelo entre los surcos'), findsNothing); // con banano el suelo es el de la auditoría y no se pregunta
+    await tester.tap(find.byKey(const Key('sombra_bananoRegulado')));
     await tester.pumpAndSettle();
+    expect(find.text('Suelo entre los surcos'), findsNothing);
     await tester.ensureVisible(find.text('Proteger el cultivo'));
     await tester.tap(find.text('Proteger el cultivo'));
     await tester.pumpAndSettle();
@@ -823,11 +840,65 @@ void main() {
     await tester.tap(find.text('Guardar'));
     await tester.pumpAndSettle();
     final p = estado.plantaciones.single;
-    expect(p.sombra, Sombra.banano);
-    expect(p.coberturaBanano, coberturaBananoBastante);
+    expect(p.sombra, Sombra.bananoRegulado);
+    expect(p.sueloSurcos, SueloSurcos.limpio);
     expect(p.prioridadRiego, PrioridadRiego.protegerCultivo);
-    expect(estado.recomendacion.riegoCafe!.entradas.sublist(14), [1, 0, 1, 0.30]);
+    expect(estado.recomendacion.riegoCafe!.entradas.sublist(14), [0, 0, 0, 1, 0]);
     expect(estado.recomendacion.riegoCafe!.precio, 1);
+  });
+
+  /// Abre el formulario de la plantación de café (desde Ajustes) y devuelve el desplazable del formulario.
+  Future<Finder> abrirFormularioCafe(WidgetTester tester) async {
+    await tester.tap(find.text('Ajustes'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Café'));
+    await tester.pumpAndSettle();
+    return find.descendant(of: find.byType(PantallaPlantacion), matching: find.byType(Scrollable)).first;
+  }
+
+  Future<void> tocar(WidgetTester tester, Finder f) async {
+    await tester.ensureVisible(f);
+    await tester.pumpAndSettle();
+    await tester.tap(f);
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('Café: el suelo con malezas se guarda y llega a la red sin sombra', (tester) async {
+    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365);
+    final formulario = await abrirFormularioCafe(tester);
+    await tester.scrollUntilVisible(find.text('Con malezas'), 300, scrollable: formulario);
+    await tocar(tester, find.text('Con malezas'));
+    expect(find.byKey(const Key('suelo_surcos_nota')), findsNothing); // sin sombra no hay nota
+    await tester.tap(find.text('Guardar'));
+    await tester.pumpAndSettle();
+    expect(estado.plantaciones.single.sueloSurcos, SueloSurcos.malezas);
+    expect(estado.recomendacion.riegoCafe!.entradas.sublist(14), [0, 0, 1, 0, 0]); // árboles, caduca, malezas, regulado, denso
+  });
+
+  testWidgets('Café: con árboles de sombra la red no tiene malezas: se avisa y la entrada queda en 0', (tester) async {
+    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365, suelo: SueloSurcos.malezas);
+    expect(estado.recomendacion.riegoCafe!.entradas.sublist(14), [0, 0, 1, 0, 0]);
+    final formulario = await abrirFormularioCafe(tester);
+    await tester.scrollUntilVisible(find.byKey(const Key('sombra_arbolesPerennes')), 300, scrollable: formulario);
+    await tocar(tester, find.byKey(const Key('sombra_arbolesPerennes')));
+    await tester.ensureVisible(find.byKey(const Key('suelo_surcos_nota')));
+    expect(find.textContaining('el modelo no distingue las malezas'), findsOneWidget);
+    await tester.tap(find.text('Guardar'));
+    await tester.pumpAndSettle();
+    expect(estado.plantaciones.single.sombra, Sombra.arbolesPerennes);
+    expect(estado.recomendacion.riegoCafe!.entradas.sublist(14), [1, 0, 0, 0, 0]);
+  });
+
+  testWidgets('Café: con banano el suelo elegido antes no se guarda', (tester) async {
+    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365, suelo: SueloSurcos.malezas);
+    final formulario = await abrirFormularioCafe(tester);
+    await tester.scrollUntilVisible(find.byKey(const Key('sombra_bananoDenso')), 300, scrollable: formulario);
+    await tocar(tester, find.byKey(const Key('sombra_bananoDenso')));
+    await tester.tap(find.text('Guardar'));
+    await tester.pumpAndSettle();
+    expect(estado.plantaciones.single.sombra, Sombra.bananoDenso);
+    expect(estado.plantaciones.single.sueloSurcos, SueloSurcos.limpio);
+    expect(estado.recomendacion.riegoCafe!.entradas.sublist(14), [0, 0, 0, 0, 1]);
   });
 
   testWidgets('Café: un cultivo que no es café no ofrece sombra ni prioridad y guarda los valores por omisión', (tester) async {
@@ -852,7 +923,7 @@ void main() {
         hoy: enTemporada,
         dias: 60,
         ciclo: 365,
-        sombra: Sombra.banano,
+        sombra: Sombra.bananoRegulado,
         brillo: oscuro ? Brightness.dark : Brightness.light,
       );
       await tester.scrollUntilVisible(tarjetaCafe(), 200, scrollable: listaHoy());
