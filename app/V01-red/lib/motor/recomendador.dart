@@ -5,6 +5,7 @@
 library;
 
 import '../modelos.dart';
+import 'cafe.dart';
 import 'entradas_red.dart';
 import 'fao56.dart';
 
@@ -37,6 +38,8 @@ class Recomendacion {
     this.estresProx7,
     this.estresProx14,
     this.desdeRed = false,
+    this.riegoCafe,
+    this.avisosCafe = const [],
   });
 
   final NivelAgua nivel;
@@ -95,6 +98,19 @@ class Recomendacion {
 
   /// Verdadero si los valores anteriores vienen de la red y no del balance de agua.
   final bool desdeRed;
+
+  // Café (lib/motor/cafe.dart). Solo para plantaciones de café.
+
+  /// Lo que dice la red de riego del café: si conviene regar 20 mm hoy, los días
+  /// de estrés que evitaría, el precio usado, si el aviso de antracnosis cambió
+  /// la prioridad y lo que dice la regla FAO-56. Nulo donde la red no se midió:
+  /// otro cultivo, floración a menos de 20 o a más de 100 días, clima viejo o
+  /// serie corta, o riego anotado en los últimos siete días.
+  final DecisionRiegoCafe? riegoCafe;
+
+  /// Avisos de café con fuente (abono, antracnosis por estrés, roya posible).
+  /// Salen siempre que haya clima, aunque la red de riego no aplique.
+  final List<AvisoCafe> avisosCafe;
 
   static const vacia = Recomendacion(
     nivel: NivelAgua.sinDatos,
@@ -274,6 +290,18 @@ Recomendacion recomendar({
     ));
   }
 
+  // Café: avisos con fuente y, donde se midió, la red de riego.
+  final ResultadoCafe? cafe = plantacion.cultivoId == cultivoCafe
+      ? resultadoCafe(
+          parcela: parcela,
+          plantacion: plantacion,
+          serie: SerieCafe.deClima(dias, clima),
+          estados: estados,
+          registros: registros,
+          climaViejo: climaViejo,
+        )
+      : null;
+
   return Recomendacion(
     nivel: nivel,
     reserva: actual.reserva,
@@ -296,5 +324,7 @@ Recomendacion recomendar({
     estresProx7: red?.estres7,
     estresProx14: red?.estres14,
     desdeRed: red != null,
+    riegoCafe: cafe?.riego,
+    avisosCafe: cafe?.avisos ?? const [],
   );
 }

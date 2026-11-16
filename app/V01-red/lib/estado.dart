@@ -7,10 +7,33 @@ import 'datos/almacen.dart';
 import 'datos/clima.dart';
 import 'datos/mapa.dart';
 import 'modelos.dart';
+import 'motor/cafe.dart' show cultivoCafe;
 import 'motor/recomendador.dart';
 import 'textos.dart';
 
 enum ResultadoSync { ok, sinWifi, error }
+
+/// Días de clima que se descargan si hay café en la finca. La red de riego del
+/// café necesita la lluvia y la ET₀ desde el 1 de noviembre anterior, que queda
+/// a 364 días como máximo.
+const diasDeClimaConCafe = 365;
+
+/// Primer día de clima que se descarga: desde la siembra más antigua, con un
+/// mínimo de 60 días y un máximo de 240. Si alguna plantación es de café, siempre
+/// [diasDeClimaConCafe] días atrás (sin café no cambia).
+DateTime inicioDeClima(DateTime hoy, List<Plantacion> plantaciones) {
+  final fin = soloFecha(hoy);
+  if (plantaciones.any((p) => p.cultivoId == cultivoCafe)) {
+    return DateTime(fin.year, fin.month, fin.day - diasDeClimaConCafe);
+  }
+  var desde = DateTime(fin.year, fin.month, fin.day - 60);
+  for (final x in plantaciones) {
+    if (x.fecha.isBefore(desde)) desde = soloFecha(x.fecha);
+  }
+  final limite = DateTime(fin.year, fin.month, fin.day - 240);
+  if (desde.isBefore(limite)) desde = limite;
+  return desde;
+}
 
 class AppEstado extends ChangeNotifier {
   AppEstado(this._almacen, {ServicioClima? servicioClima, ServicioMapa? servicioMapa, DateTime Function()? reloj})
@@ -232,13 +255,7 @@ class AppEstado extends ChangeNotifier {
     try {
       if (!await _servicio.hayWifi()) return ResultadoSync.sinWifi;
       final fin = soloFecha(hoy);
-      // Desde la siembra más antigua, con un mínimo de 60 días y un máximo de 240.
-      var desde = DateTime(fin.year, fin.month, fin.day - 60);
-      for (final x in plantaciones) {
-        if (x.fecha.isBefore(desde)) desde = soloFecha(x.fecha);
-      }
-      final limite = DateTime(fin.year, fin.month, fin.day - 240);
-      if (desde.isBefore(limite)) desde = limite;
+      final desde = inicioDeClima(fin, plantaciones);
 
       final r = await _servicio.descargar(latitud: p.latitud, longitud: p.longitud, desde: desde, hasta: fin);
       clima = r.dias;

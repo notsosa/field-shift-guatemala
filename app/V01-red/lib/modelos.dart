@@ -216,6 +216,30 @@ const catalogo = <Cultivo>[
 
 Cultivo cultivoPorId(String id) => catalogo.firstWhere((c) => c.id == id, orElse: () => catalogo.first);
 
+/// Sombra del cafetal. Solo se pregunta para café y solo la usa la red de riego
+/// del café (`motor/cafe.dart`).
+enum Sombra { ninguna, arbolesPerennes, arbolesCaducos, banano }
+
+/// Parte del terreno cubierta por la copa del banano: «poco». Son los dos únicos
+/// valores con que se entrenó la red del café (0.15 y 0.30 son convenciones de
+/// los escenarios del equipo, no medidas); por eso el formulario no deja
+/// escribir otro número.
+const coberturaBananoPoco = 0.15;
+
+/// Parte del terreno cubierta por la copa del banano: «bastante». Ver [coberturaBananoPoco].
+const coberturaBananoBastante = 0.30;
+
+/// Qué pesa más para quien riega el café. El «precio» es lo que cuesta regar,
+/// en días de estrés que el riego tiene que evitar para valer la pena
+/// (convención de la red del equipo).
+enum PrioridadRiego {
+  ahorrarAgua(3),
+  protegerCultivo(1);
+
+  const PrioridadRiego(this.precio);
+  final int precio;
+}
+
 /// Una plantación de la finca. Puede haber varias, cada una con su perímetro
 /// en el croquis, sus registros semanales y su recomendación.
 class Plantacion {
@@ -239,6 +263,9 @@ class Plantacion {
     this.tipoFertilizante = TipoFertilizante.quimico,
     this.notaFertilizante = '',
     this.fechaFertilizante,
+    this.sombra = Sombra.ninguna,
+    this.coberturaBanano = coberturaBananoPoco,
+    this.prioridadRiego = PrioridadRiego.ahorrarAgua,
   });
 
   /// Identificador dentro de la finca. Vacío hasta que se guarda.
@@ -281,6 +308,19 @@ class Plantacion {
   final String notaFertilizante;
   final DateTime? fechaFertilizante;
 
+  // Solo café (`cultivo.perenne`). En los otros cultivos se guardan los valores
+  // por omisión y nada los lee.
+
+  /// Sombra del cafetal.
+  final Sombra sombra;
+
+  /// Parte del terreno cubierta por banano: [coberturaBananoPoco] o
+  /// [coberturaBananoBastante]. Solo cuenta si [sombra] es banano.
+  final double coberturaBanano;
+
+  /// Prioridad de quien riega; fija el precio de regar en la red del café.
+  final PrioridadRiego prioridadRiego;
+
   Cultivo get cultivo => cultivoPorId(cultivoId);
 
   Plantacion conId(String nuevo) => Plantacion.deJson({...aJson(), 'id': nuevo});
@@ -308,6 +348,9 @@ class Plantacion {
         'tipoFertilizante': tipoFertilizante.name,
         'notaFertilizante': notaFertilizante,
         'fechaFertilizante': fechaFertilizante == null ? null : _iso(fechaFertilizante!),
+        'sombra': sombra.name,
+        'coberturaBanano': coberturaBanano,
+        'prioridadRiego': prioridadRiego.name,
       };
 
   factory Plantacion.deJson(Map<String, dynamic> j) => Plantacion(
@@ -330,6 +373,11 @@ class Plantacion {
         tipoFertilizante: TipoFertilizante.values.byName(j['tipoFertilizante'] as String? ?? 'quimico'),
         notaFertilizante: j['notaFertilizante'] as String? ?? '',
         fechaFertilizante: j['fechaFertilizante'] == null ? null : _deIso(j['fechaFertilizante'] as String),
+        // Los datos guardados antes de estos campos no los traen: se usan los valores por omisión.
+        sombra: Sombra.values.firstWhere((s) => s.name == j['sombra'], orElse: () => Sombra.ninguna),
+        coberturaBanano: (j['coberturaBanano'] as num?)?.toDouble() ?? coberturaBananoPoco,
+        prioridadRiego:
+            PrioridadRiego.values.firstWhere((p) => p.name == j['prioridadRiego'], orElse: () => PrioridadRiego.ahorrarAgua),
       );
 }
 

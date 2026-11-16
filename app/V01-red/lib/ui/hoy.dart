@@ -1,7 +1,10 @@
 import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../estado.dart';
+import '../modelos.dart' show Sombra;
+import '../motor/cafe.dart';
 import '../motor/entradas_red.dart' show umbralEstresRed;
+import '../motor/fuentes_cafe.dart';
 import '../motor/fao56.dart';
 import '../motor/recomendador.dart';
 import 'finca.dart';
@@ -169,6 +172,13 @@ class PestanaHoy extends StatelessWidget {
                   child: _TarjetaProximosDias(r: r, cultivoId: plantacion.cultivoId),
                 ),
               ],
+              if (plantacion.cultivoId == cultivoCafe) ...[
+                const SizedBox(height: Espacio.m),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: Espacio.m),
+                  child: _TarjetaCafe(r: r, banano: plantacion.sombra == Sombra.banano),
+                ),
+              ],
             ],
 
             if (r.avisos.isNotEmpty) ...[
@@ -271,6 +281,117 @@ class _TarjetaProximosDias extends StatelessWidget {
           ],
           const SizedBox(height: Espacio.m),
           Text(t.leyendaRed, style: Texto.nota(context)),
+        ],
+      ),
+    );
+  }
+}
+
+/// Café: lo que dice la red de riego del equipo (donde se midió) y los avisos
+/// con fuente. Se dibuja siempre en plantaciones de café con clima; los avisos
+/// salen aunque la red no aplique.
+class _TarjetaCafe extends StatelessWidget {
+  const _TarjetaCafe({required this.r, required this.banano});
+
+  final Recomendacion r;
+
+  /// La sombra es banano: hay que decir que su efecto es un supuesto.
+  final bool banano;
+
+  static IconData _icono(TipoAvisoCafe t) => switch (t) {
+        TipoAvisoCafe.abono => CupertinoIcons.leaf_arrow_circlepath,
+        TipoAvisoCafe.antracnosis => CupertinoIcons.ant,
+        TipoAvisoCafe.roya => CupertinoIcons.thermometer,
+      };
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Alcance.de(context).txt;
+    final riego = r.riegoCafe;
+    final avisos = [for (final a in r.avisosCafe) if (a.seMuestra) a];
+    final ambar = Paleta.de(context, Paleta.ambar);
+    final verde = Paleta.de(context, Paleta.verde);
+
+    Widget linea() => Padding(
+          padding: const EdgeInsets.symmetric(vertical: Espacio.m),
+          child: SizedBox(height: 0.5, child: ColoredBox(color: Paleta.de(context, Paleta.tenue))),
+        );
+
+    return Tarjeta(
+      key: const Key('tarjeta_cafe'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(t.tarjetaCafe, style: Texto.fuerte(context)),
+          const SizedBox(height: Espacio.s),
+          if (riego != null) ...[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 2, right: Espacio.s),
+                  child: Icon(
+                    riego.regar ? CupertinoIcons.drop : CupertinoIcons.checkmark_circle,
+                    size: 20,
+                    color: riego.regar ? ambar : verde,
+                  ),
+                ),
+                Expanded(child: Text(riego.regar ? t.conviene20 : t.noHaceFaltaRegar, style: Texto.cuerpo(context))),
+              ],
+            ),
+            const SizedBox(height: Espacio.s),
+            Text(t.diasEvitadosCafe(riego.diasEvitados), style: Texto.nota(context)),
+            const SizedBox(height: 2),
+            Text(t.prioridadUsada(riego.precio), style: Texto.nota(context)),
+            if (riego.antracnosisCambioPrioridad) ...[
+              const SizedBox(height: 2),
+              Text(t.antracnosisCambioPrioridad, key: const Key('cafe_antracnosis_prioridad'), style: Texto.nota(context)),
+            ],
+            const SizedBox(height: 2),
+            Text(t.reglaFao(riego.reglaRiega), style: Texto.nota(context)),
+          ] else
+            Text(t.redCafeNoAplica, style: Texto.nota(context)),
+          if (avisos.isNotEmpty) ...[
+            linea(),
+            Text(t.avisosDelCafe, style: Texto.fuerte(context)),
+            for (final a in avisos) ...[
+              const SizedBox(height: Espacio.s),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2, right: Espacio.s),
+                    child: Icon(
+                      _icono(a.tipo),
+                      size: 20,
+                      color: a.tipo == TipoAvisoCafe.abono && a.nivel == NivelAvisoCafe.abonarYa ? verde : ambar,
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(t.tituloAvisoCafe(a), style: Texto.cuerpo(context)),
+                        Text(t.detalleAvisoCafe(a), style: Texto.nota(context)),
+                        Text(
+                          t.fuenteAviso(fuentesCafe[a.claveFuente]!.fuenteCorta, fuentesCafe[a.claveFuente]!.nivelConfianza),
+                          style: Texto.nota(context),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+            const SizedBox(height: Espacio.s),
+            Text(t.leyendaAvisosCafe, style: Texto.nota(context)),
+          ],
+          const SizedBox(height: Espacio.m),
+          Text(t.leyendaRedCafe, style: Texto.nota(context)),
+          if (banano) ...[
+            const SizedBox(height: 2),
+            Text(t.leyendaBananoCafe, key: const Key('leyenda_banano'), style: Texto.nota(context)),
+          ],
         ],
       ),
     );

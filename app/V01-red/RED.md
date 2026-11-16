@@ -108,3 +108,85 @@ Los dos scripts leen archivos del repositorio del equipo (`web/`), así que se c
 8. `flutter analyze` y `flutter test` en `app/V01`; no hace falta tocar `pubspec.yaml`. Antes de subir, como dice `HANDOFF.md`, preguntar al dueño del repositorio.
 
 Los puntos 1 a 3 son copias de archivos; los 4 a 7 son adiciones sin borrar nada del código existente.
+
+## Café: la red de riego v2 y los avisos
+
+Para plantaciones de café, la tarjeta **Café** de la pestaña Hoy muestra la recomendación de riego de la red del equipo (versión 2, con sombra de banano), los avisos con fuente y una leyenda honesta. La tarjeta «Próximos 7 días» de arriba y sus pruebas no cambiaron.
+
+### Entradas nuevas del formulario (solo para café)
+
+- **Sombra**: sin sombra, árboles de hoja perenne, árboles de hoja caduca o banano.
+- **Cuánto cubre el banano** (solo con banano): «poco» (0.15) o «bastante» (0.30) del terreno. Son los dos únicos valores con que se entrenó la red; por eso no se deja escribir otro número.
+- **Prioridad al regar**: ahorrar agua (precio 3 días de estrés) o proteger el cultivo (precio 1).
+
+Se guardan en `Plantacion` (`sombra`, `coberturaBanano`, `prioridadRiego`) con valores por omisión (sin sombra, 0.15, ahorrar agua): los datos guardados antes cargan igual (hay una prueba).
+
+**Por qué solo esas.** Una entrada que ningún modelo conectado usa no sirve. No se agregó «¿puede resembrar?», clase de fertilidad ni calor: ninguna red ni regla conectada en la app los consume.
+
+### Archivos
+
+| Archivo | Qué es |
+|---|---|
+| `lib/motor/pesos_cafe.dart` | Pesos de la red v2 (3 841 parámetros, 18 entradas), commit y SHA-256 de la fuente. **Generado.** |
+| `lib/motor/fuentes_cafe.dart` | Textos, fuentes y confianza de los avisos (de `web/data/coffee_sources.json`). **Generado.** |
+| `lib/motor/cafe.dart` | Dart puro: las 18 entradas, la regla, la decisión, la regla de antracnosis, dónde aplica y los avisos. |
+| `lib/motor/recomendador.dart` | `Recomendacion` gana `riegoCafe` (decisión) y `avisosCafe`. |
+| `lib/estado.dart` | `inicioDeClima`: ventana de clima de 365 días si hay café. |
+| `lib/ui/plantacion.dart`, `lib/ui/hoy.dart`, `lib/textos.dart` | Formulario, tarjeta `_TarjetaCafe`, textos en español e inglés. |
+| `tool/generar_pesos_cafe.mjs` | Genera los dos archivos `.dart` anteriores. |
+| `tool/generar_casos_cafe.mjs` | Genera `test/casos_cafe.json` con la referencia en JavaScript (`web/js/model/coffee.js`). |
+| `test/cafe_test.dart` | 38 pruebas: paridad, dónde aplica, avisos, plantación, ventana. |
+| `test/pantallas_test.dart` | 6 pruebas de pantalla nuevas y 3 capturas nuevas (`18_cafe_hoy`, `19_cafe_hoy_oscuro`, `20_plantacion_cafe`). |
+
+### Dónde aplica la red de riego
+
+Café; la última floración (`Plantacion.fecha`) entre 20 y 100 días atrás (se entrenó a 30, 60 y 90); clima de hace 10 días o menos; la serie llega al 1 de noviembre anterior; y ningún riego anotado en los últimos 7 días. Si no, `riegoCafe` es nulo y la tarjeta solo muestra los avisos. Para esto la descarga de clima pasa a 365 días cuando alguna plantación es de café (sin café sigue igual: 60 a 240).
+
+La red predice cuántos días de estrés evitaría regar 20 mm hoy; se riega si eso supera el precio. **Si el aviso de antracnosis por estrés está activo, el precio es 1 sea cual sea la prioridad elegida**, y la tarjeta lo dice. La tarjeta también muestra lo que dice la regla FAO-56 (regar si el agotamiento corrido supera el 40 % del agua disponible de 1.2 m de raíz). `soilAWmm` y la regla usan 1.2 m (la profundidad con que se entrenó la red); el balance propio de la app sigue usando 1.0 m.
+
+### Avisos (sin red; reglas con fuente)
+
+Salen siempre que haya clima, aunque la red no aplique. **Abono**: «aplicar ahora» o «en espera: suelo seco», solo dentro de las ventanas de Anacafé (fuera de ellas no se muestra). **Antracnosis**: Ks < 1 en más de la mitad de los últimos 28 días (balance de la app). **Roya, nivel «posible»**: junio a diciembre con temperatura media de 14 días entre 16 y 28 °C (se necesitan al menos 7 días con temperatura). Quedaron fuera el nivel «favorable» de la roya, el minador y la rama de roya de la antracnosis: necesitan medianas de varios años del sitio que la app no tiene.
+
+### Lo medido por el equipo (`web/data/coffee_eval_v2.json`, escenarios sintéticos con el simulador del equipo)
+
+Utilidad media (más alto es mejor; media de tres semillas) en años de prueba 2019–2024, 540 casos por tipo de sombra:
+
+| Sombra | Ahorrar agua: red | regla | Proteger: red | regla |
+|---|---|---|---|---|
+| Ninguna | 0.402 | 0.096 | 1.133 | 0.878 |
+| Hoja perenne | 0.190 | −0.087 | 0.882 | 0.694 |
+| Hoja caduca | 0.790 | 0.100 | 1.681 | 0.881 |
+| Banano 0.15 | 0.448 | 0.081 | 1.204 | 0.863 |
+| Banano 0.30 | 0.771 | 0.128 | 1.656 | 0.909 |
+
+Con la semilla exportada (29), todos los escenarios de prueba (2 700): ahorrar agua 0.503 contra 0.064 de la regla; proteger 1.300 contra 0.845. Años reservados 2022–2024 (1 350): 0.544 contra −0.141 y 1.445 contra 0.837. Estos números son contra el simulador del propio equipo, no contra una finca.
+
+### Límites
+
+- **El banano es un supuesto provisional, no una medición** (la tarjeta lo dice cuando la sombra es banano). Con ese supuesto el banano no beneficia al cafetal en agua, lo que choca con el único estudio de campo encontrado (Uganda, solo resumen).
+- La red se entrenó con lluvia de **ERA5** y temperaturas llevadas a la altura de la parcela; la app usa lluvia de **NASA POWER**, la temperatura de la celda y una ET₀ calculada con la humedad relativa. **La paridad prueba que Dart calcula lo mismo que JavaScript con la misma serie, no que la red acierte con el clima de la app.** En la app es una vista previa.
+- La ventana de 365 días hace la descarga más pesada (solo con wifi, solo con café en la finca).
+- Los días sin temperatura (retraso de POWER) no entran en los promedios de temperatura; lluvia y ET₀ de esos días se completan como ya hacía la app.
+- No validada en campo ni probada en un teléfono. Roya favorable y minador no están.
+
+### Paridad con la referencia
+
+Con los 8 casos de `test/casos_cafe.json` (cada sombra, las dos prioridades, seco y húmedo, uno con antracnosis activa que cambia la prioridad, abono «ahora» y roya posible): diferencia máxima de las 18 entradas 0.0 (se exige 1e-9); de la predicción 0.0 (se exige 1e-5); decisión y niveles de aviso idénticos. Los 50 casos de comprobación del archivo de pesos (PyTorch, 32 bits): 8.9e-7. El clima de los casos es sintético con semilla fija.
+
+### Cómo regenerar
+
+```bash
+node tool/generar_pesos_cafe.mjs   # pesos_cafe.dart y fuentes_cafe.dart
+node tool/generar_casos_cafe.mjs   # test/casos_cafe.json
+flutter test
+```
+
+### Cómo llevarlo a `app/V01`
+
+1. Copiar a `lib/motor/`: `cafe.dart`, `pesos_cafe.dart`, `fuentes_cafe.dart` (y `red.dart` si falta); a `tool/` los dos `.mjs`; a `test/` `casos_cafe.json` y `cafe_test.dart`.
+2. `lib/modelos.dart`: enums `Sombra` y `PrioridadRiego`, las constantes de cobertura y los tres campos de `Plantacion` (constructor, `aJson`, `deJson`).
+3. `lib/motor/recomendador.dart`: `import 'cafe.dart';`, los campos `riegoCafe` y `avisosCafe`, y el bloque `resultadoCafe` antes del `return`.
+4. `lib/estado.dart`: `diasDeClimaConCafe` e `inicioDeClima`, y usarla en `sincronizar`.
+5. `lib/textos.dart`, `lib/ui/plantacion.dart` (bloque «Café») y `lib/ui/hoy.dart` (`_TarjetaCafe`).
+6. Pruebas de pantalla del café y sus tres capturas; `flutter analyze` y `flutter test`. Antes de subir, preguntar al dueño del repositorio (`HANDOFF.md`).

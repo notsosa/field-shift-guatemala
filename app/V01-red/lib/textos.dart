@@ -4,6 +4,7 @@ library;
 
 import 'datos/mapa.dart';
 import 'modelos.dart';
+import 'motor/cafe.dart';
 import 'motor/fao56.dart';
 import 'motor/recomendador.dart';
 
@@ -279,6 +280,97 @@ class Txt {
   String get leyendaRed => _(
       'Estimado por la red del equipo con el clima de las últimas semanas. No es un pronóstico del tiempo; se midió contra el balance de agua de esta misma app.',
       'Estimated by the team’s neural network from the last weeks of weather. It is not a weather forecast; it was measured against this app’s own water balance.');
+  // Café: formulario de la plantación.
+  String get cafeSeccion => _('Café', 'Coffee');
+  String get sombra => _('Sombra', 'Shade');
+  String nombreSombra(Sombra s) => switch (s) {
+        Sombra.ninguna => _('Sin sombra', 'No shade'),
+        Sombra.arbolesPerennes => _('Árboles de hoja perenne', 'Evergreen trees'),
+        Sombra.arbolesCaducos => _('Árboles de hoja caduca', 'Deciduous trees'),
+        Sombra.banano => _('Banano', 'Banana'),
+      };
+  String get bananoProvisional => _('Efecto provisional: es un supuesto, no una medición',
+      'Provisional effect: an assumption, not a measurement');
+  String get coberturaBanano => _('Cuánto del terreno cubre el banano', 'How much of the plot the bananas cover');
+  String get coberturaPoco => _('Poco · 15 %', 'Little · 15 %');
+  String get coberturaBastante => _('Bastante · 30 %', 'A lot · 30 %');
+  String get prioridadRiego => _('Al regar, qué pesa más', 'When irrigating, what matters more');
+  String nombrePrioridad(PrioridadRiego p) => switch (p) {
+        PrioridadRiego.ahorrarAgua => _('Ahorrar agua', 'Save water'),
+        PrioridadRiego.protegerCultivo => _('Proteger el cultivo', 'Protect the crop'),
+      };
+  String get prioridadAyuda => _(
+      'Ahorrar agua: se riega solo si evita varios días de estrés. Proteger el cultivo: se riega aunque evite pocos.',
+      'Save water: irrigate only if it avoids several stress days. Protect the crop: irrigate even if it avoids few.');
+
+  // Café: tarjeta de Hoy.
+  String get tarjetaCafe => _('Café', 'Coffee');
+  String get conviene20 => _('Conviene regar unos 20 mm ahora', 'Irrigating about 20 mm now is advisable');
+  String get noHaceFaltaRegar => _('No hace falta regar ahora', 'No need to irrigate now');
+  String diasEvitadosCafe(double v) {
+    final n = v.round();
+    return n <= 0
+        ? _('La red estima que regar no evitaría días de estrés en los próximos 30 días.',
+            'The network estimates that irrigating would not avoid stress days in the next 30 days.')
+        : _('La red estima que regar evitaría unos $n ${n == 1 ? 'día' : 'días'} de estrés en los próximos 30 días.',
+            'The network estimates that irrigating would avoid about $n stress ${n == 1 ? 'day' : 'days'} in the next 30 days.');
+  }
+
+  String prioridadUsada(int precio) => precio == PrioridadRiego.protegerCultivo.precio
+      ? _('Prioridad usada: proteger el cultivo.', 'Priority used: protect the crop.')
+      : _('Prioridad usada: ahorrar agua.', 'Priority used: save water.');
+  String get antracnosisCambioPrioridad => _(
+      'Hay aviso de antracnosis por estrés: se usó «proteger el cultivo» aunque elegiste ahorrar agua.',
+      'There is an anthracnose notice due to stress: “protect the crop” was used although you chose to save water.');
+  String reglaFao(bool riega) => riega
+      ? _('Regla FAO-56 (el suelo gastó más del 40 % de su agua disponible): regar.',
+          'FAO-56 rule (the soil used more than 40 % of its available water): irrigate.')
+      : _('Regla FAO-56 (el suelo gastó menos del 40 % de su agua disponible): no regar.',
+          'FAO-56 rule (the soil used less than 40 % of its available water): do not irrigate.');
+  String get redCafeNoAplica => _(
+      'La red de riego se usa de 20 a 100 días después de la floración, con clima reciente y sin riego anotado en la última semana. Ahora no aplica.',
+      'The irrigation network is used 20 to 100 days after flowering, with recent weather and no irrigation logged in the last week. It does not apply now.');
+  String get avisosDelCafe => _('Avisos', 'Notices');
+  String tituloAvisoCafe(AvisoCafe a) => switch (a.tipo) {
+        TipoAvisoCafe.abono => a.nivel == NivelAvisoCafe.abonarYa
+            ? _('Abono: conviene aplicarlo ahora', 'Fertilizer: a good time to apply it')
+            : _('Abono en espera: suelo seco', 'Fertilizer on hold: dry soil'),
+        TipoAvisoCafe.antracnosis => _('Antracnosis: la planta está bajo estrés por falta de agua',
+            'Anthracnose: the plant is under water stress'),
+        TipoAvisoCafe.roya => _('Roya posible: temperatura en su rango de germinación',
+            'Rust possible: temperature in its germination range'),
+      };
+  String detalleAvisoCafe(AvisoCafe a) {
+    final n = a.numeros;
+    return switch (a.tipo) {
+      TipoAvisoCafe.abono => _('Lluvia de 7 días: ${n['lluvia7']!.round()} mm.', 'Rain in 7 days: ${n['lluvia7']!.round()} mm.'),
+      TipoAvisoCafe.antracnosis => _('Con estrés ${n['diasEstres28']!.round()} de los últimos 28 días.',
+          'Under stress ${n['diasEstres28']!.round()} of the last 28 days.'),
+      TipoAvisoCafe.roya => _('Temperatura media de 14 días: ${n['tempMedia14']!.toStringAsFixed(1)} °C.',
+          '14-day mean temperature: ${n['tempMedia14']!.toStringAsFixed(1)} °C.'),
+    };
+  }
+
+  String nivelConfianza(String nivel) => switch (nivel) {
+        'alta' => _('alta', 'high'),
+        'media-alta' => _('media-alta', 'medium-high'),
+        'media' => _('media', 'medium'),
+        'baja-media' => _('baja-media', 'low-medium'),
+        'baja' => _('baja', 'low'),
+        'orientativa' => _('orientativa', 'indicative'),
+        _ => nivel,
+      };
+  String fuenteAviso(String fuente, String nivel) =>
+      _('Fuente: $fuente · confianza ${nivelConfianza(nivel)}', 'Source: $fuente · confidence ${nivelConfianza(nivel)}');
+  String get leyendaAvisosCafe => _(
+      'Los avisos dicen lo que favorece el clima; no dicen cuánta plaga hay ni cuánto daño habrá.',
+      'Notices say what the weather favours; they do not say how much pest there is or how much damage will follow.');
+  String get leyendaRedCafe => _(
+      'Estimado por la red del equipo con el clima de NASA POWER. La red se entrenó con otra fuente de lluvia (ERA5) y con temperaturas corregidas a la parcela: aquí es una vista previa, no está validada.',
+      'Estimated by the team’s neural network from NASA POWER weather. The network was trained with another rain source (ERA5) and plot-corrected temperatures: here it is a preview and has not been validated.');
+  String get leyendaBananoCafe => _('El efecto del banano es un supuesto provisional, no una medición.',
+      'The banana effect is a provisional assumption, not a measurement.');
+
   String mm(double v) => '${v.round()} mm';
   String diasEstres(int n) => n == 0
       ? _('Sin días de estrés', 'No stress days')

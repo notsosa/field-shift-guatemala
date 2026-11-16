@@ -37,6 +37,11 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
   TipoRiego _riego = TipoRiego.ninguno;
   TemporadaRiego _temporada = TemporadaRiego.auxilio;
 
+  // Solo café.
+  Sombra _sombra = Sombra.ninguna;
+  double _coberturaBanano = coberturaBananoPoco;
+  PrioridadRiego _prioridad = PrioridadRiego.ahorrarAgua;
+
   bool _plaga = false;
   final _notaPlaga = TextEditingController();
   late DateTime _inicioPlaga;
@@ -71,6 +76,12 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
       _suelo = p.suelo;
       _riego = p.riego;
       _temporada = p.temporadaRiego;
+      _sombra = p.sombra;
+      // Si llegara otro valor, el selector solo ofrece los dos con que se entrenó la red.
+      _coberturaBanano = p.coberturaBanano >= (coberturaBananoPoco + coberturaBananoBastante) / 2
+          ? coberturaBananoBastante
+          : coberturaBananoPoco;
+      _prioridad = p.prioridadRiego;
       _plaga = p.plagaReciente;
       _notaPlaga.text = p.notaPlaga;
       _inicioPlaga = p.inicioPlaga ?? hoy;
@@ -166,6 +177,10 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
       tipoFertilizante: _tipoFertilizante,
       notaFertilizante: _fertilizo ? _notaFertilizante.text.trim() : '',
       fechaFertilizante: _fertilizo ? _fechaFertilizante : null,
+      // Lo del café solo se guarda si el cultivo es café.
+      sombra: c.perenne ? _sombra : Sombra.ninguna,
+      coberturaBanano: c.perenne && _sombra == Sombra.banano ? _coberturaBanano : coberturaBananoPoco,
+      prioridadRiego: c.perenne ? _prioridad : PrioridadRiego.ahorrarAgua,
     ));
     estado.sincronizar();
     if (widget.id == null) {
@@ -383,6 +398,49 @@ class _EstadoPlantacion extends State<PantallaPlantacion> {
                         ),
                       ),
                   ]),
+
+                  // Café: sombra y prioridad. Solo las usa la red de riego del café.
+                  if (cultivo.perenne) ...[
+                    Rotulo(t.cafeSeccion),
+                    Grupo(children: [
+                      for (final s in Sombra.values)
+                        Fila(
+                          key: Key('sombra_${s.name}'),
+                          titulo: t.nombreSombra(s),
+                          detalle: s == Sombra.banano ? t.bananoProvisional : null,
+                          final_: marca(s == _sombra),
+                          alPulsar: () => setState(() => _sombra = s),
+                        ),
+                      if (_sombra == Sombra.banano)
+                        bloque(
+                          t.coberturaBanano,
+                          // Los dos valores con que se entrenó la red del café (convenciones, no medidas).
+                          Selector<double>(
+                            opciones: {coberturaBananoPoco: t.coberturaPoco, coberturaBananoBastante: t.coberturaBastante},
+                            valor: _coberturaBanano,
+                            alCambiar: (v) => setState(() => _coberturaBanano = v),
+                          ),
+                        ),
+                    ]),
+                    const SizedBox(height: Espacio.m),
+                    Grupo(children: [
+                      bloque(
+                        t.prioridadRiego,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Selector<PrioridadRiego>(
+                              opciones: {for (final p in PrioridadRiego.values) p: t.nombrePrioridad(p)},
+                              valor: _prioridad,
+                              alCambiar: (v) => setState(() => _prioridad = v),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(t.prioridadAyuda, style: Texto.nota(context)),
+                          ],
+                        ),
+                      ),
+                    ]),
+                  ],
 
                   // Perímetro en el croquis y borrado, solo al editar.
                   if (widget.id != null) ...[
