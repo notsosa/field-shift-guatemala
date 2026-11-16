@@ -89,6 +89,7 @@ Future<AppEstado> _abrir(
   Brightness brillo = Brightness.light,
   ServicioClima? clima,
   Map<String, Object> guardado = const {},
+  DateTime? reloj,
 }) async {
   SharedPreferences.setMockInitialValues(guardado);
   tester.view.physicalSize = const Size(1170, 2532); // teléfono de 390 × 844 a 3x
@@ -100,7 +101,7 @@ Future<AppEstado> _abrir(
     await Almacen.abrir(),
     servicioClima: clima ?? ClimaFalso(),
     servicioMapa: MapaFalso(),
-    reloj: () => _hoy,
+    reloj: () => reloj ?? _hoy,
   );
   await tester.pumpWidget(FieldShift(estado: estado));
   await tester.pumpAndSettle();
@@ -612,8 +613,10 @@ void main() {
     Brightness brillo = Brightness.light,
     Sombra sombra = Sombra.ninguna,
     PrioridadRiego prioridad = PrioridadRiego.ahorrarAgua,
+    DateTime? hoy,
   }) async {
-    final siembra = DateTime(_hoy.year, _hoy.month, _hoy.day - dias);
+    final h = hoy ?? _hoy;
+    final siembra = DateTime(h.year, h.month, h.day - dias);
     final plantacion = Plantacion(
       id: 'p1',
       cultivoId: cultivo,
@@ -627,7 +630,7 @@ void main() {
       sombra: sombra,
       prioridadRiego: prioridad,
     );
-    final estado = await _abrir(tester, brillo: brillo, guardado: {
+    final estado = await _abrir(tester, brillo: brillo, reloj: hoy, guardado: {
       'parcela': jsonEncode({'nombre': 'Chiquimula', 'latitud': 14.825, 'longitud': -89.5312, 'elevacion': 373}),
       'plantaciones': jsonEncode([plantacion.aJson()]),
     });
@@ -724,10 +727,12 @@ void main() {
   });
 
   // Café: la tarjeta con la recomendación de riego de la red del equipo y los avisos con fuente.
+  // La red del café solo aplica con floración de febrero a mayo: se prueba con hoy el 1 de junio (floración el 2 de abril).
+  final enTemporada = DateTime(2027, 6, 1);
   Finder tarjetaCafe() => find.byKey(const Key('tarjeta_cafe'));
 
   testWidgets('Café: la tarjeta sale con la recomendación, los avisos, la fuente y la leyenda honesta', (tester) async {
-    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', dias: 60, ciclo: 365);
+    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365);
     expect(estado.recomendacion.riegoCafe, isNotNull);
     await tester.scrollUntilVisible(tarjetaCafe(), 200, scrollable: listaHoy());
     await tester.drag(find.byType(CustomScrollView).first, const Offset(0, -150));
@@ -739,7 +744,7 @@ void main() {
     expect(find.textContaining('Regla FAO-56'), findsOneWidget);
     expect(find.textContaining('Prioridad usada'), findsOneWidget);
     expect(find.text('Avisos'), findsOneWidget);
-    expect(find.textContaining('Roya posible'), findsOneWidget); // noviembre, 25 °C de media
+    expect(find.textContaining('Roya posible'), findsOneWidget); // junio, 25 °C de media
     expect(find.textContaining('Fuente: Anacafé/Cedicafé 2015 · confianza orientativa'), findsOneWidget);
     expect(find.textContaining('vista previa, no está validada'), findsOneWidget);
     expect(find.textContaining('ERA5'), findsOneWidget);
@@ -754,7 +759,7 @@ void main() {
   });
 
   testWidgets('Café: la línea del banano aparece solo con sombra de banano', (tester) async {
-    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', dias: 60, ciclo: 365, sombra: Sombra.banano);
+    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365, sombra: Sombra.banano);
     expect(estado.recomendacion.riegoCafe!.entradas[16], 1);
     await tester.scrollUntilVisible(tarjetaCafe(), 200, scrollable: listaHoy());
     await tester.drag(find.byType(CustomScrollView).first, const Offset(0, -150));
@@ -762,27 +767,38 @@ void main() {
     expect(find.byKey(const Key('leyenda_banano')), findsOneWidget);
     expect(find.text('El efecto del banano es un supuesto provisional, no una medición.'), findsOneWidget);
     for (final s in [Sombra.ninguna, Sombra.arbolesPerennes, Sombra.arbolesCaducos]) {
-      await abrirConPlantacion(tester, cultivo: 'cafe', dias: 60, ciclo: 365, sombra: s);
+      await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365, sombra: s);
       await tester.scrollUntilVisible(tarjetaCafe(), 200, scrollable: listaHoy());
       expect(find.byKey(const Key('leyenda_banano')), findsNothing, reason: s.name);
     }
   });
 
-  testWidgets('Café: sin red de riego (floración a más de 100 días) la tarjeta solo trae los avisos; otros cultivos no la tienen', (tester) async {
-    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', dias: 150, ciclo: 365);
+  testWidgets('Café: sin red de riego (floración fuera de febrero a mayo, como el 15 de septiembre con hoy el 14 de noviembre) la tarjeta solo trae los avisos y la línea que lo explica; otros cultivos no la tienen', (tester) async {
+    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', dias: 60, ciclo: 365);
     expect(estado.recomendacion.riegoCafe, isNull);
     await tester.scrollUntilVisible(tarjetaCafe(), 200, scrollable: listaHoy());
-    expect(find.textContaining('Ahora no aplica'), findsOneWidget);
+    expect(find.textContaining('solo está disponible entre 20 y 100 días después de una floración de febrero a mayo, que es donde se entrenó la red'), findsOneWidget);
+    await estado.cambiarIdioma('en');
+    await tester.pumpAndSettle();
+    expect(find.textContaining('only available 20 to 100 days after a February-to-May flowering'), findsOneWidget);
+    await estado.cambiarIdioma('es');
+    await tester.pumpAndSettle();
     expect(find.text('Conviene regar unos 20 mm ahora'), findsNothing);
     expect(find.text('No hace falta regar ahora'), findsNothing);
     expect(find.text('Avisos'), findsOneWidget);
+    await tester.drag(find.byType(CustomScrollView).first, const Offset(0, -150));
+    await tester.pumpAndSettle();
+    await _captura(tester, '21_cafe_fuera_de_temporada');
+  });
 
+  testWidgets('Café: otros cultivos no tienen la tarjeta ni la línea de la red', (tester) async {
     await abrirConPlantacion(tester, cultivo: 'maiz', dias: 40);
     expect(tarjetaCafe(), findsNothing);
+    expect(find.textContaining('floración de febrero a mayo'), findsNothing);
   });
 
   testWidgets('Café: el formulario pide sombra, cobertura de banano y prioridad solo para café, y los guarda', (tester) async {
-    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', dias: 60, ciclo: 365);
+    final estado = await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365);
     await tester.tap(find.text('Ajustes'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Café'));
@@ -832,6 +848,7 @@ void main() {
       await abrirConPlantacion(
         tester,
         cultivo: 'cafe',
+        hoy: enTemporada,
         dias: 60,
         ciclo: 365,
         sombra: Sombra.banano,

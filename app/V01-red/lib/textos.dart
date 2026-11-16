@@ -328,8 +328,8 @@ class Txt {
       : _('Regla FAO-56 (el suelo gastó menos del 40 % de su agua disponible): no regar.',
           'FAO-56 rule (the soil used less than 40 % of its available water): do not irrigate.');
   String get redCafeNoAplica => _(
-      'La red de riego se usa de 20 a 100 días después de la floración, con clima reciente y sin riego anotado en la última semana. Ahora no aplica.',
-      'The irrigation network is used 20 to 100 days after flowering, with recent weather and no irrigation logged in the last week. It does not apply now.');
+      'La recomendación de riego solo está disponible entre 20 y 100 días después de una floración de febrero a mayo, que es donde se entrenó la red.',
+      'The irrigation recommendation is only available 20 to 100 days after a February-to-May flowering, which is where the network was trained.');
   String get avisosDelCafe => _('Avisos', 'Notices');
   String tituloAvisoCafe(AvisoCafe a) => switch (a.tipo) {
         TipoAvisoCafe.abono => a.nivel == NivelAvisoCafe.abonarYa

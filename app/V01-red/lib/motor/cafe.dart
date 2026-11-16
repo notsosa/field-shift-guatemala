@@ -29,6 +29,13 @@ const cultivoCafe = 'cafe';
 const diasMinimosDeFloracion = 20;
 const diasMaximosDeFloracion = 100;
 
+/// Temporada de floración con que se entrenó la red: la floración es 9 días después de la primera lluvia de 10 mm o más entre el
+/// 15 de febrero y el 30 de abril (o el 9 de mayo si no hubo), o sea del 24 de febrero al 9 de mayo, y las decisiones fueron a los 30, 60 y 90 días
+/// de ella (día del año 85 a 219 aprox.). Una decisión fuera de ahí, por ejemplo en noviembre, no se parece a nada de lo que vio. Se acepta una
+/// última floración del 15 de febrero al 15 de mayo (mes*100 + día), ambos incluidos.
+const floracionDesde = 215;
+const floracionHasta = 515;
+
 /// Lámina de riego que evalúa la red, mm (única con ensayo centroamericano).
 const laminaRiegoCafeMm = 20.0;
 
@@ -458,7 +465,7 @@ DecisionRiegoCafe decidirRiegoCafe({
 
 /// ¿Se midió la red en este caso? Solo entonces se usa; si no, la tarjeta del
 /// café solo muestra los avisos. Las condiciones: café; floración entre 20 y 100
-/// días atrás; clima reciente; sin riego anotado en los últimos siete días. (Que
+/// días atrás y del 15 de febrero al 15 de mayo; clima reciente; sin riego anotado en los últimos siete días. (Que
 /// la serie llegue al 1 de noviembre anterior lo comprueba [entradasCafe].)
 bool redCafeAplica({
   required Plantacion plantacion,
@@ -469,6 +476,8 @@ bool redCafeAplica({
   if (plantacion.cultivoId != cultivoCafe || climaViejo) return false;
   final dias = diasDesdeFloracion(plantacion, hoy);
   if (dias < diasMinimosDeFloracion || dias > diasMaximosDeFloracion) return false;
+  final md = plantacion.fecha.month * 100 + plantacion.fecha.day;
+  if (md < floracionDesde || md > floracionHasta) return false;
   return !hayRiegoReciente(registros, hoy);
 }
 

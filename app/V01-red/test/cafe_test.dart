@@ -128,7 +128,8 @@ Plantacion _cafe({
       prioridadRiego: prioridad,
     );
 
-final _hoy = DateTime(2027, 4, 10);
+// Hoy y la floración están en temporada: la red solo se usa con floración del 15 de febrero al 15 de mayo.
+final _hoy = DateTime(2027, 6, 1);
 
 Recomendacion _recomendar(
   Plantacion p, {
@@ -336,7 +337,7 @@ void main() {
 
     test('recomendar arma las mismas entradas con la serie de la propia app', () {
       // Clima de la app → balance de la app → entradas: lo mismo que armar las entradas con la serie.
-      final floracion = DateTime(2027, 2, 9);
+      final floracion = DateTime(2027, 4, 2);
       final p = _cafe(floracion: floracion, sombra: Sombra.banano, cobertura: coberturaBananoBastante);
       final clima = _clima(DateTime(2026, 10, 1), _hoy);
       final r = _recomendar(p, clima: clima);
@@ -358,7 +359,7 @@ void main() {
   });
 
   group('dónde la red aplica y dónde no', () {
-    final base = _cafe(floracion: DateTime(2027, 2, 9)); // 60 días antes de hoy
+    final base = _cafe(floracion: DateTime(2027, 4, 2)); // 60 días antes de hoy
 
     test('entre 20 y 100 días después de la floración, ambos extremos incluidos', () {
       Recomendacion enDia(int n) => _recomendar(_cafe(floracion: _dia(_hoy, -n)));
@@ -372,6 +373,21 @@ void main() {
       // Fuera del tramo los avisos siguen saliendo.
       expect(enDia(19).avisosCafe, isNotEmpty);
       expect(enDia(150).avisosCafe, isNotEmpty);
+    });
+
+    test('temporada de floración: del 15 de febrero al 15 de mayo', () {
+      Recomendacion con(DateTime f, {DateTime? hoy}) => _recomendar(_cafe(floracion: f), hoy: hoy ?? _dia(f, 60), clima: _clima(DateTime(2026, 10, 1), hoy ?? _dia(f, 60)));
+      expect(con(DateTime(2027, 2, 14)).riegoCafe, isNull);
+      expect(con(DateTime(2027, 2, 15)).riegoCafe, isNotNull);
+      expect(con(DateTime(2027, 5, 15)).riegoCafe, isNotNull);
+      expect(con(DateTime(2027, 5, 16)).riegoCafe, isNull);
+      // Septiembre (20 días y 60 días después) y noviembre: fuera de lo que vio la red.
+      expect(con(DateTime(2026, 9, 20)).riegoCafe, isNull);
+      expect(_recomendar(_cafe(floracion: DateTime(2026, 9, 20)), hoy: DateTime(2026, 11, 15), clima: _clima(DateTime(2025, 11, 1), DateTime(2026, 11, 15))).riegoCafe, isNull);
+      // Los avisos siguen saliendo.
+      expect(con(DateTime(2026, 9, 20)).avisosCafe, isNotEmpty);
+      expect(con(DateTime(2027, 2, 14)).avisosCafe, isNotEmpty);
+      expect(redCafeAplica(plantacion: _cafe(floracion: DateTime(2027, 5, 15)), registros: const [], hoy: DateTime(2027, 7, 14), climaViejo: false), isTrue);
     });
 
     test('con clima viejo (más de 10 días sin dato) no hay red, y con 10 días todavía sí', () {
@@ -398,7 +414,7 @@ void main() {
     });
 
     test('para el 1 de noviembre anterior cuenta el del mismo año desde noviembre', () {
-      expect(primeroDeNoviembre(DateTime(2027, 4, 10)), DateTime(2026, 11, 1));
+      expect(primeroDeNoviembre(DateTime(2027, 6, 1)), DateTime(2026, 11, 1));
       expect(primeroDeNoviembre(DateTime(2026, 11, 14)), DateTime(2026, 11, 1));
       expect(primeroDeNoviembre(DateTime(2026, 11, 1)), DateTime(2026, 11, 1));
       expect(primeroDeNoviembre(DateTime(2026, 10, 31)), DateTime(2025, 11, 1));
@@ -560,7 +576,7 @@ void main() {
           'nombre': 'Lote',
           'contorno': <dynamic>[],
           'cultivo': 'cafe',
-          'fecha': '2027-02-09',
+          'fecha': '2027-04-02',
           'ciclo': 365,
           'suelo': 'franco',
           'riego': 'ninguno',
@@ -593,7 +609,7 @@ void main() {
     });
 
     test('ida y vuelta por JSON', () {
-      final p = _cafe(floracion: DateTime(2027, 2, 9), sombra: Sombra.banano, cobertura: coberturaBananoBastante, prioridad: PrioridadRiego.protegerCultivo);
+      final p = _cafe(floracion: DateTime(2027, 4, 2), sombra: Sombra.banano, cobertura: coberturaBananoBastante, prioridad: PrioridadRiego.protegerCultivo);
       final j = jsonDecode(jsonEncode(p.aJson())) as Map<String, dynamic>;
       expect(j['sombra'], 'banano');
       expect(j['coberturaBanano'], 0.30);

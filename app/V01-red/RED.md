@@ -140,7 +140,7 @@ Se guardan en `Plantacion` (`sombra`, `coberturaBanano`, `prioridadRiego`) con v
 
 ### Dónde aplica la red de riego
 
-Café; la última floración (`Plantacion.fecha`) entre 20 y 100 días atrás (se entrenó a 30, 60 y 90); clima de hace 10 días o menos; la serie llega al 1 de noviembre anterior; y ningún riego anotado en los últimos 7 días. Si no, `riegoCafe` es nulo y la tarjeta solo muestra los avisos. Para esto la descarga de clima pasa a 365 días cuando alguna plantación es de café (sin café sigue igual: 60 a 240).
+Café; la última floración (`Plantacion.fecha`) entre 20 y 100 días atrás (se entrenó a 30, 60 y 90) **y fechada del 15 de febrero al 15 de mayo** (la red solo vio floraciones del 24 de febrero al 9 de mayo, o sea decisiones entre el día del año 85 y el 219; una decisión de noviembre está fuera de lo que aprendió y daba consejos fuera de temporada); clima de hace 10 días o menos; la serie llega al 1 de noviembre anterior; y ningún riego anotado en los últimos 7 días. Si no, `riegoCafe` es nulo y la tarjeta solo muestra los avisos y una línea que explica cuándo está disponible la recomendación. Para esto la descarga de clima pasa a 365 días cuando alguna plantación es de café (sin café sigue igual: 60 a 240).
 
 La red predice cuántos días de estrés evitaría regar 20 mm hoy; se riega si eso supera el precio. **Si el aviso de antracnosis por estrés está activo, el precio es 1 sea cual sea la prioridad elegida**, y la tarjeta lo dice. La tarjeta también muestra lo que dice la regla FAO-56 (regar si el agotamiento corrido supera el 40 % del agua disponible de 1.2 m de raíz). `soilAWmm` y la regla usan 1.2 m (la profundidad con que se entrenó la red); el balance propio de la app sigue usando 1.0 m.
 
