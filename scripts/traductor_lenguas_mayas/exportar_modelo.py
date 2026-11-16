@@ -190,6 +190,8 @@ El prompt debe seguir el formato de arriba (`Traduce del <lengua> al <lengua>:\\
 
 **Integración en la app del teléfono** (API, feedback y aprendizaje continuo): [USO_EN_LA_APP.md](USO_EN_LA_APP.md).
 
+**Antecedentes y qué aporta este modelo frente a trabajos anteriores:** [ANTECEDENTES.md](ANTECEDENTES.md).
+
 ## Datos de entrenamiento
 
 {DATOS[a.plan]}
