@@ -92,7 +92,9 @@ export function simulateDays({ rain, et0, phases, crops, texture, slopeClass, ir
     zrPrev = zr;
 
     const ks = stressCoefficient(dr, taw, p);
-    const etc = plotAdjust ? Math.max(0, kc * et0[i] - plotAdjust.reduce[i]) + plotAdjust.add[i] : kc * et0[i];
+    // plotAdjust.addFn (opcional, Tarea 38): demanda extra que depende del estado del día, ({ i, et0, dr, taw }) => mm; se suma a add[i]. Dr y TAW son los del inicio del día.
+    const extra = plotAdjust?.addFn ? plotAdjust.addFn({ i, et0: et0[i], dr, taw }) : 0;
+    const etc = plotAdjust ? Math.max(0, kc * et0[i] - plotAdjust.reduce[i]) + plotAdjust.add[i] + extra : kc * et0[i];
     const eta = ks * etc;
     const cover = active.length ? 'crop' : (residueMask?.[i] ? 'residue' : 'bare');
     const runoff = scsRunoff(rain[i], curveNumber(texture, cover, slopeClass));

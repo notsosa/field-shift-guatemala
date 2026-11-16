@@ -19,14 +19,48 @@ export const SHADE = {
 export const SHADE_TYPES = ['none', 'trees'];
 export const TREE_TYPES = ['evergreen', 'deciduous'];
 
+// --- Banano como sombra (Tarea 38). SUPUESTO PROVISIONAL: no hay una medida del uso de agua del banano disperso como sombra del café (ver research_notes/sombra-banano.md).
+// Entrada: bananaCover = fracción del suelo del lote cubierta por copa de banano (0–1, la declara el agricultor; 0.15 y 0.30 en los escenarios son convenciones).
+// Supuesto 1: la misma reducción de evaporación del suelo en lluvias (0.52 mm/día, Padovan 2018) que los otros árboles; sin cobertura (0) no hay sombra y no hay reducción.
+// Supuesto 2: uso de agua del banano = bananaCover × Kc × ET0 × KsBanana, con Kc = 1.10 (FAO-56 Tabla 12, banano de segundo año/retoño, fin de temporada; entre 1.00 y 1.20, convención)
+// y KsBanana con la fracción de agotamiento del propio banano p = 0.35 (FAO-56 Tabla 22): el banano deja de gastar antes que el café (p = 0.40). No se modela que el banano ceda agua al café.
+// No es una medida del banano disperso: el único estudio de campo (Sarmiento-Soler 2019, Uganda, solo resumen) vio la humedad del suelo bajar 6 % bajo banano contra 59 % bajo Cordia.
+export const BANANA = { kc: 1.10, p: 0.35, source: 'FAO-56 Tabla 12 (banano, segundo año: Kc 1.00/1.20/1.10) y Tabla 22 (p = 0.35); supuesto provisional, no medido en banano disperso', provisional: true };
+export const BANANA_COVERS = [0.15, 0.30]; // convención de los escenarios
+export const TREE_TYPES_ALL = [...TREE_TYPES, 'banana'];
+
 const month = (date) => Number(date.slice(5, 7));
 export const isRainySeason = (date) => month(date) >= 5 && month(date) <= 10; // mayo–octubre
 export const isDrySeason = (date) => !isRainySeason(date); // noviembre–abril
 
-/** Ajuste del lote por sombra, diario: { reduce[], add[] } (mm/día) para simulateDays; null sin sombra. */
-export function plotAdjust(dates, shade, treeType) {
+/** Coeficiente de estrés del banano: 1 mientras Dr ≤ p·TAW con p = 0.35, luego baja linealmente a 0 en Dr = TAW (FAO-56 ec. 84 con la p del banano). */
+export function bananaKs(dr, taw) {
+  const raw = BANANA.p * taw;
+  if (dr <= raw) return 1;
+  return Math.max(0, (taw - dr) / ((1 - BANANA.p) * taw));
+}
+/** Agua que gasta el banano en el día (mm): bananaCover × 1.10 × ET0 × KsBanana (sin KsBanana si ks = false: variante de sensibilidad). */
+export function bananaUseMm({ cover, et0, dr, taw, ks = true }) {
+  return cover * BANANA.kc * et0 * (ks ? bananaKs(dr, taw) : 1);
+}
+
+/**
+ * Ajuste del lote por sombra, diario: { reduce[], add[] } (mm/día) para simulateDays; null sin sombra.
+ * Banano (provisional): opts = { bananaCover (obligatorio), bananaKs = true }; devuelve además addFn({ et0, dr, taw }), el gasto del banano ese día, que depende del estado del suelo.
+ */
+export function plotAdjust(dates, shade, treeType, opts = {}) {
   if (shade === 'none') return null;
   if (shade !== 'trees') throw new Error(`plotAdjust: unknown shade "${shade}"`);
+  if (treeType === 'banana') {
+    const cover = opts.bananaCover;
+    if (!(cover >= 0 && cover <= 1)) throw new Error('plotAdjust: banana needs bananaCover between 0 and 1');
+    const withKs = opts.bananaKs !== false;
+    return {
+      reduce: dates.map((d) => (cover > 0 && isRainySeason(d) ? SHADE.rainyEvapCutMm : 0)),
+      add: dates.map(() => 0),
+      addFn: ({ et0, dr, taw }) => bananaUseMm({ cover, et0, dr, taw, ks: withKs }),
+    };
+  }
   const use = SHADE.treeUseMm[treeType];
   if (!use) throw new Error(`plotAdjust: unknown tree type "${treeType}"`);
   return {
@@ -44,11 +78,11 @@ export function floweringFor(dates, rain, F) {
 }
 
 /** Balance continuo del café sobre toda la serie, sin riego. Devuelve la salida de simulateDays (dr, ds, ks, eta, etc…). */
-export function simulateCoffee({ dates, rain, et0, crops, texture, shade = 'none', treeType = 'evergreen', slopeClass = 'flat', drInit, dsInit }) {
+export function simulateCoffee({ dates, rain, et0, crops, texture, shade = 'none', treeType = 'evergreen', slopeClass = 'flat', drInit, dsInit, bananaCover, bananaKs: withBananaKs = true }) {
   const crop = crops.get(COFFEE_ID);
   return simulateDays({
     rain, et0, phases: [buildPerennialPhase(crop, rain.length)], crops, texture, slopeClass, irrigation: 'none', drInit, dsInit,
-    plotAdjust: plotAdjust(dates, shade, treeType) ?? undefined,
+    plotAdjust: plotAdjust(dates, shade, treeType, { bananaCover, bananaKs: withBananaKs }) ?? undefined,
   });
 }
 
@@ -193,6 +227,14 @@ export function coffeeDecisionState({ dates, rain, et0, tmax, tmin, t, year, flo
   return { state, depletion, taw };
 }
 
+// Red v2 (Tarea 38, provisional): las 16 entradas de siempre más banana (0/1) y bananaCover (0–1; 0 si no hay banano). Con banano, shadeTrees = 1 y deciduous = 0.
+export const STATE_NAMES_V2 = [...STATE_NAMES, 'banana', 'bananaCover'];
+export function coffeeDecisionStateV2(args) {
+  const r = coffeeDecisionState(args);
+  const isBanana = args.shade === 'trees' && args.treeType === 'banana';
+  return { ...r, state: [...r.state, isBanana ? 1 : 0, isBanana ? args.bananaCover : 0] };
+}
+
 /** La regla: regar si el balance corrido dice que la zona radicular gastó más de p (0.40) de su agua disponible (FAO-56). */
 export const ruleIrrigates = (depletion, taw, p) => depletion > p * taw;
 
@@ -200,14 +242,14 @@ export const ruleIrrigates = (depletion, taw, p) => depletion > p * taw;
  * Contrafactual desde el estado del día t (de la corrida continua `sim` sin riego): los 30 días siguientes sin riego y regando 20 mm al final del día t.
  * Estrés = días con Ks < 1. El riego sobre lo que falta se pierde hacia el subsuelo (que en este perfil, Zp = Zr, no tiene capacidad).
  */
-export function counterfactual({ dates, rain, et0, crops, texture, shade, treeType, sim, t, slopeClass = 'flat', irrigationMm = IRRIGATION_MM, horizon = HORIZON_DAYS, returnKs = false }) {
+export function counterfactual({ dates, rain, et0, crops, texture, shade, treeType, sim, t, slopeClass = 'flat', irrigationMm = IRRIGATION_MM, horizon = HORIZON_DAYS, returnKs = false, bananaCover, bananaKs: withBananaKs = true }) {
   const lo = t + 1, hi = t + horizon;
   if (hi >= rain.length) throw new Error('counterfactual: the 30-day window goes past the end of the series');
   const run = (mm) => {
     const dr0 = Math.max(0, sim.dr[t] - mm);
     const excess = Math.max(0, mm - sim.dr[t]);
     const ds0 = Math.max(0, sim.ds[t] - excess);
-    const w = simulateCoffee({ dates: dates.slice(lo, hi + 1), rain: rain.slice(lo, hi + 1), et0: et0.slice(lo, hi + 1), crops, texture, shade, treeType, slopeClass, drInit: dr0, dsInit: ds0 });
+    const w = simulateCoffee({ dates: dates.slice(lo, hi + 1), rain: rain.slice(lo, hi + 1), et0: et0.slice(lo, hi + 1), crops, texture, shade, treeType, slopeClass, drInit: dr0, dsInit: ds0, bananaCover, bananaKs: withBananaKs });
     const m = stressOver(w, 0, horizon - 1);
     return { stressDays: m.stressDays, etaOverEtc: m.etaOverEtc, ks: returnKs ? w.ks : undefined };
   };
