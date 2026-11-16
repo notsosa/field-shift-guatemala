@@ -2,6 +2,7 @@
 import { resolveMainSowIdx, stageYield } from '../../web/js/model/simulate.js';
 import { buildPhase } from '../../web/js/model/phenology.js';
 import { simulateDays } from '../../web/js/model/waterBalance.js';
+import { applyFactors } from '../../web/js/model/factors.js';
 
 export const GAP_DAYS = 14; // intervalo de referencia de las auditorías del equipo
 export const MIN_FIT_YEARS = 20; // "cabe" = las dos etapas completas en al menos 20 de 24 años
@@ -58,7 +59,7 @@ export function cropWindowMetrics(sim, tmax, phase) {
  * Mismo balance (simulateDays) y Ky (stageYield) que runSequence, sin traslape. Un ciclo incompleto (o un B que ya no se
  * puede sembrar dentro del año) cuenta relYield 0. Devuelve { year, fit, a, b } con b = null si no se sembró.
  */
-export function simulateSuccessionYear({ idA, idB, bundle, et0, crops, texture, year, startIdx, endIdx, gapDays = GAP_DAYS, offsetDays = 0 }) {
+export function simulateSuccessionYear({ idA, idB, bundle, et0, crops, texture, year, startIdx, endIdx, gapDays = GAP_DAYS, offsetDays = 0, factors = null }) {
   const end = endIdx + 1;
   const dates = bundle.dates.slice(startIdx, end);
   const rain = bundle.rain.slice(startIdx, end);
@@ -75,7 +76,11 @@ export function simulateSuccessionYear({ idA, idB, bundle, et0, crops, texture, 
   const sim = simulateDays({ rain, et0: e0, phases, crops, texture, slopeClass: 'flat', irrigation: 'none', residueMask: Array(dates.length).fill(false) });
   const one = (crop, phase) => {
     if (!phase) return null;
-    const { relYield } = stageYield(crop, phase, { et0: e0, ks: sim.ks });
+    let { relYield } = stageYield(crop, phase, { et0: e0, ks: sim.ks });
+    if (factors) { // opt-in (Tarea 36); sin `factors` nada cambia
+      const tmin = bundle.tmin.slice(startIdx, end);
+      relYield = applyFactors({ cropId: crop.id, relYield, tmax, tmin, flowerIdx: [Math.min(phase.floweringIdx[0], last), Math.min(phase.floweringIdx[1], last)], factors }).relYield;
+    }
     return {
       sowDate: dates[phase.sowIdx], harvestDate: dates[phase.harvestIdx], cycleIncomplete: phase.cycleIncomplete,
       relYield: phase.cycleIncomplete ? 0 : relYield, ...cropWindowMetrics(sim, tmax, phase),

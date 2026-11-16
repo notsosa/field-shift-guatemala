@@ -2,6 +2,7 @@
 import { et0PenmanMonteith } from './et0.js';
 import { buildPhase, kcOnDay, onsetSowIdx } from './phenology.js';
 import { simulateDays } from './waterBalance.js';
+import { applyFactors } from './factors.js';
 
 export const KS_STRESS = 0.7;
 
@@ -91,7 +92,7 @@ export function stageYield(crop, phase, sl) {
 }
 
 /** Métricas de un cultivo en sus propios días; Ks compartido, Kc propio (útil cuando las fases se traslapan). */
-function cropYear({ phase, crop, sl, active }) {
+function cropYear({ phase, crop, sl, active, factors = null, tmaxSl = null, tminSl = null }) {
   const { sowIdx, harvestIdx } = phase;
   let irrigationMm = 0;
   for (let i = sowIdx; i <= harvestIdx; i++) irrigationMm += sl.irr[i] / active[i];
@@ -104,7 +105,7 @@ function cropYear({ phase, crop, sl, active }) {
     for (let i = Math.max(0, harvestIdx - 9); i <= harvestIdx; i++) if (sl.rain[i] > 10) wet++;
     harvestRainEvent = wet >= 2;
   }
-  return {
+  const base = {
     cropId: crop.id,
     sowDate: sl.dates[sowIdx],
     harvestDate: sl.dates[harvestIdx],
@@ -118,10 +119,14 @@ function cropYear({ phase, crop, sl, active }) {
     irrigationMm,
     cycleIncomplete: phase.cycleIncomplete,
   };
+  if (!factors) return base; // opt-in: sin `factors` el resultado es el de siempre, campo por campo
+  // Factores de la Tarea 36 (calor en floración, clase de fertilidad declarada): multiplican el rendimiento limitado por agua.
+  const f = applyFactors({ cropId: crop.id, relYield, tmax: tmaxSl, tmin: tminSl, flowerIdx: [a, b], factors });
+  return { ...base, relYieldWaterOnly: relYield, relYield: f.relYield, heatMultiplier: f.heat ? f.heat.mean : null, heatMinCoefficient: f.heat ? f.heat.min : null, fertilityMultiplier: f.fertility };
 }
 
 /** Simula la secuencia en cada año agrícola completo. [] si exige riego y irrigation === 'none'. */
-export function runSequence({ sequence, bundle, et0, crops, texture, slopeClass, irrigation, sowOffsetDays = 0 }) {
+export function runSequence({ sequence, bundle, et0, crops, texture, slopeClass, irrigation, sowOffsetDays = 0, factors = null }) {
   if (sequence.requiresIrrigation && irrigation === 'none') return [];
   return agriculturalYears(bundle.dates).map(({ year, startIdx, endIdx }) => {
     const end = endIdx + 1;
@@ -171,7 +176,7 @@ export function runSequence({ sequence, bundle, et0, crops, texture, slopeClass,
     }
     return {
       year,
-      crops: phases.map((phase) => cropYear({ phase, crop: crops.get(phase.cropId), sl: slim, active })),
+      crops: phases.map((phase) => cropYear({ phase, crop: crops.get(phase.cropId), sl: slim, active, factors, tmaxSl: bundle.tmax.slice(startIdx, end), tminSl: bundle.tmin.slice(startIdx, end) })),
       bareDaysRainy,
       runoffBareMm,
       irrigationMm: sum(sim.irr),

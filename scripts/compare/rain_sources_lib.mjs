@@ -9,6 +9,7 @@ import { loadCrops } from '../../web/js/model/crops.js';
 import { computeEt0Series, agriculturalYears, KS_STRESS, stageYield } from '../../web/js/model/simulate.js';
 import { buildPhase, onsetSowIdx } from '../../web/js/model/phenology.js';
 import { simulateDays } from '../../web/js/model/waterBalance.js';
+import { applyFactors } from '../../web/js/model/factors.js';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 export const readJson = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
@@ -103,7 +104,7 @@ export function coverage(dates, rain) {
  * suelo `soil` y secano, con el balance de simulateDays y el rendimiento de stageYield (los mismos de runSequence).
  * relYield vale 0 si el ciclo no termina antes del 31 de marzo (convención del repositorio); `cycleCompletes` lo dice aparte.
  */
-export function simulateSowing({ bundle, et0, rain, crops, soil, year, cropId, sowLocal }) {
+export function simulateSowing({ bundle, et0, rain, crops, soil, year, cropId, sowLocal, factors = null }) {
   const startIdx = bundle.dates.indexOf(`${year}-04-01`);
   const endIdx = bundle.dates.indexOf(`${year + 1}-03-31`);
   const end = endIdx + 1;
@@ -114,13 +115,17 @@ export function simulateSowing({ bundle, et0, rain, crops, soil, year, cropId, s
   const crop = crops.get(cropId);
   const phase = buildPhase(crop, sowLocal, tmean);
   const sim = simulateDays({ rain: r, et0: e0, phases: [phase], crops, texture: soil, slopeClass: 'flat', irrigation: 'none', residueMask: Array(dates.length).fill(false) });
-  const { relYield } = stageYield(crop, phase, { et0: e0, ks: sim.ks });
+  const { relYield: relYieldWater } = stageYield(crop, phase, { et0: e0, ks: sim.ks });
   let stressDays = 0;
   for (let i = phase.sowIdx; i <= phase.harvestIdx; i++) if (sim.ks[i] < KS_STRESS) stressDays++;
-  return {
+  const out = {
     sowDate: dates[phase.sowIdx], harvestDate: dates[phase.harvestIdx], cycleCompletes: !phase.cycleIncomplete,
-    relYield: phase.cycleIncomplete ? 0 : relYield, stressDays, cycleDays: phase.harvestIdx - phase.sowIdx + 1,
+    relYield: phase.cycleIncomplete ? 0 : relYieldWater, stressDays, cycleDays: phase.harvestIdx - phase.sowIdx + 1,
   };
+  if (!factors) return out; // opt-in (Tarea 36): sin `factors` el resultado es el de siempre
+  const tmax = bundle.tmax.slice(startIdx, end); const tmin = bundle.tmin.slice(startIdx, end);
+  const fl = applyFactors({ cropId, relYield: relYieldWater, tmax, tmin, flowerIdx: [Math.min(phase.floweringIdx[0], dates.length - 1), Math.min(phase.floweringIdx[1], dates.length - 1)], factors });
+  return { ...out, relYieldWaterOnly: out.relYield, relYield: phase.cycleIncomplete ? 0 : fl.relYield, heatMultiplier: fl.heat ? fl.heat.mean : null, heatMinCoefficient: fl.heat ? fl.heat.min : null, heatDaysBelow1: fl.heat ? fl.heat.daysBelow1 : null, fertilityMultiplier: fl.fertility };
 }
 
 /** Índice local de siembra: 'onset' = regla de inicio de lluvias con `rain`; o 'MM-DD' del año `year`; `offsetDays` se suma al inicio. */

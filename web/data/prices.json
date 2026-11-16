@@ -1,0 +1,50 @@
+{
+ "meta": {
+  "generated": "2026-11-15",
+  "task": 36,
+  "source": {
+   "title": "El Agro en Cifras 2023",
+   "org": "MAGA / SIM Planeamiento",
+   "year": 2023,
+   "url": "https://precios.maga.gob.gt/archivos/agro-en-cifras/El%20Agro%20En%20Cifras%20-%202023.pdf",
+   "read": "page (Tablas 22 y 26, fila final = promedio anual); numbers copied from research_notes/factores-rendimiento.json"
+  },
+  "caveat": "Wholesale average price paid at La Terminal, zona 4 (Guatemala City), first season; NOT the farm-gate price the grower receives.",
+  "marginNotComputed": "Margin is not computed: there are no production costs per manzana (maize, beans, coffee), no seed cost and no usable attainable yields in the sources read. Prices are recorded as information only and are not used by the simulator or any decision.",
+  "notExtracted": "Prices of sesame, potato, onion, broccoli, lettuce and tomato exist in the same publication but were not extracted; coffee price not extracted."
+ },
+ "unit": "Q/quintal (quetzales per quintal)",
+ "years": [
+  2019,
+  2020,
+  2021,
+  2022,
+  2023
+ ],
+ "prices": {
+  "maiz": {
+   "name": "maiz blanco de primera",
+   "table": "Tabla 22",
+   "series": [
+    136.89,
+    139.53,
+    151.62,
+    206.18,
+    224.53
+   ],
+   "value2023": 224.53
+  },
+  "frijol": {
+   "name": "frijol negro de primera",
+   "table": "Tabla 26",
+   "series": [
+    335.13,
+    446.17,
+    456.77,
+    539.4,
+    639.28
+   ],
+   "value2023": 639.28
+  }
+ }
+}
