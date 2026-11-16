@@ -664,4 +664,27 @@ void main() {
       expect(t.takeException(), isNull);
     },
   );
+
+  testWidgets('Borrar cultivo está disponible para el último cultivo', (
+    t,
+  ) async {
+    final e = await _ejemplo(t);
+    final p = e.plantacion!;
+    for (final otra in e.plantaciones.where((otra) => otra.id != p.id)) {
+      await e.borrarPlantacion(otra.id);
+    }
+    await t.pumpAndSettle();
+    await _ficha(t, p);
+    await _pulsa(t, 'Más opciones');
+    await _pulsa(t, 'Borrar cultivo');
+    expect(find.textContaining('el contorno del lote'), findsOneWidget);
+    await _pulsa(t, 'Cancelar');
+    expect(e.plantacionPorId(p.id), isNotNull);
+    await _pulsa(t, 'Borrar cultivo');
+    await _pulsa(t, 'Borrar');
+    expect(e.plantaciones, isEmpty);
+    expect(e.registrosDe(p.id), isEmpty);
+    expect(find.byType(PantallaMiPlantacion), findsNothing);
+    expect(t.takeException(), isNull);
+  });
 }

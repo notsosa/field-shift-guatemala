@@ -11,6 +11,7 @@ import 'plantacion.dart';
 import 'siembra_v3.dart';
 import 'cafe_red.dart';
 import 'ajustes.dart' show confirmar;
+import 'emergentes.dart' show confirmarAccion;
 import 'hoy.dart' show PantallaDetalleAgua, PestanaHoy;
 import '../motor/recomendador.dart' show NivelAgua;
 
@@ -28,6 +29,40 @@ class PantallaMiPlantacion extends StatefulWidget {
 
 class _MiPlantacion extends State<PantallaMiPlantacion> {
   String? _error;
+
+  Future<void> _borrar(Plantacion p) async {
+    final e = Alcance.leer(context), t = e.txt;
+    final conservaLote = e.campanias.any(
+      (c) => c.loteId == p.loteId && c.id != p.id,
+    );
+    final mensaje = conservaLote
+        ? t.bilingue(
+            'Se borrarán el cultivo y sus registros. El lote quedará disponible.',
+            'The crop and its records will be deleted. The plot will be available.',
+          )
+        : t.bilingue(
+            'Se borrarán el cultivo, sus registros y el contorno del lote.',
+            'The crop, its records, and the plot boundary will be deleted.',
+          );
+    final acepto = await confirmarAccion(
+      context,
+      titulo: t.bilingue('¿Borrar este cultivo?', 'Delete this crop?'),
+      mensaje: '${t.nombrePlantacion(p)}\n$mensaje',
+      accion: t.borrar,
+      destructiva: true,
+    );
+    if (!acepto || !mounted) return;
+    try {
+      setState(() => _error = null);
+      await e.borrarPlantacion(p.id);
+      if (mounted && e.lotePorId(p.loteId) == null) {
+        Navigator.of(context).pop();
+      }
+    } catch (_) {
+      if (mounted) setState(() => _error = t.noSeGuardo);
+    }
+  }
+
   Future<void> _terminar(Plantacion p) async {
     final e = Alcance.leer(context), t = Alcance.leer(context).txt;
     // Si se cancela el selector, no se sigue al paso de confirmar.
@@ -238,6 +273,12 @@ class _MiPlantacion extends State<PantallaMiPlantacion> {
                         ),
                         icono: CupertinoIcons.check_mark,
                         alPulsar: () => _terminar(p),
+                      ),
+                      Fila(
+                        titulo: t.bilingue('Borrar cultivo', 'Delete crop'),
+                        icono: CupertinoIcons.trash,
+                        colorIcono: Paleta.de(context, Paleta.rojo),
+                        alPulsar: () => _borrar(p),
                       ),
                     ],
                   ),
