@@ -1,6 +1,6 @@
 # Field Shift
 
-**V03 · 1.4.1+7.** Esta entrega incorpora el plan diario, las sugerencias de siembra y el riego del café con redes neuronales que corren en la app. La ficha del lote ofrece «Borrar cultivo» en «Más opciones».
+**V03 · 1.4.2+8.** Esta entrega incorpora el plan diario, las sugerencias de siembra y el riego del café con redes neuronales que corren en la app. La ficha del lote ofrece «Borrar cultivo» en «Más opciones».
 
 App Android (Flutter) para decidir riego y manejo de una parcela sin depender de la señal. Proyecto del equipo de Ciudad de Guatemala para *Field Shift: Adapting Farms with NASA Data*, NASA Space Apps Challenge 2026.
 

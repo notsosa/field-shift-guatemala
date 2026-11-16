@@ -88,7 +88,7 @@ void main() {
     expect(estado.plantaciones.length, cantidad);
   });
 
-  testWidgets('Finca abre el tablero local y ofrece alta manual o con V3', (
+  testWidgets('Finca calcula el plan y explica cuando falta clima', (
     tester,
   ) async {
     tester.view.physicalSize = const Size(400, 850);
@@ -96,6 +96,7 @@ void main() {
     addTearDown(tester.view.reset);
 
     final estado = await _fincaSinAgua();
+    estado.clima = [];
     await tester.pumpWidget(FieldShift(estado: estado));
     await tester.pumpAndSettle();
     await tester.tap(
@@ -118,6 +119,13 @@ void main() {
 
     final calcular = find.text('Calcular plan');
     expect(calcular.hitTestable(), findsOneWidget);
+    await tester.drag(find.byType(Scrollable).last, const Offset(0, -320));
+    await tester.pumpAndSettle();
+    await tester.tap(calcular);
+    await tester.pumpAndSettle();
+    expect(estado.resultadoPlanV3?.evaluados, 0);
+    expect(find.text('Plan pendiente').hitTestable(), findsOneWidget);
+    expect(find.text('Actualizar clima y recalcular'), findsOneWidget);
     expect(find.text('Copiar solicitud'), findsNothing);
     expect(find.text('Pegar resultado'), findsNothing);
     expect(tester.takeException(), isNull);

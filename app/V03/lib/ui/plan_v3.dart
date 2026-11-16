@@ -23,6 +23,7 @@ class PantallaPlanV3 extends StatefulWidget {
 class _PlanV3 extends State<PantallaPlanV3> {
   final _presupuesto = TextEditingController();
   final _costoRiego = TextEditingController();
+  final _lista = ScrollController();
   PrioridadPlanV3? _prioridad;
   String? _error;
   bool _calculando = false;
@@ -43,6 +44,7 @@ class _PlanV3 extends State<PantallaPlanV3> {
   void dispose() {
     _presupuesto.dispose();
     _costoRiego.dispose();
+    _lista.dispose();
     super.dispose();
   }
 
@@ -71,7 +73,7 @@ class _PlanV3 extends State<PantallaPlanV3> {
     }
   }
 
-  Future<void> _calcular() async {
+  Future<void> _calcular({bool actualizarClima = false}) async {
     if (_calculando) return;
     final estado = Alcance.leer(context);
     final t = estado.txt;
@@ -94,6 +96,16 @@ class _PlanV3 extends State<PantallaPlanV3> {
     });
     final soloOpciones = estado.plantaciones.isEmpty;
     try {
+      if (actualizarClima) {
+        final sync = await estado.sincronizar();
+        if (!mounted) return;
+        if (sync != ResultadoSync.ok) {
+          setState(() {
+            _error = sync == ResultadoSync.sinWifi ? t.sinWifi : t.errorSync;
+          });
+          return;
+        }
+      }
       await estado.calcularPlanV3(
         OpcionesPlanV3(
           prioridad: _prioridad!,
@@ -101,7 +113,12 @@ class _PlanV3 extends State<PantallaPlanV3> {
           costoRiegoQ: costo,
         ),
       );
-      if (mounted && soloOpciones) Navigator.of(context).pop();
+      if (!mounted) return;
+      if (soloOpciones) {
+        Navigator.of(context).pop();
+      } else if (_lista.hasClients) {
+        _lista.jumpTo(0);
+      }
     } catch (error) {
       if (mounted) {
         setState(() {
@@ -148,6 +165,7 @@ class _PlanV3 extends State<PantallaPlanV3> {
               children: [
                 Expanded(
                   child: ListView(
+                    controller: _lista,
                     padding: const EdgeInsets.only(bottom: Espacio.m),
                     children: [
                       if (resultado == null)
@@ -164,8 +182,12 @@ class _PlanV3 extends State<PantallaPlanV3> {
                                 const SizedBox(height: Espacio.xs),
                                 Text(
                                   t.bilingue(
-                                    'Usa el clima y los registros guardados para calcular el plan en este dispositivo.',
-                                    'Use saved weather and records to calculate the plan on this device.',
+                                    hayCampanias
+                                        ? 'Usa el clima y los registros guardados para calcular el plan en este dispositivo.'
+                                        : 'Registra un cultivo en Finca para calcular el plan. Puedes guardar estas opciones para tu próxima siembra.',
+                                    hayCampanias
+                                        ? 'Use saved weather and records to calculate the plan on this device.'
+                                        : 'Add a crop in Farm to calculate the plan. You can save these options for your next planting.',
                                   ),
                                   style: Texto.nota(context),
                                 ),
@@ -181,6 +203,9 @@ class _PlanV3 extends State<PantallaPlanV3> {
                           desactualizado:
                               estado.resultadoPlanV3Desactualizado ||
                               cambiaronOpciones,
+                          actualizarClima: _calculando || estado.sincronizando
+                              ? null
+                              : () => _calcular(actualizarClima: true),
                         ),
                       Rotulo(t.bilingue('Opciones', 'Options')),
                       Grupo(
@@ -242,12 +267,6 @@ class _PlanV3 extends State<PantallaPlanV3> {
                       : t.bilingue('Guardar opciones', 'Save options'),
                   alPulsar: _calculando ? null : _calcular,
                   error: _error,
-                  motivo: !hayCampanias
-                      ? t.bilingue(
-                          'Estas opciones también se usan al sugerir un cultivo.',
-                          'These options also apply when suggesting a crop.',
-                        )
-                      : null,
                 ),
               ],
             ),
@@ -264,15 +283,22 @@ class _ResumenPlanV3 extends StatelessWidget {
     required this.resultado,
     required this.presupuestoQ,
     required this.desactualizado,
+    required this.actualizarClima,
   });
 
   final ResultadoPlanV3 resultado;
   final double? presupuestoQ;
   final bool desactualizado;
+  final VoidCallback? actualizarClima;
 
   @override
   Widget build(BuildContext context) {
     final t = Alcance.de(context).txt;
+    final evaluados = resultado.evaluados;
+    final pendientes = {
+      for (final lote in resultado.lotes)
+        if (lote.accion == AccionPlanV3.pendiente) ...lote.avisos,
+    };
     final totalAgua = _medida(resultado.aguaM3, 3);
     final totalCosto = resultado.costoQ;
     final lotesRiego = resultado.lotes
@@ -286,16 +312,28 @@ class _ResumenPlanV3 extends StatelessWidget {
         Grupo(
           children: [
             Fila(
-              icono: CupertinoIcons.device_phone_portrait,
-              titulo: t.bilingue('Red neuronal', 'Neural network'),
-              detalle: [
-                t.bilingue(
-                  'Cálculo en el dispositivo',
-                  'On-device calculation',
-                ),
-                '${t.fechaLarga(resultado.calculado.toLocal())} · ${_nombrePrioridad(t, resultado.prioridad)}',
-              ].join('\n'),
+              icono: evaluados == 0
+                  ? CupertinoIcons.exclamationmark_triangle
+                  : CupertinoIcons.check_mark_circled,
+              titulo: evaluados == 0
+                  ? t.bilingue('Plan pendiente', 'Plan pending')
+                  : t.bilingue('Plan calculado', 'Plan calculated'),
+              detalle: evaluados == 0
+                  ? pendientes.map((aviso) => _aviso(t, aviso)).join('\n')
+                  : t.bilingue(
+                      'La red neuronal evaluó $evaluados de ${resultado.lotes.length} lotes.',
+                      'The neural network evaluated $evaluados of ${resultado.lotes.length} plots.',
+                    ),
             ),
+            if (pendientes.contains('clima_insuficiente'))
+              Fila(
+                icono: CupertinoIcons.arrow_clockwise,
+                titulo: t.bilingue(
+                  'Actualizar clima y recalcular',
+                  'Refresh weather and recalculate',
+                ),
+                alPulsar: actualizarClima,
+              ),
             if (desactualizado)
               Fila(
                 icono: CupertinoIcons.exclamationmark_triangle,
@@ -308,56 +346,60 @@ class _ResumenPlanV3 extends StatelessWidget {
               ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(
-            Espacio.m,
-            Espacio.s,
-            Espacio.m,
-            0,
-          ),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final escala = MediaQuery.textScalerOf(context).scale(1);
-              final doble = constraints.maxWidth >= 320 && escala <= 1.35;
-              final ancho = doble
-                  ? (constraints.maxWidth - Espacio.s) / 2
-                  : constraints.maxWidth;
-              return Wrap(
-                spacing: Espacio.s,
-                runSpacing: Espacio.s,
-                children: [
-                  _IndicadorPlanV3(
-                    ancho: ancho,
-                    titulo: t.bilingue('Lotes en el plan', 'Plots in plan'),
-                    valor: '${resultado.lotes.length}',
-                  ),
-                  _IndicadorPlanV3(
-                    ancho: ancho,
-                    titulo: t.bilingue('Lotes para regar', 'Plots to irrigate'),
-                    valor: '$lotesRiego',
-                  ),
-                  _IndicadorPlanV3(
-                    ancho: ancho,
-                    titulo: t.bilingue('Agua propuesta', 'Proposed water'),
-                    valor: '$totalAgua m³',
-                  ),
-                  if (presupuestoQ case final presupuesto?)
+        if (evaluados > 0)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              Espacio.m,
+              Espacio.s,
+              Espacio.m,
+              0,
+            ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final escala = MediaQuery.textScalerOf(context).scale(1);
+                final doble = constraints.maxWidth >= 320 && escala <= 1.35;
+                final ancho = doble
+                    ? (constraints.maxWidth - Espacio.s) / 2
+                    : constraints.maxWidth;
+                return Wrap(
+                  spacing: Espacio.s,
+                  runSpacing: Espacio.s,
+                  children: [
                     _IndicadorPlanV3(
                       ancho: ancho,
-                      titulo: t.bilingue('Presupuesto', 'Budget'),
-                      valor: 'Q ${numeroLimpio(presupuesto)}',
+                      titulo: t.bilingue('Lotes en el plan', 'Plots in plan'),
+                      valor: '${resultado.lotes.length}',
                     ),
-                  if (totalCosto != null)
                     _IndicadorPlanV3(
                       ancho: ancho,
-                      titulo: t.bilingue('Costo estimado', 'Estimated cost'),
-                      valor: 'Q ${_medida(totalCosto)}',
+                      titulo: t.bilingue(
+                        'Lotes para regar',
+                        'Plots to irrigate',
+                      ),
+                      valor: '$lotesRiego',
                     ),
-                ],
-              );
-            },
+                    _IndicadorPlanV3(
+                      ancho: ancho,
+                      titulo: t.bilingue('Agua propuesta', 'Proposed water'),
+                      valor: '$totalAgua m³',
+                    ),
+                    if (presupuestoQ case final presupuesto?)
+                      _IndicadorPlanV3(
+                        ancho: ancho,
+                        titulo: t.bilingue('Presupuesto', 'Budget'),
+                        valor: 'Q ${numeroLimpio(presupuesto)}',
+                      ),
+                    if (totalCosto != null)
+                      _IndicadorPlanV3(
+                        ancho: ancho,
+                        titulo: t.bilingue('Costo estimado', 'Estimated cost'),
+                        valor: 'Q ${_medida(totalCosto)}',
+                      ),
+                  ],
+                );
+              },
+            ),
           ),
-        ),
         if (resultado.lotes.isNotEmpty) ...[
           Rotulo(t.bilingue('Acciones por lote', 'Actions by plot')),
           Grupo(
@@ -469,8 +511,8 @@ String _cultivo(Txt t, String id) => switch (id) {
 
 String _aviso(Txt t, String aviso) => switch (aviso) {
   'clima_insuficiente' => t.bilingue(
-    'Actualiza el clima en Hoy para calcular el plan.',
-    'Refresh the weather in Today to calculate the plan.',
+    'Hace falta clima reciente para calcular el plan.',
+    'Recent weather is required to calculate the plan.',
   ),
   'cultivo_no_compatible' => t.bilingue(
     'Este cultivo conserva el balance de agua de Hoy.',
