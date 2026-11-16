@@ -765,7 +765,8 @@ void main() {
     await tester.drag(find.byType(CustomScrollView).first, const Offset(0, -150));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('leyenda_banano')), findsOneWidget);
-    expect(find.text('El efecto del banano es un supuesto provisional, no una medición.'), findsOneWidget);
+    expect(find.textContaining('El efecto del banano es un supuesto provisional, no una medición.'), findsOneWidget);
+    expect(find.textContaining('banano regulado (deshijado) con mulch'), findsOneWidget);
     for (final s in [Sombra.ninguna, Sombra.arbolesPerennes, Sombra.arbolesCaducos]) {
       await abrirConPlantacion(tester, cultivo: 'cafe', hoy: enTemporada, dias: 60, ciclo: 365, sombra: s);
       await tester.scrollUntilVisible(tarjetaCafe(), 200, scrollable: listaHoy());
@@ -812,8 +813,8 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('Efecto provisional'), findsOneWidget);
     expect(find.text('Cuánto del terreno cubre el banano'), findsOneWidget);
-    await tester.ensureVisible(find.text('Bastante · 30 %'));
-    await tester.tap(find.text('Bastante · 30 %'));
+    await tester.ensureVisible(find.text('Regulada · 30 %'));
+    await tester.tap(find.text('Regulada · 30 %'));
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Proteger el cultivo'));
     await tester.tap(find.text('Proteger el cultivo'));

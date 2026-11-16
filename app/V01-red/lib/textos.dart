@@ -293,7 +293,7 @@ class Txt {
       'Provisional effect: an assumption, not a measurement');
   String get coberturaBanano => _('Cuánto del terreno cubre el banano', 'How much of the plot the bananas cover');
   String get coberturaPoco => _('Poco · 15 %', 'Little · 15 %');
-  String get coberturaBastante => _('Bastante · 30 %', 'A lot · 30 %');
+  String get coberturaBastante => _('Regulada · 30 %', 'Managed · 30 %');
   String get prioridadRiego => _('Al regar, qué pesa más', 'When irrigating, what matters more');
   String nombrePrioridad(PrioridadRiego p) => switch (p) {
         PrioridadRiego.ahorrarAgua => _('Ahorrar agua', 'Save water'),
@@ -368,8 +368,9 @@ class Txt {
   String get leyendaRedCafe => _(
       'Estimado por la red del equipo con el clima de NASA POWER. La red se entrenó con otra fuente de lluvia (ERA5) y con temperaturas corregidas a la parcela: aquí es una vista previa, no está validada.',
       'Estimated by the team’s neural network from NASA POWER weather. The network was trained with another rain source (ERA5) and plot-corrected temperatures: here it is a preview and has not been validated.');
-  String get leyendaBananoCafe => _('El efecto del banano es un supuesto provisional, no una medición.',
-      'The banana effect is a provisional assumption, not a measurement.');
+  String get leyendaBananoCafe => _(
+      'El efecto del banano es un supuesto provisional, no una medición. El banano no le da agua al café: en la auditoría del equipo, a igual manejo, aumenta su déficit hídrico. Lo recomendado por el asesor es banano regulado (deshijado) con mulch de sus hojas y pseudotallos.',
+      'The banana effect is a provisional assumption, not a measurement. Banana does not give the coffee water: in the team’s audit, with the same management, it increases its water deficit. The advisor recommends managed (thinned) banana with a mulch of its leaves and pseudostems.');
 
   String mm(double v) => '${v.round()} mm';
   String diasEstres(int n) => n == 0

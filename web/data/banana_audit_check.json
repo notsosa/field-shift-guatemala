@@ -1,0 +1,411 @@
+{
+  "meta": {
+    "task": 40,
+    "generatedBy": "scripts/coffee/verify_banana_audit.mjs",
+    "audit": "auditorias/prueba cafe banano 2025/ (origin/main, commit ac37f1b); cifras copiadas en scripts/coffee/banana_audit_reference.json",
+    "banana_assumption": {
+      "kc": 1.1,
+      "p": 0.35,
+      "provisional": true,
+      "rainy_evap_cut_mm_day": 0.52
+    },
+    "definitions": "demanda = Σ ETc del lote (incluye el gasto del banano y resta el recorte de evaporación del suelo en lluvias); ETa = Σ ETa; déficit = demanda − ETa; días con Ks<0.95 y Ks<1 sobre el Ks del café (el que aplica el simulador a la demanda completa del lote). Secano.",
+    "runs": {
+      "A": "simulador tal como lo usa la app: serie continua 2001-2025 (arranque seco en 2001), suelo SoilGrids del piloto, escorrentía SCS-CN, clima del snapshot (ERA5 + POWER corregido); se mide 2025",
+      "B": "como A pero con 2025 solo (desde el 1 de enero), TAW 130.7 mm sobre la zona radicular, lluvia efectiva 0.85·P (escorrentía fija 15 %), reserva inicial 25 %",
+      "C": "como B pero con las entradas diarias congeladas de la auditoría: ET0 FAO-56 NASA POWER y lluvia ERA5 de su CSV"
+    },
+    "not_matched": [
+      "Kc del café: nuestro modelo usa 0.95 constante, la auditoría 0.90/0.95/0.95 por etapas (café solo: ETc de la corrida C frente a 1404.76 de la auditoría)",
+      "Zr: la zona radicular del café del simulador es 1.2 m (FAO-56 0.9-1.5); la auditoría usa 1.0 m. Se igualó TAW, no la profundidad",
+      "Escorrentía: SCS-CN diario no admite una fracción fija; se aplicó 0.85·P con CN mínimo (escorrentía cero en el modelo, ver runB_runoff_check_mm)",
+      "Banano: nuestra fórmula SUMA el gasto del banano (cobertura × 1.10 × ET0 × KsBanana) a la demanda completa del café y resta 0.52 mm/día en lluvias; la auditoría usa un Kc compuesto por variante y Zr y p propios (0.38 regulado, 0.35 denso)",
+      "p del lote: nuestro modelo usa p = 0.40 del café para el Ks de todo el lote; la auditoría 0.38 (regulado) y 0.35 (denso)",
+      "Suelo de 5 capas de la auditoría frente a una zona radicular + subsuelo en nuestro simulador"
+    ]
+  },
+  "tolerances_fixed_before_computing": {
+    "sign_and_order": "required: demanda y déficit con solo < banano 0.15 < banano 0.30",
+    "cover015_deficit_diff_mm": [
+      39.61,
+      240.48
+    ],
+    "cover030_deficit_diff_mm": [
+      39.61,
+      585.6
+    ],
+    "strict_era5_regulated_to_dense_mm": [
+      96.36,
+      238.74
+    ]
+  },
+  "context": {
+    "our_snapshot": {
+      "file": "web/data/snapshots/chiquimula.json",
+      "lat": 14.8,
+      "lon": -89.54,
+      "elevation_m": 403,
+      "rain_source": "ERA5",
+      "rain_2025_mm": 1020.5,
+      "et0_2025_mm": 1594.27,
+      "temperature": "NASA POWER Tmax/Tmin corregida por altitud (-0.0065 °C/m) a 403 m"
+    },
+    "audit_inputs": {
+      "lat": 14.825,
+      "lon": -89.5312,
+      "elevation_m": 373,
+      "rain_era5_2025_mm": 1020.5,
+      "et0_power_fao56_2025_mm": 1502.06
+    },
+    "soil": {
+      "ours_run_A": {
+        "source": "SoilGrids 0-100 cm del piloto (14.80, -89.54)",
+        "thetaFC": 0.3296,
+        "thetaWP": 0.1795,
+        "zr_m": 1.2,
+        "taw_mm": 180.12,
+        "cn": {
+          "crop": 89,
+          "residue": 85,
+          "bare": 94
+        }
+      },
+      "ours_run_B_C": {
+        "thetaFC": 0.2884,
+        "thetaWP": 0.1795,
+        "zr_m": 1.2,
+        "taw_mm": 130.7
+      },
+      "audit": {
+        "taw_mm_0_100cm": 130.7,
+        "zr_m": 1
+      }
+    },
+    "max_daily_rain_2025_mm": 25.6,
+    "runB_runoff_check_mm": {
+      "run_B": 0,
+      "run_C": 0
+    }
+  },
+  "audit": {
+    "era5": {
+      "alone": {
+        "ETc_mm": 1404.75725,
+        "ETa_mm": 756.49371,
+        "deficit_mm": 648.26354,
+        "dias_Ks_lt_095": 249
+      },
+      "regulated": {
+        "ETc_mm": 1525.49018,
+        "ETa_mm": 780.86928,
+        "deficit_mm": 744.6209,
+        "dias_Ks_lt_095": 264
+      },
+      "weedy_alone": {
+        "ETc_mm": 1630.06667,
+        "ETa_mm": 798.28748,
+        "deficit_mm": 831.77919,
+        "dias_Ks_lt_095": 266
+      },
+      "dense": {
+        "ETc_mm": 1699.12384,
+        "ETa_mm": 812.12501,
+        "deficit_mm": 886.99884,
+        "dias_Ks_lt_095": 276
+      },
+      "demand_diff_regulated_mm": 120.73,
+      "demand_diff_dense_vs_clean_mm": 294.37,
+      "demand_diff_regulated_pct": 8.59,
+      "demand_diff_dense_pct": 20.95,
+      "deficit_diff_regulated_mm": 96.36,
+      "deficit_diff_dense_vs_clean_mm": 238.74,
+      "stress_days_diff_regulated": 15,
+      "stress_days_diff_dense_vs_clean": 27
+    },
+    "deficit_diff_regulated_range_mm": [
+      79.22,
+      120.24
+    ],
+    "deficit_diff_dense_vs_clean_range_mm": [
+      196.65,
+      292.8
+    ],
+    "deficit_diff_regulated_vs_weedy_range_mm": [
+      -100.83,
+      -77.01
+    ],
+    "stress_days_diff_regulated_range": [
+      14,
+      24
+    ]
+  },
+  "run_A": {
+    "alone": {
+      "demand_mm": 1514.56,
+      "eta_mm": 901.21,
+      "deficit_mm": 613.35,
+      "days_ks_lt_095": 234,
+      "days_ks_lt_1": 248,
+      "runoff_mm": 57.63
+    },
+    "banana015": {
+      "demand_mm": 1561.73,
+      "eta_mm": 897.17,
+      "deficit_mm": 664.56,
+      "days_ks_lt_095": 249,
+      "days_ks_lt_1": 256,
+      "runoff_mm": 57.63
+    },
+    "banana030": {
+      "demand_mm": 1685.14,
+      "eta_mm": 935.42,
+      "deficit_mm": 749.72,
+      "days_ks_lt_095": 260,
+      "days_ks_lt_1": 266,
+      "runoff_mm": 57.63
+    },
+    "evergreen": {
+      "demand_mm": 1491.88,
+      "eta_mm": 870.7,
+      "deficit_mm": 621.18,
+      "days_ks_lt_095": 225,
+      "days_ks_lt_1": 231,
+      "runoff_mm": 57.63
+    },
+    "deciduous": {
+      "demand_mm": 1650.54,
+      "eta_mm": 946.15,
+      "deficit_mm": 704.39,
+      "days_ks_lt_095": 254,
+      "days_ks_lt_1": 258,
+      "runoff_mm": 57.63
+    }
+  },
+  "run_B": {
+    "alone": {
+      "demand_mm": 1514.56,
+      "eta_mm": 765.17,
+      "deficit_mm": 749.39,
+      "days_ks_lt_095": 264,
+      "days_ks_lt_1": 268,
+      "runoff_mm": 0
+    },
+    "banana015": {
+      "demand_mm": 1543.66,
+      "eta_mm": 773.84,
+      "deficit_mm": 769.81,
+      "days_ks_lt_095": 269,
+      "days_ks_lt_1": 270,
+      "runoff_mm": 0
+    },
+    "banana030": {
+      "demand_mm": 1654.22,
+      "eta_mm": 813.81,
+      "deficit_mm": 840.41,
+      "days_ks_lt_095": 276,
+      "days_ks_lt_1": 277,
+      "runoff_mm": 0
+    },
+    "evergreen": {
+      "demand_mm": 1491.88,
+      "eta_mm": 741.43,
+      "deficit_mm": 750.45,
+      "days_ks_lt_095": 259,
+      "days_ks_lt_1": 264,
+      "runoff_mm": 0
+    },
+    "deciduous": {
+      "demand_mm": 1650.54,
+      "eta_mm": 809.69,
+      "deficit_mm": 840.85,
+      "days_ks_lt_095": 275,
+      "days_ks_lt_1": 277,
+      "runoff_mm": 0
+    }
+  },
+  "run_C": {
+    "alone": {
+      "demand_mm": 1426.96,
+      "eta_mm": 745.16,
+      "deficit_mm": 681.8,
+      "days_ks_lt_095": 257,
+      "days_ks_lt_1": 263,
+      "runoff_mm": 0
+    },
+    "banana015": {
+      "demand_mm": 1452.99,
+      "eta_mm": 753.04,
+      "deficit_mm": 699.95,
+      "days_ks_lt_095": 263,
+      "days_ks_lt_1": 268,
+      "runoff_mm": 0
+    },
+    "banana030": {
+      "demand_mm": 1561.24,
+      "eta_mm": 794.54,
+      "deficit_mm": 766.7,
+      "days_ks_lt_095": 273,
+      "days_ks_lt_1": 274,
+      "runoff_mm": 0
+    },
+    "evergreen": {
+      "demand_mm": 1404.28,
+      "eta_mm": 720.7,
+      "deficit_mm": 683.58,
+      "days_ks_lt_095": 251,
+      "days_ks_lt_1": 259,
+      "runoff_mm": 0
+    },
+    "deciduous": {
+      "demand_mm": 1562.94,
+      "eta_mm": 793.75,
+      "deficit_mm": 769.19,
+      "days_ks_lt_095": 271,
+      "days_ks_lt_1": 274,
+      "runoff_mm": 0
+    }
+  },
+  "comparison": {
+    "A": {
+      "banana015": {
+        "demand_diff_mm": 47.17,
+        "demand_diff_pct": 3.11,
+        "eta_diff_mm": -4.04,
+        "deficit_diff_mm": 51.21,
+        "stress_days_ks_lt_095_diff": 15,
+        "stress_days_ks_lt_1_diff": 8
+      },
+      "banana030": {
+        "demand_diff_mm": 170.58,
+        "demand_diff_pct": 11.26,
+        "eta_diff_mm": 34.21,
+        "deficit_diff_mm": 136.37,
+        "stress_days_ks_lt_095_diff": 26,
+        "stress_days_ks_lt_1_diff": 18
+      },
+      "sign_ok": true,
+      "order_ok": true,
+      "cover015_magnitude_close": true,
+      "cover030_magnitude_close": true,
+      "cover030_inside_strict_era5": true
+    },
+    "B": {
+      "banana015": {
+        "demand_diff_mm": 29.1,
+        "demand_diff_pct": 1.92,
+        "eta_diff_mm": 8.67,
+        "deficit_diff_mm": 20.42,
+        "stress_days_ks_lt_095_diff": 5,
+        "stress_days_ks_lt_1_diff": 2
+      },
+      "banana030": {
+        "demand_diff_mm": 139.66,
+        "demand_diff_pct": 9.22,
+        "eta_diff_mm": 48.64,
+        "deficit_diff_mm": 91.02,
+        "stress_days_ks_lt_095_diff": 12,
+        "stress_days_ks_lt_1_diff": 9
+      },
+      "sign_ok": true,
+      "order_ok": true,
+      "cover015_magnitude_close": false,
+      "cover030_magnitude_close": true,
+      "cover030_inside_strict_era5": false
+    },
+    "C": {
+      "banana015": {
+        "demand_diff_mm": 26.03,
+        "demand_diff_pct": 1.82,
+        "eta_diff_mm": 7.88,
+        "deficit_diff_mm": 18.15,
+        "stress_days_ks_lt_095_diff": 6,
+        "stress_days_ks_lt_1_diff": 5
+      },
+      "banana030": {
+        "demand_diff_mm": 134.28,
+        "demand_diff_pct": 9.41,
+        "eta_diff_mm": 49.38,
+        "deficit_diff_mm": 84.9,
+        "stress_days_ks_lt_095_diff": 16,
+        "stress_days_ks_lt_1_diff": 11
+      },
+      "sign_ok": true,
+      "order_ok": true,
+      "cover015_magnitude_close": false,
+      "cover030_magnitude_close": true,
+      "cover030_inside_strict_era5": false
+    }
+  },
+  "cover_that_reproduces_audit_etc_increase": {
+    "targets_demand_increase_mm": {
+      "regulated": 120.73,
+      "dense": 294.37
+    },
+    "run_A_our_weather": {
+      "formula_as_in_app": {
+        "regulated": 0.2371,
+        "dense": 0.4759
+      },
+      "banana_use_only_no_evap_cut": {
+        "regulated": 0.1303,
+        "dense": 0.3571
+      }
+    },
+    "run_B_our_weather_audit_soil": {
+      "formula_as_in_app": {
+        "regulated": 0.2732,
+        "dense": 0.5411
+      },
+      "banana_use_only_no_evap_cut": {
+        "regulated": 0.1518,
+        "dense": 0.4074
+      }
+    },
+    "run_C_audit_daily_inputs": {
+      "formula_as_in_app": {
+        "regulated": 0.2803,
+        "dense": 0.5541
+      },
+      "banana_use_only_no_evap_cut": {
+        "regulated": 0.1557,
+        "dense": 0.4172
+      }
+    },
+    "at_derived_cover": {
+      "run_B": {
+        "regulated": {
+          "cover": 0.2732,
+          "demand_diff_mm": 120.74,
+          "deficit_diff_mm": 78.97,
+          "stress_days_ks_lt_095_diff": 11
+        },
+        "dense": {
+          "cover": 0.5411,
+          "demand_diff_mm": 294.36,
+          "deficit_diff_mm": 195.2,
+          "stress_days_ks_lt_095_diff": 22
+        }
+      },
+      "run_C": {
+        "regulated": {
+          "cover": 0.2803,
+          "demand_diff_mm": 120.73,
+          "deficit_diff_mm": 76.34,
+          "stress_days_ks_lt_095_diff": 15
+        },
+        "dense": {
+          "cover": 0.5541,
+          "demand_diff_mm": 294.35,
+          "deficit_diff_mm": 189.21,
+          "stress_days_ks_lt_095_diff": 26
+        }
+      }
+    },
+    "fao56_replacement_formula_on_audit_et0": {
+      "note": "f tal que f·(1.10 − 0.95)·ΣET0 = aumento de ETc de la auditoría; ΣET0 = ET0 FAO-56 NASA POWER de la auditoría",
+      "sum_et0_mm": 1502.06,
+      "regulated": 0.5358,
+      "dense": 1.3065
+    }
+  }
+}

@@ -116,7 +116,7 @@ Para plantaciones de café, la tarjeta **Café** de la pestaña Hoy muestra la r
 ### Entradas nuevas del formulario (solo para café)
 
 - **Sombra**: sin sombra, árboles de hoja perenne, árboles de hoja caduca o banano.
-- **Cuánto cubre el banano** (solo con banano): «poco» (0.15) o «bastante» (0.30) del terreno. Son los dos únicos valores con que se entrenó la red; por eso no se deja escribir otro número.
+- **Cuánto cubre el banano** (solo con banano): «poco» (0.15) o «regulada» (0.30) del terreno. Son los dos únicos valores con que se entrenó la red; por eso no se deja escribir otro número. «Regulada» es el nombre del asesor: con nuestra fórmula, la cobertura que reproduce el aumento de demanda de agua de su «sombra regulada» es 0.27 a 0.28 (`web/data/banana_audit_check.json`); el «denso sin deshije» (0.54 a 0.55) no se ofrece porque la red no se entrenó fuera de 0.30. Es una equivalencia de agua, no de sombra.
 - **Prioridad al regar**: ahorrar agua (precio 3 días de estrés) o proteger el cultivo (precio 1).
 
 Se guardan en `Plantacion` (`sombra`, `coberturaBanano`, `prioridadRiego`) con valores por omisión (sin sombra, 0.15, ahorrar agua): los datos guardados antes cargan igual (hay una prueba).
@@ -164,7 +164,7 @@ Con la semilla exportada (29), todos los escenarios de prueba (2 700): ahorrar a
 
 ### Límites
 
-- **El banano es un supuesto provisional, no una medición** (la tarjeta lo dice cuando la sombra es banano). Con ese supuesto el banano no beneficia al cafetal en agua, lo que choca con el único estudio de campo encontrado (Uganda, solo resumen).
+- **El banano es un supuesto provisional, no una medición** (la tarjeta lo dice cuando la sombra es banano). Con ese supuesto el banano no beneficia al cafetal en agua, y la auditoría del asesor del equipo (`auditorias/prueba cafe banano 2025/` de la rama principal) muestra lo mismo: a igual manejo del suelo el banano aumenta el déficit hídrico del café; el beneficio aparece frente a café con malezas vivas y por el mulch, la luz y el microclima, que la red no ve. El manejo recomendado por el asesor es banano regulado (deshijado) con mulch de sus hojas y pseudotallos.
 - La red se entrenó con lluvia de **ERA5** y temperaturas llevadas a la altura de la parcela; la app usa lluvia de **NASA POWER**, la temperatura de la celda y una ET₀ calculada con la humedad relativa. **La paridad prueba que Dart calcula lo mismo que JavaScript con la misma serie, no que la red acierte con el clima de la app.** En la app es una vista previa.
 - La ventana de 365 días hace la descarga más pesada (solo con wifi, solo con café en la finca).
 - Los días sin temperatura (retraso de POWER) no entran en los promedios de temperatura; lluvia y ET₀ de esos días se completan como ya hacía la app.
