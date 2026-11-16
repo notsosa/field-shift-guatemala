@@ -1903,3 +1903,179 @@ Se muestra la red de la semilla 17 (la exportada), las otras dos y el ELM de la 
 - El 2025 no se usó para entrenar ni para probar, y se entrenó con 150 000 de 537 600 filas disponibles.
 - Una sola partición por año; sin intervalos de confianza. Con 3 semillas, la diferencia entre semillas es chica frente a la diferencia con las referencias, salvo en `factorFinal` por cultivo.
 - La red **no está conectada a la app**; `proyecto/contrato-app-modelo.md` explica cómo.
+
+## Más que agua: calor, abono, plagas, dinero y capacidad de resembrar
+
+**Regla de esta sección.** Un factor entra al rendimiento **solo si tiene un número publicado, leído en la fuente misma** (el PDF o la página, no un resumen de búsqueda). Lo que no tiene número queda como aviso o como dato que el usuario declara, y aquí se dice. No se ajustó nada a los eventos de sequía documentados. Todo es opcional y apagado por defecto: sin la opción `factors` el simulador da exactamente los mismos resultados de antes (los artefactos anteriores no cambiaron; se comprobó que `real_events_check.json` se reproduce igual). Los números salen de `web/data/factors_eval.json`, `web/data/factors_real_events_check.json`, `web/data/prices.json` y de las salidas parciales en `scripts/factors/out/`; el código está en `web/js/model/factors.js` y `scripts/factors/`. Las fuentes de los números están en `research_notes/factores-rendimiento.json` (fuera del repositorio).
+
+**Un solo método de decisión.** El equipo conserva **un** método: **predecir y luego elegir** (la red de embudo, entrenada con retropropagación, predice el resultado de cada opción; la elección aplica la prioridad del agricultor y sus restricciones). El recomendador evolutivo queda **archivado tal como está**: no se entrenó ni se extendió aquí.
+
+### Qué entra y qué no
+
+| Factor | ¿Número publicado? | Cómo entra | Fuente |
+|---|---|---|---|
+| Calor en la floración, maíz y tomate | Sí: la polinización empieza a fallar sobre Tmax 40 °C y bajo Tmin 10 °C (ambos "Estimate"); el coeficiente cae de 1 a 0 en 5 °C más allá del umbral, con forma logística | **Rendimiento** (opcional): el coeficiente diario medio sobre la ventana de floración multiplica el rendimiento relativo limitado por agua | AquaCrop v7.3 (FAO), Annex I (I.2 maíz 4.2, p. 11; I.9 tomate 4.2) y cap. 3, 3.12.5, Fig. 3.12k (p. 3-147), leídos en el PDF |
+| Calor en frijol, café y los demás cultivos | **No**: la tabla 15 de frijol no trae umbrales de polinización; para el café arábica solo hay un óptimo de 18–21 °C de temperatura media anual y pérdida de calidad sobre 23 °C, sin pérdida de rendimiento por grado | **Nada** (sin factor) | AquaCrop Annex I; DaMatta y Ramalho 2006 |
+| Sensibilidad al calor del maíz (Lobell et al. 2011) | Sí, pero de África: 1 % por grado-día sobre 30 °C (1.7 % bajo sequía) | **Solo como sensibilidad**, apagada, nunca en decisiones | Lobell et al. 2011, Nature Climate Change 1:42–45 (resumen leído; texto completo no) |
+| Fertilidad del suelo | Sí, como clase genérica: casi óptima 0.80, moderada 0.60, la mitad 0.50, pobre 0.40, muy pobre 0.25; no declarada = 1 | **Dato que el usuario declara** (opcional): multiplica el rendimiento | AquaCrop cap. 2, tabla 2.13a (p. 2-188) |
+| Qué clase corresponde a "abonado / no abonado" | **No** hay fuente | No se inventa la correspondencia | — |
+| Plagas | **No** hay función de daño. La caída de 16 % de la producción de café de Centroamérica en 2013 es un agregado regional con estimaciones inciertas | **Aviso**: los avisos de café que ya existían, y el nivel de plaga que observa el agricultor (`ninguna`, `baja`, `media`, `alta`) como dato declarado que se lleva y se muestra. **No cambia el rendimiento** | Avelino et al. 2015, Food Security 7:303–321 |
+| Dinero | Precios mayoristas MAGA 2023: maíz blanco Q224.53/qq, frijol negro Q639.28/qq (serie 2019–2023 en `web/data/prices.json`) | **Solo registrado**. **No se calcula margen** | MAGA, El Agro en Cifras 2023, tablas 22 y 26 |
+| Poder actuar: `canResow` (hay semilla y dinero para resembrar) y `hasIrrigation` (y su tipo) | No hace falta | **Restricciones declaradas** que se aplican al elegir, no predicciones: con `canResow = false` solo queda dejar el campo | — |
+
+**Cómo es el coeficiente de calor (exacto).** Por día: `Kspol_h` baja de 1 a 0 entre Tmax = 40 °C y 45 °C; `Kspol_c` baja de 1 a 0 entre Tmin = 10 °C y 5 °C; el coeficiente del día es el menor de los dos. La caída es una logística normalizada, `Ks(x) = (s(1) − s(x)) / (s(1) − s(0))` con `s(v) = 1/(1 + exp(−k (v − 0.5)))` y `x` la fracción de los 5 °C ya recorrida, de modo que vale exactamente 1 en el umbral y 0 a 5 °C. **La pendiente `k = 10` es nuestra elección**: la fuente da la forma y los extremos, no la pendiente. **Simplificación nuestra:** AquaCrop aplica el coeficiente al índice de cosecha de referencia; aquí la media del coeficiente sobre la ventana de floración multiplica el rendimiento relativo limitado por agua. La ventana es la que ya usa el simulador para `ksFlower` (el 40 % de la etapa media que sigue al desarrollo). El **ancho de 5 °C** y los umbrales son los publicados.
+
+### El calor, contado antes de reentrenar nada
+
+Se midió con el clima de los 20 puntos, 2001–2024 (ERA5 con Tmax y Tmin corregidas por altitud), en maíz, en primera (siembra por la regla de inicio de lluvias) y en postrera (siembra el 15 de agosto), solo en los años con el ciclo completo. **Regla fijada antes de ver el resultado:** si el calor cambia el rendimiento relativo en más de 0.01 en menos del 1 % de los sitios-año, **no se reentrena nada**.
+
+Por punto (años = sitios-año con el ciclo completo; "coef. < 1" = años con al menos un día de la floración bajo el umbral; "cambio > 0.01" = años en que el rendimiento baja más de 0.01; "mínimo" = menor media de la ventana):
+
+| Punto | Altitud (m) | Primera: años | Primera: coef. < 1 | Primera: cambio > 0.01 | Primera: mínimo | Postrera: años | Postrera: coef. < 1 | Postrera: cambio > 0.01 | Postrera: mínimo |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Chiquimula | 403 | 24 | 0 | 0 | 1.000 | 24 | 0 | 0 | 1.000 |
+| Jutiapa | 903 | 24 | 0 | 0 | 1.000 | 24 | 1 | 0 | 1.000 |
+| San Martín Jilotepeque | 1787 | 24 | 4 | 0 | 0.989 | 0 | 0 | 0 | - |
+| Esquipulas | 933 | 24 | 0 | 0 | 1.000 | 24 | 0 | 0 | 1.000 |
+| Jocotán | 459 | 24 | 0 | 0 | 1.000 | 24 | 0 | 0 | 1.000 |
+| Quetzaltepeque | 757 | 24 | 0 | 0 | 1.000 | 24 | 0 | 0 | 1.000 |
+| Olopa | 1240 | 24 | 0 | 0 | 1.000 | 24 | 7 | 3 | 0.961 |
+| Zacapa | 222 | 24 | 0 | 0 | 1.000 | 24 | 0 | 0 | 1.000 |
+| Gualán | 155 | 24 | 0 | 0 | 1.000 | 24 | 0 | 0 | 1.000 |
+| Guastatoya | 527 | 24 | 0 | 0 | 1.000 | 24 | 0 | 0 | 1.000 |
+| Sanarate | 849 | 24 | 0 | 0 | 1.000 | 24 | 1 | 0 | 0.998 |
+| Asunción Mita | 472 | 24 | 0 | 0 | 1.000 | 24 | 0 | 0 | 1.000 |
+| Jalpatagua | 545 | 24 | 0 | 0 | 1.000 | 24 | 0 | 0 | 1.000 |
+| Santa Catarina Mita | 670 | 24 | 0 | 0 | 1.000 | 24 | 0 | 0 | 1.000 |
+| Jalapa | 1374 | 24 | 0 | 0 | 1.000 | 23 | 12 | 2 | 0.829 |
+| Monjas | 961 | 24 | 0 | 0 | 1.000 | 24 | 1 | 0 | 1.000 |
+| Salamá | 946 | 24 | 0 | 0 | 1.000 | 24 | 0 | 0 | 1.000 |
+| Rabinal | 967 | 24 | 0 | 0 | 1.000 | 24 | 1 | 0 | 1.000 |
+| Cubulco | 997 | 24 | 0 | 0 | 1.000 | 24 | 1 | 0 | 1.000 |
+| Cuilapa | 929 | 24 | 0 | 0 | 1.000 | 24 | 1 | 0 | 1.000 |
+| **Total** | | 480 | 4 | 0 | 0.989 | 455 | 25 | 5 | 0.829 |
+
+Distribución del multiplicador (media del coeficiente sobre la floración):
+
+| Calendario | Sitios-año | Mínimo | Percentil 1 | Percentil 5 | Mediana | Media | Mayor caída del rendimiento | Años con cambio > 0.01 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Total | 935 | 0.8293 | 0.9896 | 1 | 1 | 0.99944 | 0.0497 | 5 (0.53 %) |
+| Primera | 480 | 0.9891 | 1 | 1 | 1 | 0.99996 | 0.0079 | 0 (0.00 %) |
+| Postrera | 455 | 0.8293 | 0.9715 | 0.9999 | 1 | 0.9989 | 0.0497 | 5 (1.10 %) |
+
+**Resultado: no se reentrenó nada.** 5 de 935 sitios-año (0.53 %) cambian en más de 0.01, menos del 1 %. Hay más: **en ningún día de ninguna floración de los 20 puntos y los 24 años llega Tmax a 40 °C** (0 días de calor). Los 29 sitios-año donde el coeficiente baja de 1 son **noches frías** (Tmin bajo 10 °C, 92 días en total), todos en puntos de 849 m o más: San Martín Jilotepeque (1 787 m; 4 años, en primera, con la floración en agosto), Olopa (7 años) y Jalapa (12 años) en postrera, y un solo año con 1 o 2 días fríos en Jutiapa, Sanarate, Monjas, Rabinal, Cubulco y Cuilapa; 25 de los 29 están en postrera, cuando la floración cae entre mediados de noviembre y diciembre. Así que **en esta región y en estos años el umbral publicado de calor casi nunca se alcanza; el factor está implementado pero inactivo para el calor**, y el poco efecto que aparece viene del frío en la altura. La red v3 de siete cultivos **no se reentrenó** (no hay `emulator_v4_*`).
+
+**Sensibilidad de Lobell (solo informativa).** Con los grados-día sobre 30 °C aproximados con la Tmax diaria en todo el ciclo, la sensibilidad de otro continente daría una caída media de 0.20 del rendimiento relativo del maíz (en primera 0.28, en postrera 0.11; 616 de 935 sitios-año cambiarían en más de 0.01). Es una extrapolación lineal de África fuera de su rango y **no se usa en ninguna decisión**; sirve para decir que si esa sensibilidad valiera aquí, el calor sí importaría mucho más que el umbral de AquaCrop, y que no hay forma de saberlo con lo que hay publicado para Guatemala.
+
+### Eventos reales: antes y después del calor
+
+Mismo comprobador de la sección de eventos de sequía documentados (ERA5; acierto = el sitio-año cae en el peor tercio de sus años; mismos umbrales fijos, **nada ajustado**), con el factor de calor del maíz encendido. La fertilidad queda "no declarada" (no hay dato por evento) y el frijol no cambia (sin umbral):
+
+| Periodo | Variante | Aciertos / eventos | Tasa | Falsas alarmas (años sin evento) | AUC contra años sin evento | AUC contra otros años |
+|---|---|---:|---:|---:|---:|---:|
+| 2001–2016 | Solo agua | 82 / 199 | 0.412 | 4 / 38 | 0.762 | 0.611 |
+| 2001–2016 | Agua y calor | 81 / 199 | 0.407 | 4 / 38 | 0.762 | 0.611 |
+| 2017–2024 (reservado) | Solo agua | 62 / 132 | 0.470 | 21 / 190 | 0.661 | 0.676 |
+| 2017–2024 (reservado) | Agua y calor | 62 / 132 | 0.470 | 22 / 190 | 0.661 | 0.676 |
+| Todos | Solo agua | 144 / 331 | 0.435 | 25 / 228 | 0.680 | 0.636 |
+| Todos | Agua y calor | 143 / 331 | 0.432 | 26 / 228 | 0.680 | 0.635 |
+
+El calor **no cambia la lectura**: en todos los eventos 144 de 331 aciertos pasan a 143, el AUC contra los años sin evento queda en 0.680 y contra los otros años pasa de 0.636 a 0.635. Es lo esperable con el conteo de arriba.
+
+### La decisión con la información nueva (predecir y luego elegir)
+
+Se usa la red v3 de embudo que ya existía (semillas 17, 29 y 43; la tabla da la media de las tres), porque no se reentrenó. Los casos son los de siempre: **54** (3 pilotos × años 2019–2024 × pérdida del maíz a los 30, 45 o 60 días) y los **27** reservados (2022–2024). La verdad es el simulador en el año Y, solo agua. Las columnas son la media de las tres semillas (por eso hay decimales en los conteos). Rendimiento relativo, sin dinero ni margen. "Típica" elige por la mediana de los años pasados; "cauta", por el percentil 20.
+
+**Pérdida del maíz, 54 casos.** Regla agronómica simple: 0.802; mejor posible (oráculo): 0.971.
+
+| Escenario | Prioridad | Rendimiento relativo medio | Ganancia media sobre la regla | Gana / empata / pierde | p10 | Peor | Casos bajo 0.5 | Acciones (semilla 17) |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| Puede resembrar (no declarada fertilidad) | típica | 0.942 | 0.140 | 23.3 / 26.7 / 4.0 | 0.849 | 0.408 | 1.7 | {ajonjolí: 30, frijol: 21, lechuga: 3} |
+| Puede resembrar (no declarada fertilidad) | cauta | 0.949 | 0.147 | 26.0 / 19.0 / 9.0 | 0.840 | 0.688 | 0.0 | {ajonjolí: 30, lechuga: 18, frijol: 6} |
+| No puede resembrar | típica | 0.000 | 0.000 | 0.0 / 54.0 / 0.0 | 0.000 | 0.000 | 54.0 | {campo libre: 54} |
+| No puede resembrar | cauta | 0.000 | 0.000 | 0.0 / 54.0 / 0.0 | 0.000 | 0.000 | 54.0 | {campo libre: 54} |
+| Fertilidad: casi óptima | típica | 0.754 | 0.112 | 23.3 / 26.7 / 4.0 | 0.679 | 0.327 | 2.7 | {ajonjolí: 30, frijol: 21, lechuga: 3} |
+| Fertilidad: casi óptima | cauta | 0.759 | 0.118 | 26.0 / 19.0 / 9.0 | 0.672 | 0.550 | 0.0 | {ajonjolí: 30, lechuga: 18, frijol: 6} |
+| Fertilidad: moderada | típica | 0.565 | 0.084 | 23.3 / 26.7 / 4.0 | 0.510 | 0.245 | 5.0 | {ajonjolí: 30, frijol: 21, lechuga: 3} |
+| Fertilidad: moderada | cauta | 0.569 | 0.088 | 26.0 / 19.0 / 9.0 | 0.504 | 0.413 | 5.0 | {ajonjolí: 30, lechuga: 18, frijol: 6} |
+| Fertilidad: la mitad | típica | 0.471 | 0.070 | 23.3 / 26.7 / 4.0 | 0.425 | 0.204 | 24.7 | {ajonjolí: 30, frijol: 21, lechuga: 3} |
+| Fertilidad: la mitad | cauta | 0.475 | 0.074 | 26.0 / 19.0 / 9.0 | 0.420 | 0.344 | 28.7 | {ajonjolí: 30, lechuga: 18, frijol: 6} |
+| Fertilidad: pobre | típica | 0.377 | 0.056 | 23.3 / 26.7 / 4.0 | 0.340 | 0.163 | 54.0 | {ajonjolí: 30, frijol: 21, lechuga: 3} |
+| Fertilidad: pobre | cauta | 0.380 | 0.059 | 26.0 / 19.0 / 9.0 | 0.336 | 0.275 | 54.0 | {ajonjolí: 30, lechuga: 18, frijol: 6} |
+| Fertilidad: muy pobre | típica | 0.236 | 0.035 | 22.7 / 27.7 / 3.7 | 0.212 | 0.102 | 54.0 | {ajonjolí: 30, frijol: 21, lechuga: 3} |
+| Fertilidad: muy pobre | cauta | 0.237 | 0.037 | 25.0 / 20.7 / 8.3 | 0.210 | 0.172 | 54.0 | {ajonjolí: 30, lechuga: 18, frijol: 6} |
+
+**Pérdida del maíz, 27 casos reservados.** Regla agronómica simple: 0.856; oráculo: 0.979.
+
+| Escenario | Prioridad | Rendimiento relativo medio | Ganancia media sobre la regla | Gana / empata / pierde | p10 | Peor | Casos bajo 0.5 | Acciones (semilla 17) |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| Puede resembrar (no declarada fertilidad) | típica | 0.953 | 0.097 | 11.0 / 15.0 / 1.0 | 0.895 | 0.531 | 0.3 | {ajonjolí: 15, frijol: 11, lechuga: 1} |
+| Puede resembrar (no declarada fertilidad) | cauta | 0.961 | 0.105 | 12.7 / 10.0 / 4.3 | 0.884 | 0.768 | 0.0 | {ajonjolí: 15, lechuga: 9, frijol: 3} |
+| No puede resembrar | típica | 0.000 | 0.000 | 0.0 / 27.0 / 0.0 | 0.000 | 0.000 | 27.0 | {campo libre: 27} |
+| No puede resembrar | cauta | 0.000 | 0.000 | 0.0 / 27.0 / 0.0 | 0.000 | 0.000 | 27.0 | {campo libre: 27} |
+| Fertilidad: casi óptima | típica | 0.763 | 0.078 | 11.0 / 15.0 / 1.0 | 0.716 | 0.425 | 1.3 | {ajonjolí: 15, frijol: 11, lechuga: 1} |
+| Fertilidad: casi óptima | cauta | 0.769 | 0.084 | 12.7 / 10.0 / 4.3 | 0.707 | 0.614 | 0.0 | {ajonjolí: 15, lechuga: 9, frijol: 3} |
+| Fertilidad: moderada | típica | 0.572 | 0.058 | 11.0 / 15.0 / 1.0 | 0.537 | 0.318 | 1.3 | {ajonjolí: 15, frijol: 11, lechuga: 1} |
+| Fertilidad: moderada | cauta | 0.577 | 0.063 | 12.7 / 10.0 / 4.3 | 0.530 | 0.461 | 1.3 | {ajonjolí: 15, lechuga: 9, frijol: 3} |
+| Fertilidad: la mitad | típica | 0.477 | 0.049 | 11.0 / 15.0 / 1.0 | 0.447 | 0.265 | 10.0 | {ajonjolí: 15, frijol: 11, lechuga: 1} |
+| Fertilidad: la mitad | cauta | 0.481 | 0.053 | 12.7 / 10.0 / 4.3 | 0.442 | 0.384 | 13.7 | {ajonjolí: 15, lechuga: 9, frijol: 3} |
+| Fertilidad: pobre | típica | 0.381 | 0.039 | 11.0 / 15.0 / 1.0 | 0.358 | 0.212 | 27.0 | {ajonjolí: 15, frijol: 11, lechuga: 1} |
+| Fertilidad: pobre | cauta | 0.384 | 0.042 | 12.7 / 10.0 / 4.3 | 0.353 | 0.307 | 27.0 | {ajonjolí: 15, lechuga: 9, frijol: 3} |
+| Fertilidad: muy pobre | típica | 0.238 | 0.024 | 11.0 / 15.0 / 1.0 | 0.224 | 0.133 | 27.0 | {ajonjolí: 15, frijol: 11, lechuga: 1} |
+| Fertilidad: muy pobre | cauta | 0.240 | 0.026 | 12.7 / 10.0 / 4.3 | 0.221 | 0.192 | 27.0 | {ajonjolí: 15, lechuga: 9, frijol: 3} |
+
+Lectura:
+
+- **Con `canResow = false` todas las políticas dejan el campo** (valor 0 en los 54 y en los 27 casos). No es una predicción: es la restricción, y por eso "ganancia sobre la regla" y "gana/empata/pierde" no significan nada en esas filas (la regla también da 0 porque nada se puede sembrar). Lo útil es saber que, sin semilla o sin dinero, el modelo no tiene otra opción que decirlo así.
+- **La fertilidad cambia el nivel, no la elección.** El multiplicador es el mismo para todos los cultivos resembrados, así que no cambia cuál es el mejor: en las cinco clases la red elige **la misma acción en los 54 casos y en los 27, con las tres semillas** (comprobado volviendo a decidir con las predicciones multiplicadas, no supuesto). Lo que baja es el rendimiento esperado (0.942 → 0.754, 0.565, 0.471, 0.377 y 0.236 en los 54 casos con prioridad típica) y cuántos casos quedan bajo 0.5. Dejar el campo (valor 0) tampoco se vuelve la mejor opción en ninguna clase: la fertilidad más baja aún deja los cultivos por encima de 0. Los conteos "gana/empata/pierde" frente a la regla cambian apenas porque la tolerancia de empate (0.001) no escala con el multiplicador.
+- Estas filas de fertilidad son un **qué pasaría si**: las clases son genéricas de AquaCrop, sin calibrar para Guatemala, y no hay fuente que diga a qué clase corresponde "abonado" o "no abonado".
+
+### Café: el aviso de antracnosis por estrés sube la prioridad a "proteger el cultivo"
+
+**Regla (aprobada en principio por el dueño):** si el aviso de antracnosis está activo **por estrés hídrico** (Ks < 1 en más de la mitad de los últimos 28 días), la prioridad del riego pasa a "proteger el cultivo" (precio 1 día de estrés evitado), diga lo que diga el agricultor. Si el aviso está activo solo por roya o no está activo, la prioridad no cambia. Está en `effectivePriority` de `web/js/model/coffee.js`.
+
+Medida en los escenarios de prueba (café, sitios de al menos 900 m; 1 620 escenarios de los años 2019–2024 y, aparte, los 810 de 2022–2024), con la red exportada de predecir y luego elegir (`web/data/coffee_ptc_mlp.json`, semilla 29) y con la regla FAO-56 (riega si la merma corrida pasa de 0.40 del agua disponible). "Días de aviso" = días, entre los 30 siguientes al de la decisión, con el aviso de antracnosis por estrés activo, recalculados día a día con el balance de agua, sin riego y con el riego de 20 mm recomendado. Utilidad = días de estrés evitados menos el precio (3 o 1); no regar vale 0.
+
+**1 620 escenarios (2019–2024).** El aviso por estrés está activo el día de la decisión en 685; la regla del aviso cambia la decisión de la red en 170 (todas agregan un riego).
+
+| Política | Prioridad | Riegos | Utilidad (ahorrar agua) | Utilidad (proteger) | Días de aviso por estrés, sin riego | Días de aviso, con el riego recomendado | Escenarios con algún día, sin / con |
+|---|---|---:|---:|---:|---:|---:|---|
+| Regla FAO-56 | no usa prioridad | 633 | 0.036 | 0.818 | 8.56 | 7.67 | 765 / 755 |
+| Red (predecir y elegir) | ahorrar agua | 457 | 0.523 | 1.088 | 8.56 | 7.62 | 765 / 728 |
+| Red (predecir y elegir) | proteger el cultivo | 739 | 0.310 | 1.223 | 8.56 | 7.47 | 765 / 719 |
+| Red (predecir y elegir) | ahorrar agua + regla del aviso | 627 | 0.402 | 1.177 | 8.56 | 7.52 | 765 / 728 |
+
+**810 escenarios reservados (2022–2024).** El aviso está activo en 413; la regla cambia 121 decisiones de la red (todas agregan un riego).
+
+| Política | Prioridad | Riegos | Utilidad (ahorrar agua) | Utilidad (proteger) | Días de aviso por estrés, sin riego | Días de aviso, con el riego recomendado | Escenarios con algún día, sin / con |
+|---|---|---:|---:|---:|---:|---:|---|
+| Regla FAO-56 | no usa prioridad | 396 | -0.177 | 0.801 | 10.97 | 10.03 | 468 / 463 |
+| Red (predecir y elegir) | ahorrar agua | 238 | 0.565 | 1.153 | 10.97 | 9.94 | 468 / 450 |
+| Red (predecir y elegir) | proteger el cultivo | 411 | 0.352 | 1.367 | 10.97 | 9.78 | 468 / 443 |
+| Red (predecir y elegir) | ahorrar agua + regla del aviso | 359 | 0.373 | 1.259 | 10.97 | 9.84 | 468 / 450 |
+
+Lectura:
+
+- **La regla del aviso hace lo que dice y cuesta lo que cuesta.** Con el agricultor pidiendo ahorrar agua, la red pasa de 457 a 627 riegos (1 620 escenarios), la utilidad con prioridad "proteger" sube de 1.088 a 1.177 y la de "ahorrar" baja de 0.523 a 0.402. Es un cambio de prioridad, no una mejora gratis.
+- **El riego recomendado quita pocos días de aviso:** de 8.56 a 7.52 días en promedio en los 30 siguientes (la red con la regla del aviso) frente a 7.62 (sin la regla) y 7.47 (siempre "proteger"). Un solo riego de 20 mm no apaga una racha de estrés de semanas, y el número de escenarios con algún día de aviso baja de 765 a 728. El aviso mide estrés de agua, no enfermedad.
+- **La regla FAO-56 no usa la prioridad**, así que la regla del aviso no puede cambiar lo que decide (633 riegos en las tres filas). Su utilidad es 0.036 con "ahorrar" y 0.818 con "proteger", peor que la red en ambas.
+- **Roya y minador se reportan al lado y no cambian la decisión** (ninguna fuente los enlaza con el riego): en los 30 días siguientes hay en promedio 9.8 días de roya "favorable" por escenario (6.4 en 2022–2024) y **0 días de minador "probable"** en estos escenarios.
+- Las cifras de la red exportada coinciden con las de `coffee_eval.json` para las políticas sin aviso (verificado en las pruebas).
+
+### Qué queda fuera y por qué
+
+- **Plagas:** ninguna fuente da una función de daño (el 16 % de 2013 es un agregado regional con estimaciones inciertas, y los porcentajes del cogollero solo salieron de resúmenes de búsqueda, sin verificar). Las plagas **no cambian el rendimiento**; entran como aviso y como el nivel que declara el agricultor.
+- **Respuesta al abono en Guatemala:** no hay un número publicado verificado de con y sin fertilizante (ICTA, CIMMYT, Anacafe); solo las clases genéricas de AquaCrop, que el usuario declara.
+- **Margen:** no hay costos de producción por manzana (maíz, frijol, café), ni costo de semilla, ni rendimientos alcanzables usables; los precios MAGA son **mayoristas** (La Terminal, zona 4), no los que recibe el agricultor. Se registran en `web/data/prices.json` y **no se calcula margen**.
+- **Calor en frijol y café:** no hay umbral ni pérdida por grado en las fuentes leídas.
+- **Qué no se hizo:** no se reentrenó la red de siete cultivos (el calor casi nunca actúa); no se probó la regla del aviso con una red entrenada con ella; el nivel de plaga declarado y `hasIrrigation` se llevan y se muestran, pero solo `canResow` y la fertilidad se midieron en las decisiones; y el cambio de calor del maíz en los 20 puntos se midió con ERA5 solamente.
+
+**Cómo reproducir esta sección.**
+
+```bash
+node scripts/factors/heat_counts.mjs                 # conteo del calor en los 20 puntos (scripts/factors/out/factors_heat_counts.json)
+node scripts/compare/real_events_check.mjs --heat    # eventos reales con calor (web/data/factors_real_events_check.json; sin --heat reproduce real_events_check.json)
+node scripts/factors/loss_constraints.mjs            # pérdida del maíz: canResow y fertilidad (~1.5 min)
+node scripts/factors/coffee_notices.mjs              # café: regla del aviso de antracnosis (~20 s)
+node scripts/factors/build_eval.mjs                  # junta todo en web/data/factors_eval.json
+```
