@@ -932,4 +932,70 @@ void main() {
       await _captura(tester, oscuro ? '19_cafe_hoy_oscuro' : '18_cafe_hoy');
     }
   });
+
+  // Lenguas mayas: borrador. Solo términos sueltos; lo demás sigue en español.
+  testWidgets('lenguas mayas: se elige en Ajustes, Hoy muestra el cultivo y el aviso', (tester) async {
+    final estado = await abrirConPlantacion(tester, cultivo: 'maiz', dias: 40);
+    expect(find.textContaining('Traducción en borrador'), findsNothing);
+    await tester.tap(find.text('Ajustes'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text("K'iche'"));
+    await tester.pumpAndSettle();
+    expect(estado.idioma, 'quc');
+    expect(find.textContaining("Traducción en borrador: solo algunas palabras están en K'iche'"), findsOneWidget);
+    expect(find.text('ixim · Maíz'), findsOneWidget); // fila de la plantación en Ajustes
+    await tester.tap(find.text('kamik')); // pestaña Hoy: solo el término
+    await tester.pumpAndSettle();
+    expect(find.textContaining('ixim · Maíz'), findsWidgets);
+    expect(find.byKey(const Key('aviso_borrador')), findsOneWidget);
+    await _captura(tester, '22_hoy_kiche');
+  });
+
+  testWidgets('lenguas mayas: cada lengua muestra su cultivo y el aviso; es y en no tienen aviso', (tester) async {
+    final estado = await abrirConPlantacion(tester, cultivo: 'maiz', dias: 40);
+    for (final (codigo, nombre, maiz, hoy) in [
+      ('quc', "K'iche'", 'ixim', 'kamik'),
+      ('cak', 'Kaqchikel', 'ixim', 'wakami'),
+      ('kek', "Q'eqchi'", 'ixim', 'anaqwan'),
+      ('mam', 'Mam', "ixi'n", "ja'la"),
+    ]) {
+      await estado.cambiarIdioma(codigo);
+      await tester.pumpAndSettle();
+      expect(find.textContaining('$maiz · Maíz'), findsWidgets, reason: codigo);
+      expect(find.text(hoy), findsWidgets, reason: codigo);
+      expect(find.textContaining('solo algunas palabras están en $nombre'), findsOneWidget, reason: codigo);
+    }
+    await estado.cambiarIdioma('en');
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Traducción en borrador'), findsNothing);
+    expect(find.textContaining('Maize'), findsWidgets);
+    await estado.cambiarIdioma('es');
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Traducción en borrador'), findsNothing);
+    expect(find.textContaining('ixim'), findsNothing);
+  });
+
+  testWidgets('lenguas mayas: la pantalla de palabras lista el glosario y los avisos', (tester) async {
+    final estado = await abrirConPlantacion(tester, cultivo: 'maiz', dias: 40);
+    await estado.cambiarIdioma('quc');
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Ajustes'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text("Palabras en K'iche'"));
+    await tester.pumpAndSettle();
+    expect(find.text('ixim'), findsOneWidget);
+    expect(find.text('tierra / suelo'), findsOneWidget);
+    expect(find.textContaining('Estas palabras deben revisarlas hablantes'), findsOneWidget);
+    await _captura(tester, '23_palabras_kiche');
+  });
+
+  testWidgets('idioma guardado desconocido vuelve al español; uno maya se conserva', (tester) async {
+    await abrirConPlantacion(tester, cultivo: 'maiz', dias: 40);
+    SharedPreferences.setMockInitialValues({'idioma': 'klingon'});
+    final otro = AppEstado(await Almacen.abrir(), servicioClima: ClimaFalso(), servicioMapa: MapaFalso(), reloj: () => _hoy);
+    expect(otro.idioma, 'es');
+    SharedPreferences.setMockInitialValues({'idioma': 'mam'});
+    final mam = AppEstado(await Almacen.abrir(), servicioClima: ClimaFalso(), servicioMapa: MapaFalso(), reloj: () => _hoy);
+    expect(mam.idioma, 'mam');
+  });
 }

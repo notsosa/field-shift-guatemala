@@ -1,3 +1,4 @@
+import 'lenguas.dart';
 import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_localizations/flutter_localizations.dart' show GlobalWidgetsLocalizations;
 
@@ -33,7 +34,7 @@ class FieldShift extends StatelessWidget {
               title: 'Field Shift',
               debugShowCheckedModeBanner: false,
               theme: temaApp(null),
-              locale: Locale(e.idioma),
+              locale: Locale(esLenguaMaya(e.idioma) ? 'es' : e.idioma),
               supportedLocales: const [Locale('es'), Locale('en')],
               localizationsDelegates: const [
                 GlobalCupertinoLocalizations.delegate,

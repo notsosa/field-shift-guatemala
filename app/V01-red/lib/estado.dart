@@ -1,6 +1,7 @@
 /// Estado de la app: lo que hay guardado y las acciones que lo cambian.
 library;
 
+import 'lenguas.dart';
 import 'package:flutter/widgets.dart';
 
 import 'datos/almacen.dart';
@@ -49,7 +50,8 @@ class AppEstado extends ChangeNotifier {
     todosLosRegistros = _almacen.leerRegistros();
     clima = _almacen.leerClima();
     ultimaSync = _almacen.leerUltimaSincronizacion();
-    idioma = _almacen.leerIdioma() ?? 'es';
+    final idiomaGuardado = _almacen.leerIdioma();
+    idioma = idiomaValido(idiomaGuardado) ? idiomaGuardado! : 'es';
     _seleccionada = _almacen.leerSeleccionada();
 
     // Datos de versiones con una sola plantación: se le da un identificador y
@@ -90,7 +92,7 @@ class AppEstado extends ChangeNotifier {
   String? _seleccionada;
   final _recomendaciones = <String, Recomendacion>{};
 
-  Txt get txt => Txt(idioma == 'en', manzanas: unidad == Unidad.manzanas);
+  Txt get txt => Txt(idioma == 'en', manzanas: unidad == Unidad.manzanas, lengua: idioma);
   DateTime get hoy => _reloj();
   bool get configurada => parcela != null && plantaciones.isNotEmpty;
 
@@ -241,6 +243,7 @@ class AppEstado extends ChangeNotifier {
   }
 
   Future<void> cambiarIdioma(String codigo) async {
+    if (!idiomaValido(codigo)) return;
     idioma = codigo;
     await _almacen.guardarIdioma(codigo);
     _cambio();

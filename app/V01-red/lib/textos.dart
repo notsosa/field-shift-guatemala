@@ -3,16 +3,30 @@
 library;
 
 import 'datos/mapa.dart';
+import 'lenguas.dart';
 import 'modelos.dart';
 import 'motor/cafe.dart';
 import 'motor/fao56.dart';
 import 'motor/recomendador.dart';
 
 class Txt {
-  const Txt(this.en, {this.manzanas = true});
+  const Txt(this.en, {this.manzanas = true, this.lengua = 'es'});
 
   /// Verdadero si la interfaz está en inglés.
   final bool en;
+
+  /// Código del idioma elegido. Con una lengua maya la base es el español y
+  /// solo cambian los términos del glosario (lenguas.dart).
+  final String lengua;
+  bool get esMaya => esLenguaMaya(lengua);
+  String get nombreMaya => esMaya ? nombreLengua(lengua) : '';
+
+  /// Término del glosario con el español al lado; igual al español si no hay
+  /// lengua maya activa o no hay borrador de esa palabra.
+  String _m(String id, String es) => esMaya ? conEspanol(lengua, id, es) : es;
+
+  /// Solo el término maya (para espacios justos); español si no hay borrador.
+  String _solo(String id, String es) => esMaya ? (palabraMaya(lengua, id) ?? es) : es;
 
   /// Verdadero si las áreas y la escala del plano van en manzanas; si no, en
   /// hectáreas y kilómetros.
@@ -78,7 +92,7 @@ class Txt {
   String get fechaReferencia => _('Última floración', 'Last flowering');
   String get ciclo => _('Ciclo', 'Cycle');
   String dias(int n) => _('$n días', '$n days');
-  String get suelo => _('Suelo', 'Soil');
+  String get suelo => _m('suelo', _('Suelo', 'Soil'));
   String get riego => _('Riego', 'Irrigation');
   String get tipoRiego => _('Tipo de riego', 'Irrigation type');
   String get temporadaRiego => _('Cuándo riegas', 'When you irrigate');
@@ -149,7 +163,10 @@ class Txt {
       'This planting and its weekly logs will be erased.');
   String nombrePlantacion(Plantacion p) => p.nombre.isNotEmpty ? p.nombre : nombreCultivo(p.cultivoId);
 
-  String get siembra => _('Siembra', 'Planting');
+  /// Para espacios justos (rótulos del plano): solo el término maya.
+  String nombrePlantacionCorto(Plantacion p) => p.nombre.isNotEmpty ? p.nombre : nombreCultivoCorto(p.cultivoId);
+
+  String get siembra => _m('siembra', _('Siembra', 'Planting'));
   String get sueloYRiego => _('Suelo y riego', 'Soil and irrigation');
   String get plagaAyuda => _('Insectos o enfermedad', 'Insects or disease');
   String get ejemploPlaga => _('Gusano cogollero', 'Fall armyworm');
@@ -168,13 +185,19 @@ class Txt {
         TipoFertilizante.ambos => _('Ambos', 'Both'),
       };
 
-  String nombreCultivo(String id) => switch (id) {
+  String _cultivoEs(String id) => switch (id) {
         'maiz' => _('Maíz', 'Maize'),
         'frijol' => _('Frijol', 'Beans'),
         'tomate' => _('Tomate', 'Tomato'),
         'cafe' => _('Café', 'Coffee'),
         _ => id,
       };
+
+  /// En lengua maya: «ixim · Maíz». Si no, el nombre normal.
+  String nombreCultivo(String id) => _m(id, _cultivoEs(id));
+
+  /// En lengua maya, solo el término («ixim»); para el plano y chips.
+  String nombreCultivoCorto(String id) => _solo(id, _cultivoEs(id));
 
   String nombreSuelo(Suelo s) => switch (s) {
         Suelo.arenoso => _('Arenoso', 'Sandy'),
@@ -213,7 +236,10 @@ class Txt {
       };
 
   // Pestañas
-  String get hoy => _('Hoy', 'Today');
+  String get hoy => _solo('hoy', _('Hoy', 'Today'));
+
+  /// Título grande de Hoy: con lengua maya lleva el español al lado.
+  String get hoyTitulo => _m('hoy', _('Hoy', 'Today'));
   String get registros => _('Registros', 'Logs');
   String get ajustes => _('Ajustes', 'Settings');
 
@@ -257,7 +283,7 @@ class Txt {
   String get rendimiento => _('Rendimiento', 'Yield');
   String get ultimosDias => _('Últimos 14 días', 'Last 14 days');
   String get leyendaReserva => _('Agua en la zona de raíces', 'Water in the root zone');
-  String get lluvia => _('Lluvia', 'Rain');
+  String get lluvia => _m('lluvia', _('Lluvia', 'Rain'));
   String get necesidad => _('Necesidad', 'Demand');
   String get estaSemana => _('Esta semana', 'This week');
 
@@ -282,7 +308,7 @@ class Txt {
       'Estimated by the team’s neural network from the last weeks of weather. It is not a weather forecast; it was measured against this app’s own water balance.');
   // Café: formulario de la plantación.
   String get cafeSeccion => _('Café', 'Coffee');
-  String get sombra => _('Sombra', 'Shade');
+  String get sombra => _m('sombra', _('Sombra', 'Shade'));
   String nombreSombra(Sombra s) => switch (s) {
         Sombra.ninguna => _('Sin sombra', 'No shade'),
         Sombra.arbolesPerennes => _('Árboles de hoja perenne', 'Evergreen trees'),
@@ -450,6 +476,20 @@ class Txt {
 
   // Ajustes
   String get idioma => _('Idioma', 'Language');
+
+  // Lenguas mayas (borrador). Siempre en español: con una lengua maya activa la base es el español.
+  String get lenguasMayasRotulo => _('Lenguas mayas (borrador)', 'Mayan languages (draft)');
+  String get avisoBorrador =>
+      'Traducción en borrador: solo algunas palabras están en $nombreMaya y ningún hablante las ha revisado. Lo demás se muestra en español.';
+  String get palabrasEn => 'Palabras en $nombreMaya';
+  String get avisoRevision =>
+      'Estas palabras deben revisarlas hablantes y la Academia de Lenguas Mayas de Guatemala antes de usarse con productores. El equipo entrena aparte un traductor experimental que aprende de las correcciones de los hablantes.';
+  String get sinBorrador => 'Sin borrador: se muestra en español';
+  String estadoCotejo(Cotejo c) => switch (c) {
+        Cotejo.verificado => 'Coincide con un diccionario del equipo',
+        Cotejo.variante => 'Coincide con otra escritura',
+        Cotejo.sinVerificar => 'Sin verificar',
+      };
   String get datos => _('Datos', 'Data');
   String get metodos => _('Métodos y fuentes', 'Methods and sources');
   String get borrarDatos => _('Borrar todos los datos', 'Erase all data');

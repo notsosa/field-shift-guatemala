@@ -252,7 +252,7 @@ class Selector<T extends Object> extends StatelessWidget {
   const Selector({super.key, required this.opciones, required this.valor, required this.alCambiar});
 
   final Map<T, String> opciones;
-  final T valor;
+  final T? valor;
   final ValueChanged<T> alCambiar;
 
   @override

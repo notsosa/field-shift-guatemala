@@ -191,3 +191,13 @@ flutter test
 4. `lib/estado.dart`: `diasDeClimaConCafe` e `inicioDeClima`, y usarla en `sincronizar`.
 5. `lib/textos.dart`, `lib/ui/plantacion.dart` (bloque «Café») y `lib/ui/hoy.dart` (`_TarjetaCafe`).
 6. Pruebas de pantalla del café y sus tres capturas; `flutter analyze` y `flutter test`. Antes de subir, preguntar al dueño del repositorio (`HANDOFF.md`).
+
+## Lenguas mayas (borrador)
+
+El selector de idioma de Ajustes ofrece K'iche', Kaqchikel, Q'eqchi' y Mam (bajo «Lenguas mayas (borrador)»), con textos fijos y sin conexión. **Son un borrador sin revisión de hablantes**; la app lo dice en Hoy, en Ajustes y en la pantalla «Palabras en <lengua>».
+
+- **Qué se traduce:** solo términos sueltos del glosario: los cultivos (maíz, frijol, tomate, café) en listas, selectores y encabezado (`ixim · Maíz`; en el plano y la barra de pestañas solo el término), la pestaña «Hoy» y los rótulos sueltos de lluvia, suelo, sombra y siembra. Lo que no está en el glosario o tiene la celda vacía (banano y cosecha en mam) se queda en español.
+- **Qué no se traduce y por qué:** frases, consejos, avisos y leyendas. Nadie del equipo puede verificar oraciones, y una frase equivocada de riego o plagas podría confundir a un productor. No se hace reemplazo de texto dentro de frases.
+- **Cotejo:** `GLOSARIO_LENGUAS.md`. De 46 palabras, 15 coinciden con los diccionarios del equipo, 3 con otra escritura, 0 difieren y 28 están sin verificar (mam no tiene fuente).
+- **Agregar o corregir una palabra:** una sola tabla, `glosario` en `lib/lenguas.dart` (palabra, cotejo y nota por lengua). Para un término nuevo, usar su `id` en `lib/textos.dart` con `_m('id', español)` (con el español al lado) o `_solo` (solo el término).
+- **Traducción real:** el camino sigue siendo el traductor experimental del equipo (`modelo_lenguas_mayas/`), cuando hablantes hayan corregido sus resultados. La app no lo llama.

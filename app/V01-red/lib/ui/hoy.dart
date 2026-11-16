@@ -9,6 +9,7 @@ import '../motor/fao56.dart';
 import '../motor/recomendador.dart';
 import 'finca.dart';
 import 'graficos.dart';
+import 'lenguas.dart';
 import 'registro.dart';
 import 'tema.dart';
 
@@ -71,7 +72,7 @@ class PestanaHoy extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           CupertinoSliverNavigationBar(
-            largeTitle: Text(t.hoy),
+            largeTitle: Text(t.hoyTitulo),
             border: null,
             trailing: estado.sincronizando
                 ? const CupertinoActivityIndicator()
@@ -83,6 +84,11 @@ class PestanaHoy extends StatelessWidget {
           ),
           CupertinoSliverRefreshControl(onRefresh: () => _sincronizar(context)),
           SliverList.list(children: [
+            if (t.esMaya)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(Espacio.m, 0, Espacio.m, Espacio.s),
+                child: AvisoBorrador(t.avisoBorrador, compacto: true),
+              ),
             Padding(
               padding: const EdgeInsets.fromLTRB(Espacio.m, 0, Espacio.m, Espacio.m),
               child: const CambioPlantacion(),

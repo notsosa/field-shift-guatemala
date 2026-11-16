@@ -2,6 +2,8 @@ import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../estado.dart';
 import '../modelos.dart';
+import '../lenguas.dart';
+import 'lenguas.dart';
 import 'parcela.dart';
 import 'plantacion.dart';
 import 'tema.dart';
@@ -47,10 +49,32 @@ class PestanaAjustes extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: Espacio.m),
               child: Selector<String>(
                 opciones: const {'es': 'Español', 'en': 'English'},
-                valor: estado.idioma,
+                valor: t.esMaya ? null : estado.idioma,
                 alCambiar: (v) => Alcance.leer(context).cambiarIdioma(v),
               ),
             ),
+            Rotulo(t.lenguasMayasRotulo),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Espacio.m),
+              child: Selector<String>(
+                opciones: {for (final l in lenguasMayas) l.codigo: l.nombre},
+                valor: t.esMaya ? estado.idioma : null,
+                alCambiar: (v) => Alcance.leer(context).cambiarIdioma(v),
+              ),
+            ),
+            if (t.esMaya) ...[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(Espacio.m, Espacio.s, Espacio.m, Espacio.s),
+                child: AvisoBorrador(t.avisoBorrador),
+              ),
+              Grupo(children: [
+                Fila(
+                  titulo: t.palabrasEn,
+                  icono: CupertinoIcons.textformat,
+                  alPulsar: () => raiz.push(CupertinoPageRoute<void>(builder: (_) => const PantallaPalabras())),
+                ),
+              ]),
+            ],
             Rotulo(t.unidades),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: Espacio.m),

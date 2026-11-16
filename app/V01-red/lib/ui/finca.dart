@@ -42,7 +42,7 @@ List<Zona> zonasDe(BuildContext context, AppEstado estado, {String? excepto, boo
                 ? p.contorno
                 : reescalar(p.contorno, estado.parcela!.lado, lado),
             color: PestanaHoy.colorNivel(context, estado.recomendacionDe(p).nivel),
-            rotulo: estado.txt.nombrePlantacion(p),
+            rotulo: estado.txt.nombrePlantacionCorto(p),
             destacada: destacar && p.id == estado.plantacion?.id,
           ),
     ];
