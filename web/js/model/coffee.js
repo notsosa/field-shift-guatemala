@@ -200,7 +200,7 @@ export const ruleIrrigates = (depletion, taw, p) => depletion > p * taw;
  * Contrafactual desde el estado del día t (de la corrida continua `sim` sin riego): los 30 días siguientes sin riego y regando 20 mm al final del día t.
  * Estrés = días con Ks < 1. El riego sobre lo que falta se pierde hacia el subsuelo (que en este perfil, Zp = Zr, no tiene capacidad).
  */
-export function counterfactual({ dates, rain, et0, crops, texture, shade, treeType, sim, t, slopeClass = 'flat', irrigationMm = IRRIGATION_MM, horizon = HORIZON_DAYS }) {
+export function counterfactual({ dates, rain, et0, crops, texture, shade, treeType, sim, t, slopeClass = 'flat', irrigationMm = IRRIGATION_MM, horizon = HORIZON_DAYS, returnKs = false }) {
   const lo = t + 1, hi = t + horizon;
   if (hi >= rain.length) throw new Error('counterfactual: the 30-day window goes past the end of the series');
   const run = (mm) => {
@@ -209,8 +209,18 @@ export function counterfactual({ dates, rain, et0, crops, texture, shade, treeTy
     const ds0 = Math.max(0, sim.ds[t] - excess);
     const w = simulateCoffee({ dates: dates.slice(lo, hi + 1), rain: rain.slice(lo, hi + 1), et0: et0.slice(lo, hi + 1), crops, texture, shade, treeType, slopeClass, drInit: dr0, dsInit: ds0 });
     const m = stressOver(w, 0, horizon - 1);
-    return { stressDays: m.stressDays, etaOverEtc: m.etaOverEtc };
+    return { stressDays: m.stressDays, etaOverEtc: m.etaOverEtc, ks: returnKs ? w.ks : undefined };
   };
   const no = run(0), yes = run(irrigationMm);
-  return { stressNo: no.stressDays, stressYes: yes.stressDays, stressDaysAvoided: no.stressDays - yes.stressDays, etaOverEtcNo: no.etaOverEtc, etaOverEtcYes: yes.etaOverEtc };
+  const ksOut = returnKs ? { ksNo: no.ks, ksYes: yes.ks } : {}; // opt-in (Tarea 36): Ks diario de los 30 días siguientes, para contar días de aviso
+  return { ...ksOut, stressNo: no.stressDays, stressYes: yes.stressDays, stressDaysAvoided: no.stressDays - yes.stressDays, etaOverEtcNo: no.etaOverEtc, etaOverEtcYes: yes.etaOverEtc };
+}
+
+/**
+ * Regla aprobada en principio por el dueño (Tarea 36): si el aviso de antracnosis está activo POR ESTRÉS HÍDRICO (Ks < 1 en más de la mitad de los últimos 28 días),
+ * la prioridad del riego pasa a 1 = proteger el cultivo (precio 1 día), sea cual sea la que declaró el agricultor. Si el aviso está activo solo por roya, o no está
+ * activo, la prioridad no cambia: ninguna fuente enlaza la roya con el riego. `antracnosis` es la salida de antracnosisNotice.
+ */
+export function effectivePriority(priority, antracnosis) {
+  return antracnosis?.triggers?.byStress ? 1 : priority;
 }

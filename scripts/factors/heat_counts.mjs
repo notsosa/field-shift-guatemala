@@ -2,7 +2,7 @@
 // Maíz, primer ciclo (siembra por la regla de inicio de lluvias) y segundo ciclo (15 de agosto); lluvia ERA5, Tmax/Tmin corregidas por altitud del paquete.
 // Unidad = sitio-año con el ciclo completo. Regla fijada antes de ver el resultado: si el calor cambia el rendimiento relativo en más de 0.01 en menos del 1 % de
 // los sitios-año, no se reentrena nada. Además, como sensibilidad (nunca en decisiones): Lobell et al. 2011 sobre los mismos ciclos.
-// Uso: node scripts/factors/heat_counts.mjs  -> escribe web/data/factors_heat_counts.json
+// Uso: node scripts/factors/heat_counts.mjs  -> escribe scripts/factors/out/factors_heat_counts.json
 import fs from 'node:fs';
 import path from 'node:path';
 import {
@@ -70,7 +70,7 @@ const out = {
   total, totalByCalendar: { primera: summarize(all.primera), postrera: summarize(all.postrera) }, retrainNeeded: retrain, byPoint,
   affectedSiteYears: [...all.primera.map((u) => ({ ...u, calendar: 'primera' })), ...all.postrera.map((u) => ({ ...u, calendar: 'postrera' }))].filter((u) => u.delta > THRESHOLD || u.daysBelow1 > 0).map((u) => ({ point: u.point, calendar: u.calendar, year: u.year, heatMean: round(u.heatMean, 4), heatMin: round(u.heatMin, 4), daysBelow1: u.daysBelow1, hotDays: u.hotDays, coldDays: u.coldDays, water: round(u.water, 4), withHeat: round(u.withHeat, 4) })),
 };
-fs.writeFileSync(path.join(root, 'web/data/factors_heat_counts.json'), JSON.stringify(out, null, 1));
+fs.writeFileSync(path.join(root, 'scripts/factors/out/factors_heat_counts.json'), JSON.stringify(out, null, 1));
 console.log('total', JSON.stringify(total));
 console.log('retrainNeeded', retrain);
 for (const b of byPoint) console.log(b.point.padEnd(18), 'prim', b.primera.siteYears, b.primera.heatBelow1, b.primera.changeOver001, 'min', b.primera.multiplier?.min, '| post', b.postrera.siteYears, b.postrera.heatBelow1, b.postrera.changeOver001, 'min', b.postrera.multiplier?.min);

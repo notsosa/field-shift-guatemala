@@ -1,0 +1,204 @@
+{
+ "meta": {
+  "generated": "2026-11-16",
+  "scenarios": 1620,
+  "rule": "If the anthracnosis notice is active because of water stress (Ks < 1 on more than half of the last 28 days) the irrigation priority becomes \"protect the crop\" (price 1 day of stress avoided) whatever the grower stated; roya-only or no notice leaves the priority as stated. Approved in principle by the owner.",
+  "decision": "irrigate 20 mm today if the predicted stress days avoided (exported network web/data/coffee_ptc_mlp.json, seed 29) exceed the price (3 days = save water, 1 day = protect the crop); the FAO-56 rule irrigates when the capped running depletion exceeds p = 0.40 of the available water and does not use the priority, so the notice rule cannot change it",
+  "noticeDays": "days in t+1..t+30 with the anthracnosis notice active by stress (share of Ks<1 days over the last 28 days > 0.5), recomputed day by day from the soil water balance with and without the 20 mm irrigation at the end of day t (neverIrrigate/alwaysIrrigate are the two counterfactual series; the policy rows pick the one its decision leads to, per scenario)",
+  "rainAndMinador": "Roya \"favorable\" and minador \"probable\" days in t+1..t+30 depend only on the weather, not on irrigation; they are reported next to the anthracnosis days and do not change any decision.",
+  "modes": {
+   "saveWater": "priority stated = save water, price 3",
+   "protectCrop": "priority stated = protect the crop, price 1",
+   "saveWaterWithNoticeRule": "priority stated = save water, raised to protect the crop when anthracnosis-by-stress is active at the decision day"
+  },
+  "caveat": "Notices are information with a source, not damage predictions; the number of notice days is a measure of water stress, not of disease. Scenarios of different shade/soil at one site-year share the weather."
+ },
+ "all2019_2024": {
+  "scenarios": 1620,
+  "antStressActiveAtDecision": 685,
+  "noticeDays": {
+   "antracnosisByStress": {
+    "neverIrrigate": 8.564,
+    "alwaysIrrigate": 7.371
+   },
+   "royaFavorable": 9.806,
+   "minadorProbable": 0
+  },
+  "policies": {
+   "rule": {
+    "saveWater": {
+     "irrigations": 633,
+     "irrigationShare": 0.391,
+     "utilityUnderSaveWater": 0.036,
+     "utilityUnderProtectCrop": 0.818,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 8.564,
+      "withRecommendedIrrigation": 7.673,
+      "scenariosWithAnyDayWithout": 765,
+      "scenariosWithAnyDayWith": 755
+     }
+    },
+    "protectCrop": {
+     "irrigations": 633,
+     "irrigationShare": 0.391,
+     "utilityUnderSaveWater": 0.036,
+     "utilityUnderProtectCrop": 0.818,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 8.564,
+      "withRecommendedIrrigation": 7.673,
+      "scenariosWithAnyDayWithout": 765,
+      "scenariosWithAnyDayWith": 755
+     }
+    },
+    "saveWaterWithNoticeRule": {
+     "irrigations": 633,
+     "irrigationShare": 0.391,
+     "utilityUnderSaveWater": 0.036,
+     "utilityUnderProtectCrop": 0.818,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 8.564,
+      "withRecommendedIrrigation": 7.673,
+      "scenariosWithAnyDayWithout": 765,
+      "scenariosWithAnyDayWith": 755
+     }
+    }
+   },
+   "ptc": {
+    "saveWater": {
+     "irrigations": 457,
+     "irrigationShare": 0.282,
+     "utilityUnderSaveWater": 0.523,
+     "utilityUnderProtectCrop": 1.088,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 8.564,
+      "withRecommendedIrrigation": 7.617,
+      "scenariosWithAnyDayWithout": 765,
+      "scenariosWithAnyDayWith": 728
+     }
+    },
+    "protectCrop": {
+     "irrigations": 739,
+     "irrigationShare": 0.456,
+     "utilityUnderSaveWater": 0.31,
+     "utilityUnderProtectCrop": 1.223,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 8.564,
+      "withRecommendedIrrigation": 7.473,
+      "scenariosWithAnyDayWithout": 765,
+      "scenariosWithAnyDayWith": 719
+     }
+    },
+    "saveWaterWithNoticeRule": {
+     "irrigations": 627,
+     "irrigationShare": 0.387,
+     "utilityUnderSaveWater": 0.402,
+     "utilityUnderProtectCrop": 1.177,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 8.564,
+      "withRecommendedIrrigation": 7.522,
+      "scenariosWithAnyDayWithout": 765,
+      "scenariosWithAnyDayWith": 728
+     }
+    }
+   }
+  },
+  "noticeRuleChangesPtcDecision": {
+   "scenarios": 170,
+   "ofWhichAddedIrrigation": 170
+  }
+ },
+ "reserved2022_2024": {
+  "scenarios": 810,
+  "antStressActiveAtDecision": 413,
+  "noticeDays": {
+   "antracnosisByStress": {
+    "neverIrrigate": 10.972,
+    "alwaysIrrigate": 9.719
+   },
+   "royaFavorable": 6.411,
+   "minadorProbable": 0
+  },
+  "policies": {
+   "rule": {
+    "saveWater": {
+     "irrigations": 396,
+     "irrigationShare": 0.489,
+     "utilityUnderSaveWater": -0.177,
+     "utilityUnderProtectCrop": 0.801,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 10.972,
+      "withRecommendedIrrigation": 10.028,
+      "scenariosWithAnyDayWithout": 468,
+      "scenariosWithAnyDayWith": 463
+     }
+    },
+    "protectCrop": {
+     "irrigations": 396,
+     "irrigationShare": 0.489,
+     "utilityUnderSaveWater": -0.177,
+     "utilityUnderProtectCrop": 0.801,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 10.972,
+      "withRecommendedIrrigation": 10.028,
+      "scenariosWithAnyDayWithout": 468,
+      "scenariosWithAnyDayWith": 463
+     }
+    },
+    "saveWaterWithNoticeRule": {
+     "irrigations": 396,
+     "irrigationShare": 0.489,
+     "utilityUnderSaveWater": -0.177,
+     "utilityUnderProtectCrop": 0.801,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 10.972,
+      "withRecommendedIrrigation": 10.028,
+      "scenariosWithAnyDayWithout": 468,
+      "scenariosWithAnyDayWith": 463
+     }
+    }
+   },
+   "ptc": {
+    "saveWater": {
+     "irrigations": 238,
+     "irrigationShare": 0.294,
+     "utilityUnderSaveWater": 0.565,
+     "utilityUnderProtectCrop": 1.153,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 10.972,
+      "withRecommendedIrrigation": 9.936,
+      "scenariosWithAnyDayWithout": 468,
+      "scenariosWithAnyDayWith": 450
+     }
+    },
+    "protectCrop": {
+     "irrigations": 411,
+     "irrigationShare": 0.507,
+     "utilityUnderSaveWater": 0.352,
+     "utilityUnderProtectCrop": 1.367,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 10.972,
+      "withRecommendedIrrigation": 9.78,
+      "scenariosWithAnyDayWithout": 468,
+      "scenariosWithAnyDayWith": 443
+     }
+    },
+    "saveWaterWithNoticeRule": {
+     "irrigations": 359,
+     "irrigationShare": 0.443,
+     "utilityUnderSaveWater": 0.373,
+     "utilityUnderProtectCrop": 1.259,
+     "antracnosisStressDays30": {
+      "withoutIrrigation": 10.972,
+      "withRecommendedIrrigation": 9.843,
+      "scenariosWithAnyDayWithout": 468,
+      "scenariosWithAnyDayWith": 450
+     }
+    }
+   }
+  },
+  "noticeRuleChangesPtcDecision": {
+   "scenarios": 121,
+   "ofWhichAddedIrrigation": 121
+  }
+ }
+}

@@ -49,9 +49,10 @@ export function chooseAction(summaries) {
 
 /**
  * La decisión: outcomes = [{action, year, value}] (relYield del cultivo resembrado por año); solo cuentan los años < targetYear.
- * Dejar el campo vale 0 en todo año. Aunque el llamador pase de más, nada del año objetivo o posterior entra a los resúmenes.
+ * Dejar el campo vale 0 en todo año. Con canResow = false (restricción declarada) solo queda dejar el campo. Aunque el llamador pase de más, nada del año objetivo o posterior entra a los resúmenes.
  */
-export function decideAction({ outcomes, targetYear, priority }) {
+export function decideAction({ outcomes, targetYear, priority, canResow = true }) {
+  if (canResow === false) return FALLOW; // restricción declarada (Tarea 36): sin semilla o dinero para resembrar, solo queda dejar el campo; no es una predicción
   const used = outcomes.filter((o) => o.year < targetYear && Number.isFinite(o.value) && RESOW_CROPS.includes(o.action));
   if (used.length === 0) throw new Error(`decideAction: no past year before ${targetYear}`);
   const summaries = RESOW_CROPS

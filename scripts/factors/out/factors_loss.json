@@ -1,0 +1,2584 @@
+{
+ "meta": {
+  "generated": "2026-11-16",
+  "network": "v3 funnel MLP (backprop), seeds 17/29/43, web/data/emulator_v3_mlp_seed{17,29,43}.json; not retrained (the heat factor is almost never active, see factors_heat_counts.json)",
+  "method": "predict then choose: the network predicts the relative yield of each of 7 crops (resown at the actual date) in the past years; the choice applies the priority (typical = median, cautious = 20th percentile) and the stated constraint. Truth = simulator in year Y (water only).",
+  "cases": {
+   "years2019_2024": "54 cases (3 pilots x years 2019-2024 x loss day 30/45/60)",
+   "reserved2022_2024": "27 cases (2022-2024)"
+  },
+  "canResowFalse": "Stated constraint, not a prediction: only \"leave the field\" remains (value 0). The rule baseline and every policy then also get 0 because nothing can be resown.",
+  "fertility": "What-if: AquaCrop table 2.13a relative biomass (near-optimal 0.80, moderate 0.60, about half 0.50, poor 0.40, very poor 0.25) multiplies the predicted relative yield of every resown crop; the truth is multiplied the same way. Generic classes, not calibrated for Guatemala; there is no source that maps fertilised/not fertilised to a class.",
+  "utilityNote": "Values are relative yield (0 to 1); no money and no margin."
+ },
+ "decision": {
+  "years2019_2024": {
+   "n": 54,
+   "canResowTrue": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.9422376499668994,
+      "min": 0.9249263171472613,
+      "max": 0.9517416493410237,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.14019135439101552,
+      "min": 0.12288002157137738,
+      "max": 0.14969535376513987,
+      "n": 3
+     },
+     "win": {
+      "mean": 23.333333333333332,
+      "min": 22,
+      "max": 25,
+      "n": 3
+     },
+     "tie": {
+      "mean": 26.666666666666668,
+      "min": 24,
+      "max": 29,
+      "n": 3
+     },
+     "loss": {
+      "mean": 4,
+      "min": 2,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.028835876927289717,
+      "min": 0.019331877553165365,
+      "max": 0.04614720974692789,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.8492441143745216,
+      "min": 0.8092612573680742,
+      "max": 0.8808255429557703,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.40849078873947925,
+      "min": 0.2432990722461264,
+      "max": 0.4910866469861556,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 1.6666666666666667,
+      "min": 1,
+      "max": 3,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 38.333333333333336,
+      "min": 31,
+      "max": 46,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "frijol": 21,
+       "lechuga": 3
+      },
+      "29": {
+       "maiz": 6,
+       "ajonjoli": 19,
+       "frijol": 29
+      },
+      "43": {
+       "maiz": 12,
+       "frijol": 30,
+       "ajonjoli": 12
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.9490940054036496,
+      "min": 0.9446477266508901,
+      "max": 0.9540536357691272,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.14704770982776585,
+      "min": 0.1426014310750063,
+      "max": 0.15200734019324338,
+      "n": 3
+     },
+     "win": {
+      "mean": 26,
+      "min": 25,
+      "max": 27,
+      "n": 3
+     },
+     "tie": {
+      "mean": 19,
+      "min": 17,
+      "max": 23,
+      "n": 3
+     },
+     "loss": {
+      "mean": 9,
+      "min": 6,
+      "max": 11,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.02197952149053935,
+      "min": 0.017019891125061845,
+      "max": 0.02642580024329893,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.8398801235533927,
+      "min": 0.8374595125018259,
+      "max": 0.844721345656526,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.6875995390396202,
+      "min": 0.6399554278120402,
+      "max": 0.7114215946534104,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 48.666666666666664,
+      "min": 42,
+      "max": 53,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "lechuga": 18,
+       "frijol": 6
+      },
+      "29": {
+       "ajonjoli": 34,
+       "frijol": 7,
+       "lechuga": 13
+      },
+      "43": {
+       "ajonjoli": 24,
+       "frijol": 24,
+       "lechuga": 6
+      }
+     }
+    }
+   },
+   "canResowFalse": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "win": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "tie": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "loss": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.9710735268941889,
+      "min": 0.9710735268941889,
+      "max": 0.9710735268941889,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "fallow": 54
+      },
+      "29": {
+       "fallow": 54
+      },
+      "43": {
+       "fallow": 54
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "win": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "tie": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "loss": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.9710735268941889,
+      "min": 0.9710735268941889,
+      "max": 0.9710735268941889,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "fallow": 54
+      },
+      "29": {
+       "fallow": 54
+      },
+      "43": {
+       "fallow": 54
+      }
+     }
+    }
+   },
+   "fertility_near-optimal": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.7537901199735192,
+      "min": 0.7399410537178087,
+      "max": 0.7613933194728189,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.11215308351281243,
+      "min": 0.0983040172571019,
+      "max": 0.1197562830121119,
+      "n": 3
+     },
+     "win": {
+      "mean": 23.333333333333332,
+      "min": 22,
+      "max": 25,
+      "n": 3
+     },
+     "tie": {
+      "mean": 26.666666666666668,
+      "min": 24,
+      "max": 29,
+      "n": 3
+     },
+     "loss": {
+      "mean": 4,
+      "min": 2,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.02306870154183178,
+      "min": 0.015465502042532291,
+      "max": 0.036917767797542314,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.6793952914996174,
+      "min": 0.6474090058944595,
+      "max": 0.7046604343646163,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.3267926309915834,
+      "min": 0.19463925779690114,
+      "max": 0.3928693175889245,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 2.6666666666666665,
+      "min": 2,
+      "max": 4,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 38.333333333333336,
+      "min": 31,
+      "max": 46,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "frijol": 21,
+       "lechuga": 3
+      },
+      "29": {
+       "maiz": 6,
+       "ajonjoli": 19,
+       "frijol": 29
+      },
+      "43": {
+       "maiz": 12,
+       "frijol": 30,
+       "ajonjoli": 12
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.7592752043229196,
+      "min": 0.755718181320712,
+      "max": 0.7632429086153015,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.11763816786221272,
+      "min": 0.11408114486000506,
+      "max": 0.12160587215459474,
+      "n": 3
+     },
+     "win": {
+      "mean": 26,
+      "min": 25,
+      "max": 27,
+      "n": 3
+     },
+     "tie": {
+      "mean": 19,
+      "min": 17,
+      "max": 23,
+      "n": 3
+     },
+     "loss": {
+      "mean": 9,
+      "min": 6,
+      "max": 11,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.017583617192431483,
+      "min": 0.013615912900049475,
+      "max": 0.02114064019463915,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.6719040988427141,
+      "min": 0.6699676100014608,
+      "max": 0.6757770765252209,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.5500796312316963,
+      "min": 0.5119643422496322,
+      "max": 0.5691372757227283,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 48.666666666666664,
+      "min": 42,
+      "max": 53,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "lechuga": 18,
+       "frijol": 6
+      },
+      "29": {
+       "ajonjoli": 34,
+       "frijol": 7,
+       "lechuga": 13
+      },
+      "43": {
+       "ajonjoli": 24,
+       "frijol": 24,
+       "lechuga": 6
+      }
+     }
+    }
+   },
+   "fertility_moderate": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.5653425899801398,
+      "min": 0.5549557902883568,
+      "max": 0.5710449896046144,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.08411481263460933,
+      "min": 0.07372801294282641,
+      "max": 0.08981721225908394,
+      "n": 3
+     },
+     "win": {
+      "mean": 23.333333333333332,
+      "min": 22,
+      "max": 25,
+      "n": 3
+     },
+     "tie": {
+      "mean": 26.666666666666668,
+      "min": 24,
+      "max": 29,
+      "n": 3
+     },
+     "loss": {
+      "mean": 4,
+      "min": 2,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.01730152615637383,
+      "min": 0.011599126531899219,
+      "max": 0.02768832584815673,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.509546468624713,
+      "min": 0.4855567544208445,
+      "max": 0.5284953257734621,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.24509447324368752,
+      "min": 0.14597944334767585,
+      "max": 0.29465198819169336,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 5,
+      "min": 4,
+      "max": 7,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 38.333333333333336,
+      "min": 31,
+      "max": 46,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "frijol": 21,
+       "lechuga": 3
+      },
+      "29": {
+       "maiz": 6,
+       "ajonjoli": 19,
+       "frijol": 29
+      },
+      "43": {
+       "maiz": 12,
+       "frijol": 30,
+       "ajonjoli": 12
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.5694564032421899,
+      "min": 0.5667886359905341,
+      "max": 0.5724321814614765,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.08822862589665953,
+      "min": 0.08556085864500378,
+      "max": 0.09120440411594605,
+      "n": 3
+     },
+     "win": {
+      "mean": 26,
+      "min": 25,
+      "max": 27,
+      "n": 3
+     },
+     "tie": {
+      "mean": 19,
+      "min": 17,
+      "max": 23,
+      "n": 3
+     },
+     "loss": {
+      "mean": 9,
+      "min": 6,
+      "max": 11,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.013187712894323612,
+      "min": 0.010211934675037108,
+      "max": 0.01585548014597936,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.5039280741320357,
+      "min": 0.5024757075010956,
+      "max": 0.5068328073939156,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.4125597234237722,
+      "min": 0.3839732566872241,
+      "max": 0.4268529567920462,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 5,
+      "min": 5,
+      "max": 5,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 48.666666666666664,
+      "min": 42,
+      "max": 53,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "lechuga": 18,
+       "frijol": 6
+      },
+      "29": {
+       "ajonjoli": 34,
+       "frijol": 7,
+       "lechuga": 13
+      },
+      "43": {
+       "ajonjoli": 24,
+       "frijol": 24,
+       "lechuga": 6
+      }
+     }
+    }
+   },
+   "fertility_about-half": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.4711188249834497,
+      "min": 0.46246315857363063,
+      "max": 0.47587082467051184,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.07009567719550776,
+      "min": 0.06144001078568869,
+      "max": 0.07484767688256994,
+      "n": 3
+     },
+     "win": {
+      "mean": 23.333333333333332,
+      "min": 22,
+      "max": 25,
+      "n": 3
+     },
+     "tie": {
+      "mean": 26.666666666666668,
+      "min": 24,
+      "max": 29,
+      "n": 3
+     },
+     "loss": {
+      "mean": 4,
+      "min": 2,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.014417938463644859,
+      "min": 0.009665938776582682,
+      "max": 0.023073604873463945,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.4246220571872608,
+      "min": 0.4046306286840371,
+      "max": 0.44041277147788516,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.20424539436973962,
+      "min": 0.1216495361230632,
+      "max": 0.2455433234930778,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 24.666666666666668,
+      "min": 24,
+      "max": 25,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 38.333333333333336,
+      "min": 31,
+      "max": 46,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "frijol": 21,
+       "lechuga": 3
+      },
+      "29": {
+       "maiz": 6,
+       "ajonjoli": 19,
+       "frijol": 29
+      },
+      "43": {
+       "maiz": 12,
+       "frijol": 30,
+       "ajonjoli": 12
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.4745470027018248,
+      "min": 0.47232386332544507,
+      "max": 0.4770268178845636,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.07352385491388293,
+      "min": 0.07130071553750315,
+      "max": 0.07600367009662169,
+      "n": 3
+     },
+     "win": {
+      "mean": 26,
+      "min": 25,
+      "max": 27,
+      "n": 3
+     },
+     "tie": {
+      "mean": 19,
+      "min": 17,
+      "max": 23,
+      "n": 3
+     },
+     "loss": {
+      "mean": 9,
+      "min": 6,
+      "max": 11,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.010989760745269675,
+      "min": 0.008509945562530923,
+      "max": 0.013212900121649464,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.41994006177669635,
+      "min": 0.41872975625091297,
+      "max": 0.422360672828263,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.3437997695198101,
+      "min": 0.3199777139060201,
+      "max": 0.3557107973267052,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 28.666666666666668,
+      "min": 24,
+      "max": 31,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 48.666666666666664,
+      "min": 42,
+      "max": 53,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "lechuga": 18,
+       "frijol": 6
+      },
+      "29": {
+       "ajonjoli": 34,
+       "frijol": 7,
+       "lechuga": 13
+      },
+      "43": {
+       "ajonjoli": 24,
+       "frijol": 24,
+       "lechuga": 6
+      }
+     }
+    }
+   },
+   "fertility_poor": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.3768950599867596,
+      "min": 0.36997052685890436,
+      "max": 0.3806966597364094,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.056076541756406216,
+      "min": 0.04915200862855095,
+      "max": 0.05987814150605595,
+      "n": 3
+     },
+     "win": {
+      "mean": 23.333333333333332,
+      "min": 22,
+      "max": 25,
+      "n": 3
+     },
+     "tie": {
+      "mean": 26.666666666666668,
+      "min": 24,
+      "max": 29,
+      "n": 3
+     },
+     "loss": {
+      "mean": 4,
+      "min": 2,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.01153435077091589,
+      "min": 0.0077327510212661455,
+      "max": 0.018458883898771157,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.3396976457498087,
+      "min": 0.32370450294722974,
+      "max": 0.35233021718230817,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.1633963154957917,
+      "min": 0.09731962889845057,
+      "max": 0.19643465879446226,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 38.333333333333336,
+      "min": 31,
+      "max": 46,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "frijol": 21,
+       "lechuga": 3
+      },
+      "29": {
+       "maiz": 6,
+       "ajonjoli": 19,
+       "frijol": 29
+      },
+      "43": {
+       "maiz": 12,
+       "frijol": 30,
+       "ajonjoli": 12
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.3796376021614598,
+      "min": 0.377859090660356,
+      "max": 0.38162145430765076,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.05881908393110636,
+      "min": 0.05704057243000253,
+      "max": 0.06080293607729737,
+      "n": 3
+     },
+     "win": {
+      "mean": 26,
+      "min": 25,
+      "max": 27,
+      "n": 3
+     },
+     "tie": {
+      "mean": 19,
+      "min": 17,
+      "max": 23,
+      "n": 3
+     },
+     "loss": {
+      "mean": 9,
+      "min": 6,
+      "max": 11,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.008791808596215742,
+      "min": 0.0068079564500247375,
+      "max": 0.010570320097319575,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.33595204942135704,
+      "min": 0.3349838050007304,
+      "max": 0.33788853826261045,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.27503981561584817,
+      "min": 0.2559821711248161,
+      "max": 0.28456863786136416,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 48.666666666666664,
+      "min": 42,
+      "max": 53,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "lechuga": 18,
+       "frijol": 6
+      },
+      "29": {
+       "ajonjoli": 34,
+       "frijol": 7,
+       "lechuga": 13
+      },
+      "43": {
+       "ajonjoli": 24,
+       "frijol": 24,
+       "lechuga": 6
+      }
+     }
+    }
+   },
+   "fertility_very-poor": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.23555941249172485,
+      "min": 0.23123157928681531,
+      "max": 0.23793541233525592,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.03504783859775388,
+      "min": 0.030720005392844345,
+      "max": 0.03742383844128497,
+      "n": 3
+     },
+     "win": {
+      "mean": 22.666666666666668,
+      "min": 21,
+      "max": 24,
+      "n": 3
+     },
+     "tie": {
+      "mean": 27.666666666666668,
+      "min": 26,
+      "max": 29,
+      "n": 3
+     },
+     "loss": {
+      "mean": 3.6666666666666665,
+      "min": 2,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.007208969231822429,
+      "min": 0.004832969388291341,
+      "max": 0.011536802436731972,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.2123110285936304,
+      "min": 0.20231531434201855,
+      "max": 0.22020638573894258,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.10212269718486981,
+      "min": 0.0608247680615316,
+      "max": 0.1227716617465389,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 38.333333333333336,
+      "min": 31,
+      "max": 46,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "frijol": 21,
+       "lechuga": 3
+      },
+      "29": {
+       "maiz": 6,
+       "ajonjoli": 19,
+       "frijol": 29
+      },
+      "43": {
+       "maiz": 12,
+       "frijol": 30,
+       "ajonjoli": 12
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.2372735013509124,
+      "min": 0.23616193166272254,
+      "max": 0.2385134089422818,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.036761927456941464,
+      "min": 0.03565035776875158,
+      "max": 0.038001835048310846,
+      "n": 3
+     },
+     "win": {
+      "mean": 25,
+      "min": 24,
+      "max": 26,
+      "n": 3
+     },
+     "tie": {
+      "mean": 20.666666666666668,
+      "min": 19,
+      "max": 24,
+      "n": 3
+     },
+     "loss": {
+      "mean": 8.333333333333334,
+      "min": 6,
+      "max": 10,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.005494880372634838,
+      "min": 0.004254972781265461,
+      "max": 0.006606450060824732,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.20997003088834817,
+      "min": 0.20936487812545648,
+      "max": 0.2111803364141315,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.17189988475990506,
+      "min": 0.15998885695301004,
+      "max": 0.1778553986633526,
+      "n": 3
+     },
+     "executable": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "below05": {
+      "mean": 54,
+      "min": 54,
+      "max": 54,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 48.666666666666664,
+      "min": 42,
+      "max": 53,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 30,
+       "lechuga": 18,
+       "frijol": 6
+      },
+      "29": {
+       "ajonjoli": 34,
+       "frijol": 7,
+       "lechuga": 13
+      },
+      "43": {
+       "ajonjoli": 24,
+       "frijol": 24,
+       "lechuga": 6
+      }
+     }
+    }
+   },
+   "reference": {
+    "ruleMeanRelYield": 0.8020462955758838,
+    "oracleMeanRelYield": 0.9710735268941889,
+    "ruleActions": {
+     "maiz": 28,
+     "frijol": 26
+    },
+    "oracleActions": {
+     "maiz": 15,
+     "frijol": 26,
+     "ajonjoli": 9,
+     "lechuga": 4
+    }
+   }
+  },
+  "reserved2022_2024": {
+   "n": 27,
+   "canResowTrue": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.9533136382051867,
+      "min": 0.9416280067655003,
+      "max": 0.9596603900896439,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.09738438132836026,
+      "min": 0.08569874988867389,
+      "max": 0.10373113321281739,
+      "n": 3
+     },
+     "win": {
+      "mean": 11,
+      "min": 10,
+      "max": 12,
+      "n": 3
+     },
+     "tie": {
+      "mean": 15,
+      "min": 14,
+      "max": 16,
+      "n": 3
+     },
+     "loss": {
+      "mean": 1,
+      "min": 1,
+      "max": 1,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.02600864011380986,
+      "min": 0.019661888229352727,
+      "max": 0.03769427155349625,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.894768075523952,
+      "min": 0.8709230365823146,
+      "max": 0.9066905949947707,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.5306631723053833,
+      "min": 0.46215081567818933,
+      "max": 0.5649193506189801,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 0.3333333333333333,
+      "min": 0,
+      "max": 1,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 18.333333333333332,
+      "min": 16,
+      "max": 21,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "frijol": 11,
+       "lechuga": 1
+      },
+      "29": {
+       "maiz": 3,
+       "ajonjoli": 10,
+       "frijol": 14
+      },
+      "43": {
+       "maiz": 6,
+       "frijol": 15,
+       "ajonjoli": 6
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.9610853132178834,
+      "min": 0.9547383344720873,
+      "max": 0.9648041692981396,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.10515605634105692,
+      "min": 0.09880907759526093,
+      "max": 0.10887491242131316,
+      "n": 3
+     },
+     "win": {
+      "mean": 12.666666666666666,
+      "min": 12,
+      "max": 13,
+      "n": 3
+     },
+     "tie": {
+      "mean": 10,
+      "min": 9,
+      "max": 12,
+      "n": 3
+     },
+     "loss": {
+      "mean": 4.333333333333333,
+      "min": 3,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.01823696510111321,
+      "min": 0.014518109020856977,
+      "max": 0.024583943846909182,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.8836976870492186,
+      "min": 0.8506588052546925,
+      "max": 0.9048905166447434,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.7677565470531014,
+      "min": 0.7112235585456311,
+      "max": 0.7960230413068364,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 23.333333333333332,
+      "min": 20,
+      "max": 26,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "lechuga": 9,
+       "frijol": 3
+      },
+      "29": {
+       "ajonjoli": 16,
+       "frijol": 5,
+       "lechuga": 6
+      },
+      "43": {
+       "ajonjoli": 12,
+       "frijol": 12,
+       "lechuga": 3
+      }
+     }
+    }
+   },
+   "canResowFalse": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "win": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "tie": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "loss": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.9793222783189967,
+      "min": 0.9793222783189967,
+      "max": 0.9793222783189967,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "fallow": 27
+      },
+      "29": {
+       "fallow": 27
+      },
+      "43": {
+       "fallow": 27
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "win": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "tie": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "loss": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.9793222783189967,
+      "min": 0.9793222783189967,
+      "max": 0.9793222783189967,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "fallow": 27
+      },
+      "29": {
+       "fallow": 27
+      },
+      "43": {
+       "fallow": 27
+      }
+     }
+    }
+   },
+   "fertility_near-optimal": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.7626509105641496,
+      "min": 0.7533024054124005,
+      "max": 0.7677283120717152,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.07790750506268822,
+      "min": 0.06855899991093911,
+      "max": 0.08298490657025391,
+      "n": 3
+     },
+     "win": {
+      "mean": 11,
+      "min": 10,
+      "max": 12,
+      "n": 3
+     },
+     "tie": {
+      "mean": 15,
+      "min": 14,
+      "max": 16,
+      "n": 3
+     },
+     "loss": {
+      "mean": 1,
+      "min": 1,
+      "max": 1,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.020806912091047885,
+      "min": 0.01572951058348218,
+      "max": 0.030155417242796995,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.7158144604191617,
+      "min": 0.6967384292658517,
+      "max": 0.7253524759958166,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.42453053784430655,
+      "min": 0.3697206525425515,
+      "max": 0.4519354804951841,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 1.3333333333333333,
+      "min": 1,
+      "max": 2,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 18.333333333333332,
+      "min": 16,
+      "max": 21,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "frijol": 11,
+       "lechuga": 1
+      },
+      "29": {
+       "maiz": 3,
+       "ajonjoli": 10,
+       "frijol": 14
+      },
+      "43": {
+       "maiz": 6,
+       "frijol": 15,
+       "ajonjoli": 6
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.7688682505743069,
+      "min": 0.76379066757767,
+      "max": 0.7718433354385117,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.08412484507284552,
+      "min": 0.07904726207620875,
+      "max": 0.0870999299370505,
+      "n": 3
+     },
+     "win": {
+      "mean": 12.666666666666666,
+      "min": 12,
+      "max": 13,
+      "n": 3
+     },
+     "tie": {
+      "mean": 10,
+      "min": 9,
+      "max": 12,
+      "n": 3
+     },
+     "loss": {
+      "mean": 4.333333333333333,
+      "min": 3,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.014589572080890567,
+      "min": 0.011614487216685586,
+      "max": 0.019667155077527348,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.706958149639375,
+      "min": 0.6805270442037541,
+      "max": 0.7239124133157948,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.614205237642481,
+      "min": 0.5689788468365049,
+      "max": 0.6368184330454691,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 0,
+      "min": 0,
+      "max": 0,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 23.333333333333332,
+      "min": 20,
+      "max": 26,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "lechuga": 9,
+       "frijol": 3
+      },
+      "29": {
+       "ajonjoli": 16,
+       "frijol": 5,
+       "lechuga": 6
+      },
+      "43": {
+       "ajonjoli": 12,
+       "frijol": 12,
+       "lechuga": 3
+      }
+     }
+    }
+   },
+   "fertility_moderate": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.5719881829231119,
+      "min": 0.5649768040593002,
+      "max": 0.5757962340537862,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.05843062879701616,
+      "min": 0.051419249933204327,
+      "max": 0.062238679927690436,
+      "n": 3
+     },
+     "win": {
+      "mean": 11,
+      "min": 10,
+      "max": 12,
+      "n": 3
+     },
+     "tie": {
+      "mean": 15,
+      "min": 14,
+      "max": 16,
+      "n": 3
+     },
+     "loss": {
+      "mean": 1,
+      "min": 1,
+      "max": 1,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.015605184068285913,
+      "min": 0.011797132937611633,
+      "max": 0.022616562932097743,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.5368608453143713,
+      "min": 0.5225538219493888,
+      "max": 0.5440143569968624,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.3183979033832299,
+      "min": 0.2772904894069136,
+      "max": 0.33895161037138805,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 1.3333333333333333,
+      "min": 1,
+      "max": 2,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 18.333333333333332,
+      "min": 16,
+      "max": 21,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "frijol": 11,
+       "lechuga": 1
+      },
+      "29": {
+       "maiz": 3,
+       "ajonjoli": 10,
+       "frijol": 14
+      },
+      "43": {
+       "maiz": 6,
+       "frijol": 15,
+       "ajonjoli": 6
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.57665118793073,
+      "min": 0.5728430006832524,
+      "max": 0.5788825015788839,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.06309363380463413,
+      "min": 0.059285446557156556,
+      "max": 0.06532494745278787,
+      "n": 3
+     },
+     "win": {
+      "mean": 12.666666666666666,
+      "min": 12,
+      "max": 13,
+      "n": 3
+     },
+     "tie": {
+      "mean": 10,
+      "min": 9,
+      "max": 12,
+      "n": 3
+     },
+     "loss": {
+      "mean": 4.333333333333333,
+      "min": 3,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.010942179060667925,
+      "min": 0.00871086541251419,
+      "max": 0.014750366308145508,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.5302186122295311,
+      "min": 0.5103952831528156,
+      "max": 0.542934309986846,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.46065392823186074,
+      "min": 0.4267341351273787,
+      "max": 0.47761382478410186,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 1.3333333333333333,
+      "min": 1,
+      "max": 2,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 23.333333333333332,
+      "min": 20,
+      "max": 26,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "lechuga": 9,
+       "frijol": 3
+      },
+      "29": {
+       "ajonjoli": 16,
+       "frijol": 5,
+       "lechuga": 6
+      },
+      "43": {
+       "ajonjoli": 12,
+       "frijol": 12,
+       "lechuga": 3
+      }
+     }
+    }
+   },
+   "fertility_about-half": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.47665681910259333,
+      "min": 0.47081400338275015,
+      "max": 0.47983019504482194,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.04869219066418013,
+      "min": 0.042849374944336945,
+      "max": 0.051865566606408696,
+      "n": 3
+     },
+     "win": {
+      "mean": 11,
+      "min": 10,
+      "max": 12,
+      "n": 3
+     },
+     "tie": {
+      "mean": 15,
+      "min": 14,
+      "max": 16,
+      "n": 3
+     },
+     "loss": {
+      "mean": 1,
+      "min": 1,
+      "max": 1,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.01300432005690493,
+      "min": 0.009830944114676363,
+      "max": 0.018847135776748125,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.447384037761976,
+      "min": 0.4354615182911573,
+      "max": 0.45334529749738534,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.26533158615269165,
+      "min": 0.23107540783909467,
+      "max": 0.28245967530949007,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 10,
+      "min": 10,
+      "max": 10,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 18.333333333333332,
+      "min": 16,
+      "max": 21,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "frijol": 11,
+       "lechuga": 1
+      },
+      "29": {
+       "maiz": 3,
+       "ajonjoli": 10,
+       "frijol": 14
+      },
+      "43": {
+       "maiz": 6,
+       "frijol": 15,
+       "ajonjoli": 6
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.4805426566089417,
+      "min": 0.47736916723604367,
+      "max": 0.4824020846490698,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.05257802817052846,
+      "min": 0.049404538797630466,
+      "max": 0.05443745621065658,
+      "n": 3
+     },
+     "win": {
+      "mean": 12.666666666666666,
+      "min": 12,
+      "max": 13,
+      "n": 3
+     },
+     "tie": {
+      "mean": 10,
+      "min": 9,
+      "max": 12,
+      "n": 3
+     },
+     "loss": {
+      "mean": 4.333333333333333,
+      "min": 3,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.009118482550556604,
+      "min": 0.0072590545104284886,
+      "max": 0.012291971923454591,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.4418488435246093,
+      "min": 0.42532940262734625,
+      "max": 0.4524452583223717,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.3838782735265507,
+      "min": 0.35561177927281556,
+      "max": 0.3980115206534182,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 13.666666666666666,
+      "min": 11,
+      "max": 15,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 23.333333333333332,
+      "min": 20,
+      "max": 26,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "lechuga": 9,
+       "frijol": 3
+      },
+      "29": {
+       "ajonjoli": 16,
+       "frijol": 5,
+       "lechuga": 6
+      },
+      "43": {
+       "ajonjoli": 12,
+       "frijol": 12,
+       "lechuga": 3
+      }
+     }
+    }
+   },
+   "fertility_poor": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.3813254552820748,
+      "min": 0.3766512027062002,
+      "max": 0.3838641560358576,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.03895375253134411,
+      "min": 0.034279499955469556,
+      "max": 0.041492453285126955,
+      "n": 3
+     },
+     "win": {
+      "mean": 11,
+      "min": 10,
+      "max": 12,
+      "n": 3
+     },
+     "tie": {
+      "mean": 15,
+      "min": 14,
+      "max": 16,
+      "n": 3
+     },
+     "loss": {
+      "mean": 1,
+      "min": 1,
+      "max": 1,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.010403456045523942,
+      "min": 0.00786475529174109,
+      "max": 0.015077708621398497,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.3579072302095809,
+      "min": 0.34836921463292586,
+      "max": 0.3626762379979083,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.21226526892215328,
+      "min": 0.18486032627127574,
+      "max": 0.22596774024759206,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 18.333333333333332,
+      "min": 16,
+      "max": 21,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "frijol": 11,
+       "lechuga": 1
+      },
+      "29": {
+       "maiz": 3,
+       "ajonjoli": 10,
+       "frijol": 14
+      },
+      "43": {
+       "maiz": 6,
+       "frijol": 15,
+       "ajonjoli": 6
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.3844341252871534,
+      "min": 0.381895333788835,
+      "max": 0.38592166771925585,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.04206242253642276,
+      "min": 0.03952363103810438,
+      "max": 0.04354996496852525,
+      "n": 3
+     },
+     "win": {
+      "mean": 12.666666666666666,
+      "min": 12,
+      "max": 13,
+      "n": 3
+     },
+     "tie": {
+      "mean": 10,
+      "min": 9,
+      "max": 12,
+      "n": 3
+     },
+     "loss": {
+      "mean": 4.333333333333333,
+      "min": 3,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.0072947860404452836,
+      "min": 0.005807243608342793,
+      "max": 0.009833577538763674,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.3534790748196875,
+      "min": 0.34026352210187705,
+      "max": 0.3619562066578974,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.3071026188212405,
+      "min": 0.28448942341825245,
+      "max": 0.3184092165227346,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 23.333333333333332,
+      "min": 20,
+      "max": 26,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "lechuga": 9,
+       "frijol": 3
+      },
+      "29": {
+       "ajonjoli": 16,
+       "frijol": 5,
+       "lechuga": 6
+      },
+      "43": {
+       "ajonjoli": 12,
+       "frijol": 12,
+       "lechuga": 3
+      }
+     }
+    }
+   },
+   "fertility_very-poor": {
+    "typical": {
+     "chosenMean": {
+      "mean": 0.23832840955129667,
+      "min": 0.23540700169137507,
+      "max": 0.23991509752241097,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.024346095332090065,
+      "min": 0.021424687472168472,
+      "max": 0.025932783303204348,
+      "n": 3
+     },
+     "win": {
+      "mean": 11,
+      "min": 10,
+      "max": 12,
+      "n": 3
+     },
+     "tie": {
+      "mean": 15,
+      "min": 14,
+      "max": 16,
+      "n": 3
+     },
+     "loss": {
+      "mean": 1,
+      "min": 1,
+      "max": 1,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.006502160028452465,
+      "min": 0.004915472057338182,
+      "max": 0.009423567888374063,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.223692018880988,
+      "min": 0.21773075914557866,
+      "max": 0.22667264874869267,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.13266579307634582,
+      "min": 0.11553770391954733,
+      "max": 0.14122983765474503,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 18.333333333333332,
+      "min": 16,
+      "max": 21,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "frijol": 11,
+       "lechuga": 1
+      },
+      "29": {
+       "maiz": 3,
+       "ajonjoli": 10,
+       "frijol": 14
+      },
+      "43": {
+       "maiz": 6,
+       "frijol": 15,
+       "ajonjoli": 6
+      }
+     }
+    },
+    "cautious": {
+     "chosenMean": {
+      "mean": 0.24027132830447084,
+      "min": 0.23868458361802183,
+      "max": 0.2412010423245349,
+      "n": 3
+     },
+     "meanGainVsRule": {
+      "mean": 0.02628901408526423,
+      "min": 0.024702269398815233,
+      "max": 0.02721872810532829,
+      "n": 3
+     },
+     "win": {
+      "mean": 12.666666666666666,
+      "min": 12,
+      "max": 13,
+      "n": 3
+     },
+     "tie": {
+      "mean": 10,
+      "min": 9,
+      "max": 12,
+      "n": 3
+     },
+     "loss": {
+      "mean": 4.333333333333333,
+      "min": 3,
+      "max": 5,
+      "n": 3
+     },
+     "meanRegret": {
+      "mean": 0.004559241275278302,
+      "min": 0.0036295272552142443,
+      "max": 0.0061459859617272955,
+      "n": 3
+     },
+     "p10": {
+      "mean": 0.22092442176230465,
+      "min": 0.21266470131367313,
+      "max": 0.22622262916118585,
+      "n": 3
+     },
+     "worst": {
+      "mean": 0.19193913676327534,
+      "min": 0.17780588963640778,
+      "max": 0.1990057603267091,
+      "n": 3
+     },
+     "executable": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "below05": {
+      "mean": 27,
+      "min": 27,
+      "max": 27,
+      "n": 3
+     },
+     "departsFromRule": {
+      "mean": 23.333333333333332,
+      "min": 20,
+      "max": 26,
+      "n": 3
+     },
+     "actionsBySeed": {
+      "17": {
+       "ajonjoli": 15,
+       "lechuga": 9,
+       "frijol": 3
+      },
+      "29": {
+       "ajonjoli": 16,
+       "frijol": 5,
+       "lechuga": 6
+      },
+      "43": {
+       "ajonjoli": 12,
+       "frijol": 12,
+       "lechuga": 3
+      }
+     }
+    }
+   },
+   "reference": {
+    "ruleMeanRelYield": 0.8559292568768264,
+    "oracleMeanRelYield": 0.9793222783189967,
+    "ruleActions": {
+     "maiz": 9,
+     "frijol": 18
+    },
+    "oracleActions": {
+     "maiz": 6,
+     "frijol": 14,
+     "ajonjoli": 4,
+     "lechuga": 3
+    }
+   }
+  }
+ },
+ "sameChoiceAsNotStated": {
+  "years2019_2024": {
+   "canResowTrue": {
+    "typical": [
+     54,
+     54,
+     54
+    ],
+    "cautious": [
+     54,
+     54,
+     54
+    ]
+   },
+   "fertility_near-optimal": {
+    "typical": [
+     54,
+     54,
+     54
+    ],
+    "cautious": [
+     54,
+     54,
+     54
+    ]
+   },
+   "fertility_moderate": {
+    "typical": [
+     54,
+     54,
+     54
+    ],
+    "cautious": [
+     54,
+     54,
+     54
+    ]
+   },
+   "fertility_about-half": {
+    "typical": [
+     54,
+     54,
+     54
+    ],
+    "cautious": [
+     54,
+     54,
+     54
+    ]
+   },
+   "fertility_poor": {
+    "typical": [
+     54,
+     54,
+     54
+    ],
+    "cautious": [
+     54,
+     54,
+     54
+    ]
+   },
+   "fertility_very-poor": {
+    "typical": [
+     54,
+     54,
+     54
+    ],
+    "cautious": [
+     54,
+     54,
+     54
+    ]
+   }
+  },
+  "reserved2022_2024": {
+   "canResowTrue": {
+    "typical": [
+     27,
+     27,
+     27
+    ],
+    "cautious": [
+     27,
+     27,
+     27
+    ]
+   },
+   "fertility_near-optimal": {
+    "typical": [
+     27,
+     27,
+     27
+    ],
+    "cautious": [
+     27,
+     27,
+     27
+    ]
+   },
+   "fertility_moderate": {
+    "typical": [
+     27,
+     27,
+     27
+    ],
+    "cautious": [
+     27,
+     27,
+     27
+    ]
+   },
+   "fertility_about-half": {
+    "typical": [
+     27,
+     27,
+     27
+    ],
+    "cautious": [
+     27,
+     27,
+     27
+    ]
+   },
+   "fertility_poor": {
+    "typical": [
+     27,
+     27,
+     27
+    ],
+    "cautious": [
+     27,
+     27,
+     27
+    ]
+   },
+   "fertility_very-poor": {
+    "typical": [
+     27,
+     27,
+     27
+    ],
+    "cautious": [
+     27,
+     27,
+     27
+    ]
+   }
+  }
+ }
+}

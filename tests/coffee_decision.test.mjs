@@ -70,3 +70,15 @@ test('contrafactual: el riego de 20 mm evita días de estrés, a mano', () => {
   const cf3 = counterfactual({ ...base, sim: fake(5) });
   assert.equal(cf3.stressNo, 14); assert.equal(cf3.stressYes, 13); assert.equal(cf3.stressDaysAvoided, 1);
 });
+
+// Tarea 36: la prioridad pasa a "proteger el cultivo" solo cuando la antracnosis esta activa por estres hidrico.
+import { effectivePriority } from '../web/js/model/coffee.js';
+test('effectivePriority: antracnosis por estres -> proteger; por roya o sin aviso -> la prioridad del agricultor', () => {
+  const byStress = { triggers: { byStress: true, byRoya: false } };
+  const byRoya = { triggers: { byStress: false, byRoya: true } };
+  assert.equal(effectivePriority(0, byStress), 1);
+  assert.equal(effectivePriority(1, byStress), 1);
+  assert.equal(effectivePriority(0, byRoya), 0);
+  assert.equal(effectivePriority(0, { triggers: { byStress: false, byRoya: false } }), 0);
+  assert.equal(effectivePriority(0, null), 0);
+});

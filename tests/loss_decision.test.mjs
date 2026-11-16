@@ -84,3 +84,11 @@ test('regla de información: corromper los datos desde el año Y en adelante no 
   assert.equal(decide(bundle, 'typical')[2], Y - 1);
   assert.equal(decide(bundle, 'typical')[3], `${Y}-03-31`);
 });
+
+test('decideAction con canResow = false: solo queda dejar el campo, aunque haya cultivos buenos (Tarea 36)', () => {
+  const o = [{ action: 'maiz', year: 2001, value: 0.9 }, { action: 'frijol', year: 2001, value: 0.6 }];
+  assert.equal(decideAction({ outcomes: o, targetYear: 2006, priority: 'typical', canResow: true }), 'maiz');
+  assert.equal(decideAction({ outcomes: o, targetYear: 2006, priority: 'typical' }), 'maiz'); // por defecto se puede resembrar
+  assert.equal(decideAction({ outcomes: o, targetYear: 2006, priority: 'typical', canResow: false }), FALLOW);
+  assert.equal(decideAction({ outcomes: o, targetYear: 2006, priority: 'cautious', canResow: false }), FALLOW);
+});
