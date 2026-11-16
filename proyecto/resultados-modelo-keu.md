@@ -2083,6 +2083,8 @@ node scripts/factors/build_eval.mjs                  # junta todo en web/data/fa
 
 ## Sombra de banano (supuesto provisional) y paridad entre algoritmo y simulador
 
+> **Versión archivada.** Esta sección describe la fórmula por cobertura de la tarea 38 y su revisión de la tarea 40. El banano se corrigió en la tarea 41 con las clases de sistema de la auditoría del asesor: ver más abajo «Banano corregido según el asesor del equipo». Los archivos `_v2` y `banana_audit_check.json` siguen sin cambios.
+
 **Aviso por delante.** La sombra de banano que sigue es un **supuesto provisional**. No hay ninguna medida del uso de agua del banano disperso como sombra del café que pudiéramos usar (en las notas, `research_notes/sombra-banano.md`, ningún artículo se leyó completo). Los números de esta sección dicen qué hace **el supuesto** dentro del simulador y de la red; no dicen qué hace un platanar de verdad en un cafetal. Todo es opcional: sin banano, el simulador da lo mismo que antes y `coffee_eval.json`, `coffee_ptc_mlp.json` y `coffee_recommender.json` no cambiaron (las filas de las tres sombras originales de la tabla nueva salen idénticas a las de la anterior: 6,480 filas, diferencia máxima 0). Los números salen de `web/data/coffee_eval_v2.json`, `web/data/coffee_ptc_mlp_v2.json` y `web/data/parity.json`.
 
 ### Los dos supuestos y de dónde salen
@@ -2260,4 +2262,169 @@ node scripts/coffee/scenarios_v2.mjs                                   # tabla c
 PYTHONPATH=scripts/emulator C:/Users/velas/venv_lab4/Scripts/python.exe scripts/coffee/ptc_mlp_v2.py   # entrena 17, 29, 43 y exporta coffee_ptc_mlp_v2.json
 node scripts/coffee/evaluate_v2.mjs                                    # coffee_eval_v2.json
 node scripts/parity/build_parity.mjs                                   # parity.json
+```
+
+
+---
+
+## Banano corregido según el asesor del equipo (tarea 41)
+
+La tarea 40 comparó nuestro banano provisional con el asesor agroclimático del equipo (`origin/main`, commit `ac37f1b`: `conocimiento/cafe-ciclo-y-asocio-banano.md` y `auditorias/prueba cafe banano 2025/`). El signo y el orden coincidían, pero se encontraron tres defectos. El dueño pidió corregir el banano. Esta sección dice qué estaba mal, cómo quedó, y qué números salen ahora. Todas las cifras vienen de `web/data/banana_audit_check_v3.json`, `web/data/coffee_eval_v3.json` y `web/data/coffee_ptc_mlp_v3.json` (generados por `scripts/coffee/verify_banana_audit.mjs`, `scripts/coffee/evaluate_v3.mjs` y `scripts/coffee/ptc_mlp_v3.py`).
+
+### Qué estaba mal
+
+1. **El estrés del banano se contaba dos veces.** La fórmula de la tarea 38 sumaba un gasto de banano con su propio coeficiente de estrés (p = 0.35) y después el Ks del café (p = 0.40) se aplicaba a toda la demanda del lote.
+2. **El recorte de evaporación del suelo era un proxy de sombra de árboles.** Los 0.52 mm/día en lluvias (Padovan 2018, Nicaragua) se aplicaban con cualquier cobertura de banano mayor que cero y sin mulch. El asesor ata el beneficio del banano al mulch de *Musa* y a reemplazar las malezas vivas.
+3. **Faltaba la línea base donde el banano sí ayuda.** La auditoría encuentra menos déficit con banano regulado y mulch solo frente a café al sol con malezas vivas. Nuestra comparación era siempre contra café con suelo limpio, y esa base no existía en el simulador.
+
+### Cómo quedó: las clases de la auditoría
+
+Se reemplazó la fórmula por cobertura por las cuatro clases de sistema de la auditoría. Cada una tiene un Kc compuesto y una p únicos para todo el lote (no hay un término de banano aparte, así que nada se cuenta dos veces; el efecto del mulch y el de las malezas están dentro del Kc auditado). Los valores se tomaron de `auditorias/prueba cafe banano 2025/datos/cultivos/parametros_auditados.json` y se verificaron uno por uno:
+
+| Sistema | Kc inicial / medio / final | p | Origen |
+|---|---|---|---|
+| Café solo, suelo limpio o con mulch | 0.90 / 0.95 / 0.95 | 0.40 | FAO-56 Tabla 12 (suelo limpio) |
+| Café solo con cobertura viva o malezas | 1.05 / 1.10 / 1.10 | 0.40 | FAO-56 Tabla 12 (con malezas) |
+| Café + banano regulado (35–45 % de sombra) con mulch de *Musa* | 0.95 / 1.05 / 1.00 | 0.38 | compuesto de la auditoría |
+| Café + banano denso sin deshije | 1.00 / 1.20 / 1.10 | 0.35 | FAO-56 Tabla 12 (banano de segundo año) y Tabla 22 |
+
+**Calendario de los tres Kc.** El archivo de parámetros da etapas de 365 días: inicial 60 días, desarrollo 90 días, media 125 días y final 90 días. Se copió ese calendario sin cambios: el Kc inicial vale los primeros 60 días del año, sube linealmente al Kc medio durante los 90 días siguientes, se queda en el Kc medio 125 días y baja linealmente al Kc final en los últimos 90 días (los días del año cuentan desde el 1 de enero). Como el café es perenne, el mismo calendario se repite cada año civil por día del año. Con la ET0 diaria de la propia auditoría, este calendario reproduce las cuatro ETc anuales de la auditoría con diferencia de 0.00 mm (1,404.76; 1,525.49; 1,630.07; 1,699.12 mm; `calendar_check` en `banana_audit_check_v3.json`).
+
+**Dos datos del agricultor reemplazan a `bananaCover`.** `suelo` (entre los surcos): `limpio` o `malezas`. `banano`: `ninguno`, `regulado` o `denso`. Con banano, el suelo es el de la auditoría (con mulch de *Musa*) y `suelo` se ignora. Sin banano y con suelo limpio no se usa ninguna clase: es el café de siempre (Kc 0.95 constante, p 0.40).
+
+Lo que no cambia: la sombra de árboles (hoja perenne o caduca, Padovan 2018) queda exactamente igual y **no se combina** con banano ni con la opción de malezas (el simulador lanza un error). La profundidad de raíz es la nuestra, 1.2 m; la auditoría usa 1.0 m (no se cambió). Todo es aditivo: la opción es un parámetro nuevo `system` de `simulateCoffee`, `counterfactual` y `coffeeDecisionStateV3`; sin ella el resultado es idéntico al de antes (hay una prueba que lo comprueba con `deepEqual`).
+
+**Una diferencia que hay que decir.** La red usa como "café limpio" el café de siempre (Kc 0.95 constante), no el calendario de la auditoría (0.90 al inicio del año). Es para que los escenarios originales salgan idénticos a los de la versión 1. En la corrida C esa línea base queda 22.20 mm por encima de la demanda del limpio con calendario y 22.15 mm por encima en déficit (1,426.96 contra 1,404.76 mm). Las tres clases nuevas sí usan el calendario. La comparación de congruencia de abajo usa el calendario en las cuatro.
+
+### Congruencia con la auditoría, antes y después
+
+Misma corrida C de la tarea 40: ET0 FAO-56 y lluvia ERA5 de la auditoría (2025, secano), TAW 130.7 mm sobre la zona radicular del simulador (Zr 1.2 m), reserva inicial 25 %, escorrentía 15 %. Tolerancias fijadas antes de calcular (las de la tarea 40, aplicadas a las clases; más la comparación con malezas):
+
+- Signo y orden iguales a los de la auditoría: demanda y déficit con limpio < regulado < malezas < denso.
+- Déficit regulado menos limpio entre 39.6 y 240.5 mm; denso menos limpio entre 39.6 y 585.6 mm.
+- Déficit regulado menor que el de malezas; magnitud cercana entre 38.5 y 201.7 mm menos (el rango de la auditoría entre sus cuatro fuentes de lluvia, dividido entre 2 y multiplicado por 2).
+
+| Cantidad, 2025, secano | Auditoría (fila ERA5) | Tarea 40, cobertura 0.15 / 0.30 (corrida C) | Ahora (v3, corrida C) |
+|---|---:|---:|---:|
+| Demanda, café solo limpio (mm) | 1404.76 | 1426.96 | 1404.76 |
+| Demanda, regulado menos limpio (mm) | +120.73 | +26.03 / +134.28 | +120.73 |
+| Demanda, denso menos limpio (mm) | +294.36 | no se podía mostrar | +294.36 |
+| Déficit, café solo limpio (mm) | 648.26 | 681.8 | 659.65 |
+| Déficit, regulado menos limpio (mm) | +96.36 | +18.15 / +84.90 | +93.12 |
+| Déficit, denso menos limpio (mm) | +238.74 | no se podía mostrar | +231.09 |
+| Déficit, regulado menos café con malezas (mm) | −87.16 (rango entre las 4 fuentes de lluvia: −100.83 a −77.01) | no se podía mostrar | −85.19 |
+| Días con Ks < 0.95, café solo limpio | 249 | 257 | 257 |
+| Días con Ks < 0.95, regulado menos limpio | +15 | +6 / +16 | +12 |
+| Días con Ks < 0.95, denso menos limpio | +27 | no se podía mostrar | +20 |
+| Días con Ks < 0.95, regulado menos café con malezas | −2 | no se podía mostrar | −1 |
+
+**Cuatro sistemas contra las filas ERA5 de la auditoría (corrida C, 2025):**
+
+| Sistema | Demanda: auditoría / nuestro | ETa: auditoría / nuestro | Déficit: auditoría / nuestro | Días con Ks < 0.95: auditoría / nuestro |
+|---|---|---|---|---|
+| limpio | 1404.76 / 1404.76 | 756.49 / 745.1 | 648.26 / 659.65 | 249 / 257 |
+| regulado | 1525.49 / 1525.49 | 780.87 / 772.72 | 744.62 / 752.77 | 264 / 269 |
+| malezas | 1630.07 / 1630.07 | 798.29 / 792.11 | 831.78 / 837.96 | 266 / 270 |
+| denso | 1699.12 / 1699.12 | 812.13 / 808.39 | 887 / 890.74 | 276 / 277 |
+
+**Veredicto, sin ajustar nada para acercarse:**
+
+- **Signo y orden: congruentes.** Demanda y déficit salen limpio < regulado < malezas < denso, como en la auditoría. La demanda coincide con la de la auditoría al centésimo (el calendario es el suyo), así que la diferencia está toda en la parte del suelo.
+- **Magnitud: cercana, y más cerca que antes.** Regulado menos limpio: +93.12 mm de déficit (auditoría +96.36 mm; en la tarea 40, con cobertura 0.15 y 0.30, +18.15 y +84.90). Denso menos limpio: +231.09 mm (auditoría +238.74 mm; antes no se podía mostrar). Los dos caen dentro de los intervalos fijados y a unos 3 % de la fila ERA5.
+- **El banano regulado con mulch tiene menos déficit que el café al sol con malezas: se reproduce.** Nuestro −85.19 mm contra −87.16 mm de la fila ERA5 y −100.83 a −77.01 mm entre las cuatro fuentes de lluvia de la auditoría. Cae dentro de ese rango. Esto no se podía mostrar antes.
+- **Lo desfavorable.** Nuestro déficit está entre 3.74 y 11.39 mm por encima del de la auditoría en los cuatro sistemas (ETa menor), y los días con Ks < 0.95 salen 1 a 8 por encima; en regulado menos limpio salen +12 días contra +15, y en denso menos limpio +20 contra +27 (la corrida C no iguala la profundidad de raíz, 1.2 m contra 1.0 m, ni el suelo de cinco capas). Contra el café con malezas, los días con Ks < 0.95 del regulado salen 1 menos (auditoría: 2 menos): la ventaja de regulado sobre malezas está en la demanda y el déficit, apenas en los días de estrés.
+
+### Resultados por sistema (la red v3 y la regla FAO-56)
+
+La red v3 tiene 19 entradas: las 16 de siempre más `weeds`, `bananaRegulated` y `bananaDense` (0 o 1; `shadeTrees` y `deciduous` valen 0 con una clase de sistema). Misma arquitectura y receta que las redes anteriores (predecir y luego elegir; 19 → 64 → 32 → 16 → 1; semillas 17, 29, 43; la semilla exportada es la de menor pérdida de validación 2017–2018: la semilla 29). Mismos sitios, suelos, años, días de decisión y cortes: 10 sitios de 900 m o más × 3 suelos × 24 años cafeteros × 3 días de decisión × 6 sistemas = 12,960 escenarios (prueba 2019–2024: 3,240; reservado 2022–2024: 1,620). Utilidad media de la red (media de las tres semillas) y de la regla FAO-56; más alto es mejor. La regla es la misma para todos los sistemas: el balance corrido del café (Kc 0.95, p 0.40), que es lo que el agricultor puede observar; no conoce el Kc ni la p del sistema. Por eso riega en los mismos 211 de 540 casos en todos los sistemas.
+
+**Años nuevos 2019–2024** (540 casos por sistema)
+
+| Sistema | Ahorrar agua: red / regla / riegos de 540 | Proteger el cultivo: red / regla / riegos de 540 |
+|---|---|---|
+| Ninguna (café de siempre) | 0.388 / 0.096 / 176 | 1.138 / 0.878 / 259 |
+| Árboles de hoja perenne | 0.227 / −0.087 / 157 | 0.885 / 0.694 / 230 |
+| Árboles de hoja caduca | 0.822 / 0.100 / 208 | 1.730 / 0.881 / 302 |
+| Café con malezas | 0.788 / 0.120 / 201 | 1.652 / 0.902 / 284 |
+| Banano regulado con mulch | 0.780 / 0.172 / 199 | 1.650 / 0.954 / 285 |
+| Banano denso sin deshije | 0.894 / −0.217 / 217 | 1.844 / 0.565 / 334 |
+
+**Años reservados 2022–2024** (270 casos por sistema)
+
+| Sistema | Ahorrar agua: red / regla / riegos de 270 | Proteger el cultivo: red / regla / riegos de 270 |
+|---|---|---|
+| Ninguna (café de siempre) | 0.465 / −0.085 / 98 | 1.354 / 0.893 / 148 |
+| Árboles de hoja perenne | 0.204 / −0.300 / 90 | 1.000 / 0.678 / 130 |
+| Árboles de hoja caduca | 0.925 / −0.144 / 112 | 1.810 / 0.833 / 163 |
+| Café con malezas | 0.925 / −0.111 / 111 | 1.843 / 0.867 / 158 |
+| Banano regulado con mulch | 1.059 / 0.019 / 112 | 1.938 / 0.996 / 160 |
+| Banano denso sin deshije | 0.652 / −0.511 / 112 | 1.598 / 0.467 / 182 |
+
+Lo que se ve: la red le gana a la regla en todos los sistemas y en ambas prioridades. La regla FAO-56 queda peor justamente en el banano denso (utilidad −0.217 al ahorrar agua en la prueba y −0.511 en los años reservados): ahí el estrés llega antes que lo que su umbral de 0.40 anticipa. **Esa utilidad es la del simulador con parámetros de referencia de FAO-56:** la red aprendió lo que el simulador dice de cada clase, no una medida de campo.
+
+**Estrés del simulador sin riego** (días con Ks < 1 del lote, con la p del sistema; media sobre sitios, suelos y años cafeteros). Cuajado = 90 días tras la floración; llenado = días 91 a 120; seca = noviembre a abril (181 días).
+
+2001–2024 (720 combinaciones por sistema)
+
+| Sistema | Días de estrés: cuajado | llenado de grano | estación seca | ETa/ETc: cuajado | llenado | seca |
+|---|---|---|---|---|---|---|
+| Ninguna (café de siempre) | 41.3 | 6.6 | 153.9 | 0.741 | 0.934 | 0.334 |
+| Árboles de hoja perenne | 39.3 | 5.3 | 155.0 | 0.742 | 0.951 | 0.323 |
+| Árboles de hoja caduca | 46.0 | 9.6 | 157.3 | 0.725 | 0.893 | 0.319 |
+| Café con malezas | 45.6 | 9.2 | 160.0 | 0.715 | 0.897 | 0.295 |
+| Banano regulado con mulch | 44.8 | 8.6 | 158.4 | 0.726 | 0.908 | 0.321 |
+| Banano denso sin deshije | 50.2 | 11.9 | 164.3 | 0.697 | 0.866 | 0.293 |
+
+2019–2024 (solo años de prueba; 180 por sistema)
+
+| Sistema | Días de estrés: cuajado | llenado de grano | estación seca | ETa/ETc: cuajado | llenado | seca |
+|---|---|---|---|---|---|---|
+| Ninguna (café de siempre) | 39.5 | 3.8 | 145.1 | 0.751 | 0.973 | 0.366 |
+| Árboles de hoja perenne | 37.7 | 2.5 | 146.8 | 0.752 | 0.984 | 0.353 |
+| Árboles de hoja caduca | 44.3 | 7.8 | 148.0 | 0.734 | 0.938 | 0.354 |
+| Café con malezas | 43.9 | 7.3 | 151.5 | 0.726 | 0.943 | 0.327 |
+| Banano regulado con mulch | 43.0 | 6.5 | 149.7 | 0.735 | 0.952 | 0.354 |
+| Banano denso sin deshije | 48.6 | 10.7 | 156.2 | 0.707 | 0.911 | 0.327 |
+
+Días de estrés evitables por un riego de 20 mm (media de los 540 casos de prueba por sistema, 30 días siguientes sin riego): ninguna (café de siempre) 1.75, árboles de hoja perenne 1.44, árboles de hoja caduca 2.47, café con malezas 2.41, banano regulado con mulch 2.37, banano denso sin deshije 2.62.
+
+Días de estrés en los 30 días siguientes sin riego (misma muestra): ninguna (café de siempre) 5.67, árboles de hoja perenne 4.76, árboles de hoja caduca 8.44, café con malezas 8.14, banano regulado con mulch 7.61, banano denso sin deshije 10.65.
+
+Lectura: con la corrección, el banano regulado con mulch queda **entre** el café limpio y el café con malezas, como dice la auditoría (cuajado 44.8 días de estrés contra 41.3 del limpio y 45.6 con malezas; seca 158.4 contra 153.9 y 160.0; ETa/ETc de la estación seca 0.321 contra 0.334 y 0.295). El banano denso es el peor en todas las medidas. En la estación seca todos los sistemas tienen entre 145 y 164 de 181 días con estrés: el simulador del café no tiene riego ni agua de fondo, así que las diferencias entre sistemas son pequeñas en esa estación.
+
+**Red v1 contra red v3 en los escenarios originales** (las mismas 1,620 filas de prueba sin banano ni malezas; v1 es `coffee_eval.json`; media de las tres semillas)
+
+| Sombra | Ahorrar agua: v1 / v3 | Proteger el cultivo: v1 / v3 |
+|---|---|---|
+| Las tres juntas (prueba) | 0.474 / 0.479 | 1.174 / 1.251 |
+| Las tres juntas (reservado) | 0.500 / 0.531 | 1.311 / 1.388 |
+| Ninguna (café de siempre) (prueba) | 0.419 / 0.388 | 1.066 / 1.138 |
+| Ninguna (café de siempre) (reservado) | 0.472 / 0.465 | 1.272 / 1.354 |
+| Árboles de hoja perenne (prueba) | 0.193 / 0.227 | 0.794 / 0.885 |
+| Árboles de hoja perenne (reservado) | 0.165 / 0.204 | 0.902 / 1.000 |
+| Árboles de hoja caduca (prueba) | 0.810 / 0.822 | 1.661 / 1.730 |
+| Árboles de hoja caduca (reservado) | 0.863 / 0.925 | 1.758 / 1.810 |
+
+Los escenarios originales son los mismos de siempre (6,480 filas con entradas y resultados idénticos a `coffee_table.json`; la prueba lo comprueba). Pero la red v3 es una red nueva entrenada con seis sistemas y no la v1: en esas filas gana un poco al proteger el cultivo y al ahorrar agua con los dos tipos de árboles, y pierde un poco en el café sin sombra al ahorrar agua (0.388 contra 0.419 en la prueba; entre las tres semillas de la v3 ese valor va de 0.337 a 0.446). La diferencia es de la red, no de los escenarios.
+
+### Lo que el modelo sigue sin representar
+
+- **La luz** que llega al café bajo el dosel del banano (eje 1 del asesor) y el **microclima** (eje 2; la temperatura y el viento no cambian con el banano en el simulador). El asesor habla de que el banano amortigua la temperatura máxima 1.5 a 3 °C; eso no entra.
+- La **redistribución de lluvia por el pseudotallo** (impluvio y escurrimiento caulinar).
+- El **flujo de caja** del banano (venta de racimos), que es parte de la razón por la que se asocia.
+- La **profundidad de raíz**: 1.2 m en el simulador contra 1.0 m en la auditoría. Se igualó el agua disponible (TAW 130.7 mm) en la comparación, no la profundidad.
+- Los **parámetros** (Kc compuesto y p de las clases) son valores de referencia de FAO-56 que el propio asesor dice que necesitan confirmación de campo (`auditorias/.../fuentes/evidencia_bibliografica.json`, «faltantes»). La etiqueta **provisional** se mantiene en el sentido de que no hay una medición en cafetales de Guatemala.
+- La clase «regulado» es una clase de manejo con mulch, **no una fracción de cobertura**: la «sombra 35–45 %» es luz interceptada y no se convierte a macollas por hectárea (no hay esa conversión en ningún archivo).
+
+### La versión anterior queda archivada
+
+La fórmula por cobertura (la tarea 38 y su verificación de la tarea 40) no se borró ni se cambió: `bananaCover`, `web/data/coffee_eval_v2.json`, `web/data/coffee_ptc_mlp_v2.json` y `web/data/banana_audit_check.json` siguen byte por byte como estaban, como versión provisional archivada. Lo nuevo es todo `_v3`. La app debe usar la v3.
+
+**Cómo reproducir esta sección.**
+
+```bash
+node scripts/coffee/verify_banana_audit.mjs                            # congruencia: escribe banana_audit_check.json (igual que antes) y banana_audit_check_v3.json
+node scripts/coffee/scenarios_v3.mjs                                   # tabla con los seis sistemas (3 s; no toca coffee_table.json ni coffee_table_v2.json)
+PYTHONPATH=scripts/emulator C:/Users/velas/venv_lab4/Scripts/python.exe scripts/coffee/ptc_mlp_v3.py   # entrena 17, 29, 43 y exporta coffee_ptc_mlp_v3.json
+node scripts/coffee/evaluate_v3.mjs                                    # coffee_eval_v3.json
 ```
