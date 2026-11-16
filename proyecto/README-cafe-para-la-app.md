@@ -256,3 +256,14 @@ Son prácticas de ingeniería, no salen de una fuente:
 - Paquetes: [`tflite_flutter`](https://pub.dev/packages/tflite_flutter), [`flutter_litert`](https://pub.dev/packages/flutter_litert), [`flutter_onnxruntime`](https://pub.dev/packages/flutter_onnxruntime), [`onnxruntime`](https://pub.dev/packages/onnxruntime) (sin actualizar desde hace unos dos años), [`executorch_flutter`](https://pub.dev/packages/executorch_flutter) (muy reciente).
 
 No se pudo leer la documentación de exportación a ONNX de PyTorch ni se verificó cuánto pesa ONNX Runtime en el APK. No se confirmó en la documentación que `rootBundle` lea recursos reales bajo `flutter test`.
+
+
+---
+
+# Sombra de banano y red de riego versión 2 (provisional)
+
+- En `web/js/model/coffee.js` hay un tercer tipo de sombra, `banana`, con un dato que declara el agricultor: la parte del terreno que cubre el banano (`bananaCover`, de 0 a 1).
+- **Es un supuesto, no una medida**: evaporación del suelo como con árboles, consumo del banano con el coeficiente de FAO-56 para una plantación (1.10) por la cobertura, y el banano deja de consumir cuando el suelo se seca (umbral 0.35 de FAO-56).
+- Con ese supuesto el banano **no sale beneficiando** al cafetal en agua, lo que choca con la única medición encontrada (Uganda). Lo más probable es que el supuesto sobrestime el consumo del banano disperso. El detalle está en `proyecto/resultados-modelo-keu.md`, sección «Sombra de banano (supuesto provisional) y paridad entre algoritmo y simulador».
+- La red de riego que incluye el banano es `web/data/coffee_ptc_mlp_v2.json`: mismas 16 entradas de antes más `banana` (0 o 1) y `bananaCover`; mismo formato y misma forma de decidir que `coffee_ptc_mlp.json` (`predecirCapas(red, x)[0] > precio`). En los escenarios sin banano rinde casi igual que la versión 1.
+- Para la app: si se agrega el campo de sombra a la plantación, conviene ofrecer «banano» como opción y guardar el dato, pero **mostrar el efecto del banano con la etiqueta de provisional** o no mostrarlo, hasta tener una medición.

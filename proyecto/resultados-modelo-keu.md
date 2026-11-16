@@ -2079,3 +2079,78 @@ node scripts/factors/loss_constraints.mjs            # pérdida del maíz: canRe
 node scripts/factors/coffee_notices.mjs              # café: regla del aviso de antracnosis (~20 s)
 node scripts/factors/build_eval.mjs                  # junta todo en web/data/factors_eval.json
 ```
+
+
+## Sombra de banano (supuesto provisional) y paridad entre algoritmo y simulador
+
+15 de noviembre de 2026. Todos los números salen de `web/data/coffee_eval_v2.json` y `web/data/parity.json`. **El banano entra como supuesto provisional, no como dato medido**: la investigación no pudo leer en texto completo ningún estudio con mediciones de banano disperso como sombra de café (notas: `research_notes/sombra-banano.md`, fuera del repositorio).
+
+### Qué se supuso para el banano
+
+Es un tercer tipo de sombra (`banana`) con un dato que declara el agricultor: la parte del terreno que cubre el banano (`bananaCover`, de 0 a 1). Los escenarios usan 0.15 y 0.30; esos dos valores son convención.
+
+| Supuesto | De dónde sale |
+|---|---|
+| El suelo evapora 0.52 mm menos por día en la época de lluvias (mayo–octubre), igual que con árboles | Padovan et al. 2018 (Nicaragua, árboles maderables): se toma prestado para el banano |
+| El banano consume `cobertura × 1.10 × ET₀` cada día | FAO-56, cuadro 12, banano de segundo año (Kc 1.00 / 1.20 / 1.10), que vale para una plantación entera, no para matas dispersas |
+| **El banano deja de consumir cuando el suelo se seca**: ese consumo se multiplica por el coeficiente de estrés de FAO-56 con el umbral propio del banano (p = 0.35); empieza a frenar antes que el café (p = 0.40) | FAO-56, cuadro 22. Recoge la observación del equipo de que el banano guarda agua en sus tejidos y se retira en la sequía |
+
+No se modela que el banano le entregue agua al café: no hay fuente.
+
+### Qué le hace el supuesto al agua del cafetal
+
+Días con estrés hídrico del café (Ks < 1), promedio de todos los sitios, suelos y años 2001–2024, sin riego:
+
+| Sombra | Cuaje y crecimiento del fruto (0–90 días tras la floración) | Llenado del grano (91–120 días) | Época seca (nov–abr) | Próximos 30 días tras el día de decisión |
+|---|---|---|---|---|
+| Sin sombra | 41.3 | 6.6 | 153.9 | 5.67 |
+| Árboles de hoja perenne | 39.3 | 5.3 | 155.0 | 4.76 |
+| Árboles de hoja caduca | 46.0 | 9.6 | 157.4 | 8.44 |
+| Banano, cobertura 0.15 | 41.8 | 7.1 | 158.8 | 6.03 |
+| Banano, cobertura 0.30 | 45.9 | 9.7 | 163.6 | 8.50 |
+| *Banano 0.15 sin el freno por suelo seco* | *42.7* | *7.3* | *158.9* | *6.30* |
+| *Banano 0.30 sin el freno por suelo seco* | *47.4* | *10.2* | *163.8* | *9.00* |
+
+**Lectura, sin adornos:** con este supuesto el banano **no beneficia** al cafetal en agua. Con poca cobertura (0.15) queda casi igual que sin sombra y con mucha (0.30) queda como los árboles de hoja caduca, que son los que más compiten. El freno por suelo seco ayuda poco (de 9.00 a 8.50 días con cobertura 0.30).
+
+**Esto choca con lo que se esperaba y con la única medición encontrada.** El resumen de Sarmiento-Soler et al. 2019 (Monte Elgón, Uganda) dice que la humedad del suelo bajó 6 % bajo banano frente a 59 % bajo árboles de Cordia: el banano real compite mucho menos de lo que sale aquí. La causa más probable es el segundo supuesto: el coeficiente de FAO-56 es para una plantación de banano bien regada y sobrestima lo que consumen matas dispersas. Por eso este resultado **no es una conclusión sobre el banano**; es el límite del supuesto. El modelo además solo ve agua: no ve el efecto de la sombra sobre la temperatura del cafetal (unos 4 °C menos de máxima en ese estudio) ni la cosecha extra de banano.
+
+### La red de riego con banano (predecir y luego elegir, versión 2)
+
+Red de 18 entradas (las 16 de antes más `banana` y `bananaCover`), semillas 17, 29 y 43; pesos de la mejor en validación en `web/data/coffee_ptc_mlp_v2.json`. Utilidad media en años nuevos 2019–2024 (más alto es mejor; media de las tres semillas):
+
+| Escenarios | Casos | Red, «ahorrar agua» | Regla | Red, «proteger el cultivo» | Regla |
+|---|---|---|---|---|---|
+| Originales (sin banano) | 1,620 | 0.46 | 0.04 | 1.23 | 0.82 |
+| Sin sombra | 540 | 0.40 | 0.10 | 1.13 | 0.88 |
+| Árboles de hoja perenne | 540 | 0.19 | −0.09 | 0.88 | 0.69 |
+| Árboles de hoja caduca | 540 | 0.79 | 0.10 | 1.68 | 0.88 |
+| Banano 0.15 | 540 | 0.45 | 0.08 | 1.20 | 0.86 |
+| Banano 0.30 | 540 | 0.77 | 0.13 | 1.66 | 0.91 |
+
+La red supera a la regla en todos los tipos de sombra. En los escenarios originales, la versión 2 rinde casi igual que la versión 1: 0.46 frente a 0.47 con prioridad «ahorrar agua» y 1.23 frente a 1.17 con «proteger el cultivo» (media de las tres semillas de cada una). Agregar el banano no dañó lo que ya había.
+
+### Paridad: ¿todo lo que usa el algoritmo también mueve al simulador?
+
+Se revisaron una por una las entradas de las tres redes que el equipo conserva (`web/data/parity.json`): la de siete cultivos (47 entradas), la de riego de café con banano (18) y la alineada con la app (40).
+
+- **Entradas de las redes:** todas mueven al simulador o resumen cosas que lo mueven, con una excepción: la longitud en la red alineada con la app, que el motor de la app no usa. La altura (y la latitud en la app) lo mueven muy poco, solo a través de la demanda de agua (+900 m es +0.7 % de ET₀).
+- **El banano** mueve al simulador, pero por un supuesto provisional, no por una medida.
+
+Lo que el algoritmo toma en cuenta **y el simulador no ve**:
+
+| Qué | Cómo actúa en el algoritmo | ¿El simulador responde? |
+|---|---|---|
+| Prioridad del agricultor | Criterio para elegir (cambia el precio de regar o el criterio de riesgo) | No |
+| Aviso de antracnosis por estrés | Sube la prioridad a «proteger el cultivo» | No (el aviso sale del estrés que el simulador calcula, pero no hay daño por la enfermedad) |
+| Poder resembrar, tener riego | Condición declarada que limita las opciones | No |
+| Clase de fertilidad declarada | Multiplica el rendimiento; no cambia qué opción se elige | Solo como multiplicador genérico |
+| Plaga observada, avisos de roya y minador, aviso de abono, precios | Se muestran junto a la recomendación | No |
+
+Es decir: la paridad se cumple para el agua, el suelo, el cultivo, las fechas y la sombra. **No se cumple para plagas, abono, dinero ni capacidad de resembrar**, porque para esos no existe un número publicado con el que el simulador pueda responder.
+
+### Qué haría falta para reemplazar el supuesto del banano
+
+- El texto completo de Sarmiento-Soler et al. 2019 (*Agricultural and Forest Meteorology* 266–267:231–242) con la densidad de banano de sus parcelas y el consumo por estación.
+- Alguna medición de Centroamérica (Anacafé, CATIE) de agua en el suelo o consumo del banano intercalado.
+- La densidad real de siembra de banano como sombra en Guatemala, para convertir matas por manzana en cobertura.
