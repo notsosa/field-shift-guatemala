@@ -72,6 +72,8 @@ No cambia el Kc del café ni la temperatura (no hay fuente para eso).
 
 **En la app:** hace falta un campo nuevo en `Plantacion` (por ejemplo `sombra`: ninguna / perenne / caduca, solo para café) y aplicar los dos ajustes a `etc` dentro de `simularBalance`.
 
+**Banano como sombra (PROVISIONAL, no medido).** `plotAdjust(dates, 'trees', 'banana', { bananaCover })` agrega un tipo de sombra nuevo: la misma reducción de evaporación de 0.52 mm/día en lluvias y un gasto de agua del banano de `bananaCover × 1.10 × ET0 × KsBanana` (p = 0.35, FAO-56 Tablas 12 y 22), calculado dentro del balance diario (`plotAdjust.addFn` en `simulateDays`). `bananaCover` es la fracción del suelo cubierta por copa de banano que declara el agricultor; 0.15 y 0.30 son convenciones. **No hay medida de banano disperso**: es un supuesto, y el único estudio de campo (Uganda, solo resumen) sugiere que el banano real compite menos por agua. La red que lo incluye es `web/data/coffee_ptc_mlp_v2.json` (18 entradas: las 16 de siempre más `banana` y `bananaCover`; mismo formato; el campo `provisional` lo dice); la red de arriba, `coffee_ptc_mlp.json`, sigue igual. Si la app muestra algo con banano, tiene que decir que es un supuesto. Detalle, tablas y qué haría falta para reemplazarlo: `proyecto/resultados-modelo-keu.md`, sección «Sombra de banano (supuesto provisional) y paridad entre algoritmo y simulador».
+
 ## 3. Floración
 
 `floweringFor(dates, rain, F)`: el primer día entre el 15 de febrero y el 30 de abril del año `F` con lluvia de 10 mm o más; la floración es 9 días después. Si no hubo ese día, se usa el 9 de mayo y se marca `noTrigger`. Las ventanas sensibles después de la floración son los días 0–90 (cuaje y crecimiento del fruto) y 91–120 (llenado del grano).

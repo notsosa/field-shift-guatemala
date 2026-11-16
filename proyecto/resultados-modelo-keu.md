@@ -2154,3 +2154,144 @@ Es decir: la paridad se cumple para el agua, el suelo, el cultivo, las fechas y 
 - El texto completo de Sarmiento-Soler et al. 2019 (*Agricultural and Forest Meteorology* 266–267:231–242) con la densidad de banano de sus parcelas y el consumo por estación.
 - Alguna medición de Centroamérica (Anacafé, CATIE) de agua en el suelo o consumo del banano intercalado.
 - La densidad real de siembra de banano como sombra en Guatemala, para convertir matas por manzana en cobertura.
+
+## Sombra de banano (supuesto provisional) y paridad entre algoritmo y simulador
+
+**Aviso por delante.** La sombra de banano que sigue es un **supuesto provisional**. No hay ninguna medida del uso de agua del banano disperso como sombra del café que pudiéramos usar (en las notas, `research_notes/sombra-banano.md`, ningún artículo se leyó completo). Los números de esta sección dicen qué hace **el supuesto** dentro del simulador y de la red; no dicen qué hace un platanar de verdad en un cafetal. Todo es opcional: sin banano, el simulador da lo mismo que antes y `coffee_eval.json`, `coffee_ptc_mlp.json` y `coffee_recommender.json` no cambiaron (las filas de las tres sombras originales de la tabla nueva salen idénticas a las de la anterior: 6,480 filas, diferencia máxima 0). Los números salen de `web/data/coffee_eval_v2.json`, `web/data/coffee_ptc_mlp_v2.json` y `web/data/parity.json`.
+
+### Los dos supuestos y de dónde salen
+
+La entrada que declara el agricultor es `bananaCover`: la fracción del suelo del lote cubierta por la copa del banano (0 a 1). **0.15 y 0.30 son convenciones de los escenarios**, no medidas.
+
+1. **Menos evaporación del suelo.** Igual que los otros árboles: 0.52 mm/día menos en la estación de lluvias (mayo a octubre) y nada en la seca (Padovan et al. 2018, Nicaragua, un solo sitio). Con `bananaCover = 0` no hay banano y no hay recorte. El recorte **no** crece con la cobertura: es el mismo valor para 0.15 y 0.30 (una sola medida, con una sombra de 57 % de la irradiancia).
+2. **Agua que gasta el banano.** Cada día se suma al lote `bananaCover × 1.10 × ET0 × KsBanana`. El 1.10 es el Kc de FAO-56 Tabla 12 para banano de segundo año (retoño) al final de temporada (la tabla da 1.00, 1.20 y 1.10; elegir el 1.10 es convención). `KsBanana` es el coeficiente de estrés de FAO-56 con **la p propia del banano, 0.35** (Tabla 22): vale 1 mientras el agotamiento de la zona radicular no pase de 0.35 del agua disponible y baja en línea recta hasta 0 cuando el suelo se agota. La idea del dueño, que esto codifica: el banano guarda agua en sus tejidos y se apaga pronto cuando el suelo se seca, así que en una sequía deja de gastar en vez de competir con el café (la p del café es 0.40, el banano se retira primero). **No** se modela que el banano le dé agua al café (no hay fuente), solo que deja de consumir. Estas cifras son de plantación completa de banano, no de plantas dispersas como sombra.
+
+Como el gasto depende del estado del suelo de ese día, se calcula **dentro** del bucle diario (`simulateDays`, opción `plotAdjust.addFn`; los arreglos constantes de antes siguen funcionando). Como en los otros árboles, el Ks del café se aplica a la demanda completa del lote, banano incluido; y la razón ETa/ETc de las tablas usa el ETc del lote, que con banano incluye el gasto del banano.
+
+**Tensión con el único estudio de campo.** Sarmiento-Soler et al. 2019 (Monte Elgón, Uganda; solo se leyó el resumen) vieron que la humedad del suelo bajó **6 %** bajo banano frente a **59 %** bajo árboles de *Cordia*. Eso sugiere que el banano real compite **menos** por agua que este supuesto, que lo trata casi como un árbol deciduo cuando la cobertura es 0.30 (abajo se ve: el estrés con banano 0.30 es prácticamente el del deciduo). Es una tensión que no se resolvió: el estudio es de otro país, de otra densidad (no la encontramos) y solo lo leímos en resumen. El supuesto puede sobreestimar la competencia por agua.
+
+### Variante sin KsBanana (sensibilidad)
+
+Para ver qué pone en el resultado la elección de que el banano se apague, se corrió también la variante en que el banano gasta igual con el suelo seco. Va aparte, con la misma red v2 juzgada por ese simulador. En días de estrés casi no cambia (abajo), porque en la estación seca el café ya está en estrés casi todos los días; donde sí se nota es en ETa/ETc.
+
+### Resultados por tipo de sombra
+
+Casos de prueba 2019–2024: 540 por tipo de sombra (10 sitios de 900 m o más × 3 suelos × 6 años × 3 días de decisión). Utilidad media de la red v2 (media de las semillas 17, 29 y 43) y de la regla FAO-56; más alto es mejor. La regla riega en 211 de 540 casos en todos los tipos, porque su balance corrido no ve la sombra.
+
+**Años nuevos 2019–2024**
+
+| Sombra | Ahorrar agua: red / regla / riegos de 540 | Proteger el cultivo: red / regla / riegos de 540 |
+|---|---|---|
+| Ninguna | 0.402 / 0.096 / 157 | 1.133 / 0.878 / 245 |
+| Siempreverde | 0.190 / −0.087 / 145 | 0.882 / 0.694 / 226 |
+| Deciduo | 0.790 / 0.100 / 193 | 1.681 / 0.881 / 289 |
+| Banano 0.15 | 0.448 / 0.081 / 170 | 1.204 / 0.863 / 262 |
+| Banano 0.30 | 0.771 / 0.128 / 188 | 1.656 / 0.909 / 285 |
+| Banano 0.15, sin KsBanana | 0.413 / 0.122 / 193 | 1.230 / 0.904 / 268 |
+| Banano 0.30, sin KsBanana | 0.700 / −0.011 / 215 | 1.613 / 0.770 / 292 |
+
+**Años reservados 2022–2024** (270 por tipo)
+
+| Sombra | Ahorrar agua: red / regla / riegos de 270 | Proteger el cultivo: red / regla / riegos de 270 |
+|---|---|---|
+| Ninguna | 0.438 / −0.085 / 85 | 1.311 / 0.893 / 142 |
+| Siempreverde | 0.101 / −0.300 / 85 | 0.977 / 0.678 / 131 |
+| Deciduo | 0.859 / −0.144 / 104 | 1.778 / 0.833 / 162 |
+| Banano 0.15 | 0.547 / −0.081 / 95 | 1.426 / 0.896 / 151 |
+| Banano 0.30 | 0.832 / −0.093 / 103 | 1.821 / 0.885 / 162 |
+| Banano 0.15, sin KsBanana | 0.522 / −0.044 / 110 | 1.448 / 0.933 / 154 |
+| Banano 0.30, sin KsBanana | 0.704 / −0.263 / 123 | 1.704 / 0.715 / 164 |
+
+Lo que se ve: con banano, la red sigue ganándole a la regla en todos los tipos y en ambas prioridades. Pero **esa utilidad es del supuesto**: la red aprendió lo que el simulador dice del banano, y el simulador dice lo que el supuesto le manda. Que la red "funcione con banano" no valida el banano. Con 0.30 la red se parece a la del deciduo; con 0.15, a la de sin sombra con un poco más de estrés.
+
+**Estrés del simulador sin riego** (días con Ks < 1; media sobre sitios, suelos y años cafetaleros). Cuajado = 90 días tras la floración; llenado = días 91 a 120; seca = noviembre a abril (181 días).
+
+2001–2024 (720 combinaciones por tipo)
+
+| Sombra | Días de estrés: cuajado | llenado de grano | estación seca | ETa/ETc: cuajado | llenado | seca |
+|---|---|---|---|---|---|---|
+| Ninguna | 41.3 | 6.6 | 153.9 | 0.741 | 0.934 | 0.334 |
+| Siempreverde | 39.3 | 5.3 | 155.0 | 0.742 | 0.951 | 0.323 |
+| Deciduo | 46.0 | 9.6 | 157.3 | 0.725 | 0.893 | 0.319 |
+| Banano 0.15 | 41.8 | 7.1 | 158.8 | 0.746 | 0.933 | 0.320 |
+| Banano 0.30 | 45.9 | 9.7 | 163.6 | 0.739 | 0.902 | 0.302 |
+| Banano 0.15, sin KsBanana | 42.7 | 7.3 | 158.9 | 0.720 | 0.925 | 0.290 |
+| Banano 0.30, sin KsBanana | 47.4 | 10.2 | 163.8 | 0.690 | 0.883 | 0.250 |
+
+2019–2024 (los mismos, solo años de prueba; 180 por tipo)
+
+| Sombra | Días de estrés: cuajado | llenado de grano | estación seca | ETa/ETc: cuajado | llenado | seca |
+|---|---|---|---|---|---|---|
+| Ninguna | 39.5 | 3.8 | 145.1 | 0.751 | 0.973 | 0.366 |
+| Siempreverde | 37.7 | 2.5 | 146.8 | 0.752 | 0.984 | 0.353 |
+| Deciduo | 44.3 | 7.8 | 148.0 | 0.734 | 0.938 | 0.354 |
+| Banano 0.15 | 40.0 | 4.4 | 150.6 | 0.759 | 0.971 | 0.351 |
+| Banano 0.30 | 44.3 | 8.0 | 156.0 | 0.754 | 0.943 | 0.335 |
+| Banano 0.15, sin KsBanana | 40.8 | 4.6 | 150.7 | 0.732 | 0.967 | 0.319 |
+| Banano 0.30, sin KsBanana | 45.8 | 8.5 | 156.2 | 0.704 | 0.930 | 0.279 |
+
+Los días de estrés evitables por un riego de 20 mm (media de los 540 casos de prueba por tipo, 30 días siguientes sin riego): ninguna 1.75, siempreverde 1.44, deciduo 2.47, banano 0.15 1.86, banano 0.30 2.48, y sin KsBanana 1.91 y 2.44.
+
+Dos cosas honestas sobre estas tablas. (1) La estación seca sale con 145 a 164 días de estrés de 181 aun sin sombra: el simulador del café no tiene riego ni agua de fondo, así que el banano casi no puede empeorar eso, y `KsBanana` casi no se nota en días de estrés (cuajado 45.9 con él y 47.4 sin él, a 0.30). (2) La diferencia entre tipos es pequeña frente a esa base; no se calculó incertidumbre entre sitios o suelos más allá de lo mostrado.
+
+### Red v1 contra red v2 en los escenarios originales
+
+Mismas 1,620 filas de prueba (sin banano: ninguna, siempreverde, deciduo); v1 es `coffee_eval.json`. Media de las tres semillas; entre paréntesis, el mínimo y el máximo entre semillas.
+
+| Prioridad | v1 | v2 | Diferencia | Riegos de 1,620: v1 → v2 |
+|---|---|---|---|---|
+| Ahorrar agua (años 2019–2024) | 0.474 (0.420 a 0.523) | 0.460 (0.450 a 0.478) | −0.014 | 443 → 495 |
+| Proteger el cultivo (2019–2024) | 1.174 (1.022 a 1.276) | 1.232 (1.217 a 1.246) | +0.058 | 984 → 760 |
+| Ahorrar agua (reservados 2022–2024, 810) | 0.500 | 0.466 | −0.034 | 242 → 273 |
+| Proteger el cultivo (reservados) | 1.311 | 1.355 | +0.044 | 528 → 435 |
+
+Por sombra, en 2019–2024 (ahorrar agua / proteger): ninguna 0.419 → 0.402 / 1.066 → 1.133; siempreverde 0.193 → 0.190 / 0.794 → 0.882; deciduo 0.810 → 0.790 / 1.661 → 1.681. **Agregar banano no cambió nada que se distinga de la variación entre semillas**: las diferencias (−0.014 y +0.058) caen dentro del rango entre semillas de v1. El cambio de cuántas veces riega (más con ahorrar agua, menos con proteger) podría ser también variación entre entrenamientos; no se probó con más semillas.
+
+La red v2 exportada (semilla 29, la de menor pérdida de validación) tiene utilidad media sobre las cinco sombras de 0.503 (ahorrar) y 1.300 (proteger) en 2,700 casos de prueba, y 0.544 y 1.445 en 1,350 reservados. Para comparar con v1 hay que usar las tablas por sombra, no estos agregados, porque v2 incluye casos de banano. `mlpPredict` reproduce a PyTorch con diferencia menor de 1e-5 en 50 casos guardados (`tests/coffee_ptc_v2.test.mjs`).
+
+### Paridad: qué toma cada red y si el simulador responde
+
+Cada entrada de las tres redes que el equipo conserva se clasificó leyendo el código. Clase 1: mueve el simulador directamente (clima, suelo, cultivo, fechas, sombra). Clase 2: resumen derivado de cosas que mueven el simulador, o salida del propio simulador hasta hoy. Clase 3: no tiene efecto en el simulador. La lista completa, entrada por entrada con su razón, está en `web/data/parity.json` (el guion `scripts/parity/build_parity.mjs` falla si falta o sobra una).
+
+| Red | Entradas | Clase 1 | Clase 2 | Clase 3 |
+|---|---|---|---|---|
+| Predictor de siete cultivos v3 (`emulator_v3_mlp.json`) | 47 | 21 | 26 | 0 |
+| Café predecir-y-elegir v2 (`coffee_ptc_mlp_v2.json`) | 18 | 6 | 12 | 0 |
+| Red alineada con la app (`app_mlp.json`) | 40 | 15 | 24 | 1 |
+
+- **Siete cultivos v3.** Clase 1: `sowDoyA`, `offset30` (siembra), `A_*` y `B_*` de cultivo (incluida `B_none`), `soil_*` y `elevation`. Clase 2: las sumas de lluvia y ET0 (`rainMJJ`, `rainASO`, `rainYear`, `caniculaDays`, `et0MeanMO`, `tmeanMO`, `rain0to60`, `et0_0to60`, `rain61to150`, `et0_61to150`) y las ocho por cultivo (`rainPre30`, `et0Pre30`, `apiFlower`, `storeProxy`, `rainFlower`, `deficitFlower`, `cycleDays`, `daysLeft`) para A y B. Ninguna sin efecto. El archivo `emulator_v3_mlp.json` no trae `inputNames`; los nombres son los de `FEATURE_NAMES_V3`, el orden con que se generaron las muestras.
+- **Café v2.** Clase 1: `doy`, `shadeTrees`, `deciduous`, `banana`, `bananaCover` (estas dos, por el supuesto provisional) y `elevation` (solo por la ET0). Clase 2: las sumas y medias de clima, `daysSinceFlowering`, `runningDepletion` (una cuenta acotada simple, no el Dr del simulador) y `soilAWmm` (TAW). Ninguna sin efecto.
+- **Red alineada con la app.** Clase 1: `lat`, `cellElevation`, fecha de siembra y de hoy (seno y coseno), cultivo, `cycleDays`, `soilAvailableWater`, `kcMid`, `rootDepth`, `p`, `ky`. Clase 2: etapa, fracción del ciclo, `reserve`, `depletionOverTaw`, `ks`, `factorSoFar`, días de estrés, sumas de lluvia y ET0, `longestDrySpell28`, temperaturas, `cropNeed7` (varias son salidas del propio motor de la app hasta hoy). **Clase 3: `lon`.** El motor de la app calcula la ET0 solo con latitud y elevación y el clima ya viene descargado: la longitud no mueve nada; solo identifica el punto de donde se bajó el clima.
+- **`elevation`, `lat` y `cellElevation`** mueven el simulador solo por la ET0 y poco: subir 900 m la elevación de Jutiapa sube la ET0 media 0.7 %. Y con la ET0 ya calculada, cambiar solo la elevación no mueve el balance.
+
+**Información que el algoritmo usa al decidir y que no es entrada de la red**
+
+| Dato | Cómo actúa | ¿Responde el simulador? |
+|---|---|---|
+| Prioridad (ahorrar agua / proteger; café) | Criterio de elección: fija el precio de regar (3 o 1 días de estrés). La regla del aviso de antracnosis por estrés la sube a "proteger" | No: el simulador solo da los días de estrés evitados; la prioridad solo cambia el precio con que se juzga |
+| `canResow` (puedo resembrar) | Restricción declarada: con falso solo queda dejar el campo | No: se aplica al elegir |
+| `hasIrrigation` / tipo de riego | Restricción declarada | No: se declara y se muestra; el simulador tiene modos de riego, pero esta bandera no los cambia |
+| Clase de fertilidad | Multiplicador declarado del rendimiento (AquaCrop tabla 2.13a) | Sí, con la opción `factors.fertilityClass` (apagada por defecto); la red no la ve y no se reentrenó: la decisión multiplica las predicciones |
+| Calor en floración (maíz, tomate) | Opción del simulador | Sí, con `factors.heat` (apagada por defecto); ninguna red lo toma como entrada |
+| Nivel de plaga declarado y avisos de roya, minador, antracnosis | Solo aviso | No: no hay función de daño con fuente |
+| Momento del abono | Solo aviso (ventanas de Anacafe y suelo húmedo) | No |
+| Precios MAGA | Solo registro | No: no se calcula margen |
+| Pendiente, modo de riego, tipo de sucesión | Entradas del simulador que el predictor v3 no toma (se entrenó con pendiente plana y sin riego) | Sí, pero la red no las ve |
+
+**Lo que el algoritmo muestra y el simulador no responde, dicho sin rodeos:** `lon` de la red de la app; la prioridad (cambia la decisión, no el simulador); `canResow` y `hasIrrigation` declarados; el nivel de plaga y los avisos de plagas; el aviso de abono; y los precios. Además, `banana` y `bananaCover` hacen responder al simulador, pero solo por el supuesto provisional. Entre las entradas de las tres redes, solo `lon` no mueve el simulador.
+
+### Qué haría falta para cambiar el supuesto por una medida
+
+1. El **texto completo** de Sarmiento-Soler et al. 2019 (Agric. For. Meteorol. 266-267:231-242, doi:10.1016/j.agrformet.2018.12.006): transpiración del banano por planta, estacionalidad y densidad de banano de las parcelas. Hoy solo hay el resumen, y la conversión de litros por planta a milímetros no se puede hacer sin la densidad (con 250 plantas/ha, 3.1 L/planta/día serían 0.078 mm/día; con 1,000, 0.31, según la cuenta ilustrativa de las notas; la unidad del resumen no está confirmada). Si fuera así, estarían muy por debajo de lo que el supuesto da con cobertura 0.15 o 0.30 (con ET0 de 4 mm/día: 0.66 y 1.32 mm/día en suelo húmedo), lo que apunta otra vez a que el supuesto puede estar alto.
+2. La **densidad de banano** en cafetales de Guatemala o Centroamérica (plantas por manzana y qué cobertura de copa da). No se encontró en Anacafé ni en CATIE; solo Cenicafé (Colombia) da 250 a 350 plantas por hectárea de plátano.
+3. Cualquier **medición centroamericana** de humedad del suelo, flujo de savia o rendimiento bajo banano en café, y de cuánto reduce la evaporación del suelo (el recorte de 0.52 mm/día es de un cafetal con árboles en Nicaragua, no de banano).
+4. Una medida de si el banano **se apaga** con el suelo seco en condiciones de cafetal (la p de 0.35 es de plantación completa).
+
+**Cómo reproducir esta sección.**
+
+```bash
+node scripts/coffee/scenarios_v2.mjs                                   # tabla con banano (2 s; no toca coffee_table.json)
+PYTHONPATH=scripts/emulator C:/Users/velas/venv_lab4/Scripts/python.exe scripts/coffee/ptc_mlp_v2.py   # entrena 17, 29, 43 y exporta coffee_ptc_mlp_v2.json
+node scripts/coffee/evaluate_v2.mjs                                    # coffee_eval_v2.json
+node scripts/parity/build_parity.mjs                                   # parity.json
+```
