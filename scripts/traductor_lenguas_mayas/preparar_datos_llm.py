@@ -11,7 +11,7 @@ Salida
   datos/lenguas_mayas/pretraining/llm/estadisticas_sft.json
 
 Tareas generadas
-  traducir_es_maya / traducir_maya_es   palabras y frases de los diccionarios (ambas direcciones)
+  traducir_es_maya / traducir_maya_es   palabras de los diccionarios y oraciones de MayanV (ambas direcciones)
   continuar_maya                        continuar un texto en lengua maya (prosa del corpus)
   parrafo_maya                          escribir un párrafo libre en una lengua maya
   explicar_es                           explicar en español qué significa una palabra maya
@@ -134,6 +134,27 @@ def pares_md():
                     yield lang, variante, es, "diccionarios/" + fname
 
 
+MAYANV = {"quc": "kiche", "kek": "qeqchi", "mam": "mam"}     # MayanV no incluye kaqchikel
+
+
+def pares_mayanv():
+    """(lang, maya, español, fuente, split) del corpus MayanV (Universitat d'Alacant, NAACL 2024; empaquetado CC0,
+    textos de publicaciones de la ALMG): oraciones cortas, no palabras sueltas.
+    git clone https://github.com/transducens/mayanv datos/lenguas_mayas/pretraining/raw_paralelo/mayanv"""
+    raiz = CORPUS / "raw_paralelo" / "mayanv" / "MayanV"
+    for cod, lang in MAYANV.items():
+        for split in ("train", "dev", "test"):
+            f_maya, f_es = raiz / cod / split / f"data.{cod}", raiz / cod / split / "data.es"
+            if not f_maya.exists():
+                continue
+            mayas = f_maya.read_text(encoding="utf-8").splitlines()
+            ess = f_es.read_text(encoding="utf-8").splitlines()
+            for m, es in zip(mayas, ess):
+                m, es = norm(m), norm(re.sub(r"^#\w+#\s*", "", es))      # el español trae la etiqueta "#quc# "
+                if m and es and len(m) <= 300 and len(es) <= 300:
+                    yield lang, m, es, f"mayanv:{split}", split
+
+
 # ------------------------------------------------------------------ prosa
 def fragmentos_prosa(lang, rng, max_chars=700):
     docs = []
@@ -166,6 +187,8 @@ def main():
     ap.add_argument("--parrafo-por-lengua", type=int, default=400)
     ap.add_argument("--identificar-por-lengua", type=int, default=300)
     ap.add_argument("--repetir-md", type=int, default=3, help="sobremuestreo de los pares verificados")
+    ap.add_argument("--repetir-mayanv", type=int, default=2, help="sobremuestreo de las oraciones de MayanV")
+    ap.add_argument("--eval-mayanv-por-lengua", type=int, default=50, help="oraciones de MayanV/test para evaluar")
     ap.add_argument("--seed", type=int, default=42)
     a = ap.parse_args()
     rng = random.Random(a.seed)
@@ -174,13 +197,13 @@ def main():
     vistos = set()
     n_eval = Counter()
 
-    def agregar_par(lang, maya, es, fuente, peso=1):
+    def agregar_par(lang, maya, es, fuente, peso=1, puede_eval=True):
         k = (lang, maya.lower(), es.lower())
         if k in vistos:
             return
         vistos.add(k)
         L = LENGUAS[lang]
-        if not fuente.startswith("diccionarios/"):            # los pares verificados siempre van a train
+        if puede_eval and not fuente.startswith("diccionarios/"):   # los pares verificados siempre van a train
             if en_eval(lang, maya.lower(), a.frac_eval) and n_eval[lang] < a.max_eval_por_lengua:
                 n_eval[lang] += 1
                 evalset.append({"origen": "es", "destino": lang, "texto": es, "referencia": maya, "fuente": fuente})
@@ -201,6 +224,22 @@ def main():
         agregar_par(lang, maya, es, fuente, peso=a.repetir_md)
     for lang, maya, es, fuente in pares_web():
         agregar_par(lang, maya, es, fuente)
+
+    # MayanV: train + dev para entrenar; test nunca se entrena (así las cifras son comparables con el artículo)
+    n_ev_mv = Counter()
+    for lang, maya, es, fuente, split in pares_mayanv():
+        if split == "test":
+            k = (lang, maya.lower(), es.lower())
+            if k not in vistos and n_ev_mv[lang] < a.eval_mayanv_por_lengua and rng.random() < 0.2:
+                vistos.add(k)
+                n_ev_mv[lang] += 1
+                evalset.append({"origen": "es", "destino": lang, "texto": es, "referencia": maya, "fuente": fuente})
+                evalset.append({"origen": lang, "destino": "es", "texto": maya, "referencia": es, "fuente": fuente})
+            continue
+        if (lang, maya.lower(), es.lower()) not in vistos:
+            stats[f"{lang}:mayanv"] += 1
+        agregar_par(lang, maya, es, fuente, peso=a.repetir_mayanv, puede_eval=False)
+    n_eval.update({f"{l}:mayanv": n for l, n in n_ev_mv.items()})
 
     for lang in MAYAS:
         L = LENGUAS[lang]

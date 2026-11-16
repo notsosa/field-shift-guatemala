@@ -48,7 +48,9 @@ def correr(args: list[str]) -> int:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--horas", type=float, default=8.0, help="tiempo total disponible (solo se aplica en CPU)")
-    ap.add_argument("--modelo", default=MODELO_BASE)
+    ap.add_argument("--modelo", default=MODELO_BASE, help="modelo de partida (p. ej. modelos/sft_v1/final para seguir)")
+    ap.add_argument("--max-ejemplos", type=int, default=0, help="muestra aleatoria de N ejemplos (0 = todos)")
+    ap.add_argument("--max-eval", type=int, default=60)
     a = ap.parse_args()
 
     import torch
@@ -72,7 +74,8 @@ def main():
                      "--solo-tareas", "traducir_es_maya", "traducir_maya_es",
                      "--epocas", "1", "--max-len", "160", "--batch", "4", "--grad-accum", "4",
                      "--lr", "2e-4", "--lora-r", "16", "--save-pasos", "25",
-                     "--max-horas", f"{horas_sft:.2f}", "--max-eval", "60"])
+                     "--max-horas", f"{horas_sft:.2f}", "--max-eval", str(a.max_eval)]
+                    + (["--max-ejemplos", str(a.max_ejemplos)] if a.max_ejemplos else []))
     evitar_suspension(False)
     h = (time.time() - t0) / 3600
     if rc:
