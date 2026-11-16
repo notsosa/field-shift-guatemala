@@ -1388,3 +1388,324 @@ Formas de alimentar un modelo con el otro:
 - **Simulador como entorno:** este simulador sirve de entorno para la red de política (≈ 0.4 ms por año simulado).
 - **Emulador como entrada:** las salidas del emulador entran como indicadores a la política.
 - **Política como muestreo:** los estados que visita la política sirven como ejemplos nuevos para reentrenar el emulador.
+
+## Red alineada con la app (solo datos que la app tiene)
+
+15 de noviembre de 2026 (Tarea 34). Todos los números de esta sección salen de `web/data/app_eval.json`, y las tablas se generan con `scripts/app/doc_tables.mjs`. El contrato con la app está en `proyecto/contrato-app-modelo.md`. **La red no está conectada a la app**: el contrato dice cómo se haría.
+
+### Qué predice y por qué esos tres valores
+
+La app de Carlos muestra cómo le fue a la plantación **hasta hoy** (reserva, estrés de la última semana, `factorRendimiento` desde la siembra). No dice qué viene. La red recibe solo lo que la app tiene un día cualquiera del ciclo y predice tres valores hacia adelante:
+
+- `factorFinal`: el `factorRendimiento` de la app al cosechar (último día del ciclo). Es la versión "hacia adelante" del número que la app ya muestra.
+- `estres7`: días con Ks < 1 en los 7 días siguientes a hoy.
+- `estres14`: lo mismo en los 14 días siguientes.
+
+Se eligieron porque usan **la misma medida que la app ya muestra** (Ks < 1 y `factorRendimiento`), y así la verdad se calcula con el propio motor de la app y no hay que inventar otra escala. Los días de estrés de la semana próxima son lo que un productor con riego podría usar.
+
+### Datos y escenarios
+
+- **Juez:** el motor de la app portado a JS (`web/js/model/appEngine.js`), probado contra el código Dart real a 1e-9 en 3 casos fijos (`tests/fixtures/app_engine_dart.json`; diferencia máxima 7.1e-15). Corre con el clima real de NASA POWER de todo el ciclo. **No** está validado en el campo y **no** es AquaCrop.
+- **Clima:** NASA POWER tal como lo descarga la app (mismos parámetros, comunidad AG, lluvia `PRECTOTCORR`, temperatura sin corregir a la parcela, elevación de la celda), 2001-01-01 a 2025-12-31, 20 puntos (`scripts/app/fetch_power_app.mjs`; `web/data/app_power_coverage.json`). Días sin dato en los 20 puntos: 0 en las seis variables, así que la regla de huecos de la app no se usó con datos reales.
+- **Escenario:** punto × año de siembra × fecha de siembra (cada 10 días desde el 1 de mayo hasta el 28 de septiembre, 16 fechas) × cultivo y ciclo (maíz 90 y 120; frijol 67, 80 y 90; tomate 120 y 145) × suelo (100, 150 y 180 mm/m) × "hoy" en el 20, 35, 50, 65 y 80 % del ciclo (`hoy` = siembra + redondeo de la fracción por el ciclo). A secano. Solo escenarios cuyo ciclo termina el 2025-12-31 o antes (220 combinaciones de siembra omitidas por eso). El café no entra: la app no le da Ky.
+- **Conteos:** 836 700 filas en total; entrenamiento disponible 537 600 (usadas 150 000), validación 67 200, prueba 201 600 (reservados 2022–2024: 100 800; pilotos: 30 240), sin usar (siembra 2025) 30 300.
+- **Entradas (40):** las de `APP_INPUT_NAMES` en `web/js/model/appInputs.js`: lat, lon, elevación de la celda, día del año de siembra y de hoy (seno y coseno), cultivo, ciclo, fracción transcurrida, días a cosecha, agua del suelo, Kc medio, raíz, p, Ky, el estado que la app calcula hoy (reserva, agotamiento/TAW, Ks, etapa, `factorRendimiento` hasta hoy, días de estrés de los últimos 7 y desde la siembra), lluvia y ET₀ de los últimos 7, 14 y 28 días y desde la siembra, racha seca más larga de los últimos 28 días, Tmax y Tmin medias de los últimos 14 y necesidad del cultivo de los últimos 7. Una prueba (`tests/appInputs.test.mjs`) demuestra que cambiar el clima posterior a hoy, o el de más de 240 días atrás, no cambia ninguna entrada ni las referencias; las funciones de entrada tienen además pruebas calculadas a mano.
+- **Partición por año de siembra:** entrenamiento 2001–2016, validación 2017–2018 (parada temprana y elección de la mejor semilla), prueba 2019–2024, de los cuales 2022–2024 se reportan aparte como años reservados, y los tres pilotos (Chiquimula, Jutiapa, San Martín Jilotepeque) como otro subconjunto. El año de siembra 2025 no se usa. El conjunto de entrenamiento se submuestreó a 150 000 filas con semilla 17.
+- **Modelos, semillas 17, 29 y 43:** la red embudo 40 → 64 → 32 → 16 → 3 con la receta base (Adam 1e-3, lotes de 256, paciencia 10) en PyTorch con CUDA (NVIDIA GeForce RTX 4050 Laptop GPU) y el ELM en GPU (1 500 neuronas ocultas, escala 0.1, λ 0.1). Se exportó la semilla con menor pérdida de validación (semilla 17) como `web/data/app_mlp.json`; su pase hacia adelante en JS coincide con PyTorch a 1e-5 (`tests/app_mlp.test.mjs`).
+- **Tiempos:** red en CUDA 31.5, 36.77 y 26.26 s (semillas 17, 29, 43; 21, 23 y 13 épocas; 5283 parámetros); ELM en GPU 4.71, 4.43 y 4.38 s. Generar las 836 700 muestras con el motor de la app en JS: 38 s.
+- **Referencias que la red debe superar:** (a) *lo que la app muestra hoy*: `factorFinal` ≈ `factorRendimiento` hasta hoy, `estres7` ≈ días de estrés de los últimos 7 y `estres14` ≈ el doble, con tope de 14; (b) *adelanto en seco*: el motor de la app seguido desde hoy hasta la cosecha sin lluvia y con la ET₀ media de los últimos 7 días (la misma regla de huecos de la app); se calcula en la app sin red.
+- **Reglas fijadas antes de ver la prueba:** "gana" quiere decir menor MAE (error absoluto medio) en cada una de las 3 semillas; también se reportan R² y, para el estrés, la clase "habrá estrés" (`estres ≥ 1` día): el modelo la predice si su valor es ≥ 0.5 y las referencias, que son conteos enteros, si es ≥ 1. Nada se ajustó con las filas de prueba.
+
+### Resultados en la prueba (años de siembra 2019–2024)
+
+| Modelo | factorFinal R² | factorFinal MAE | estres7 R² | estres7 MAE | estres7 precisión / recall / F1 | estres14 R² | estres14 MAE | estres14 precisión / recall / F1 |
+|---|---|---|---|---|---|---|---|---|
+| Red (backprop) s17 | 0.590 | 0.0226 | 0.884 | 0.198 | 0.790 / 0.937 / 0.857 | 0.805 | 0.539 | 0.603 / 0.912 / 0.726 |
+| Red (backprop) s29 | 0.656 | 0.0210 | 0.878 | 0.177 | 0.818 / 0.920 / 0.866 | 0.805 | 0.539 | 0.591 / 0.913 / 0.717 |
+| Red (backprop) s43 | 0.599 | 0.0238 | 0.881 | 0.205 | 0.791 / 0.936 / 0.857 | 0.802 | 0.571 | 0.547 / 0.936 / 0.690 |
+| ELM s17 | 0.500 | 0.0313 | 0.794 | 0.420 | 0.491 / 0.971 / 0.652 | 0.713 | 0.982 | 0.340 / 0.943 / 0.500 |
+| ELM s29 | 0.493 | 0.0315 | 0.781 | 0.443 | 0.457 / 0.974 / 0.622 | 0.704 | 1.006 | 0.324 / 0.944 / 0.482 |
+| ELM s43 | 0.494 | 0.0312 | 0.753 | 0.434 | 0.484 / 0.970 / 0.646 | 0.686 | 0.987 | 0.343 / 0.937 / 0.502 |
+| Referencia: lo que muestra la app | 0.160 | 0.0254 | 0.583 | 0.268 | 0.717 / 0.670 / 0.693 | 0.462 | 0.679 | 0.755 / 0.528 / 0.622 |
+| Referencia: adelanto en seco | -32.642 | 0.3102 | 0.560 | 0.359 | 0.445 / 0.995 / 0.615 | -1.061 | 3.123 | 0.188 / 0.997 / 0.316 |
+
+Filas: 201600. Con estrés en los próximos 7 días: 18839 (9.3 %); en los próximos 14: 25192 (12.5 %).
+
+### Años reservados (años de siembra 2022–2024)
+
+| Modelo | factorFinal R² | factorFinal MAE | estres7 R² | estres7 MAE | estres7 precisión / recall / F1 | estres14 R² | estres14 MAE | estres14 precisión / recall / F1 |
+|---|---|---|---|---|---|---|---|---|
+| Red (backprop) s17 | 0.453 | 0.0253 | 0.855 | 0.250 | 0.808 / 0.944 / 0.870 | 0.728 | 0.699 | 0.653 / 0.911 / 0.761 |
+| Red (backprop) s29 | 0.557 | 0.0227 | 0.843 | 0.236 | 0.838 / 0.922 / 0.878 | 0.730 | 0.695 | 0.659 / 0.907 / 0.763 |
+| Red (backprop) s43 | 0.422 | 0.0272 | 0.851 | 0.261 | 0.793 / 0.950 / 0.865 | 0.730 | 0.746 | 0.578 / 0.942 / 0.716 |
+| ELM s17 | 0.360 | 0.0335 | 0.786 | 0.476 | 0.543 / 0.981 / 0.699 | 0.651 | 1.136 | 0.411 / 0.948 / 0.573 |
+| ELM s29 | 0.340 | 0.0342 | 0.771 | 0.505 | 0.507 / 0.982 / 0.669 | 0.646 | 1.175 | 0.398 / 0.943 / 0.560 |
+| ELM s43 | 0.360 | 0.0337 | 0.760 | 0.494 | 0.515 / 0.973 / 0.674 | 0.640 | 1.150 | 0.400 / 0.929 / 0.559 |
+| Referencia: lo que muestra la app | 0.094 | 0.0285 | 0.495 | 0.381 | 0.695 / 0.693 / 0.694 | 0.313 | 0.949 | 0.745 / 0.565 / 0.642 |
+| Referencia: adelanto en seco | -34.294 | 0.3104 | 0.557 | 0.410 | 0.510 / 0.995 / 0.674 | -0.929 | 3.168 | 0.234 / 0.996 / 0.379 |
+
+Filas: 100800. Con estrés en los próximos 7 días: 11993 (11.9 %); en los próximos 14: 15788 (15.7 %).
+
+### Solo los tres pilotos (años de siembra 2019–2024)
+
+| Modelo | factorFinal R² | factorFinal MAE | estres7 R² | estres7 MAE | estres7 precisión / recall / F1 | estres14 R² | estres14 MAE | estres14 precisión / recall / F1 |
+|---|---|---|---|---|---|---|---|---|
+| Red (backprop) s17 | 0.595 | 0.0220 | 0.882 | 0.194 | 0.775 / 0.938 / 0.849 | 0.807 | 0.530 | 0.582 / 0.912 / 0.711 |
+| Red (backprop) s29 | 0.618 | 0.0214 | 0.876 | 0.175 | 0.809 / 0.926 / 0.863 | 0.808 | 0.533 | 0.574 / 0.917 / 0.706 |
+| Red (backprop) s43 | 0.524 | 0.0240 | 0.877 | 0.204 | 0.785 / 0.936 / 0.854 | 0.807 | 0.553 | 0.540 / 0.932 / 0.684 |
+| ELM s17 | 0.440 | 0.0317 | 0.791 | 0.415 | 0.488 / 0.967 / 0.648 | 0.719 | 0.967 | 0.325 / 0.942 / 0.484 |
+| ELM s29 | 0.432 | 0.0319 | 0.769 | 0.447 | 0.464 / 0.973 / 0.629 | 0.697 | 0.998 | 0.322 / 0.944 / 0.481 |
+| ELM s43 | 0.431 | 0.0317 | 0.736 | 0.436 | 0.486 / 0.968 / 0.647 | 0.675 | 0.993 | 0.332 / 0.933 / 0.490 |
+| Referencia: lo que muestra la app | 0.147 | 0.0244 | 0.603 | 0.251 | 0.727 / 0.672 / 0.698 | 0.487 | 0.639 | 0.766 / 0.530 / 0.627 |
+| Referencia: adelanto en seco | -35.565 | 0.3104 | 0.543 | 0.359 | 0.445 / 0.995 / 0.615 | -1.093 | 3.102 | 0.185 / 0.998 / 0.312 |
+
+Filas: 30240. Con estrés en los próximos 7 días: 2768 (9.2 %); en los próximos 14: 3694 (12.2 %).
+
+### ¿Gana a las referencias?
+
+Prueba (2019–2024):
+
+| Objetivo | Modelo frente a | Semillas que ganan en MAE (de 3) | MAE medio del modelo | MAE de la referencia | Semillas que ganan en R² | R² medio del modelo | R² de la referencia | Semillas que ganan en F1 |
+|---|---|---|---|---|---|---|---|---|
+| factorFinal | Red frente a lo que muestra la app | 3 | 0.0225 | 0.0254 | 3 | 0.615 | 0.160 | — |
+| factorFinal | Red frente a adelanto en seco | 3 | 0.0225 | 0.3102 | 3 | 0.615 | -32.642 | — |
+| factorFinal | ELM frente a lo que muestra la app | 0 | 0.0313 | 0.0254 | 3 | 0.495 | 0.160 | — |
+| factorFinal | ELM frente a adelanto en seco | 3 | 0.0313 | 0.3102 | 3 | 0.495 | -32.642 | — |
+| estres7 | Red frente a lo que muestra la app | 3 | 0.1932 | 0.2683 | 3 | 0.881 | 0.583 | 3 |
+| estres7 | Red frente a adelanto en seco | 3 | 0.1932 | 0.3586 | 3 | 0.881 | 0.560 | 3 |
+| estres7 | ELM frente a lo que muestra la app | 0 | 0.4322 | 0.2683 | 3 | 0.776 | 0.583 | 0 |
+| estres7 | ELM frente a adelanto en seco | 0 | 0.4322 | 0.3586 | 3 | 0.776 | 0.560 | 3 |
+| estres14 | Red frente a lo que muestra la app | 3 | 0.5497 | 0.6793 | 3 | 0.804 | 0.462 | 3 |
+| estres14 | Red frente a adelanto en seco | 3 | 0.5497 | 3.1232 | 3 | 0.804 | -1.061 | 3 |
+| estres14 | ELM frente a lo que muestra la app | 0 | 0.9917 | 0.6793 | 3 | 0.701 | 0.462 | 0 |
+| estres14 | ELM frente a adelanto en seco | 3 | 0.9917 | 3.1232 | 3 | 0.701 | -1.061 | 3 |
+
+Años reservados (2022–2024):
+
+| Objetivo | Modelo frente a | Semillas que ganan en MAE (de 3) | MAE medio del modelo | MAE de la referencia | Semillas que ganan en R² | R² medio del modelo | R² de la referencia | Semillas que ganan en F1 |
+|---|---|---|---|---|---|---|---|---|
+| factorFinal | Red frente a lo que muestra la app | 3 | 0.0251 | 0.0285 | 3 | 0.477 | 0.094 | — |
+| factorFinal | Red frente a adelanto en seco | 3 | 0.0251 | 0.3104 | 3 | 0.477 | -34.294 | — |
+| factorFinal | ELM frente a lo que muestra la app | 0 | 0.0338 | 0.0285 | 3 | 0.353 | 0.094 | — |
+| factorFinal | ELM frente a adelanto en seco | 3 | 0.0338 | 0.3104 | 3 | 0.353 | -34.294 | — |
+| estres7 | Red frente a lo que muestra la app | 3 | 0.2488 | 0.3809 | 3 | 0.850 | 0.495 | 3 |
+| estres7 | Red frente a adelanto en seco | 3 | 0.2488 | 0.4104 | 3 | 0.850 | 0.557 | 3 |
+| estres7 | ELM frente a lo que muestra la app | 0 | 0.4917 | 0.3809 | 3 | 0.773 | 0.495 | 1 |
+| estres7 | ELM frente a adelanto en seco | 0 | 0.4917 | 0.4104 | 3 | 0.773 | 0.557 | 1 |
+| estres14 | Red frente a lo que muestra la app | 3 | 0.7134 | 0.9494 | 3 | 0.730 | 0.313 | 3 |
+| estres14 | Red frente a adelanto en seco | 3 | 0.7134 | 3.1676 | 3 | 0.730 | -0.929 | 3 |
+| estres14 | ELM frente a lo que muestra la app | 0 | 1.1536 | 0.9494 | 3 | 0.645 | 0.313 | 0 |
+| estres14 | ELM frente a adelanto en seco | 3 | 1.1536 | 3.1676 | 3 | 0.645 | -0.929 | 3 |
+
+Pilotos:
+
+| Objetivo | Modelo frente a | Semillas que ganan en MAE (de 3) | MAE medio del modelo | MAE de la referencia | Semillas que ganan en R² | R² medio del modelo | R² de la referencia | Semillas que ganan en F1 |
+|---|---|---|---|---|---|---|---|---|
+| factorFinal | Red frente a lo que muestra la app | 3 | 0.0225 | 0.0244 | 3 | 0.579 | 0.147 | — |
+| factorFinal | Red frente a adelanto en seco | 3 | 0.0225 | 0.3104 | 3 | 0.579 | -35.565 | — |
+| factorFinal | ELM frente a lo que muestra la app | 0 | 0.0318 | 0.0244 | 3 | 0.434 | 0.147 | — |
+| factorFinal | ELM frente a adelanto en seco | 3 | 0.0318 | 0.3104 | 3 | 0.434 | -35.565 | — |
+| estres7 | Red frente a lo que muestra la app | 3 | 0.1912 | 0.2511 | 3 | 0.878 | 0.603 | 3 |
+| estres7 | Red frente a adelanto en seco | 3 | 0.1912 | 0.3587 | 3 | 0.878 | 0.543 | 3 |
+| estres7 | ELM frente a lo que muestra la app | 0 | 0.4324 | 0.2511 | 3 | 0.765 | 0.603 | 0 |
+| estres7 | ELM frente a adelanto en seco | 0 | 0.4324 | 0.3587 | 3 | 0.765 | 0.543 | 3 |
+| estres14 | Red frente a lo que muestra la app | 3 | 0.5390 | 0.6387 | 3 | 0.807 | 0.487 | 3 |
+| estres14 | Red frente a adelanto en seco | 3 | 0.5390 | 3.1021 | 3 | 0.807 | -1.093 | 3 |
+| estres14 | ELM frente a lo que muestra la app | 0 | 0.9860 | 0.6387 | 3 | 0.697 | 0.487 | 0 |
+| estres14 | ELM frente a adelanto en seco | 3 | 0.9860 | 3.1021 | 3 | 0.697 | -1.093 | 3 |
+
+### Por fracción del ciclo transcurrida y por cultivo (prueba)
+
+Se muestra la red de la semilla 17 (la exportada), las otras dos y el ELM de la semilla 17 junto a las dos referencias; los demás ELM están en `web/data/app_eval.json`.
+
+**`factorFinal` por fracción del ciclo:**
+
+| Fracción del ciclo | Modelo | MAE | R² |
+|---|---|---|---|
+| 0.2 | Red (backprop) s17 | 0.0351 | 0.218 |
+| 0.2 | Red (backprop) s29 | 0.0317 | 0.382 |
+| 0.2 | Red (backprop) s43 | 0.0404 | 0.198 |
+| 0.2 | ELM s17 | 0.0459 | 0.037 |
+| 0.2 | Referencia: lo que muestra la app | 0.0390 | -0.403 |
+| 0.2 | Referencia: adelanto en seco | 0.6819 | -95.254 |
+| 0.35 | Red (backprop) s17 | 0.0290 | 0.411 |
+| 0.35 | Red (backprop) s29 | 0.0295 | 0.437 |
+| 0.35 | Red (backprop) s43 | 0.0321 | 0.385 |
+| 0.35 | ELM s17 | 0.0370 | 0.336 |
+| 0.35 | Referencia: lo que muestra la app | 0.0307 | -0.120 |
+| 0.35 | Referencia: adelanto en seco | 0.4920 | -50.972 |
+| 0.5 | Red (backprop) s17 | 0.0232 | 0.583 |
+| 0.5 | Red (backprop) s29 | 0.0214 | 0.667 |
+| 0.5 | Red (backprop) s43 | 0.0225 | 0.642 |
+| 0.5 | ELM s17 | 0.0289 | 0.578 |
+| 0.5 | Referencia: lo que muestra la app | 0.0259 | 0.073 |
+| 0.5 | Referencia: adelanto en seco | 0.2676 | -16.022 |
+| 0.65 | Red (backprop) s17 | 0.0161 | 0.800 |
+| 0.65 | Red (backprop) s29 | 0.0142 | 0.840 |
+| 0.65 | Red (backprop) s43 | 0.0147 | 0.824 |
+| 0.65 | ELM s17 | 0.0243 | 0.724 |
+| 0.65 | Referencia: lo que muestra la app | 0.0201 | 0.424 |
+| 0.65 | Referencia: adelanto en seco | 0.0973 | -1.850 |
+| 0.8 | Red (backprop) s17 | 0.0097 | 0.940 |
+| 0.8 | Red (backprop) s29 | 0.0084 | 0.953 |
+| 0.8 | Red (backprop) s43 | 0.0091 | 0.947 |
+| 0.8 | ELM s17 | 0.0203 | 0.825 |
+| 0.8 | Referencia: lo que muestra la app | 0.0112 | 0.824 |
+| 0.8 | Referencia: adelanto en seco | 0.0124 | 0.890 |
+
+**`factorFinal` por cultivo:**
+
+| Cultivo | Modelo | MAE | R² |
+|---|---|---|---|
+| maiz | Red (backprop) s17 | 0.0187 | 0.494 |
+| maiz | Red (backprop) s29 | 0.0171 | 0.599 |
+| maiz | Red (backprop) s43 | 0.0230 | 0.362 |
+| maiz | ELM s17 | 0.0284 | 0.355 |
+| maiz | Referencia: lo que muestra la app | 0.0149 | 0.176 |
+| maiz | Referencia: adelanto en seco | 0.3059 | -50.425 |
+| frijol | Red (backprop) s17 | 0.0208 | 0.428 |
+| frijol | Red (backprop) s29 | 0.0196 | 0.521 |
+| frijol | Red (backprop) s43 | 0.0214 | 0.488 |
+| frijol | ELM s17 | 0.0293 | 0.260 |
+| frijol | Referencia: lo que muestra la app | 0.0184 | 0.299 |
+| frijol | Referencia: adelanto en seco | 0.3269 | -59.139 |
+| tomate | Red (backprop) s17 | 0.0293 | 0.676 |
+| tomate | Red (backprop) s29 | 0.0271 | 0.717 |
+| tomate | Red (backprop) s43 | 0.0281 | 0.715 |
+| tomate | ELM s17 | 0.0370 | 0.636 |
+| tomate | Referencia: lo que muestra la app | 0.0464 | 0.010 |
+| tomate | Referencia: adelanto en seco | 0.2897 | -15.007 |
+
+**`estres7` por fracción del ciclo:**
+
+| Fracción del ciclo | Modelo | MAE | R² | F1 |
+|---|---|---|---|---|
+| 0.2 | Red (backprop) s17 | 0.155 | 0.748 | 0.813 |
+| 0.2 | Red (backprop) s29 | 0.145 | 0.727 | 0.822 |
+| 0.2 | Red (backprop) s43 | 0.159 | 0.733 | 0.801 |
+| 0.2 | ELM s17 | 0.380 | 0.461 | 0.473 |
+| 0.2 | Referencia: lo que muestra la app | 0.167 | 0.306 | 0.613 |
+| 0.2 | Referencia: adelanto en seco | 0.238 | 0.160 | 0.503 |
+| 0.35 | Red (backprop) s17 | 0.166 | 0.798 | 0.763 |
+| 0.35 | Red (backprop) s29 | 0.149 | 0.731 | 0.775 |
+| 0.35 | Red (backprop) s43 | 0.165 | 0.802 | 0.757 |
+| 0.35 | ELM s17 | 0.361 | 0.560 | 0.482 |
+| 0.35 | Referencia: lo que muestra la app | 0.156 | 0.392 | 0.548 |
+| 0.35 | Referencia: adelanto en seco | 0.367 | -0.009 | 0.365 |
+| 0.5 | Red (backprop) s17 | 0.208 | 0.844 | 0.814 |
+| 0.5 | Red (backprop) s29 | 0.183 | 0.845 | 0.821 |
+| 0.5 | Red (backprop) s43 | 0.216 | 0.831 | 0.821 |
+| 0.5 | ELM s17 | 0.412 | 0.748 | 0.639 |
+| 0.5 | Referencia: lo que muestra la app | 0.271 | 0.447 | 0.610 |
+| 0.5 | Referencia: adelanto en seco | 0.448 | 0.253 | 0.542 |
+| 0.65 | Red (backprop) s17 | 0.227 | 0.879 | 0.864 |
+| 0.65 | Red (backprop) s29 | 0.209 | 0.878 | 0.871 |
+| 0.65 | Red (backprop) s43 | 0.232 | 0.876 | 0.866 |
+| 0.65 | ELM s17 | 0.466 | 0.808 | 0.704 |
+| 0.65 | Referencia: lo que muestra la app | 0.358 | 0.558 | 0.700 |
+| 0.65 | Referencia: adelanto en seco | 0.429 | 0.572 | 0.661 |
+| 0.8 | Red (backprop) s17 | 0.235 | 0.932 | 0.911 |
+| 0.8 | Red (backprop) s29 | 0.200 | 0.933 | 0.921 |
+| 0.8 | Red (backprop) s43 | 0.251 | 0.932 | 0.911 |
+| 0.8 | ELM s17 | 0.479 | 0.888 | 0.747 |
+| 0.8 | Referencia: lo que muestra la app | 0.389 | 0.700 | 0.786 |
+| 0.8 | Referencia: adelanto en seco | 0.311 | 0.806 | 0.814 |
+
+**`estres7` por cultivo:**
+
+| Cultivo | Modelo | MAE | R² | F1 |
+|---|---|---|---|---|
+| maiz | Red (backprop) s17 | 0.130 | 0.887 | 0.892 |
+| maiz | Red (backprop) s29 | 0.105 | 0.882 | 0.912 |
+| maiz | Red (backprop) s43 | 0.145 | 0.875 | 0.884 |
+| maiz | ELM s17 | 0.347 | 0.755 | 0.595 |
+| maiz | Referencia: lo que muestra la app | 0.140 | 0.605 | 0.739 |
+| maiz | Referencia: adelanto en seco | 0.107 | 0.761 | 0.792 |
+| frijol | Red (backprop) s17 | 0.249 | 0.821 | 0.790 |
+| frijol | Red (backprop) s29 | 0.225 | 0.808 | 0.799 |
+| frijol | Red (backprop) s43 | 0.249 | 0.813 | 0.791 |
+| frijol | ELM s17 | 0.451 | 0.709 | 0.629 |
+| frijol | Referencia: lo que muestra la app | 0.329 | 0.413 | 0.599 |
+| frijol | Referencia: adelanto en seco | 0.601 | 0.123 | 0.480 |
+| tomate | Red (backprop) s17 | 0.190 | 0.928 | 0.919 |
+| tomate | Red (backprop) s29 | 0.176 | 0.926 | 0.926 |
+| tomate | Red (backprop) s43 | 0.198 | 0.931 | 0.920 |
+| tomate | ELM s17 | 0.444 | 0.869 | 0.703 |
+| tomate | Referencia: lo que muestra la app | 0.306 | 0.695 | 0.780 |
+| tomate | Referencia: adelanto en seco | 0.247 | 0.814 | 0.782 |
+
+**`estres14` por fracción del ciclo:**
+
+| Fracción del ciclo | Modelo | MAE | R² | F1 |
+|---|---|---|---|---|
+| 0.2 | Red (backprop) s17 | 0.375 | 0.556 | 0.602 |
+| 0.2 | Red (backprop) s29 | 0.386 | 0.549 | 0.589 |
+| 0.2 | Red (backprop) s43 | 0.401 | 0.592 | 0.540 |
+| 0.2 | ELM s17 | 0.817 | 0.228 | 0.284 |
+| 0.2 | Referencia: lo que muestra la app | 0.368 | 0.121 | 0.592 |
+| 0.2 | Referencia: adelanto en seco | 3.312 | -5.293 | 0.131 |
+| 0.35 | Red (backprop) s17 | 0.472 | 0.585 | 0.566 |
+| 0.35 | Red (backprop) s29 | 0.484 | 0.566 | 0.539 |
+| 0.35 | Red (backprop) s43 | 0.492 | 0.622 | 0.524 |
+| 0.35 | ELM s17 | 0.888 | 0.338 | 0.323 |
+| 0.35 | Referencia: lo que muestra la app | 0.377 | 0.289 | 0.446 |
+| 0.35 | Referencia: adelanto en seco | 3.774 | -5.661 | 0.184 |
+| 0.5 | Red (backprop) s17 | 0.584 | 0.736 | 0.664 |
+| 0.5 | Red (backprop) s29 | 0.579 | 0.751 | 0.648 |
+| 0.5 | Red (backprop) s43 | 0.647 | 0.711 | 0.612 |
+| 0.5 | ELM s17 | 0.997 | 0.629 | 0.490 |
+| 0.5 | Referencia: lo que muestra la app | 0.723 | 0.244 | 0.516 |
+| 0.5 | Referencia: adelanto en seco | 3.468 | -2.213 | 0.307 |
+| 0.65 | Red (backprop) s17 | 0.643 | 0.818 | 0.759 |
+| 0.65 | Red (backprop) s29 | 0.649 | 0.816 | 0.753 |
+| 0.65 | Red (backprop) s43 | 0.673 | 0.809 | 0.742 |
+| 0.65 | ELM s17 | 1.105 | 0.744 | 0.594 |
+| 0.65 | Referencia: lo que muestra la app | 0.949 | 0.422 | 0.613 |
+| 0.65 | Referencia: adelanto en seco | 3.174 | -0.615 | 0.403 |
+| 0.8 | Red (backprop) s17 | 0.621 | 0.882 | 0.852 |
+| 0.8 | Red (backprop) s29 | 0.599 | 0.882 | 0.866 |
+| 0.8 | Red (backprop) s43 | 0.640 | 0.877 | 0.849 |
+| 0.8 | ELM s17 | 1.104 | 0.839 | 0.651 |
+| 0.8 | Referencia: lo que muestra la app | 0.980 | 0.599 | 0.749 |
+| 0.8 | Referencia: adelanto en seco | 1.888 | 0.360 | 0.584 |
+
+**`estres14` por cultivo:**
+
+| Cultivo | Modelo | MAE | R² | F1 |
+|---|---|---|---|---|
+| maiz | Red (backprop) s17 | 0.307 | 0.815 | 0.804 |
+| maiz | Red (backprop) s29 | 0.306 | 0.829 | 0.797 |
+| maiz | Red (backprop) s43 | 0.338 | 0.809 | 0.746 |
+| maiz | ELM s17 | 0.770 | 0.692 | 0.407 |
+| maiz | Referencia: lo que muestra la app | 0.370 | 0.491 | 0.645 |
+| maiz | Referencia: adelanto en seco | 1.055 | 0.015 | 0.351 |
+| frijol | Red (backprop) s17 | 0.673 | 0.689 | 0.643 |
+| frijol | Red (backprop) s29 | 0.669 | 0.682 | 0.631 |
+| frijol | Red (backprop) s43 | 0.712 | 0.682 | 0.608 |
+| frijol | ELM s17 | 1.086 | 0.553 | 0.480 |
+| frijol | Referencia: lo que muestra la app | 0.787 | 0.235 | 0.540 |
+| frijol | Referencia: adelanto en seco | 4.848 | -3.376 | 0.261 |
+| tomate | Red (backprop) s17 | 0.571 | 0.875 | 0.802 |
+| tomate | Red (backprop) s29 | 0.578 | 0.873 | 0.800 |
+| tomate | Red (backprop) s43 | 0.591 | 0.875 | 0.782 |
+| tomate | ELM s17 | 1.038 | 0.820 | 0.579 |
+| tomate | Referencia: lo que muestra la app | 0.826 | 0.587 | 0.709 |
+| tomate | Referencia: adelanto en seco | 2.605 | 0.064 | 0.400 |
+
+### Lectura, sin rodeos
+
+- **Estrés (`estres7` y `estres14`):** la red entrenada con retropropagación gana a las dos referencias en las tres semillas, en MAE, R² y F1, en la prueba, en los años reservados y en los pilotos. Para `estres7` en la prueba, el F1 va de 0.857 a 0.866 frente a 0.693 de lo que muestra la app; la red mejora a la vez la precisión (0.79–0.82 frente a 0.72) y el recall (0.92–0.94 frente a 0.67). Para `estres14` el recall sube a 0.91–0.94 (la app: 0.53) pero **la precisión baja** a 0.55–0.60 (la app: 0.76): la red avisa de más estrés, y parte de esos avisos son falsos.
+- **`factorFinal`:** la red gana en MAE en las tres semillas en los tres subconjuntos, pero por poco (0.0225 frente a 0.0254 en la prueba), y la ventaja no es pareja. **Por cultivo, en maíz y en frijol el MAE de la red (0.017–0.023 y 0.020–0.021) es mayor que el de lo que ya muestra la app (0.015 y 0.018);** la ventaja viene del tomate (0.027–0.029 frente a 0.046). En R² la red gana en los tres cultivos. Por fracción, a partir del 50 % la red gana en MAE con las tres semillas; en el 20 % y en el 35 % gana solo con dos semillas de tres (la semilla 43 queda peor que la referencia). El R² de la red en la prueba (0.59–0.66) es mucho menor que en validación (0.85–0.86); no se investigó la causa.
+- **El ELM no vale la pena aquí:** no gana en MAE a lo que muestra la app en ningún objetivo ni subconjunto (peor en las tres semillas) y en `estres7` su F1 es menor (0.62–0.65 frente a 0.693) en la prueba y en los pilotos; en los años reservados una semilla del ELM (la 17) supera por poco el F1 de la referencia (0.699 frente a 0.694) y las otras dos no. Gana a la referencia de adelanto en seco en MAE de `factorFinal` y `estres14`, pero no en `estres7`. Tiene mejor R² que la referencia (a) en los tres objetivos y un recall alto (0.94–0.97) con precisión baja.
+- **Adelanto en seco:** es una cota, no una predicción. En `factorFinal` falla mucho (MAE 0.31) porque supone cero lluvia el resto del ciclo; en `estres7` en el 80 % del ciclo se acerca (F1 0.814) pero la red lo supera (0.911–0.921). Casi nunca deja de avisar (recall 0.995) a costa de la precisión (0.445).
+- **Sobre qué sí se puede decir:** en `estres7` y `estres14` la red mejora lo que la app puede calcular hoy sin red, en datos de años que no vio. Sobre `factorFinal`, la mejora existe pero es chica y no vale para maíz y frijol medida por MAE.
+
+### Límites
+
+- El juez es **el motor de la app**, no el campo: la verdad es lo que la app calcularía con el clima real. La red aprende la respuesta de ese motor, no la de un cultivo. No hay validación en campo ni con AquaCrop.
+- **La lluvia es la de POWER**, que es la de la app, y difiere de la ERA5 con que se entrenaron los demás modelos de este documento: en los tres pilotos POWER da más lluvia anual (por ejemplo, Chiquimula 1 551.0 mm frente a 1 110.3 de ERA5 en los 20 años en común) y menos días secos seguidos en la canícula; ver `web/data/rain_compare.json`. Los números de esta sección no se comparan con los de las otras secciones.
+- A secano. Sin riego, sin plaga ni fertilizante. Tres cultivos (maíz, frijol, tomate); el café queda fuera porque la app no le da Ky. "Hoy" entre el 20 y el 80 % del ciclo.
+- Se usa el clima de POWER del propio día de hoy; en la práctica el último dato de POWER puede tardar unos días, y la regla de huecos de la app lo completaría con promedios. Ese caso no se probó.
+- El 2025 no se usó para entrenar ni para probar, y se entrenó con 150 000 de 537 600 filas disponibles.
+- Una sola partición por año; sin intervalos de confianza. Con 3 semillas, la diferencia entre semillas es chica frente a la diferencia con las referencias, salvo en `factorFinal` por cultivo.
+- La red **no está conectada a la app**; `proyecto/contrato-app-modelo.md` explica cómo.

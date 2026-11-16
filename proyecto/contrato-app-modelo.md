@@ -31,7 +31,7 @@ La columna "Dirección" dice qué se sabe y de dónde. Cuando no se midió, dice
 | Duración del ciclo | Días fijos que elige el productor | Grados-día: el ciclo se acorta con calor y se alarga con frío | No medida. |
 | Almacenes de agua | Un solo almacén (zona de raíces) que **empieza al 50 % de agotamiento** el día de la siembra (`agotamientoInicial = 0.5`) | Dos almacenes (zona de raíces y subsuelo); a secano todo el perfil **arranca seco** el 1 de abril | La app parte de un suelo medio lleno el día de la siembra; el modelo, de un suelo seco en abril. No medida su diferencia en el factor de rendimiento. |
 | Escorrentía | Número de curva fijo 78 | Por grupo hidrológico: arena 67, franco 78, arcilla 89 (cultivo; `soil.js`), y con pendiente | La app coincide con el franco del modelo; en suelos arcillosos el modelo escurre más y en arenosos menos. No medida. |
-| Agua disponible | 100 / 150 / 180 mm/m (tabla 19 de FAO-56) | Clases del modelo: 75 (`sand`), 130 (`loam`), 140 (`clay`) mm/m; SoilGrids: Chiquimula 150.1, Jutiapa 55.7, San Martín Jilotepeque 130.5 mm/m (θFC − θWP de `points.json`) | La clase arcillosa de la app (180) supera a la del modelo (140) y a las dos de SoilGrids que corresponden a arcilla (Jutiapa 55.7) o franco arcilloso (San Martín 130.5). Jutiapa es un caso muy distinto: SoilGrids da 55.7 mm/m y la app solo ofrece 100 como mínimo. |
+| Agua disponible | 100 / 150 / 180 mm/m (tabla 19 de FAO-56) | Clases del modelo: 75 (`sand`), 130 (`loam`), 140 (`clay`) mm/m; SoilGrids: Chiquimula 150.1, Jutiapa 55.7, San Martín Jilotepeque 130.5 mm/m (θFC − θWP de `points.json`) | La clase arcillosa de la app (180) supera a la del modelo (140). En Jutiapa SoilGrids da 55.7 mm/m y la app solo ofrece 100 como mínimo, así que ahí la app sobrestima el agua disponible; en Chiquimula (150.1) coincide con el franco de la app y en San Martín Jilotepeque (130.5) queda entre las clases del modelo y la franca de la app. |
 | Rendimiento por agua | Ky estacional de FAO-33, una sola vez con la ETa/ETc de todos los días hasta hoy | Ky por etapa de FAO-66 (maíz: vegetativa 0.4, floración 1.5, formación 0.5, maduración 0.2; frijol: 0.2, 1.1, 0.75, 0.2), multiplicando las etapas, y también Ky estacional | Con el mismo estrés, el Ky por etapa pesa más la floración que el estacional. No medida la diferencia. |
 | Cultivos | 4 (`maiz`, `frijol`, `tomate`, `cafe`) | 13 | Ver los parámetros de maíz y frijol abajo. |
 
@@ -62,7 +62,18 @@ Los parámetros de Kc, p y Ky de maíz, frijol y tomate son iguales; cambian la 
 
 **Lo que la app no puede mostrar hoy y una red podría agregar:** un valor hacia adelante. La app dice cómo le fue a la plantación hasta hoy; no dice cuántos días de estrés vendrán ni cuánto rendirá al cosechar. La red alineada predice tres valores a partir de lo que la app tiene: `factorFinal` (el `factorRendimiento` al cosechar), `estres7` y `estres14` (días con Ks < 1 en los 7 y 14 días siguientes).
 
-@@RESULTADOS@@
+**Lo que se midió sobre esa interfaz** (todo de `web/data/app_eval.json`; detalle en la sección "Red alineada con la app" de `proyecto/resultados-modelo-keu.md`). Prueba = años de siembra 2019–2024, 201600 filas; red con retropropagación, semillas 17, 29 y 43; referencia = lo que la app muestra hoy:
+
+| Objetivo | Medida | Red (3 semillas) | ELM (3 semillas) | Lo que muestra la app |
+|---|---|---|---|---|
+| `factorFinal` | MAE | 0.0226 / 0.0210 / 0.0238 | 0.0313 / 0.0315 / 0.0312 | 0.0254 |
+| `factorFinal` | R² | 0.590 / 0.656 / 0.599 | 0.500 / 0.493 / 0.494 | 0.160 |
+| `estres7` | MAE (días) | 0.198 / 0.177 / 0.205 | 0.420 / 0.443 / 0.434 | 0.268 |
+| `estres7` | F1 de "habrá estrés la próxima semana" | 0.857 / 0.866 / 0.857 | 0.652 / 0.622 / 0.646 | 0.693 |
+| `estres14` | MAE (días) | 0.539 / 0.539 / 0.571 | 0.982 / 1.006 / 0.987 | 0.679 |
+| `estres14` | F1 | 0.726 / 0.717 / 0.690 | 0.500 / 0.482 / 0.502 | 0.622 |
+
+**Lectura:** la red con retropropagación mejora a lo que la app muestra hoy en los tres valores y en las tres semillas, pero en `factorFinal` la mejora es chica y en maíz y frijol el MAE de la red es mayor que el de la app (ver la sección de resultados); el ELM no la mejora en MAE. Con estos números, **el valor hacia adelante que más justifica enchufar la red es el aviso de estrés de los próximos 7 y 14 días**, no el rendimiento final. Con un aviso de 14 días la red gana recall (0.91–0.94 frente a 0.53) y pierde precisión (0.55–0.60 frente a 0.76). El juez es el motor de la app y no el campo, y la lluvia es la de POWER; estos números no están validados en campo.
 
 ## 4. Interfaz para enchufar la red en `recomendar`
 
@@ -86,7 +97,7 @@ Los parámetros de Kc, p y Ky de maíz, frijol y tomate son iguales; cambian la 
 
 **Estandarización:** `x_std = (x − mean) / std` por entrada con `mean` y `std` de `app_mlp.json` (si `std` es 0 se usa 1). **Salidas** (3, en este orden): `factorFinal` (0 a 1), `estres7` (días, 0 a 7), `estres14` (días, 0 a 14); la salida es `red(x_std) · yStd + yMean`, y conviene recortarla a esos rangos.
 
-**Formato de pesos (`web/data/app_mlp.json`):** `layers` es una lista de 4 capas, cada una con `W` (filas = neuronas de salida, columnas = entradas) y `b`; la arquitectura es 40 → 64 → 32 → 16 → 3 (`architecture`); ReLU en las tres capas ocultas y lineal en la última; `mean`, `std`, `yMean`, `yStd`, `inputNames`, `targetNames`. El pase hacia adelante es el mismo de `mlpPredict` de `web/js/model/emulator.js` (probado contra PyTorch a 1e-5 en `tests/app_mlp.test.mjs`) y se escribe en Dart con ocho líneas sobre `List<double>`.
+**Formato de pesos (`web/data/app_mlp.json`):** `layers` es una lista de 4 capas, cada una con `W` (filas = neuronas de salida, columnas = entradas) y `b`; la arquitectura es 40 → 64 → 32 → 16 → 3 (`architecture`); ReLU en las tres capas ocultas y lineal en la última; `mean`, `std`, `yMean`, `yStd`, `inputNames`, `targetNames`. El pase hacia adelante es el mismo de `mlpPredict` de `web/js/model/emulator.js` (probado contra PyTorch a 1e-5 en `tests/app_mlp.test.mjs`) y se puede escribir en Dart sobre `List<double>` sin dependencias (no se escribió ni se probó en esta tarea).
 
 **Dónde va en `recomendar`:** después de calcular `actual`, `semana`, `factorRendimiento` y `diasEstres`, y antes de construir `Recomendacion`. Con esos valores se arma el vector de 40 entradas y se corre la red. No cambia el tipo `Recomendacion`: los campos existentes se calculan igual. Dos usos posibles sin tocarlo: elevar `nivel` de `bien` a `atencion` cuando `estres7 ≥ 0.5`, y poner el valor hacia adelante en campos opcionales nuevos (`factorFinalEsperado`, `diasEstresProximos`), con valor nulo por omisión, que la pantalla `hoy.dart` muestra solo si existen. **Si no hay clima o la plantación es de café, la red no se llama** (`Recomendacion.vacia` o el flujo actual).
 
