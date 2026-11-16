@@ -1,0 +1,645 @@
+{
+ "meta": {
+  "task": 38,
+  "classes": {
+   "1": "mueve el simulador directamente",
+   "2": "resumen derivado de cosas que mueven el simulador, o salida del propio simulador hasta hoy",
+   "3": "sin efecto en el simulador"
+  },
+  "generatedFrom": "lectura del código (emulatorV3.js, emulatorV2.js, coffee.js, appInputs.js, appEngine.js, factors.js, succession_lib.mjs)",
+  "provisional": "banana y bananaCover (café v2) son un supuesto provisional, no una medida"
+ },
+ "networks": {
+  "sevenCropPredictorV3": {
+   "file": "web/data/emulator_v3_mlp.json",
+   "note": "el archivo no trae inputNames; los nombres son FEATURE_NAMES_V3 (emulatorV3.js), el orden con que se generaron las muestras",
+   "inputs": [
+    {
+     "name": "rainMJJ",
+     "class": 2,
+     "how": "resumen de la lluvia o la ET0 (del clima diario) del año agrícola; el simulador recibe esa lluvia y esa ET0 día por día"
+    },
+    {
+     "name": "rainASO",
+     "class": 2,
+     "how": "resumen de la lluvia o la ET0 (del clima diario) del año agrícola; el simulador recibe esa lluvia y esa ET0 día por día"
+    },
+    {
+     "name": "rainYear",
+     "class": 2,
+     "how": "resumen de la lluvia o la ET0 (del clima diario) del año agrícola; el simulador recibe esa lluvia y esa ET0 día por día"
+    },
+    {
+     "name": "caniculaDays",
+     "class": 2,
+     "how": "racha seca de julio-agosto, resumen de la lluvia diaria"
+    },
+    {
+     "name": "et0MeanMO",
+     "class": 2,
+     "how": "ET0 media mayo-octubre, resumen de la ET0 diaria"
+    },
+    {
+     "name": "tmeanMO",
+     "class": 2,
+     "how": "temperatura media mayo-octubre; la temperatura mueve el simulador por la ET0 y los grados-día de la fenología"
+    },
+    {
+     "name": "elevation",
+     "class": 1,
+     "how": "entra a la ET0 (radiación de cielo despejado, Rso = (0.75 + 2e-5 z)·Ra); efecto pequeño: +900 m = +0.7 % de ET0 en Jutiapa. Con la ET0 ya calculada, cambiar solo la elevación no mueve nada"
+    },
+    {
+     "name": "sowDoyA",
+     "class": 1,
+     "how": "día de siembra del cultivo A (regla de inicio de lluvias + desfase): el simulador siembra ese día"
+    },
+    {
+     "name": "rain0to60",
+     "class": 2,
+     "how": "lluvia en los 60 días tras la siembra de A"
+    },
+    {
+     "name": "et0_0to60",
+     "class": 2,
+     "how": "ET0 en los 60 días tras la siembra de A"
+    },
+    {
+     "name": "rain61to150",
+     "class": 2,
+     "how": "lluvia, días 61-150 tras la siembra"
+    },
+    {
+     "name": "et0_61to150",
+     "class": 2,
+     "how": "ET0, días 61-150 tras la siembra"
+    },
+    {
+     "name": "A_maiz",
+     "class": 1,
+     "how": "cultivo A elegido: parámetros FAO-56 del cultivo en el simulador"
+    },
+    {
+     "name": "A_frijol",
+     "class": 1,
+     "how": "cultivo A elegido: parámetros FAO-56 del cultivo en el simulador"
+    },
+    {
+     "name": "A_ajonjoli",
+     "class": 1,
+     "how": "cultivo A elegido: parámetros FAO-56 del cultivo en el simulador"
+    },
+    {
+     "name": "A_papa",
+     "class": 1,
+     "how": "cultivo A elegido: parámetros FAO-56 del cultivo en el simulador"
+    },
+    {
+     "name": "A_cebolla",
+     "class": 1,
+     "how": "cultivo A elegido: parámetros FAO-56 del cultivo en el simulador"
+    },
+    {
+     "name": "A_brocoli",
+     "class": 1,
+     "how": "cultivo A elegido: parámetros FAO-56 del cultivo en el simulador"
+    },
+    {
+     "name": "A_lechuga",
+     "class": 1,
+     "how": "cultivo A elegido: parámetros FAO-56 del cultivo en el simulador"
+    },
+    {
+     "name": "B_maiz",
+     "class": 1,
+     "how": "cultivo B (sucesor) elegido: parámetros FAO-56 en el simulador"
+    },
+    {
+     "name": "B_frijol",
+     "class": 1,
+     "how": "cultivo B (sucesor) elegido: parámetros FAO-56 en el simulador"
+    },
+    {
+     "name": "B_ajonjoli",
+     "class": 1,
+     "how": "cultivo B (sucesor) elegido: parámetros FAO-56 en el simulador"
+    },
+    {
+     "name": "B_papa",
+     "class": 1,
+     "how": "cultivo B (sucesor) elegido: parámetros FAO-56 en el simulador"
+    },
+    {
+     "name": "B_cebolla",
+     "class": 1,
+     "how": "cultivo B (sucesor) elegido: parámetros FAO-56 en el simulador"
+    },
+    {
+     "name": "B_brocoli",
+     "class": 1,
+     "how": "cultivo B (sucesor) elegido: parámetros FAO-56 en el simulador"
+    },
+    {
+     "name": "B_lechuga",
+     "class": 1,
+     "how": "cultivo B (sucesor) elegido: parámetros FAO-56 en el simulador"
+    },
+    {
+     "name": "B_none",
+     "class": 1,
+     "how": "sin cultivo B: el simulador no siembra un segundo cultivo"
+    },
+    {
+     "name": "soil_sand",
+     "class": 1,
+     "how": "textura del suelo: θFC, θWP y número de curva del simulador"
+    },
+    {
+     "name": "soil_loam",
+     "class": 1,
+     "how": "textura del suelo: θFC, θWP y número de curva del simulador"
+    },
+    {
+     "name": "soil_clay",
+     "class": 1,
+     "how": "textura del suelo: θFC, θWP y número de curva del simulador"
+    },
+    {
+     "name": "offset30",
+     "class": 1,
+     "how": "desfase de la siembra en días (0, 15, 30) / 30: el simulador siembra ese día"
+    },
+    {
+     "name": "A_rainPre30",
+     "class": 2,
+     "how": "lluvia de los 30 días antes de la floración del cultivo (cultivo A); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "A_et0Pre30",
+     "class": 2,
+     "how": "ET0 de los 30 días antes de la floración (cultivo A); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "A_apiFlower",
+     "class": 2,
+     "how": "índice de lluvia antecedente hasta la floración (cultivo A); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "A_storeProxy",
+     "class": 2,
+     "how": "balance corrido acotado a 150 mm hasta la floración (lógica simple, no el simulador) (cultivo A); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "A_rainFlower",
+     "class": 2,
+     "how": "lluvia en la ventana de floración (cultivo A); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "A_deficitFlower",
+     "class": 2,
+     "how": "déficit climático en la ventana de floración (cultivo A); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "A_cycleDays",
+     "class": 2,
+     "how": "días del ciclo de la siembra a la cosecha, por grados-día (lo calcula la fenología del simulador) (cultivo A); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "A_daysLeft",
+     "class": 2,
+     "how": "días que quedan en el año agrícola al sembrar (cultivo A); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "B_rainPre30",
+     "class": 2,
+     "how": "lluvia de los 30 días antes de la floración del cultivo (cultivo B); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "B_et0Pre30",
+     "class": 2,
+     "how": "ET0 de los 30 días antes de la floración (cultivo B); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "B_apiFlower",
+     "class": 2,
+     "how": "índice de lluvia antecedente hasta la floración (cultivo B); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "B_storeProxy",
+     "class": 2,
+     "how": "balance corrido acotado a 150 mm hasta la floración (lógica simple, no el simulador) (cultivo B); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "B_rainFlower",
+     "class": 2,
+     "how": "lluvia en la ventana de floración (cultivo B); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "B_deficitFlower",
+     "class": 2,
+     "how": "déficit climático en la ventana de floración (cultivo B); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "B_cycleDays",
+     "class": 2,
+     "how": "días del ciclo de la siembra a la cosecha, por grados-día (lo calcula la fenología del simulador) (cultivo B); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    },
+    {
+     "name": "B_daysLeft",
+     "class": 2,
+     "how": "días que quedan en el año agrícola al sembrar (cultivo B); derivada de clima, fenología y fecha de siembra, que sí mueven el simulador"
+    }
+   ],
+   "counts": {
+    "drivesSimulator": 21,
+    "derivedSummary": 26,
+    "noEffect": 0,
+    "total": 47
+   }
+  },
+  "coffeePredictThenChooseV2": {
+   "file": "web/data/coffee_ptc_mlp_v2.json",
+   "note": "banana y bananaCover: supuesto provisional",
+   "inputs": [
+    {
+     "name": "daysSinceFlowering",
+     "class": 2,
+     "how": "días desde la floración, que sale de la regla de lluvia (≥ 10 mm entre el 15 de febrero y el 30 de abril, más 9 días): derivada de la lluvia y la fecha"
+    },
+    {
+     "name": "doy",
+     "class": 1,
+     "how": "fecha del día de la decisión: la fecha decide la estación lluviosa o seca, de la que depende el efecto de la sombra, y el día del año de la ET0"
+    },
+    {
+     "name": "rain7",
+     "class": 2,
+     "how": "lluvia de los últimos 7 días"
+    },
+    {
+     "name": "et0_7",
+     "class": 2,
+     "how": "ET0 de los últimos 7 días"
+    },
+    {
+     "name": "rain28",
+     "class": 2,
+     "how": "lluvia de los últimos 28 días"
+    },
+    {
+     "name": "et0_28",
+     "class": 2,
+     "how": "ET0 de los últimos 28 días"
+    },
+    {
+     "name": "rainSinceNov1",
+     "class": 2,
+     "how": "lluvia desde el 1 de noviembre"
+    },
+    {
+     "name": "et0SinceNov1",
+     "class": 2,
+     "how": "ET0 desde el 1 de noviembre"
+    },
+    {
+     "name": "dryspell28",
+     "class": 2,
+     "how": "racha seca más larga de 28 días"
+    },
+    {
+     "name": "tmean28",
+     "class": 2,
+     "how": "temperatura media de 28 días; la temperatura mueve el simulador por la ET0"
+    },
+    {
+     "name": "tmaxMax28",
+     "class": 2,
+     "how": "máxima de Tmax en 28 días; ídem"
+    },
+    {
+     "name": "runningDepletion",
+     "class": 2,
+     "how": "balance corrido acotado desde el 1 de noviembre (Kc 0.95, sin sombra ni escorrentía): una cuenta simple de lluvia y ET0, no el Dr del simulador"
+    },
+    {
+     "name": "soilAWmm",
+     "class": 2,
+     "how": "agua disponible TAW = 1000·(θFC − θWP)·Zr: derivada del suelo y la raíz que el simulador usa"
+    },
+    {
+     "name": "elevation",
+     "class": 1,
+     "how": "solo por la ET0 (radiación de cielo despejado): +900 m = +0.7 % de ET0 en Jutiapa. simulateCoffee recibe la ET0 ya calculada, así que la elevación sola no mueve el balance"
+    },
+    {
+     "name": "shadeTrees",
+     "class": 1,
+     "how": "sombra de árboles sí/no: recorta 0.52 mm/día de evaporación en lluvias y suma el uso de agua del árbol (plotAdjust)"
+    },
+    {
+     "name": "deciduous",
+     "class": 1,
+     "how": "tipo de árbol (deciduo o siempreverde): cambia el uso de agua del árbol por estación"
+    },
+    {
+     "name": "banana",
+     "class": 1,
+     "how": "banano sí/no como sombra: SUPUESTO PROVISIONAL (evaporación −0.52 mm/día en lluvias y gasto de agua del banano)"
+    },
+    {
+     "name": "bananaCover",
+     "class": 1,
+     "how": "fracción del suelo cubierta por copa de banano: multiplica el gasto de agua del banano, SUPUESTO PROVISIONAL (0.15 y 0.30 son convenciones)"
+    }
+   ],
+   "counts": {
+    "drivesSimulator": 6,
+    "derivedSummary": 12,
+    "noEffect": 0,
+    "total": 18
+   }
+  },
+  "appAlignedNetwork": {
+   "file": "web/data/app_mlp.json",
+   "note": "las entradas salen del motor de la app (appEngine.js), no de simulate.js",
+   "inputs": [
+    {
+     "name": "lat",
+     "class": 1,
+     "how": "latitud: entra a la radiación extraterrestre de la ET0 en el motor de la app"
+    },
+    {
+     "name": "lon",
+     "class": 3,
+     "how": "longitud: el motor de la app no la usa (ET0 solo usa latitud y elevación; el clima ya viene descargado). Solo identifica el punto de donde se bajó el clima"
+    },
+    {
+     "name": "cellElevation",
+     "class": 1,
+     "how": "elevación de la celda: entra a la presión y a Rso de la ET0 (efecto pequeño)"
+    },
+    {
+     "name": "sowSin",
+     "class": 1,
+     "how": "día de siembra (seno del día del año): el motor siembra ese día"
+    },
+    {
+     "name": "sowCos",
+     "class": 1,
+     "how": "día de siembra (coseno)"
+    },
+    {
+     "name": "todaySin",
+     "class": 1,
+     "how": "fecha de hoy (seno): hasta dónde corre el motor y qué clima conoce"
+    },
+    {
+     "name": "todayCos",
+     "class": 1,
+     "how": "fecha de hoy (coseno)"
+    },
+    {
+     "name": "crop_maiz",
+     "class": 1,
+     "how": "cultivo elegido: parámetros del catálogo de la app"
+    },
+    {
+     "name": "crop_frijol",
+     "class": 1,
+     "how": "cultivo elegido"
+    },
+    {
+     "name": "crop_tomate",
+     "class": 1,
+     "how": "cultivo elegido"
+    },
+    {
+     "name": "cycleDays",
+     "class": 1,
+     "how": "ciclo elegido: define la duración de las etapas en el motor"
+    },
+    {
+     "name": "fractionElapsed",
+     "class": 2,
+     "how": "fracción del ciclo transcurrida: (hoy − siembra) / ciclo"
+    },
+    {
+     "name": "daysToHarvest",
+     "class": 2,
+     "how": "días que faltan a la cosecha: ciclo − (hoy − siembra)"
+    },
+    {
+     "name": "soilAvailableWater",
+     "class": 1,
+     "how": "agua disponible del suelo elegido (aguaDisponible en simularBalance)"
+    },
+    {
+     "name": "kcMid",
+     "class": 1,
+     "how": "Kc medio del catálogo del cultivo"
+    },
+    {
+     "name": "rootDepth",
+     "class": 1,
+     "how": "raíz máxima del catálogo"
+    },
+    {
+     "name": "p",
+     "class": 1,
+     "how": "fracción de agotamiento p del catálogo"
+    },
+    {
+     "name": "ky",
+     "class": 1,
+     "how": "Ky del catálogo (entra al factor de rendimiento)"
+    },
+    {
+     "name": "reserve",
+     "class": 2,
+     "how": "salida del motor de la app hasta hoy: agua en reserva"
+    },
+    {
+     "name": "depletionOverTaw",
+     "class": 2,
+     "how": "salida del motor hasta hoy: agotamiento / TAW"
+    },
+    {
+     "name": "ks",
+     "class": 2,
+     "how": "salida del motor hasta hoy: Ks del día"
+    },
+    {
+     "name": "stage_inicial",
+     "class": 2,
+     "how": "etapa de hoy, derivada de siembra, ciclo y hoy"
+    },
+    {
+     "name": "stage_desarrollo",
+     "class": 2,
+     "how": "etapa de hoy"
+    },
+    {
+     "name": "stage_media",
+     "class": 2,
+     "how": "etapa de hoy"
+    },
+    {
+     "name": "stage_finalCiclo",
+     "class": 2,
+     "how": "etapa de hoy"
+    },
+    {
+     "name": "factorSoFar",
+     "class": 2,
+     "how": "salida del motor hasta hoy: factor de rendimiento acumulado"
+    },
+    {
+     "name": "stressDays7",
+     "class": 2,
+     "how": "salida del motor hasta hoy: días con estrés en los últimos 7"
+    },
+    {
+     "name": "stressDaysSinceSowing",
+     "class": 2,
+     "how": "salida del motor hasta hoy: días con estrés desde la siembra"
+    },
+    {
+     "name": "rain7",
+     "class": 2,
+     "how": "lluvia, 7 días"
+    },
+    {
+     "name": "rain14",
+     "class": 2,
+     "how": "lluvia, 14 días"
+    },
+    {
+     "name": "rain28",
+     "class": 2,
+     "how": "lluvia, 28 días"
+    },
+    {
+     "name": "rainSinceSowing",
+     "class": 2,
+     "how": "lluvia desde la siembra"
+    },
+    {
+     "name": "et0Sum7",
+     "class": 2,
+     "how": "ET0, 7 días"
+    },
+    {
+     "name": "et0Sum14",
+     "class": 2,
+     "how": "ET0, 14 días"
+    },
+    {
+     "name": "et0Sum28",
+     "class": 2,
+     "how": "ET0, 28 días"
+    },
+    {
+     "name": "et0SumSinceSowing",
+     "class": 2,
+     "how": "ET0 desde la siembra"
+    },
+    {
+     "name": "longestDrySpell28",
+     "class": 2,
+     "how": "racha seca más larga de 28 días"
+    },
+    {
+     "name": "tmaxMean14",
+     "class": 2,
+     "how": "Tmax media de 14 días (la temperatura mueve la ET0)"
+    },
+    {
+     "name": "tminMean14",
+     "class": 2,
+     "how": "Tmin media de 14 días"
+    },
+    {
+     "name": "cropNeed7",
+     "class": 2,
+     "how": "salida del motor hasta hoy: ETc de los últimos 7 días"
+    }
+   ],
+   "counts": {
+    "drivesSimulator": 15,
+    "derivedSummary": 24,
+    "noEffect": 1,
+    "total": 40
+   }
+  }
+ },
+ "decisionTimeInformationNotNetworkInput": [
+  {
+   "item": "priority (ahorrar agua / proteger el cultivo; café)",
+   "acts": "choice criterion",
+   "how": "fija el precio de regar (3 o 1 días de estrés); la elección es predicción > precio. El simulador no tiene prioridad: solo da los días de estrés evitados",
+   "simulatorResponds": false
+  },
+  {
+   "item": "regla de antracnosis por estrés",
+   "acts": "choice criterion",
+   "how": "si el aviso está activo por estrés hídrico la prioridad pasa a proteger (effectivePriority); cambia la elección, no el simulador",
+   "simulatorResponds": false
+  },
+  {
+   "item": "canResow (puedo resembrar)",
+   "acts": "stated constraint",
+   "how": "con falso solo queda dejar el campo (valor 0); se aplica al elegir, no cambia ninguna simulación",
+   "simulatorResponds": false
+  },
+  {
+   "item": "hasIrrigation / irrigationType",
+   "acts": "stated constraint",
+   "how": "se declara y se aplica al elegir; el simulador tiene modos de riego (ninguno, limitado, completo) pero esta bandera declarada no los cambia",
+   "simulatorResponds": false
+  },
+  {
+   "item": "clase de fertilidad",
+   "acts": "stated multiplier",
+   "how": "multiplica el rendimiento (AquaCrop tabla 2.13a); el simulador lo aplica con la opción factors.fertilityClass (apagada por defecto), la red no lo ve y no se reentrenó: la decisión multiplica las predicciones",
+   "simulatorResponds": true
+  },
+  {
+   "item": "calor en floración (maíz, tomate)",
+   "acts": "simulator option, not a network input",
+   "how": "el simulador lo aplica con la opción factors.heat (apagada por defecto); ninguna red lo toma como entrada",
+   "simulatorResponds": true
+  },
+  {
+   "item": "nivel de plaga declarado (pestLevel) y avisos de roya, minador y antracnosis",
+   "acts": "notice only",
+   "how": "se muestran y se llevan; no cambian el rendimiento ni el estrés (no hay función de daño con fuente)",
+   "simulatorResponds": false
+  },
+  {
+   "item": "momento del abono (aviso de abono)",
+   "acts": "notice only",
+   "how": "aviso por ventanas de Anacafe y suelo húmedo; no entra al simulador",
+   "simulatorResponds": false
+  },
+  {
+   "item": "precios (MAGA)",
+   "acts": "notice only",
+   "how": "solo registrados (prices.json); no se calcula margen",
+   "simulatorResponds": false
+  },
+  {
+   "item": "pendiente (slopeClass), modo de riego y tipo de sucesión",
+   "acts": "simulator inputs the v3 predictor does not take",
+   "how": "el simulador responde (número de curva, riego) pero el predictor v3 se entrenó con pendiente plana y sin riego; la red no los ve",
+   "simulatorResponds": true
+  }
+ ],
+ "algorithmShowsButSimulatorDoesNotRespond": [
+  "lon de la red alineada con la app: el motor de la app no la usa (clase 3).",
+  "priority: el simulador no responde; solo cambia el precio con que se juzga.",
+  "canResow y hasIrrigation declarados: restricciones aplicadas al elegir, ninguna simulación cambia.",
+  "pestLevel y avisos de plagas, aviso de abono, precios: solo avisos o registro; no mueven rendimiento ni estrés.",
+  "elevation (café y v3) y lat / cellElevation (app) mueven el simulador solo por la ET0, y con efecto pequeño (+900 m = +0.7 % de ET0).",
+  "banana y bananaCover: el simulador responde, pero solo por un supuesto provisional, no por una medida."
+ ]
+}
