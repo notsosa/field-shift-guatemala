@@ -25,21 +25,25 @@ FUENTES_DICC = [  # fuentes de los pares de traducción (lo único que ve el ent
      "Languages y Comunidades Lingüísticas de la ALMG", "https://talkingdictionary.swarthmore.edu/"),
     ("Diccionario Mam–Español de Comitancillo, San Marcos — Mitsuho Ikeda y Walter Orland Pérez Morales (2001)",
      "https://navymule9.sakura.ne.jp/Mam_Esp_Dic_Comitan.html"),
+    ("MayanV — corpus paralelo maya–español (Lou, Pérez-Ortiz, Sánchez-Martínez y Sánchez-Cartagena, NAACL 2024; "
+     "Universitat d'Alacant; empaquetado CC0, textos de publicaciones de la ALMG). Desde la v2.",
+     "https://github.com/transducens/mayanv"),
     ("Tablas verificadas del equipo Field Shift (`diccionarios/*.md`), con sus fuentes citadas por página",
      "../diccionarios/README.md"),
 ]
 
-AVISO = {"cpu": "Se entrenó solo en CPU, unas 17 h (≈ {epoca:.0%} de una época).",
+AVISO = {"cpu": "Se entrenó solo en CPU (una laptop sin GPU), con pocas horas de cómputo.",
          "gpu": "Se entrenó en una GPU T4 de Google Colab (pre-entrenamiento con límite de horas + SFT)."}
 DATOS = {
-    "cpu": "Solo **pares de traducción de diccionarios** (palabra o frase corta ↔ glosa), en ambas direcciones. "
+    "cpu": "Solo **pares de traducción**, en ambas direcciones: palabras de diccionarios (palabra ↔ glosa) y, desde "
+           "la v2, ~6 800 oraciones cortas del corpus **MayanV** (k'iche', q'eqchi', mam). "
            "No incluye la prosa del corpus (libros, Biblias, páginas web).",
     "gpu": "1. **Pre-entrenamiento continuo** con el corpus del proyecto (≈ 34.6 M tokens: libros y leyes de la ALMG, "
            "Biblias, páginas web de FineWeb-2 y MADLAD-400, diccionarios), muestreado para equilibrar las lenguas.\n"
            "2. **Ajuste por instrucciones**: pares de traducción de diccionarios en ambas direcciones, continuar texto, "
            "escribir párrafos, explicar palabras e identificar la lengua.",
 }
-HARDWARE = {"cpu": "CPU de laptop (sin GPU), una noche", "gpu": "GPU NVIDIA T4 (Google Colab)"}
+HARDWARE = {"cpu": "CPU de laptop (sin GPU)", "gpu": "GPU NVIDIA T4 (Google Colab)"}
 
 
 def combinar_y_guardar(sft_dir: Path, dest: Path) -> dict:
@@ -108,6 +112,7 @@ def main():
     ap.add_argument("--checkpoint", default=None, help="por defecto, el último de modelos/sft/checkpoints")
     ap.add_argument("--destino", default=str(RAIZ / "modelo_lenguas_mayas"))
     ap.add_argument("--version", default="v1-experimental")
+    ap.add_argument("--metricas", default=str(MODELOS / "sft" / "final" / "metricas.json"))
     ap.add_argument("--plan", choices=["cpu", "gpu"], default="cpu",
                     help="cpu: una noche, solo traducción; gpu: pre-entrenamiento + SFT completo (Colab)")
     a = ap.parse_args()
@@ -131,8 +136,9 @@ def main():
               else {"global_step": 0, "log_history": []})
     pasos, epoca = estado["global_step"], estado.get("epoch", 0)
     perdidas = [round(h["loss"], 2) for h in estado["log_history"] if "loss" in h]
-    metricas_f = MODELOS / "sft" / "final" / "metricas.json"
+    metricas_f = Path(a.metricas)
     chrf = json.loads(metricas_f.read_text(encoding="utf-8"))["chrf"] if metricas_f.exists() else {}
+    desc_eval = (json.loads(metricas_f.read_text(encoding="utf-8")).get("descripcion") if metricas_f.exists() else None)         or "60 pares reservados de los diccionarios"
 
     filas = [r for r in leer_jsonl(DATOS_LLM / "sft_train.jsonl") if not tareas or r["tarea"] in tareas]
     por_lengua = Counter(r["lang"] for r in filas)
@@ -211,7 +217,7 @@ Fuentes y autorías: [CREDITOS.md](CREDITOS.md). Los textos no se distribuyen en
 
 ## Evaluación
 
-chrF++ sobre 60 pares reservados de los diccionarios (no vistos en el entrenamiento). Más alto es mejor (0–100).
+chrF++ sobre {desc_eval} (no vistos en el entrenamiento). Más alto es mejor (0–100).
 
 | Dirección | chrF++ |
 |---|---:|

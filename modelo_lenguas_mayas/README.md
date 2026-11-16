@@ -1,10 +1,10 @@
-# Traductor de lenguas mayas (español ↔ k'iche', kaqchikel, q'eqchi', mam) · v1-experimental
+# Traductor de lenguas mayas (español ↔ k'iche', kaqchikel, q'eqchi', mam) · v2-experimental
 
 Adaptador LoRA para **Qwen/Qwen2.5-0.5B-Instruct**. Traduce palabras y frases cortas entre el
 español y cuatro idiomas mayas de Guatemala. Parte de [Field Shift Guatemala](../README.md)
 (NASA Space Apps Challenge). Código de entrenamiento: [scripts/traductor_lenguas_mayas/](../scripts/traductor_lenguas_mayas/).
 
-> **Versión experimental.** Se entrenó solo en CPU, unas 17 h (≈ 89% de una época). Sus traducciones tienen errores
+> **Versión experimental.** Se entrenó solo en CPU (una laptop sin GPU), con pocas horas de cómputo. Sus traducciones tienen errores
 > frecuentes y **deben revisarlas hablantes nativos** antes de usarse con personas.
 
 ## Cómo usarlo
@@ -35,45 +35,56 @@ El prompt debe seguir el formato de arriba (`Traduce del <lengua> al <lengua>:\n
 
 ## Datos de entrenamiento
 
-Solo **pares de traducción de diccionarios** (palabra o frase corta ↔ glosa), en ambas direcciones. No incluye la prosa del corpus (libros, Biblias, páginas web).
+Solo **pares de traducción**, en ambas direcciones: palabras de diccionarios (palabra ↔ glosa) y, desde la v2, ~6 800 oraciones cortas del corpus **MayanV** (k'iche', q'eqchi', mam). No incluye la prosa del corpus (libros, Biblias, páginas web).
 
 | Lengua | Ejemplos disponibles |
 |---|---:|
-| k'iche' | 1 174 |
+| k'iche' | 7 662 |
 | kaqchikel | 7 102 |
-| q'eqchi' | 1 132 |
-| mam | 4 866 |
+| q'eqchi' | 13 572 |
+| mam | 13 070 |
 
 Fuentes y autorías: [CREDITOS.md](CREDITOS.md). Los textos no se distribuyen en este repositorio.
 
 ## Entrenamiento
 
-- Modelo base: `Qwen/Qwen2.5-0.5B-Instruct` · LoRA r=16, alpha=32, todas las capas lineales.
-- Hardware: CPU de laptop (sin GPU), una noche.
-- Pasos: 790 (0.89 épocas, ≈ 12,645 ejemplos vistos). Pérdida: 5.02 → 2.81.
+- Modelo base: `Qwen/Qwen2.5-0.5B-Instruct` · LoRA r=32, alpha=32, todas las capas lineales.
+- Hardware: CPU de laptop (sin GPU).
+- Dos etapas, ambas en CPU:
+  - **v1:** 790 pasos (≈ 12 600 ejemplos) con palabras de diccionario. Pérdida 5.02 → 2.81.
+  - **v2:** 75 pasos más (≈ 1 200 ejemplos) mezclando oraciones de MayanV y palabras de diccionario, sobre la v1. Pérdida 3.77 → 3.58.
+  - El adaptador publicado reúne las dos etapas (LoRA r=16 + r=16 concatenados).
 - Detalles: [entrenamiento.json](entrenamiento.json).
 
 ## Evaluación
 
-chrF++ sobre 60 pares reservados de los diccionarios (no vistos en el entrenamiento). Más alto es mejor (0–100).
+chrF++ sobre una muestra de 120 pares reservados: palabras de diccionario y 38 oraciones de MayanV/test (no vistos en el entrenamiento). Más alto es mejor (0–100).
 
 | Dirección | chrF++ |
 |---|---:|
-| es->kaqchikel | 7.03 |
-| es->kiche | 8.78 |
-| es->mam | 12.17 |
-| es->qeqchi | 0.0 |
-| kaqchikel->es | 5.53 |
-| mam->es | 6.3 |
-| qeqchi->es | 13.14 |
-| total | 7.01 |
+| es->kaqchikel | 6.13 |
+| es->kiche | 13.8 |
+| es->mam | 8.03 |
+| es->qeqchi | 11.55 |
+| kaqchikel->es | 3.64 |
+| kiche->es | 8.51 |
+| mam->es | 6.86 |
+| qeqchi->es | 10.39 |
+| total | 8.12 |
+
+Comparación sobre la misma muestra:
+
+| Versión | chrF++ total | Solo oraciones de MayanV |
+|---|---:|---:|
+| v1 (solo diccionarios) | 7.31 | 7.83 |
+| **v2 (+ MayanV)** | **8.12** | **10.09** |
 
 Con tan pocos pares por dirección, estas cifras son orientativas.
 
 ## Limitaciones y uso responsable
 
 - Aprendió de diccionarios: traduce mejor **palabras sueltas** que oraciones.
-- K'iche' y q'eqchi' tienen pocos pares; mam y kaqchikel, más.
+- Kaqchikel no tiene oraciones de MayanV: solo aprendió palabras sueltas, y es la lengua más débil.
 - Puede inventar palabras con apariencia maya. No lo uses para documentos oficiales, salud o temas legales sin revisión humana.
 - Son lenguas de pueblos indígenas: cualquier uso público debería contar con la participación de sus
   hablantes y de la Academia de Lenguas Mayas de Guatemala (ALMG).

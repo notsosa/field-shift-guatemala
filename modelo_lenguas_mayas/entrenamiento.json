@@ -1,27 +1,28 @@
 {
-  "version": "v1-experimental",
+  "version": "v2-experimental",
   "fecha": "2026-11-15",
-  "checkpoint": "adaptador",
-  "pasos": 790,
-  "epoca": 0.886,
-  "ejemplos_vistos_aprox": 12645,
+  "checkpoint": "checkpoint-75",
+  "pasos": 75,
+  "epoca": 0.126,
+  "ejemplos_vistos_aprox": 5230,
   "perdida_inicial": [
-    5.02
+    3.77
   ],
   "perdida_final": [
-    2.81
+    3.58
   ],
   "chrf": {
-    "es->kaqchikel": 7.03,
-    "es->kiche": 8.78,
-    "es->mam": 12.17,
-    "es->qeqchi": 0.0,
-    "kaqchikel->es": 5.53,
-    "mam->es": 6.3,
-    "qeqchi->es": 13.14,
-    "total": 7.01
+    "es->kaqchikel": 6.13,
+    "es->kiche": 13.8,
+    "es->mam": 8.03,
+    "es->qeqchi": 11.55,
+    "kaqchikel->es": 3.64,
+    "kiche->es": 8.51,
+    "mam->es": 6.86,
+    "qeqchi->es": 10.39,
+    "total": 8.12
   },
-  "lora_r": 16,
+  "lora_r": 32,
   "lora_alpha": 32,
   "modelo_base": "Qwen/Qwen2.5-0.5B-Instruct",
   "plan": "cpu",
@@ -30,9 +31,9 @@
     "traducir_maya_es"
   ],
   "ejemplos_por_lengua": {
-    "kaqchikel": 7102,
-    "mam": 4866,
-    "qeqchi": 1132,
-    "kiche": 1174
+    "qeqchi": 13572,
+    "kiche": 7662,
+    "mam": 13070,
+    "kaqchikel": 7102
   }
 }

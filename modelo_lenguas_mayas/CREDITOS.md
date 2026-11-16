@@ -5,6 +5,7 @@
 - Diccionario Kaqchikel (Webonary, SIL International) — https://www.webonary.org/kaqchikel/
 - Talking Dictionaries de k'iche', kaqchikel, q'eqchi' y mam — Living Tongues Institute for Endangered Languages y Comunidades Lingüísticas de la ALMG — https://talkingdictionary.swarthmore.edu/
 - Diccionario Mam–Español de Comitancillo, San Marcos — Mitsuho Ikeda y Walter Orland Pérez Morales (2001) — https://navymule9.sakura.ne.jp/Mam_Esp_Dic_Comitan.html
+- MayanV — corpus paralelo maya–español (Lou, Pérez-Ortiz, Sánchez-Martínez y Sánchez-Cartagena, NAACL 2024; Universitat d'Alacant; empaquetado CC0, textos de publicaciones de la ALMG). Desde la v2. — https://github.com/transducens/mayanv
 - Tablas verificadas del equipo Field Shift (`diccionarios/*.md`), con sus fuentes citadas por página — ../diccionarios/README.md
 
 ## Créditos completos del corpus del proyecto
