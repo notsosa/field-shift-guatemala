@@ -1,0 +1,38 @@
+{
+  "version": "v1-experimental",
+  "fecha": "2026-11-15",
+  "checkpoint": "adaptador",
+  "pasos": 790,
+  "epoca": 0.886,
+  "ejemplos_vistos_aprox": 12645,
+  "perdida_inicial": [
+    5.02
+  ],
+  "perdida_final": [
+    2.81
+  ],
+  "chrf": {
+    "es->kaqchikel": 7.03,
+    "es->kiche": 8.78,
+    "es->mam": 12.17,
+    "es->qeqchi": 0.0,
+    "kaqchikel->es": 5.53,
+    "mam->es": 6.3,
+    "qeqchi->es": 13.14,
+    "total": 7.01
+  },
+  "lora_r": 16,
+  "lora_alpha": 32,
+  "modelo_base": "Qwen/Qwen2.5-0.5B-Instruct",
+  "plan": "cpu",
+  "tareas": [
+    "traducir_es_maya",
+    "traducir_maya_es"
+  ],
+  "ejemplos_por_lengua": {
+    "kaqchikel": 7102,
+    "mam": 4866,
+    "qeqchi": 1132,
+    "kiche": 1174
+  }
+}

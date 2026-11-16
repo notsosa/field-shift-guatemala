@@ -29,7 +29,7 @@ FUENTES_DICC = [  # fuentes de los pares de traducción (lo único que ve el ent
      "../diccionarios/README.md"),
 ]
 
-AVISO = {"cpu": "Se entrenó una sola noche en CPU (≈ {epoca:.0%} de una época).",
+AVISO = {"cpu": "Se entrenó solo en CPU, unas 17 h (≈ {epoca:.0%} de una época).",
          "gpu": "Se entrenó en una GPU T4 de Google Colab (pre-entrenamiento con límite de horas + SFT)."}
 DATOS = {
     "cpu": "Solo **pares de traducción de diccionarios** (palabra o frase corta ↔ glosa), en ambas direcciones. "
@@ -130,7 +130,7 @@ def main():
     estado = (json.loads((Path(ck_estado) / "trainer_state.json").read_text(encoding="utf-8")) if ck_estado
               else {"global_step": 0, "log_history": []})
     pasos, epoca = estado["global_step"], estado.get("epoch", 0)
-    perdidas = [h["loss"] for h in estado["log_history"] if "loss" in h]
+    perdidas = [round(h["loss"], 2) for h in estado["log_history"] if "loss" in h]
     metricas_f = MODELOS / "sft" / "final" / "metricas.json"
     chrf = json.loads(metricas_f.read_text(encoding="utf-8"))["chrf"] if metricas_f.exists() else {}
 
@@ -187,6 +187,8 @@ print(tok.decode(model.generate(ids, max_new_tokens=40)[0][ids.shape[1]:], skip_
 O desde la consola del proyecto: `python scripts/traductor_lenguas_mayas/probar_modelo.py --modelo modelo_lenguas_mayas`.
 
 El prompt debe seguir el formato de arriba (`Traduce del <lengua> al <lengua>:\\n<texto>`), que es con el que se entrenó.
+
+**Integración en la app del teléfono** (API, feedback y aprendizaje continuo): [USO_EN_LA_APP.md](USO_EN_LA_APP.md).
 
 ## Datos de entrenamiento
 

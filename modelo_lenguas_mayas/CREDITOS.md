@@ -1,0 +1,393 @@
+# Créditos
+
+## Fuentes de los pares de traducción usados en este adaptador
+
+- Diccionario Kaqchikel (Webonary, SIL International) — https://www.webonary.org/kaqchikel/
+- Talking Dictionaries de k'iche', kaqchikel, q'eqchi' y mam — Living Tongues Institute for Endangered Languages y Comunidades Lingüísticas de la ALMG — https://talkingdictionary.swarthmore.edu/
+- Diccionario Mam–Español de Comitancillo, San Marcos — Mitsuho Ikeda y Walter Orland Pérez Morales (2001) — https://navymule9.sakura.ne.jp/Mam_Esp_Dic_Comitan.html
+- Tablas verificadas del equipo Field Shift (`diccionarios/*.md`), con sus fuentes citadas por página — ../diccionarios/README.md
+
+## Créditos completos del corpus del proyecto
+
+Lista de todas las obras recopiladas para el corpus (incluye las que se usarán en versiones futuras con pre-entrenamiento). Los textos no se distribuyen.
+
+
+Todos los textos pertenecen a sus autores e instituciones. Este corpus se usa con fines de investigación educativa (NASA Space Apps Challenge, Field Shift Guatemala). Verifique la licencia de cada obra antes de redistribuir el corpus o un modelo entrenado con él.
+
+## K'iche'
+
+- **Alaj imul**
+  - Autoría: Lilian Maribel Calderón (Zunil, Quetzaltenango)
+  - Institución / fuente: Antología de cuentos en k'iche', CNB Guatemala (cnbguatemala.org)
+  - Archivo: `Alaj imul - CNB Guatemala.pdf` — incluido
+- **Alaj kuk**
+  - Autoría: Lilian Maribel Calderón (Zunil, Quetzaltenango)
+  - Institución / fuente: Antología de cuentos en k'iche', CNB Guatemala (cnbguatemala.org)
+  - Archivo: `Alaj kuk - CNB Guatemala.pdf` — incluido
+- **Jas uchakuxik kaxlanwa**
+  - Autoría: Manuel Hernández Pocol (Cantel, Quetzaltenango)
+  - Institución / fuente: Antología de cuentos en k'iche', CNB Guatemala (cnbguatemala.org)
+  - Archivo: `Jas uchakuxik kaxlanwa - CNB Guatemala.pdf` — incluido
+- **Jun ajyuq'**
+  - Autoría: Herlindo Calel Vicente (San Carlos Sija, Quetzaltenango)
+  - Institución / fuente: Antología de cuentos en k'iche', CNB Guatemala (cnbguatemala.org)
+  - Archivo: `Jun ajyuq’ - CNB Guatemala.pdf` — incluido
+- **Jun lol ketz'an ruk' le ne'**
+  - Autoría: Juan José Menchú Ordóñez (San Pedro Jocopilas, Quiché)
+  - Institución / fuente: Antología de cuentos en k'iche', CNB Guatemala (cnbguatemala.org)
+  - Archivo: `Jun lol ketz’an ruk’ le ne’ - CNB Guatemala.pdf` — incluido
+- **Jupaj kapaj tzij (presentación de la antología)**
+  - Autoría: Docentes participantes de la antología (sin nombre individual en el texto)
+  - Institución / fuente: Antología de cuentos en k'iche', CNB Guatemala (cnbguatemala.org)
+  - Archivo: `Jupaj kapaj tzij - CNB Guatemala.pdf` — incluido
+- **Keb' ajyuq'ab'**
+  - Autoría: Rocita Lima Puac Yac (Cantel, Quetzaltenango)
+  - Institución / fuente: Antología de cuentos en k'iche', CNB Guatemala (cnbguatemala.org)
+  - Archivo: `Keb’ ajyuq’ab’ - CNB Guatemala.pdf` — incluido
+- **Texto avanzado K'iche'**
+  - Autoría: Wel Raxulew
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG)
+  - Archivo: `Texto-Avanzado-Kiche.pdf` — incluido
+- **Antecedentes históricos de la Comunidad Lingüística K'iche'**
+  - Autoría: Comunidad Lingüística K'iche' (sin autor individual identificado)
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG)
+  - Archivo: `Antecedentes-Historicos-Kiche.pdf` — incluido
+- **Vocabulario K'iche' (2.ª ed.)** (2004)
+  - Autoría: Coordinación: Lic. Cecilio Tuyuc Sucuc; técnica encargada: Gloria Enoe Son Chonay (Programa de Estudios Lingüísticos)
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Comunidad Lingüística K'iche'
+  - Archivo: `vocabulario-kiche-almg-2004.pdf` — incluido
+- **Diccionario K'iche' - Español (Ri Tyoxlaj Wuj)**
+  - Autoría: Autor no identificado en el documento
+  - Archivo: `BKiche_DiccioKE.pdf` — incluido
+- **Popol Wuj, versión poética K'iche'**
+  - Autoría: Sam Colop (Luis Enrique Sam Colop)
+  - Institución / fuente: PEMBI-GTZ / Cholsamaj
+  - Archivo: `popol-wuj-kiche.pdf` — incluido
+- **Kemom Ch'ab'al, 2.º grado primaria K'iche' (Programa de lectoescritura eficaz)**
+  - Autoría: Equipo de producción de PRODESSA: coordinación Federico Roncal Martínez; Yesenia Juárez, Edgar García Tax, Silvia Montepeque, Erwin Salazar, Edgar Daniel Morales, Héctor de León Alonzo
+  - Institución / fuente: Proyecto de Desarrollo Santiago (PRODESSA) y Ministerio de Educación
+  - Archivo: `2.°_CyL_SKCH'_k'iche'.pdf` — incluido
+- **Sonrisas infantiles campesinas (K'iche')**
+  - Autoría: No verificado (PDF escaneado)
+  - Archivo: `13525 quc Sonrisas infantiles campesinas.pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **Popol Vuh: Literal Translation (texto K'iche' con traducción literal al inglés)**
+  - Autoría: Allen J. Christenson (University of Oklahoma Press, 2004; edición electrónica Mesoweb)
+  - Institución / fuente: https://www.mesoweb.com/publications/Christenson/PV-Literal.pdf
+  - Archivo: `popol_vuh_christenson/PV-Literal.pdf` — incluido
+- **Libro de cuentos de Chichicastenango (K'iche'-Español)**
+  - Autoría: Narradores de Chichicastenango; compilación: Elizabeth A. Wood
+  - Institución / fuente: https://elizabethawood.github.io/files/LibroDeCuentos.pdf
+  - Archivo: `cuentos_chichicastenango/LibroDeCuentos.pdf` — incluido
+- **El Ratoncito (Colección Cuentos en familia, K'iche')**
+  - Autoría: Proyecto USAID Leer y Aprender / Ministerio de Educación de Guatemala
+  - Institución / fuente: https://www.mineduc.gob.gt/mineduc/images/portal/DIGEFOCE/documents/usaid/El_Ratoncito_kiche.pdf
+  - Archivo: `cuentos_en_familia/El_Ratoncito_kiche.pdf` — incluido
+- **La Llorona y Tijereta (Colección Cuentos en familia, K'iche')**
+  - Autoría: Proyecto USAID Leer y Aprender / Ministerio de Educación de Guatemala
+  - Institución / fuente: https://www.mineduc.gob.gt/mineduc/images/portal/DIGEFOCE/documents/usaid/La_Llorona_y_Tijereta_kiche.pdf
+  - Archivo: `cuentos_en_familia/La_Llorona_y_Tijereta_kiche.pdf` — incluido
+- **Los animales y la selva (Colección Cuentos en familia, K'iche')**
+  - Autoría: Proyecto USAID Leer y Aprender / Ministerio de Educación de Guatemala
+  - Institución / fuente: https://www.mineduc.gob.gt/mineduc/images/portal/DIGEFOCE/documents/usaid/Los_animales_y_la_selva_kiche.pdf
+  - Archivo: `cuentos_en_familia/Los_animales_y_la_selva_kiche.pdf` — incluido
+- **Ri Tyoxlaj Wuj: Biblia católica en K'iche' (Antiguo y Nuevo Testamento)**
+  - Autoría: Conferencia Episcopal de Guatemala, Pastoral K'iche'
+  - Institución / fuente: https://www.iglesiacatolica.org.gt/bibliakiche/
+  - Archivo: `kiche/biblia_catolica/ (83 PDF)` — incluido (4978 párrafos)
+- **FineWeb-2 (Hugging Face), subconjunto quc_Latn**
+  - Autoría: Hugging Face (Penedo et al., 2024) sobre Common Crawl; textos de los sitios web de origen (URL de cada documento en los shards). Licencia ODC-By 1.0
+  - Institución / fuente: https://huggingface.co/datasets/HuggingFaceFW/fineweb-2
+  - Archivo: `raw/webcorpus/fineweb2/quc/` — incluido (4462 páginas web)
+- **MADLAD-400 (parte clean), subconjunto quc**
+  - Autoría: Kudugunta et al. (Google, 2023) sobre Common Crawl; publicado por AllenAI; textos de los sitios web de origen. Licencia ODC-By
+  - Institución / fuente: https://huggingface.co/datasets/allenai/MADLAD-400
+  - Archivo: `raw/webcorpus/madlad/quc/` — incluido (903 páginas web)
+- **Ru Loq' Pixab' Ri Dios: Nuevo Testamento en K'iche' de Cantel (ortografía nueva)**
+  - Autoría: Wycliffe Bible Translators (© 2011)
+  - Institución / fuente: https://ebible.org/qucNNT/
+  - Archivo: `qucNNT_usfm.zip` — incluido (260 capítulos)
+- **Ri K'ak' Testamento pa Tzijob'al K'iche' (Totonicapán)**
+  - Autoría: Pioneer Bible Translators (© 2022)
+  - Institución / fuente: https://ebible.org/quctt/
+  - Archivo: `quctt_usfm.zip` — incluido (260 capítulos)
+- **K'iche' Talking Dictionary**
+  - Autoría: Producido por Lucas Chilisná Botón, Jose Miguel Medrano Rojas, Juan Bautista Tzaj, Ana Maria Ixchop, José Reginaldo Pérez Vail, Ajb'ee Jimenez, Anna Luisa Daigneault, Rodrigo Ranero Echeverría, Gregory D. S. Anderson, K. David Harrison. (2014); K'ulb'il Yol Twitz Paxil / ALMG y Living Tongues Institute for Endangered Languages; © Comunidad Lingüística K'iche' (2014); hablantes: Lucas Chilisná Botón, Lucas Cilisná Botón
+  - Institución / fuente: https://talkingdictionary.swarthmore.edu/kiche/
+  - Archivo: `td_kiche.jsonl` — incluido (299 entradas)
+
+## Kaqchikel
+
+- **Kaqchikel Choltzij: kolon chuqa' k'ak'a taq tzij** (2008-2011)
+  - Autoría: Kaqchikel Cholchi' (dir. Lolmay Pedro Oscar García Matzar); recopilación: Rony Arnoldo Chipix Otzoy, Darwin Alvaro Bala; revisión: Rafael Hernández Huit, Victor Par; asesoría: Israel Raxjal; validación: Pedro Morejon Patzán, Maricela Marroquin, Juan Esteban Ajsivinac; diagramación: Fidel Calel Castro; colaboradores: Peter Rohloff, Robert Henderson
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Kaqchikel Cholchi'
+  - Archivo: `kaqchikel_choltzij.pdf` — incluido
+- **Astronomía Kaqchikel** (2009)
+  - Autoría: Investigador: Leonardo Enrique Teleguario Ajpatunayché; revisión: Pedro Morejon Patzán, Carlos Emilio Guarcax González, Rosalbina Sisimit Perén, Pablo Chex Curuchich, Juan Esteban Ajsivinac Sián, Alba Elizabeth Cutzal Calel
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Kaqchikel Cholchi'
+  - Archivo: `Astronomia-Kaqchikel.pdf` — incluido
+- **Filosofía Kaqchikel** (2008)
+  - Autoría: Adolfo Chicol Gámez, María del Carmen Tuy Tococh, Cristina Nicolás Sirin
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Kaqchikel Cholchi'
+  - Archivo: `Filosofia-Kaqchikel.pdf` — incluido
+- **La milpa, sistema suelo y su uso medicinal, fase II** (2023)
+  - Autoría: Investigadora: Yesika María Karina Tucubal Sanahí; coordinación: Ana Luvia Mux Chuy
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Comunidad Lingüística Kaqchikel
+  - Archivo: `Milpa-Kaqchikel.pdf` — incluido
+- **Variación dialectal en Kaqchikel** (2000)
+  - Autoría: Filiberto Patal Majzul, Lolmay Pedro Oscar García Matzar, Ixchel Carmelina Espantzay Serech; investigación de campo: Juana Sánchez Pérez y equipo OKMA
+  - Institución / fuente: Cholsamaj / OKMA
+  - Archivo: `Variacion-Dialectal-Kaqchikel.pdf` — incluido
+- **Vocabulario Cakchiquel-Español para el médico y estudiante de medicina (tesis)**
+  - Autoría: Flora Cutzal Otzoy
+  - Institución / fuente: Facultad de Ciencias Médicas, Universidad de San Carlos de Guatemala
+  - Archivo: `208.pdf` — incluido
+- **Conversemos en Kaqchikel**
+  - Autoría: No verificado (PDF escaneado)
+  - Archivo: `Conversemos-en-Kaqchikel.pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **Neologismos de matemáticas en Kaqchikel**
+  - Autoría: No verificado (PDF escaneado)
+  - Archivo: `Matematicas-Neologismos-Kaqchikel.pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **Toponimia Kaqchikel**
+  - Autoría: No verificado (PDF escaneado)
+  - Archivo: `Toponimia-Kaqchikel.pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **Popol Wuj en Kaqchikel**
+  - Autoría: No verificado (PDF escaneado)
+  - Archivo: `Popol-Wuj-Kaqchikel.pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **Ri utzilaj rutzij ri Dios pa kach'abel (Nuevo Testamento, Kaqchikel Sur de Sacatepéquez)** (1993)
+  - Autoría: Wycliffe Bible Translators; edición digital: Digital Bible Society
+  - Institución / fuente: Wycliffe Bible Translators
+  - Archivo: `CAKSDS.pdf` — incluido
+- **Kikotemal taq tzij: Antología de cuentos del área Kaqchiquel (texto OCR de archive.org)**
+  - Autoría: Lucía Verdugo de Lima, Martín Chacach Cutzal, Mayra Fong Rodríguez
+  - Archivo: `Full text of _Kikotemal taq tzij_ Antología de cuentos del área Kaqchiquel_.pdf` — incluido
+- **Ley de Idiomas Nacionales (Decreto 19-2003) en Kaqchikel**
+  - Autoría: Kaqchikel Cholchi' (Comunidad Lingüística Kaqchikel)
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG)
+  - Archivo: `Ley-de-Idiomas-Kaqchikel.pdf` — incluido
+- **Ley del Registro Nacional de las Personas (Decreto 90-2005) en Kaqchikel**
+  - Autoría: Traductor no indicado
+  - Archivo: `renap_kaqchikel.pdf` — incluido
+- **Ley de Acceso a la Información Pública comentada (Decreto 57-2008), Español/Kaqchikel** (2013)
+  - Autoría: Traducción coordinada con la Comunidad Lingüística Kaqchikel (pres. Pedro Morejón Patzán)
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG)
+  - Archivo: `09-LAIPKAQCHIQUEL-ESPAÑOL.pdf` — incluido
+- **Ley de Acceso a la Información Pública, versión Español/Kaqchikel (COPRET)** (2013)
+  - Autoría: Traducción coordinada con la Comunidad Lingüística Kaqchikel
+  - Institución / fuente: ALMG y COPRET
+  - Archivo: `Ley-de-acceso-a-la-información-pública-en-idioma-kaqchiquel.pdf` — incluido
+- **Ri Cacac Testamento pa Kachabal: El Nuevo Testamento en Cakchiquel de Santa María de Jesús, Sacatepéquez (2.ª ed.)** (2010)
+  - Autoría: Wycliffe Bible Translators (1.ª ed. 2006, 2.ª ed. 2010), ScriptureEarth.org. Licencia CC BY-NC-ND 3.0
+  - Institución / fuente: Wycliffe Bible Translators
+  - Archivo: `00-WNTcki-web.pdf` — incluido
+- **Historias del Antiguo Testamento en Kaqchikel**
+  - Autoría: No verificado (PDF escaneado)
+  - Archivo: `26572 cakX OT stories.pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **FineWeb-2 (Hugging Face), subconjunto cak_Latn**
+  - Autoría: Hugging Face (Penedo et al., 2024) sobre Common Crawl; textos de los sitios web de origen (URL de cada documento en los shards). Licencia ODC-By 1.0
+  - Institución / fuente: https://huggingface.co/datasets/HuggingFaceFW/fineweb-2
+  - Archivo: `raw/webcorpus/fineweb2/cak/` — incluido (4825 páginas web)
+- **MADLAD-400 (parte clean), subconjunto cak**
+  - Autoría: Kudugunta et al. (Google, 2023) sobre Common Crawl; publicado por AllenAI; textos de los sitios web de origen. Licencia ODC-By
+  - Institución / fuente: https://huggingface.co/datasets/allenai/MADLAD-400
+  - Archivo: `raw/webcorpus/madlad/cak/` — incluido (50 páginas web)
+- **Nuevo Testamento en Kaqchikel de Chimaltenango**
+  - Autoría: Wycliffe Bible Translators (© 2007)
+  - Institución / fuente: https://ebible.org/cak/
+  - Archivo: `cak_usfm.zip` — incluido (260 capítulos)
+- **Ri C'ac'a Trato ri Xuben ri Dios Quiq'uin ri Vinek (Kaqchikel Central)**
+  - Autoría: Wycliffe Bible Translators (© 2012)
+  - Institución / fuente: https://ebible.org/cakCNT/
+  - Archivo: `cakCNT_usfm.zip` — incluido (260 capítulos)
+- **Ri Dios nch'o pa kach'abül cheke (Kaqchikel Oriental)**
+  - Autoría: Wycliffe Bible Translators (© 2012)
+  - Institución / fuente: https://ebible.org/cakENT/
+  - Archivo: `cakENT_usfm.zip` — incluido (260 capítulos)
+- **Ri C'ac'ac' Testamento pa Kach'abel (Kaqchikel Occidental, Sololá)**
+  - Autoría: Wycliffe Bible Translators (© 2010)
+  - Institución / fuente: https://ebible.org/cakWNT/
+  - Archivo: `cakWNT_usfm.zip` — incluido (260 capítulos)
+- **Re C'ac'a Testamento pa Kach'abal (Kaqchikel de Yepocapa y Acatenango)**
+  - Autoría: Wycliffe Bible Translators (© 2012)
+  - Institución / fuente: https://ebible.org/cakYNT/
+  - Archivo: `cakYNT_usfm.zip` — incluido (260 capítulos)
+- **Diccionario Kaqchikel (Webonary)**
+  - Autoría: Contribuyentes del diccionario Kaqchikel publicado en Webonary (SIL International)
+  - Institución / fuente: https://www.webonary.org/kaqchikel/
+  - Archivo: `webonary_kaqchikel.jsonl` — incluido (3106 entradas)
+- **Kaqchikel Talking Dictionary**
+  - Autoría: Producido por Byron Vinicio Socorec Yucute, José Reginaldo Pérez Vail, Ajb'ee Jimenez, Anna Luisa Daigneault, Rodrigo Ranero Echeverría, Gregory D. S. Anderson, K. David Harrison. (2014); K'ulb'il Yol Twitz Paxil / ALMG y Living Tongues Institute for Endangered Languages; © Comunidad Lingüística Kaqchikel (2014); hablantes: Byron Vinicio Socorec Yucute, María Herminia Mux López
+  - Institución / fuente: https://talkingdictionary.swarthmore.edu/kaqchikel/
+  - Archivo: `td_kaqchikel.jsonl` — incluido (482 entradas)
+
+## Q'eqchi'
+
+- **Li xwanjik ut xch'oolaninkil li ixq naq wank sa' yu'am (cuidados de la mujer)**
+  - Autoría: Elena Violeta Quim Coc
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Comunidad Lingüística Q'eqchi'
+  - Archivo: `Cuidados-de-la-mujer-Qeqchi.pdf` — incluido
+- **(copia duplicada del anterior; eliminada por deduplicación)**
+  - Autoría: Elena Violeta Quim Coc
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG)
+  - Archivo: `Cuidados-de-la-mujer-Qeqchi (1).pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **Fauna y flora Q'eqchi' (investigación 2018)** (2018)
+  - Autoría: Pedro Xol Pop
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Comunidad Lingüística Q'eqchi'
+  - Archivo: `Fauna-Flora-Qeqchi.pdf` — incluido
+- **Flora y fauna Q'eqchi' (investigación 2018)** (2018)
+  - Autoría: Hermelindo Quim Cuc
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Comunidad Lingüística Q'eqchi'
+  - Archivo: `Flora-Fauna-Qeqchi.pdf` — incluido
+- **Neologismos Q'eqchi'**
+  - Autoría: María Teresa Ac Macz
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Comunidad Lingüística Q'eqchi'
+  - Archivo: `Neologismos-Qeqchi.pdf` — incluido
+- **Popol Hu en Q'eqchi'**
+  - Autoría: Traducción: María Teresa Ac Macz
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Comunidad Lingüística Q'eqchi'
+  - Archivo: `Popol-Hu-Qeqchi.pdf` — incluido
+- **Sinonimias en Q'eqchi'** (2023)
+  - Autoría: Técnico investigador de la Comunidad Lingüística Q'eqchi' (nombre no legible en la extracción)
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Comunidad Lingüística Q'eqchi'
+  - Archivo: `Sinonimias-Qeqchi.pdf` — incluido
+- **Módulo de aprendizaje del idioma Q'eqchi' como L2 (1.ª parte)** (2009)
+  - Autoría: Equipo de trabajo de la Comunidad Lingüística Q'eqchi'
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Comunidad Lingüística Q'eqchi'
+  - Archivo: `Modulo-L2-1era-parte-Qeqchi.pdf` — incluido
+- **Monografía Q'eqchi'**
+  - Autoría: Autor no identificado en el documento
+  - Archivo: `Monografia-Qeqchi.pdf` — incluido
+- **Vocabulario Q'eqchi' (2.ª ed. revisada)** (2004)
+  - Autoría: Comunidad Lingüística Q'eqchi' (junta directiva presidida por Andrés Cuz Mucú)
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG)
+  - Archivo: `vocabulario q'eqchi'.pdf` — incluido
+- **Diccionario Q'eqchi' - Español**
+  - Autoría: No verificado (PDF escaneado)
+  - Archivo: `qeqchi-espanol.pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **Li Santil Hu: La Santa Biblia en Q'eqchi' (ortografía tradicional)** (1988-2019)
+  - Autoría: Wycliffe Bible Translators
+  - Institución / fuente: Wycliffe Bible Translators
+  - Archivo: `kekB-web.pdf` — incluido
+- **Xnimal Ruhil Chaq'rab' re Watemaal: Constitución Política de Guatemala, Q'eqchi'-Castellano** (2014)
+  - Autoría: Defensoría Q'eqchi' (PEM. Raúl Tacaj Xol, Adelso Romel Reyes Reyes, Robin Macloni Sicaján Jacinto, Angela Maribel Caal Ajtul y equipo)
+  - Institución / fuente: Defensoría Q'eqchi'; edición: Cholsamaj
+  - Archivo: `Constitución.pdf` — incluido
+- **Gramática Normativa Q'eqchi'** (2022)
+  - Autoría: Alfredo Alvarez Cabanal; coordinación: Luis Tiul Beb
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Comunidad Lingüística Q'eqchi'
+  - Archivo: `10.-GramaticaNormativa-2022 Q’eqchi’.pdf` — incluido
+- **Ley de Acceso a la Información Pública comentada (Decreto 57-2008), Español/Q'eqchi'** (2013)
+  - Autoría: Traducción coordinada con la Comunidad Lingüística Q'eqchi'
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG)
+  - Archivo: `16-LAIP-QUEQCHI-ESPAÑOL.pdf` — incluido
+- **Guía de lectoescritura Q'eqchi' (Educación Bilingüe Intercultural)** (2004)
+  - Autoría: Edna Maribel Chaman, Edwin Armando Catún, Pedro Ical Choc
+  - Institución / fuente: DIGEBI / PROASE, Ministerio de Educación
+  - Archivo: `8bn7q2.pdf` — incluido
+- **Cholwuj Cholna'oj: El Libro de la Cuenta de los Nawales** (2000)
+  - Autoría: Tito Medina
+  - Institución / fuente: Fundación CEDIM y Tzijolaj
+  - Archivo: `thmpzo_qechi.pdf` — no incluido: son sobre todo tablas calendáricas repetitivas, poco útiles para el modelo
+- **FineWeb-2 (Hugging Face), subconjunto kek_Latn**
+  - Autoría: Hugging Face (Penedo et al., 2024) sobre Common Crawl; textos de los sitios web de origen (URL de cada documento en los shards). Licencia ODC-By 1.0
+  - Institución / fuente: https://huggingface.co/datasets/HuggingFaceFW/fineweb-2
+  - Archivo: `raw/webcorpus/fineweb2/kek/` — incluido (1091 páginas web)
+- **MADLAD-400 (parte clean), subconjunto kek**
+  - Autoría: Kudugunta et al. (Google, 2023) sobre Common Crawl; publicado por AllenAI; textos de los sitios web de origen. Licencia ODC-By
+  - Institución / fuente: https://huggingface.co/datasets/allenai/MADLAD-400
+  - Archivo: `raw/webcorpus/madlad/kek/` — incluido (308 páginas web)
+- **Q'eqchi' Talking Dictionary**
+  - Autoría: Producido por Vicente de Jesús Che' Melgar, Floricelda Saquil Bol, Héctor Raúl Mó Macz, Roberto Coc Caz, María Teresa Ac Macz, Marta Azucena Ixim, Danilo Coc Pop, José Reginaldo Pérez Vail, Ajb'ee Jimenez, Anna Luisa Daigneault, Rodrigo Ranero Echeverría, Gregory D. S. Anderson, K. David Harrison (2014); K'ulb'il Yol Twitz Paxil / ALMG y Living Tongues Institute for Endangered Languages; © Comunidad Lingüística Q'eqchi' (2014); hablantes: Vicente de Jesus Che Melgar
+  - Institución / fuente: https://talkingdictionary.swarthmore.edu/qeqchi/
+  - Archivo: `td_qeqchi.jsonl` — incluido (346 entradas)
+
+## Mam
+
+- **Vocabulario biocultural mam de Unión Juárez, Chiapas** (2020)
+  - Autoría: Responsable: Telma Angelina Can Pixabaj; investigadores: Fernando Guerrero Martínez, Juan Jesús Vázquez Álvarez; técnicos: Fausto Bolom Ton, Tomás Gómez López; Comunidad Lingüística Mam: José Reginaldo Pérez Vail, David Ramiro Tirado Romero; hablantes: Hermelindo González Verdugo, Juan de Dios Bartolo Ortiz, Benvenuto Ramos Bartolo, Hermenegildo Morales Verdugo, Nicolás Ventura y otros
+  - Institución / fuente: CIMSUR-UNAM y Comunidad Lingüística Mam (ALMG)
+  - Archivo: `20200214_Vocabulario_biocultural_mam.pdf` — incluido
+- **Tu'jil qyol Mam te tkab'in yol: aprendiendo el idioma Mam como L2**
+  - Autoría: Producción: Saturnino Jíguan Berdúo, Samuel de Jesús Feliciano Orozco, Rodolfo García Marroquín, Santos Bladimiro de León Lorenzo, Mario Roberto Aguilón Crisóstomo; ilustración: Dagoberto Carlos Témaj Feliciano; validación: Avelino Ramírez López
+  - Institución / fuente: Ministerio de Educación, DIDEDUC San Marcos (STPEBI)
+  - Archivo: `Aprendiendo-L2-Mam.pdf` — incluido
+- **Revisión del documento "Variantes dialectales del idioma Mam"** (2013)
+  - Autoría: Responsable: Lic. Miguel García Ortíz (metadatos del PDF: Elmer Geovanny Feliciano Cardona B'alam)
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG), Comunidad Lingüística Mam
+  - Archivo: `Variantes-Dialectales-Mam.pdf` — incluido
+- **Pop U'j, versión en idioma mam**
+  - Autoría: ALMG (PDF escaneado; traductores no verificados)
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG)
+  - Archivo: `Pop-Uj-Mam.pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **Revista Ambil toj kyxim qchman**
+  - Autoría: Comunidad Lingüística Mam (PDF escaneado)
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG)
+  - Archivo: `Revista-Ambil-toj-Kyxim-Qchman.pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **Revista Kyajlab'il qchman**
+  - Autoría: Comunidad Lingüística Mam (PDF escaneado)
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG)
+  - Archivo: `Revista-Kyajlab_il-Qchman.pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **Revista Qyolb'il toj jaxnaq tzb'il**
+  - Autoría: Comunidad Lingüística Mam (PDF escaneado)
+  - Institución / fuente: Academia de Lenguas Mayas de Guatemala (ALMG)
+  - Archivo: `Revista-Qyolb_il-Toj-Jaxnaq_tzb_il.pdf` — no incluido: PDF escaneado sin capa de texto (requiere OCR)
+- **T-xnaq'tzaanjtz Ttxoolil Qyool: Gramática pedagógica Mam** (1999)
+  - Autoría: B'aayil Eduardo Gustavo Pérez Vail; dirección de la colección: Guillermina Herrera Peña
+  - Institución / fuente: Oxlajuuj Keej Maya' Ajtz'iib' (OKMA), Proyecto EDUMAYA, Universidad Rafael Landívar
+  - Archivo: `Mam, Gramática Pedagógica (B'aayil).pdf` — incluido
+- **U'jal te xhnaq'tsal ta t-ts'ib'enj te ta yol mam te Chiapas (Gramática de la lengua mam de Chiapas)** (2013)
+  - Autoría: Nicacio Ramos Ortíz
+  - Institución / fuente: Instituto Nacional de Lenguas Indígenas (INALI) y Secretaría de Educación de Chiapas, México
+  - Archivo: `gramatica_mam.pdf` — incluido
+- **Txolil ta tsi'b'enj te ta yol mam: Norma de escritura de la lengua mam**
+  - Autoría: Instituto Nacional de Lenguas Indígenas (autoría individual no indicada en la extracción)
+  - Institución / fuente: INALI, México
+  - Archivo: `norma_mam.pdf` — incluido
+- **Nmana: Ajawal (Mi padre el sembrador), Colección Cuentos en familia** (2016)
+  - Autoría: Autoría: Juana Filomena Cuá García; traducción al mam: Luis Alfredo Aguilón Crisóstomo; editor: Juan Carlos Lemus; ilustraciones: Herman Montenegro
+  - Institución / fuente: Proyecto USAID Leer y Aprender; aval lingüístico de la Comunidad Lingüística Mam
+  - Archivo: `Mi_padre_el_sembrador_mam.pdf` — incluido
+- **Ley de Acceso a la Información Pública (Decreto 57-2008), versión Español/Mam** (2013)
+  - Autoría: Traducción coordinada con la Comunidad Lingüística Mam
+  - Institución / fuente: ALMG y COPRET, Gobierno de Guatemala
+  - Archivo: `Ley-de-acceso-a-la-información-pública-en-idioma-mam.pdf` — incluido
+- **Las Sagradas Escrituras, Mam del norte de Guatemala** (1993/2013)
+  - Autoría: Sociedad Bíblica de Guatemala (1.ª ed. 1993); edición web: La Asociación Educativa y Cultural Maya (2013). Licencia CC BY-NC-ND 4.0
+  - Institución / fuente: Sociedad Bíblica de Guatemala
+  - Archivo: `mamNB-web.pdf` — incluido
+- **El Nuevo Testamento en Mam de Todos Santos (PDF)** (2012)
+  - Autoría: Wycliffe Bible Translators
+  - Archivo: `Mam-Santos-(2012)-New-Testament.pdf` — no incluido: la fuente del PDF codifica el texto; se usó la misma traducción en USFM desde eBible.org (mamNT)
+- **Diccionario del Mam-Español de Comitancillo (PDF; repite la versión web)** (2001)
+  - Autoría: Mitsuho Ikeda y Walter Orland Pérez Morales
+  - Archivo: `diccionario-del-mam-espac3b1ol-de-comitancillo-san-marcos-2001.pdf` — incluido
+- **Mam diccionario parlante en línea (impresión PDF; repite la versión web)** (2012)
+  - Autoría: Comunidad Lingüística Mam y Living Tongues Institute
+  - Archivo: `Mam diccionario hablado.pdf` — incluido
+- **Ttxu Kawb'il tuj Nintz Tnam te Tx'otx'ixin: Constitución Política de la República de Guatemala en idioma Mam** (2013)
+  - Autoría: Traductores no indicados en el documento
+  - Institución / fuente: Instituto de Justicia Constitucional, Corte de Constitucionalidad
+  - Archivo: `ilide.info-cprg-en-idioma-mam-pr_7a979cf37c9fe22a06af56cd4452e67a.pdf` — incluido
+- **FineWeb-2 (Hugging Face), subconjunto mam_Latn**
+  - Autoría: Hugging Face (Penedo et al., 2024) sobre Common Crawl; textos de los sitios web de origen (URL de cada documento en los shards). Licencia ODC-By 1.0
+  - Institución / fuente: https://huggingface.co/datasets/HuggingFaceFW/fineweb-2
+  - Archivo: `raw/webcorpus/fineweb2/mam/` — incluido (1917 páginas web)
+- **MADLAD-400 (parte clean), subconjunto mam**
+  - Autoría: Kudugunta et al. (Google, 2023) sobre Common Crawl; publicado por AllenAI; textos de los sitios web de origen. Licencia ODC-By
+  - Institución / fuente: https://huggingface.co/datasets/allenai/MADLAD-400
+  - Archivo: `raw/webcorpus/madlad/mam/` — incluido (644 páginas web)
+- **Ac'aj testamento: El Nuevo Testamento en Mam de Todos Santos**
+  - Autoría: Wycliffe Bible Translators (© 2000). Licencia CC BY-NC-ND
+  - Institución / fuente: https://ebible.org/mamNT/
+  - Archivo: `mamNT_usfm.zip` — incluido (260 capítulos)
+- **Nuevo Testamento en Mam Central (Comitancillo)**
+  - Autoría: Wycliffe Bible Translators (© 2009). Licencia CC BY-NC-ND 4.0
+  - Institución / fuente: https://ebible.org/mamC/
+  - Archivo: `mamC_usfm.zip` — incluido (260 capítulos)
+- **Mam Talking Dictionary**
+  - Autoría: Producido por José Reginaldo Pérez Vail, Juan Ramón Andres López, Luis Arturo Feliciano Cardona, Ajb'ee Jimenez, Anna Luisa Daigneault, Rodrigo Ranero Echeverría, Gregory D. S. Anderson, K. David Harrison (2013 - 2014); K'ulb'il Yol Twitz Paxil / ALMG y Living Tongues Institute for Endangered Languages; © Comunidad Lingüística Mam (2014); hablantes: Eber Feliciano, José Reginaldo Pérez Vail, Juan Ramón Andres López, Lesly Gómez, Luis Feliciano, Mariela Feliciano, maç
+  - Institución / fuente: https://talkingdictionary.swarthmore.edu/mam/
+  - Archivo: `td_mam.jsonl` — incluido (740 entradas)
+- **Diccionario del Mam-Español de Comitancillo, San Marcos**
+  - Autoría: Mitsuho Ikeda (Mitzub'ixi Quq Chi'j) y Walter Orland Pérez Morales (2001)
+  - Institución / fuente: https://navymule9.sakura.ne.jp/Mam_Esp_Dic_Comitan.html
+  - Archivo: `mam_comitancillo.jsonl` — incluido (1793 entradas)
