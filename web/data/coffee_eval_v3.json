@@ -1,0 +1,5573 @@
+{
+ "meta": {
+  "task": 41,
+  "systemsSource": "auditorias/prueba cafe banano 2025/datos/cultivos/parametros_auditados.json (origin/main ac37f1b), valores de referencia FAO-56 Tablas 12 y 22, sin calibración local; Zr propio de este modelo (1.2 m, la auditoría usa 1.0 m)",
+  "note": "Los parámetros de las clases (Kc compuesto y p) son valores de referencia de FAO-56 de la auditoría del asesor del equipo, sin calibración local: la red aprende el simulador, no una medida de campo.",
+  "systems": {
+   "none": "café de siempre: Kc 0.95 constante, p 0.40 (suelo limpio o con mulch)",
+   "weedy": {
+    "id": "malezas",
+    "kc": [
+     1.05,
+     1.1,
+     1.1
+    ],
+    "p": 0.4,
+    "label": "café solo con cobertura viva o malezas entre los surcos"
+   },
+   "regulated": {
+    "id": "regulado",
+    "kc": [
+     0.95,
+     1.05,
+     1
+    ],
+    "p": 0.38,
+    "label": "café + banano regulado (35–45 % de sombra) con mulch de Musa"
+   },
+   "dense": {
+    "id": "denso",
+    "kc": [
+     1,
+     1.2,
+     1.1
+    ],
+    "p": 0.35,
+    "label": "café + banano denso sin deshije"
+   }
+  },
+  "decision": {
+   "irrigationMm": 20,
+   "horizonDays": 30,
+   "decisionDaysAfterFlowering": [
+    30,
+    60,
+    90
+   ],
+   "price": {
+    "saveWater": 3,
+    "protectCrop": 1
+   }
+  },
+  "splits": {
+   "train": [
+    2001,
+    2016
+   ],
+   "val": [
+    2017,
+    2018
+   ],
+   "test": [
+    2019,
+    2024
+   ]
+  },
+  "reserved": [
+   2022,
+   2023,
+   2024
+  ],
+  "shades": [
+   "none",
+   "evergreen",
+   "deciduous",
+   "weedy",
+   "regulated",
+   "dense"
+  ],
+  "seeds": [
+   17,
+   29,
+   43
+  ],
+  "selectedSeed": 29,
+  "inputNames": [
+   "daysSinceFlowering",
+   "doy",
+   "rain7",
+   "et0_7",
+   "rain28",
+   "et0_28",
+   "rainSinceNov1",
+   "et0SinceNov1",
+   "dryspell28",
+   "tmean28",
+   "tmaxMax28",
+   "runningDepletion",
+   "soilAWmm",
+   "elevation",
+   "shadeTrees",
+   "deciduous",
+   "weeds",
+   "bananaRegulated",
+   "bananaDense"
+  ],
+  "scenarios": {
+   "total": 12960,
+   "test": 3240,
+   "reserved": 1620
+  },
+  "originalRowsCheck": {
+   "rows": 6480,
+   "maxAbsStateDiffVsV1": 0,
+   "sameOutcomes": true
+  },
+  "ruleNote": "La regla FAO-56 usa el balance corrido del café (Kc 0.95, p 0.40) en todos los sistemas, porque es lo que el agricultor puede observar; no conoce el Kc ni la p del sistema.",
+  "stressNote": "stress = días con Ks < 1 del lote (FAO-56 ec. 84 con la p del sistema: 0.40 sin sombra, árboles y malezas; 0.38 banano regulado; 0.35 banano denso) en la simulación continua sin riego; ETa/ETc con la ETc del lote. Media sobre sitios, suelos y años cafeteros."
+ },
+ "utility": {
+  "predictThenChooseV3": {
+   "test2019_2024": {
+    "original": {
+     "saveWater": {
+      "n": 1620,
+      "meanUtility": {
+       "mean": 0.47901234567901235,
+       "min": 0.47160493827160493,
+       "max": 0.49135802469135803,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.03641975308641975,
+       "min": 0.03641975308641975,
+       "max": 0.03641975308641975,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.045679012345679,
+       "min": 1.045679012345679,
+       "max": 1.045679012345679,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.44259259259259265,
+       "min": 0.4351851851851852,
+       "max": 0.45493827160493827,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 540.3333333333334,
+       "min": 514,
+       "max": 560,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 4.811728395061729,
+       "min": 4.782716049382716,
+       "max": 4.8654320987654325,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 6.291358024691358,
+       "min": 6.291358024691358,
+       "max": 6.291358024691358,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 394,
+       "min": 354,
+       "max": 429,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 1620,
+      "meanUtility": {
+       "mean": 1.2512345679012344,
+       "min": 1.2376543209876543,
+       "max": 1.2685185185185186,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.8179012345679012,
+       "min": 0.8179012345679012,
+       "max": 0.8179012345679012,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.5376543209876543,
+       "min": 1.5376543209876543,
+       "max": 1.5376543209876543,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.43333333333333335,
+       "min": 0.41975308641975306,
+       "max": 0.4506172839506173,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 790,
+       "min": 766,
+       "max": 811,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 4.552469135802469,
+       "min": 4.54320987654321,
+       "max": 4.564197530864197,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 6.291358024691358,
+       "min": 6.291358024691358,
+       "max": 6.291358024691358,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 334.3333333333333,
+       "min": 305,
+       "max": 376,
+       "n": 3
+      }
+     }
+    },
+    "none": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 0.3882716049382717,
+       "min": 0.337037037037037,
+       "max": 0.4462962962962963,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.09629629629629628,
+       "min": 0.0962962962962963,
+       "max": 0.0962962962962963,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 0.9425925925925925,
+       "min": 0.9425925925925925,
+       "max": 0.9425925925925925,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.2919753086419753,
+       "min": 0.24074074074074073,
+       "max": 0.35,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 176,
+       "min": 165,
+       "max": 188,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 4.300617283950618,
+       "min": 4.2481481481481485,
+       "max": 4.368518518518519,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 5.666666666666667,
+       "min": 5.666666666666667,
+       "max": 5.666666666666667,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 123,
+       "min": 108,
+       "max": 135,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 1.1382716049382715,
+       "min": 1.1185185185185185,
+       "max": 1.1703703703703703,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.8777777777777778,
+       "min": 0.8777777777777778,
+       "max": 0.8777777777777778,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.4111111111111112,
+       "min": 1.4111111111111112,
+       "max": 1.4111111111111112,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.2604938271604938,
+       "min": 0.24074074074074073,
+       "max": 0.29259259259259257,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 258.6666666666667,
+       "min": 243,
+       "max": 274,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 4.049382716049383,
+       "min": 4.033333333333333,
+       "max": 4.068518518518519,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 5.666666666666667,
+       "min": 5.666666666666667,
+       "max": 5.666666666666667,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 108.33333333333333,
+       "min": 96,
+       "max": 123,
+       "n": 3
+      }
+     }
+    },
+    "evergreen": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 0.2271604938271605,
+       "min": 0.19814814814814816,
+       "max": 0.24259259259259258,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": -0.08703703703703704,
+       "min": -0.08703703703703704,
+       "max": -0.08703703703703704,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 0.7444444444444445,
+       "min": 0.7444444444444445,
+       "max": 0.7444444444444445,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.31419753086419755,
+       "min": 0.2851851851851852,
+       "max": 0.3296296296296296,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 156.66666666666666,
+       "min": 140,
+       "max": 169,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 3.6654320987654323,
+       "min": 3.6259259259259258,
+       "max": 3.7425925925925925,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 4.762962962962963,
+       "min": 4.762962962962963,
+       "max": 4.762962962962963,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 111,
+       "min": 90,
+       "max": 122,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 0.8851851851851853,
+       "min": 0.8666666666666667,
+       "max": 0.9148148148148149,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.6944444444444443,
+       "min": 0.6944444444444444,
+       "max": 0.6944444444444444,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.151851851851852,
+       "min": 1.151851851851852,
+       "max": 1.151851851851852,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.19074074074074074,
+       "min": 0.17222222222222222,
+       "max": 0.22037037037037038,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 229.66666666666666,
+       "min": 225,
+       "max": 234,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 3.452469135802469,
+       "min": 3.4314814814814816,
+       "max": 3.4703703703703703,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 4.762962962962963,
+       "min": 4.762962962962963,
+       "max": 4.762962962962963,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 88,
+       "min": 76,
+       "max": 97,
+       "n": 3
+      }
+     }
+    },
+    "deciduous": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 0.821604938271605,
+       "min": 0.7981481481481482,
+       "max": 0.837037037037037,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.10000000000000002,
+       "min": 0.1,
+       "max": 0.1,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.45,
+       "min": 1.45,
+       "max": 1.45,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.7216049382716049,
+       "min": 0.6981481481481482,
+       "max": 0.737037037037037,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 207.66666666666666,
+       "min": 203,
+       "max": 211,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 6.469135802469136,
+       "min": 6.435185185185185,
+       "max": 6.487037037037037,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 8.444444444444445,
+       "min": 8.444444444444445,
+       "max": 8.444444444444445,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 160,
+       "min": 152,
+       "max": 172,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 1.7302469135802472,
+       "min": 1.7203703703703703,
+       "max": 1.7425925925925927,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.8814814814814816,
+       "min": 0.8814814814814815,
+       "max": 0.8814814814814815,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 2.05,
+       "min": 2.05,
+       "max": 2.05,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.8487654320987654,
+       "min": 0.8388888888888889,
+       "max": 0.8611111111111112,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 301.6666666666667,
+       "min": 298,
+       "max": 304,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 6.155555555555556,
+       "min": 6.140740740740741,
+       "max": 6.1722222222222225,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 8.444444444444445,
+       "min": 8.444444444444445,
+       "max": 8.444444444444445,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 138,
+       "min": 125,
+       "max": 156,
+       "n": 3
+      }
+     }
+    },
+    "weedy": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 0.7876543209876544,
+       "min": 0.7611111111111111,
+       "max": 0.812962962962963,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.12037037037037036,
+       "min": 0.12037037037037036,
+       "max": 0.12037037037037036,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.4370370370370373,
+       "min": 1.4370370370370371,
+       "max": 1.4370370370370371,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.667283950617284,
+       "min": 0.6407407407407407,
+       "max": 0.6925925925925925,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 200.66666666666666,
+       "min": 192,
+       "max": 209,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 6.234567901234567,
+       "min": 6.187037037037037,
+       "max": 6.309259259259259,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 8.137037037037038,
+       "min": 8.137037037037038,
+       "max": 8.137037037037038,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 144.33333333333334,
+       "min": 129,
+       "max": 154,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 1.652469135802469,
+       "min": 1.6277777777777778,
+       "max": 1.6685185185185185,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.9018518518518519,
+       "min": 0.9018518518518519,
+       "max": 0.9018518518518519,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 2.009259259259259,
+       "min": 2.009259259259259,
+       "max": 2.009259259259259,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.7506172839506173,
+       "min": 0.725925925925926,
+       "max": 0.7666666666666667,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 284.3333333333333,
+       "min": 266,
+       "max": 299,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 5.958024691358024,
+       "min": 5.9222222222222225,
+       "max": 6.016666666666667,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 8.137037037037038,
+       "min": 8.137037037037038,
+       "max": 8.137037037037038,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 127.33333333333333,
+       "min": 111,
+       "max": 148,
+       "n": 3
+      }
+     }
+    },
+    "regulated": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 0.780246913580247,
+       "min": 0.7462962962962963,
+       "max": 0.8277777777777777,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.1722222222222222,
+       "min": 0.17222222222222222,
+       "max": 0.17222222222222222,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.4055555555555557,
+       "min": 1.4055555555555554,
+       "max": 1.4055555555555554,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.6080246913580246,
+       "min": 0.5740740740740741,
+       "max": 0.6555555555555556,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 198.66666666666666,
+       "min": 189,
+       "max": 209,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 5.730864197530864,
+       "min": 5.707407407407407,
+       "max": 5.7481481481481485,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 7.614814814814815,
+       "min": 7.614814814814815,
+       "max": 7.614814814814815,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 143.66666666666666,
+       "min": 130,
+       "max": 157,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 1.6499999999999997,
+       "min": 1.6222222222222222,
+       "max": 1.6722222222222223,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.9537037037037037,
+       "min": 0.9537037037037037,
+       "max": 0.9537037037037037,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.9777777777777779,
+       "min": 1.9777777777777779,
+       "max": 1.9777777777777779,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.6962962962962963,
+       "min": 0.6685185185185185,
+       "max": 0.7185185185185186,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 285,
+       "min": 273,
+       "max": 292,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 5.437037037037037,
+       "min": 5.405555555555556,
+       "max": 5.453703703703703,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 7.614814814814815,
+       "min": 7.614814814814815,
+       "max": 7.614814814814815,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 125.33333333333333,
+       "min": 110,
+       "max": 137,
+       "n": 3
+      }
+     }
+    },
+    "dense": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 0.8944444444444445,
+       "min": 0.8296296296296296,
+       "max": 0.95,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": -0.21666666666666667,
+       "min": -0.21666666666666667,
+       "max": -0.21666666666666667,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.4777777777777779,
+       "min": 1.4777777777777779,
+       "max": 1.4777777777777779,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 1.111111111111111,
+       "min": 1.0462962962962963,
+       "max": 1.1666666666666667,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 216.66666666666666,
+       "min": 191,
+       "max": 243,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 8.55,
+       "min": 8.348148148148148,
+       "max": 8.683333333333334,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 10.648148148148149,
+       "min": 10.648148148148149,
+       "max": 10.648148148148149,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 201,
+       "min": 189,
+       "max": 218,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": {
+       "mean": 1.8438271604938272,
+       "min": 1.8148148148148149,
+       "max": 1.8685185185185185,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.5648148148148148,
+       "min": 0.5648148148148148,
+       "max": 0.5648148148148148,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 2.1555555555555554,
+       "min": 2.1555555555555554,
+       "max": 2.1555555555555554,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 1.2790123456790123,
+       "min": 1.25,
+       "max": 1.3037037037037038,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 334,
+       "min": 319,
+       "max": 351,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 8.185802469135803,
+       "min": 8.15,
+       "max": 8.242592592592592,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 10.648148148148149,
+       "min": 10.648148148148149,
+       "max": 10.648148148148149,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 165.66666666666666,
+       "min": 147,
+       "max": 200,
+       "n": 3
+      }
+     }
+    }
+   },
+   "reserved2022_2024": {
+    "original": {
+     "saveWater": {
+      "n": 810,
+      "meanUtility": {
+       "mean": 0.5312757201646091,
+       "min": 0.5160493827160494,
+       "max": 0.5493827160493827,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": -0.17654320987654323,
+       "min": -0.1765432098765432,
+       "max": -0.1765432098765432,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.1111111111111112,
+       "min": 1.1111111111111112,
+       "max": 1.1111111111111112,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.7078189300411523,
+       "min": 0.6925925925925925,
+       "max": 0.725925925925926,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 300.3333333333333,
+       "min": 288,
+       "max": 314,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 6.57119341563786,
+       "min": 6.523456790123457,
+       "max": 6.632098765432099,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 8.214814814814815,
+       "min": 8.214814814814815,
+       "max": 8.214814814814815,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 213,
+       "min": 186,
+       "max": 237,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 810,
+      "meanUtility": {
+       "mean": 1.3880658436213993,
+       "min": 1.371604938271605,
+       "max": 1.3975308641975308,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.8012345679012346,
+       "min": 0.8012345679012346,
+       "max": 0.8012345679012346,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.6617283950617283,
+       "min": 1.6617283950617283,
+       "max": 1.6617283950617283,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.5868312757201647,
+       "min": 0.5703703703703704,
+       "max": 0.5962962962962963,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 441,
+       "min": 438,
+       "max": 446,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 6.2823045267489706,
+       "min": 6.269135802469136,
+       "max": 6.302469135802469,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 8.214814814814815,
+       "min": 8.214814814814815,
+       "max": 8.214814814814815,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 154.33333333333334,
+       "min": 139,
+       "max": 172,
+       "n": 3
+      }
+     }
+    },
+    "none": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 0.4654320987654321,
+       "min": 0.43333333333333335,
+       "max": 0.5,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": -0.08518518518518518,
+       "min": -0.08518518518518518,
+       "max": -0.08518518518518518,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.0629629629629629,
+       "min": 1.0629629629629629,
+       "max": 1.0629629629629629,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.5506172839506173,
+       "min": 0.5185185185185185,
+       "max": 0.5851851851851851,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 98.33333333333333,
+       "min": 93,
+       "max": 103,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 6.041975308641976,
+       "min": 5.955555555555556,
+       "max": 6.103703703703704,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 7.599999999999999,
+       "min": 7.6,
+       "max": 7.6,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 66.33333333333333,
+       "min": 57,
+       "max": 75,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 1.3543209876543212,
+       "min": 1.3407407407407408,
+       "max": 1.3666666666666667,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.8925925925925927,
+       "min": 0.8925925925925926,
+       "max": 0.8925925925925926,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.5777777777777777,
+       "min": 1.5777777777777777,
+       "max": 1.5777777777777777,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.4617283950617284,
+       "min": 0.44814814814814813,
+       "max": 0.4740740740740741,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 148.33333333333334,
+       "min": 143,
+       "max": 152,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 5.696296296296296,
+       "min": 5.681481481481481,
+       "max": 5.703703703703703,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 7.599999999999999,
+       "min": 7.6,
+       "max": 7.6,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 50.333333333333336,
+       "min": 47,
+       "max": 54,
+       "n": 3
+      }
+     }
+    },
+    "evergreen": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 0.20370370370370372,
+       "min": 0.15555555555555556,
+       "max": 0.24444444444444444,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": -0.3,
+       "min": -0.3,
+       "max": -0.3,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 0.774074074074074,
+       "min": 0.774074074074074,
+       "max": 0.774074074074074,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.5037037037037037,
+       "min": 0.45555555555555555,
+       "max": 0.5444444444444444,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 89.66666666666667,
+       "min": 79,
+       "max": 102,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 5.355555555555555,
+       "min": 5.266666666666667,
+       "max": 5.466666666666667,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 6.5555555555555545,
+       "min": 6.555555555555555,
+       "max": 6.555555555555555,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 61,
+       "min": 44,
+       "max": 70,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 1,
+       "min": 0.9666666666666667,
+       "max": 1.025925925925926,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.6777777777777777,
+       "min": 0.6777777777777778,
+       "max": 0.6777777777777778,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.2666666666666666,
+       "min": 1.2666666666666666,
+       "max": 1.2666666666666666,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.3222222222222222,
+       "min": 0.28888888888888886,
+       "max": 0.34814814814814815,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 130,
+       "min": 128,
+       "max": 133,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 5.0740740740740735,
+       "min": 5.037037037037037,
+       "max": 5.114814814814815,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 6.5555555555555545,
+       "min": 6.555555555555555,
+       "max": 6.555555555555555,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 45.333333333333336,
+       "min": 39,
+       "max": 49,
+       "n": 3
+      }
+     }
+    },
+    "deciduous": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 0.9246913580246914,
+       "min": 0.8740740740740741,
+       "max": 0.9703703703703703,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": -0.14444444444444443,
+       "min": -0.14444444444444443,
+       "max": -0.14444444444444443,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.4962962962962962,
+       "min": 1.4962962962962962,
+       "max": 1.4962962962962962,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 1.069135802469136,
+       "min": 1.0185185185185186,
+       "max": 1.114814814814815,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 112.33333333333333,
+       "min": 109,
+       "max": 116,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 8.31604938271605,
+       "min": 8.274074074074074,
+       "max": 8.348148148148148,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 10.488888888888889,
+       "min": 10.488888888888889,
+       "max": 10.488888888888889,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 85.66666666666667,
+       "min": 80,
+       "max": 92,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 1.8098765432098765,
+       "min": 1.8,
+       "max": 1.8222222222222222,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.8333333333333334,
+       "min": 0.8333333333333334,
+       "max": 0.8333333333333334,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 2.140740740740741,
+       "min": 2.140740740740741,
+       "max": 2.140740740740741,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.9765432098765432,
+       "min": 0.9666666666666667,
+       "max": 0.9888888888888889,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 162.66666666666666,
+       "min": 160,
+       "max": 165,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 8.076543209876544,
+       "min": 8.055555555555555,
+       "max": 8.088888888888889,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 10.488888888888889,
+       "min": 10.488888888888889,
+       "max": 10.488888888888889,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 58.666666666666664,
+       "min": 53,
+       "max": 69,
+       "n": 3
+      }
+     }
+    },
+    "weedy": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 0.9246913580246914,
+       "min": 0.8481481481481481,
+       "max": 0.9740740740740741,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": -0.1111111111111111,
+       "min": -0.1111111111111111,
+       "max": -0.1111111111111111,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.5333333333333334,
+       "min": 1.5333333333333334,
+       "max": 1.5333333333333334,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 1.0358024691358023,
+       "min": 0.9592592592592593,
+       "max": 1.0851851851851853,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 111.33333333333333,
+       "min": 110,
+       "max": 113,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 8.112345679012344,
+       "min": 8.044444444444444,
+       "max": 8.203703703703704,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 10.274074074074074,
+       "min": 10.274074074074074,
+       "max": 10.274074074074074,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 74.66666666666667,
+       "min": 66,
+       "max": 79,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 1.8432098765432101,
+       "min": 1.837037037037037,
+       "max": 1.848148148148148,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.8666666666666667,
+       "min": 0.8666666666666667,
+       "max": 0.8666666666666667,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 2.1666666666666665,
+       "min": 2.1666666666666665,
+       "max": 2.1666666666666665,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.9765432098765432,
+       "min": 0.9703703703703703,
+       "max": 0.9814814814814815,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 157.66666666666666,
+       "min": 154,
+       "max": 164,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 7.846913580246913,
+       "min": 7.818518518518519,
+       "max": 7.862962962962963,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 10.274074074074074,
+       "min": 10.274074074074074,
+       "max": 10.274074074074074,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 56.333333333333336,
+       "min": 50,
+       "max": 66,
+       "n": 3
+      }
+     }
+    },
+    "regulated": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 1.0592592592592593,
+       "min": 1.0222222222222221,
+       "max": 1.0851851851851853,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.018518518518518517,
+       "min": 0.018518518518518517,
+       "max": 0.018518518518518517,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.5925925925925926,
+       "min": 1.5925925925925926,
+       "max": 1.5925925925925926,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 1.0407407407407407,
+       "min": 1.0037037037037038,
+       "max": 1.0666666666666667,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 112.33333333333333,
+       "min": 109,
+       "max": 115,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 7.466666666666668,
+       "min": 7.433333333333334,
+       "max": 7.492592592592593,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 9.774074074074074,
+       "min": 9.774074074074074,
+       "max": 9.774074074074074,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 76.33333333333333,
+       "min": 71,
+       "max": 81,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 1.9382716049382716,
+       "min": 1.9370370370370371,
+       "max": 1.9407407407407407,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.9962962962962963,
+       "min": 0.9962962962962963,
+       "max": 0.9962962962962963,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 2.225925925925926,
+       "min": 2.225925925925926,
+       "max": 2.225925925925926,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 0.9419753086419753,
+       "min": 0.9407407407407408,
+       "max": 0.9444444444444444,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 160,
+       "min": 155,
+       "max": 165,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 7.243209876543209,
+       "min": 7.225925925925926,
+       "max": 7.262962962962963,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 9.774074074074074,
+       "min": 9.774074074074074,
+       "max": 9.774074074074074,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 54,
+       "min": 47,
+       "max": 59,
+       "n": 3
+      }
+     }
+    },
+    "dense": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 0.6518518518518518,
+       "min": 0.5703703703703704,
+       "max": 0.7074074074074074,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": -0.5111111111111111,
+       "min": -0.5111111111111111,
+       "max": -0.5111111111111111,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.262962962962963,
+       "min": 1.262962962962963,
+       "max": 1.262962962962963,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 1.162962962962963,
+       "min": 1.0814814814814815,
+       "max": 1.2185185185185186,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 112.33333333333333,
+       "min": 97,
+       "max": 128,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 10.681481481481484,
+       "min": 10.451851851851853,
+       "max": 10.825925925925926,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 12.58148148148148,
+       "min": 12.58148148148148,
+       "max": 12.58148148148148,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 107,
+       "min": 98,
+       "max": 114,
+       "n": 3
+      }
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": {
+       "mean": 1.597530864197531,
+       "min": 1.5444444444444445,
+       "max": 1.651851851851852,
+       "n": 3
+      },
+      "ruleMeanUtility": {
+       "mean": 0.4666666666666666,
+       "min": 0.4666666666666667,
+       "max": 0.4666666666666667,
+       "n": 3
+      },
+      "oracleMeanUtility": {
+       "mean": 1.9296296296296296,
+       "min": 1.9296296296296296,
+       "max": 1.9296296296296296,
+       "n": 3
+      },
+      "gainVsRule": {
+       "mean": 1.1308641975308642,
+       "min": 1.0777777777777777,
+       "max": 1.1851851851851851,
+       "n": 3
+      },
+      "irrigations": {
+       "mean": 182.33333333333334,
+       "min": 176,
+       "max": 194,
+       "n": 3
+      },
+      "stressDaysLeft": {
+       "mean": 10.30864197530864,
+       "min": 10.21111111111111,
+       "max": 10.385185185185184,
+       "n": 3
+      },
+      "stressDaysNoIrrigation": {
+       "mean": 12.58148148148148,
+       "min": 12.58148148148148,
+       "max": 12.58148148148148,
+       "n": 3
+      },
+      "departsFromRule": {
+       "mean": 75.66666666666667,
+       "min": 66,
+       "max": 92,
+       "n": 3
+      }
+     }
+    }
+   }
+  },
+  "predictThenChooseV3PerSeed": [
+   {
+    "test2019_2024": {
+     "original": {
+      "saveWater": {
+       "n": 1620,
+       "meanUtility": 0.4740740740740741,
+       "ruleMeanUtility": 0.03641975308641975,
+       "oracleMeanUtility": 1.045679012345679,
+       "gainVsRule": 0.43765432098765433,
+       "win": 275,
+       "tie": 1235,
+       "loss": 110,
+       "regretVsOracle": 0.571604938271605,
+       "irrigations": 514,
+       "wasted": {
+        "count": 300,
+        "of": 514,
+        "rate": 0.5836575875486382
+       },
+       "missed": {
+        "count": 79,
+        "of": 293,
+        "rate": 0.2696245733788396
+       },
+       "stressDaysLeft": 4.8654320987654325,
+       "stressDaysNoIrrigation": 6.291358024691358,
+       "departsFromRule": 399
+      },
+      "protectCrop": {
+       "n": 1620,
+       "meanUtility": 1.2376543209876543,
+       "ruleMeanUtility": 0.8179012345679012,
+       "oracleMeanUtility": 1.5376543209876543,
+       "gainVsRule": 0.41975308641975306,
+       "win": 160,
+       "tie": 1313,
+       "loss": 147,
+       "regretVsOracle": 0.3,
+       "irrigations": 793,
+       "wasted": {
+        "count": 389,
+        "of": 793,
+        "rate": 0.4905422446406053
+       },
+       "missed": {
+        "count": 47,
+        "of": 451,
+        "rate": 0.10421286031042129
+       },
+       "stressDaysLeft": 4.564197530864197,
+       "stressDaysNoIrrigation": 6.291358024691358,
+       "departsFromRule": 322
+      }
+     },
+     "none": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.3814814814814815,
+       "ruleMeanUtility": 0.0962962962962963,
+       "oracleMeanUtility": 0.9425925925925925,
+       "gainVsRule": 0.2851851851851852,
+       "win": 82,
+       "tie": 418,
+       "loss": 40,
+       "regretVsOracle": 0.5611111111111111,
+       "irrigations": 165,
+       "wasted": {
+        "count": 99,
+        "of": 165,
+        "rate": 0.6
+       },
+       "missed": {
+        "count": 25,
+        "of": 91,
+        "rate": 0.27472527472527475
+       },
+       "stressDaysLeft": 4.368518518518519,
+       "stressDaysNoIrrigation": 5.666666666666667,
+       "departsFromRule": 126
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.1185185185185185,
+       "ruleMeanUtility": 0.8777777777777778,
+       "oracleMeanUtility": 1.4111111111111112,
+       "gainVsRule": 0.24074074074074073,
+       "win": 42,
+       "tie": 437,
+       "loss": 61,
+       "regretVsOracle": 0.29259259259259257,
+       "irrigations": 259,
+       "wasted": {
+        "count": 133,
+        "of": 259,
+        "rate": 0.5135135135135135
+       },
+       "missed": {
+        "count": 19,
+        "of": 145,
+        "rate": 0.1310344827586207
+       },
+       "stressDaysLeft": 4.068518518518519,
+       "stressDaysNoIrrigation": 5.666666666666667,
+       "departsFromRule": 106
+      }
+     },
+     "evergreen": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.24259259259259258,
+       "ruleMeanUtility": -0.08703703703703704,
+       "oracleMeanUtility": 0.7444444444444445,
+       "gainVsRule": 0.3296296296296296,
+       "win": 86,
+       "tie": 424,
+       "loss": 30,
+       "regretVsOracle": 0.5018518518518519,
+       "irrigations": 140,
+       "wasted": {
+        "count": 85,
+        "of": 140,
+        "rate": 0.6071428571428571
+       },
+       "missed": {
+        "count": 25,
+        "of": 80,
+        "rate": 0.3125
+       },
+       "stressDaysLeft": 3.7425925925925925,
+       "stressDaysNoIrrigation": 4.762962962962963,
+       "departsFromRule": 121
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 0.8666666666666667,
+       "ruleMeanUtility": 0.6944444444444444,
+       "oracleMeanUtility": 1.151851851851852,
+       "gainVsRule": 0.17222222222222222,
+       "win": 43,
+       "tie": 452,
+       "loss": 45,
+       "regretVsOracle": 0.2851851851851852,
+       "irrigations": 230,
+       "wasted": {
+        "count": 117,
+        "of": 230,
+        "rate": 0.508695652173913
+       },
+       "missed": {
+        "count": 12,
+        "of": 125,
+        "rate": 0.096
+       },
+       "stressDaysLeft": 3.4703703703703703,
+       "stressDaysNoIrrigation": 4.762962962962963,
+       "departsFromRule": 91
+      }
+     },
+     "deciduous": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.7981481481481482,
+       "ruleMeanUtility": 0.1,
+       "oracleMeanUtility": 1.45,
+       "gainVsRule": 0.6981481481481482,
+       "win": 107,
+       "tie": 393,
+       "loss": 40,
+       "regretVsOracle": 0.6518518518518519,
+       "irrigations": 209,
+       "wasted": {
+        "count": 116,
+        "of": 209,
+        "rate": 0.5550239234449761
+       },
+       "missed": {
+        "count": 29,
+        "of": 122,
+        "rate": 0.23770491803278687
+       },
+       "stressDaysLeft": 6.485185185185185,
+       "stressDaysNoIrrigation": 8.444444444444445,
+       "departsFromRule": 152
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.7277777777777779,
+       "ruleMeanUtility": 0.8814814814814815,
+       "oracleMeanUtility": 2.05,
+       "gainVsRule": 0.8462962962962963,
+       "win": 75,
+       "tie": 424,
+       "loss": 41,
+       "regretVsOracle": 0.32222222222222224,
+       "irrigations": 304,
+       "wasted": {
+        "count": 139,
+        "of": 304,
+        "rate": 0.45723684210526316
+       },
+       "missed": {
+        "count": 16,
+        "of": 181,
+        "rate": 0.08839779005524862
+       },
+       "stressDaysLeft": 6.1537037037037035,
+       "stressDaysNoIrrigation": 8.444444444444445,
+       "departsFromRule": 125
+      }
+     },
+     "weedy": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.812962962962963,
+       "ruleMeanUtility": 0.12037037037037036,
+       "oracleMeanUtility": 1.4370370370370371,
+       "gainVsRule": 0.6925925925925925,
+       "win": 110,
+       "tie": 389,
+       "loss": 41,
+       "regretVsOracle": 0.6240740740740741,
+       "irrigations": 201,
+       "wasted": {
+        "count": 109,
+        "of": 201,
+        "rate": 0.5422885572139303
+       },
+       "missed": {
+        "count": 27,
+        "of": 119,
+        "rate": 0.226890756302521
+       },
+       "stressDaysLeft": 6.207407407407407,
+       "stressDaysNoIrrigation": 8.137037037037038,
+       "departsFromRule": 154
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.6685185185185185,
+       "ruleMeanUtility": 0.9018518518518519,
+       "oracleMeanUtility": 2.009259259259259,
+       "gainVsRule": 0.7666666666666667,
+       "win": 66,
+       "tie": 425,
+       "loss": 49,
+       "regretVsOracle": 0.34074074074074073,
+       "irrigations": 288,
+       "wasted": {
+        "count": 136,
+        "of": 288,
+        "rate": 0.4722222222222222
+       },
+       "missed": {
+        "count": 19,
+        "of": 171,
+        "rate": 0.1111111111111111
+       },
+       "stressDaysLeft": 5.935185185185185,
+       "stressDaysNoIrrigation": 8.137037037037038,
+       "departsFromRule": 123
+      }
+     },
+     "regulated": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.7666666666666667,
+       "ruleMeanUtility": 0.17222222222222222,
+       "oracleMeanUtility": 1.4055555555555554,
+       "gainVsRule": 0.5944444444444444,
+       "win": 108,
+       "tie": 388,
+       "loss": 44,
+       "regretVsOracle": 0.6388888888888888,
+       "irrigations": 198,
+       "wasted": {
+        "count": 108,
+        "of": 198,
+        "rate": 0.5454545454545454
+       },
+       "missed": {
+        "count": 28,
+        "of": 118,
+        "rate": 0.23728813559322035
+       },
+       "stressDaysLeft": 5.7481481481481485,
+       "stressDaysNoIrrigation": 7.614814814814815,
+       "departsFromRule": 157
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.6722222222222223,
+       "ruleMeanUtility": 0.9537037037037037,
+       "oracleMeanUtility": 1.9777777777777779,
+       "gainVsRule": 0.7185185185185186,
+       "win": 69,
+       "tie": 413,
+       "loss": 58,
+       "regretVsOracle": 0.3055555555555556,
+       "irrigations": 290,
+       "wasted": {
+        "count": 136,
+        "of": 290,
+        "rate": 0.4689655172413793
+       },
+       "missed": {
+        "count": 17,
+        "of": 171,
+        "rate": 0.09941520467836257
+       },
+       "stressDaysLeft": 5.405555555555556,
+       "stressDaysNoIrrigation": 7.614814814814815,
+       "departsFromRule": 129
+      }
+     },
+     "dense": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.8296296296296296,
+       "ruleMeanUtility": -0.21666666666666667,
+       "oracleMeanUtility": 1.4777777777777779,
+       "gainVsRule": 1.0462962962962963,
+       "win": 144,
+       "tie": 359,
+       "loss": 37,
+       "regretVsOracle": 0.6481481481481481,
+       "irrigations": 216,
+       "wasted": {
+        "count": 103,
+        "of": 216,
+        "rate": 0.47685185185185186
+       },
+       "missed": {
+        "count": 37,
+        "of": 150,
+        "rate": 0.24666666666666667
+       },
+       "stressDaysLeft": 8.618518518518519,
+       "stressDaysNoIrrigation": 10.648148148148149,
+       "departsFromRule": 189
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.8685185185185185,
+       "ruleMeanUtility": 0.5648148148148148,
+       "oracleMeanUtility": 2.1555555555555554,
+       "gainVsRule": 1.3037037037037038,
+       "win": 104,
+       "tie": 403,
+       "loss": 33,
+       "regretVsOracle": 0.28703703703703703,
+       "irrigations": 332,
+       "wasted": {
+        "count": 151,
+        "of": 332,
+        "rate": 0.45481927710843373
+       },
+       "missed": {
+        "count": 16,
+        "of": 197,
+        "rate": 0.08121827411167512
+       },
+       "stressDaysLeft": 8.164814814814815,
+       "stressDaysNoIrrigation": 10.648148148148149,
+       "departsFromRule": 147
+      }
+     }
+    },
+    "reserved2022_2024": {
+     "original": {
+      "saveWater": {
+       "n": 810,
+       "meanUtility": 0.5160493827160494,
+       "ruleMeanUtility": -0.1765432098765432,
+       "oracleMeanUtility": 1.1111111111111112,
+       "gainVsRule": 0.6925925925925925,
+       "win": 172,
+       "tie": 605,
+       "loss": 33,
+       "regretVsOracle": 0.5950617283950618,
+       "irrigations": 288,
+       "wasted": {
+        "count": 175,
+        "of": 288,
+        "rate": 0.6076388888888888
+       },
+       "missed": {
+        "count": 42,
+        "of": 155,
+        "rate": 0.2709677419354839
+       },
+       "stressDaysLeft": 6.632098765432099,
+       "stressDaysNoIrrigation": 8.214814814814815,
+       "departsFromRule": 216
+      },
+      "protectCrop": {
+       "n": 810,
+       "meanUtility": 1.371604938271605,
+       "ruleMeanUtility": 0.8012345679012346,
+       "oracleMeanUtility": 1.6617283950617283,
+       "gainVsRule": 0.5703703703703704,
+       "win": 104,
+       "tie": 664,
+       "loss": 42,
+       "regretVsOracle": 0.29012345679012347,
+       "irrigations": 438,
+       "wasted": {
+        "count": 203,
+        "of": 438,
+        "rate": 0.4634703196347032
+       },
+       "missed": {
+        "count": 15,
+        "of": 250,
+        "rate": 0.06
+       },
+       "stressDaysLeft": 6.302469135802469,
+       "stressDaysNoIrrigation": 8.214814814814815,
+       "departsFromRule": 152
+      }
+     },
+     "none": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.46296296296296297,
+       "ruleMeanUtility": -0.08518518518518518,
+       "oracleMeanUtility": 1.0629629629629629,
+       "gainVsRule": 0.5481481481481482,
+       "win": 52,
+       "tie": 205,
+       "loss": 13,
+       "regretVsOracle": 0.6,
+       "irrigations": 93,
+       "wasted": {
+        "count": 59,
+        "of": 93,
+        "rate": 0.6344086021505376
+       },
+       "missed": {
+        "count": 14,
+        "of": 48,
+        "rate": 0.2916666666666667
+       },
+       "stressDaysLeft": 6.103703703703704,
+       "stressDaysNoIrrigation": 7.6,
+       "departsFromRule": 67
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.3407407407407408,
+       "ruleMeanUtility": 0.8925925925925926,
+       "oracleMeanUtility": 1.5777777777777777,
+       "gainVsRule": 0.44814814814814813,
+       "win": 27,
+       "tie": 222,
+       "loss": 21,
+       "regretVsOracle": 0.23703703703703705,
+       "irrigations": 150,
+       "wasted": {
+        "count": 75,
+        "of": 150,
+        "rate": 0.5
+       },
+       "missed": {
+        "count": 4,
+        "of": 79,
+        "rate": 0.05063291139240506
+       },
+       "stressDaysLeft": 5.703703703703703,
+       "stressDaysNoIrrigation": 7.6,
+       "departsFromRule": 50
+      }
+     },
+     "evergreen": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.2111111111111111,
+       "ruleMeanUtility": -0.3,
+       "oracleMeanUtility": 0.774074074074074,
+       "gainVsRule": 0.5111111111111111,
+       "win": 53,
+       "tie": 205,
+       "loss": 12,
+       "regretVsOracle": 0.562962962962963,
+       "irrigations": 79,
+       "wasted": {
+        "count": 50,
+        "of": 79,
+        "rate": 0.6329113924050633
+       },
+       "missed": {
+        "count": 18,
+        "of": 47,
+        "rate": 0.3829787234042553
+       },
+       "stressDaysLeft": 5.466666666666667,
+       "stressDaysNoIrrigation": 6.555555555555555,
+       "departsFromRule": 69
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 0.9666666666666667,
+       "ruleMeanUtility": 0.6777777777777778,
+       "oracleMeanUtility": 1.2666666666666666,
+       "gainVsRule": 0.28888888888888886,
+       "win": 32,
+       "tie": 224,
+       "loss": 14,
+       "regretVsOracle": 0.3,
+       "irrigations": 128,
+       "wasted": {
+        "count": 59,
+        "of": 128,
+        "rate": 0.4609375
+       },
+       "missed": {
+        "count": 6,
+        "of": 75,
+        "rate": 0.08
+       },
+       "stressDaysLeft": 5.114814814814815,
+       "stressDaysNoIrrigation": 6.555555555555555,
+       "departsFromRule": 48
+      }
+     },
+     "deciduous": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.8740740740740741,
+       "ruleMeanUtility": -0.14444444444444443,
+       "oracleMeanUtility": 1.4962962962962962,
+       "gainVsRule": 1.0185185185185186,
+       "win": 67,
+       "tie": 195,
+       "loss": 8,
+       "regretVsOracle": 0.6222222222222222,
+       "irrigations": 116,
+       "wasted": {
+        "count": 66,
+        "of": 116,
+        "rate": 0.5689655172413793
+       },
+       "missed": {
+        "count": 10,
+        "of": 60,
+        "rate": 0.16666666666666666
+       },
+       "stressDaysLeft": 8.325925925925926,
+       "stressDaysNoIrrigation": 10.488888888888889,
+       "departsFromRule": 80
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.8074074074074074,
+       "ruleMeanUtility": 0.8333333333333334,
+       "oracleMeanUtility": 2.140740740740741,
+       "gainVsRule": 0.9740740740740741,
+       "win": 45,
+       "tie": 218,
+       "loss": 7,
+       "regretVsOracle": 0.3333333333333333,
+       "irrigations": 160,
+       "wasted": {
+        "count": 69,
+        "of": 160,
+        "rate": 0.43125
+       },
+       "missed": {
+        "count": 5,
+        "of": 96,
+        "rate": 0.052083333333333336
+       },
+       "stressDaysLeft": 8.088888888888889,
+       "stressDaysNoIrrigation": 10.488888888888889,
+       "departsFromRule": 54
+      }
+     },
+     "weedy": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.9518518518518518,
+       "ruleMeanUtility": -0.1111111111111111,
+       "oracleMeanUtility": 1.5333333333333334,
+       "gainVsRule": 1.0629629629629629,
+       "win": 69,
+       "tie": 193,
+       "loss": 8,
+       "regretVsOracle": 0.5814814814814815,
+       "irrigations": 111,
+       "wasted": {
+        "count": 61,
+        "of": 111,
+        "rate": 0.5495495495495496
+       },
+       "missed": {
+        "count": 11,
+        "of": 61,
+        "rate": 0.18032786885245902
+       },
+       "stressDaysLeft": 8.088888888888889,
+       "stressDaysNoIrrigation": 10.274074074074074,
+       "departsFromRule": 79
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.837037037037037,
+       "ruleMeanUtility": 0.8666666666666667,
+       "oracleMeanUtility": 2.1666666666666665,
+       "gainVsRule": 0.9703703703703703,
+       "win": 41,
+       "tie": 221,
+       "loss": 8,
+       "regretVsOracle": 0.3296296296296296,
+       "irrigations": 155,
+       "wasted": {
+        "count": 67,
+        "of": 155,
+        "rate": 0.432258064516129
+       },
+       "missed": {
+        "count": 6,
+        "of": 94,
+        "rate": 0.06382978723404255
+       },
+       "stressDaysLeft": 7.862962962962963,
+       "stressDaysNoIrrigation": 10.274074074074074,
+       "departsFromRule": 53
+      }
+     },
+     "regulated": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 1.0851851851851853,
+       "ruleMeanUtility": 0.018518518518518517,
+       "oracleMeanUtility": 1.5925925925925926,
+       "gainVsRule": 1.0666666666666667,
+       "win": 71,
+       "tie": 192,
+       "loss": 7,
+       "regretVsOracle": 0.5074074074074074,
+       "irrigations": 113,
+       "wasted": {
+        "count": 58,
+        "of": 113,
+        "rate": 0.5132743362831859
+       },
+       "missed": {
+        "count": 10,
+        "of": 65,
+        "rate": 0.15384615384615385
+       },
+       "stressDaysLeft": 7.433333333333334,
+       "stressDaysNoIrrigation": 9.774074074074074,
+       "departsFromRule": 81
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.9407407407407407,
+       "ruleMeanUtility": 0.9962962962962963,
+       "oracleMeanUtility": 2.225925925925926,
+       "gainVsRule": 0.9444444444444444,
+       "win": 42,
+       "tie": 215,
+       "loss": 13,
+       "regretVsOracle": 0.2851851851851852,
+       "irrigations": 160,
+       "wasted": {
+        "count": 71,
+        "of": 160,
+        "rate": 0.44375
+       },
+       "missed": {
+        "count": 5,
+        "of": 94,
+        "rate": 0.05319148936170213
+       },
+       "stressDaysLeft": 7.2407407407407405,
+       "stressDaysNoIrrigation": 9.774074074074074,
+       "departsFromRule": 56
+      }
+     },
+     "dense": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.5703703703703704,
+       "ruleMeanUtility": -0.5111111111111111,
+       "oracleMeanUtility": 1.262962962962963,
+       "gainVsRule": 1.0814814814814815,
+       "win": 84,
+       "tie": 176,
+       "loss": 10,
+       "regretVsOracle": 0.6925925925925925,
+       "irrigations": 112,
+       "wasted": {
+        "count": 60,
+        "of": 112,
+        "rate": 0.5357142857142857
+       },
+       "missed": {
+        "count": 18,
+        "of": 70,
+        "rate": 0.2571428571428571
+       },
+       "stressDaysLeft": 10.766666666666667,
+       "stressDaysNoIrrigation": 12.58148148148148,
+       "departsFromRule": 98
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.5962962962962963,
+       "ruleMeanUtility": 0.4666666666666667,
+       "oracleMeanUtility": 1.9296296296296296,
+       "gainVsRule": 1.1296296296296295,
+       "win": 56,
+       "tie": 204,
+       "loss": 10,
+       "regretVsOracle": 0.3333333333333333,
+       "irrigations": 177,
+       "wasted": {
+        "count": 84,
+        "of": 177,
+        "rate": 0.4745762711864407
+       },
+       "missed": {
+        "count": 7,
+        "of": 100,
+        "rate": 0.07
+       },
+       "stressDaysLeft": 10.329629629629629,
+       "stressDaysNoIrrigation": 12.58148148148148,
+       "departsFromRule": 69
+      }
+     }
+    }
+   },
+   {
+    "test2019_2024": {
+     "original": {
+      "saveWater": {
+       "n": 1620,
+       "meanUtility": 0.47160493827160493,
+       "ruleMeanUtility": 0.03641975308641975,
+       "oracleMeanUtility": 1.045679012345679,
+       "gainVsRule": 0.4351851851851852,
+       "win": 285,
+       "tie": 1203,
+       "loss": 132,
+       "regretVsOracle": 0.5740740740740741,
+       "irrigations": 560,
+       "wasted": {
+        "count": 330,
+        "of": 560,
+        "rate": 0.5892857142857143
+       },
+       "missed": {
+        "count": 63,
+        "of": 293,
+        "rate": 0.2150170648464164
+       },
+       "stressDaysLeft": 4.782716049382716,
+       "stressDaysNoIrrigation": 6.291358024691358,
+       "departsFromRule": 429
+      },
+      "protectCrop": {
+       "n": 1620,
+       "meanUtility": 1.247530864197531,
+       "ruleMeanUtility": 0.8179012345679012,
+       "oracleMeanUtility": 1.5376543209876543,
+       "gainVsRule": 0.42962962962962964,
+       "win": 173,
+       "tie": 1265,
+       "loss": 182,
+       "regretVsOracle": 0.29012345679012347,
+       "irrigations": 811,
+       "wasted": {
+        "count": 407,
+        "of": 811,
+        "rate": 0.5018495684340321
+       },
+       "missed": {
+        "count": 47,
+        "of": 451,
+        "rate": 0.10421286031042129
+       },
+       "stressDaysLeft": 4.54320987654321,
+       "stressDaysNoIrrigation": 6.291358024691358,
+       "departsFromRule": 376
+      }
+     },
+     "none": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.337037037037037,
+       "ruleMeanUtility": 0.0962962962962963,
+       "oracleMeanUtility": 0.9425925925925925,
+       "gainVsRule": 0.24074074074074073,
+       "win": 80,
+       "tie": 409,
+       "loss": 51,
+       "regretVsOracle": 0.6055555555555555,
+       "irrigations": 188,
+       "wasted": {
+        "count": 117,
+        "of": 188,
+        "rate": 0.6223404255319149
+       },
+       "missed": {
+        "count": 20,
+        "of": 91,
+        "rate": 0.21978021978021978
+       },
+       "stressDaysLeft": 4.285185185185185,
+       "stressDaysNoIrrigation": 5.666666666666667,
+       "departsFromRule": 135
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.125925925925926,
+       "ruleMeanUtility": 0.8777777777777778,
+       "oracleMeanUtility": 1.4111111111111112,
+       "gainVsRule": 0.24814814814814815,
+       "win": 42,
+       "tie": 422,
+       "loss": 76,
+       "regretVsOracle": 0.2851851851851852,
+       "irrigations": 274,
+       "wasted": {
+        "count": 147,
+        "of": 274,
+        "rate": 0.5364963503649635
+       },
+       "missed": {
+        "count": 18,
+        "of": 145,
+        "rate": 0.12413793103448276
+       },
+       "stressDaysLeft": 4.033333333333333,
+       "stressDaysNoIrrigation": 5.666666666666667,
+       "departsFromRule": 123
+      }
+     },
+     "evergreen": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.24074074074074073,
+       "ruleMeanUtility": -0.08703703703703704,
+       "oracleMeanUtility": 0.7444444444444445,
+       "gainVsRule": 0.3277777777777778,
+       "win": 85,
+       "tie": 421,
+       "loss": 34,
+       "regretVsOracle": 0.5037037037037037,
+       "irrigations": 161,
+       "wasted": {
+        "count": 99,
+        "of": 161,
+        "rate": 0.6149068322981367
+       },
+       "missed": {
+        "count": 18,
+        "of": 80,
+        "rate": 0.225
+       },
+       "stressDaysLeft": 3.6277777777777778,
+       "stressDaysNoIrrigation": 4.762962962962963,
+       "departsFromRule": 122
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 0.8740740740740741,
+       "ruleMeanUtility": 0.6944444444444444,
+       "oracleMeanUtility": 1.151851851851852,
+       "gainVsRule": 0.17962962962962964,
+       "win": 45,
+       "tie": 445,
+       "loss": 50,
+       "regretVsOracle": 0.2777777777777778,
+       "irrigations": 234,
+       "wasted": {
+        "count": 121,
+        "of": 234,
+        "rate": 0.5170940170940171
+       },
+       "missed": {
+        "count": 12,
+        "of": 125,
+        "rate": 0.096
+       },
+       "stressDaysLeft": 3.4555555555555557,
+       "stressDaysNoIrrigation": 4.762962962962963,
+       "departsFromRule": 97
+      }
+     },
+     "deciduous": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.837037037037037,
+       "ruleMeanUtility": 0.1,
+       "oracleMeanUtility": 1.45,
+       "gainVsRule": 0.737037037037037,
+       "win": 120,
+       "tie": 373,
+       "loss": 47,
+       "regretVsOracle": 0.6129629629629629,
+       "irrigations": 211,
+       "wasted": {
+        "count": 114,
+        "of": 211,
+        "rate": 0.5402843601895735
+       },
+       "missed": {
+        "count": 25,
+        "of": 122,
+        "rate": 0.20491803278688525
+       },
+       "stressDaysLeft": 6.435185185185185,
+       "stressDaysNoIrrigation": 8.444444444444445,
+       "departsFromRule": 172
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.7425925925925927,
+       "ruleMeanUtility": 0.8814814814814815,
+       "oracleMeanUtility": 2.05,
+       "gainVsRule": 0.8611111111111112,
+       "win": 86,
+       "tie": 398,
+       "loss": 56,
+       "regretVsOracle": 0.3074074074074074,
+       "irrigations": 303,
+       "wasted": {
+        "count": 139,
+        "of": 303,
+        "rate": 0.45874587458745875
+       },
+       "missed": {
+        "count": 17,
+        "of": 181,
+        "rate": 0.09392265193370165
+       },
+       "stressDaysLeft": 6.140740740740741,
+       "stressDaysNoIrrigation": 8.444444444444445,
+       "departsFromRule": 156
+      }
+     },
+     "weedy": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.7888888888888889,
+       "ruleMeanUtility": 0.12037037037037036,
+       "oracleMeanUtility": 1.4370370370370371,
+       "gainVsRule": 0.6685185185185185,
+       "win": 107,
+       "tie": 392,
+       "loss": 41,
+       "regretVsOracle": 0.6481481481481481,
+       "irrigations": 209,
+       "wasted": {
+        "count": 115,
+        "of": 209,
+        "rate": 0.5502392344497608
+       },
+       "missed": {
+        "count": 25,
+        "of": 119,
+        "rate": 0.21008403361344538
+       },
+       "stressDaysLeft": 6.187037037037037,
+       "stressDaysNoIrrigation": 8.137037037037038,
+       "departsFromRule": 150
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.6611111111111112,
+       "ruleMeanUtility": 0.9018518518518519,
+       "oracleMeanUtility": 2.009259259259259,
+       "gainVsRule": 0.7592592592592593,
+       "win": 71,
+       "tie": 407,
+       "loss": 62,
+       "regretVsOracle": 0.34814814814814815,
+       "irrigations": 299,
+       "wasted": {
+        "count": 147,
+        "of": 299,
+        "rate": 0.4916387959866221
+       },
+       "missed": {
+        "count": 19,
+        "of": 171,
+        "rate": 0.1111111111111111
+       },
+       "stressDaysLeft": 5.9222222222222225,
+       "stressDaysNoIrrigation": 8.137037037037038,
+       "departsFromRule": 148
+      }
+     },
+     "regulated": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.7462962962962963,
+       "ruleMeanUtility": 0.17222222222222222,
+       "oracleMeanUtility": 1.4055555555555554,
+       "gainVsRule": 0.5740740740740741,
+       "win": 100,
+       "tie": 398,
+       "loss": 42,
+       "regretVsOracle": 0.6592592592592592,
+       "irrigations": 209,
+       "wasted": {
+        "count": 118,
+        "of": 209,
+        "rate": 0.5645933014354066
+       },
+       "missed": {
+        "count": 27,
+        "of": 118,
+        "rate": 0.2288135593220339
+       },
+       "stressDaysLeft": 5.707407407407407,
+       "stressDaysNoIrrigation": 7.614814814814815,
+       "departsFromRule": 144
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.6222222222222222,
+       "ruleMeanUtility": 0.9537037037037037,
+       "oracleMeanUtility": 1.9777777777777779,
+       "gainVsRule": 0.6685185185185185,
+       "win": 66,
+       "tie": 408,
+       "loss": 66,
+       "regretVsOracle": 0.35555555555555557,
+       "irrigations": 292,
+       "wasted": {
+        "count": 142,
+        "of": 292,
+        "rate": 0.4863013698630137
+       },
+       "missed": {
+        "count": 21,
+        "of": 171,
+        "rate": 0.12280701754385964
+       },
+       "stressDaysLeft": 5.451851851851852,
+       "stressDaysNoIrrigation": 7.614814814814815,
+       "departsFromRule": 137
+      }
+     },
+     "dense": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.95,
+       "ruleMeanUtility": -0.21666666666666667,
+       "oracleMeanUtility": 1.4777777777777779,
+       "gainVsRule": 1.1666666666666667,
+       "win": 164,
+       "tie": 332,
+       "loss": 44,
+       "regretVsOracle": 0.5277777777777778,
+       "irrigations": 243,
+       "wasted": {
+        "count": 111,
+        "of": 243,
+        "rate": 0.4567901234567901
+       },
+       "missed": {
+        "count": 18,
+        "of": 150,
+        "rate": 0.12
+       },
+       "stressDaysLeft": 8.348148148148148,
+       "stressDaysNoIrrigation": 10.648148148148149,
+       "departsFromRule": 218
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.848148148148148,
+       "ruleMeanUtility": 0.5648148148148148,
+       "oracleMeanUtility": 2.1555555555555554,
+       "gainVsRule": 1.2833333333333334,
+       "win": 116,
+       "tie": 357,
+       "loss": 67,
+       "regretVsOracle": 0.3074074074074074,
+       "irrigations": 351,
+       "wasted": {
+        "count": 170,
+        "of": 351,
+        "rate": 0.4843304843304843
+       },
+       "missed": {
+        "count": 16,
+        "of": 197,
+        "rate": 0.08121827411167512
+       },
+       "stressDaysLeft": 8.15,
+       "stressDaysNoIrrigation": 10.648148148148149,
+       "departsFromRule": 200
+      }
+     }
+    },
+    "reserved2022_2024": {
+     "original": {
+      "saveWater": {
+       "n": 810,
+       "meanUtility": 0.5493827160493827,
+       "ruleMeanUtility": -0.1765432098765432,
+       "oracleMeanUtility": 1.1111111111111112,
+       "gainVsRule": 0.725925925925926,
+       "win": 188,
+       "tie": 582,
+       "loss": 40,
+       "regretVsOracle": 0.5617283950617284,
+       "irrigations": 299,
+       "wasted": {
+        "count": 177,
+        "of": 299,
+        "rate": 0.5919732441471572
+       },
+       "missed": {
+        "count": 33,
+        "of": 155,
+        "rate": 0.2129032258064516
+       },
+       "stressDaysLeft": 6.558024691358025,
+       "stressDaysNoIrrigation": 8.214814814814815,
+       "departsFromRule": 237
+      },
+      "protectCrop": {
+       "n": 810,
+       "meanUtility": 1.3950617283950617,
+       "ruleMeanUtility": 0.8012345679012346,
+       "oracleMeanUtility": 1.6617283950617283,
+       "gainVsRule": 0.5938271604938271,
+       "win": 114,
+       "tie": 644,
+       "loss": 52,
+       "regretVsOracle": 0.26666666666666666,
+       "irrigations": 446,
+       "wasted": {
+        "count": 208,
+        "of": 446,
+        "rate": 0.4663677130044843
+       },
+       "missed": {
+        "count": 12,
+        "of": 250,
+        "rate": 0.048
+       },
+       "stressDaysLeft": 6.269135802469136,
+       "stressDaysNoIrrigation": 8.214814814814815,
+       "departsFromRule": 172
+      }
+     },
+     "none": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.43333333333333335,
+       "ruleMeanUtility": -0.08518518518518518,
+       "oracleMeanUtility": 1.0629629629629629,
+       "gainVsRule": 0.5185185185185185,
+       "win": 55,
+       "tie": 197,
+       "loss": 18,
+       "regretVsOracle": 0.6296296296296297,
+       "irrigations": 99,
+       "wasted": {
+        "count": 63,
+        "of": 99,
+        "rate": 0.6363636363636364
+       },
+       "missed": {
+        "count": 12,
+        "of": 48,
+        "rate": 0.25
+       },
+       "stressDaysLeft": 6.066666666666666,
+       "stressDaysNoIrrigation": 7.6,
+       "departsFromRule": 75
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.3555555555555556,
+       "ruleMeanUtility": 0.8925925925925926,
+       "oracleMeanUtility": 1.5777777777777777,
+       "gainVsRule": 0.46296296296296297,
+       "win": 28,
+       "tie": 218,
+       "loss": 24,
+       "regretVsOracle": 0.2222222222222222,
+       "irrigations": 152,
+       "wasted": {
+        "count": 77,
+        "of": 152,
+        "rate": 0.506578947368421
+       },
+       "missed": {
+        "count": 4,
+        "of": 79,
+        "rate": 0.05063291139240506
+       },
+       "stressDaysLeft": 5.681481481481481,
+       "stressDaysNoIrrigation": 7.6,
+       "departsFromRule": 54
+      }
+     },
+     "evergreen": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.24444444444444444,
+       "ruleMeanUtility": -0.3,
+       "oracleMeanUtility": 0.774074074074074,
+       "gainVsRule": 0.5444444444444444,
+       "win": 56,
+       "tie": 202,
+       "loss": 12,
+       "regretVsOracle": 0.5296296296296297,
+       "irrigations": 88,
+       "wasted": {
+        "count": 54,
+        "of": 88,
+        "rate": 0.6136363636363636
+       },
+       "missed": {
+        "count": 13,
+        "of": 47,
+        "rate": 0.2765957446808511
+       },
+       "stressDaysLeft": 5.333333333333333,
+       "stressDaysNoIrrigation": 6.555555555555555,
+       "departsFromRule": 70
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.0074074074074073,
+       "ruleMeanUtility": 0.6777777777777778,
+       "oracleMeanUtility": 1.2666666666666666,
+       "gainVsRule": 0.3296296296296296,
+       "win": 35,
+       "tie": 222,
+       "loss": 13,
+       "regretVsOracle": 0.25925925925925924,
+       "irrigations": 129,
+       "wasted": {
+        "count": 58,
+        "of": 129,
+        "rate": 0.4496124031007752
+       },
+       "missed": {
+        "count": 4,
+        "of": 75,
+        "rate": 0.05333333333333334
+       },
+       "stressDaysLeft": 5.07037037037037,
+       "stressDaysNoIrrigation": 6.555555555555555,
+       "departsFromRule": 49
+      }
+     },
+     "deciduous": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.9703703703703703,
+       "ruleMeanUtility": -0.14444444444444443,
+       "oracleMeanUtility": 1.4962962962962962,
+       "gainVsRule": 1.114814814814815,
+       "win": 77,
+       "tie": 183,
+       "loss": 10,
+       "regretVsOracle": 0.5259259259259259,
+       "irrigations": 112,
+       "wasted": {
+        "count": 60,
+        "of": 112,
+        "rate": 0.5357142857142857
+       },
+       "missed": {
+        "count": 8,
+        "of": 60,
+        "rate": 0.13333333333333333
+       },
+       "stressDaysLeft": 8.274074074074074,
+       "stressDaysNoIrrigation": 10.488888888888889,
+       "departsFromRule": 92
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.8222222222222222,
+       "ruleMeanUtility": 0.8333333333333334,
+       "oracleMeanUtility": 2.140740740740741,
+       "gainVsRule": 0.9888888888888889,
+       "win": 51,
+       "tie": 204,
+       "loss": 15,
+       "regretVsOracle": 0.31851851851851853,
+       "irrigations": 165,
+       "wasted": {
+        "count": 73,
+        "of": 165,
+        "rate": 0.44242424242424244
+       },
+       "missed": {
+        "count": 4,
+        "of": 96,
+        "rate": 0.041666666666666664
+       },
+       "stressDaysLeft": 8.055555555555555,
+       "stressDaysNoIrrigation": 10.488888888888889,
+       "departsFromRule": 69
+      }
+     },
+     "weedy": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.9740740740740741,
+       "ruleMeanUtility": -0.1111111111111111,
+       "oracleMeanUtility": 1.5333333333333334,
+       "gainVsRule": 1.0851851851851853,
+       "win": 71,
+       "tie": 192,
+       "loss": 7,
+       "regretVsOracle": 0.5592592592592592,
+       "irrigations": 113,
+       "wasted": {
+        "count": 61,
+        "of": 113,
+        "rate": 0.5398230088495575
+       },
+       "missed": {
+        "count": 9,
+        "of": 61,
+        "rate": 0.14754098360655737
+       },
+       "stressDaysLeft": 8.044444444444444,
+       "stressDaysNoIrrigation": 10.274074074074074,
+       "departsFromRule": 79
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.848148148148148,
+       "ruleMeanUtility": 0.8666666666666667,
+       "oracleMeanUtility": 2.1666666666666665,
+       "gainVsRule": 0.9814814814814815,
+       "win": 45,
+       "tie": 209,
+       "loss": 16,
+       "regretVsOracle": 0.31851851851851853,
+       "irrigations": 164,
+       "wasted": {
+        "count": 74,
+        "of": 164,
+        "rate": 0.45121951219512196
+       },
+       "missed": {
+        "count": 4,
+        "of": 94,
+        "rate": 0.0425531914893617
+       },
+       "stressDaysLeft": 7.818518518518519,
+       "stressDaysNoIrrigation": 10.274074074074074,
+       "departsFromRule": 66
+      }
+     },
+     "regulated": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 1.0222222222222221,
+       "ruleMeanUtility": 0.018518518518518517,
+       "oracleMeanUtility": 1.5925925925925926,
+       "gainVsRule": 1.0037037037037038,
+       "win": 68,
+       "tie": 194,
+       "loss": 8,
+       "regretVsOracle": 0.5703703703703704,
+       "irrigations": 115,
+       "wasted": {
+        "count": 62,
+        "of": 115,
+        "rate": 0.5391304347826087
+       },
+       "missed": {
+        "count": 12,
+        "of": 65,
+        "rate": 0.18461538461538463
+       },
+       "stressDaysLeft": 7.474074074074074,
+       "stressDaysNoIrrigation": 9.774074074074074,
+       "departsFromRule": 77
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.9370370370370371,
+       "ruleMeanUtility": 0.9962962962962963,
+       "oracleMeanUtility": 2.225925925925926,
+       "gainVsRule": 0.9407407407407408,
+       "win": 42,
+       "tie": 212,
+       "loss": 16,
+       "regretVsOracle": 0.28888888888888886,
+       "irrigations": 165,
+       "wasted": {
+        "count": 75,
+        "of": 165,
+        "rate": 0.45454545454545453
+       },
+       "missed": {
+        "count": 4,
+        "of": 94,
+        "rate": 0.0425531914893617
+       },
+       "stressDaysLeft": 7.225925925925926,
+       "stressDaysNoIrrigation": 9.774074074074074,
+       "departsFromRule": 59
+      }
+     },
+     "dense": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.7074074074074074,
+       "ruleMeanUtility": -0.5111111111111111,
+       "oracleMeanUtility": 1.262962962962963,
+       "gainVsRule": 1.2185185185185186,
+       "win": 95,
+       "tie": 161,
+       "loss": 14,
+       "regretVsOracle": 0.5555555555555556,
+       "irrigations": 128,
+       "wasted": {
+        "count": 65,
+        "of": 128,
+        "rate": 0.5078125
+       },
+       "missed": {
+        "count": 7,
+        "of": 70,
+        "rate": 0.1
+       },
+       "stressDaysLeft": 10.451851851851853,
+       "stressDaysNoIrrigation": 12.58148148148148,
+       "departsFromRule": 114
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.651851851851852,
+       "ruleMeanUtility": 0.4666666666666667,
+       "oracleMeanUtility": 1.9296296296296296,
+       "gainVsRule": 1.1851851851851851,
+       "win": 64,
+       "tie": 182,
+       "loss": 24,
+       "regretVsOracle": 0.2777777777777778,
+       "irrigations": 194,
+       "wasted": {
+        "count": 96,
+        "of": 194,
+        "rate": 0.4948453608247423
+       },
+       "missed": {
+        "count": 2,
+        "of": 100,
+        "rate": 0.02
+       },
+       "stressDaysLeft": 10.21111111111111,
+       "stressDaysNoIrrigation": 12.58148148148148,
+       "departsFromRule": 92
+      }
+     }
+    }
+   },
+   {
+    "test2019_2024": {
+     "original": {
+      "saveWater": {
+       "n": 1620,
+       "meanUtility": 0.49135802469135803,
+       "ruleMeanUtility": 0.03641975308641975,
+       "oracleMeanUtility": 1.045679012345679,
+       "gainVsRule": 0.45493827160493827,
+       "win": 250,
+       "tie": 1277,
+       "loss": 93,
+       "regretVsOracle": 0.554320987654321,
+       "irrigations": 547,
+       "wasted": {
+        "count": 322,
+        "of": 547,
+        "rate": 0.5886654478976234
+       },
+       "missed": {
+        "count": 68,
+        "of": 293,
+        "rate": 0.23208191126279865
+       },
+       "stressDaysLeft": 4.787037037037037,
+       "stressDaysNoIrrigation": 6.291358024691358,
+       "departsFromRule": 354
+      },
+      "protectCrop": {
+       "n": 1620,
+       "meanUtility": 1.2685185185185186,
+       "ruleMeanUtility": 0.8179012345679012,
+       "oracleMeanUtility": 1.5376543209876543,
+       "gainVsRule": 0.4506172839506173,
+       "win": 163,
+       "tie": 1330,
+       "loss": 127,
+       "regretVsOracle": 0.2691358024691358,
+       "irrigations": 766,
+       "wasted": {
+        "count": 363,
+        "of": 766,
+        "rate": 0.47389033942558745
+       },
+       "missed": {
+        "count": 48,
+        "of": 451,
+        "rate": 0.10643015521064302
+       },
+       "stressDaysLeft": 4.55,
+       "stressDaysNoIrrigation": 6.291358024691358,
+       "departsFromRule": 305
+      }
+     },
+     "none": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.4462962962962963,
+       "ruleMeanUtility": 0.0962962962962963,
+       "oracleMeanUtility": 0.9425925925925925,
+       "gainVsRule": 0.35,
+       "win": 73,
+       "tie": 436,
+       "loss": 31,
+       "regretVsOracle": 0.4962962962962963,
+       "irrigations": 175,
+       "wasted": {
+        "count": 104,
+        "of": 175,
+        "rate": 0.5942857142857143
+       },
+       "missed": {
+        "count": 20,
+        "of": 91,
+        "rate": 0.21978021978021978
+       },
+       "stressDaysLeft": 4.2481481481481485,
+       "stressDaysNoIrrigation": 5.666666666666667,
+       "departsFromRule": 108
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.1703703703703703,
+       "ruleMeanUtility": 0.8777777777777778,
+       "oracleMeanUtility": 1.4111111111111112,
+       "gainVsRule": 0.29259259259259257,
+       "win": 44,
+       "tie": 448,
+       "loss": 48,
+       "regretVsOracle": 0.24074074074074073,
+       "irrigations": 243,
+       "wasted": {
+        "count": 116,
+        "of": 243,
+        "rate": 0.4773662551440329
+       },
+       "missed": {
+        "count": 18,
+        "of": 145,
+        "rate": 0.12413793103448276
+       },
+       "stressDaysLeft": 4.046296296296297,
+       "stressDaysNoIrrigation": 5.666666666666667,
+       "departsFromRule": 96
+      }
+     },
+     "evergreen": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.19814814814814816,
+       "ruleMeanUtility": -0.08703703703703704,
+       "oracleMeanUtility": 0.7444444444444445,
+       "gainVsRule": 0.2851851851851852,
+       "win": 64,
+       "tie": 452,
+       "loss": 24,
+       "regretVsOracle": 0.5462962962962963,
+       "irrigations": 169,
+       "wasted": {
+        "count": 109,
+        "of": 169,
+        "rate": 0.6449704142011834
+       },
+       "missed": {
+        "count": 20,
+        "of": 80,
+        "rate": 0.25
+       },
+       "stressDaysLeft": 3.6259259259259258,
+       "stressDaysNoIrrigation": 4.762962962962963,
+       "departsFromRule": 90
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 0.9148148148148149,
+       "ruleMeanUtility": 0.6944444444444444,
+       "oracleMeanUtility": 1.151851851851852,
+       "gainVsRule": 0.22037037037037038,
+       "win": 42,
+       "tie": 465,
+       "loss": 33,
+       "regretVsOracle": 0.23703703703703705,
+       "irrigations": 225,
+       "wasted": {
+        "count": 110,
+        "of": 225,
+        "rate": 0.4888888888888889
+       },
+       "missed": {
+        "count": 10,
+        "of": 125,
+        "rate": 0.08
+       },
+       "stressDaysLeft": 3.4314814814814816,
+       "stressDaysNoIrrigation": 4.762962962962963,
+       "departsFromRule": 76
+      }
+     },
+     "deciduous": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.8296296296296296,
+       "ruleMeanUtility": 0.1,
+       "oracleMeanUtility": 1.45,
+       "gainVsRule": 0.7296296296296296,
+       "win": 113,
+       "tie": 389,
+       "loss": 38,
+       "regretVsOracle": 0.6203703703703703,
+       "irrigations": 203,
+       "wasted": {
+        "count": 109,
+        "of": 203,
+        "rate": 0.5369458128078818
+       },
+       "missed": {
+        "count": 28,
+        "of": 122,
+        "rate": 0.22950819672131148
+       },
+       "stressDaysLeft": 6.487037037037037,
+       "stressDaysNoIrrigation": 8.444444444444445,
+       "departsFromRule": 156
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.7203703703703703,
+       "ruleMeanUtility": 0.8814814814814815,
+       "oracleMeanUtility": 2.05,
+       "gainVsRule": 0.8388888888888889,
+       "win": 77,
+       "tie": 417,
+       "loss": 46,
+       "regretVsOracle": 0.3296296296296296,
+       "irrigations": 298,
+       "wasted": {
+        "count": 137,
+        "of": 298,
+        "rate": 0.4597315436241611
+       },
+       "missed": {
+        "count": 20,
+        "of": 181,
+        "rate": 0.11049723756906077
+       },
+       "stressDaysLeft": 6.1722222222222225,
+       "stressDaysNoIrrigation": 8.444444444444445,
+       "departsFromRule": 133
+      }
+     },
+     "weedy": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.7611111111111111,
+       "ruleMeanUtility": 0.12037037037037036,
+       "oracleMeanUtility": 1.4370370370370371,
+       "gainVsRule": 0.6407407407407407,
+       "win": 97,
+       "tie": 414,
+       "loss": 29,
+       "regretVsOracle": 0.6759259259259259,
+       "irrigations": 192,
+       "wasted": {
+        "count": 105,
+        "of": 192,
+        "rate": 0.546875
+       },
+       "missed": {
+        "count": 32,
+        "of": 119,
+        "rate": 0.2689075630252101
+       },
+       "stressDaysLeft": 6.309259259259259,
+       "stressDaysNoIrrigation": 8.137037037037038,
+       "departsFromRule": 129
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.6277777777777778,
+       "ruleMeanUtility": 0.9018518518518519,
+       "oracleMeanUtility": 2.009259259259259,
+       "gainVsRule": 0.725925925925926,
+       "win": 64,
+       "tie": 437,
+       "loss": 39,
+       "regretVsOracle": 0.3814814814814815,
+       "irrigations": 266,
+       "wasted": {
+        "count": 121,
+        "of": 266,
+        "rate": 0.4548872180451128
+       },
+       "missed": {
+        "count": 26,
+        "of": 171,
+        "rate": 0.15204678362573099
+       },
+       "stressDaysLeft": 6.016666666666667,
+       "stressDaysNoIrrigation": 8.137037037037038,
+       "departsFromRule": 111
+      }
+     },
+     "regulated": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.8277777777777777,
+       "ruleMeanUtility": 0.17222222222222222,
+       "oracleMeanUtility": 1.4055555555555554,
+       "gainVsRule": 0.6555555555555556,
+       "win": 99,
+       "tie": 413,
+       "loss": 28,
+       "regretVsOracle": 0.5777777777777777,
+       "irrigations": 189,
+       "wasted": {
+        "count": 101,
+        "of": 189,
+        "rate": 0.5343915343915344
+       },
+       "missed": {
+        "count": 30,
+        "of": 118,
+        "rate": 0.2542372881355932
+       },
+       "stressDaysLeft": 5.737037037037037,
+       "stressDaysNoIrrigation": 7.614814814814815,
+       "departsFromRule": 130
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.6555555555555554,
+       "ruleMeanUtility": 0.9537037037037037,
+       "oracleMeanUtility": 1.9777777777777779,
+       "gainVsRule": 0.7018518518518518,
+       "win": 63,
+       "tie": 433,
+       "loss": 44,
+       "regretVsOracle": 0.32222222222222224,
+       "irrigations": 273,
+       "wasted": {
+        "count": 123,
+        "of": 273,
+        "rate": 0.45054945054945056
+       },
+       "missed": {
+        "count": 21,
+        "of": 171,
+        "rate": 0.12280701754385964
+       },
+       "stressDaysLeft": 5.453703703703703,
+       "stressDaysNoIrrigation": 7.614814814814815,
+       "departsFromRule": 110
+      }
+     },
+     "dense": {
+      "saveWater": {
+       "n": 540,
+       "meanUtility": 0.9037037037037037,
+       "ruleMeanUtility": -0.21666666666666667,
+       "oracleMeanUtility": 1.4777777777777779,
+       "gainVsRule": 1.1203703703703705,
+       "win": 156,
+       "tie": 352,
+       "loss": 32,
+       "regretVsOracle": 0.5740740740740741,
+       "irrigations": 191,
+       "wasted": {
+        "count": 82,
+        "of": 191,
+        "rate": 0.4293193717277487
+       },
+       "missed": {
+        "count": 41,
+        "of": 150,
+        "rate": 0.2733333333333333
+       },
+       "stressDaysLeft": 8.683333333333334,
+       "stressDaysNoIrrigation": 10.648148148148149,
+       "departsFromRule": 196
+      },
+      "protectCrop": {
+       "n": 540,
+       "meanUtility": 1.8148148148148149,
+       "ruleMeanUtility": 0.5648148148148148,
+       "oracleMeanUtility": 2.1555555555555554,
+       "gainVsRule": 1.25,
+       "win": 103,
+       "tie": 400,
+       "loss": 37,
+       "regretVsOracle": 0.34074074074074073,
+       "irrigations": 319,
+       "wasted": {
+        "count": 146,
+        "of": 319,
+        "rate": 0.45768025078369906
+       },
+       "missed": {
+        "count": 24,
+        "of": 197,
+        "rate": 0.1218274111675127
+       },
+       "stressDaysLeft": 8.242592592592592,
+       "stressDaysNoIrrigation": 10.648148148148149,
+       "departsFromRule": 150
+      }
+     }
+    },
+    "reserved2022_2024": {
+     "original": {
+      "saveWater": {
+       "n": 810,
+       "meanUtility": 0.528395061728395,
+       "ruleMeanUtility": -0.1765432098765432,
+       "oracleMeanUtility": 1.1111111111111112,
+       "gainVsRule": 0.7049382716049383,
+       "win": 157,
+       "tie": 632,
+       "loss": 21,
+       "regretVsOracle": 0.582716049382716,
+       "irrigations": 314,
+       "wasted": {
+        "count": 191,
+        "of": 314,
+        "rate": 0.60828025477707
+       },
+       "missed": {
+        "count": 32,
+        "of": 155,
+        "rate": 0.2064516129032258
+       },
+       "stressDaysLeft": 6.523456790123457,
+       "stressDaysNoIrrigation": 8.214814814814815,
+       "departsFromRule": 186
+      },
+      "protectCrop": {
+       "n": 810,
+       "meanUtility": 1.3975308641975308,
+       "ruleMeanUtility": 0.8012345679012346,
+       "oracleMeanUtility": 1.6617283950617283,
+       "gainVsRule": 0.5962962962962963,
+       "win": 102,
+       "tie": 674,
+       "loss": 34,
+       "regretVsOracle": 0.2641975308641975,
+       "irrigations": 439,
+       "wasted": {
+        "count": 202,
+        "of": 439,
+        "rate": 0.4601366742596811
+       },
+       "missed": {
+        "count": 13,
+        "of": 250,
+        "rate": 0.052
+       },
+       "stressDaysLeft": 6.275308641975308,
+       "stressDaysNoIrrigation": 8.214814814814815,
+       "departsFromRule": 139
+      }
+     },
+     "none": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.5,
+       "ruleMeanUtility": -0.08518518518518518,
+       "oracleMeanUtility": 1.0629629629629629,
+       "gainVsRule": 0.5851851851851851,
+       "win": 46,
+       "tie": 215,
+       "loss": 9,
+       "regretVsOracle": 0.562962962962963,
+       "irrigations": 103,
+       "wasted": {
+        "count": 65,
+        "of": 103,
+        "rate": 0.6310679611650486
+       },
+       "missed": {
+        "count": 10,
+        "of": 48,
+        "rate": 0.20833333333333334
+       },
+       "stressDaysLeft": 5.955555555555556,
+       "stressDaysNoIrrigation": 7.6,
+       "departsFromRule": 57
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.3666666666666667,
+       "ruleMeanUtility": 0.8925925925925926,
+       "oracleMeanUtility": 1.5777777777777777,
+       "gainVsRule": 0.4740740740740741,
+       "win": 29,
+       "tie": 225,
+       "loss": 16,
+       "regretVsOracle": 0.2111111111111111,
+       "irrigations": 143,
+       "wasted": {
+        "count": 68,
+        "of": 143,
+        "rate": 0.4755244755244755
+       },
+       "missed": {
+        "count": 4,
+        "of": 79,
+        "rate": 0.05063291139240506
+       },
+       "stressDaysLeft": 5.703703703703703,
+       "stressDaysNoIrrigation": 7.6,
+       "departsFromRule": 47
+      }
+     },
+     "evergreen": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.15555555555555556,
+       "ruleMeanUtility": -0.3,
+       "oracleMeanUtility": 0.774074074074074,
+       "gainVsRule": 0.45555555555555555,
+       "win": 38,
+       "tie": 227,
+       "loss": 5,
+       "regretVsOracle": 0.6185185185185185,
+       "irrigations": 102,
+       "wasted": {
+        "count": 67,
+        "of": 102,
+        "rate": 0.6568627450980392
+       },
+       "missed": {
+        "count": 12,
+        "of": 47,
+        "rate": 0.2553191489361702
+       },
+       "stressDaysLeft": 5.266666666666667,
+       "stressDaysNoIrrigation": 6.555555555555555,
+       "departsFromRule": 44
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.025925925925926,
+       "ruleMeanUtility": 0.6777777777777778,
+       "oracleMeanUtility": 1.2666666666666666,
+       "gainVsRule": 0.34814814814814815,
+       "win": 29,
+       "tie": 231,
+       "loss": 10,
+       "regretVsOracle": 0.24074074074074073,
+       "irrigations": 133,
+       "wasted": {
+        "count": 62,
+        "of": 133,
+        "rate": 0.46616541353383456
+       },
+       "missed": {
+        "count": 4,
+        "of": 75,
+        "rate": 0.05333333333333334
+       },
+       "stressDaysLeft": 5.037037037037037,
+       "stressDaysNoIrrigation": 6.555555555555555,
+       "departsFromRule": 39
+      }
+     },
+     "deciduous": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.9296296296296296,
+       "ruleMeanUtility": -0.14444444444444443,
+       "oracleMeanUtility": 1.4962962962962962,
+       "gainVsRule": 1.0740740740740742,
+       "win": 73,
+       "tie": 190,
+       "loss": 7,
+       "regretVsOracle": 0.5666666666666667,
+       "irrigations": 109,
+       "wasted": {
+        "count": 59,
+        "of": 109,
+        "rate": 0.5412844036697247
+       },
+       "missed": {
+        "count": 10,
+        "of": 60,
+        "rate": 0.16666666666666666
+       },
+       "stressDaysLeft": 8.348148148148148,
+       "stressDaysNoIrrigation": 10.488888888888889,
+       "departsFromRule": 85
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.8,
+       "ruleMeanUtility": 0.8333333333333334,
+       "oracleMeanUtility": 2.140740740740741,
+       "gainVsRule": 0.9666666666666667,
+       "win": 44,
+       "tie": 218,
+       "loss": 8,
+       "regretVsOracle": 0.34074074074074073,
+       "irrigations": 163,
+       "wasted": {
+        "count": 72,
+        "of": 163,
+        "rate": 0.44171779141104295
+       },
+       "missed": {
+        "count": 5,
+        "of": 96,
+        "rate": 0.052083333333333336
+       },
+       "stressDaysLeft": 8.085185185185185,
+       "stressDaysNoIrrigation": 10.488888888888889,
+       "departsFromRule": 53
+      }
+     },
+     "weedy": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.8481481481481481,
+       "ruleMeanUtility": -0.1111111111111111,
+       "oracleMeanUtility": 1.5333333333333334,
+       "gainVsRule": 0.9592592592592593,
+       "win": 61,
+       "tie": 206,
+       "loss": 3,
+       "regretVsOracle": 0.6851851851851852,
+       "irrigations": 110,
+       "wasted": {
+        "count": 62,
+        "of": 110,
+        "rate": 0.5636363636363636
+       },
+       "missed": {
+        "count": 13,
+        "of": 61,
+        "rate": 0.21311475409836064
+       },
+       "stressDaysLeft": 8.203703703703704,
+       "stressDaysNoIrrigation": 10.274074074074074,
+       "departsFromRule": 66
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.8444444444444446,
+       "ruleMeanUtility": 0.8666666666666667,
+       "oracleMeanUtility": 2.1666666666666665,
+       "gainVsRule": 0.9777777777777777,
+       "win": 41,
+       "tie": 223,
+       "loss": 6,
+       "regretVsOracle": 0.32222222222222224,
+       "irrigations": 154,
+       "wasted": {
+        "count": 66,
+        "of": 154,
+        "rate": 0.42857142857142855
+       },
+       "missed": {
+        "count": 6,
+        "of": 94,
+        "rate": 0.06382978723404255
+       },
+       "stressDaysLeft": 7.859259259259259,
+       "stressDaysNoIrrigation": 10.274074074074074,
+       "departsFromRule": 50
+      }
+     },
+     "regulated": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 1.0703703703703704,
+       "ruleMeanUtility": 0.018518518518518517,
+       "oracleMeanUtility": 1.5925925925925926,
+       "gainVsRule": 1.0518518518518518,
+       "win": 66,
+       "tie": 201,
+       "loss": 3,
+       "regretVsOracle": 0.5222222222222223,
+       "irrigations": 109,
+       "wasted": {
+        "count": 57,
+        "of": 109,
+        "rate": 0.5229357798165137
+       },
+       "missed": {
+        "count": 13,
+        "of": 65,
+        "rate": 0.2
+       },
+       "stressDaysLeft": 7.492592592592593,
+       "stressDaysNoIrrigation": 9.774074074074074,
+       "departsFromRule": 71
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.9370370370370371,
+       "ruleMeanUtility": 0.9962962962962963,
+       "oracleMeanUtility": 2.225925925925926,
+       "gainVsRule": 0.9407407407407408,
+       "win": 39,
+       "tie": 224,
+       "loss": 7,
+       "regretVsOracle": 0.28888888888888886,
+       "irrigations": 155,
+       "wasted": {
+        "count": 67,
+        "of": 155,
+        "rate": 0.432258064516129
+       },
+       "missed": {
+        "count": 6,
+        "of": 94,
+        "rate": 0.06382978723404255
+       },
+       "stressDaysLeft": 7.262962962962963,
+       "stressDaysNoIrrigation": 9.774074074074074,
+       "departsFromRule": 47
+      }
+     },
+     "dense": {
+      "saveWater": {
+       "n": 270,
+       "meanUtility": 0.6777777777777778,
+       "ruleMeanUtility": -0.5111111111111111,
+       "oracleMeanUtility": 1.262962962962963,
+       "gainVsRule": 1.1888888888888889,
+       "win": 95,
+       "tie": 165,
+       "loss": 10,
+       "regretVsOracle": 0.5851851851851851,
+       "irrigations": 97,
+       "wasted": {
+        "count": 47,
+        "of": 97,
+        "rate": 0.4845360824742268
+       },
+       "missed": {
+        "count": 20,
+        "of": 70,
+        "rate": 0.2857142857142857
+       },
+       "stressDaysLeft": 10.825925925925926,
+       "stressDaysNoIrrigation": 12.58148148148148,
+       "departsFromRule": 109
+      },
+      "protectCrop": {
+       "n": 270,
+       "meanUtility": 1.5444444444444445,
+       "ruleMeanUtility": 0.4666666666666667,
+       "oracleMeanUtility": 1.9296296296296296,
+       "gainVsRule": 1.0777777777777777,
+       "win": 54,
+       "tie": 206,
+       "loss": 10,
+       "regretVsOracle": 0.3851851851851852,
+       "irrigations": 176,
+       "wasted": {
+        "count": 85,
+        "of": 176,
+        "rate": 0.48295454545454547
+       },
+       "missed": {
+        "count": 9,
+        "of": 100,
+        "rate": 0.09
+       },
+       "stressDaysLeft": 10.385185185185184,
+       "stressDaysNoIrrigation": 12.58148148148148,
+       "departsFromRule": 66
+      }
+     }
+    }
+   }
+  ],
+  "rule": {
+   "test2019_2024": {
+    "original": {
+     "saveWater": {
+      "n": 1620,
+      "meanUtility": 0.03641975308641975,
+      "ruleMeanUtility": 0.03641975308641975,
+      "oracleMeanUtility": 1.045679012345679,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 1620,
+      "loss": 0,
+      "regretVsOracle": 1.0092592592592593,
+      "irrigations": 633,
+      "wasted": {
+       "count": 444,
+       "of": 633,
+       "rate": 0.7014218009478673
+      },
+      "missed": {
+       "count": 104,
+       "of": 293,
+       "rate": 0.35494880546075086
+      },
+      "stressDaysLeft": 5.082716049382716,
+      "stressDaysNoIrrigation": 6.291358024691358,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 1620,
+      "meanUtility": 0.8179012345679012,
+      "ruleMeanUtility": 0.8179012345679012,
+      "oracleMeanUtility": 1.5376543209876543,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 1620,
+      "loss": 0,
+      "regretVsOracle": 0.7197530864197531,
+      "irrigations": 633,
+      "wasted": {
+       "count": 312,
+       "of": 633,
+       "rate": 0.4928909952606635
+      },
+      "missed": {
+       "count": 130,
+       "of": 451,
+       "rate": 0.28824833702882485
+      },
+      "stressDaysLeft": 5.082716049382716,
+      "stressDaysNoIrrigation": 6.291358024691358,
+      "departsFromRule": 0
+     }
+    },
+    "none": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": 0.0962962962962963,
+      "ruleMeanUtility": 0.0962962962962963,
+      "oracleMeanUtility": 0.9425925925925925,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 0.8462962962962963,
+      "irrigations": 211,
+      "wasted": {
+       "count": 144,
+       "of": 211,
+       "rate": 0.6824644549763034
+      },
+      "missed": {
+       "count": 24,
+       "of": 91,
+       "rate": 0.26373626373626374
+      },
+      "stressDaysLeft": 4.398148148148148,
+      "stressDaysNoIrrigation": 5.666666666666667,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 0.8777777777777778,
+      "ruleMeanUtility": 0.8777777777777778,
+      "oracleMeanUtility": 1.4111111111111112,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 0.5333333333333333,
+      "irrigations": 211,
+      "wasted": {
+       "count": 98,
+       "of": 211,
+       "rate": 0.46445497630331756
+      },
+      "missed": {
+       "count": 32,
+       "of": 145,
+       "rate": 0.2206896551724138
+      },
+      "stressDaysLeft": 4.398148148148148,
+      "stressDaysNoIrrigation": 5.666666666666667,
+      "departsFromRule": 0
+     }
+    },
+    "evergreen": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": -0.08703703703703704,
+      "ruleMeanUtility": -0.08703703703703704,
+      "oracleMeanUtility": 0.7444444444444445,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 0.8314814814814815,
+      "irrigations": 211,
+      "wasted": {
+       "count": 150,
+       "of": 211,
+       "rate": 0.7109004739336493
+      },
+      "missed": {
+       "count": 19,
+       "of": 80,
+       "rate": 0.2375
+      },
+      "stressDaysLeft": 3.6777777777777776,
+      "stressDaysNoIrrigation": 4.762962962962963,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 0.6944444444444444,
+      "ruleMeanUtility": 0.6944444444444444,
+      "oracleMeanUtility": 1.151851851851852,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 0.45740740740740743,
+      "irrigations": 211,
+      "wasted": {
+       "count": 107,
+       "of": 211,
+       "rate": 0.5071090047393365
+      },
+      "missed": {
+       "count": 21,
+       "of": 125,
+       "rate": 0.168
+      },
+      "stressDaysLeft": 3.6777777777777776,
+      "stressDaysNoIrrigation": 4.762962962962963,
+      "departsFromRule": 0
+     }
+    },
+    "deciduous": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": 0.1,
+      "ruleMeanUtility": 0.1,
+      "oracleMeanUtility": 1.45,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 1.35,
+      "irrigations": 211,
+      "wasted": {
+       "count": 150,
+       "of": 211,
+       "rate": 0.7109004739336493
+      },
+      "missed": {
+       "count": 61,
+       "of": 122,
+       "rate": 0.5
+      },
+      "stressDaysLeft": 7.1722222222222225,
+      "stressDaysNoIrrigation": 8.444444444444445,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 0.8814814814814815,
+      "ruleMeanUtility": 0.8814814814814815,
+      "oracleMeanUtility": 2.05,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 1.1685185185185185,
+      "irrigations": 211,
+      "wasted": {
+       "count": 107,
+       "of": 211,
+       "rate": 0.5071090047393365
+      },
+      "missed": {
+       "count": 77,
+       "of": 181,
+       "rate": 0.425414364640884
+      },
+      "stressDaysLeft": 7.1722222222222225,
+      "stressDaysNoIrrigation": 8.444444444444445,
+      "departsFromRule": 0
+     }
+    },
+    "weedy": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": 0.12037037037037036,
+      "ruleMeanUtility": 0.12037037037037036,
+      "oracleMeanUtility": 1.4370370370370371,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 1.3166666666666667,
+      "irrigations": 211,
+      "wasted": {
+       "count": 150,
+       "of": 211,
+       "rate": 0.7109004739336493
+      },
+      "missed": {
+       "count": 58,
+       "of": 119,
+       "rate": 0.48739495798319327
+      },
+      "stressDaysLeft": 6.844444444444444,
+      "stressDaysNoIrrigation": 8.137037037037038,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 0.9018518518518519,
+      "ruleMeanUtility": 0.9018518518518519,
+      "oracleMeanUtility": 2.009259259259259,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 1.1074074074074074,
+      "irrigations": 211,
+      "wasted": {
+       "count": 105,
+       "of": 211,
+       "rate": 0.4976303317535545
+      },
+      "missed": {
+       "count": 65,
+       "of": 171,
+       "rate": 0.38011695906432746
+      },
+      "stressDaysLeft": 6.844444444444444,
+      "stressDaysNoIrrigation": 8.137037037037038,
+      "departsFromRule": 0
+     }
+    },
+    "regulated": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": 0.17222222222222222,
+      "ruleMeanUtility": 0.17222222222222222,
+      "oracleMeanUtility": 1.4055555555555554,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 1.2333333333333334,
+      "irrigations": 211,
+      "wasted": {
+       "count": 148,
+       "of": 211,
+       "rate": 0.7014218009478673
+      },
+      "missed": {
+       "count": 55,
+       "of": 118,
+       "rate": 0.4661016949152542
+      },
+      "stressDaysLeft": 6.270370370370371,
+      "stressDaysNoIrrigation": 7.614814814814815,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 0.9537037037037037,
+      "ruleMeanUtility": 0.9537037037037037,
+      "oracleMeanUtility": 1.9777777777777779,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 1.0240740740740741,
+      "irrigations": 211,
+      "wasted": {
+       "count": 103,
+       "of": 211,
+       "rate": 0.4881516587677725
+      },
+      "missed": {
+       "count": 63,
+       "of": 171,
+       "rate": 0.3684210526315789
+      },
+      "stressDaysLeft": 6.270370370370371,
+      "stressDaysNoIrrigation": 7.614814814814815,
+      "departsFromRule": 0
+     }
+    },
+    "dense": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": -0.21666666666666667,
+      "ruleMeanUtility": -0.21666666666666667,
+      "oracleMeanUtility": 1.4777777777777779,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 1.6944444444444444,
+      "irrigations": 211,
+      "wasted": {
+       "count": 155,
+       "of": 211,
+       "rate": 0.7345971563981043
+      },
+      "missed": {
+       "count": 94,
+       "of": 150,
+       "rate": 0.6266666666666667
+      },
+      "stressDaysLeft": 9.692592592592593,
+      "stressDaysNoIrrigation": 10.648148148148149,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 0.5648148148148148,
+      "ruleMeanUtility": 0.5648148148148148,
+      "oracleMeanUtility": 2.1555555555555554,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 540,
+      "loss": 0,
+      "regretVsOracle": 1.5907407407407408,
+      "irrigations": 211,
+      "wasted": {
+       "count": 122,
+       "of": 211,
+       "rate": 0.5781990521327014
+      },
+      "missed": {
+       "count": 108,
+       "of": 197,
+       "rate": 0.5482233502538071
+      },
+      "stressDaysLeft": 9.692592592592593,
+      "stressDaysNoIrrigation": 10.648148148148149,
+      "departsFromRule": 0
+     }
+    }
+   },
+   "reserved2022_2024": {
+    "original": {
+     "saveWater": {
+      "n": 810,
+      "meanUtility": -0.1765432098765432,
+      "ruleMeanUtility": -0.1765432098765432,
+      "oracleMeanUtility": 1.1111111111111112,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 810,
+      "loss": 0,
+      "regretVsOracle": 1.2876543209876543,
+      "irrigations": 396,
+      "wasted": {
+       "count": 301,
+       "of": 396,
+       "rate": 0.76010101010101
+      },
+      "missed": {
+       "count": 60,
+       "of": 155,
+       "rate": 0.3870967741935484
+      },
+      "stressDaysLeft": 6.924691358024691,
+      "stressDaysNoIrrigation": 8.214814814814815,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 810,
+      "meanUtility": 0.8012345679012346,
+      "ruleMeanUtility": 0.8012345679012346,
+      "oracleMeanUtility": 1.6617283950617283,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 810,
+      "loss": 0,
+      "regretVsOracle": 0.8604938271604938,
+      "irrigations": 396,
+      "wasted": {
+       "count": 214,
+       "of": 396,
+       "rate": 0.5404040404040404
+      },
+      "missed": {
+       "count": 68,
+       "of": 250,
+       "rate": 0.272
+      },
+      "stressDaysLeft": 6.924691358024691,
+      "stressDaysNoIrrigation": 8.214814814814815,
+      "departsFromRule": 0
+     }
+    },
+    "none": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": -0.08518518518518518,
+      "ruleMeanUtility": -0.08518518518518518,
+      "oracleMeanUtility": 1.0629629629629629,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 1.1481481481481481,
+      "irrigations": 132,
+      "wasted": {
+       "count": 99,
+       "of": 132,
+       "rate": 0.75
+      },
+      "missed": {
+       "count": 15,
+       "of": 48,
+       "rate": 0.3125
+      },
+      "stressDaysLeft": 6.218518518518518,
+      "stressDaysNoIrrigation": 7.6,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 0.8925925925925926,
+      "ruleMeanUtility": 0.8925925925925926,
+      "oracleMeanUtility": 1.5777777777777777,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 0.6851851851851852,
+      "irrigations": 132,
+      "wasted": {
+       "count": 68,
+       "of": 132,
+       "rate": 0.5151515151515151
+      },
+      "missed": {
+       "count": 15,
+       "of": 79,
+       "rate": 0.189873417721519
+      },
+      "stressDaysLeft": 6.218518518518518,
+      "stressDaysNoIrrigation": 7.6,
+      "departsFromRule": 0
+     }
+    },
+    "evergreen": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": -0.3,
+      "ruleMeanUtility": -0.3,
+      "oracleMeanUtility": 0.774074074074074,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 1.0740740740740742,
+      "irrigations": 132,
+      "wasted": {
+       "count": 99,
+       "of": 132,
+       "rate": 0.75
+      },
+      "missed": {
+       "count": 14,
+       "of": 47,
+       "rate": 0.2978723404255319
+      },
+      "stressDaysLeft": 5.388888888888889,
+      "stressDaysNoIrrigation": 6.555555555555555,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 0.6777777777777778,
+      "ruleMeanUtility": 0.6777777777777778,
+      "oracleMeanUtility": 1.2666666666666666,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 0.5888888888888889,
+      "irrigations": 132,
+      "wasted": {
+       "count": 71,
+       "of": 132,
+       "rate": 0.5378787878787878
+      },
+      "missed": {
+       "count": 14,
+       "of": 75,
+       "rate": 0.18666666666666668
+      },
+      "stressDaysLeft": 5.388888888888889,
+      "stressDaysNoIrrigation": 6.555555555555555,
+      "departsFromRule": 0
+     }
+    },
+    "deciduous": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": -0.14444444444444443,
+      "ruleMeanUtility": -0.14444444444444443,
+      "oracleMeanUtility": 1.4962962962962962,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 1.6407407407407408,
+      "irrigations": 132,
+      "wasted": {
+       "count": 103,
+       "of": 132,
+       "rate": 0.7803030303030303
+      },
+      "missed": {
+       "count": 31,
+       "of": 60,
+       "rate": 0.5166666666666667
+      },
+      "stressDaysLeft": 9.166666666666666,
+      "stressDaysNoIrrigation": 10.488888888888889,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 0.8333333333333334,
+      "ruleMeanUtility": 0.8333333333333334,
+      "oracleMeanUtility": 2.140740740740741,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 1.3074074074074074,
+      "irrigations": 132,
+      "wasted": {
+       "count": 75,
+       "of": 132,
+       "rate": 0.5681818181818182
+      },
+      "missed": {
+       "count": 39,
+       "of": 96,
+       "rate": 0.40625
+      },
+      "stressDaysLeft": 9.166666666666666,
+      "stressDaysNoIrrigation": 10.488888888888889,
+      "departsFromRule": 0
+     }
+    },
+    "weedy": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": -0.1111111111111111,
+      "ruleMeanUtility": -0.1111111111111111,
+      "oracleMeanUtility": 1.5333333333333334,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 1.6444444444444444,
+      "irrigations": 132,
+      "wasted": {
+       "count": 103,
+       "of": 132,
+       "rate": 0.7803030303030303
+      },
+      "missed": {
+       "count": 32,
+       "of": 61,
+       "rate": 0.5245901639344263
+      },
+      "stressDaysLeft": 8.91851851851852,
+      "stressDaysNoIrrigation": 10.274074074074074,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 0.8666666666666667,
+      "ruleMeanUtility": 0.8666666666666667,
+      "oracleMeanUtility": 2.1666666666666665,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 1.3,
+      "irrigations": 132,
+      "wasted": {
+       "count": 72,
+       "of": 132,
+       "rate": 0.5454545454545454
+      },
+      "missed": {
+       "count": 34,
+       "of": 94,
+       "rate": 0.3617021276595745
+      },
+      "stressDaysLeft": 8.91851851851852,
+      "stressDaysNoIrrigation": 10.274074074074074,
+      "departsFromRule": 0
+     }
+    },
+    "regulated": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": 0.018518518518518517,
+      "ruleMeanUtility": 0.018518518518518517,
+      "oracleMeanUtility": 1.5925925925925926,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 1.5740740740740742,
+      "irrigations": 132,
+      "wasted": {
+       "count": 101,
+       "of": 132,
+       "rate": 0.7651515151515151
+      },
+      "missed": {
+       "count": 34,
+       "of": 65,
+       "rate": 0.5230769230769231
+      },
+      "stressDaysLeft": 8.28888888888889,
+      "stressDaysNoIrrigation": 9.774074074074074,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 0.9962962962962963,
+      "ruleMeanUtility": 0.9962962962962963,
+      "oracleMeanUtility": 2.225925925925926,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 1.2296296296296296,
+      "irrigations": 132,
+      "wasted": {
+       "count": 72,
+       "of": 132,
+       "rate": 0.5454545454545454
+      },
+      "missed": {
+       "count": 34,
+       "of": 94,
+       "rate": 0.3617021276595745
+      },
+      "stressDaysLeft": 8.28888888888889,
+      "stressDaysNoIrrigation": 9.774074074074074,
+      "departsFromRule": 0
+     }
+    },
+    "dense": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": -0.5111111111111111,
+      "ruleMeanUtility": -0.5111111111111111,
+      "oracleMeanUtility": 1.262962962962963,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 1.7740740740740741,
+      "irrigations": 132,
+      "wasted": {
+       "count": 107,
+       "of": 132,
+       "rate": 0.8106060606060606
+      },
+      "missed": {
+       "count": 45,
+       "of": 70,
+       "rate": 0.6428571428571429
+      },
+      "stressDaysLeft": 11.625925925925927,
+      "stressDaysNoIrrigation": 12.58148148148148,
+      "departsFromRule": 0
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 0.4666666666666667,
+      "ruleMeanUtility": 0.4666666666666667,
+      "oracleMeanUtility": 1.9296296296296296,
+      "gainVsRule": 0,
+      "win": 0,
+      "tie": 270,
+      "loss": 0,
+      "regretVsOracle": 1.462962962962963,
+      "irrigations": 132,
+      "wasted": {
+       "count": 84,
+       "of": 132,
+       "rate": 0.6363636363636364
+      },
+      "missed": {
+       "count": 52,
+       "of": 100,
+       "rate": 0.52
+      },
+      "stressDaysLeft": 11.625925925925927,
+      "stressDaysNoIrrigation": 12.58148148148148,
+      "departsFromRule": 0
+     }
+    }
+   }
+  },
+  "oracle": {
+   "test2019_2024": {
+    "original": {
+     "saveWater": {
+      "n": 1620,
+      "meanUtility": 1.045679012345679,
+      "ruleMeanUtility": 0.03641975308641975,
+      "oracleMeanUtility": 1.045679012345679,
+      "gainVsRule": 1.0092592592592593,
+      "win": 504,
+      "tie": 1116,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 293,
+      "wasted": {
+       "count": 0,
+       "of": 293,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 293,
+       "rate": 0
+      },
+      "stressDaysLeft": 4.703086419753086,
+      "stressDaysNoIrrigation": 6.291358024691358,
+      "departsFromRule": 548
+     },
+     "protectCrop": {
+      "n": 1620,
+      "meanUtility": 1.5376543209876543,
+      "ruleMeanUtility": 0.8179012345679012,
+      "oracleMeanUtility": 1.5376543209876543,
+      "gainVsRule": 0.7197530864197531,
+      "win": 343,
+      "tie": 1277,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 451,
+      "wasted": {
+       "count": 0,
+       "of": 451,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 451,
+       "rate": 0
+      },
+      "stressDaysLeft": 4.4753086419753085,
+      "stressDaysNoIrrigation": 6.291358024691358,
+      "departsFromRule": 442
+     }
+    },
+    "none": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": 0.9425925925925925,
+      "ruleMeanUtility": 0.0962962962962963,
+      "oracleMeanUtility": 0.9425925925925925,
+      "gainVsRule": 0.8462962962962963,
+      "win": 154,
+      "tie": 386,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 91,
+      "wasted": {
+       "count": 0,
+       "of": 91,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 91,
+       "rate": 0
+      },
+      "stressDaysLeft": 4.218518518518518,
+      "stressDaysNoIrrigation": 5.666666666666667,
+      "departsFromRule": 168
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 1.4111111111111112,
+      "ruleMeanUtility": 0.8777777777777778,
+      "oracleMeanUtility": 1.4111111111111112,
+      "gainVsRule": 0.5333333333333333,
+      "win": 95,
+      "tie": 445,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 145,
+      "wasted": {
+       "count": 0,
+       "of": 145,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 145,
+       "rate": 0
+      },
+      "stressDaysLeft": 3.987037037037037,
+      "stressDaysNoIrrigation": 5.666666666666667,
+      "departsFromRule": 130
+     }
+    },
+    "evergreen": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": 0.7444444444444445,
+      "ruleMeanUtility": -0.08703703703703704,
+      "oracleMeanUtility": 0.7444444444444445,
+      "gainVsRule": 0.8314814814814815,
+      "win": 155,
+      "tie": 385,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 80,
+      "wasted": {
+       "count": 0,
+       "of": 80,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 80,
+       "rate": 0
+      },
+      "stressDaysLeft": 3.574074074074074,
+      "stressDaysNoIrrigation": 4.762962962962963,
+      "departsFromRule": 169
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 1.151851851851852,
+      "ruleMeanUtility": 0.6944444444444444,
+      "oracleMeanUtility": 1.151851851851852,
+      "gainVsRule": 0.45740740740740743,
+      "win": 100,
+      "tie": 440,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 125,
+      "wasted": {
+       "count": 0,
+       "of": 125,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 125,
+       "rate": 0
+      },
+      "stressDaysLeft": 3.3796296296296298,
+      "stressDaysNoIrrigation": 4.762962962962963,
+      "departsFromRule": 128
+     }
+    },
+    "deciduous": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": 1.45,
+      "ruleMeanUtility": 0.1,
+      "oracleMeanUtility": 1.45,
+      "gainVsRule": 1.35,
+      "win": 195,
+      "tie": 345,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 122,
+      "wasted": {
+       "count": 0,
+       "of": 122,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 122,
+       "rate": 0
+      },
+      "stressDaysLeft": 6.316666666666666,
+      "stressDaysNoIrrigation": 8.444444444444445,
+      "departsFromRule": 211
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 2.05,
+      "ruleMeanUtility": 0.8814814814814815,
+      "oracleMeanUtility": 2.05,
+      "gainVsRule": 1.1685185185185185,
+      "win": 148,
+      "tie": 392,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 181,
+      "wasted": {
+       "count": 0,
+       "of": 181,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 181,
+       "rate": 0
+      },
+      "stressDaysLeft": 6.059259259259259,
+      "stressDaysNoIrrigation": 8.444444444444445,
+      "departsFromRule": 184
+     }
+    },
+    "weedy": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": 1.4370370370370371,
+      "ruleMeanUtility": 0.12037037037037036,
+      "oracleMeanUtility": 1.4370370370370371,
+      "gainVsRule": 1.3166666666666667,
+      "win": 190,
+      "tie": 350,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 119,
+      "wasted": {
+       "count": 0,
+       "of": 119,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 119,
+       "rate": 0
+      },
+      "stressDaysLeft": 6.038888888888889,
+      "stressDaysNoIrrigation": 8.137037037037038,
+      "departsFromRule": 208
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 2.009259259259259,
+      "ruleMeanUtility": 0.9018518518518519,
+      "oracleMeanUtility": 2.009259259259259,
+      "gainVsRule": 1.1074074074074074,
+      "win": 136,
+      "tie": 404,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 171,
+      "wasted": {
+       "count": 0,
+       "of": 171,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 171,
+       "rate": 0
+      },
+      "stressDaysLeft": 5.811111111111111,
+      "stressDaysNoIrrigation": 8.137037037037038,
+      "departsFromRule": 170
+     }
+    },
+    "regulated": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": 1.4055555555555554,
+      "ruleMeanUtility": 0.17222222222222222,
+      "oracleMeanUtility": 1.4055555555555554,
+      "gainVsRule": 1.2333333333333334,
+      "win": 186,
+      "tie": 354,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 118,
+      "wasted": {
+       "count": 0,
+       "of": 118,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 118,
+       "rate": 0
+      },
+      "stressDaysLeft": 5.553703703703704,
+      "stressDaysNoIrrigation": 7.614814814814815,
+      "departsFromRule": 203
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 1.9777777777777779,
+      "ruleMeanUtility": 0.9537037037037037,
+      "oracleMeanUtility": 1.9777777777777779,
+      "gainVsRule": 1.0240740740740741,
+      "win": 131,
+      "tie": 409,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 171,
+      "wasted": {
+       "count": 0,
+       "of": 171,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 171,
+       "rate": 0
+      },
+      "stressDaysLeft": 5.32037037037037,
+      "stressDaysNoIrrigation": 7.614814814814815,
+      "departsFromRule": 166
+     }
+    },
+    "dense": {
+     "saveWater": {
+      "n": 540,
+      "meanUtility": 1.4777777777777779,
+      "ruleMeanUtility": -0.21666666666666667,
+      "oracleMeanUtility": 1.4777777777777779,
+      "gainVsRule": 1.6944444444444444,
+      "win": 239,
+      "tie": 301,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 150,
+      "wasted": {
+       "count": 0,
+       "of": 150,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 150,
+       "rate": 0
+      },
+      "stressDaysLeft": 8.337037037037037,
+      "stressDaysNoIrrigation": 10.648148148148149,
+      "departsFromRule": 249
+     },
+     "protectCrop": {
+      "n": 540,
+      "meanUtility": 2.1555555555555554,
+      "ruleMeanUtility": 0.5648148148148148,
+      "oracleMeanUtility": 2.1555555555555554,
+      "gainVsRule": 1.5907407407407408,
+      "win": 189,
+      "tie": 351,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 197,
+      "wasted": {
+       "count": 0,
+       "of": 197,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 197,
+       "rate": 0
+      },
+      "stressDaysLeft": 8.127777777777778,
+      "stressDaysNoIrrigation": 10.648148148148149,
+      "departsFromRule": 230
+     }
+    }
+   },
+   "reserved2022_2024": {
+    "original": {
+     "saveWater": {
+      "n": 810,
+      "meanUtility": 1.1111111111111112,
+      "ruleMeanUtility": -0.1765432098765432,
+      "oracleMeanUtility": 1.1111111111111112,
+      "gainVsRule": 1.2876543209876543,
+      "win": 324,
+      "tie": 486,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 155,
+      "wasted": {
+       "count": 0,
+       "of": 155,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 155,
+       "rate": 0
+      },
+      "stressDaysLeft": 6.529629629629629,
+      "stressDaysNoIrrigation": 8.214814814814815,
+      "departsFromRule": 361
+     },
+     "protectCrop": {
+      "n": 810,
+      "meanUtility": 1.6617283950617283,
+      "ruleMeanUtility": 0.8012345679012346,
+      "oracleMeanUtility": 1.6617283950617283,
+      "gainVsRule": 0.8604938271604938,
+      "win": 218,
+      "tie": 592,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 250,
+      "wasted": {
+       "count": 0,
+       "of": 250,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 250,
+       "rate": 0
+      },
+      "stressDaysLeft": 6.2444444444444445,
+      "stressDaysNoIrrigation": 8.214814814814815,
+      "departsFromRule": 282
+     }
+    },
+    "none": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": 1.0629629629629629,
+      "ruleMeanUtility": -0.08518518518518518,
+      "oracleMeanUtility": 1.0629629629629629,
+      "gainVsRule": 1.1481481481481481,
+      "win": 102,
+      "tie": 168,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 48,
+      "wasted": {
+       "count": 0,
+       "of": 48,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 48,
+       "rate": 0
+      },
+      "stressDaysLeft": 6.003703703703704,
+      "stressDaysNoIrrigation": 7.6,
+      "departsFromRule": 114
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 1.5777777777777777,
+      "ruleMeanUtility": 0.8925925925925926,
+      "oracleMeanUtility": 1.5777777777777777,
+      "gainVsRule": 0.6851851851851852,
+      "win": 59,
+      "tie": 211,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 79,
+      "wasted": {
+       "count": 0,
+       "of": 79,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 79,
+       "rate": 0
+      },
+      "stressDaysLeft": 5.729629629629629,
+      "stressDaysNoIrrigation": 7.6,
+      "departsFromRule": 83
+     }
+    },
+    "evergreen": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": 0.774074074074074,
+      "ruleMeanUtility": -0.3,
+      "oracleMeanUtility": 0.774074074074074,
+      "gainVsRule": 1.0740740740740742,
+      "win": 102,
+      "tie": 168,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 47,
+      "wasted": {
+       "count": 0,
+       "of": 47,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 47,
+       "rate": 0
+      },
+      "stressDaysLeft": 5.2592592592592595,
+      "stressDaysNoIrrigation": 6.555555555555555,
+      "departsFromRule": 113
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 1.2666666666666666,
+      "ruleMeanUtility": 0.6777777777777778,
+      "oracleMeanUtility": 1.2666666666666666,
+      "gainVsRule": 0.5888888888888889,
+      "win": 67,
+      "tie": 203,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 75,
+      "wasted": {
+       "count": 0,
+       "of": 75,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 75,
+       "rate": 0
+      },
+      "stressDaysLeft": 5.011111111111111,
+      "stressDaysNoIrrigation": 6.555555555555555,
+      "departsFromRule": 85
+     }
+    },
+    "deciduous": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": 1.4962962962962962,
+      "ruleMeanUtility": -0.14444444444444443,
+      "oracleMeanUtility": 1.4962962962962962,
+      "gainVsRule": 1.6407407407407408,
+      "win": 120,
+      "tie": 150,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 60,
+      "wasted": {
+       "count": 0,
+       "of": 60,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 60,
+       "rate": 0
+      },
+      "stressDaysLeft": 8.325925925925926,
+      "stressDaysNoIrrigation": 10.488888888888889,
+      "departsFromRule": 134
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 2.140740740740741,
+      "ruleMeanUtility": 0.8333333333333334,
+      "oracleMeanUtility": 2.140740740740741,
+      "gainVsRule": 1.3074074074074074,
+      "win": 92,
+      "tie": 178,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 96,
+      "wasted": {
+       "count": 0,
+       "of": 96,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 96,
+       "rate": 0
+      },
+      "stressDaysLeft": 7.992592592592593,
+      "stressDaysNoIrrigation": 10.488888888888889,
+      "departsFromRule": 114
+     }
+    },
+    "weedy": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": 1.5333333333333334,
+      "ruleMeanUtility": -0.1111111111111111,
+      "oracleMeanUtility": 1.5333333333333334,
+      "gainVsRule": 1.6444444444444444,
+      "win": 120,
+      "tie": 150,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 61,
+      "wasted": {
+       "count": 0,
+       "of": 61,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 61,
+       "rate": 0
+      },
+      "stressDaysLeft": 8.062962962962963,
+      "stressDaysNoIrrigation": 10.274074074074074,
+      "departsFromRule": 135
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 2.1666666666666665,
+      "ruleMeanUtility": 0.8666666666666667,
+      "oracleMeanUtility": 2.1666666666666665,
+      "gainVsRule": 1.3,
+      "win": 87,
+      "tie": 183,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 94,
+      "wasted": {
+       "count": 0,
+       "of": 94,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 94,
+       "rate": 0
+      },
+      "stressDaysLeft": 7.7592592592592595,
+      "stressDaysNoIrrigation": 10.274074074074074,
+      "departsFromRule": 106
+     }
+    },
+    "regulated": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": 1.5925925925925926,
+      "ruleMeanUtility": 0.018518518518518517,
+      "oracleMeanUtility": 1.5925925925925926,
+      "gainVsRule": 1.5740740740740742,
+      "win": 123,
+      "tie": 147,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 65,
+      "wasted": {
+       "count": 0,
+       "of": 65,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 65,
+       "rate": 0
+      },
+      "stressDaysLeft": 7.45925925925926,
+      "stressDaysNoIrrigation": 9.774074074074074,
+      "departsFromRule": 135
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 2.225925925925926,
+      "ruleMeanUtility": 0.9962962962962963,
+      "oracleMeanUtility": 2.225925925925926,
+      "gainVsRule": 1.2296296296296296,
+      "win": 83,
+      "tie": 187,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 94,
+      "wasted": {
+       "count": 0,
+       "of": 94,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 94,
+       "rate": 0
+      },
+      "stressDaysLeft": 7.2,
+      "stressDaysNoIrrigation": 9.774074074074074,
+      "departsFromRule": 106
+     }
+    },
+    "dense": {
+     "saveWater": {
+      "n": 270,
+      "meanUtility": 1.262962962962963,
+      "ruleMeanUtility": -0.5111111111111111,
+      "oracleMeanUtility": 1.262962962962963,
+      "gainVsRule": 1.7740740740740741,
+      "win": 146,
+      "tie": 124,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 70,
+      "wasted": {
+       "count": 0,
+       "of": 70,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 70,
+       "rate": 0
+      },
+      "stressDaysLeft": 10.540740740740741,
+      "stressDaysNoIrrigation": 12.58148148148148,
+      "departsFromRule": 152
+     },
+     "protectCrop": {
+      "n": 270,
+      "meanUtility": 1.9296296296296296,
+      "ruleMeanUtility": 0.4666666666666667,
+      "oracleMeanUtility": 1.9296296296296296,
+      "gainVsRule": 1.462962962962963,
+      "win": 112,
+      "tie": 158,
+      "loss": 0,
+      "regretVsOracle": 0,
+      "irrigations": 100,
+      "wasted": {
+       "count": 0,
+       "of": 100,
+       "rate": 0
+      },
+      "missed": {
+       "count": 0,
+       "of": 100,
+       "rate": 0
+      },
+      "stressDaysLeft": 10.281481481481482,
+      "stressDaysNoIrrigation": 12.58148148148148,
+      "departsFromRule": 136
+     }
+    }
+   }
+  }
+ },
+ "stress": {
+  "years2001_2024": {
+   "none": {
+    "n": 720,
+    "fruitSetStressDays": 41.270833333333336,
+    "grainFillStressDays": 6.636111111111111,
+    "drySeasonStressDays": 153.93333333333334,
+    "fruitSetEtaOverEtc": 0.7412552519097391,
+    "grainFillEtaOverEtc": 0.9342965237244292,
+    "drySeasonEtaOverEtc": 0.33357837388045675
+   },
+   "evergreen": {
+    "n": 720,
+    "fruitSetStressDays": 39.331944444444446,
+    "grainFillStressDays": 5.259722222222222,
+    "drySeasonStressDays": 155.03194444444443,
+    "fruitSetEtaOverEtc": 0.7423144074342694,
+    "grainFillEtaOverEtc": 0.9510881945993612,
+    "drySeasonEtaOverEtc": 0.323009923857674
+   },
+   "deciduous": {
+    "n": 720,
+    "fruitSetStressDays": 46.00555555555555,
+    "grainFillStressDays": 9.558333333333334,
+    "drySeasonStressDays": 157.35,
+    "fruitSetEtaOverEtc": 0.7247761004145504,
+    "grainFillEtaOverEtc": 0.8927438890517458,
+    "drySeasonEtaOverEtc": 0.31908114316937464
+   },
+   "weedy": {
+    "n": 720,
+    "fruitSetStressDays": 45.62083333333333,
+    "grainFillStressDays": 9.2125,
+    "drySeasonStressDays": 160.02916666666667,
+    "fruitSetEtaOverEtc": 0.7149900593067945,
+    "grainFillEtaOverEtc": 0.8970813016612095,
+    "drySeasonEtaOverEtc": 0.2946953839183679
+   },
+   "regulated": {
+    "n": 720,
+    "fruitSetStressDays": 44.77777777777778,
+    "grainFillStressDays": 8.627777777777778,
+    "drySeasonStressDays": 158.39027777777778,
+    "fruitSetEtaOverEtc": 0.7259082090851303,
+    "grainFillEtaOverEtc": 0.9084284455086239,
+    "drySeasonEtaOverEtc": 0.3209663001814646
+   },
+   "dense": {
+    "n": 720,
+    "fruitSetStressDays": 50.23888888888889,
+    "grainFillStressDays": 11.909722222222221,
+    "drySeasonStressDays": 164.32222222222222,
+    "fruitSetEtaOverEtc": 0.6972595190600313,
+    "grainFillEtaOverEtc": 0.8660271953967852,
+    "drySeasonEtaOverEtc": 0.2928672562527438
+   }
+  },
+  "test2019_2024": {
+   "none": {
+    "n": 180,
+    "fruitSetStressDays": 39.455555555555556,
+    "grainFillStressDays": 3.816666666666667,
+    "drySeasonStressDays": 145.0611111111111,
+    "fruitSetEtaOverEtc": 0.7505001988759901,
+    "grainFillEtaOverEtc": 0.9731413963587912,
+    "drySeasonEtaOverEtc": 0.36559732185595023
+   },
+   "evergreen": {
+    "n": 180,
+    "fruitSetStressDays": 37.705555555555556,
+    "grainFillStressDays": 2.55,
+    "drySeasonStressDays": 146.78333333333333,
+    "fruitSetEtaOverEtc": 0.7522862888371713,
+    "grainFillEtaOverEtc": 0.9835769083033106,
+    "drySeasonEtaOverEtc": 0.35319063640341475
+   },
+   "deciduous": {
+    "n": 180,
+    "fruitSetStressDays": 44.25555555555555,
+    "grainFillStressDays": 7.822222222222222,
+    "drySeasonStressDays": 148.0388888888889,
+    "fruitSetEtaOverEtc": 0.7341869960438803,
+    "grainFillEtaOverEtc": 0.9380136172474397,
+    "drySeasonEtaOverEtc": 0.35403718657819466
+   },
+   "weedy": {
+    "n": 180,
+    "fruitSetStressDays": 43.9,
+    "grainFillStressDays": 7.311111111111111,
+    "drySeasonStressDays": 151.5,
+    "fruitSetEtaOverEtc": 0.7258767223564687,
+    "grainFillEtaOverEtc": 0.9426120314448195,
+    "drySeasonEtaOverEtc": 0.327252888237129
+   },
+   "regulated": {
+    "n": 180,
+    "fruitSetStressDays": 43.00555555555555,
+    "grainFillStressDays": 6.538888888888889,
+    "drySeasonStressDays": 149.65555555555557,
+    "fruitSetEtaOverEtc": 0.7354517218302276,
+    "grainFillEtaOverEtc": 0.9523383401291768,
+    "drySeasonEtaOverEtc": 0.35433377074079564
+   },
+   "dense": {
+    "n": 180,
+    "fruitSetStressDays": 48.638888888888886,
+    "grainFillStressDays": 10.705555555555556,
+    "drySeasonStressDays": 156.23333333333332,
+    "fruitSetEtaOverEtc": 0.7071800045752579,
+    "grainFillEtaOverEtc": 0.9107525771022478,
+    "drySeasonEtaOverEtc": 0.3274163988530665
+   }
+  }
+ },
+ "stressNoIrrigation30DayDecision": {
+  "none": {
+   "n": 540,
+   "stressDaysNoIrrigation30": 5.666666666666667,
+   "stressDaysAvoidedBy20mm": 1.7537037037037038,
+   "ruleSaysIrrigate": 211
+  },
+  "evergreen": {
+   "n": 540,
+   "stressDaysNoIrrigation30": 4.762962962962963,
+   "stressDaysAvoidedBy20mm": 1.4407407407407407,
+   "ruleSaysIrrigate": 211
+  },
+  "deciduous": {
+   "n": 540,
+   "stressDaysNoIrrigation30": 8.444444444444445,
+   "stressDaysAvoidedBy20mm": 2.474074074074074,
+   "ruleSaysIrrigate": 211
+  },
+  "weedy": {
+   "n": 540,
+   "stressDaysNoIrrigation30": 8.137037037037038,
+   "stressDaysAvoidedBy20mm": 2.412962962962963,
+   "ruleSaysIrrigate": 211
+  },
+  "regulated": {
+   "n": 540,
+   "stressDaysNoIrrigation30": 7.614814814814815,
+   "stressDaysAvoidedBy20mm": 2.3685185185185187,
+   "ruleSaysIrrigate": 211
+  },
+  "dense": {
+   "n": 540,
+   "stressDaysNoIrrigation30": 10.648148148148149,
+   "stressDaysAvoidedBy20mm": 2.6185185185185187,
+   "ruleSaysIrrigate": 211
+  }
+ },
+ "v1VsV3OnOriginalScenarios": {
+  "test2019_2024": {
+   "original": {
+    "saveWater": {
+     "n": 1620,
+     "v1MeanUtility": 0.47407407407407404,
+     "v3MeanUtility": 0.47901234567901235,
+     "diff": 0.004938271604938316,
+     "v1Irrigations": 443,
+     "v3Irrigations": 540.3333333333334,
+     "ruleMeanUtility": 0.03641975308641975
+    },
+    "protectCrop": {
+     "n": 1620,
+     "v1MeanUtility": 1.1736625514403292,
+     "v3MeanUtility": 1.2512345679012344,
+     "diff": 0.07757201646090528,
+     "v1Irrigations": 983.6666666666666,
+     "v3Irrigations": 790,
+     "ruleMeanUtility": 0.8179012345679012
+    }
+   },
+   "none": {
+    "saveWater": {
+     "n": 540,
+     "v1MeanUtility": 0.4185185185185185,
+     "v3MeanUtility": 0.3882716049382717,
+     "diff": -0.030246913580246837,
+     "v1Irrigations": 134.33333333333334,
+     "v3Irrigations": 176,
+     "ruleMeanUtility": 0.0962962962962963
+    },
+    "protectCrop": {
+     "n": 540,
+     "v1MeanUtility": 1.0660493827160493,
+     "v3MeanUtility": 1.1382716049382715,
+     "diff": 0.07222222222222219,
+     "v1Irrigations": 321.6666666666667,
+     "v3Irrigations": 258.6666666666667,
+     "ruleMeanUtility": 0.8777777777777778
+    }
+   },
+   "evergreen": {
+    "saveWater": {
+     "n": 540,
+     "v1MeanUtility": 0.19320987654320987,
+     "v3MeanUtility": 0.2271604938271605,
+     "diff": 0.03395061728395063,
+     "v1Irrigations": 123,
+     "v3Irrigations": 156.66666666666666,
+     "ruleMeanUtility": -0.08703703703703704
+    },
+    "protectCrop": {
+     "n": 540,
+     "v1MeanUtility": 0.7938271604938271,
+     "v3MeanUtility": 0.8851851851851853,
+     "diff": 0.09135802469135823,
+     "v1Irrigations": 301.3333333333333,
+     "v3Irrigations": 229.66666666666666,
+     "ruleMeanUtility": 0.6944444444444444
+    }
+   },
+   "deciduous": {
+    "saveWater": {
+     "n": 540,
+     "v1MeanUtility": 0.8104938271604937,
+     "v3MeanUtility": 0.821604938271605,
+     "diff": 0.011111111111111294,
+     "v1Irrigations": 185.66666666666666,
+     "v3Irrigations": 207.66666666666666,
+     "ruleMeanUtility": 0.1
+    },
+    "protectCrop": {
+     "n": 540,
+     "v1MeanUtility": 1.6611111111111112,
+     "v3MeanUtility": 1.7302469135802472,
+     "diff": 0.06913580246913598,
+     "v1Irrigations": 360.6666666666667,
+     "v3Irrigations": 301.6666666666667,
+     "ruleMeanUtility": 0.8814814814814815
+    }
+   }
+  },
+  "reserved2022_2024": {
+   "original": {
+    "saveWater": {
+     "n": 810,
+     "v1MeanUtility": 0.49999999999999994,
+     "v3MeanUtility": 0.5312757201646091,
+     "diff": 0.031275720164609166,
+     "v1Irrigations": 241.66666666666666,
+     "v3Irrigations": 300.3333333333333,
+     "ruleMeanUtility": -0.1765432098765432
+    },
+    "protectCrop": {
+     "n": 810,
+     "v1MeanUtility": 1.3106995884773662,
+     "v3MeanUtility": 1.3880658436213993,
+     "diff": 0.07736625514403306,
+     "v1Irrigations": 527.6666666666666,
+     "v3Irrigations": 441,
+     "ruleMeanUtility": 0.8012345679012346
+    }
+   },
+   "none": {
+    "saveWater": {
+     "n": 270,
+     "v1MeanUtility": 0.47160493827160493,
+     "v3MeanUtility": 0.4654320987654321,
+     "diff": -0.006172839506172811,
+     "v1Irrigations": 75,
+     "v3Irrigations": 98.33333333333333,
+     "ruleMeanUtility": -0.08518518518518518
+    },
+    "protectCrop": {
+     "n": 270,
+     "v1MeanUtility": 1.271604938271605,
+     "v3MeanUtility": 1.3543209876543212,
+     "diff": 0.08271604938271615,
+     "v1Irrigations": 174,
+     "v3Irrigations": 148.33333333333334,
+     "ruleMeanUtility": 0.8925925925925926
+    }
+   },
+   "evergreen": {
+    "saveWater": {
+     "n": 270,
+     "v1MeanUtility": 0.1654320987654321,
+     "v3MeanUtility": 0.20370370370370372,
+     "diff": 0.038271604938271614,
+     "v1Irrigations": 67.66666666666667,
+     "v3Irrigations": 89.66666666666667,
+     "ruleMeanUtility": -0.3
+    },
+    "protectCrop": {
+     "n": 270,
+     "v1MeanUtility": 0.9024691358024692,
+     "v3MeanUtility": 1,
+     "diff": 0.09753086419753076,
+     "v1Irrigations": 163.66666666666666,
+     "v3Irrigations": 130,
+     "ruleMeanUtility": 0.6777777777777778
+    }
+   },
+   "deciduous": {
+    "saveWater": {
+     "n": 270,
+     "v1MeanUtility": 0.8629629629629628,
+     "v3MeanUtility": 0.9246913580246914,
+     "diff": 0.06172839506172856,
+     "v1Irrigations": 99,
+     "v3Irrigations": 112.33333333333333,
+     "ruleMeanUtility": -0.14444444444444443
+    },
+    "protectCrop": {
+     "n": 270,
+     "v1MeanUtility": 1.7580246913580246,
+     "v3MeanUtility": 1.8098765432098765,
+     "diff": 0.051851851851851816,
+     "v1Irrigations": 190,
+     "v3Irrigations": 162.66666666666666,
+     "ruleMeanUtility": 0.8333333333333334
+    }
+   }
+  }
+ }
+}
